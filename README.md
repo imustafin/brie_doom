@@ -1,2 +1,4 @@
 # sdl-eiffel-doom
-Sdldoom rewrite in Eiffel
+SDL Doom rewrite in Eiffel
+
+Based on https://github.com/makava/sdldoom-1.10-mod
