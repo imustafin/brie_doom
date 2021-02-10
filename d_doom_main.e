@@ -31,25 +31,32 @@ feature
 			FindResponseFile
 			IdentifyVersion
 			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
-				print ("DOOM Shareware Startup%N")
+				print ("            DOOM Shareware Startup%N")
 				print ("V_Init: allocate screens.%N")
 				i_main.v_video.v_init
 				print ("M_LoadDefaults: Load system defauls.%N")
-				M_LoadDefaults
+				i_main.m_misc.m_loaddefaults
+				print ("Z_Init: Init zone memory allocation daemon.%N")
+				i_main.z_zone.z_init
+				print ("W_Init: Init WADfiles.%N")
+				i_main.w_wad.W_InitMultipleFiles (wadfiles)
+				print ("added%N")
+				print ("==================%N")
+				print ("   Shareware!%N")
+				print ("==================%N")
 			end
 		end
 
 	FindResponseFile
 		do
 				-- Stub
-
 		end
 
 	IdentifyVersion
 		do
 				-- Stub
 			i_main.doomstat_h.gamemode := {GAME_MODE_T}.shareware
-			D_AddFile ("./doom1.wad")
+			D_AddFile ("doom1.wad")
 		end
 
 	D_AddFile (a_wadfile: STRING)

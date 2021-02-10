@@ -18,4 +18,10 @@ feature
 		do
 		end
 
+feature
+
+	M_LoadDefaults
+		do
+		end
+
 end
