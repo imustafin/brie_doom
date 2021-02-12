@@ -48,6 +48,8 @@ feature
 				i_main.m_menu.m_init
 				print ("R_Init: Init DOOM refresh daemon - ")
 				i_main.r_main.R_Init
+				print ("%NP_Init: Init Playloop state.%N")
+				i_main.p_setup.P_Init
 			end
 		end
 

@@ -44,6 +44,16 @@ feature -- Globals
 
 	r_draw: R_DRAW
 
+	p_setup: P_SETUP
+
+	p_switch: P_SWITCH
+
+	p_spec: P_SPEC
+
+	r_things: R_THINGS
+
+	info: INFO
+
 feature {NONE} -- Initialization
 
 	make
@@ -66,6 +76,11 @@ feature {NONE} -- Initialization
 			create r_data.make
 			create r_plane.make
 			create r_main.make (Current)
+			create p_setup.make (Current)
+			create p_switch.make
+			create p_spec.make
+			create r_things.make
+			create info.make
 			create d_doom_main.make (Current)
 		end
 
