@@ -30,6 +30,8 @@ feature -- Globals
 
 	w_wad: W_WAD
 
+	m_menu: M_MENU
+
 feature {NONE} -- Initialization
 
 	make
@@ -44,6 +46,7 @@ feature {NONE} -- Initialization
 			create v_video.make
 			create m_misc.make
 			create z_zone.make
+			create m_menu.make (Current)
 			create w_wad.make (Current)
 			create d_doom_main.make (Current)
 		end

@@ -44,6 +44,8 @@ feature
 				print ("==================%N")
 				print ("   Shareware!%N")
 				print ("==================%N")
+				print ("M_Init: Init miscellaneous info.%N")
+				i_main.m_menu.m_init
 			end
 		end
 
