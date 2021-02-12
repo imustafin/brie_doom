@@ -56,6 +56,8 @@ feature
 				i_main.d_net.D_CheckNetGame
 				print ("S_Init: Setting up sound.%N")
 				i_main.s_sound.S_Init(i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
+				print ("HU_Init: Setting up heads up display.%N")
+				i_main.hu_stuff.HU_Init
 			end
 		end
 

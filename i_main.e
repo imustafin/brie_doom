@@ -62,6 +62,8 @@ feature -- Globals
 
 	s_sound: S_SOUND
 
+	hu_stuff: HU_STUFF
+
 feature {NONE} -- Initialization
 
 	make
@@ -93,6 +95,7 @@ feature {NONE} -- Initialization
 			create i_sound.make
 			create d_net.make
 			create s_sound.make
+			create hu_stuff.make
 			create d_doom_main.make (Current)
 		end
 
