@@ -54,6 +54,8 @@ feature
 				i_main.i_system.I_Init
 				print ("D_CheckNetGame: Checking network game status.%N")
 				i_main.d_net.D_CheckNetGame
+				print ("S_Init: Setting up sound.%N")
+				i_main.s_sound.S_Init(i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
 			end
 		end
 
