@@ -58,6 +58,8 @@ feature
 				i_main.s_sound.S_Init(i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
 				print ("HU_Init: Setting up heads up display.%N")
 				i_main.hu_stuff.HU_Init
+				print ("ST_Init: Init status bar.%N")
+				i_main.st_stuff.ST_Init
 			end
 		end
 
