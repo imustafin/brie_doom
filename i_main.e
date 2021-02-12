@@ -66,6 +66,8 @@ feature -- Globals
 
 	st_stuff: ST_STUFF
 
+	g_game: G_GAME
+
 feature {NONE} -- Initialization
 
 	make
@@ -99,6 +101,7 @@ feature {NONE} -- Initialization
 			create s_sound.make
 			create hu_stuff.make
 			create st_stuff.make
+			create g_game.make
 			create d_doom_main.make (Current)
 		end
 

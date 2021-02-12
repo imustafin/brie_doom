@@ -26,6 +26,26 @@ feature
 			D_DoomMain
 		end
 
+feature
+
+	startskill: INTEGER
+
+	startepisode: INTEGER
+
+	startmap: INTEGER
+
+	autostart: BOOLEAN
+
+feature -- DEMO LOOP
+
+	demosequence: INTEGER
+
+	pagetic: INTEGER
+
+	pagename: detachable STRING
+
+feature
+
 	D_DoomMain
 		do
 			FindResponseFile
@@ -55,12 +75,44 @@ feature
 				print ("D_CheckNetGame: Checking network game status.%N")
 				i_main.d_net.D_CheckNetGame
 				print ("S_Init: Setting up sound.%N")
-				i_main.s_sound.S_Init(i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
+				i_main.s_sound.S_Init (i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
 				print ("HU_Init: Setting up heads up display.%N")
 				i_main.hu_stuff.HU_Init
 				print ("ST_Init: Init status bar.%N")
 				i_main.st_stuff.ST_Init
+					-- skip -statcopy
+					-- skip -record
+					-- skip -playdemo
+					-- skip -timedemo
+				startskill := {DOOMDEF_H}.sk_medium
+				startepisode := 1
+				startmap := 1
+				autostart := False
+					-- skip -loadgame
+				if i_main.g_game.gameaction /= i_main.g_game.ga_loadgame then
+					if autostart or i_main.g_game.netgame then
+						i_main.g_game.G_InitNew (startskill, startepisode, startmap)
+					else
+						D_StartTitle
+					end
+				end
+				D_DoomLoop
 			end
+		end
+
+	D_StartTitle
+		do
+			i_main.g_game.gameaction := {G_GAME}.ga_nothing
+			demosequence := -1
+			D_AdvanceDemo
+		end
+
+	advancedemo: BOOLEAN
+
+	D_AdvanceDemo
+			-- Called after each demo or intro demosequence finishes
+		do
+			advancedemo := True
 		end
 
 	FindResponseFile
@@ -78,6 +130,13 @@ feature
 	D_AddFile (a_wadfile: STRING)
 		do
 			wadfiles.extend (a_wadfile)
+		end
+
+feature -- D_DoomLoop
+
+	D_DoomLoop
+		do
+			-- Stub
 		end
 
 end
