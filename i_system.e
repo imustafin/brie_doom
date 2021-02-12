@@ -19,12 +19,8 @@ feature
 feature
 
 	I_Init
-		local
-			flags: NATURAL_32
 		do
-			flags := {SDL_CONSTANT_API}.sdl_init_audio.as_natural_32
-			flags := flags | {SDL_CONSTANT_API}.sdl_init_video.as_natural_32
-			if {SDL_FUNCTIONS_API}.sdl_init (flags) < 0 then
+			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.sdl_init_video | {SDL_CONSTANT_API}.sdl_init_audio) < 0 then
 				 i_main.i_error ("Could not initialze SDL: " + {SDL_ERROR}.sdl_get_error)
 			end
 			i_main.i_sound.I_InitSound
