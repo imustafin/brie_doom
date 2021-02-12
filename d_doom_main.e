@@ -50,6 +50,8 @@ feature
 				i_main.r_main.R_Init
 				print ("%NP_Init: Init Playloop state.%N")
 				i_main.p_setup.P_Init
+				print ("I_Init: Setting up machine state.%N")
+				i_main.i_system.I_Init
 			end
 		end
 

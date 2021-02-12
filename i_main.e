@@ -54,6 +54,10 @@ feature -- Globals
 
 	info: INFO
 
+	i_system: I_SYSTEM
+
+	i_sound: I_SOUND
+
 feature {NONE} -- Initialization
 
 	make
@@ -81,6 +85,8 @@ feature {NONE} -- Initialization
 			create p_spec.make
 			create r_things.make
 			create info.make
+			create i_system.make (Current)
+			create i_sound.make
 			create d_doom_main.make (Current)
 		end
 
