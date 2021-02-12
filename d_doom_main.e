@@ -52,6 +52,8 @@ feature
 				i_main.p_setup.P_Init
 				print ("I_Init: Setting up machine state.%N")
 				i_main.i_system.I_Init
+				print ("D_CheckNetGame: Checking network game status.%N")
+				i_main.d_net.D_CheckNetGame
 			end
 		end
 

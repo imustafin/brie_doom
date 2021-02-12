@@ -58,6 +58,8 @@ feature -- Globals
 
 	i_sound: I_SOUND
 
+	d_net: D_NET
+
 feature {NONE} -- Initialization
 
 	make
@@ -87,6 +89,7 @@ feature {NONE} -- Initialization
 			create info.make
 			create i_system.make (Current)
 			create i_sound.make
+			create d_net.make
 			create d_doom_main.make (Current)
 		end
 
