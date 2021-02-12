@@ -32,6 +32,18 @@ feature -- Globals
 
 	m_menu: M_MENU
 
+	r_main: R_MAIN
+
+	r_data: R_DATA
+
+	r_plane: R_PLANE
+
+	m_fixed: M_FIXED
+
+	r_sky: R_SKY
+
+	r_draw: R_DRAW
+
 feature {NONE} -- Initialization
 
 	make
@@ -42,12 +54,18 @@ feature {NONE} -- Initialization
 				--| Add your code here
 			myargv := argument_array
 			myargc := argument_count + 1
+			create m_fixed.make
 			create doomstat_h.make
 			create v_video.make
 			create m_misc.make
 			create z_zone.make
 			create m_menu.make (Current)
 			create w_wad.make (Current)
+			create r_sky.make (Current)
+			create r_draw.make
+			create r_data.make
+			create r_plane.make
+			create r_main.make (Current)
 			create d_doom_main.make (Current)
 		end
 

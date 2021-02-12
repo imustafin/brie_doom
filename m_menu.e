@@ -21,6 +21,12 @@ feature
 			messagestring := ""
 		end
 
+feature -- Blocky mode, has default, 0 = high, 1 = normal
+
+	detailLevel: INTEGER
+
+	screenblocks: INTEGER
+
 feature -- main_e
 
 	newgame: INTEGER = 0
@@ -72,7 +78,7 @@ feature
 
 	MainMenu: ARRAY [MENUITEM_T]
 		once
-			 Result := <<create {MENUITEM_T}.make (1, "M_NGAME", agent M_NewGame, 'n'), create {MENUITEM_T}.make (1, "M_OPTION", agent M_Options, 'o'), create {MENUITEM_T}.make (1, "M_LOADG", agent M_LoadGame, 'l'), create {MENUITEM_T}.make (1, "M_SAVEG", agent M_SaveGame, 's'), create {MENUITEM_T}.make (1, "M_RDTHIS", agent M_ReadThis, 'r'), create {MENUITEM_T}.make (1, "M_QUITG", agent M_QuitDOOM, 'q')>>
+			Result := <<create {MENUITEM_T}.make (1, "M_NGAME", agent M_NewGame, 'n'), create {MENUITEM_T}.make (1, "M_OPTION", agent M_Options, 'o'), create {MENUITEM_T}.make (1, "M_LOADG", agent M_LoadGame, 'l'), create {MENUITEM_T}.make (1, "M_SAVEG", agent M_SaveGame, 's'), create {MENUITEM_T}.make (1, "M_RDTHIS", agent M_ReadThis, 'r'), create {MENUITEM_T}.make (1, "M_QUITG", agent M_QuitDOOM, 'q')>>
 		end
 
 	menuactive: BOOLEAN
@@ -84,8 +90,6 @@ feature
 	skullanimcounter: INTEGER -- skull animation counter
 
 	screensize: INTEGER -- temp for screenblocks (0-9)
-
-	screenblocks: INTEGER -- has default
 
 	messagetoprint: INTEGER -- 1 = message to be printed
 
@@ -239,7 +243,7 @@ feature
 			skullAnimCounter := 10
 			screenSize := screenblocks - 3
 			messageToPrint := 0
---			messageString := ""
+				--			messageString := ""
 			messageLastMenuActive := menuactive
 			quickSaveSlot := -1
 			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commerial then

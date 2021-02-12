@@ -46,6 +46,8 @@ feature
 				print ("==================%N")
 				print ("M_Init: Init miscellaneous info.%N")
 				i_main.m_menu.m_init
+				print ("R_Init: Init DOOM refresh daemon - ")
+				i_main.r_main.R_Init
 			end
 		end
 
