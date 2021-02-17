@@ -260,4 +260,15 @@ feature
 			end
 		end
 
+feature
+
+	M_Ticker
+		do
+			skullAnimCounter := skullAnimCounter
+			if skullAnimCounter <= 0 then
+				whichSkull := whichSkull.bit_xor (1)
+				skullAnimCounter := 8
+			end
+		end
+
 end

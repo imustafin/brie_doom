@@ -42,6 +42,8 @@ feature
 
 	gameaction: INTEGER assign set_gameaction
 
+	demorecording: BOOLEAN
+
 feature
 
 	set_gameaction (a_gameaction: like gameaction)
@@ -56,6 +58,43 @@ feature -- G_InitNew
 	G_InitNew (skill: INTEGER; episode: INTEGER; map: INTEGER)
 		do
 				-- Stub
+		end
+
+feature
+
+	consoleplayer: INTEGER -- player taking events and displaying
+
+	gametic: INTEGER assign set_gametic
+
+feature
+
+	set_gametic (a_gametic: like gametic)
+		do
+			gametic := a_gametic
+		end
+
+feature
+
+	G_BeginRecording
+		do
+				-- Stub
+		end
+
+	G_BuildTiccmd (cmd: TICCMD_T)
+		do
+				-- Stub
+		end
+
+	G_Ticker
+		do
+				-- Stub
+		end
+
+feature
+
+	players: ARRAYED_LIST [PLAYER_T]
+		once
+			create Result.make ({DOOMDEF_H}.MAXPLAYERS)
 		end
 
 end

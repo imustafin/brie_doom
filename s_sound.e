@@ -32,4 +32,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	S_UpdateSounds (listener_p: MOBJ_T)
+		do
+			-- Stub
+		end
+
 end

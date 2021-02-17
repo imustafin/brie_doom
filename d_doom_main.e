@@ -36,6 +36,8 @@ feature
 
 	autostart: BOOLEAN
 
+	singletics: BOOLEAN = False -- debug flag to cancel adaptiveness
+
 feature -- DEMO LOOP
 
 	demosequence: INTEGER
@@ -136,7 +138,51 @@ feature -- D_DoomLoop
 
 	D_DoomLoop
 		do
-			-- Stub
+			if i_main.g_game.demorecording then
+				i_main.g_game.G_BeginRecording
+			end
+				-- skip -debugfile
+			i_main.i_video.I_InitGraphics
+			from
+			until
+				False
+			loop
+				i_main.i_video.I_StartFrame
+				if singletics then
+					i_main.i_video.I_StartTic
+					D_ProcessEvents
+					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
+					if advancedemo then
+						D_DoAdvanceDemo
+					end
+					i_main.m_menu.M_Ticker
+					i_main.g_game.G_Ticker
+					i_main.g_game.gametic := i_main.g_game.gametic + 1
+					i_main.d_net.maketic := i_main.d_net.maketic + 1
+				else
+					i_main.d_net.TryRunTics
+				end
+--				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
+				D_Display
+			end
+		end
+
+	D_ProcessEvents
+			-- Send all the events of the given timestamp down the responder chain
+		do
+				-- Stub
+		end
+
+	D_DoAdvanceDemo
+		do
+				-- Stub
+		end
+
+feature
+
+	D_Display
+		do
+				-- Stub
 		end
 
 end

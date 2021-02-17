@@ -23,6 +23,8 @@ feature
 
 	SCREENHEIGHT: INTEGER = 200
 
+	MAXPLAYERS: INTEGER = 4
+
 feature -- skill_t
 
 	sk_baby: INTEGER = 0

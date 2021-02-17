@@ -68,6 +68,8 @@ feature -- Globals
 
 	g_game: G_GAME
 
+	i_video: I_VIDEO
+
 feature {NONE} -- Initialization
 
 	make
@@ -102,6 +104,7 @@ feature {NONE} -- Initialization
 			create hu_stuff.make
 			create st_stuff.make
 			create g_game.make
+			create i_video.make
 			create d_doom_main.make (Current)
 		end
 
