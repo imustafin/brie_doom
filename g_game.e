@@ -53,6 +53,8 @@ feature
 
 	netgame: BOOLEAN
 
+	deathmatch: BOOLEAN -- only if started as net death
+
 feature -- G_InitNew
 
 	G_InitNew (skill: INTEGER; episode: INTEGER; map: INTEGER)
@@ -62,7 +64,9 @@ feature -- G_InitNew
 
 feature
 
-	consoleplayer: INTEGER -- player taking events and displaying
+	consoleplayer: INTEGER assign set_consoleplayer -- player taking events and displaying
+
+	displayplayer: INTEGER assign set_displayplayer -- view being displayed
 
 	gametic: INTEGER assign set_gametic
 
@@ -71,6 +75,16 @@ feature
 	set_gametic (a_gametic: like gametic)
 		do
 			gametic := a_gametic
+		end
+
+	set_consoleplayer (a_consoleplayer: like consoleplayer)
+		do
+			consoleplayer := a_consoleplayer
+		end
+
+	set_displayplayer (a_displayplayer: like displayplayer)
+		do
+			displayplayer := a_displayplayer
 		end
 
 feature
@@ -95,6 +109,11 @@ feature
 	players: ARRAYED_LIST [PLAYER_T]
 		once
 			create Result.make ({DOOMDEF_H}.MAXPLAYERS)
+		end
+
+	playeringame: ARRAYED_LIST [BOOLEAN]
+		once
+			create Result.make ({DOOMDEF_H}.maxplayers)
 		end
 
 end

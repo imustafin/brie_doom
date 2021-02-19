@@ -23,7 +23,6 @@ feature
 		do
 			i_main := a_i_main
 			create {LINKED_LIST [STRING]} wadfiles.make
-			D_DoomMain
 		end
 
 feature

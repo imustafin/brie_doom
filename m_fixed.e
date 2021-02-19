@@ -23,6 +23,8 @@ feature -- m_fixed.h
 	FRACUNIT: INTEGER
 		once
 			Result := 1 |<< FRACBITS
+		ensure
+			instance_free: class
 		end
 
 end

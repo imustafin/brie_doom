@@ -15,11 +15,8 @@ create
 
 feature
 
-	i_main: I_MAIN
-
-	make (a_i_main: I_MAIN)
+	make
 		do
-			i_main := a_i_main
 		end
 
 feature -- sky mapping
@@ -34,7 +31,7 @@ feature
 
 	R_InitSkyMap
 		do
-			skytexturemid := 100 * i_main.m_fixed.FRACUNIT
+			skytexturemid := 100 * {M_FIXED}.FRACUNIT
 		end
 
 end

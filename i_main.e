@@ -70,14 +70,15 @@ feature -- Globals
 
 	i_video: I_VIDEO
 
+	i_net: I_NET
+
+	d_doom_main: D_DOOM_MAIN
+
 feature {NONE} -- Initialization
 
 	make
 			-- Run application.
-		local
-			d_doom_main: D_DOOM_MAIN
 		do
-				--| Add your code here
 			myargv := argument_array
 			myargc := argument_count + 1
 			create m_fixed.make
@@ -85,27 +86,29 @@ feature {NONE} -- Initialization
 			create v_video.make
 			create m_misc.make
 			create z_zone.make
-			create m_menu.make (Current)
-			create w_wad.make (Current)
-			create r_sky.make (Current)
 			create r_draw.make
 			create r_data.make
 			create r_plane.make
-			create r_main.make (Current)
-			create p_setup.make (Current)
 			create p_switch.make
 			create p_spec.make
 			create r_things.make
 			create info.make
-			create i_system.make (Current)
 			create i_sound.make
-			create d_net.make
 			create s_sound.make
 			create hu_stuff.make
 			create st_stuff.make
 			create g_game.make
 			create i_video.make
+			create i_net.make
+			create m_menu.make (doomstat_h)
+			create w_wad.make
+			create r_sky.make
+			create p_setup.make (Current)
+			create i_system.make (Current)
+			create d_net.make (Current)
+			create r_main.make (Current)
 			create d_doom_main.make (Current)
+			d_doom_main.D_DoomMain
 		end
 
 feature -- i_system.c
@@ -114,6 +117,8 @@ feature -- i_system.c
 		do
 			print ("Error: " + a_message + "%N")
 			(create {DEVELOPER_EXCEPTION}).raise
+		ensure
+			instance_free: class
 		end
 
 end

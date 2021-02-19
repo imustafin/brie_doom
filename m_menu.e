@@ -13,11 +13,11 @@ create
 
 feature
 
-	i_main: I_MAIN
+	doomstat_h: DOOMSTAT_H
 
-	make (a_i_main: like i_main)
+	make (a_doomstat_h: like doomstat_h)
 		do
-			i_main := a_i_main
+			doomstat_h := a_doomstat_h
 			messagestring := ""
 		end
 
@@ -246,7 +246,7 @@ feature
 				--			messageString := ""
 			messageLastMenuActive := menuactive
 			quickSaveSlot := -1
-			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commerial then
+			if doomstat_h.gamemode = {GAME_MODE_T}.commerial then
 				MainMenu [readthis] := MainMenu [quitdoom]
 				MainDef.numitems := MainDef.numitems - 1
 				MainDef.y := MainDef.y + 8
@@ -255,7 +255,7 @@ feature
 				ReadDef1.x := 330
 				ReadDef1.y := 165
 				ReadMenu1 [0].routine := agent M_FinishReadThis
-			elseif i_main.doomstat_h.gamemode = {GAME_MODE_T}.registered then
+			elseif doomstat_h.gamemode = {GAME_MODE_T}.registered then
 				EpiDef.numitems := EpiDef.numitems - 1
 			end
 		end

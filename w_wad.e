@@ -12,11 +12,8 @@ create
 
 feature
 
-	i_main: I_MAIN
-
-	make (a_i_main: I_MAIN)
+	make
 		do
-			i_main := a_i_main
 			create lumpinfo.make (0)
 		end
 
@@ -70,7 +67,7 @@ feature
 					create l_header.read_bytes (l_file)
 					if not l_header.identification.starts_with ("IWAD") then
 						if not l_header.identification.starts_with ("PWAD") then
-							i_main.i_error ("Wad file " + a_filename + " doesn't have IWAD or PWAD id%N")
+							{I_MAIN}.i_error ("Wad file " + a_filename + " doesn't have IWAD or PWAD id%N")
 						end
 					end
 					l_file.go (l_header.infotableofs)
