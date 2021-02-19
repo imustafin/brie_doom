@@ -98,7 +98,7 @@ feature {NONE} -- Initialization
 			create hu_stuff.make
 			create st_stuff.make
 			create g_game.make
-			create i_video.make
+			create i_video.make (Current)
 			create i_net.make (Current)
 			create m_menu.make (doomstat_h)
 			create w_wad.make

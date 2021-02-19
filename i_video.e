@@ -11,9 +11,12 @@ create
 	make
 
 feature
+	i_main: I_MAIN
 
-	make
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
+
 			firsttime := True
 			multiply := 1
 		end
@@ -75,8 +78,8 @@ feature -- I_InitGraphics
 						{I_MAIN}.i_error ("Could not take window surface: " + {SDL_ERROR}.sdl_get_error)
 					end
 
-					-- Set up the screen displays
-					-- ......actually skip for now
+						-- Set up the screen displays
+						-- ......actually skip for now
 				else
 					{I_MAIN}.i_error ("Could not create window: " + {SDL_ERROR}.sdl_get_error)
 				end
@@ -91,8 +94,52 @@ feature
 		end
 
 	I_StartTic
+		local
+			event: SDL_EVENT_UNION_API
 		do
-				-- Stub
+			from
+				create event.make
+			until
+				{SDL_EVENTS}.sdl_poll_event (event) = 0
+			loop
+				I_GetEvent (event)
+			end
 		end
 
+	I_GetEvent (a_event: SDL_EVENT_UNION_API)
+		local
+			event: EVENT_T
+		do
+			create event.make
+			if a_event.type = {SDL_CONSTANT_API}.sdl_keydown then
+				event.type := {EVENT_T}.ev_keydown
+				event.data1 := xlatekey (a_event.key.keysym)
+				i_main.d_doom_main.D_PostEvent (event)
+			elseif a_event.type = {SDL_CONSTANT_API}.sdl_keyup then
+				event.type := {EVENT_T}.ev_keyup
+				event.data1 := xlatekey (a_event.key.keysym)
+				i_main.d_doom_main.D_PostEvent (event)
+			elseif a_event.type = {SDL_CONSTANT_API}.sdl_quit then
+				i_main.i_system.I_Quit
+			else
+					-- ignore SDL_MOUSEBUTTONDOWN
+					-- ignore SDL_MOUSEBUTTONUP
+					-- ignore SDL_MOUSEMOTION
+			end
+		end
+
+	xlatekey (key: SDL_KEYSYM_STRUCT_API): INTEGER
+		do
+			if key.sym = {SDL_KEYCODE}.sdlk_left then
+				Result := {DOOMDEF_H}.key_leftarrow
+			elseif key.sym = {SDL_KEYCODE}.sdlk_right then
+				Result := {DOOMDEF_H}.key_rightarrow
+			elseif key.sym = {SDL_KEYCODE}.sdlk_up then
+				Result := {DOOMDEF_H}.key_uparrow
+			elseif key.sym = {SDL_KEYCODE}.sdlk_down then
+				Result := {DOOMDEF_H}.key_downarrow
+			else
+				Result := key.sym
+			end
+		end
 end

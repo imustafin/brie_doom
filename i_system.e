@@ -26,4 +26,12 @@ feature
 			i_main.i_sound.I_InitSound
 		end
 
+feature
+
+	I_Quit
+	do
+		-- Stub
+		i_main.i_error ("Quit!")
+	end
+
 end

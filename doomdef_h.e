@@ -37,4 +37,14 @@ feature -- skill_t
 
 	sk_nightmare: INTEGER = 4
 
+feature -- DOOM keyboard definition
+
+	KEY_RIGHTARROW: INTEGER = 0xae
+
+	KEY_LEFTARROW: INTEGER = 0xac
+
+	KEY_UPARROW: INTEGER = 0xad
+
+	KEY_DOWNARROW: INTEGER = 0xaf
+
 end
