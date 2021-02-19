@@ -131,11 +131,18 @@ feature
 
 feature
 
-	doomcom: DOOMCOM_T
+	doomcom: DOOMCOM_T assign set_doomcom
 
 	DOOMCOM_ID: INTEGER_64 = 0x12345678
 
 	netbuffer: DOOMDATA_T
+
+feature
+
+	set_doomcom (a_doomcom: like doomcom)
+		do
+			doomcom := a_doomcom
+		end
 
 feature
 

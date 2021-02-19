@@ -51,7 +51,12 @@ feature
 			gameaction := a_gameaction
 		end
 
-	netgame: BOOLEAN
+	netgame: BOOLEAN assign set_netgame
+
+	set_netgame (a_netgame: like netgame)
+		do
+			netgame := a_netgame
+		end
 
 	deathmatch: BOOLEAN -- only if started as net death
 
@@ -111,9 +116,9 @@ feature
 			create Result.make ({DOOMDEF_H}.MAXPLAYERS)
 		end
 
-	playeringame: ARRAYED_LIST [BOOLEAN]
+	playeringame: ARRAY [BOOLEAN]
 		once
-			create Result.make ({DOOMDEF_H}.maxplayers)
+			create Result.make_filled (False, 0, {DOOMDEF_H}.maxplayers - 1)
 		end
 
 end
