@@ -31,7 +31,7 @@ feature
 	I_Quit
 	do
 		-- Stub
-		i_main.i_error ("Quit!")
+		{EXCEPTIONS}.die (0)
 	end
 
 end
