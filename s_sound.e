@@ -36,7 +36,17 @@ feature
 
 	S_UpdateSounds (listener_p: MOBJ_T)
 		do
-			-- Stub
+				-- Stub
+		end
+
+	S_StartSound (origin: detachable ANY; sfx_id: INTEGER)
+		do
+			S_StartSoundAtVolume (origin, sfx_id, snd_SfxVolume)
+		end
+
+	S_StartSoundAtVolume (origin: detachable ANY; sfx_id: INTEGER; volume: INTEGER)
+		do
+				-- Stub
 		end
 
 end

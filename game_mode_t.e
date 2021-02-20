@@ -41,7 +41,7 @@ feature -- Enumeration
 			instance_free: class
 		end
 
-	commerial: GAME_MODE_T
+	commercial: GAME_MODE_T
 		once
 			Result.make (2)
 		ensure

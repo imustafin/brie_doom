@@ -121,4 +121,11 @@ feature
 			create Result.make_filled (False, 0, {DOOMDEF_H}.maxplayers - 1)
 		end
 
+feature
+
+	G_Responder (event: EVENT_T): BOOLEAN
+		do
+				-- Stub
+		end
+
 end

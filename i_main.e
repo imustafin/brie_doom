@@ -100,7 +100,7 @@ feature {NONE} -- Initialization
 			create g_game.make
 			create i_video.make (Current)
 			create i_net.make (Current)
-			create m_menu.make (doomstat_h)
+			create m_menu.make (Current)
 			create w_wad.make
 			create r_sky.make
 			create p_setup.make (Current)

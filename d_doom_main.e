@@ -149,7 +149,7 @@ feature -- D_DoomLoop
 				i_main.i_video.I_StartFrame
 				if singletics then
 					i_main.i_video.I_StartTic
-						--					D_ProcessEvents
+					D_ProcessEvents
 						--					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
 						--					if advancedemo then
 						--						D_DoAdvanceDemo
@@ -168,8 +168,24 @@ feature -- D_DoomLoop
 
 	D_ProcessEvents
 			-- Send all the events of the given timestamp down the responder chain
+		local
+			event: EVENT_T
+			res: BOOLEAN
 		do
-				-- Stub
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial and i_main.w_wad.W_CheckNumForName ("map01") < 0 then
+					-- STORE DEMO, DO NOT ACCEPT INPUT
+			else
+				from
+				until
+					eventtail = eventhead
+				loop
+					event := events [eventtail]
+					if not i_main.m_menu.m_responder (event) then
+						res := i_main.g_game.G_Responder (event)
+					end
+					eventtail := (eventtail + 1).bit_and ({D_EVENT}.maxevents - 1)
+				end
+			end
 		end
 
 	D_DoAdvanceDemo
@@ -206,4 +222,5 @@ feature -- EVENT HANDLING
 			advanced_if_there_was_space: old eventhead < {D_EVENT}.maxevents - 1 implies eventhead = old eventhead + 1
 			wrapped_if_there_was_no_space: old eventhead = {D_EVENT}.maxevents - 1 implies eventhead = 0
 		end
+
 end

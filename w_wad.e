@@ -96,4 +96,9 @@ feature
 			Result := a_filename
 		end
 
+	W_CheckNumForName (name: STRING): INTEGER
+	do
+		-- Stub
+	end
+
 end

@@ -13,11 +13,11 @@ create
 
 feature
 
-	doomstat_h: DOOMSTAT_H
+	i_main: I_MAIN
 
-	make (a_doomstat_h: like doomstat_h)
+	make (a_i_main: like i_main)
 		do
-			doomstat_h := a_doomstat_h
+			i_main := a_i_main
 			messagestring := ""
 		end
 
@@ -91,7 +91,7 @@ feature
 
 	screensize: INTEGER -- temp for screenblocks (0-9)
 
-	messagetoprint: INTEGER -- 1 = message to be printed
+	messagetoprint: BOOLEAN -- (was int) 1 = message to be printed
 
 	messagestring: STRING -- ...and here is the message string!
 
@@ -232,6 +232,80 @@ feature -- M_Episode
 
 feature
 
+	saveStringEnter: BOOLEAN -- we are going to be entering a savegame string
+
+feature -- CONTROL PANEL
+
+	M_Responder (ev: EVENT_T): BOOLEAN
+		local
+			ch: INTEGER
+		do
+			ch := -1
+				-- skip ev_joystick
+				-- skip ev_mouse
+			if ev.type = ev.ev_keydown then
+				ch := ev.data1
+			end
+			if ch /= -1 then
+				if saveStringEnter then
+						-- skip
+				elseif messageToPrint then
+						-- skip
+				elseif False then -- devparm && h == KEY_F1
+						-- skip
+				elseif not menuactive then -- F-Keys
+						-- skip
+
+				elseif not menuactive then -- Pop-up menu?
+						-- skip
+				else -- Keys usable within menu
+					if attached currentMenu as currentMenuAttached then
+						if ch = {DOOMDEF_H}.KEY_DOWNARROW then
+							from
+								if itemOn + 1 > currentMenuAttached.numitems - 1 then
+									itemOn := 0
+								else
+									itemOn := itemOn + 1
+								end
+								i_main.s_sound.S_StartSound (Void, {SOUNDS_H}.sfx_pstop)
+							until
+								currentMenuAttached.menuitems [itemOn].status /= -1
+							loop
+								if itemOn + 1 > currentMenuAttached.numitems - 1 then
+									itemOn := 0
+								else
+									itemOn := itemOn + 1
+								end
+								i_main.s_sound.S_StartSound (Void, {SOUNDS_H}.sfx_pstop)
+							end
+							Result := True
+						elseif ch = {DOOMDEF_H}.key_uparrow then
+							from
+								if itemOn = 0 then
+									itemOn := currentMenuAttached.numitems - 1
+								else
+									itemOn := itemOn - 1
+								end
+								i_main.s_sound.S_StartSound (Void, {SOUNDS_H}.sfx_pstop)
+							until
+								currentMenuAttached.menuitems [itemOn].status /= -1
+							loop
+								if itemOn = 0 then
+									itemOn := currentMenuAttached.numitems - 1
+								else
+									itemOn := itemOn - 1
+								end
+								i_main.s_sound.S_StartSound (Void, {SOUNDS_H}.sfx_pstop)
+							end
+							Result := True
+						end
+					end
+				end
+			end
+		end
+
+feature
+
 	M_Init
 		do
 			currentMenu := MainDef
@@ -242,11 +316,11 @@ feature
 			whichSkull := 0
 			skullAnimCounter := 10
 			screenSize := screenblocks - 3
-			messageToPrint := 0
+			messageToPrint := False
 				--			messageString := ""
 			messageLastMenuActive := menuactive
 			quickSaveSlot := -1
-			if doomstat_h.gamemode = {GAME_MODE_T}.commerial then
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
 				MainMenu [readthis] := MainMenu [quitdoom]
 				MainDef.numitems := MainDef.numitems - 1
 				MainDef.y := MainDef.y + 8
@@ -255,7 +329,7 @@ feature
 				ReadDef1.x := 330
 				ReadDef1.y := 165
 				ReadMenu1 [0].routine := agent M_FinishReadThis
-			elseif doomstat_h.gamemode = {GAME_MODE_T}.registered then
+			elseif i_main.doomstat_h.gamemode = {GAME_MODE_T}.registered then
 				EpiDef.numitems := EpiDef.numitems - 1
 			end
 		end
