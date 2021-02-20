@@ -150,7 +150,7 @@ feature -- D_DoomLoop
 				if singletics then
 					i_main.i_video.I_StartTic
 					D_ProcessEvents
-						--					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
+					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
 						--					if advancedemo then
 						--						D_DoAdvanceDemo
 						--					end

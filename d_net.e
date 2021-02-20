@@ -24,17 +24,26 @@ feature
 
 feature
 
-	netcmds: ARRAYED_LIST [ARRAYED_LIST [TICCMD_T]]
+	netcmds: ARRAY [ARRAY [TICCMD_T]]
 		local
 			i: INTEGER
+			j: INTEGER
 		once
-			create Result.make ({DOOMDEF_H}.MAXPLAYERS)
+			create Result.make_filled (create {ARRAY [TICCMD_T]}.make_empty, 0, {DOOMDEF_H}.maxplayers - 1)
 			from
 				i := 0
 			until
 				i >= {DOOMDEF_H}.MAXPLAYERS
 			loop
-				Result.extend (create {ARRAYED_LIST [TICCMD_T]}.make (BACKUPTICS))
+				Result[i] := create {ARRAY [TICCMD_T]}.make_filled (create {TICCMD_T}, 0, BACKUPTICS - 1)
+				from
+					j := 0
+				until
+					j >= BACKUPTICS - 1
+				loop
+					Result[i][j] := create {TICCMD_T}
+					j := j + 1
+				end
 				i := i + 1
 			end
 		end

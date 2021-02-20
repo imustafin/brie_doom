@@ -21,7 +21,7 @@ feature
 	I_Init
 		do
 			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.sdl_init_video | {SDL_CONSTANT_API}.sdl_init_audio) < 0 then
-				 i_main.i_error ("Could not initialze SDL: " + {SDL_ERROR}.sdl_get_error)
+				i_main.i_error ("Could not initialze SDL: " + {SDL_ERROR}.sdl_get_error)
 			end
 			i_main.i_sound.I_InitSound
 		end
@@ -29,9 +29,16 @@ feature
 feature
 
 	I_Quit
-	do
-		-- Stub
-		{EXCEPTIONS}.die (0)
-	end
+		do
+				-- Stub
+			{EXCEPTIONS}.die (0)
+		end
+
+feature
+
+	I_BaseTiccmd: TICCMD_T
+		once
+			create Result
+		end
 
 end
