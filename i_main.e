@@ -74,6 +74,8 @@ feature -- Globals
 
 	d_doom_main: D_DOOM_MAIN
 
+	f_finale: F_FINALE
+
 feature {NONE} -- Initialization
 
 	make
@@ -108,6 +110,7 @@ feature {NONE} -- Initialization
 			create d_net.make (Current)
 			create r_main.make (Current)
 			create d_doom_main.make (Current)
+			create f_finale.make
 			d_doom_main.D_DoomMain
 		end
 

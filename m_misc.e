@@ -24,4 +24,9 @@ feature
 		do
 		end
 
+	M_ScreenShot
+		do
+				-- Stub
+		end
+
 end

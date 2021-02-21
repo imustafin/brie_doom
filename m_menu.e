@@ -338,7 +338,7 @@ feature
 
 	M_Ticker
 		do
-			skullAnimCounter := skullAnimCounter
+			skullAnimCounter := skullAnimCounter - 1
 			if skullAnimCounter <= 0 then
 				whichSkull := whichSkull.bit_xor (1)
 				skullAnimCounter := 8

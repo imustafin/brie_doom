@@ -433,6 +433,90 @@ feature
 		end
 
 	G_Ticker
+			-- Make ticcmd_ts for the players.
+		local
+			i: INTEGER
+			buf: INTEGER
+			cmd: TICCMD_T
+		do
+				-- do player reborns if needed
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.MAXPLAYERS
+			loop
+				if playeringame [i] and players [i].playerstate = {PLAYER_T}.PST_REBORN then
+					G_DoReborn (i)
+				end
+				i := i + 1
+			end
+
+				-- do things to change the game state.
+			from
+			until
+				gameaction = ga_nothing
+			loop
+				if gameaction = ga_loadlevel then
+					G_DoLoadLevel
+				elseif gameaction = ga_newgame then
+					G_DoNewGame
+				elseif gameaction = ga_loadgame then
+					G_DoLoadGame
+				elseif gameaction = ga_savegame then
+					G_DoSaveGame
+				elseif gameaction = ga_playdemo then
+					G_DoPlayDemo
+				elseif gameaction = ga_completed then
+					G_DoCompleted
+				elseif gameaction = ga_victory then
+					i_main.f_finale.F_StartFinale
+				elseif gameaction = ga_worlddone then
+					G_DoWorldDone
+				elseif gameaction = ga_screenshot then
+					i_main.m_misc.M_ScreenShot
+					gameaction := ga_nothing
+				end
+			end
+		end
+
+feature
+
+	G_DoReborn (playernum: INTEGER)
+		do
+				-- Stub
+		end
+
+	G_DoLoadLevel
+		do
+				-- Stub
+		end
+
+	G_DoNewGame
+		do
+				-- Stub
+		end
+
+	G_DoLoadGame
+		do
+				-- Stub
+		end
+
+	G_DoSaveGame
+		do
+				-- Stub
+		end
+
+	G_DoPlayDemo
+		do
+				-- Stub
+		end
+
+	G_DoCompleted
+		do
+				-- Stub
+		end
+
+	G_DoWorldDone
 		do
 				-- Stub
 		end

@@ -154,10 +154,10 @@ feature -- D_DoomLoop
 					if advancedemo then
 						D_DoAdvanceDemo
 					end
-						--					i_main.m_menu.M_Ticker
-						--					i_main.g_game.G_Ticker
-						--					i_main.g_game.gametic := i_main.g_game.gametic + 1
-						--					i_main.d_net.maketic := i_main.d_net.maketic + 1
+					i_main.m_menu.M_Ticker
+					i_main.g_game.G_Ticker
+					i_main.g_game.gametic := i_main.g_game.gametic + 1
+					i_main.d_net.maketic := i_main.d_net.maketic + 1
 				else
 					i_main.d_net.TryRunTics
 				end
