@@ -78,13 +78,13 @@ feature -- controls (have defaults)
 
 	dclicktime: INTEGER
 
-	dclickstate: INTEGER
+	dclickstate: BOOLEAN -- originally int
 
 	dclicks: INTEGER
 
 	dclicktime2: INTEGER
 
-	dclickstate2: INTEGER
+	dclickstate2: BOOLEAN -- originally int
 
 	dclicks2: INTEGER
 
@@ -342,8 +342,8 @@ feature
 
 				-- forward double click
 			if mousebuttons [mousebforward] /= dclickstate and dclicktime > 1 then
-				dclickstate := if mousebuttons [mousebforward] then 1 else 0 end
-				if dclickstate /= 0 then
+				dclickstate := mousebuttons [mousebforward]
+				if dclickstate then
 					dclicks := dclicks + 1
 				end
 				if dclicks = 2 then
@@ -356,15 +356,15 @@ feature
 				dclicktime := dclicktime + i_main.d_net.ticdup
 				if dclicktime > 20 then
 					dclicks := 0
-					dclickstate := 0
+					dclickstate := False
 				end
 			end
 
 				-- strafe double click
 			bstrafe := mousebuttons [mousebstrafe] or joybuttons [joybstrafe]
 			if bstrafe /= dclickstate2 and dclicktime2 > 1 then
-				dclickstate2 := if bstrafe then 1 else 0 end
-				if dclickstate2 /= 0 then
+				dclickstate2 := bstrafe
+				if dclickstate2 then
 					dclicks2 := dclicks2 + 1
 				end
 				if dclicks2 = 2 then
@@ -377,7 +377,7 @@ feature
 				dclicktime2 := dclicktime2 + i_main.d_net.ticdup
 				if dclicktime2 > 20 then
 					dclicks2 := 0
-					dclickstate2 := 0
+					dclickstate2 := False
 				end
 			end
 			forward := forward + mousey
