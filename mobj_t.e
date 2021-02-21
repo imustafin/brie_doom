@@ -13,4 +13,11 @@ feature
 		do
 		end
 
+feature
+	x: FIXED_T
+	y: FIXED_T
+	z: FIXED_T
+
+	angle: ANGLE_T -- orientation
+
 end

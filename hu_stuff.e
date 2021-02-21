@@ -29,7 +29,7 @@ feature
 
 	chatchars: ARRAY [CHARACTER]
 		once
-			create Result.make_filled ((0).to_character, 0, QUEUESIZE - 1)
+			create Result.make_filled ((0).to_character_8, 0, QUEUESIZE - 1)
 		end
 
 	head: INTEGER
@@ -42,7 +42,7 @@ feature
 				Result := chatchars [tail]
 				tail := (tail + 1) & (QUEUESIZE - 1)
 			else
-				Result := (0).to_character
+				Result := (0).to_character_8
 			end
 		end
 

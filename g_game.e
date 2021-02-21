@@ -197,6 +197,9 @@ feature
 			gamestate := a_gamestate
 		end
 
+	gamemap: INTEGER
+feature
+
 	demorecording: BOOLEAN
 
 	netgame: BOOLEAN assign set_netgame
@@ -436,8 +439,6 @@ feature
 			-- Make ticcmd_ts for the players.
 		local
 			i: INTEGER
-			buf: INTEGER
-			cmd: TICCMD_T
 		do
 				-- do player reborns if needed
 			from

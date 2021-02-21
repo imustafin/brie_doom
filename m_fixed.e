@@ -27,4 +27,12 @@ feature -- m_fixed.h
 			instance_free: class
 		end
 
+feature
+	FixedMul(a, b: FIXED_T): FIXED_T
+	do
+		Result := ((a.as_integer_64 * b.as_integer_64) |>> FRACBITS).as_integer_32
+	ensure
+		instance_free: class
+	end
+
 end

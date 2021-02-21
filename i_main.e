@@ -95,8 +95,8 @@ feature {NONE} -- Initialization
 			create p_spec.make
 			create r_things.make
 			create info.make
-			create i_sound.make
-			create s_sound.make
+			create i_sound.make (Current)
+			create s_sound.make (Current)
 			create hu_stuff.make
 			create st_stuff.make
 			create g_game.make (Current)

@@ -161,7 +161,7 @@ feature -- D_DoomLoop
 				else
 					i_main.d_net.TryRunTics
 				end
-					--				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
+				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
 				D_Display
 			end
 		end
