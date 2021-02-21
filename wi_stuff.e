@@ -1,11 +1,11 @@
 note
 	description: "[
-		z_zone.c
-		Zone Memory Allocation. Neat.
+		wi_stuff.c
+		Intermission screens.
 	]"
 
 class
-	Z_ZONE
+	WI_STUFF
 
 create
 	make
@@ -18,13 +18,9 @@ feature
 
 feature
 
-	Z_Init
+	WI_Drawer
 		do
 				-- Stub
 		end
-
-feature -- ZONE MEMORY
-
-	PU_CACHE: INTEGER = 101
 
 end

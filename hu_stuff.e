@@ -12,8 +12,14 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
+			create w_message.make
+			create w_chat.make
+			create w_title.make
 		end
 
 feature
@@ -22,6 +28,14 @@ feature
 		do
 				-- Stub
 		end
+
+feature
+
+	w_message: HU_STEXT_T
+
+	w_chat: HU_ITEXT_T
+
+	w_title: HU_TEXTLINE_T
 
 feature
 
@@ -44,6 +58,20 @@ feature
 			else
 				Result := (0).to_character_8
 			end
+		end
+
+feature
+
+	HU_Drawer
+		do
+				-- Stub
+		end
+
+	HU_Erase
+		do
+			i_main.hu_lib.HUlib_eraseSText (w_message)
+			i_main.hu_lib.HUlib_eraseIText (w_chat)
+			i_main.hu_lib.HUlib_eraseTextLine (w_title)
 		end
 
 end

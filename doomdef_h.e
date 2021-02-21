@@ -25,6 +25,8 @@ feature
 
 	MAXPLAYERS: INTEGER = 4
 
+	TICRATE: INTEGER = 35 -- State updates, number of tics / second.
+
 feature -- skill_t
 
 	sk_baby: INTEGER = 0

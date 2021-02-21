@@ -25,4 +25,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	ST_Drawer (fullscreen: BOOLEAN; refresh: BOOLEAN)
+		do
+				-- Stub
+		end
+
 end

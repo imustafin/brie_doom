@@ -10,6 +10,7 @@ class
 	R_MAIN
 
 inherit
+
 	TABLES
 
 create
@@ -25,8 +26,11 @@ feature
 		end
 
 feature
+
 	viewx: FIXED_T
+
 	viewy: FIXED_T
+
 	viewz: FIXED_T
 
 feature -- R_SetViewSize
@@ -45,6 +49,13 @@ feature -- R_SetViewSize
 			setsizeneeded := True
 			setblocks := blocks
 			setdetail := detail
+		end
+
+feature
+
+	R_ExecuteSetViewSize
+		do
+				-- Stub
 		end
 
 feature
@@ -165,4 +176,12 @@ feature
 				end
 			end
 		end
+
+feature
+
+	R_RenderPlayerView (player: PLAYER_T)
+		do
+				-- Stub
+		end
+
 end

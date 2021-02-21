@@ -16,25 +16,44 @@ feature
 
 	make
 		do
+			create screens.make_empty
 		end
 
 	V_Init
 		local
 			i: INTEGER
-			l_screens: like screens
 		do
-			create l_screens.make_empty
+			create screens.make_filled (create {ARRAY [INTEGER_8]}.make_empty, 0, 4)
 			from
 				i := 0
 			until
-				i >= 4
+				i >= 5
 			loop
-				l_screens.force (create {ARRAY [INTEGER_8]}.make_filled (0, 0, {DOOMDEF_H}.screenheight * {DOOMDEF_H}.screenwidth), i)
+				screens [i] := create {ARRAY [INTEGER_8]}.make_filled (0, 0, {DOOMDEF_H}.screenheight * {DOOMDEF_H}.screenwidth)
 				i := i + 1
 			end
-			screens := l_screens
 		end
 
-	screens: detachable ARRAY [ARRAY [INTEGER_8]]
+	screens: ARRAY [ARRAY [INTEGER_8]] -- Each screen is [SCREENWIDTH*SCREENHEIGHT]
+
+feature
+
+	V_DrawPatchDirect (x, y: INTEGER; scrn: INTEGER; patch: PATCH_T)
+			-- Draws directly to the screen on the pc.
+		do
+			V_DrawPatch (x, y, scrn, patch)
+		end
+
+	V_DrawPatch (x, y: INTEGER; scrn: INTEGER; patch: PATCH_T)
+			-- Masks a column based masked pic to the screen.
+		do
+				-- Stub
+		end
+
+	V_DrawBlock (x, y: INTEGER; scrn: INTEGER; width, height: INTEGER; src: ARRAY [INTEGER_8])
+			-- Draw a linear block of pixels into the view buffer.
+		do
+				-- Stub
+		end
 
 end

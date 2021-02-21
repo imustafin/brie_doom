@@ -76,6 +76,14 @@ feature -- Globals
 
 	f_finale: F_FINALE
 
+	f_wipe: F_WIPE
+
+	hu_lib: HU_LIB
+
+	am_map: AM_MAP
+
+	wi_stuff: WI_STUFF
+
 feature {NONE} -- Initialization
 
 	make
@@ -97,13 +105,13 @@ feature {NONE} -- Initialization
 			create info.make
 			create i_sound.make (Current)
 			create s_sound.make (Current)
-			create hu_stuff.make
+			create hu_stuff.make (Current)
 			create st_stuff.make
 			create g_game.make (Current)
 			create i_video.make (Current)
 			create i_net.make (Current)
 			create m_menu.make (Current)
-			create w_wad.make
+			create w_wad.make (Current)
 			create r_sky.make
 			create p_setup.make (Current)
 			create i_system.make (Current)
@@ -111,6 +119,11 @@ feature {NONE} -- Initialization
 			create r_main.make (Current)
 			create d_doom_main.make (Current)
 			create f_finale.make
+			create f_wipe.make (Current)
+			create hu_lib.make
+			create am_map.make
+			create wi_stuff.make
+
 			d_doom_main.D_DoomMain
 		end
 

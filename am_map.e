@@ -1,11 +1,11 @@
 note
 	description: "[
-		z_zone.c
-		Zone Memory Allocation. Neat.
+		am_map.c
+		the automap code
 	]"
 
 class
-	Z_ZONE
+	AM_MAP
 
 create
 	make
@@ -18,13 +18,13 @@ feature
 
 feature
 
-	Z_Init
+	automapactive: BOOLEAN
+
+feature
+
+	AM_Drawer
 		do
 				-- Stub
 		end
-
-feature -- ZONE MEMORY
-
-	PU_CACHE: INTEGER = 101
 
 end

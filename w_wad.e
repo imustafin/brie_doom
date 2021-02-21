@@ -12,8 +12,11 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
 			create lumpinfo.make (0)
 		end
 
@@ -97,8 +100,27 @@ feature
 		end
 
 	W_CheckNumForName (name: STRING): INTEGER
-	do
-		-- Stub
-	end
+		do
+				-- Stub
+		end
+
+	W_CacheLumpName (name: STRING; tag: INTEGER): PATCH_T -- originally returned void*
+		do
+			Result := W_CacheLumpNum (W_GetNumForName (name), tag)
+		end
+
+	W_GetNumForName (name: STRING): INTEGER
+		do
+			Result := W_CheckNumForName (name)
+			if Result = -1 then
+				i_main.i_error ("W_GetNumForName: " + name + " not found!")
+			end
+		end
+
+	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): PATCH_T -- originally returned void*
+		do
+				-- Stub
+			create Result.make
+		end
 
 end

@@ -11,12 +11,12 @@ create
 	make
 
 feature
+
 	i_main: I_MAIN
 
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-
 			firsttime := True
 			multiply := 1
 		end
@@ -142,4 +142,40 @@ feature
 				Result := key.sym
 			end
 		end
+
+feature
+
+	I_ReadScreen (scr: ARRAY [INTEGER_8])
+		local
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT
+			loop
+				scr [i] := i_main.v_video.screens [0] [i]
+				i := i + 1
+			end
+		end
+
+feature
+
+	I_UpdateNoBlit
+		do
+				-- what is this?
+		end
+
+	I_FinishUpdate
+		do
+				-- Stub
+		end
+
+feature
+
+	I_SetPalette (palette: ANY) -- originally took void* palette
+		do
+				-- Stub
+		end
+
 end

@@ -23,4 +23,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	F_Drawer
+		do
+				-- Stub
+		end
+
 end

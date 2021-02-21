@@ -21,6 +21,14 @@ feature
 
 feature
 
+	nodrawers: BOOLEAN -- for comparative timing purposes
+
+feature
+
+	viewactive: BOOLEAN
+
+feature
+
 	paused: BOOLEAN assign set_paused
 
 	set_paused (a_paused: like paused)
@@ -198,6 +206,7 @@ feature
 		end
 
 	gamemap: INTEGER
+
 feature
 
 	demorecording: BOOLEAN

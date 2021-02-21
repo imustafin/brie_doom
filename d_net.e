@@ -35,13 +35,13 @@ feature
 			until
 				i >= {DOOMDEF_H}.MAXPLAYERS
 			loop
-				Result[i] := create {ARRAY [TICCMD_T]}.make_filled (create {TICCMD_T}, 0, BACKUPTICS - 1)
+				Result [i] := create {ARRAY [TICCMD_T]}.make_filled (create {TICCMD_T}, 0, BACKUPTICS - 1)
 				from
 					j := 0
 				until
 					j >= BACKUPTICS - 1
 				loop
-					Result[i][j] := create {TICCMD_T}
+					Result [i] [j] := create {TICCMD_T}
 					j := j + 1
 				end
 				i := i + 1
@@ -168,6 +168,15 @@ feature
 		end
 
 	D_ArbitrateNetStart
+		do
+				-- Stub
+		end
+
+feature
+
+	NetUpdate
+			-- Builds ticcmds for console player,
+			-- sends out a packet
 		do
 				-- Stub
 		end

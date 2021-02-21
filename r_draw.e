@@ -29,4 +29,31 @@ feature
 				-- Stub
 		end
 
+feature
+
+	scaledviewwidth: INTEGER
+
+	viewheight: INTEGER
+
+	viewwindowx: INTEGER
+
+	viewwindowy: INTEGER
+
+feature
+
+	R_FillBackScreen
+			-- Fills the back screen with a pattern
+			--  for variable screen sizes
+			-- Also draws a beveled edge.
+		do
+				-- Stub
+		end
+
+	R_DrawViewBorder
+			-- Draws the border around the view
+			--  for different size windows?
+		do
+				-- Stub
+		end
+
 end

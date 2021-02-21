@@ -81,6 +81,8 @@ feature
 			Result := <<create {MENUITEM_T}.make (1, "M_NGAME", agent M_NewGame, 'n'), create {MENUITEM_T}.make (1, "M_OPTION", agent M_Options, 'o'), create {MENUITEM_T}.make (1, "M_LOADG", agent M_LoadGame, 'l'), create {MENUITEM_T}.make (1, "M_SAVEG", agent M_SaveGame, 's'), create {MENUITEM_T}.make (1, "M_RDTHIS", agent M_ReadThis, 'r'), create {MENUITEM_T}.make (1, "M_QUITG", agent M_QuitDOOM, 'q')>>
 		end
 
+	inhelpscreens: BOOLEAN
+
 	menuactive: BOOLEAN
 
 	itemOn: INTEGER -- menu item skull is on
@@ -343,6 +345,15 @@ feature
 				whichSkull := whichSkull.bit_xor (1)
 				skullAnimCounter := 8
 			end
+		end
+
+feature
+
+	M_Drawer
+			-- Called after the view has been rendered,
+			-- but before it has been blitted.
+		do
+				-- Stub
 		end
 
 end

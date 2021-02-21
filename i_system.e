@@ -41,4 +41,11 @@ feature
 			create Result
 		end
 
+feature
+
+	I_GetTime: INTEGER
+		do
+			Result := ({SDL_TIMER}.sdl_getticks.as_integer_32 * {DOOMDEF_H}.TICRATE) // 1000
+		end
+
 end
