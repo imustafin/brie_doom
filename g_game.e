@@ -21,8 +21,23 @@ feature
 
 feature
 
-	sendpause: BOOLEAN
-	sendsave: BOOLEAN
+	paused: BOOLEAN assign set_paused
+
+	set_paused (a_paused: like paused)
+		do
+			paused := a_paused
+		end
+
+	sendpause: BOOLEAN -- send a pause event next tic
+
+	sendsave: BOOLEAN -- send a save event next tic
+
+	usergame: BOOLEAN assign set_usergame -- ok to save / end game
+
+	set_usergame (a_usergame: like usergame)
+		do
+			usergame := a_usergame
+		end
 
 feature -- controls (have defaults)
 
@@ -170,14 +185,19 @@ feature
 
 	gameaction: INTEGER assign set_gameaction
 
-	demorecording: BOOLEAN
-
-feature
-
 	set_gameaction (a_gameaction: like gameaction)
 		do
 			gameaction := a_gameaction
 		end
+
+	gamestate: INTEGER assign set_gamestate
+
+	set_gamestate (a_gamestate: like gamestate)
+		do
+			gamestate := a_gamestate
+		end
+
+	demorecording: BOOLEAN
 
 	netgame: BOOLEAN assign set_netgame
 
@@ -419,9 +439,19 @@ feature
 
 feature
 
-	players: ARRAYED_LIST [PLAYER_T]
+	players: ARRAY [PLAYER_T]
+		local
+			i: INTEGER
 		once
-			create Result.make ({DOOMDEF_H}.MAXPLAYERS)
+			create Result.make_filled (create {PLAYER_T}.make, 0, {DOOMDEF_H}.maxplayers - 1)
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				Result [i] := create {PLAYER_T}.make
+				i := i + 1
+			end
 		end
 
 	playeringame: ARRAY [BOOLEAN]
@@ -434,6 +464,16 @@ feature
 	G_Responder (event: EVENT_T): BOOLEAN
 		do
 				-- Stub
+		end
+
+feature -- G_PlayDemo
+
+	defdemoname: detachable STRING
+
+	G_DeferedPlayDemo (name: STRING)
+		do
+			defdemoname := name
+			gameaction := ga_playdemo
 		end
 
 end

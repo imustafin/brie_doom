@@ -151,9 +151,9 @@ feature -- D_DoomLoop
 					i_main.i_video.I_StartTic
 					D_ProcessEvents
 					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
-						--					if advancedemo then
-						--						D_DoAdvanceDemo
-						--					end
+					if advancedemo then
+						D_DoAdvanceDemo
+					end
 						--					i_main.m_menu.M_Ticker
 						--					i_main.g_game.G_Ticker
 						--					i_main.g_game.gametic := i_main.g_game.gametic + 1
@@ -189,8 +189,62 @@ feature -- D_DoomLoop
 		end
 
 	D_DoAdvanceDemo
+			-- This cycles through the demo sequences.
+			-- FIXME - version dependend demo numbers?
 		do
-				-- Stub
+			i_main.g_game.players [i_main.g_game.consoleplayer].playerstate := {PLAYER_T}.PST_LIVE -- not reborn
+			advancedemo := False
+			i_main.g_game.usergame := False -- no save / end game here
+			i_main.g_game.paused := False
+			i_main.g_game.gameaction := {G_GAME}.ga_nothing
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.retail then
+				demosequence := (demosequence + 1) \\ 7
+			else
+				demosequence := (demosequence + 1) \\ 6
+			end
+			inspect demosequence
+			when 0 then
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					pagetic := 35 * 11
+				else
+					pagetic := 170
+				end
+				i_main.g_game.gamestate := {DOOMDEF_H}.GS_DEMOSCREEN
+				pagename := "TITLEPIC"
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					i_main.s_sound.S_StartMusic ({SOUNDS_H}.mus_dm2ttl)
+				else
+					i_main.s_sound.S_StartMusic ({SOUNDS_H}.mus_intro)
+				end
+			when 1 then
+				i_main.g_game.G_DeferedPlayDemo ("demo1")
+			when 2 then
+				pagetic := 200
+				i_main.g_game.gamestate := {DOOMDEF_H}.GS_DEMOSCREEN
+				pagename := "CREDIT"
+			when 3 then
+				i_main.g_game.G_DeferedPlayDemo ("demo2")
+			when 4 then
+				i_main.g_game.gamestate := {DOOMDEF_H}.GS_DEMOSCREEN
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					pagetic := 35 * 11
+					pagename := "TITLEPIC"
+					i_main.s_sound.S_StartMusic ({SOUNDS_H}.mus_dm2ttl)
+				else
+					pagetic := 200
+					if i_main.doomstat_h.gamemode = {GAME_MODE_T}.retail then
+						pagename := "CREDIT"
+					else
+						pagename := "HELP2"
+					end
+				end
+			when 5 then
+				i_main.g_game.G_DeferedPlayDemo ("demo3")
+			when 6 then
+				i_main.g_game.G_DeferedPlayDemo ("demo4")
+			else
+					-- Should not reach here
+			end
 		end
 
 feature

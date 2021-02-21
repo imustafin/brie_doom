@@ -49,4 +49,14 @@ feature
 				-- Stub
 		end
 
+	S_StartMusic (m_id: INTEGER)
+		do
+			S_ChangeMusic (m_id, False)
+		end
+
+	S_ChangeMusic (musicnum: INTEGER; looping: BOOLEAN)
+		do
+				-- Stub
+		end
+
 end

@@ -226,4 +226,144 @@ feature -- sfxenum_t
 
 	NUMSFX: INTEGER = 109
 
+feature -- musicenum_t
+
+	mus_None: INTEGER = 0
+
+	mus_e1m1: INTEGER = 1
+
+	mus_e1m2: INTEGER = 2
+
+	mus_e1m3: INTEGER = 3
+
+	mus_e1m4: INTEGER = 4
+
+	mus_e1m5: INTEGER = 5
+
+	mus_e1m6: INTEGER = 6
+
+	mus_e1m7: INTEGER = 7
+
+	mus_e1m8: INTEGER = 8
+
+	mus_e1m9: INTEGER = 9
+
+	mus_e2m1: INTEGER = 10
+
+	mus_e2m2: INTEGER = 11
+
+	mus_e2m3: INTEGER = 12
+
+	mus_e2m4: INTEGER = 13
+
+	mus_e2m5: INTEGER = 14
+
+	mus_e2m6: INTEGER = 15
+
+	mus_e2m7: INTEGER = 16
+
+	mus_e2m8: INTEGER = 17
+
+	mus_e2m9: INTEGER = 18
+
+	mus_e3m1: INTEGER = 19
+
+	mus_e3m2: INTEGER = 20
+
+	mus_e3m3: INTEGER = 21
+
+	mus_e3m4: INTEGER = 22
+
+	mus_e3m5: INTEGER = 23
+
+	mus_e3m6: INTEGER = 24
+
+	mus_e3m7: INTEGER = 25
+
+	mus_e3m8: INTEGER = 26
+
+	mus_e3m9: INTEGER = 27
+
+	mus_inter: INTEGER = 28
+
+	mus_intro: INTEGER = 29
+
+	mus_bunny: INTEGER = 30
+
+	mus_victor: INTEGER = 31
+
+	mus_introa: INTEGER = 32
+
+	mus_runnin: INTEGER = 33
+
+	mus_stalks: INTEGER = 34
+
+	mus_countd: INTEGER = 35
+
+	mus_betwee: INTEGER = 36
+
+	mus_doom: INTEGER = 37
+
+	mus_the_da: INTEGER = 38
+
+	mus_shawn: INTEGER = 39
+
+	mus_ddtblu: INTEGER = 40
+
+	mus_in_cit: INTEGER = 41
+
+	mus_dead: INTEGER = 42
+
+	mus_stlks2: INTEGER = 43
+
+	mus_theda2: INTEGER = 44
+
+	mus_doom2: INTEGER = 45
+
+	mus_ddtbl2: INTEGER = 46
+
+	mus_runni2: INTEGER = 47
+
+	mus_dead2: INTEGER = 48
+
+	mus_stlks3: INTEGER = 49
+
+	mus_romero: INTEGER = 50
+
+	mus_shawn2: INTEGER = 51
+
+	mus_messag: INTEGER = 52
+
+	mus_count2: INTEGER = 53
+
+	mus_ddtbl3: INTEGER = 54
+
+	mus_ampie: INTEGER = 55
+
+	mus_theda3: INTEGER = 56
+
+	mus_adrian: INTEGER = 57
+
+	mus_messg2: INTEGER = 58
+
+	mus_romer2: INTEGER = 59
+
+	mus_tense: INTEGER = 60
+
+	mus_shawn3: INTEGER = 61
+
+	mus_openin: INTEGER = 62
+
+	mus_evil: INTEGER = 63
+
+	mus_ultima: INTEGER = 64
+
+	mus_read_m: INTEGER = 65
+
+	mus_dm2ttl: INTEGER = 66
+
+	mus_dm2int: INTEGER = 67
+
+	NUMMUSIC: INTEGER = 68
+
 end
