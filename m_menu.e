@@ -27,6 +27,17 @@ feature -- Blocky mode, has default, 0 = high, 1 = normal
 
 	screenblocks: INTEGER
 
+feature
+
+	LINEHEIGHT: INTEGER = 16
+
+	SKULLXOFF: INTEGER = -32
+
+	skullName: ARRAY [STRING]
+		once
+			Result := <<"M_SKULL1", "M_SKULL2">>
+		end
+
 feature -- main_e
 
 	newgame: INTEGER = 0
@@ -347,13 +358,49 @@ feature
 			end
 		end
 
-feature
+feature -- M_Drawer
+
+	x: INTEGER
+
+	y: INTEGER
 
 	M_Drawer
 			-- Called after the view has been rendered,
 			-- but before it has been blitted.
+		local
+			i: INTEGER
+			max: INTEGER
 		do
-				-- Stub
-		end
+			inhelpscreens := False
+			if messagetoprint then
+					-- skip
+			elseif not menuactive then
+					-- nothing
+			else
+				if attached currentmenu as cm then
+					if attached cm.routine as r then
+						r.call
+					end
 
+						-- DRAW MENU
+					x := cm.x
+					y := cm.y
+					max := cm.numitems
+					from
+						i := 0
+					until
+						i >= max
+					loop
+						if not cm.menuitems [i].name.is_empty then
+							i_main.v_video.V_DrawPatchDirect (x, y, 0, i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache))
+						end
+						y := y + LINEHEIGHT
+						i := i + 1
+					end
+
+						-- DRAW SKULL
+					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + itemOn * LINEHEIGHT, 0, i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache))
+				end
+			end
+		end
 end
