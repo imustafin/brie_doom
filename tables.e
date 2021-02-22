@@ -8,6 +8,17 @@ note
 class
 	TABLES
 
+feature
+
+	FINEANGLES: INTEGER = 8192
+
+	FINEMASK: INTEGER
+		once
+			Result := FINEANGLES - 1
+		ensure
+			instance_free: class
+		end
+
 feature -- tantoangle
 
 	tantoangle_original: ARRAY [INTEGER]
@@ -76,8 +87,11 @@ feature
 feature -- Binary Angle Measument, BAM.
 
 	ANG45: INTEGER = 0x20000000
+
 	ANG90: INTEGER = 0x40000000
+
 	ANG180: INTEGER = 0x80000000
+
 	ANG270: INTEGER = 0xc0000000
 
 feature

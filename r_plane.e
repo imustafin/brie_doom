@@ -25,4 +25,16 @@ feature
 				-- Doh!
 		end
 
+feature
+
+	yslope: ARRAY [FIXED_T]
+		once
+			create Result.make_filled (0, 0, {DOOMDEF_H}.SCREENHEIGHT - 1)
+		end
+
+	distscale: ARRAY [FIXED_T]
+		once
+			create Result.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
+		end
+
 end

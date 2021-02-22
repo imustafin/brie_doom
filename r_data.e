@@ -15,7 +15,12 @@ feature
 
 	make
 		do
+			create colormaps.make_empty
 		end
+
+feature
+
+	colormaps: ARRAY [LIGHTTABLE_T]
 
 feature
 

@@ -13,6 +13,8 @@ inherit
 
 	TABLES
 
+	DOOMDEF_H
+
 create
 	make
 
@@ -32,6 +34,87 @@ feature
 	viewy: FIXED_T
 
 	viewz: FIXED_T
+
+feature
+
+	centerx: INTEGER
+
+	centery: INTEGER
+
+	centerxfrac: FIXED_T
+
+	centeryfrac: FIXED_T
+
+	projection: FIXED_T
+
+feature
+
+	colfunc: detachable PROCEDURE
+
+	basecolfunc: detachable PROCEDURE
+
+	fuzzcolfunc: detachable PROCEDURE
+
+	transcolfunc: detachable PROCEDURE
+
+	spanfunc: detachable PROCEDURE
+
+feature
+
+	detailshift: INTEGER -- 0 = high, 1 = low
+
+feature -- Lighting constants.
+
+	LIGHTLEVELS: INTEGER = 16 -- Now why not 32 levels here?
+
+	NUMCOLORMAPS: INTEGER = 32
+			-- Number of diminishing brightness levels.
+			-- There a 0-31, i.e. 32 LUT in the COLORMAP lump.
+
+	MAXLIGHTSCALE: INTEGER = 48
+
+	scalelight: ARRAY [ARRAY [LIGHTTABLE_T]]
+		local
+			i: INTEGER
+		once
+			create Result.make_filled (create {ARRAY [LIGHTTABLE_T]}.make_empty, 0, LIGHTLEVELS - 1)
+			from
+				i := 0
+			until
+				i >= LIGHTLEVELS
+			loop
+				Result [i] := create {ARRAY [LIGHTTABLE_T]}.make_filled (0, 0, MAXLIGHTSCALE - 1)
+				i := i + 1
+			end
+		end
+
+feature
+
+	finecosine: ARRAY [FIXED_T]
+		local
+			l_start: INTEGER
+			i: INTEGER
+		once
+			l_start := FINEANGLES // 4
+			create Result.make_filled (0, 0, finesine.count - l_start)
+			from
+				i := 0
+			until
+				i >= Result.count
+			loop
+				Result [i] := finesine [i + l_start]
+			end
+		ensure
+			instance_free: class
+		end
+
+	xtoviewangle: ARRAY [ANGLE_T]
+			-- maps a screen pixel
+			-- to the lowest viewangle that maps back to x ranges
+			-- from clipangle to -clipangle
+		once
+			create Result.make_filled ({NATURAL} 0, 0, {DOOMDEF_H}.SCREENWIDTH)
+		end
 
 feature -- R_SetViewSize
 
@@ -54,8 +137,103 @@ feature -- R_SetViewSize
 feature
 
 	R_ExecuteSetViewSize
+		local
+			cosadj: FIXED_T
+			dy: FIXED_T
+			i, j: INTEGER
+			level: INTEGER
+			startmap: INTEGER
 		do
-				-- Stub
+			setsizeneeded := False
+			if setblocks = 11 then
+				i_main.r_draw.scaledviewwidth := {DOOMDEF_H}.SCREENWIDTH
+				i_main.r_draw.viewheight := {DOOMDEF_H}.SCREENHEIGHT
+			else
+				i_main.r_draw.scaledviewwidth := setblocks * 32
+				i_main.r_draw.viewheight := (setblocks * 168 // 10).bit_and ((7).bit_not)
+			end
+			detailshift := setdetail
+			i_main.r_draw.viewwidth := i_main.r_draw.scaledviewwidth |>> detailshift
+			centery := i_main.r_draw.viewheight // 2
+			centerx := i_main.r_draw.viewwidth // 2
+			centerxfrac := centerx |<< {M_FIXED}.FRACBITS
+			centeryfrac := centery |<< {M_FIXED}.FRACBITS
+			projection := centerxfrac
+			if detailshift /= 0 then
+				colfunc := agent (i_main.r_draw).R_DrawColumn
+				basecolfunc := agent (i_main.r_draw).R_DrawColumn
+				transcolfunc := agent (i_main.r_draw).R_DrawTranslatedColumn
+				spanfunc := agent (i_main.r_draw).R_DrawSpan
+			else
+				colfunc := agent (i_main.r_draw).R_DrawColumnLow
+				basecolfunc := agent (i_main.r_draw).R_DrawColumnLow
+				fuzzcolfunc := agent (i_main.r_draw).R_DrawFuzzColumn
+				transcolfunc := agent (i_main.r_draw).R_DrawTranslatedColumn
+				spanfunc := agent (i_main.r_draw).R_DrawSpanLow
+			end
+			i_main.r_draw.R_InitBuffer (i_main.r_draw.scaledviewwidth, i_main.r_draw.viewheight)
+			R_InitTextureMapping
+
+				-- psprite scales
+			i_main.r_things.pspritescale := {M_FIXED}.FRACUNIT * i_main.r_draw.viewwidth // SCREENWIDTH
+			i_main.r_things.pspriteiscale := {M_FIXED}.FRACUNIT * SCREENWIDTH // i_main.r_draw.viewwidth
+
+				-- thing clipping
+			from
+				i := 0
+			until
+				i >= i_main.r_draw.viewwidth
+			loop
+				i_main.r_things.screenheightarray [i] := i_main.r_draw.viewheight.as_integer_16
+				i := i + 1
+			end
+
+				-- planes
+			from
+				i := 0
+			until
+				i >= i_main.r_draw.viewheight
+			loop
+				dy := ((i - i_main.r_draw.viewheight // 2) |<< {M_FIXED}.FRACBITS) + {M_FIXED}.FRACUNIT // 2
+				dy := dy.abs
+				i_main.r_plane.yslope [i] := i_main.m_fixed.FixedDiv ((i_main.r_draw.viewwidth |<< detailshift) // 2 * {M_FIXED}.FRACUNIT, dy)
+				i := i + 1
+			end
+			from
+				i := 0
+			until
+				i >= i_main.r_draw.viewwidth
+			loop
+				cosadj := finecosine [xtoviewangle [i] |>> ANGLETOFINESHIFT].abs
+				i_main.r_plane.distscale [i] := i_main.m_fixed.FixedDiv ({M_FIXED}.FRACUNIT, cosadj)
+				i := i + 1
+			end
+
+				-- Calculate the light levels to use
+				--  for each level / scale combination
+			from
+				i := 0
+			until
+				i >= LIGHTLEVELS
+			loop
+				startmap := ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS // LIGHTLEVELS
+				from
+					j := 0
+				until
+					j >= MAXLIGHTSCALE
+				loop
+					level := startmap - j * SCREENWIDTH // (i_main.r_draw.viewwidth |<< detailshift) // DISTMAP
+					if level < 0 then
+						level := 0
+					end
+					if level >= NUMCOLORMAPS then
+						level := NUMCOLORMAPS - 1
+					end
+					scalelight [i] [j] := i_main.r_data.colormaps [level * 256]
+					j := j + 1
+				end
+				i := i + 1
+			end
 		end
 
 feature
@@ -68,6 +246,11 @@ feature
 	R_InitTables
 		do
 				-- UNUSED - now getting from tables.c
+		end
+
+	R_InitTextureMapping
+		do
+				-- Stub
 		end
 
 feature -- R_InitLightTables

@@ -91,7 +91,7 @@ feature {NONE} -- Initialization
 		do
 			myargv := argument_array
 			myargc := argument_count + 1
-			create m_fixed.make
+			create m_fixed.make (Current)
 			create doomstat_h.make
 			create v_video.make
 			create m_misc.make

@@ -31,9 +31,26 @@ feature
 
 feature
 
-	scaledviewwidth: INTEGER
+	viewwidth: INTEGER assign set_viewwidth
 
-	viewheight: INTEGER
+	set_viewwidth (a_viewwidth: like viewwidth)
+		do
+			viewwidth := a_viewwidth
+		end
+
+	scaledviewwidth: INTEGER assign set_scaledviewwidth
+
+	set_scaledviewwidth (a_scaledviewwidth: like scaledviewwidth)
+		do
+			scaledviewwidth := a_scaledviewwidth
+		end
+
+	viewheight: INTEGER assign set_viewheight
+
+	set_viewheight (a_viewheight: like viewheight)
+		do
+			viewheight := a_viewheight
+		end
 
 	viewwindowx: INTEGER
 
@@ -52,6 +69,47 @@ feature
 	R_DrawViewBorder
 			-- Draws the border around the view
 			--  for different size windows?
+		do
+				-- Stub
+		end
+
+feature
+
+	R_DrawColumn
+		do
+				-- Stub
+		end
+
+	R_DrawTranslatedColumn
+		do
+				-- Stub
+		end
+
+	R_DrawSpan
+		do
+				-- Stub
+		end
+
+feature
+
+	R_DrawColumnLow
+		do
+				-- Stub
+		end
+
+	R_DrawFuzzColumn
+		do
+				-- Stub
+		end
+
+	r_DrawSpanLow
+		do
+				-- Stub
+		end
+
+feature
+
+	R_InitBuffer (width, height: INTEGER)
 		do
 				-- Stub
 		end

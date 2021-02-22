@@ -8,15 +8,6 @@ note
 class
 	DOOMDEF_H
 
-create
-	make
-
-feature
-
-	make
-		do
-		end
-
 feature
 
 	SCREENWIDTH: INTEGER = 320
