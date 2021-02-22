@@ -18,21 +18,43 @@ feature
 		do
 			i_main := a_i_main
 			create lumpinfo.make (0)
+			create lumpcache.make (0)
 		end
 
 feature
 
-	lumpinfo: ARRAYED_LIST [LUMPINFO_T]
+	reloadname: detachable STRING
+
+	reloadlump: INTEGER
+
+feature
+
+	lumpinfo: ARRAYED_LIST [LUMPINFO_T] -- indexed from 1
+
+	lumpcache: ARRAYED_LIST [detachable PATCH_T] -- indexed from 1 (originally void**)
 
 feature
 
 	W_InitMultipleFiles (a_filenames: LIST [STRING])
 		do
+				-- skip numlumps = 0;
+				-- skip lumpinfo = malloc(1);
+
 			across
 				a_filenames as filename
 			loop
 				W_AddFile (filename.item)
 			end
+			if lumpinfo.is_empty then
+				i_main.i_error ("W_InitFiles: no files found")
+			end
+
+				-- set up caching
+				-- skip int size = numlumps * sizeof(*lumpcache)
+
+				-- lumpcache = malloc(size);
+				-- memset(lumpcache, 0, size);
+			create lumpcache.make_filled (lumpinfo.count)
 		end
 
 	W_AddFile (a_filename: STRING)
@@ -52,24 +74,25 @@ feature
 			l_fileinfo: ARRAYED_LIST [FILELUMP_T]
 			l_header: WADINFO_T
 			i: INTEGER
+			l_storehandle: detachable RAW_FILE
 		do
 			if a_filename.starts_with ("~") then
-				print ("~ wads not supprted yet%N")
-				(create {DEVELOPER_EXCEPTION}).raise
+				reloadname := a_filename.tail (a_filename.count - 1)
+				reloadlump := lumpinfo.count
 			end
 			create l_file.make_open_read (a_filename)
-			if not l_file.exists then
+			if not l_file.is_open_read then
 				print (" could not open " + a_filename + "%N")
 			else
 				print (" adding " + a_filename + "%N")
-				if not a_filename.ends_with ("wad") then
+				if not a_filename.as_upper.ends_with ("WAD") then
 					create l_fileinfo.make (1)
 					l_fileinfo.extend (create {FILELUMP_T}.make (0, l_file.file_info.size, ExtractFileBase (a_filename)))
 				else
 						-- WAD file
 					create l_header.read_bytes (l_file)
-					if not l_header.identification.starts_with ("IWAD") then
-						if not l_header.identification.starts_with ("PWAD") then
+					if not l_header.identification.as_upper.starts_with ("IWAD") then
+						if not l_header.identification.as_upper.starts_with ("PWAD") then
 							{I_MAIN}.i_error ("Wad file " + a_filename + " doesn't have IWAD or PWAD id%N")
 						end
 					end
@@ -84,10 +107,11 @@ feature
 						i := i + 1
 					end
 				end
+				l_storehandle := if attached reloadname then Void else l_file end
 				across
 					l_fileinfo as fileinfo
 				loop
-					lumpinfo.extend (create {LUMPINFO_T}.make (fileinfo.item.name, -1, fileinfo.item.filepos, fileinfo.item.size))
+					lumpinfo.extend (create {LUMPINFO_T}.make (fileinfo.item.name, l_storehandle, fileinfo.item.filepos, fileinfo.item.size))
 				end
 			end
 		end
@@ -100,8 +124,19 @@ feature
 		end
 
 	W_CheckNumForName (name: STRING): INTEGER
+			-- Returns -1 if name not found
 		do
-				-- Stub
+			from
+				Result := lumpinfo.upper
+			until
+				Result <= 0 or else lumpinfo [Result].name ~ name
+			loop
+				Result := Result - 1
+			end
+			Result := Result - 1
+		ensure
+			minus_one_if_not_present: across lumpinfo as l all l.item.name /~ name end implies Result = -1
+			index_if_present: Result > -1 implies lumpinfo [Result + 1].name ~ name
 		end
 
 	W_CacheLumpName (name: STRING; tag: INTEGER): PATCH_T -- originally returned void*
@@ -119,8 +154,51 @@ feature
 
 	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): PATCH_T -- originally returned void*
 		do
-				-- Stub
-			create Result.make
+			if lump >= lumpinfo.count then
+				i_main.i_error ("W_CacheLumpNum: " + lump.out + " >= numlumps")
+			end
+			if attached lumpcache [lump + 1] as l then
+				Result := l
+			else
+					-- skip byte* ptr = Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
+				Result := W_ReadLump (lump)
+				lumpcache [lump + 1] := Result
+			end
+		end
+
+	W_ReadLump (lump: INTEGER): PATCH_T
+			-- Loads the lump and returns it
+			-- (originally wrote to a given buffer which must be >= W_LumpLength)
+		local
+			l: LUMPINFO_T
+			handle: RAW_FILE
+		do
+			if lump >= lumpinfo.count then
+				i_main.i_error ("W_ReadLump: " + lump.out + " >= numlumps")
+			end
+			l := lumpinfo [lump + 1]
+
+				-- ??? I_BeginRead ();
+
+			if not attached l.handle then
+				check attached reloadname as rn then
+					create handle.make_open_read (rn)
+					if not handle.is_open_read then
+						i_main.i_error ("W_ReadLump: couldn't open " + rn)
+					end
+				end
+			else
+				handle := l.handle
+			end
+			check handle /= Void then
+				handle.go (l.position)
+				create Result.make_read_bytes (handle)
+				if not attached l.handle then
+					handle.close
+				end
+			end
+
+				-- ??? I_EndRead ();
 		end
 
 end

@@ -14,7 +14,7 @@ feature
 
 	name: STRING
 
-	handle: INTEGER
+	handle: detachable RAW_FILE
 
 	position: INTEGER
 

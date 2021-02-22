@@ -13,6 +13,7 @@ feature
 		local
 			i: INTEGER
 			p: MANAGED_POINTER
+			c: CHARACTER
 		do
 			create p.make (12)
 			a_file.read_to_managed_pointer (p, 0, 12)
@@ -22,8 +23,13 @@ feature
 			until
 				i > 3
 			loop
-				identification.extend (p.read_character (i))
-				i := i + 1
+				c := p.read_character (i)
+				if c /~ '%U' then
+					identification.extend (c)
+					i := i + 1
+				else
+					i := 4 -- break
+				end
 			end
 			numlumps := p.read_integer_32_le (4)
 			infotableofs := p.read_integer_32_le (8)

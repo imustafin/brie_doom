@@ -28,6 +28,7 @@ feature
 		local
 			i: INTEGER
 			p: MANAGED_POINTER
+			c: CHARACTER
 		do
 			create p.make (16)
 			a_file.read_to_managed_pointer (p, 0, 16)
@@ -39,8 +40,13 @@ feature
 			until
 				i >= 16
 			loop
-				name.extend (p.read_character (i))
-				i := i + 1
+				c := p.read_character (i)
+				if c /~ '%U' then
+					name.extend (p.read_character (i))
+					i := i + 1
+				else
+					i := 17 -- break
+				end
 			end
 		end
 
