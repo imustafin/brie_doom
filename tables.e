@@ -65,11 +65,11 @@ feature -- finesine
 		local
 			i: INTEGER
 		once
-			create Result.make_filled (0, 0, 2048)
+			create Result.make_filled (0, 0, 10240 - 1)
 			from
 				i := 0
 			until
-				i >= 2049
+				i > Result.upper
 			loop
 				Result [i] := finesine_original [i + 1]
 				i := i + 1

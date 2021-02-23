@@ -96,13 +96,15 @@ feature
 			i: INTEGER
 		once
 			l_start := FINEANGLES // 4
-			create Result.make_filled (0, 0, finesine.count - l_start)
+			create Result.make_filled (0, 0, finesine.count - l_start - 1)
 			from
 				i := 0
 			until
-				i >= Result.count
+				i > Result.upper
 			loop
 				Result [i] := finesine [i + l_start]
+
+				i := i + 1
 			end
 		ensure
 			instance_free: class
