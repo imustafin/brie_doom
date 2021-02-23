@@ -38,6 +38,15 @@ feature
 
 feature
 
+	usegamma: INTEGER assign set_usegamma
+
+	set_usegamma (a_usegamma: like usegamma)
+		do
+			usegamma := a_usegamma
+		end
+
+feature
+
 	V_DrawPatchDirect (x, y: INTEGER; scrn: INTEGER; patch: PATCH_T)
 			-- Draws directly to the screen on the pc.
 		do

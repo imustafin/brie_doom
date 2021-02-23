@@ -40,6 +40,21 @@ feature -- DOOM keyboard definition
 
 	KEY_DOWNARROW: INTEGER = 0xaf
 
+	KEY_RCTRL: INTEGER
+		once
+			Result := 0x80 + 0x1d
+		end
+
+	KEY_RALT: INTEGER
+		once
+			Result := 0x80 + 0x38
+		end
+
+	KEY_RSHIFT: INTEGER
+		once
+			Result := 0x80 + 0x36
+		end
+
 feature -- weapontype_t
 
 	wp_fist: INTEGER = 0

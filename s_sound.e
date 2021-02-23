@@ -18,17 +18,34 @@ feature
 		do
 			i_main := a_i_main
 			create channels.make_empty
+			snd_SfxVolume := 15
+			snd_MusicVolume := 15
 		end
 
 feature
 
-	snd_SfxVolume: INTEGER = 15
+	snd_SfxVolume: INTEGER assign set_snd_SfxVolume
 
-	snd_MusicVolume: INTEGER = 15
+	set_snd_SfxVolume (a_snd_SfxVolume: like snd_SfxVolume)
+		do
+			snd_SfxVolume := a_snd_SfxVolume
+		end
+
+	snd_MusicVolume: INTEGER assign set_snd_MusicVolume
+
+	set_snd_MusicVolume (a_snd_MusicVolume: like snd_MusicVolume)
+		do
+			snd_MusicVolume := a_snd_MusicVolume
+		end
 
 feature -- following is set by the defaults code in M_Misc
 
-	numChannels: INTEGER -- number of channels available
+	numChannels: INTEGER assign set_numChannels -- number of channels available
+
+	set_numChannels (a_numChannels: like numChannels)
+		do
+			numChannels := a_numChannels
+		end
 
 feature
 
@@ -220,4 +237,5 @@ feature
 				Result := vol > 0
 			end
 		end
+
 end

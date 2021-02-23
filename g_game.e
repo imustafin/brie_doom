@@ -49,39 +49,124 @@ feature
 
 feature -- controls (have defaults)
 
-	key_right: INTEGER
+	key_right: INTEGER assign set_key_right
 
-	key_left: INTEGER
+	set_key_right (a_key_right: like key_right)
+		do
+			key_right := a_key_right
+		end
 
-	key_up: INTEGER
+	key_left: INTEGER assign set_key_left
 
-	key_down: INTEGER
+	set_key_left (a_key_left: like key_left)
+		do
+			key_left := a_key_left
+		end
 
-	key_strafeleft: INTEGER
+	key_up: INTEGER assign set_key_up
 
-	key_straferight: INTEGER
+	set_key_up (a_key_up: like key_up)
+		do
+			key_up := a_key_up
+		end
 
-	key_fire: INTEGER
+	key_down: INTEGER assign set_key_down
 
-	key_use: INTEGER
+	set_key_down (a_key_down: like key_down)
+		do
+			key_down := a_key_down
+		end
 
-	key_strafe: INTEGER
+	key_strafeleft: INTEGER assign set_key_strafeleft
 
-	key_speed: INTEGER
+	set_key_strafeleft (a_key_strafeleft: like key_strafeleft)
+		do
+			key_strafeleft := a_key_strafeleft
+		end
 
-	mousebfire: INTEGER
+	key_straferight: INTEGER assign set_key_straferight
 
-	mousebstrafe: INTEGER
+	set_key_straferight (a_key_straferight: like key_straferight)
+		do
+			key_straferight := a_key_straferight
+		end
 
-	mousebforward: INTEGER
+	key_fire: INTEGER assign set_key_fire
 
-	joybfire: INTEGER
+	set_key_fire (a_key_fire: like key_fire)
+		do
+			key_fire := a_key_fire
+		end
 
-	joybstrafe: INTEGER
+	key_use: INTEGER assign set_key_use
 
-	joybuse: INTEGER
+	set_key_use (a_key_use: like key_use)
+		do
+			key_use := a_key_use
+		end
 
-	joybspeed: INTEGER
+	key_strafe: INTEGER assign set_key_strafe
+
+	set_key_strafe (a_key_strafe: like key_strafe)
+		do
+			key_strafe := a_key_strafe
+		end
+
+	key_speed: INTEGER assign set_key_speed
+
+	set_key_speed (a_key_speed: like key_speed)
+		do
+			key_speed := a_key_speed
+		end
+
+	mousebfire: INTEGER assign set_mousebfire
+
+	set_mousebfire (a_mousebfire: like mousebfire)
+		do
+			mousebfire := a_mousebfire
+		end
+
+	mousebstrafe: INTEGER assign set_mousebstrafe
+
+	set_mousebstrafe (a_mousebstrafe: like mousebstrafe)
+		do
+			mousebstrafe := a_mousebstrafe
+		end
+
+	mousebforward: INTEGER assign set_mousebforward
+
+	set_mousebforward (a_mousebforward: like mousebforward)
+		do
+			mousebforward := a_mousebforward
+		end
+
+	joybfire: INTEGER assign set_joybfire
+
+	set_joybfire (a_joybfire: like joybfire)
+		do
+			joybfire := a_joybfire
+		end
+
+	joybstrafe: INTEGER assign set_joybstrafe
+
+	set_joybstrafe (a_joybstrafe: like joybstrafe)
+		do
+			joybstrafe := a_joybstrafe
+		end
+
+	joybuse: INTEGER assign set_joybuse
+
+	set_joybuse (a_joybuse: like joybuse)
+		do
+			joybuse := a_joybuse
+		end
+
+	joybspeed: INTEGER assign set_joybspeed
+
+	set_joybspeed (a_joybspeed: like joybspeed)
+		do
+			joybspeed := a_joybspeed
+		end
 
 	MAXPLMOVE: INTEGER
 		once

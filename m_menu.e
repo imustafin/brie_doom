@@ -21,11 +21,35 @@ feature
 			messagestring := ""
 		end
 
-feature -- Blocky mode, has default, 0 = high, 1 = normal
+feature -- defaulted values
 
-	detailLevel: INTEGER
+	mouseSensitivity: INTEGER assign set_mouseSensitivity -- has default
 
-	screenblocks: INTEGER
+	set_mouseSensitivity (a_mouseSensitivity: like mouseSensitivity)
+		do
+			mouseSensitivity := a_mouseSensitivity
+		end
+
+	showMessages: INTEGER assign set_showMessages -- Show messages has default, 0 = off, 1 = on
+
+	set_showMessages (a_showMessages: like showMessages)
+		do
+			showMessages := a_showMessages
+		end
+
+	detailLevel: INTEGER assign set_screenblocks -- Blocky mode, has default, 0 = high, 1 = normal
+
+	set_detaillevel (a_detaillevel: like detaillevel)
+		do
+			detaillevel := a_detaillevel
+		end
+
+	screenblocks: INTEGER assign set_screenblocks
+
+	set_screenblocks (a_screenblocks: like screenblocks)
+		do
+			screenblocks := a_screenblocks
+		end
 
 feature
 
@@ -403,4 +427,5 @@ feature -- M_Drawer
 				end
 			end
 		end
+
 end

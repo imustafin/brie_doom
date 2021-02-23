@@ -94,7 +94,7 @@ feature {NONE} -- Initialization
 			create m_fixed.make (Current)
 			create doomstat_h.make
 			create v_video.make
-			create m_misc.make
+			create m_misc.make (Current)
 			create z_zone.make
 			create r_draw.make
 			create r_data.make
