@@ -9,15 +9,20 @@ create
 
 feature
 
-	make
+	make (a_name: like name; a_singularity: like singularity; a_priority: like priority; a_link: like link; a_pitch: like pitch)
 		do
+			name := a_name
+			singularity := a_singularity
+			priority := a_priority
+			link := a_link
+			pitch := a_pitch
 		end
 
 feature
 
 	name: detachable STRING -- up to 6-character name
 
-	singularity: INTEGER -- Sfx singularity (one at a time)
+	singularity: BOOLEAN -- Sfx singularity (one at a time) (originally int)
 
 	priority: INTEGER -- Sfx priority
 
@@ -40,6 +45,11 @@ feature
 			usefulness := a_usefulness
 		end
 
-	lumpnum: INTEGER -- lump number of sfx
+	lumpnum: INTEGER assign set_lumpnum -- lump number of sfx
+
+	set_lumpnum (a_lumpnum: like lumpnum)
+		do
+			lumpnum := a_lumpnum
+		end
 
 end

@@ -31,12 +31,34 @@ feature
 			snd_SfxVolume := a_snd_SfxVolume
 		end
 
+	S_SetSfxVolume (volume: INTEGER)
+		do
+			if volume < 0 or volume > 127 then
+				i_main.i_error ("Attempt to set sfx volume at " + volume.out)
+			end
+			snd_SfxVolume := volume
+		end
+
 	snd_MusicVolume: INTEGER assign set_snd_MusicVolume
 
 	set_snd_MusicVolume (a_snd_MusicVolume: like snd_MusicVolume)
 		do
 			snd_MusicVolume := a_snd_MusicVolume
 		end
+
+	S_SetMusicVolume (volume: INTEGER)
+		do
+			if volume < 0 or volume > 127 then
+				i_main.i_error ("Attempt to set music volume at " + volume.out + "%N")
+			end
+			i_main.i_sound.I_SetMusicVolume (127)
+			i_main.i_sound.I_SetMusicVolume (volume)
+			snd_MusicVolume := volume
+		end
+
+feature
+
+	mus_paused: BOOLEAN -- whether songs are mus_paused
 
 feature -- following is set by the defaults code in M_Misc
 
@@ -93,8 +115,44 @@ feature
 			-- Initializes sound stuff, including volume
 			-- Sets channels, SFX and music volume,
 			--  allocates channel buffer, sets S_sfx lookup.
+		local
+			i: INTEGER
 		do
-				-- Stub
+			print ("S_Init: default sfx volume " + sfxVolume.out + "%N")
+
+				-- Whatever these did with DMX, these are rather dummies now.
+			i_main.i_sound.I_SetChannels
+			S_SetSfxVolume (sfxVolume)
+				-- No music with Linux - another dummy.
+			S_SetMusicVolume (musicVolume)
+
+				-- Allocating the internal channels for mixing
+				-- (the maximum number of sounds rendered
+				-- simultaneosly) within zone memory.
+			create channels.make_filled (create {CHANNEL_T}.make, 0, numchannels - 1)
+			from
+				i := 0
+			until
+				i >= numchannels
+			loop
+				channels [i] := create {CHANNEL_T}.make
+
+					-- Free all channels for use
+				channels [i].sfxinfo := Void
+				i := i + 1
+			end
+
+				-- no sounds are playing, and they are not mus_paused
+			mus_paused := False
+			from
+				i := 1
+			until
+				i >= {SOUNDS_H}.NUMSFX
+			loop
+				{SOUNDS_H}.S_sfx [i].lumpnum := -1
+				{SOUNDS_H}.S_sfx [i].usefulness := -1
+				i := i + 1
+			end
 		end
 
 feature
