@@ -31,7 +31,7 @@ feature
 
 	lumpinfo: ARRAYED_LIST [LUMPINFO_T] -- indexed from 1
 
-	lumpcache: ARRAYED_LIST [detachable PATCH_T] -- indexed from 1 (originally void**)
+	lumpcache: ARRAYED_LIST [detachable MANAGED_POINTER] -- indexed from 1
 
 feature
 
@@ -139,9 +139,11 @@ feature
 			index_if_present: Result > -1 implies lumpinfo [Result + 1].name ~ name
 		end
 
-	W_CacheLumpName (name: STRING; tag: INTEGER): PATCH_T -- originally returned void*
+	W_CacheLumpName (name: STRING; tag: INTEGER): MANAGED_POINTER
 		do
 			Result := W_CacheLumpNum (W_GetNumForName (name), tag)
+		ensure
+			Result.count = W_LumpLength (W_GetNumForName (name))
 		end
 
 	W_GetNumForName (name: STRING): INTEGER
@@ -152,7 +154,7 @@ feature
 			end
 		end
 
-	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): PATCH_T -- originally returned void*
+	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): MANAGED_POINTER
 		do
 			if lump >= lumpinfo.count then
 				i_main.i_error ("W_CacheLumpNum: " + lump.out + " >= numlumps")
@@ -164,9 +166,19 @@ feature
 				Result := W_ReadLump (lump)
 				lumpcache [lump + 1] := Result
 			end
+		ensure
+			Result.count = W_LumpLength (lump)
 		end
 
-	W_ReadLump (lump: INTEGER): PATCH_T
+	W_LumpLength (lump: INTEGER): INTEGER
+		do
+			if lump >= lumpinfo.count then
+				i_main.i_error ("W_LumpLength: " + lump.out + " >= numlumps")
+			end
+			Result := lumpinfo [lump + 1].size
+		end
+
+	W_ReadLump (lump: INTEGER): MANAGED_POINTER
 			-- Loads the lump and returns it
 			-- (originally wrote to a given buffer which must be >= W_LumpLength)
 		local
@@ -192,13 +204,16 @@ feature
 			end
 			check handle /= Void then
 				handle.go (l.position)
-				create Result.make_read_bytes (handle)
+				create Result.make (l.size)
+				handle.read_to_managed_pointer (Result, 0, l.size)
 				if not attached l.handle then
 					handle.close
 				end
 			end
 
 				-- ??? I_EndRead ();
+		ensure
+			Result.count = W_LumpLength (lump)
 		end
 
 end

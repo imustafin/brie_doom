@@ -416,14 +416,14 @@ feature -- M_Drawer
 						i >= max
 					loop
 						if not cm.menuitems [i].name.is_empty then
-							i_main.v_video.V_DrawPatchDirect (x, y, 0, i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache))
+							i_main.v_video.V_DrawPatchDirect (x, y, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache)))
 						end
 						y := y + LINEHEIGHT
 						i := i + 1
 					end
 
 						-- DRAW SKULL
-					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + itemOn * LINEHEIGHT, 0, i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache))
+					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + itemOn * LINEHEIGHT, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
 				end
 			end
 		end

@@ -13,8 +13,11 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
 			create colormaps.make_empty
 		end
 
@@ -40,8 +43,23 @@ feature
 		end
 
 	R_InitColormaps
+		local
+			i: INTEGER
+			lump, length: INTEGER
+			p: MANAGED_POINTER
 		do
-				-- Stub
+			lump := i_main.w_wad.W_GetNumForName ("COLORMAP")
+			length := i_main.w_wad.W_LumpLength (lump)
+			create colormaps.make_filled (0, 0, length - 1)
+			p := i_main.w_wad.W_ReadLump (lump)
+			from
+				i := 0
+			until
+				i > colormaps.upper
+			loop
+				colormaps [i] := p.read_integer_8_le (i).as_integer_32
+				i := i + 1
+			end
 		end
 
 	R_InitData
