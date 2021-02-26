@@ -9,13 +9,42 @@ note
 class
 	R_DRAW
 
+inherit
+
+	DOOMDEF_H
+
 create
 	make
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
+		end
+
+feature
+
+	SBARHEIGHT: INTEGER = 32 -- status bar height at bottom of screen
+
+feature -- ?
+
+	MAXWIDTH: INTEGER = 1120
+
+	MAXHEIGHT: INTEGER = 832
+
+feature
+
+	columnofs: ARRAY [INTEGER]
+		attribute
+			create Result.make_filled (0, 0, MAXWIDTH - 1)
+		end
+
+	ylookup: ARRAY [INTEGER] -- index in screen[0]
+		attribute
+			create Result.make_filled (0, 0, MAXHEIGHT - 1)
 		end
 
 feature
@@ -110,8 +139,40 @@ feature
 feature
 
 	R_InitBuffer (width, height: INTEGER)
+		local
+			i: INTEGER
 		do
-				-- Stub
+				-- Handle resize,
+				--  e.g. smaller view windows
+				--  with border and/or status bar.
+			viewwindowx := (SCREENWIDTH - width) |>> 1
+
+				-- Collumn offset. For windows.
+			from
+				i := 0
+			until
+				i >= width
+			loop
+				columnofs [i] := viewwindowx + i
+				i := i + 1
+			end
+
+				-- Samw with base row offset.
+			if width = SCREENWIDTH then
+				viewwindowy := 0
+			else
+				viewwindowy := (SCREENHEIGHT - SBARHEIGHT - height) |>> 1
+			end
+
+				-- Precalculate all row offsets.
+			from
+				i := 0
+			until
+				i >= height
+			loop
+				ylookup [i] := (i + viewwindowy) * SCREENWIDTH
+				i := i + 1
+			end
 		end
 
 end

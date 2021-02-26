@@ -38,8 +38,6 @@ feature -- Globals
 
 	r_plane: R_PLANE
 
-	m_fixed: M_FIXED
-
 	r_sky: R_SKY
 
 	r_draw: R_DRAW
@@ -91,12 +89,11 @@ feature {NONE} -- Initialization
 		do
 			myargv := argument_array
 			myargc := argument_count + 1
-			create m_fixed.make (Current)
 			create doomstat_h.make
 			create v_video.make
 			create m_misc.make (Current)
 			create z_zone.make
-			create r_draw.make
+			create r_draw.make (Current)
 			create r_data.make (Current)
 			create r_plane.make
 			create p_switch.make

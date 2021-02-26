@@ -11,18 +11,6 @@ inherit
 
 	DOOMTYPE_H
 
-create
-	make
-
-feature
-	i_main: I_MAIN
-
-	make (a_i_main: like i_main)
-	do
-		i_main := a_i_main
-	end
-
-
 feature -- m_fixed.h
 
 	FRACBITS: INTEGER = 16
@@ -54,6 +42,8 @@ feature
 			else
 				Result := FixedDiv2 (a, b)
 			end
+		ensure
+			instance_free: class
 		end
 
 	FixedDiv2 (a, b: FIXED_T): FIXED_T
@@ -62,9 +52,11 @@ feature
 		do
 			c := (a.to_real / b.to_real) * FRACUNIT
 			if c >= 2147483648.0 or c < -2147483648.0 then
-				i_main.i_error ("FixedDiv: divide by zero")
+				{I_MAIN}.i_error ("FixedDiv: divide by zero")
 			end
 			Result := c.floor
+		ensure
+			instance_free: class
 		end
 
 end

@@ -198,7 +198,7 @@ feature
 			loop
 				dy := ((i - i_main.r_draw.viewheight // 2) |<< {M_FIXED}.FRACBITS) + {M_FIXED}.FRACUNIT // 2
 				dy := dy.abs
-				i_main.r_plane.yslope [i] := i_main.m_fixed.FixedDiv ((i_main.r_draw.viewwidth |<< detailshift) // 2 * {M_FIXED}.FRACUNIT, dy)
+				i_main.r_plane.yslope [i] := {M_FIXED}.FixedDiv ((i_main.r_draw.viewwidth |<< detailshift) // 2 * {M_FIXED}.FRACUNIT, dy)
 				i := i + 1
 			end
 			from
@@ -207,7 +207,7 @@ feature
 				i >= i_main.r_draw.viewwidth
 			loop
 				cosadj := finecosine [xtoviewangle [i] |>> ANGLETOFINESHIFT].abs
-				i_main.r_plane.distscale [i] := i_main.m_fixed.FixedDiv ({M_FIXED}.FRACUNIT, cosadj)
+				i_main.r_plane.distscale [i] := {M_FIXED}.FixedDiv ({M_FIXED}.FRACUNIT, cosadj)
 				i := i + 1
 			end
 
