@@ -51,6 +51,13 @@ feature
 
 feature
 
+	dirtybox: ARRAY [FIXED_T]
+		attribute
+			create Result.make_filled (0, 0, 3)
+		end
+
+feature
+
 	V_DrawPatchDirect (x, y: INTEGER; scrn: INTEGER; patch: PATCH_T)
 			-- Draws directly to the screen on the pc.
 		do
@@ -66,7 +73,7 @@ feature
 			column: COLUMN_T
 			desttop: INTEGER -- orginally pointer to somewhere in screens[scrn]
 			dest: INTEGER -- originally byte*, now is an index of screens[scrn]
-			source: ARRAY[NATURAL_8] -- originally byte*
+			source: ARRAY [NATURAL_8] -- originally byte*
 			w: INTEGER
 			cols: ARRAYED_LIST [COLUMN_T]
 			i: INTEGER
@@ -79,11 +86,9 @@ feature
 			if scrn = 0 then
 				V_MarkRect (x, y, patch.width, patch.height)
 			end
-
 			desttop := y * SCREENWIDTH + x
 			w := patch.width
 			cols := patch.columns
-
 			from
 				col := 1
 			until
@@ -121,7 +126,8 @@ feature
 
 	V_MarkRect (x, y, width, height: INTEGER)
 		do
-				-- Stub
+			{M_BBOX}.M_AddToBox (dirtybox, x, y)
+			{M_BBOX}.M_AddToBox (dirtybox, x + width - 1, y + height - 1)
 		end
 
 end
