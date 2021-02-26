@@ -23,9 +23,9 @@ feature
 
 feature
 
-	wipe_scr_start: ARRAY [INTEGER_8]
+	wipe_scr_start: ARRAY [NATURAL_8]
 
-	wipe_scr_end: ARRAY [INTEGER_8]
+	wipe_scr_end: ARRAY [NATURAL_8]
 
 feature
 

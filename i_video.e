@@ -145,7 +145,7 @@ feature
 
 feature
 
-	I_ReadScreen (scr: ARRAY [INTEGER_8])
+	I_ReadScreen (scr: ARRAY [NATURAL_8])
 		local
 			i: INTEGER
 		do
