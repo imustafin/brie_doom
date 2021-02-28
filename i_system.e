@@ -20,7 +20,7 @@ feature
 
 	I_Init
 		do
-			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.sdl_init_video | {SDL_CONSTANT_API}.sdl_init_audio) < 0 then
+			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.sdl_init_video.to_natural_32 | {SDL_CONSTANT_API}.sdl_init_audio.to_natural_32) < 0 then
 				i_main.i_error ("Could not initialze SDL: " + {SDL_ERROR}.sdl_get_error)
 			end
 			i_main.i_sound.I_InitSound
@@ -45,7 +45,7 @@ feature
 
 	I_GetTime: INTEGER
 		do
-			Result := ({SDL_TIMER}.sdl_getticks.as_integer_32 * {DOOMDEF_H}.TICRATE) // 1000
+			Result := ({SDL_TIMER_FUNCTIONS_API}.sdl_get_ticks.as_integer_32 * {DOOMDEF_H}.TICRATE) // 1000
 		end
 
 end

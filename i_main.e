@@ -93,7 +93,7 @@ feature {NONE} -- Initialization
 			create v_video.make
 			create m_misc.make (Current)
 			create z_zone.make
-			create r_draw.make (Current)
+			create r_draw.make
 			create r_data.make (Current)
 			create r_plane.make
 			create p_switch.make

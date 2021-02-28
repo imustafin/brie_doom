@@ -18,11 +18,8 @@ create
 
 feature
 
-	i_main: I_MAIN
-
-	make (a_i_main: like i_main)
+	make
 		do
-			i_main := a_i_main
 		end
 
 feature

@@ -27,7 +27,9 @@ feature
 
 	window: detachable SDL_WINDOW_STRUCT_API
 
-	window_surface: detachable SDL_SURFACE_STRUCT_API
+	renderer: detachable SDL_RENDERER_STRUCT_API
+
+	texture: detachable SDL_TEXTURE_STRUCT_API
 
 feature -- I_InitGraphics
 
@@ -38,11 +40,11 @@ feature -- I_InitGraphics
 			video_w, w: INTEGER
 			video_h, h: INTEGER
 			video_bpp: INTEGER
-			video_flags: INTEGER
+			video_flags: NATURAL
 		do
 			if firsttime then
 				firsttime := True
-				video_flags := {SDL_CONSTANT_API}.sdl_swsurface.as_integer_32 -- originally was also adding SDL_HWPALETTE
+				video_flags := {SDL_CONSTANT_API}.sdl_swsurface.to_natural_32 -- originally was also adding SDL_HWPALETTE
 					-- skip -fullscreen param
 					-- skip -2 param
 					-- skip -3 param
@@ -73,9 +75,12 @@ feature -- I_InitGraphics
 				end
 				window := {SDL_VIDEO}.sdl_create_window ("EIFFEL SDL DOOM!", {SDL_CONSTANT_API}.sdl_windowpos_undefined, {SDL_CONSTANT_API}.sdl_windowpos_undefined, video_w, video_h, video_flags)
 				if attached window as attached_window then
-					window_surface := (create {SDL_VIDEO}).sdl_get_window_surface (attached_window)
-					if not attached window_surface then
-						{I_MAIN}.i_error ("Could not take window surface: " + {SDL_ERROR}.sdl_get_error)
+					renderer := {SDL_RENDER_FUNCTIONS_API}.SDL_Create_Renderer (attached_window, -1, 0)
+					if not attached renderer then
+						{I_MAIN}.i_error ("Could not create renderer: " + {SDL_ERROR}.sdl_get_error)
+					end
+					if attached renderer as attached_renderer then
+						texture := {SDL_RENDER_FUNCTIONS_API}.sdl_create_texture (attached_renderer, {SDL_PIXEL_FORMAT_ENUM_ENUM_API}.SDL_PIXELFORMAT_ARGB8888.to_natural_32, {SDL_TEXTURE_ACCESS_ENUM_API}.SDL_TEXTUREACCESS_STREAMING, w, h)
 					end
 
 						-- Set up the screen displays
@@ -166,9 +171,44 @@ feature
 				-- what is this?
 		end
 
+feature -- I_FinishUpdate
+
+	lasttic: INTEGER
+
 	I_FinishUpdate
+		local
+			tics: INTEGER
+			i: INTEGER
+			olineptr: POINTER
+			ilineptr: POINTER
+			y: INTEGER
+			mp: MANAGED_POINTER
 		do
-				-- Stub
+				-- skip devparm
+
+			create mp.make (i_main.v_video.screens[0].count)
+			from
+				i := i_main.v_video.screens [0].lower
+			until
+				i > i_main.v_video.screens [0].upper
+			loop
+				mp.put_natural_8 (i_main.v_video.screens [0] [i], i)
+				i := i + 1
+			end
+			check attached texture as attached_texture then
+				if {SDL_RENDER}.sdl_update_texture (attached_texture, create {SDL_RECT_STRUCT_API}.make, mp.item, {DOOMDEF_H}.SCREENWIDTH) < 0 then
+					i_main.i_error ("Error updating texture " + {SDL_ERROR}.sdl_get_error)
+				end
+				check attached renderer as attached_renderer then
+					if {SDL_RENDER}.sdl_render_clear (attached_renderer) < 0 then
+						i_main.i_error ("Error in SDL_RenderClear " + {SDL_ERROR}.sdl_get_error)
+					end
+					if {SDL_RENDER}.sdl_render_copy (attached_renderer, attached_texture, Void, Void) < 0 then
+						i_main.i_error ("Error in SDL_RenderCopy " + {SDL_ERROR}.sdl_get_error)
+					end
+					{SDL_RENDER}.sdl_render_present (attached_renderer)
+				end
+			end
 		end
 
 feature
