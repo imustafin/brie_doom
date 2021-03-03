@@ -19,6 +19,7 @@ feature
 			i_main := a_i_main
 			firsttime := True
 			multiply := 1
+			aspect_ratio_correct := True
 		end
 
 feature
@@ -31,11 +32,21 @@ feature
 
 	texture: detachable SDL_TEXTURE_STRUCT_API
 
+	texture_upscaled: detachable SDL_TEXTURE_STRUCT_API
+
 	screenbuffer: detachable SDL_SURFACE_STRUCT_API
 
 	argbbuffer: detachable SDL_SURFACE_STRUCT_API
 
 	pixel_format: NATURAL_32
+
+feature -- Aspect ratio correction mode
+
+	aspect_ratio_correct: BOOLEAN
+
+	actualheight: INTEGER
+
+	max_scaling_buffer_pixels: INTEGER = 16000000
 
 feature
 
@@ -75,12 +86,11 @@ feature -- I_InitGraphics
 		local
 			video_w, w: INTEGER
 			video_h, h: INTEGER
-			video_bpp: INTEGER
 			video_flags: NATURAL
 		do
 			if firsttime then
 				firsttime := True
-				video_flags := {SDL_CONSTANT_API}.sdl_swsurface.to_natural_32 -- originally was also adding SDL_HWPALETTE
+				video_flags := 0
 					-- skip -fullscreen param
 					-- skip -2 param
 					-- skip -3 param
@@ -89,30 +99,10 @@ feature -- I_InitGraphics
 				video_w := w
 				h := {DOOMDEF_H}.SCREENHEIGHT * multiply
 				video_h := h
-				video_bpp := 8
-
-					--  /* We need to allocate a software surface because the DOOM! code expects
-					--     the screen surface to be valid all of the time.  Properly done, the
-					--     rendering code would allocate the video surface in video memory and
-					--     then call SDL_LockSurface()/SDL_UnlockSurface() around frame rendering.
-					--     Eventually SDL will support flipping, which would be really nice in
-					--     a complete-frame rendering application like this.
-					--  */
-				inspect video_w \\ w
-				when 3 then
-					multiply := multiply * 3
-				when 2 then
-					multiply := multiply * 2
-				else
-						-- Nothing
-				end
-				if multiply > 3 then
-					{I_MAIN}.i_error ("Smallest available mode (" + video_w.out + "x" + video_h.out + ") is too large!")
-				end
 				window := {SDL_VIDEO}.sdl_create_window ("EIFFEL SDL DOOM!", {SDL_CONSTANT_API}.sdl_windowpos_undefined, {SDL_CONSTANT_API}.sdl_windowpos_undefined, video_w, video_h, video_flags)
 				if attached window as attached_window then
 					pixel_format := {SDL_VIDEO}.sdl_get_window_pixel_format (attached_window)
-					renderer := {SDL_RENDER_FUNCTIONS_API}.SDL_Create_Renderer (attached_window, -1, 0)
+					renderer := {SDL_RENDER_FUNCTIONS_API}.SDL_Create_Renderer (attached_window, -1, {SDL_RENDERER_FLAGS_ENUM_API}.SDL_RENDERER_TARGETTEXTURE.to_natural_32)
 					if not attached renderer then
 						{I_MAIN}.i_error ("Could not create renderer: " + {SDL_ERROR}.sdl_get_error)
 					end
@@ -220,6 +210,7 @@ feature
 			bmask: NATURAL_32
 			amask: NATURAL_32
 		do
+
 			if attached screenbuffer as sb then
 				{SDL_SURFACE_FUNCTIONS_API}.sdl_free_surface (sb)
 				screenbuffer := Void
@@ -249,6 +240,144 @@ feature
 					end
 				end
 			end
+			create_upscaled_texture(True)
+		end
+
+feature -- CreateUpscaledTexture
+
+	h_upscale_old: INTEGER
+
+	w_upscale_old: INTEGER
+
+	create_upscaled_texture (force: BOOLEAN)
+		local
+			w, h: INTEGER
+			h_upscale, w_upscale: INTEGER
+			new_texture, old_texture: SDL_TEXTURE_STRUCT_API
+			b: BOOLEAN
+		do
+				-- Get the size of the renderer output. The units this gives us will be
+				-- real world pixels, which are not necessarily equivalent to the screen's
+				-- window size (because of highdpi).
+			check attached renderer as r then
+				if {SDL_RENDER_FUNCTIONS_API}.sdl_get_renderer_output_size (r, $w, $h) /= 0 then
+					{I_MAIN}.i_error ("Failed to get renderer output size " + {SDL_ERROR}.sdl_get_error)
+				end
+			end
+
+				-- When the screen or window dimensions do not match the aspect ratio
+				-- of the texture, the rendered area is scaled down to fit. Calculate
+				-- the actual dimensions of the rendered area.
+
+			if w * actualheight < h * {DOOMDEF_H}.SCREENWIDTH then
+					-- Tall window.
+				h := w * actualheight // {DOOMDEF_H}.SCREENWIDTH
+			else
+					-- Wide window.
+				w := h * {DOOMDEF_H}.SCREENWIDTH // actualheight
+			end
+
+				-- Pick texture size the next integer multiple of the screen dimensions.
+				-- If one screen dimension matches an integer multiple of the original
+				-- resolution, there is no need to overscale in this direction.
+
+			w_upscale := (w + {DOOMDEF_H}.SCREENWIDTH - 1) // {DOOMDEF_H}.SCREENWIDTH
+			h_upscale := (h + {DOOMDEF_H}.SCREENHEIGHT - 1) // {DOOMDEF_H}.SCREENHEIGHT
+
+				-- Minimum texture dimensions of 320x200.
+
+			if w_upscale < 1 then
+				w_upscale := 1
+			end
+			if h_upscale < 1 then
+				h_upscale := 1
+			end
+			limit_texture_size ($w_upscale, $h_upscale)
+
+				-- Create a new texture only if the upscale factors have actually changed.
+
+			if (h_upscale = h_upscale_old and w_upscale = w_upscale_old and not force) then
+					-- return
+			else
+				h_upscale_old := h_upscale
+				w_upscale_old := w_upscale
+
+					-- Set the scaling quality for rendering the upscaled texture to "linear",
+					-- which looks much softer and smoother than "nearest" but does a better
+					-- job at downscaling from the upscaled texture to screen.
+
+				b := {SDL_HINTS}.SDL_Set_Hint ({SDL_CONSTANT_API}.SDL_HINT_RENDER_SCALE_QUALITY, "linear")
+				check attached renderer as r then
+					new_texture := {SDL_RENDER_FUNCTIONS_API}.SDL_Create_Texture (r, pixel_format, {SDL_TEXTURE_ACCESS_ENUM_API}.SDL_TEXTUREACCESS_TARGET, w_upscale * {DOOMDEF_H}.SCREENWIDTH, h_upscale * {DOOMDEF_H}.SCREENHEIGHT)
+					old_texture := texture_upscaled;
+					texture_upscaled := new_texture;
+					if attached old_texture as ot then
+						{SDL_RENDER_FUNCTIONS_API}.SDL_Destroy_Texture (ot);
+					end
+				end
+			end
+		end
+
+	limit_texture_size (w_upscale, h_upscale: TYPED_POINTER [INTEGER])
+		local
+			rinfo: SDL_RENDERER_INFO_STRUCT_API
+			orig_w, orig_h: INTEGER
+			mp_w, mp_h: MANAGED_POINTER
+		do
+			create rinfo.make
+			create mp_w.share_from_pointer (w_upscale, {PLATFORM}.integer_32_bytes)
+			orig_w := mp_w.read_integer_32 (0)
+			create mp_h.share_from_pointer (h_upscale, {PLATFORM}.integer_32_bytes)
+			orig_h := mp_h.read_integer_32 (0)
+			check attached renderer as r then
+				if {SDL_RENDER_FUNCTIONS_API}.sdl_get_renderer_info (r, rinfo) /= 0 then
+					{I_MAIN}.i_error ("CreateUpscaledTexture: SDL_GetRendererInfo() call failed " + {SDL_ERROR}.sdl_get_error)
+				end
+			end
+			from
+			until
+				mp_w.read_integer_32 (0) * {DOOMDEF_H}.SCREENWIDTH <= rinfo.max_texture_width
+			loop
+				mp_w.put_integer_32 (mp_w.read_integer_32 (0) - 1, 0)
+			end
+			from
+			until
+				mp_h.read_integer_32 (0) * {DOOMDEF_H}.SCREENHEIGHT <= rinfo.max_texture_height
+			loop
+				mp_h.put_integer_32 (mp_h.read_integer_32 (0) - 1, 0)
+			end
+			if (mp_w.read_integer_32 (0) < 1 and rinfo.max_texture_width > 0) or (mp_h.read_integer_32 (0) < 1 and rinfo.max_texture_height > 0) then
+				{I_MAIN}.i_error ("[
+					CreateUpscaledTexture: Can't create a texture big enough for
+					the whole screen! Maximum texture size
+				]" + rinfo.max_texture_width.out + "x" + rinfo.max_texture_height.out)
+			end
+
+				-- We limit the amount of texture memory used for the intermediate buffer,
+				-- since beyond a certain point there are diminishing returns. Also,
+				-- depending on the hardware there may be performance problems with very
+				-- huge textures, so the user can use this to reduce the maximum texture
+				-- size if desired.
+
+			if (max_scaling_buffer_pixels < {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT) then
+				{I_MAIN}.i_error ("[
+					CreateUpscaledTexture: max_scaling_buffer_pixels too small
+					        to create a texture buffer:
+				]" + max_scaling_buffer_pixels.out + " < " + ({DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT).out)
+			end
+			from
+			until
+				(mp_w.read_integer_32 (0) * mp_h.read_integer_32 (0) * {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT) <= max_scaling_buffer_pixels
+			loop
+				if mp_w.read_integer_32 (0) > mp_h.read_integer_32 (0) then
+					mp_w.put_integer_32 (mp_w.read_integer_32 (0) - 1, 0)
+				else
+					mp_h.put_integer_32 (mp_h.read_integer_32 (0) - 1, 0)
+				end
+			end
+			if mp_w.read_integer_32 (0) /= orig_w or mp_h.read_integer_32 (0) /= orig_h then
+				print ("CreateUpscaledTexture: Limited texture size to " + (mp_w.read_integer_32 (0) * {DOOMDEF_H}.SCREENWIDTH).out + "x" + (mp_h.read_integer_32 (0) * {DOOMDEF_H}.SCREENHEIGHT).out)
+			end
 		end
 
 feature -- I_FinishUpdate
@@ -257,13 +386,8 @@ feature -- I_FinishUpdate
 
 	I_FinishUpdate
 		local
-			tics: INTEGER
 			i: INTEGER
-			olineptr: POINTER
-			ilineptr: POINTER
-			y: INTEGER
 			mp: MANAGED_POINTER
-			void_t: SDL_TEXTURE_STRUCT_API
 		do
 				-- skip devparm
 			check attached screenbuffer as sb then
@@ -279,18 +403,18 @@ feature -- I_FinishUpdate
 				end
 			end
 			check attached screenbuffer as sb and then attached argbbuffer as abb and then attached texture as t then
-				check attached renderer as r then
+				check attached renderer as r and then attached texture_upscaled as tu then
 
 						-- copy screen[0] to sb
-						create mp.share_from_pointer(sb.pixels, i_main.v_video.screens[0].count)
-						from
-							i := 0
-						until
-							i > i_main.v_video.screens[0].upper
-						loop
-							mp.put_natural_8(i_main.v_video.screens[0][i], i)
-							i := i + 1
-						end
+					create mp.share_from_pointer (sb.pixels, i_main.v_video.screens [0].count)
+					from
+						i := 0
+					until
+						i > i_main.v_video.screens [0].upper
+					loop
+						mp.put_natural_8 (i_main.v_video.screens [0] [i], i)
+						i := i + 1
+					end
 
 						-- Blit from the paletted 8-bit screen buffer to the intermediate
 						-- 32-bit RGBA buffer that we can load into the texture.
@@ -309,18 +433,22 @@ feature -- I_FinishUpdate
 						i_main.i_error ("render clear " + {SDL_ERROR}.sdl_get_error)
 					end
 
-						-- Render this intermediate texture into the upscaled texture
-						-- using "nearest" integer scaling.
+--						 Render this intermediate texture into the upscaled texture
+--						 using "nearest" integer scaling.
 
-						--					{SDL_RENDER_FUNCTIONS_API}.SDL_Set_Render_Target (r, texture_upscaled)
-						--					{SDL_RENDER_FUNCTIONS_API}.SDL_Render_Copy (r, t, NULL, NULL)
+					if {SDL_RENDER}.SDL_Set_Render_Target (r, tu) < 0 then
+						i_main.i_error ("render target " + {SDL_ERROR}.sdl_get_error)
+					end
+					if {SDL_RENDER}.SDL_Render_Copy (r, t, Void, Void) < 0 then
+						i_main.i_error ("render copy " + {SDL_ERROR}.sdl_get_error)
+					end
 
-						-- Finally, render this upscaled texture to screen using linear scaling.
+--						 Finally, render this upscaled texture to screen using linear scaling.
 
 					if {SDL_RENDER}.SDL_Set_Render_Target (r, Void) < 0 then
 						i_main.i_error ("render target " + {SDL_ERROR}.sdl_get_error)
 					end
-					if {SDL_RENDER}.SDL_Render_Copy (r, t, Void, Void) < 0 then
+					if {SDL_RENDER}.SDL_Render_Copy (r, tu, Void, Void) < 0 then
 						i_main.i_error ("render copy " + {SDL_ERROR}.sdl_get_error)
 					end
 
