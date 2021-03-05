@@ -127,6 +127,8 @@ feature -- I_InitGraphics
 		local
 			dummy: SDL_EVENT_UNION_API
 			env: STRING
+			mp: MANAGED_POINTER
+			i: INTEGER
 		do
 				-- skip screensaver
 				-- SetSdlVideoDriver
@@ -159,7 +161,20 @@ feature -- I_InitGraphics
 
 			I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
 			check attached screenbuffer as sb and then attached sb.format as f and then attached f.palette as p then
-				if {SDL_PIXELS_FUNCTIONS_API}.SDL_Set_Palette_Colors (p, palette [palette.lower], 0, 256) < 0 then
+				create mp.make(256 * 4)
+				from
+					i := 0
+				until
+					i >= 256
+				loop
+					mp.put_natural_8(palette[i].r.code.to_natural_8, 4 * i + 0)
+					mp.put_natural_8(palette[i].g.code.to_natural_8, 4 * i + 1)
+					mp.put_natural_8(palette[i].b.code.to_natural_8, 4 * i + 2)
+					mp.put_natural_8(palette[i].a.code.to_natural_8, 4 * i + 3)
+
+					i := i + 1
+				end
+				if {SDL_PIXELS_FUNCTIONS_API}.c_SDL_Set_Palette_Colors (p.item, mp.item, 0, 256) < 0 then
 					{I_MAIN}.i_error ("SDL_SetPaletteColors failed " + {SDL_ERROR}.sdl_get_error)
 				end
 			end
