@@ -20,7 +20,14 @@ feature
 			firsttime := True
 			multiply := 1
 			aspect_ratio_correct := True
+			window_width := 800
+			window_height := 600
+			fullscreen := True
 		end
+
+feature
+
+	SCREENHEIGHT_4_3: INTEGER = 240
 
 feature
 
@@ -40,13 +47,35 @@ feature
 
 	pixel_format: NATURAL_32
 
+feature
+
+	fullscreen: BOOLEAN
+
+	screensaver_mode: BOOLEAN
+
+feature
+
+	startup_delay: INTEGER = 1000
+			-- Time to wait for the screen to settle on startup before starting the
+			-- game (ms)
+
 feature -- Aspect ratio correction mode
 
 	aspect_ratio_correct: BOOLEAN
 
+	integer_scaling: BOOLEAN -- Force integer scales for resolution-independent rendering
+
 	actualheight: INTEGER
 
 	max_scaling_buffer_pixels: INTEGER = 16000000
+
+feature
+	initialized: BOOLEAN
+
+feature
+
+	I_VideoBuffer: POINTER -- originally pixel_t* (typedef uint8_t pixel_t)
+			--  The screen buffer; this is modified to draw things to the screen
 
 feature
 
@@ -78,44 +107,111 @@ feature
 
 	palette_to_set: BOOLEAN
 
+feature -- Screen width and height, from configuration file.
+
+	window_width: INTEGER
+
+	window_height: INTEGER
+
 feature -- I_InitGraphics
 
 	firsttime: BOOLEAN
 
 	I_InitGraphics
+			-- from https://github.com/chocolate-doom/chocolate-doom/blob/7a0db31614ec187e363e7664036d95ec56242e44/src/i_video.c#L1357
 		local
-			video_w, w: INTEGER
-			video_h, h: INTEGER
-			video_flags: NATURAL
+			dummy: SDL_EVENT_UNION_API
+			env: STRING
 		do
-			if firsttime then
-				firsttime := True
-				video_flags := 0
-					-- skip -fullscreen param
-					-- skip -2 param
-					-- skip -3 param
-					-- skip -grabmouse
-				w := {DOOMDEF_H}.SCREENWIDTH * multiply
-				video_w := w
-				h := {DOOMDEF_H}.SCREENHEIGHT * multiply
-				video_h := h
-				window := {SDL_VIDEO}.sdl_create_window ("EIFFEL SDL DOOM!", {SDL_CONSTANT_API}.sdl_windowpos_undefined, {SDL_CONSTANT_API}.sdl_windowpos_undefined, video_w, video_h, video_flags)
-				if attached window as attached_window then
-					pixel_format := {SDL_VIDEO}.sdl_get_window_pixel_format (attached_window)
-					renderer := {SDL_RENDER_FUNCTIONS_API}.SDL_Create_Renderer (attached_window, -1, {SDL_RENDERER_FLAGS_ENUM_API}.SDL_RENDERER_TARGETTEXTURE.to_natural_32)
-					if not attached renderer then
-						{I_MAIN}.i_error ("Could not create renderer: " + {SDL_ERROR}.sdl_get_error)
-					end
-					if attached renderer as attached_renderer then
-						texture := {SDL_RENDER_FUNCTIONS_API}.sdl_create_texture (attached_renderer, pixel_format, {SDL_TEXTURE_ACCESS_ENUM_API}.SDL_TEXTUREACCESS_STREAMING, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
-					end
+				-- skip screensaver
+				-- SetSdlVideoDriver
+			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.SDL_INIT_VIDEO.to_natural_32) < 0 then
+				{I_MAIN}.i_error ("Failed to initialize video: " + {SDL_ERROR}.sdl_get_error)
+			end
 
-						-- Set up the screen displays
-						-- ......actually skip for now
-				else
-					{I_MAIN}.i_error ("Could not create window: " + {SDL_ERROR}.sdl_get_error)
+				-- skip screensaver
+
+			if aspect_ratio_correct then
+				actualheight := SCREENHEIGHT_4_3
+			else
+				actualheight := {DOOMDEF_H}.SCREENHEIGHT
+			end
+
+				-- Create the game window; this may switch graphic modes depending on configuraion
+			adjust_window_size
+			set_video_mode
+
+				-- Start with a clear black screen
+				-- (screen will be flipped after we set the palette)
+
+			check attached screenbuffer as sb then
+				if {SDL_SURFACE}.sdl_fill_rect (sb, Void, 0) < 0 then
+					{I_MAIN}.i_error ("SDL_FillRect failed " + {SDL_ERROR}.sdl_get_error)
 				end
-				set_video_mode
+			end
+
+				-- Set the palette
+
+			I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
+			check attached screenbuffer as sb and then attached sb.format as f and then attached f.palette as p then
+				if {SDL_PIXELS_FUNCTIONS_API}.SDL_Set_Palette_Colors (p, palette [palette.lower], 0, 256) < 0 then
+					{I_MAIN}.i_error ("SDL_SetPaletteColors failed " + {SDL_ERROR}.sdl_get_error)
+				end
+			end
+
+				-- SDL2-TODO UpdateFocus()
+				-- skip UpdateGrab
+
+				-- On some systems, it takes a second or so for the screen to settle
+				-- after changing modes. We include the option to add a delay when
+				-- setting the screen mode, so that the game doesn't start immediately
+				-- with the player unable to see anything.
+
+			if fullscreen and not screensaver_mode then
+				{SDL_TIMER_FUNCTIONS_API}.SDL_Delay (startup_delay.to_natural_32)
+			end
+
+				-- The actual 320x200 canvas that we draw to. This is the pixel buffer of
+				-- the 8-bit paletted screen buffer that gets blit on an intermediate
+				-- 32-bit RGBA screen buffer that gets loaded into a texture that gets
+				-- finally rendered into our window or full screen in I_FinishUpdate().
+
+			check attached screenbuffer as sb then
+				I_VideoBuffer := sb.pixels
+			end
+			i_main.v_video.V_RestoreBuffer
+
+				-- Clear the screen to black.
+
+			I_VideoBuffer.memory_set (0, {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT)
+
+				-- clear out any events waiting at the start and center the mouse
+			from
+					create dummy.make
+			until
+				{SDL_EVENTS}.sdl_poll_event (dummy) = 0
+			loop
+					-- nothing
+			end
+			initialized := true
+
+				-- Call I_ShutdownGraphics on quit
+
+				-- skip I_AtExit (I_ShutdownGraphics, true)
+		end
+
+	adjust_window_size
+			-- Adjust window_width / window_height variables to be an an aspect
+			-- ratio consistent with the aspect_ratio_correct variable.
+
+		do
+			if aspect_ratio_correct or integer_scaling then
+				if window_width * actualheight <= window_height * {DOOMDEF_H}.SCREENWIDTH then
+						-- We round up window_height if the ratio is not exact; this leaves the result stable.
+					window_height := (window_width * actualheight + {DOOMDEF_H}.SCREENWIDTH - 1) // {DOOMDEF_H}.SCREENWIDTH
+				else
+					window_width := window_height * {DOOMDEF_H}.screenwidth // actualheight
+				end
 			end
 		end
 
@@ -210,7 +306,6 @@ feature
 			bmask: NATURAL_32
 			amask: NATURAL_32
 		do
-
 			if attached screenbuffer as sb then
 				{SDL_SURFACE_FUNCTIONS_API}.sdl_free_surface (sb)
 				screenbuffer := Void
@@ -240,7 +335,7 @@ feature
 					end
 				end
 			end
-			create_upscaled_texture(True)
+			create_upscaled_texture (True)
 		end
 
 feature -- CreateUpscaledTexture
@@ -433,8 +528,8 @@ feature -- I_FinishUpdate
 						i_main.i_error ("render clear " + {SDL_ERROR}.sdl_get_error)
 					end
 
---						 Render this intermediate texture into the upscaled texture
---						 using "nearest" integer scaling.
+						--						 Render this intermediate texture into the upscaled texture
+						--						 using "nearest" integer scaling.
 
 					if {SDL_RENDER}.SDL_Set_Render_Target (r, tu) < 0 then
 						i_main.i_error ("render target " + {SDL_ERROR}.sdl_get_error)
@@ -443,7 +538,7 @@ feature -- I_FinishUpdate
 						i_main.i_error ("render copy " + {SDL_ERROR}.sdl_get_error)
 					end
 
---						 Finally, render this upscaled texture to screen using linear scaling.
+						--						 Finally, render this upscaled texture to screen using linear scaling.
 
 					if {SDL_RENDER}.SDL_Set_Render_Target (r, Void) < 0 then
 						i_main.i_error ("render target " + {SDL_ERROR}.sdl_get_error)

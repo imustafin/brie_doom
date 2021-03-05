@@ -18,8 +18,11 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
 			create screens.make_empty
 		end
 
@@ -138,6 +141,15 @@ feature
 		do
 			{M_BBOX}.M_AddToBox (dirtybox, x, y)
 			{M_BBOX}.M_AddToBox (dirtybox, x + width - 1, y + height - 1)
+		end
+
+feature
+
+	dest_screen: POINTER -- originally pixel_t*
+
+	V_RestoreBuffer
+		do
+			dest_screen := i_main.i_video.i_videobuffer
 		end
 
 end
