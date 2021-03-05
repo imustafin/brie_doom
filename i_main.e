@@ -68,9 +68,9 @@ feature -- Globals
 
 	i_video: I_VIDEO
 
-	i_net: I_NET
+	i_net: detachable I_NET
 
-	d_doom_main: D_DOOM_MAIN
+	d_doom_main: detachable D_DOOM_MAIN
 
 	f_finale: F_FINALE
 
@@ -103,7 +103,8 @@ feature {NONE} -- Initialization
 			create st_stuff.make
 			create r_sky.make
 			create f_finale.make
-			create v_video.make (Current)
+			create i_net.make (Current)
+			create d_net.make (Current)
 			create m_misc.make (Current)
 			create r_data.make (Current)
 			create i_sound.make (Current)
@@ -111,16 +112,17 @@ feature {NONE} -- Initialization
 			create hu_stuff.make (Current)
 			create g_game.make (Current)
 			create i_video.make (Current)
-			create i_net.make (Current)
 			create m_menu.make (Current)
 			create w_wad.make (Current)
 			create p_setup.make (Current)
 			create i_system.make (Current)
-			create d_net.make (Current)
 			create r_main.make (Current)
 			create d_doom_main.make (Current)
 			create f_wipe.make (Current)
-			d_doom_main.D_DoomMain
+			create v_video.make (Current)
+			check attached d_doom_main as d then
+				d.D_DoomMain
+			end
 		end
 
 feature -- i_system.c

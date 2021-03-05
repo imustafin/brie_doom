@@ -91,7 +91,9 @@ feature
 
 				i := i + 1
 			end
-			i_main.i_net.I_InitNetwork
+			check attached i_main.i_net as i_net then
+				i_net.I_InitNetwork
+			end
 			if doomcom.id /= DOOMCOM_ID then
 				i_main.i_error ("Doomcom buffer invalid!")
 			end
@@ -101,7 +103,9 @@ feature
 			if i_main.g_game.netgame then
 				D_ArbitrateNetStart
 			end
-			print ("startskill " + i_main.d_doom_main.startskill.out + " deathmatch: " + i_main.g_game.deathmatch.out + " startmap: " + i_main.d_doom_main.startmap.out + " startepisode: " + i_main.d_doom_main.startepisode.out + "%N")
+			check attached i_main.d_doom_main as d then
+				print ("startskill " + d.startskill.out + " deathmatch: " + i_main.g_game.deathmatch.out + " startmap: " + d.startmap.out + " startepisode: " + d.startepisode.out + "%N")
+			end
 			ticdup := doomcom.ticdup
 			maxsend := BACKUPTICS \\ (2 * ticdup) - 1
 			if maxsend < 1 then
