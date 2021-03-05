@@ -22,7 +22,7 @@ feature
 			aspect_ratio_correct := True
 			window_width := 800
 			window_height := 600
-			fullscreen := True
+			fullscreen := False
 		end
 
 feature
@@ -33,7 +33,7 @@ feature
 
 	multiply: INTEGER
 
-	window: detachable SDL_WINDOW_STRUCT_API
+	screen: detachable SDL_WINDOW_STRUCT_API
 
 	renderer: detachable SDL_RENDERER_STRUCT_API
 
@@ -53,6 +53,10 @@ feature
 
 	screensaver_mode: BOOLEAN
 
+	fullscreen_width: INTEGER = 0
+
+	fullscreen_height: INTEGER = 0
+
 feature
 
 	startup_delay: INTEGER = 1000
@@ -70,6 +74,7 @@ feature -- Aspect ratio correction mode
 	max_scaling_buffer_pixels: INTEGER = 16000000
 
 feature
+
 	initialized: BOOLEAN
 
 feature
@@ -187,7 +192,7 @@ feature -- I_InitGraphics
 
 				-- clear out any events waiting at the start and center the mouse
 			from
-					create dummy.make
+				create dummy.make
 			until
 				{SDL_EVENTS}.sdl_poll_event (dummy) = 0
 			loop
@@ -243,11 +248,15 @@ feature
 			if a_event.type = {SDL_CONSTANT_API}.sdl_keydown then
 				event.type := {EVENT_T}.ev_keydown
 				event.data1 := xlatekey (a_event.key.keysym)
-				i_main.d_doom_main.D_PostEvent (event)
+				check attached i_main.d_doom_main as d then
+					d.D_PostEvent (event)
+				end
 			elseif a_event.type = {SDL_CONSTANT_API}.sdl_keyup then
 				event.type := {EVENT_T}.ev_keyup
 				event.data1 := xlatekey (a_event.key.keysym)
-				i_main.d_doom_main.D_PostEvent (event)
+				check attached i_main.d_doom_main as d then
+					d.D_PostEvent (event)
+				end
 			elseif a_event.type = {SDL_CONSTANT_API}.sdl_quit then
 				i_main.i_system.I_Quit
 			else
@@ -305,7 +314,103 @@ feature
 			gmask: NATURAL_32
 			bmask: NATURAL_32
 			amask: NATURAL_32
+			p: POINTER
+			w, h: INTEGER
+			x, y: INTEGER
+			window_flags, renderer_flags: INTEGER_32
 		do
+			w := window_width
+			h := window_height
+
+				-- In windowed mode, the window can be resized while the game is
+				-- running.
+
+			window_flags := {SDL_WINDOW_FLAGS_ENUM_API}.sdl_window_resizable
+				--      Set the highdpi flag - this makes a big difference on Macs with
+				-- retina displays, especially when using small window sizes.
+			window_flags := window_flags | {SDL_WINDOW_FLAGS_ENUM_API}.sdl_window_allow_highdpi
+			if fullscreen then
+				if fullscreen_width = 0 and fullscreen_height = 0 then
+						-- This window_flags means "Never change the screen resolution!
+						-- Instead, draw to the entire screen by scaling the texture
+						-- appropriately".
+					window_flags := window_flags | {SDL_WINDOW_FLAGS_ENUM_API}.SDL_WINDOW_FULLSCREEN_DESKTOP
+				else
+					w := fullscreen_width;
+					h := fullscreen_height;
+					window_flags := window_flags | {SDL_WINDOW_FLAGS_ENUM_API}.SDL_WINDOW_FULLSCREEN
+				end
+			end
+				-- skip borderless
+				-- skip I_GetWindowPosition
+
+				-- Create window and renderer contexts. We set the window title
+				-- later anyway and leave the window position "undefined". If
+				-- "window_flags" contains the fullscreen flag (see above), then
+				-- w and h are ignored.
+
+			if screen = Void then
+				screen := {SDL_VIDEO}.sdl_create_window ("SDL EIFFEL DOOM", {SDL_CONSTANT_API}.sdl_windowpos_undefined, {SDL_CONSTANT_API}.sdl_windowpos_undefined, w, h, window_flags.to_natural_32)
+				if screen = Void then
+					{I_MAIN}.i_error ("Error creating window for video startup" + {SDL_ERROR}.sdl_get_error)
+				end
+				check attached screen as s then
+					pixel_format := {SDL_VIDEO}.sdl_get_window_pixel_format (s)
+				end
+
+					-- skip I_InitWindowTitle
+					-- skip I_InitWindowIcon
+			end
+
+				-- The SDL_RENDERER_TARGETTEXTURE flag is required to render the
+				-- intermediate texture into the upscaled texture.
+			renderer_flags := {SDL_RENDERER_FLAGS_ENUM_API}.SDL_RENDERER_TARGETTEXTURE
+				-- skip vsync
+				-- skip force sw render
+
+			if attached renderer as r then
+				{SDL_RENDER_FUNCTIONS_API}.sdl_destroy_renderer (r)
+				texture := Void
+				texture_upscaled := Void
+			end
+			check attached screen as s then
+				renderer := {SDL_RENDER_FUNCTIONS_API}.sdl_create_renderer (s, -1, renderer_flags.to_natural_32)
+			end
+
+				-- skip try again without hw
+
+			if renderer = Void then
+				{I_MAIN}.i_error ("Error creating renderer for screen window " + {SDL_ERROR}.sdl_get_error)
+			end
+			check attached renderer as r then
+					-- Important: Set the "logical size" of the rendering context. At the same
+					-- time this also defines the aspect ratio that is preserved while scaling
+					-- and stretching the texture into the window.
+				if aspect_ratio_correct or integer_scaling then
+					if {SDL_RENDER_FUNCTIONS_API}.sdl_render_set_logical_size (r, {DOOMDEF_H}.SCREENWIDTH, actualheight) /= 0 then
+						{I_MAIN}.i_error ("Error setting logical size " + {SDL_ERROR}.sdl_get_error)
+					end
+				end
+
+					-- Force integer scales for resolution-independent rendering.
+				if {SDL_RENDER_FUNCTIONS_API}.sdl_render_set_integer_scale (r, if integer_scaling then 1 else 0 end) /= 0 then
+					{I_MAIN}.i_error ("Error setting integer scale " + {SDL_ERROR}.sdl_get_error)
+				end
+
+					-- Blank out the full screen area in case there is any junk in
+					-- the borders that won't otherwise be overwritten.
+
+				if {SDL_RENDER_FUNCTIONS_API}.sdl_set_render_draw_color (r, (0).to_character_8, (0).to_character_8, (0).to_character_8, (255).to_character_8) /= 0 then
+					{I_MAIN}.i_error ("Error setting render color " + {SDL_ERROR}.sdl_get_error)
+				end
+				if {SDL_RENDER_FUNCTIONS_API}.sdl_render_clear (r) /= 0 then
+					{I_MAIN}.i_error ("Error render clear " + {SDL_ERROR}.sdl_get_error)
+				end
+				{SDL_RENDER_FUNCTIONS_API}.sdl_render_present (r)
+			end
+
+				-- Create the 8-bit paletted and the 32-bit RGBA screenbuffer surfaces.
+
 			if attached screenbuffer as sb then
 				{SDL_SURFACE_FUNCTIONS_API}.sdl_free_surface (sb)
 				screenbuffer := Void
@@ -328,13 +433,39 @@ feature
 				if {SDL_PIXELS_FUNCTIONS_API}.SDL_Pixel_Format_Enum_To_Masks (pixel_format, $bpp, $rmask, $gmask, $bmask, $amask) /= {SDL_CONSTANT_API}.SDL_True then
 					i_main.i_error ("pixel format to masks " + {SDL_ERROR}.sdl_get_error)
 				end
-				create argbbuffer.make_by_pointer ({SDL_SURFACE_FUNCTIONS_API}.sdl_create_rgbsurface (0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, bpp, rmask, gmask, bmask, amask))
+				p := {SDL_SURFACE_FUNCTIONS_API}.sdl_create_rgbsurface (0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, bpp, rmask, gmask, bmask, amask)
+				if p.is_default_pointer then
+					i_main.i_error ("SDL_CreateRGBSurface failed" + {SDL_ERROR}.sdl_get_error)
+				else
+					create argbbuffer.make_by_pointer (p)
+				end
 				check attached argbbuffer as abb then
 					if {SDL_SURFACE}.sdl_fill_rect (abb, Void, 0) < 0 then
 						i_main.i_error ("Error SDL_FillRect" + {SDL_ERROR}.sdl_get_error)
 					end
 				end
 			end
+			if attached texture as t then
+				{SDL_RENDER_FUNCTIONS_API}.sdl_destroy_texture (t)
+			end
+
+				-- Set the scaling quality for rendering the intermediate texture into
+				-- the upscaled texture to "nearest", which is gritty and pixelated and
+				-- resembles software scaling pretty well.
+
+			if not {SDL_HINTS}.sdl_set_hint ({SDL_CONSTANT_API}.SDL_HINT_RENDER_SCALE_QUALITY, "nearest") then
+				{I_MAIN}.i_error ("Error setting hint " + {SDL_ERROR}.sdl_get_error)
+			end
+
+				-- Create the intermediate texture that the RGBA surface gets loaded into.
+				-- The SDL_TEXTUREACCESS_STREAMING flag means that this texture's content
+				-- is going to change frequently.
+
+			check attached renderer as r then
+				texture := {SDL_RENDER}.sdl_create_texture (r, pixel_format, {SDL_TEXTURE_ACCESS_ENUM_API}.SDL_TEXTUREACCESS_STREAMING, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+			end
+
+				-- Initially create the upscaled texture for rendering to screen
 			create_upscaled_texture (True)
 		end
 
