@@ -59,7 +59,9 @@ feature
 
 	skullName: ARRAY [STRING]
 		once
-			Result := <<"M_SKULL1", "M_SKULL2">>
+			create Result.make_filled ("", 0, 1)
+			Result [0] := "M_SKULL1"
+			Result [1] := "M_SKULL2"
 		end
 
 feature -- main_e
@@ -411,9 +413,9 @@ feature -- M_Drawer
 					y := cm.y
 					max := cm.numitems
 					from
-						i := 0
+						i := cm.menuitems.lower
 					until
-						i >= max
+						i > cm.menuitems.upper
 					loop
 						if not cm.menuitems [i].name.is_empty then
 							i_main.v_video.V_DrawPatchDirect (x, y, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache)))
@@ -425,6 +427,20 @@ feature -- M_Drawer
 						-- DRAW SKULL
 					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + itemOn * LINEHEIGHT, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
 				end
+			end
+		end
+
+feature
+
+	M_StartControlPanel
+		do
+				-- intro might call this repeatedly
+			if menuactive then
+					-- return
+			else
+				menuactive := True
+				currentMenu := MainDef
+				itemOn := MainDef.laston
 			end
 		end
 

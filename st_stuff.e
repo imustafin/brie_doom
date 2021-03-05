@@ -32,4 +32,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	ST_Responder (ev: EVENT_T): BOOLEAN
+	do
+		-- Stub
+	end
+
 end

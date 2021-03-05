@@ -27,4 +27,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	AM_Responder (ev: EVENT_T): BOOLEAN
+		do
+				-- Stub
+		end
+
 end

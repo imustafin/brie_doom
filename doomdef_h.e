@@ -55,6 +55,15 @@ feature -- DOOM keyboard definition
 			Result := 0x80 + 0x36
 		end
 
+	KEY_F12: INTEGER
+		once
+			Result := 0x80 + 0x58
+		ensure
+			instance_free: class
+		end
+
+	KEY_PAUSE: INTEGER = 0xff
+
 feature -- weapontype_t
 
 	wp_fist: INTEGER = 0

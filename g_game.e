@@ -7,6 +7,9 @@ note
 class
 	G_GAME
 
+inherit
+	DOOMDEF_H
+
 create
 	make
 
@@ -26,6 +29,10 @@ feature
 feature
 
 	viewactive: BOOLEAN
+
+	singledemo: BOOLEAN -- quit after playing a demo from cmdline
+
+	demoplayback: BOOLEAN
 
 feature
 
@@ -640,9 +647,57 @@ feature
 
 feature
 
-	G_Responder (event: EVENT_T): BOOLEAN
+	G_Responder (ev: EVENT_T): BOOLEAN
 		do
-				-- Stub
+				-- allow spy mode changes even during the demo
+			if gamestate = {DOOMDEF_H}.gs_level and ev.type = {EVENT_T}.ev_keydown and ev.data1 = {DOOMDEF_H}.key_f12 and (singledemo or not deathmatch) then
+				from
+					displayplayer := (displayplayer + 1) \\ MAXPLAYERS
+				until
+					playeringame [displayplayer] and displayplayer /= consoleplayer
+				loop
+					displayplayer := (displayplayer + 1) \\ MAXPLAYERS
+				end
+				Result := True
+			else
+				-- any other key pops up menu if in demos
+				if gameaction = ga_nothing and not singledemo and (demoplayback or gamestate = gs_demoscreen) then
+					if ev.type = {EVENT_T}.ev_keydown or (ev.type = {EVENT_T}.ev_mouse and ev.data1 /= 0) or (ev.type = {EVENT_T}.ev_joystick and ev.data1 /= 0) then
+						i_main.m_menu.M_StartControlPanel
+						Result := True
+					else
+						Result := False
+					end
+				else
+					if gamestate = GS_LEVEL and then i_main.hu_stuff.HU_Responder(ev) then
+						Result := True
+					elseif gamestate = GS_LEVEL and then i_main.st_stuff.ST_Responder(ev) then
+						Result := True
+					elseif gamestate = GS_LEVEL and then i_main.am_map.AM_Responder (ev) then
+						Result := True
+					elseif gamestate = GS_FINALE and then i_main.f_finale.F_Responder(ev) then
+						Result := True
+					else
+						if ev.type = {EVENT_T}.ev_keydown then
+							if ev.data1 = KEY_PAUSE then
+								sendpause := True
+							else
+								if ev.data1 < NUMKEYS then
+									gamekeydown[ev.data1] := True
+								end
+							end
+							Result := True
+						elseif ev.type = {EVENT_T}.ev_keyup then
+							if ev.data1 < NUMKEYS then
+								gamekeydown[ev.data1] := False
+							end
+							Result := False -- always let key up events filter down
+						end
+						-- skip ev_mouse
+						-- skip ev_joystick	
+					end
+				end
+			end
 		end
 
 feature -- G_PlayDemo

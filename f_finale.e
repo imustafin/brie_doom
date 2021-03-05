@@ -30,4 +30,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	F_Responder (ev: EVENT_T): BOOLEAN
+		do
+				-- Stub
+		end
+
 end

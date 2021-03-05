@@ -74,4 +74,11 @@ feature
 			i_main.hu_lib.HUlib_eraseTextLine (w_title)
 		end
 
+feature
+
+	HU_Responder(ev: EVENT_T): BOOLEAN
+	do
+		-- Stub
+	end
+
 end
