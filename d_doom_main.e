@@ -297,7 +297,9 @@ feature -- D_Display
 					-- save the current screen if about to wipe
 				if i_main.g_game.gamestate /= wipegamestate then
 					wipe := True
-					i_main.f_wipe.wipe_StartScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+					check attached i_main.f_wipe as w then
+						w.wipe_StartScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+					end
 				else
 					wipe := False
 				end
@@ -385,7 +387,9 @@ feature -- D_Display
 					i_main.i_video.I_FinishUpdate -- page flip or blit buffer
 				else
 						-- wipe update
-					i_main.f_wipe.wipe_EndScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+					check attached i_main.f_wipe as w then
+						w.wipe_EndScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+					end
 					wipestart := i_main.i_system.I_GetTime - 1
 					from
 						done := False
@@ -401,7 +405,9 @@ feature -- D_Display
 							tics := nowtime - wipestart
 						end
 						wipestart := nowtime
-						done := i_main.f_wipe.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
+						check attached i_main.f_wipe as w then
+							done := w.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
+						end
 						i_main.i_video.I_UpdateNoBlit
 						i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
 						i_main.i_video.I_FinishUpdate -- page flip or blit buffer

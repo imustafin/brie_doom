@@ -74,7 +74,7 @@ feature -- Globals
 
 	f_finale: F_FINALE
 
-	f_wipe: F_WIPE
+	f_wipe: detachable F_WIPE
 
 	hu_lib: HU_LIB
 
@@ -90,37 +90,36 @@ feature {NONE} -- Initialization
 			myargv := argument_array
 			myargc := argument_count + 1
 			create doomstat_h.make
-			create v_video.make
-			create m_misc.make (Current)
-			create z_zone.make
-			create r_draw.make
-			create r_data.make (Current)
+			create hu_lib.make
+			create am_map.make
+			create wi_stuff.make
 			create r_plane.make
 			create p_switch.make
 			create p_spec.make
 			create r_things.make
 			create info.make
+			create z_zone.make
+			create r_draw.make
+			create st_stuff.make
+			create r_sky.make
+			create f_finale.make
+			create v_video.make (Current)
+			create m_misc.make (Current)
+			create r_data.make (Current)
 			create i_sound.make (Current)
 			create s_sound.make (Current)
 			create hu_stuff.make (Current)
-			create st_stuff.make
 			create g_game.make (Current)
 			create i_video.make (Current)
 			create i_net.make (Current)
 			create m_menu.make (Current)
 			create w_wad.make (Current)
-			create r_sky.make
 			create p_setup.make (Current)
 			create i_system.make (Current)
 			create d_net.make (Current)
 			create r_main.make (Current)
 			create d_doom_main.make (Current)
-			create f_finale.make
 			create f_wipe.make (Current)
-			create hu_lib.make
-			create am_map.make
-			create wi_stuff.make
-
 			d_doom_main.D_DoomMain
 		end
 
