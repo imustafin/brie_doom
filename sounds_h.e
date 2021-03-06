@@ -487,4 +487,90 @@ feature -- S_sfx
 			instance_free: class
 		end
 
+feature
+
+	music (name: STRING): MUSICINFO_T
+		do
+			create Result.make (name, 0, Void, Void)
+		ensure
+			instance_free: class
+		end
+
+	S_music: ARRAYED_LIST [MUSICINFO_T]
+		once
+			create Result.make (0)
+
+				-- skip NULL [0] element
+
+			Result.extend (music ("e1m1"))
+			Result.extend (music ("e1m2"))
+			Result.extend (music ("e1m3"))
+			Result.extend (music ("e1m4"))
+			Result.extend (music ("e1m5"))
+			Result.extend (music ("e1m6"))
+			Result.extend (music ("e1m7"))
+			Result.extend (music ("e1m8"))
+			Result.extend (music ("e1m9"))
+			Result.extend (music ("e2m1"))
+			Result.extend (music ("e2m2"))
+			Result.extend (music ("e2m3"))
+			Result.extend (music ("e2m4"))
+			Result.extend (music ("e2m5"))
+			Result.extend (music ("e2m6"))
+			Result.extend (music ("e2m7"))
+			Result.extend (music ("e2m8"))
+			Result.extend (music ("e2m9"))
+			Result.extend (music ("e3m1"))
+			Result.extend (music ("e3m2"))
+			Result.extend (music ("e3m3"))
+			Result.extend (music ("e3m4"))
+			Result.extend (music ("e3m5"))
+			Result.extend (music ("e3m6"))
+			Result.extend (music ("e3m7"))
+			Result.extend (music ("e3m8"))
+			Result.extend (music ("e3m9"))
+			Result.extend (music ("inter"))
+			Result.extend (music ("intro"))
+			Result.extend (music ("bunny"))
+			Result.extend (music ("victor"))
+			Result.extend (music ("introa"))
+			Result.extend (music ("runnin"))
+			Result.extend (music ("stalks"))
+			Result.extend (music ("countd"))
+			Result.extend (music ("betwee"))
+			Result.extend (music ("doom"))
+			Result.extend (music ("the_da"))
+			Result.extend (music ("shawn"))
+			Result.extend (music ("ddtblu"))
+			Result.extend (music ("in_cit"))
+			Result.extend (music ("dead"))
+			Result.extend (music ("stlks2"))
+			Result.extend (music ("theda2"))
+			Result.extend (music ("doom2"))
+			Result.extend (music ("ddtbl2"))
+			Result.extend (music ("runni2"))
+			Result.extend (music ("dead2"))
+			Result.extend (music ("stlks3"))
+			Result.extend (music ("romero"))
+			Result.extend (music ("shawn2"))
+			Result.extend (music ("messag"))
+			Result.extend (music ("count2"))
+			Result.extend (music ("ddtbl3"))
+			Result.extend (music ("ampie"))
+			Result.extend (music ("theda3"))
+			Result.extend (music ("adrian"))
+			Result.extend (music ("messg2"))
+			Result.extend (music ("romer2"))
+			Result.extend (music ("tense"))
+			Result.extend (music ("shawn3"))
+			Result.extend (music ("openin"))
+			Result.extend (music ("evil"))
+			Result.extend (music ("ultima"))
+			Result.extend (music ("read_m"))
+			Result.extend (music ("dm2ttl"))
+			Result.extend (music ("dm2int"))
+		ensure
+			instance_free: class
+		end
+
 end

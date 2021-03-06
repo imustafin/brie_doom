@@ -27,4 +27,6 @@ feature -- ZONE MEMORY
 
 	PU_CACHE: INTEGER = 101
 
+	PU_STATIC: INTEGER = 1
+
 end

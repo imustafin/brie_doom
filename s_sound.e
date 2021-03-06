@@ -60,6 +60,8 @@ feature
 
 	mus_paused: BOOLEAN -- whether songs are mus_paused
 
+	mus_playing: detachable MUSICINFO_T
+
 feature -- following is set by the defaults code in M_Misc
 
 	numChannels: INTEGER assign set_numChannels -- number of channels available
@@ -230,9 +232,57 @@ feature
 			S_ChangeMusic (m_id, False)
 		end
 
-	S_ChangeMusic (musicnum: INTEGER; looping: BOOLEAN)
+	S_ChangeMusic (a_musicnum: INTEGER; looping: BOOLEAN)
+		local
+			music: MUSICINFO_T
+			namebuf: STRING
+			musicnum: INTEGER
+			handle: ANY
 		do
-				-- Stub
+			musicnum := a_musicnum
+				-- The DOOM IWAD file has two versions of the intro music: d_intro
+				-- and d_introa. The latter is used for OPL playback.
+
+			if musicnum = {SOUNDS_H}.mus_intro and (i_Main.i_sound.snd_musicdevice = {I_SOUND}.SNDDEVICE_ADLIB or i_main.i_sound.snd_musicdevice = {I_SOUND}.SNDDEVICE_SB) and i_main.w_wad.W_CheckNumForName ("D_INTROA") >= 0 then
+				musicnum := {SOUNDS_H}.mus_introa
+			end
+			if musicnum <= {SOUNDS_H}.mus_None or musicnum >= {SOUNDS_H}.NUMMUSIC then
+				{I_MAIN}.i_error ("Bas music number " + musicnum.out)
+			else
+				music := {SOUNDS_H}.S_music [musicnum]
+			end
+			check attached music as m then
+				if mus_playing = m then
+						-- return
+				else
+						-- shutdown old music
+					S_StopMusic
+
+						-- get lumpnum if neccessary
+					if m.lumpnum = 0 then
+						m.lumpnum := i_main.w_wad.W_GetNumForName ("d_" + m.name)
+					end
+					m.data := i_main.w_wad.W_CacheLumpNum (m.lumpnum, {Z_ZONE}.PU_STATIC)
+					handle := i_main.i_sound.I_RegisterSong (m.data, i_main.w_wad.W_LumpLength (m.lumpnum))
+					m.handle := handle
+					i_main.i_sound.I_PlaySong (handle, looping)
+					mus_playing := m
+				end
+			end
+		end
+
+	S_StopMusic
+		do
+			if attached mus_playing as m then
+				if mus_paused then
+					i_main.i_sound.I_ResumeSong
+				end
+				i_main.i_sound.I_StopSong
+				i_main.i_sound.I_UnRegisterSong (m.handle)
+				i_main.w_wad.W_ReleaseLumpNum (m.lumpnum)
+				m.data := Void
+				mus_playing := Void
+			end
 		end
 
 	S_StopChannel (cnum: INTEGER)

@@ -129,14 +129,14 @@ feature
 			from
 				Result := lumpinfo.upper
 			until
-				Result <= 0 or else lumpinfo [Result].name ~ name
+				Result <= 0 or else lumpinfo [Result].name.is_case_insensitive_equal (name)
 			loop
 				Result := Result - 1
 			end
 			Result := Result - 1
 		ensure
-			minus_one_if_not_present: across lumpinfo as l all l.item.name /~ name end implies Result = -1
-			index_if_present: Result > -1 implies lumpinfo [Result + 1].name ~ name
+			minus_one_if_not_present: across lumpinfo as l all not l.item.name.is_case_insensitive_equal (name) end implies Result = -1
+			index_if_present: Result > -1 implies lumpinfo [Result + 1].name.is_case_insensitive_equal (name)
 		end
 
 	W_CacheLumpName (name: STRING; tag: INTEGER): MANAGED_POINTER
@@ -214,6 +214,11 @@ feature
 				-- ??? I_EndRead ();
 		ensure
 			Result.count = W_LumpLength (lump)
+		end
+
+	W_ReleaseLumpNum (lump: INTEGER)
+		do
+				-- Stub
 		end
 
 end
