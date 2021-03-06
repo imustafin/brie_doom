@@ -126,9 +126,6 @@ feature -- I_InitGraphics
 			-- from https://github.com/chocolate-doom/chocolate-doom/blob/7a0db31614ec187e363e7664036d95ec56242e44/src/i_video.c#L1357
 		local
 			dummy: SDL_EVENT_UNION_API
-			env: STRING
-			mp: MANAGED_POINTER
-			i: INTEGER
 		do
 				-- skip screensaver
 				-- SetSdlVideoDriver
@@ -160,24 +157,7 @@ feature -- I_InitGraphics
 				-- Set the palette
 
 			I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
-			check attached screenbuffer as sb and then attached sb.format as f and then attached f.palette as p then
-				create mp.make(256 * 4)
-				from
-					i := 0
-				until
-					i >= 256
-				loop
-					mp.put_natural_8(palette[i].r.code.to_natural_8, 4 * i + 0)
-					mp.put_natural_8(palette[i].g.code.to_natural_8, 4 * i + 1)
-					mp.put_natural_8(palette[i].b.code.to_natural_8, 4 * i + 2)
-					mp.put_natural_8(palette[i].a.code.to_natural_8, 4 * i + 3)
-
-					i := i + 1
-				end
-				if {SDL_PIXELS_FUNCTIONS_API}.c_SDL_Set_Palette_Colors (p.item, mp.item, 0, 256) < 0 then
-					{I_MAIN}.i_error ("SDL_SetPaletteColors failed " + {SDL_ERROR}.sdl_get_error)
-				end
-			end
+			set_sdl_palette
 
 				-- SDL2-TODO UpdateFocus()
 				-- skip UpdateGrab
@@ -331,7 +311,6 @@ feature
 			amask: NATURAL_32
 			p: POINTER
 			w, h: INTEGER
-			x, y: INTEGER
 			window_flags, renderer_flags: INTEGER_32
 		do
 			w := window_width
@@ -634,9 +613,7 @@ feature -- I_FinishUpdate
 			check attached screenbuffer as sb then
 				if palette_to_set then
 					check attached sb.format as f and then attached f.palette as p then
-						if {SDL_PIXELS_FUNCTIONS_API}.sdl_set_palette_colors (p, palette [palette.lower], 0, 256) < 0 then
-							i_main.i_error ("Error setting palette colors " + {SDL_ERROR}.sdl_get_error)
-						end
+						set_sdl_palette
 						palette_to_set := False
 					end
 
@@ -725,6 +702,30 @@ feature
 				i := i + 1
 			end
 			palette_to_set := True
+		end
+
+	set_sdl_palette
+		local
+			mp: MANAGED_POINTER
+			i: INTEGER
+		do
+			check attached screenbuffer as sb and then attached sb.format as f and then attached f.palette as p then
+				create mp.make (256 * 4)
+				from
+					i := 0
+				until
+					i >= 256
+				loop
+					mp.put_natural_8 (palette [i].r.code.to_natural_8, 4 * i + 0)
+					mp.put_natural_8 (palette [i].g.code.to_natural_8, 4 * i + 1)
+					mp.put_natural_8 (palette [i].b.code.to_natural_8, 4 * i + 2)
+					mp.put_natural_8 (palette [i].a.code.to_natural_8, 4 * i + 3)
+					i := i + 1
+				end
+				if {SDL_PIXELS_FUNCTIONS_API}.c_SDL_Set_Palette_Colors (p.item, mp.item, 0, 256) < 0 then
+					{I_MAIN}.i_error ("SDL_SetPaletteColors failed " + {SDL_ERROR}.sdl_get_error)
+				end
+			end
 		end
 
 end
