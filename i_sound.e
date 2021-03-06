@@ -42,6 +42,7 @@ feature
 		do
 			i_main := a_i_main
 			snd_musicdevice := SNDDEVICE_SB
+			snd_sfxdevice := SNDDEVICE_SB
 			create music_pack_module.make
 		end
 
@@ -49,11 +50,25 @@ feature -- Chocolate doom
 
 	snd_musicdevice: INTEGER
 
+	snd_sfxdevice: INTEGER
+
 	active_music_module: detachable MUSIC_MODULE_T
 
 	music_packs_active: BOOLEAN
 
+	sound_module: detachable SOUND_MODULE_T
+
 	music_module: detachable MUSIC_MODULE_T
+
+	sound_modules: ARRAY [detachable SOUND_MODULE_T]
+		once
+			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module, {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
+		end
+
+	music_modules: ARRAY [detachable MUSIC_MODULE_T]
+		once
+			Result := {ARRAY [detachable MUSIC_MODULE_T]} <<{MUSIC_SDL_MODULE}.music_sdl_module, {MUSIC_OPL_MODULE}.music_opl_module, Void>>
+		end
 
 feature -- Chocolate doom Sound modules
 
@@ -75,9 +90,83 @@ feature
 
 feature
 
-	I_InitSound
+	I_InitSound (use_sfx_prefix: BOOLEAN)
+		local
+			nomusicpacks: BOOLEAN
+			nosound: BOOLEAN
+			nomusic: BOOLEAN
+			nosfx: BOOLEAN
 		do
-				-- Stub
+				-- skip -nosound
+				-- skip -nosfx
+				-- skip -nomusic
+				-- skip -nomusicpacks
+			nomusicpacks := True
+
+				-- Auto configure the music pack directory.
+			{M_CONFIG}.M_SetMusicPackDir
+
+				-- Initialize the sound and music subsystems.
+
+			if not nosound and not i_main.i_video.screensaver_mode then
+					-- This is kind of a hack. If native MIDI is enabled, set up
+					-- the TIMIDITY_CFG environment variable here before SDL_mixer
+					-- is opened.
+
+				if not nomusic and (snd_musicdevice = SNDDEVICE_GENMIDI or snd_musicdevice = SNDDEVICE_GUS) then
+					{I_SDLMUSIC}.I_InitTimidityConfig
+				end
+				if not nosfx then
+					InitSfxModule (use_sfx_prefix)
+				end
+				if not nomusic then
+					InitMusicModule
+					active_music_module := music_module
+				end
+
+					-- We may also have substitute MIDIs we can load.
+				if not nomusicpacks and attached music_module as m then
+					music_packs_active := music_pack_module.init
+				end
+			end
+		end
+
+	InitSfxModule (use_sfx_prefix: BOOLEAN)
+			-- Find and initialize a sound_module_t appropriate for the setting
+			-- in snd_sfxdevice.
+		do
+			sound_module := Void
+			across
+				sound_modules as i
+			loop
+				if sound_module = Void and then attached i.item as sm then
+					if across sm.sound_devices is x some snd_sfxdevice = x end then
+							-- Initialize the module
+
+						if sm.Init (use_sfx_prefix) then
+							sound_module := sm
+						end
+					end
+				end
+			end
+		end
+
+	InitMusicModule
+		do
+			music_module := Void
+			across
+				music_modules as i
+			loop
+				if music_module = Void and then attached i.item as m then
+					if across m.sound_devices is d some snd_musicdevice = d end then
+							-- Initialize the module
+
+						if m.init then
+							music_module := m
+						end
+					end
+				end
+			end
 		end
 
 	I_SoundIsPlaying (handle: INTEGER): BOOLEAN

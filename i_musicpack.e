@@ -17,4 +17,11 @@ feature
 		do
 		end
 
+feature
+
+	sound_devices: ARRAY [INTEGER]
+		once
+			create Result.make_empty
+		end
+
 end

@@ -1,10 +1,18 @@
 note
 	description: "chocolate doom i_sound.h"
 
-class
+deferred class
 	MUSIC_MODULE_T
 
 feature
+
+	sound_devices: ARRAY [INTEGER]
+		deferred
+		end
+
+	init: BOOLEAN
+		do
+		end
 
 	resumeMusic
 		do

@@ -23,7 +23,7 @@ feature
 			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.sdl_init_video.to_natural_32 | {SDL_CONSTANT_API}.sdl_init_audio.to_natural_32) < 0 then
 				i_main.i_error ("Could not initialze SDL: " + {SDL_ERROR}.sdl_get_error)
 			end
-			i_main.i_sound.I_InitSound
+			i_main.i_sound.I_InitSound(true)
 		end
 
 feature

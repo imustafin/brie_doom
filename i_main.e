@@ -25,58 +25,58 @@ feature -- Globals
 	inner_v_video: detachable V_VIDEO
 
 	v_video: V_VIDEO
-	do
-		check attached inner_v_video as x then
-			Result := x
+		do
+			check attached inner_v_video as x then
+				Result := x
+			end
 		end
-	end
 
 	inner_m_misc: detachable M_MISC
 
 	m_misc: M_MISC
-	do
-		check attached inner_m_misc as x then
-			Result := x
+		do
+			check attached inner_m_misc as x then
+				Result := x
+			end
 		end
-	end
 
 	z_zone: Z_ZONE
 
 	inner_w_wad: detachable W_WAD
 
 	w_wad: W_WAD
-	do
-		check attached inner_w_wad as x then
-			Result := x
+		do
+			check attached inner_w_wad as x then
+				Result := x
+			end
 		end
-	end
 
 	inner_m_menu: detachable M_MENU
 
 	m_menu: M_MENU
-	do
-		check attached inner_m_menu as x then
-			Result := x
+		do
+			check attached inner_m_menu as x then
+				Result := x
+			end
 		end
-	end
 
 	inner_r_main: detachable R_MAIN
 
 	r_main: R_MAIN
-	do
-		check attached inner_r_main as x then
-			Result := x
+		do
+			check attached inner_r_main as x then
+				Result := x
+			end
 		end
-	end
 
 	inner_r_data: detachable R_DATA
 
 	r_data: R_DATA
-	do
-		check attached inner_r_data as x then
-			Result := x
+		do
+			check attached inner_r_data as x then
+				Result := x
+			end
 		end
-	end
 
 	r_plane: R_PLANE
 
@@ -87,11 +87,11 @@ feature -- Globals
 	inner_p_setup: detachable P_SETUP
 
 	p_setup: P_SETUP
-	do
-		check attached inner_p_setup as x then
-			Result := x
+		do
+			check attached inner_p_setup as x then
+				Result := x
+			end
 		end
-	end
 
 	p_switch: P_SWITCH
 
@@ -157,7 +157,14 @@ feature -- Globals
 			end
 		end
 
-	i_video: detachable I_VIDEO
+	inner_i_video: detachable I_VIDEO
+
+	i_video: I_VIDEO
+		do
+			check attached inner_i_video as x then
+				Result := x
+			end
+		end
 
 	i_net: detachable I_NET
 
@@ -199,7 +206,7 @@ feature {NONE} -- Initialization
 			create inner_s_sound.make (Current)
 			create inner_hu_stuff.make (Current)
 			create inner_g_game.make (Current)
-			create i_video.make (Current)
+			create inner_i_video.make (Current)
 			create inner_m_menu.make (Current)
 			create inner_w_wad.make (Current)
 			create inner_p_setup.make (Current)
