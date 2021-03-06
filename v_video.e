@@ -149,7 +149,9 @@ feature
 
 	V_RestoreBuffer
 		do
-			dest_screen := i_main.i_video.i_videobuffer
+			check attached i_main.i_video as iv then
+				dest_screen := iv.i_videobuffer
+			end
 		end
 
 end

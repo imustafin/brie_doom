@@ -32,13 +32,17 @@ feature
 	wipe_StartScreen (x, y, width, height: INTEGER)
 		do
 			wipe_scr_start := i_main.v_video.screens [2]
-			i_main.i_video.I_ReadScreen (wipe_scr_start)
+			check attached i_main.i_video as iv then
+				iv.I_ReadScreen (wipe_scr_start)
+			end
 		end
 
 	wipe_EndScreen (x, y, width, height: INTEGER)
 		do
 			wipe_scr_end := i_main.v_video.screens [3]
-			i_main.i_video.i_readscreen (wipe_scr_end)
+			check attached i_main.i_video as iv then
+				iv.i_readscreen (wipe_scr_end)
+			end
 			i_main.v_video.V_DrawBlock (x, y, 0, width, height, wipe_scr_start) -- restore start scr.
 		end
 

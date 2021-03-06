@@ -149,15 +149,21 @@ feature -- D_DoomLoop
 				i_main.g_game.G_BeginRecording
 			end
 				-- skip -debugfile
-			i_main.i_video.I_InitGraphics
+			check attached i_main.i_video as iv then
+				iv.I_InitGraphics
+			end
 			from
 			until
 				False
 			loop
 				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + "%N")
-				i_main.i_video.I_StartFrame
+				check attached i_main.i_video as iv then
+					iv.I_StartFrame
+				end
 				if singletics then
-					i_main.i_video.I_StartTic
+					check attached i_main.i_video as iv then
+						iv.I_StartTic
+					end
 					D_ProcessEvents
 					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
 					if advancedemo then
@@ -331,7 +337,9 @@ feature -- D_Display
 				end
 
 					-- draw buffered stuff to screen
-				i_main.i_video.I_UpdateNoBlit
+				check attached i_main.i_video as iv then
+					iv.I_UpdateNoBlit
+				end
 
 					-- draw the view directly
 				if i_main.g_game.gamestate = {DOOMDEF_H}.GS_LEVEL and not i_main.am_map.automapactive and i_main.g_game.gametic /= 0 then
@@ -343,7 +351,9 @@ feature -- D_Display
 
 					-- clean up border stuff
 				if i_main.g_game.gamestate /= oldgamestate and i_main.g_game.gamestate /= {DOOMDEF_H}.GS_LEVEL then
-					i_main.i_video.I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
+					check attached i_main.i_video as iv then
+						iv.I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
+					end
 				end
 
 					-- see if the border needs to be initially drawn
@@ -384,7 +394,9 @@ feature -- D_Display
 
 					-- normal update
 				if not wipe then
-					i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+					check attached i_main.i_video as iv then
+						iv.I_FinishUpdate -- page flip or blit buffer
+					end
 				else
 						-- wipe update
 					check attached i_main.f_wipe as w then
@@ -408,9 +420,11 @@ feature -- D_Display
 						check attached i_main.f_wipe as w then
 							done := w.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
 						end
-						i_main.i_video.I_UpdateNoBlit
-						i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
-						i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+						check attached i_main.i_video as iv then
+							iv.I_UpdateNoBlit
+							i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
+							iv.I_FinishUpdate -- page flip or blit buffer
+						end
 					end
 				end
 			end
