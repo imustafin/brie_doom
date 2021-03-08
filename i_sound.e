@@ -48,6 +48,8 @@ feature
 
 feature -- Chocolate doom
 
+	snd_samplerate: INTEGER = 44100 -- Sound sample rate to use for digital output (Hz)
+
 	snd_musicdevice: INTEGER
 
 	snd_sfxdevice: INTEGER
