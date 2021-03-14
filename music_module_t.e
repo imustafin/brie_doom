@@ -39,4 +39,8 @@ feature
 				-- Stub
 		end
 
+	poll
+		deferred
+		end
+
 end

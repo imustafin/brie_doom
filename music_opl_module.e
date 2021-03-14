@@ -31,4 +31,9 @@ feature
 			instance_free: class
 		end
 
+	poll
+		do
+				-- Stub
+		end
+
 end

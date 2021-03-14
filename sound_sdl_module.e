@@ -129,7 +129,7 @@ feature
 			srclen, dstlen: NATURAL_32
 		do
 			srclen := insnd.chunk.alen
-			check attached insnd.chunk.abuf as abuf then
+			check attached insnd.chunk.abuf_managed as abuf then
 				create srcbuf.share_from_pointer (abuf.item, srclen.to_integer_32)
 			end
 
@@ -146,7 +146,7 @@ feature
 			end
 			if attached Result then
 				Result.pitch := pitch
-				check attached Result.chunk.abuf as abuf then
+				check attached Result.chunk.abuf_managed as abuf then
 					create dstbuf.share_from_pointer (abuf.item, dstlen.to_integer_32) -- dstbuf = (Sint16 *)outsnd->chunk.abuf;
 				end
 
@@ -260,9 +260,9 @@ feature
 			-- Generic sound expansion function for any sample rate.
 			-- Returns number of clipped samples (always 0).
 		local
-			convertor: SDL_AUDIO_CVT_STRUCT_API
+			convertor: SDL_AUDIO_CVT
 			snd_detachable: ALLOCATED_SOUND_T
-			chunk: MIX_CHUNK_STRUCT_API
+			chunk: MIX_CHUNK
 			expanded_length: NATURAL_32
 		do
 			create convertor.make
@@ -282,16 +282,16 @@ feature
 					-- If we can, use the standard / optimized SDL conversion routines.
 				if samplerate <= mixer_freq and then convertible_ratio (samplerate, mixer_freq) and then {SDL_AUDIO_FUNCTIONS_API}.sdl_build_audio_cvt (convertor, {SDL_AUDIO}.AUDIO_U8.to_natural_32, (1).to_character_8, samplerate, mixer_format.to_natural_32, mixer_channels.to_character_8, mixer_freq) /= 0 then
 					convertor.set_len (length)
-					convertor.set_buf (create {C_STRING}.make_empty (convertor.len * convertor.len_mult))
-					check attached convertor.buf as buf then
+					convertor.allocate_buf (convertor.len * convertor.len_mult) -- malloc(convertor.len * convertor.len_mult)
+					check attached convertor.buf_managed as buf then
 						buf.item.memory_copy (data.item, length) -- memcpy (buf, data, length)
 						if {SDL_AUDIO_FUNCTIONS_API}.sdl_convert_audio (convertor) < 0 then
 							{I_MAIN}.i_error ("Couldn't convert audio " + {SDL_ERROR}.sdl_get_error)
 						end
-						check attached chunk.abuf as abuf then
+						check attached chunk.abuf_managed as abuf then
 							abuf.item.memory_copy (buf.item, chunk.alen.to_integer_32) -- memcpy (chunk.abuf, convertor.buf, chunk.alen)
 						end
-						buf.item.memory_free -- free (convertor.buf)
+--						buf.item.memory_free -- free (convertor.buf)
 						Result := True
 					end
 				else
@@ -347,7 +347,7 @@ feature
 
 				-- Skip past the chunk structure for the audio buffer
 
-			snd.chunk.set_abuf (create {C_STRING}.make_empty (len.to_integer_32))
+			snd.chunk.allocate_abuf (len.to_integer_32)
 			snd.chunk.set_alen (len)
 			snd.chunk.set_allocated (1)
 			snd.chunk.set_volume ({MIX}.MIX_MAX_VOLUME.to_character_8)
@@ -578,8 +578,10 @@ feature
 				Result := False
 			else
 					-- 16 bit sample rate field, 32 bit length field
-				samplerate := (data.read_natural_8_le (3) |<< 8) | data.read_natural_8_le (2)
-				length := (data.read_natural_8_le (7) |<< 24) | (data.read_natural_8_le (6) |<< 16) | (data.read_natural_8_le (5) |<< 8) | data.read_natural_8_le (4)
+--				samplerate := ((data.read_natural_8_le (3).to_natural_32 |<< 8) | data.read_natural_8_le (2).to_natural_32).as_integer_32
+				samplerate := data.read_integer_16_le (2)
+--				length := (data.read_natural_8_le (7).to_natural_32 |<< 24) | (data.read_natural_8_le (6).to_natural_32 |<< 16) | (data.read_natural_8_le (5).to_natural_32 |<< 8) | data.read_natural_8_le (4).to_natural_32
+				length := data.read_natural_32_le (4)
 
 					-- If the header specifies that the length of the sound is greater than
 					-- the length of the lump itself, this is an invalid sound lump
@@ -596,7 +598,7 @@ feature
 						-- The DMX sound library seems to skip the first 16 and last 16
 						-- bytes of the lump - reason unknown.
 					length := length - 32
-					create data.make_from_pointer (data.item + 16, length.to_integer_32)
+					create data.share_from_pointer (data.item + 16, length.to_integer_32)
 
 						-- sample rate conversion
 					if not expand_sound_data (sfxinfo, data.item + 8, samplerate, length.to_integer_32) then

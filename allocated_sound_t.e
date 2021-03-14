@@ -23,7 +23,7 @@ feature
 			sfxinfo := a_sfxinfo
 		end
 
-	chunk: MIX_CHUNK_STRUCT_API
+	chunk: MIX_CHUNK
 
 	use_count: INTEGER assign set_use_count
 

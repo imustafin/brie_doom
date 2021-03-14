@@ -166,11 +166,12 @@ feature
 			cnum: INTEGER
 			volume: INTEGER_32_REF
 			sep: INTEGER_32_REF
-			pitch: INTEGER_32_REF
 			l_sfx_detachable: SFXINFO_T
 			c: CHANNEL_T
 			l_stopped: BOOLEAN
 		do
+			i_main.i_sound.I_UpdateSound
+
 			from
 				cnum := 0
 			until
@@ -183,10 +184,8 @@ feature
 					if i_main.i_sound.I_SoundIsPlaying (c.handle) then
 							-- initialize parameters.
 						volume := snd_SfxVolume
-						pitch := NORM_PITCH
 						sep := NORM_SEP
 						if attached sfx.link then
-							pitch := sfx.pitch
 							volume := volume + sfx.volume
 							if volume < 1 then
 								S_StopChannel (cnum)
@@ -199,12 +198,12 @@ feature
 								-- check non-local sounds for distance clipping
 								--  or modify their params
 							if attached c.origin as origin and then listener /= origin then
-								audible := S_AdjustSoundParams (listener, origin, volume, sep, pitch)
+								audible := S_AdjustSoundParams (listener, origin, volume, sep)
 							end
 							if not audible then
 								S_StopChannel (cnum)
 							else
-								i_main.i_sound.I_UpdateSoundParams (c.handle, volume, sep, pitch)
+								i_main.i_sound.I_UpdateSoundParams (c.handle, volume, sep)
 							end
 						end
 					else
@@ -217,14 +216,155 @@ feature
 			end
 		end
 
-	S_StartSound (origin: detachable ANY; sfx_id: INTEGER)
+	S_StartSound (origin_p: detachable ANY; sfx_id: INTEGER)
+		local
+			sfx: SFXINFO_T
+			origin: MOBJ_T
+			rc: BOOLEAN
+			sep, pitch, cnum, volume: INTEGER
+			ignore: BOOLEAN
 		do
-			S_StartSoundAtVolume (origin, sfx_id, snd_SfxVolume)
+				--			create origin.make (origin_p) -- Stub origin
+			volume := snd_SfxVolume
+
+				-- check for bogus sound #
+			if sfx_id < 1 or sfx_id > {SOUNDS_H}.NUMSFX then
+				{I_MAIN}.i_error ("Bad sfx #:" + sfx_id.out)
+			end
+			sfx := {SOUNDS_H}.S_sfx [sfx_id]
+
+				-- Initialize sound parameters
+			pitch := NORM_PITCH
+			if attached sfx.link as link then
+				volume := volume + sfx.volume
+				pitch := sfx.pitch
+				if volume < 1 then
+						-- return
+					ignore := True
+				else
+					if volume > snd_SfxVolume then
+						volume := snd_SfxVolume
+					end
+				end
+			end
+			if not ignore then
+					-- Check to see if it is audible,
+					--  and if not, modify the params
+				check attached i_main.g_game.players [i_main.g_game.consoleplayer].mo as mo then
+					if attached origin and then origin /= mo then
+						rc := S_AdjustSoundParams (mo, origin, volume, sep)
+						if origin.x = mo.x and origin.y = mo.y then
+							sep := NORM_SEP
+						end
+						if not rc then
+							ignore := True
+						end
+					else
+						sep := NORM_SEP
+					end
+				end
+			end
+			if not ignore then
+					-- hacks to vary the sfx pitches
+				if sfx_id >= {SOUNDS_H}.sfx_sawup and sfx_id <= {SOUNDS_H}.sfx_sawhit then
+					pitch := pitch + 8 - (i_main.m_random.M_Random & 15)
+				elseif sfx_id /= {SOUNDS_H}.sfx_itemup and sfx_id /= {SOUNDS_H}.sfx_tink then
+					pitch := pitch + 16 - (i_main.m_random.M_Random & 31)
+				end
+				pitch := pitch.min (255).max (0) -- originally Clamp (pitch)
+
+					-- kill old sound
+				S_StopSound (origin)
+
+					-- try to find a channel
+				cnum := S_GetChannel (origin, sfx)
+				if cnum < 0 then
+					ignore := True
+				end
+			end
+			if not ignore then
+					-- increase the usefulness
+				sfx.usefulness := (sfx.usefulness + 1).max (1)
+				if sfx.lumpnum < 0 then
+					sfx.lumpnum := i_main.i_sound.I_GetSfxLumpNum (sfx)
+				end
+				channels [cnum].pitch := pitch
+				channels [cnum].handle := i_main.i_sound.I_StartSound (sfx, cnum, volume, sep, channels [cnum].pitch)
+			end
 		end
 
-	S_StartSoundAtVolume (origin: detachable ANY; sfx_id: INTEGER; volume: INTEGER)
+	S_GetChannel(origin: detachable MOBJ_T; sfxinfo: SFXINFO_T): INTEGER
+		-- If none available, return -1. Otherwise channel #.
+	local
+		c: CHANNEL_T
+		found: BOOLEAN
+	do
+		-- Find an open channel
+		from
+			Result := 0
+		until
+			found or Result > channels.upper
+		loop
+			if channels[Result].sfxinfo = Void then
+				found := True
+			elseif attached origin and then channels[Result].origin = origin then
+				S_StopChannel(Result)
+				found := True
+			else
+				Result := Result + 1
+			end
+		end
+
+		-- None available
+		if Result > channels.upper then
+			-- Look for lower priority
+			from
+				Result := 0
+				found := False
+			until
+				found or Result > channels.upper
+			loop
+				if attached channels[Result].sfxinfo as csfxinfo and then csfxinfo.priority >= sfxinfo.priority then
+					found := True
+				else
+					Result := Result + 1
+				end
+			end
+
+			if Result > channels.upper then
+				-- No lower priority
+				Result := -1
+			else
+				-- Otherwise, kick out lower priority
+				S_StopChannel(Result)
+			end
+		end
+
+		if Result /= -1 then
+			c := channels[Result]
+
+			-- channel is decided to be Result.
+			c.sfxinfo := sfxinfo
+			c.origin := origin
+		end
+	end
+
+	S_StopSound (origin: detachable MOBJ_T)
+		local
+			cnum: INTEGER
+			done: BOOLEAN
 		do
-				-- Stub
+			from
+				cnum := 0
+			until
+				not done or cnum > channels.upper
+			loop
+				if channels [cnum].sfxinfo /= Void and channels [cnum].origin = origin then
+					S_StopChannel (cnum)
+					done := True
+				end
+				cnum := cnum + 1
+			end
 		end
 
 	S_StartMusic (m_id: INTEGER)
@@ -298,7 +438,7 @@ feature
 			end
 		end
 
-	S_AdjustSoundParams (listener: MOBJ_T; source: MOBJ_T; vol, sep, pitch: INTEGER_32_REF): BOOLEAN
+	S_AdjustSoundParams (listener: MOBJ_T; source: MOBJ_T; vol, sep: INTEGER_32_REF): BOOLEAN
 			-- (originally returned int)
 			-- Changes volume, stereo-separation, and pith variables
 			--  from the norm of a sound effect to be played.

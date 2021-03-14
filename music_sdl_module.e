@@ -34,4 +34,9 @@ feature
 			Result := <<{I_SOUND}.snddevice_pas, {I_SOUND}.snddevice_gus, {I_SOUND}.snddevice_waveblaster, {I_SOUND}.snddevice_soundcanvas, {I_SOUND}.snddevice_genmidi, {I_SOUND}.snddevice_awe32>>
 		end
 
+	poll
+		do
+				-- Stub
+		end
+
 end

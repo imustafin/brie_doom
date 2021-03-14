@@ -35,10 +35,11 @@ feature -- Chocolate doom snddevice_t
 	SNDDEVICE_CD: INTEGER = 10
 
 feature
+
 	NORM_PITCH: INTEGER = 127
 
 	snd_pitchshift: INTEGER = 0
-		-- Doom defaults to pitch-shifting off
+			-- Doom defaults to pitch-shifting off
 
 feature
 
@@ -70,7 +71,7 @@ feature -- Chocolate doom
 
 	sound_modules: ARRAY [detachable SOUND_MODULE_T]
 		once
-			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module(i_main), {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
+			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module (i_main), {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
 		end
 
 	music_modules: ARRAY [detachable MUSIC_MODULE_T]
@@ -183,15 +184,13 @@ feature
 			Result := i_main.g_game.gametic < handle
 		end
 
-	I_UpdateSoundParams (handle, vol, sep, pitch: INTEGER)
+	I_UpdateSoundParams (channel, vol, sep: INTEGER)
+		-- from chocolate doom
 		do
-				-- Stub
-				-- I fal to see that this is used.
-				-- Would be using the handle to identify
-				--  on which channel the sound might be active,
-				--  and resetting the channel parameters
+			if attached sound_module as m then
+				m.update_sound_params (channel, check_volume(vol), check_separation(sep))
+			end
 
-				-- UNUSED
 		end
 
 	I_SetChannels
@@ -301,6 +300,42 @@ feature
 			if attached active_music_module as m then
 				m.PlaySong (handle, looping)
 			end
+		end
+
+	I_GetSfxLumpNum (sfxinfo: SFXINFO_T): INTEGER
+		do
+			if attached sound_module as m then
+				Result := m.get_sfx_lump_num (sfxinfo)
+			else
+				Result := 0
+			end
+		end
+
+	I_UpdateSound
+	do
+		if attached sound_module as m then
+			m.update
+		end
+		if attached active_music_module as mm then
+			mm.poll
+		end
+	end
+
+	I_StartSound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER): INTEGER
+		do
+			if attached sound_module as m then
+				Result := m.start_sound (sfxinfo, channel, check_volume (vol), check_separation (sep), pitch)
+			end
+		end
+
+	check_volume (volume: INTEGER): INTEGER
+		do
+			Result := volume.max (0).min (127)
+		end
+
+	check_separation (separation: INTEGER): INTEGER
+		do
+			Result := separation.max (0).min (254)
 		end
 
 end

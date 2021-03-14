@@ -24,4 +24,9 @@ feature
 			create Result.make_empty
 		end
 
+	poll
+		do
+				-- Stub
+		end
+
 end

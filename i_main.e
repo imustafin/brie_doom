@@ -180,6 +180,8 @@ feature -- Globals
 
 	wi_stuff: WI_STUFF
 
+	m_random: M_RANDOM
+
 feature {NONE} -- Initialization
 
 	make
@@ -201,6 +203,7 @@ feature {NONE} -- Initialization
 			create st_stuff.make
 			create r_sky.make
 			create f_finale.make
+			create m_random.make
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)
 			create inner_s_sound.make (Current)

@@ -22,8 +22,25 @@ feature
 			sfxinfo := a_sfxinfo
 		end
 
-	origin: detachable MOBJ_T -- origin of sound (orginally void*)
+	origin: detachable MOBJ_T assign set_origin -- origin of sound (orginally void*)
 
-	handle: INTEGER -- handle of the sound being played
+	set_origin (a_origin: like origin)
+		do
+			origin := a_origin
+		end
+
+	handle: INTEGER assign set_handle -- handle of the sound being played
+
+	set_handle (a_handle: like handle)
+		do
+			handle := a_handle
+		end
+
+	pitch: INTEGER assign set_pitch
+
+	set_pitch (a_pitch: like pitch)
+		do
+			pitch := a_pitch
+		end
 
 end
