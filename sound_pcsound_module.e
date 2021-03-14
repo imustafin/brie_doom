@@ -32,6 +32,41 @@ feature
 				-- Stub
 		end
 
+	shutdown
+		do
+				-- Stub
+		end
+
+	get_sfx_lump_num (sfxinfo: SFXINFO_T): INTEGER
+		do
+				-- Stub
+		end
+
+	update
+		do
+				-- Stub
+		end
+
+update_sound_params (channel, vol, sep: INTEGER)
+		do
+			-- Stub
+		end
+
+	start_sound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER): INTEGER
+		do
+			-- Stub
+		end
+
+	stop_sound (channel: INTEGER)
+		do
+			-- Stub
+		end
+
+	cache_sounds (sounds: ARRAY [SFXINFO_T])
+		do
+			-- Stub
+		end
+
 feature
 
 	sound_pcsound_module: SOUND_PCSOUND_MODULE

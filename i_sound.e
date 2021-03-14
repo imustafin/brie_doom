@@ -35,6 +35,12 @@ feature -- Chocolate doom snddevice_t
 	SNDDEVICE_CD: INTEGER = 10
 
 feature
+	NORM_PITCH: INTEGER = 127
+
+	snd_pitchshift: INTEGER = 0
+		-- Doom defaults to pitch-shifting off
+
+feature
 
 	i_main: I_MAIN
 
@@ -64,7 +70,7 @@ feature -- Chocolate doom
 
 	sound_modules: ARRAY [detachable SOUND_MODULE_T]
 		once
-			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module, {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
+			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module(i_main), {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
 		end
 
 	music_modules: ARRAY [detachable MUSIC_MODULE_T]
