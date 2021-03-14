@@ -29,4 +29,9 @@ feature
 				-- Stub
 		end
 
+	init: BOOLEAN
+		do
+				-- Stub
+		end
+
 end

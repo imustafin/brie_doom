@@ -55,6 +55,8 @@ feature
 
 feature -- Chocolate doom
 
+	snd_musiccmd: STRING = ""
+
 	snd_samplerate: INTEGER = 44100 -- Sound sample rate to use for digital output (Hz)
 
 	snd_musicdevice: INTEGER
@@ -76,7 +78,7 @@ feature -- Chocolate doom
 
 	music_modules: ARRAY [detachable MUSIC_MODULE_T]
 		once
-			Result := {ARRAY [detachable MUSIC_MODULE_T]} <<{MUSIC_SDL_MODULE}.music_sdl_module, {MUSIC_OPL_MODULE}.music_opl_module, Void>>
+			Result := {ARRAY [detachable MUSIC_MODULE_T]} <<{MUSIC_SDL_MODULE}.music_sdl_module(i_main), {MUSIC_OPL_MODULE}.music_opl_module, Void>>
 		end
 
 feature -- Chocolate doom Sound modules

@@ -11,7 +11,7 @@ feature
 		end
 
 	init: BOOLEAN
-		do
+		deferred
 		end
 
 	resumeMusic
