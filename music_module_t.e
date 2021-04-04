@@ -35,8 +35,7 @@ feature
 		end
 
 	playsong (handle: detachable ANY; looping: BOOLEAN)
-		do
-				-- Stub
+		deferred
 		end
 
 	poll

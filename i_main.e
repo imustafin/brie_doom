@@ -182,6 +182,8 @@ feature -- Globals
 
 	m_random: M_RANDOM
 
+	i_midipipe: I_MIDIPIPE
+
 feature {NONE} -- Initialization
 
 	make
@@ -204,6 +206,7 @@ feature {NONE} -- Initialization
 			create r_sky.make
 			create f_finale.make
 			create m_random.make
+			create i_midipipe
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)
 			create inner_s_sound.make (Current)

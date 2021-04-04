@@ -31,9 +31,9 @@ feature
 
 feature
 
-	music_sdl_module(a_i_main: like i_main): MUSIC_SDL_MODULE
+	music_sdl_module (a_i_main: like i_main): MUSIC_SDL_MODULE
 		once
-			create Result.make(a_i_main)
+			create Result.make (a_i_main)
 		ensure
 			instance_free: class
 		end
@@ -97,7 +97,7 @@ feature
 
 				if not i_main.i_sound.snd_musiccmd.is_empty then
 					if {SDL_MIXER_FUNCTIONS_API}.mix_set_music_cmd ((create {C_STRING}.make (i_main.i_sound.snd_musiccmd)).item) < 0 then
-						{I_MAIN}.i_error("Could not Mix_SetMusicCMD " + {MIX_ERROR}.get_error)
+						{I_MAIN}.i_error ("Could not Mix_SetMusicCMD " + {MIX_ERROR}.get_error)
 					end
 				end
 
@@ -109,4 +109,25 @@ feature
 			end
 		end
 
+	playsong (a_handle: MIX_MUSIC_STRUCT_API; looping: BOOLEAN)
+		-- Start playing a mid
+		local
+			loops: INTEGER
+		do
+			if music_initialized then
+				if attached a_handle as handle or i_main.i_midipipe.midi_server_registered then
+					if looping then
+						loops := -1
+					else
+						loops := 1
+					end
+
+					-- skip #if defined(_WIN32)
+
+					if {SDL_MIXER_FUNCTIONS_API}.mix_play_music(a_handle, loops) < 0 then
+						{I_MAIN}.i_error ("Could not Mix_PlayMusic " + {MIX_ERROR}.get_error)
+					end
+				end
+			end
+		end
 end
