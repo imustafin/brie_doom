@@ -3,7 +3,11 @@ DOOM source port in Eiffel with SDL2
 
 Brie is pronounced */briː/* like Brie cheese :cheese:
 
-Based on https://github.com/makava/sdldoom-1.10-mod with occasional peeks at https://github.com/chocolate-doom/chocolate-doom
+Based on the original source port release https://github.com/id-Software/DOOM
+with autio/video output inspired by https://github.com/chocolate-doom/chocolate-doom.
+
+Big thanks to https://github.com/makava/sdldoom-1.10-mod for a version
+which compiles on modern systems.
 
 ## Requirements
 * My wrap_sdl fork https://github.com/imustafin/wrap_sdl
