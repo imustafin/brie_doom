@@ -29,6 +29,9 @@ feature
 
 	sdl_was_initialized: BOOLEAN
 
+	musicpaused: BOOLEAN
+	current_music_volume: INTEGER
+
 feature
 
 	MAXMIDLENGTH: INTEGER
@@ -198,5 +201,29 @@ feature
 				end
 			end
 		end
+
+	resumemusic
+	do
+		if music_initialized then
+			musicpaused := False
+			UpdateMusicVolume
+		end
+	end
+
+	UpdateMusicVolume
+		-- SDL_mixer's native MIDI music playing does not pause properly.
+		-- As a workaround, set the volume to 0 when paused
+	local
+		vol: INTEGER
+	do
+		if musicpaused then
+			vol := 0
+		else
+			vol := ((current_music_volume * {MIX}.MIX_MAX_VOLUME) // 127).to_integer_32
+		end
+
+		-- skip _WIN32
+		vol := {SDL_MIXER_FUNCTIONS_API}.mix_volume_music(vol) -- ignore return value
+	end
 
 end

@@ -46,7 +46,12 @@ feature
 
 	stopsong
 		do
-			-- Stub
+				-- Stub
+		end
+
+	resumemusic
+		do
+				-- Stub
 		end
 
 end

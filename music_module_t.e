@@ -15,8 +15,7 @@ feature
 		end
 
 	resumeMusic
-		do
-				--  Stub
+		deferred
 		end
 
 	stopSong

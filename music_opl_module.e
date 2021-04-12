@@ -56,4 +56,9 @@ feature
 			-- Stub
 		end
 
+	resumemusic
+		do
+			-- Stub
+		end
+
 end
