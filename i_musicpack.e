@@ -54,4 +54,9 @@ feature
 				-- Stub
 		end
 
+	unregistersong (handle: detachable ANY)
+		do
+			-- Stub
+		end
+
 end

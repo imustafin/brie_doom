@@ -23,8 +23,7 @@ feature
 		end
 
 	unregistersong (handle: detachable ANY)
-		do
-				-- Stub
+		deferred
 		end
 
 	registersong (handle: detachable ANY; len: INTEGER): detachable ANY
