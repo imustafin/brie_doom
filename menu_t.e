@@ -63,4 +63,8 @@ feature
 			routine := a_routine
 		end
 
+invariant
+	menuitems.lower = 1
+	menuitems.valid_index (lastOn)
+
 end

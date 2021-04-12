@@ -19,6 +19,7 @@ feature
 		do
 			i_main := a_i_main
 			messagestring := ""
+			itemOn := 1
 		end
 
 feature -- defaulted values
@@ -100,7 +101,7 @@ feature
 
 	MainDef: MENU_T
 		once
-			create Result.make (main_end, Void, MainMenu, agent M_DrawMainMenu, 97, 64, 0)
+			create Result.make (main_end, Void, MainMenu, agent M_DrawMainMenu, 97, 64, 1)
 		end
 
 	NewGameMenu: ARRAY [MENUITEM_T]
@@ -301,8 +302,8 @@ feature -- CONTROL PANEL
 					if attached currentMenu as currentMenuAttached then
 						if ch = {DOOMDEF_H}.KEY_DOWNARROW then
 							from
-								if itemOn + 1 > currentMenuAttached.numitems - 1 then
-									itemOn := 0
+								if itemOn >= currentMenuAttached.numitems then
+									itemOn := 1
 								else
 									itemOn := itemOn + 1
 								end
@@ -320,8 +321,8 @@ feature -- CONTROL PANEL
 							Result := True
 						elseif ch = {DOOMDEF_H}.key_uparrow then
 							from
-								if itemOn = 0 then
-									itemOn := currentMenuAttached.numitems - 1
+								if itemOn = 1 then
+									itemOn := currentMenuAttached.numitems
 								else
 									itemOn := itemOn - 1
 								end
@@ -425,7 +426,7 @@ feature -- M_Drawer
 					end
 
 						-- DRAW SKULL
-					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + itemOn * LINEHEIGHT, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
+					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + (itemOn - 1) * LINEHEIGHT, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
 				end
 			end
 		end
@@ -443,5 +444,9 @@ feature
 				itemOn := MainDef.laston
 			end
 		end
+
+invariant
+	itemOn >= 1
+	attached currentMenu as i_cM implies itemOn <= i_cM.numitems
 
 end
