@@ -20,8 +20,7 @@ feature
 		end
 
 	stopSong
-		do
-				-- Stub
+		deferred
 		end
 
 	unregistersong (handle: detachable ANY)

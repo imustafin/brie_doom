@@ -51,4 +51,9 @@ feature
 				-- Stub
 		end
 
+	stopsong
+		do
+			-- Stub
+		end
+
 end

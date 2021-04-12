@@ -173,7 +173,7 @@ feature
 					print ("Error loading midi: " + {MIX_ERROR}.get_error)
 				end
 				if i_main.i_sound.snd_musiccmd.is_empty then
-					-- (create {RAW_FILE}.make_create_read_write (filename)).delete
+						-- (create {RAW_FILE}.make_create_read_write (filename)).delete
 				end
 			end
 		end
@@ -186,6 +186,16 @@ feature
 			mus2mid.fill_output
 			if not i_main.m_misc.M_WriteFile_list (filename, mus2mid.output) then
 				print ("Error writing midi file " + filename)
+			end
+		end
+
+	stopsong
+		do
+			if music_initialized then
+					-- skip _WIN32
+				if {SDL_MIXER_FUNCTIONS_API}.mix_halt_music /= 0 then
+					{I_MAIN}.i_error ("Could not Mix_HaltMusic")
+				end
 			end
 		end
 
