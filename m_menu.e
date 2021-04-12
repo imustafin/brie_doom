@@ -137,6 +137,10 @@ feature
 
 	messageLastMenuActive: BOOLEAN -- (was int)
 
+	messageRoutine: detachable PROCEDURE [TUPLE [INTEGER]]
+
+	messageNeedsInput: BOOLEAN -- timed message = no input from user
+
 	quickSaveSlot: INTEGER -- -1 = no quicksave slot picked!
 
 feature -- Read This! MENU 1 & 2
@@ -152,7 +156,7 @@ feature -- Read This! MENU 1 & 2
 
 	ReadDef1: MENU_T
 		once
-			create Result.make (read1_end, MainDef, ReadMenu1, agent M_DrawReadThis1, 280, 185, 0)
+			create Result.make (read1_end, MainDef, ReadMenu1, agent M_DrawReadThis1, 280, 185, 1)
 		end
 
 	rdthsempty2: INTEGER = 0
@@ -169,12 +173,36 @@ feature -- Read This! MENU 1 & 2
 			create Result.make (read2_end, ReadDef1, ReadMenu2, agent M_DrawReadThis2, 330, 175, 0)
 		end
 
-feature
+feature -- Read This Menus (Had a "quick hack to fix romero bug")
 
 	M_DrawReadThis1
+		local
+			gamemode: GAME_MODE_T
 		do
-				-- Stub
+			inhelpscreens := True
+			gamemode := i_main.doomstat_h.gamemode
+			if gamemode = {GAME_MODE_T}.commercial then
+				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP", {Z_ZONE}.pu_cache)))
+			elseif gamemode = {GAME_MODE_T}.shareware or gamemode = {GAME_MODE_T}.registered or gamemode = {GAME_MODE_T}.retail then
+				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP1", {Z_ZONE}.pu_cache)))
+			end
 		end
+
+	M_DrawReadThis2
+		local
+			gamemode: GAME_MODE_T
+		do
+			inhelpscreens := True
+			gamemode := i_main.doomstat_h.gamemode
+			if gamemode = {GAME_MODE_T}.retail or gamemode = {GAME_MODE_T}.commercial then
+					-- This hack keeps us from having to change menus.
+				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("CREDIT", {Z_ZONE}.pu_cache)))
+			elseif gamemode = {GAME_MODE_T}.shareware or gamemode = {GAME_MODE_T}.registered then
+				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP2", {Z_ZONE}.pu_cache)))
+			end
+		end
+
+feature
 
 	M_FinishReadThis (choice: INTEGER)
 		do
@@ -183,12 +211,7 @@ feature
 
 	M_DrawEpisode
 		do
-				-- Stub
-		end
-
-	M_DrawReadThis2
-		do
-				-- Stub
+			i_main.v_video.v_drawpatchdirect (54, 38, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_EPISOD", {Z_ZONE}.PU_CACHE)))
 		end
 
 	M_ReadThis2 (choice: INTEGER)
@@ -198,7 +221,15 @@ feature
 
 	M_NewGame (choice: INTEGER)
 		do
-				-- Stub
+			if i_main.g_game.netgame and not i_main.g_game.demoplayback then
+				M_StartMessage ({D_ENGLSH}.NEWGAME, Void, False)
+			else
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					M_SetupNextMenu (NewDef)
+				else
+					M_SetupNextMenu (EpiDef)
+				end
+			end
 		end
 
 	M_Options (choice: INTEGER)
@@ -231,14 +262,57 @@ feature
 				-- Stub
 		end
 
-	M_ChooseSkill (choice: INTEGER)
+	M_ChooseSkill (a_choice: INTEGER)
+		local
+			choice: INTEGER
 		do
-				-- Stub
+			choice := a_choice - 1
+			if choice = nightmare then
+				M_StartMessage ({D_ENGLSH}.NIGHTMARE, agent M_VerifyNightmare, True)
+			else
+				i_main.g_game.G_DeferedInitNew (choice, epi + 1, 1)
+				M_ClearMenus
+			end
+		end
+
+	M_VerifyNightmare (ch: INTEGER)
+		do
+			if ch = ('y').code then
+				i_main.g_game.G_DeferedInitNew (nightmare, epi + 1, 1)
+				M_ClearMenus
+			end
 		end
 
 	M_DrawMainMenu
 		do
-				-- Stub
+			i_main.v_video.v_drawpatchdirect (94, 2, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_DOOM", {Z_ZONE}.pu_cache)))
+		end
+
+feature
+
+	M_ClearMenus
+		do
+			menuactive := False
+		end
+
+feature
+
+	M_StartMessage (string: STRING; routine: like messageRoutine; input: BOOLEAN)
+		do
+			messageLastMenuActive := menuactive
+			messageToPrint := True
+			messageString := string
+			messageRoutine := routine
+			messageNeedsInput := input
+			menuactive := True
+		end
+
+feature
+
+	M_SetupNextMenu (menudef: MENU_T)
+		do
+			currentMenu := menudef
+			itemOn := menudef.laston
 		end
 
 feature -- EPISODE SELECT
@@ -260,14 +334,30 @@ feature -- EPISODE SELECT
 
 	EpiDef: MENU_T
 		once
-			create Result.make (ep_end, MainDef, EpisodeMenu, agent M_DrawEpisode, 48, 63, ep1)
+			create Result.make (ep_end, MainDef, EpisodeMenu, agent M_DrawEpisode, 48, 63, 1)
 		end
 
 feature -- M_Episode
 
-	M_Episode (choice: INTEGER)
+	epi: INTEGER
+
+	M_Episode (a_choice: INTEGER)
+		local
+			choice: INTEGER
 		do
-				-- Stub
+			choice := a_choice - 1
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware and choice /= 0 then
+				M_StartMessage ({D_ENGLSH}.swstring, Void, False)
+				M_SetupNextMenu (ReadDef1)
+			else
+					-- Yet another hack...
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.registered and choice > 2 then
+					print ("M_Episode: 4th episode requires UltimateDOOM%N")
+					choice := 0
+				end
+				epi := choice
+				M_SetupNextMenu (NewDef)
+			end
 		end
 
 feature
@@ -338,6 +428,17 @@ feature -- CONTROL PANEL
 								i_main.s_sound.S_StartSound (Void, {SOUNDS_H}.sfx_pstop)
 							end
 							Result := True
+						elseif ch = {DOOMDEF_H}.key_enter then
+							if currentMenuAttached.menuitems [itemOn].status /= 0 then
+								currentMenuAttached.laston := itemon
+								if currentMenuAttached.menuitems [itemOn].status = 2 then
+									currentMenuAttached.menuitems [itemOn].routine.call (1) -- right arrow
+									i_main.s_sound.s_startsound (Void, {SOUNDS_H}.sfx_stnmov)
+								else
+									currentMenuAttached.menuitems [itemOn].routine (itemOn)
+									i_main.s_sound.s_startsound (Void, {SOUNDS_H}.sfx_pistol)
+								end
+							end
 						end
 					end
 				end
@@ -369,6 +470,8 @@ feature
 				ReadDef1.x := 330
 				ReadDef1.y := 165
 				ReadMenu1 [0].routine := agent M_FinishReadThis
+			elseif i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
+				EpiDef.numitems := EpiDef.numitems - 1 -- HACK my doom1.wad does not have ep4
 			elseif i_main.doomstat_h.gamemode = {GAME_MODE_T}.registered then
 				EpiDef.numitems := EpiDef.numitems - 1
 			end
@@ -414,9 +517,9 @@ feature -- M_Drawer
 					y := cm.y
 					max := cm.numitems
 					from
-						i := cm.menuitems.lower
+						i := 1
 					until
-						i > cm.menuitems.upper
+						i > cm.numitems
 					loop
 						if not cm.menuitems [i].name.is_empty then
 							i_main.v_video.V_DrawPatchDirect (x, y, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache)))

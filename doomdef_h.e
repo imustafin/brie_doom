@@ -64,6 +64,8 @@ feature -- DOOM keyboard definition
 
 	KEY_PAUSE: INTEGER = 0xff
 
+	KEY_ENTER: INTEGER = 13
+
 feature -- weapontype_t
 
 	wp_fist: INTEGER = 0

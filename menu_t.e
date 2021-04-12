@@ -21,7 +21,7 @@ feature
 
 	y: INTEGER assign set_y
 
-	lastOn: INTEGER
+	lastOn: INTEGER assign set_laston
 
 feature
 
@@ -61,6 +61,11 @@ feature
 	set_routine (a_routine: like routine)
 		do
 			routine := a_routine
+		end
+
+	set_laston (a_laston: like laston)
+		do
+			laston := a_laston
 		end
 
 invariant

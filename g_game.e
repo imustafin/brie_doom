@@ -8,6 +8,7 @@ class
 	G_GAME
 
 inherit
+
 	DOOMDEF_H
 
 create
@@ -314,6 +315,20 @@ feature
 
 feature -- G_InitNew
 
+	d_skill: INTEGER
+
+	d_episode: INTEGER
+
+	d_map: INTEGER
+
+	G_DeferedInitNew (skill, episode, map: INTEGER)
+		do
+			d_skill := skill
+			d_episode := episode
+			d_map := map
+			gameaction := ga_newgame
+		end
+
 	G_InitNew (skill: INTEGER; episode: INTEGER; map: INTEGER)
 		do
 				-- Stub
@@ -596,6 +611,7 @@ feature
 	G_DoNewGame
 		do
 				-- Stub
+			{I_MAIN}.i_error ("G_DoNewGame not implemented")
 		end
 
 	G_DoLoadGame
@@ -660,7 +676,7 @@ feature
 				end
 				Result := True
 			else
-				-- any other key pops up menu if in demos
+					-- any other key pops up menu if in demos
 				if gameaction = ga_nothing and not singledemo and (demoplayback or gamestate = gs_demoscreen) then
 					if ev.type = {EVENT_T}.ev_keydown or (ev.type = {EVENT_T}.ev_mouse and ev.data1 /= 0) or (ev.type = {EVENT_T}.ev_joystick and ev.data1 /= 0) then
 						i_main.m_menu.M_StartControlPanel
@@ -669,13 +685,13 @@ feature
 						Result := False
 					end
 				else
-					if gamestate = GS_LEVEL and then i_main.hu_stuff.HU_Responder(ev) then
+					if gamestate = GS_LEVEL and then i_main.hu_stuff.HU_Responder (ev) then
 						Result := True
-					elseif gamestate = GS_LEVEL and then i_main.st_stuff.ST_Responder(ev) then
+					elseif gamestate = GS_LEVEL and then i_main.st_stuff.ST_Responder (ev) then
 						Result := True
 					elseif gamestate = GS_LEVEL and then i_main.am_map.AM_Responder (ev) then
 						Result := True
-					elseif gamestate = GS_FINALE and then i_main.f_finale.F_Responder(ev) then
+					elseif gamestate = GS_FINALE and then i_main.f_finale.F_Responder (ev) then
 						Result := True
 					else
 						if ev.type = {EVENT_T}.ev_keydown then
@@ -683,18 +699,18 @@ feature
 								sendpause := True
 							else
 								if ev.data1 < NUMKEYS then
-									gamekeydown[ev.data1] := True
+									gamekeydown [ev.data1] := True
 								end
 							end
 							Result := True
 						elseif ev.type = {EVENT_T}.ev_keyup then
 							if ev.data1 < NUMKEYS then
-								gamekeydown[ev.data1] := False
+								gamekeydown [ev.data1] := False
 							end
 							Result := False -- always let key up events filter down
 						end
-						-- skip ev_mouse
-						-- skip ev_joystick	
+							-- skip ev_mouse
+							-- skip ev_joystick
 					end
 				end
 			end
