@@ -36,7 +36,12 @@ feature
 
 	playsong (handle: detachable ANY; looping: BOOLEAN)
 		do
-			-- Stub
+				-- Stub
+		end
+
+	registersong (handle: detachable ANY; len: INTEGER): detachable ANY
+		do
+				-- Stub
 		end
 
 end

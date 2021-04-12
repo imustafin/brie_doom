@@ -95,4 +95,45 @@ feature
 				-- Stub
 		end
 
+	M_TempFile (s: STRING): STRING
+			-- Returns the path to a temporary file of the given name,
+			-- stored inside the system temporary directory.
+			--
+			-- The returned value must be freed with Z_Free after use.
+		local
+			tempdir: STRING
+		do
+				-- skip #ifdef _WIN32
+			tempdir := "/tmp"
+			Result := tempdir + operating_environment.directory_separator.out + s
+		end
+
+	M_WriteFile_managed_pointer (name: STRING; source: MANAGED_POINTER): BOOLEAN
+		local
+			handle: RAW_FILE
+		do
+			create handle.make_open_write(name)
+			if handle.is_writable then
+				handle.put_managed_pointer (source, 0, source.count)
+				handle.close
+				Result := True
+			end
+		end
+
+	M_WriteFile_list (name: STRING; source: LIST [NATURAL_8]): BOOLEAN
+		local
+			handle: RAW_FILE
+		do
+			create handle.make_open_write (name)
+			if handle.is_writable then
+				across
+					source as s
+				loop
+					handle.put_natural_8 (s.item)
+				end
+				handle.close
+				Result := True
+			end
+		end
+
 end

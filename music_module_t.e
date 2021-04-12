@@ -30,8 +30,7 @@ feature
 		end
 
 	registersong (handle: detachable ANY; len: INTEGER): detachable ANY
-		do
-				-- Stub
+		deferred
 		end
 
 	playsong (handle: detachable ANY; looping: BOOLEAN)

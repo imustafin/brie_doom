@@ -48,7 +48,7 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			snd_musicdevice := SNDDEVICE_SB
+			snd_musicdevice := SNDDEVICE_GENMIDI
 			snd_sfxdevice := SNDDEVICE_SB
 			create music_pack_module.make
 		end
