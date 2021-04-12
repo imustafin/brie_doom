@@ -129,9 +129,6 @@ feature
 					-- the TIMIDITY_CFG environment variable here before SDL_mixer
 					-- is opened.
 
-				if not nomusic and (snd_musicdevice = SNDDEVICE_GENMIDI or snd_musicdevice = SNDDEVICE_GUS) then
-					music_sdl_module.I_InitTimidityConfig
-				end
 				if not nosfx then
 					InitSfxModule (use_sfx_prefix)
 				end
