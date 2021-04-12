@@ -238,4 +238,41 @@ feature
 			end
 		end
 
+	shutdown
+		do
+			if music_initialized then
+					-- skip _WIN32
+				if {SDL_MIXER_FUNCTIONS_API}.mix_halt_music /= 0 then
+					{I_MAIN}.i_error ("Could not Mix_HaltMusic")
+				end
+				music_initialized := False
+				if sdl_was_initialized then
+					{SDL_MIXER_FUNCTIONS_API}.mix_close_audio
+					{SDL_FUNCTIONS_API}.sdl_quit_sub_system ({SDL_CONSTANT_API}.sdl_init_audio.to_natural_32)
+					sdl_was_initialized := False
+				end
+			end
+		end
+
+	set_music_volume (vol: INTEGER)
+		do
+			current_music_volume := vol
+			UpdateMusicVolume
+		end
+
+	pause_music
+		do
+			if music_initialized then
+				musicpaused := True
+				UpdateMusicVolume
+			end
+		end
+
+	music_is_playing: BOOLEAN
+		do
+			if music_initialized then
+				Result := {MIX}.mix_playing_music
+			end
+		end
+
 end

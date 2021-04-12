@@ -53,17 +53,37 @@ feature
 
 	stopsong
 		do
-			-- Stub
+				-- Stub
 		end
 
 	resumemusic
 		do
-			-- Stub
+				-- Stub
 		end
 
 	unregistersong (handle: detachable ANY)
 		do
-			-- Stub
+				-- Stub
+		end
+
+	shutdown
+		do
+				-- Stub
+		end
+
+	set_music_volume (vol: INTEGER)
+		do
+				-- Stub
+		end
+
+	pause_music
+		do
+				-- Stub
+		end
+
+	music_is_playing: BOOLEAN
+		do
+				-- Stub
 		end
 
 end
