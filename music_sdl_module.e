@@ -11,6 +11,8 @@ inherit
 
 	MUSIC_MODULE_T
 
+	EXECUTION_ENVIRONMENT
+
 create
 	make
 
@@ -40,6 +42,68 @@ feature
 			Result := 96 * 1024
 		end
 
+feature -- Timidity configs
+
+	temp_timidity_cfg: detachable STRING
+
+	timidity_cfg_path: STRING = "/etc/timidity/timidity.cfg"
+
+	I_InitTimidityConfig
+		local
+			success: BOOLEAN
+			cfg: STRING
+		do
+			cfg := i_main.m_misc.m_tempfile ("timidity.cfg")
+			temp_timidity_cfg := cfg
+			if i_main.i_sound.snd_musicdevice = {I_SOUND}.snddevice_gus then
+					-- success := GUS_WriteConfig (cfg)
+				{I_MAIN}.i_error ("GUS_WriteConfig not implemented")
+			else
+				success := WriteWrapperTimidityConfig (cfg)
+			end
+
+				-- Set the TIMDITY_CFG environment variable to point to the temporary
+				-- config file.
+			if success then
+				put (cfg, "TIMIDITY_CFG")
+
+					-- If we're explicitly configured to use Timidity
+					-- (either through timidity_cfg_path or GUS mode), then disable
+					-- Fluidsynth, because SDL_Mixer considers Fluidsynth a higher
+					-- priority than Timidity and therefore can end up circumventing Timidity entirely.
+				put ("1", "SDL_MIXER_DISABLE_FLUIDSYNTH")
+			else
+				temp_timidity_cfg := Void
+			end
+		end
+
+	WriteWrapperTimidityConfig (write_path: STRING): BOOLEAN
+			-- If the temp_timidity_cfg config variable is set, generate a "wrapper"
+			-- config file for Timidity to point to the actual config file.
+			-- This is needed to inject a "dir" command so that the patches are read
+			-- relative to the actual config file.
+		local
+			file: PLAIN_TEXT_FILE
+			path: STRING
+		do
+			if not timidity_cfg_path.is_empty then
+				create file.make_open_write (write_path)
+				path := i_main.m_misc.M_DirName (timidity_cfg_path)
+				file.put_string ("dir " + path + "%N")
+				file.put_string ("source " + timidity_cfg_path + "%N")
+				file.close
+				Result := True
+			end
+		end
+
+	remove_timidity_config
+		do
+			if attached temp_timidity_cfg as cfg then
+				(create {RAW_FILE}.make_open_write (cfg)).delete
+				temp_timidity_cfg := Void
+			end
+		end
+
 feature
 
 	music_sdl_module (a_i_main: like i_main): MUSIC_SDL_MODULE
@@ -56,7 +120,7 @@ feature
 
 	poll
 		do
-				-- Stub
+				-- Do nothing
 		end
 
 	sdl_is_initialized: BOOLEAN
@@ -65,11 +129,6 @@ feature
 			format: NATURAL_16
 		do
 			Result := {SDL_MIXER_FUNCTIONS_API}.mix_query_spec ($freq, $format, $channels) /= 0
-		end
-
-	remove_timidity_config
-		do
-				-- Stub
 		end
 
 	init: BOOLEAN

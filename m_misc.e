@@ -136,4 +136,21 @@ feature
 			end
 		end
 
+	M_DirName(path: STRING): STRING
+		-- Returns the directory portion of the given path,
+		-- without the trailing slash separator character.
+		-- If no directory is described in the path,
+		-- the string "." is returned. In either case, the result is newly
+		-- allocated and must be freed by the caller after use.
+	local
+		last_sep: INTEGER
+	do
+		last_sep := path.last_index_of (operating_environment.directory_separator, path.count)
+		if last_sep = 0 then
+			Result := "."
+		else
+			Result := path.substring (1, last_sep - 1)
+		end
+	end
+
 end

@@ -76,9 +76,14 @@ feature -- Chocolate doom
 			Result := {ARRAY [detachable SOUND_MODULE_T]} <<{SOUND_SDL_MODULE}.sound_sdl_module (i_main), {SOUND_PCSOUND_MODULE}.sound_pcsound_module, Void>>
 		end
 
+	music_sdl_module: MUSIC_SDL_MODULE
+		once
+			Result := {MUSIC_SDL_MODULE}.music_sdl_module (i_main)
+		end
+
 	music_modules: ARRAY [detachable MUSIC_MODULE_T]
 		once
-			Result := {ARRAY [detachable MUSIC_MODULE_T]} <<{MUSIC_SDL_MODULE}.music_sdl_module(i_main), {MUSIC_OPL_MODULE}.music_opl_module, Void>>
+			Result := {ARRAY [detachable MUSIC_MODULE_T]} <<music_sdl_module, {MUSIC_OPL_MODULE}.music_opl_module, Void>>
 		end
 
 feature -- Chocolate doom Sound modules
@@ -125,7 +130,7 @@ feature
 					-- is opened.
 
 				if not nomusic and (snd_musicdevice = SNDDEVICE_GENMIDI or snd_musicdevice = SNDDEVICE_GUS) then
-					{I_SDLMUSIC}.I_InitTimidityConfig
+					music_sdl_module.I_InitTimidityConfig
 				end
 				if not nosfx then
 					InitSfxModule (use_sfx_prefix)
@@ -187,12 +192,11 @@ feature
 		end
 
 	I_UpdateSoundParams (channel, vol, sep: INTEGER)
-		-- from chocolate doom
+			-- from chocolate doom
 		do
 			if attached sound_module as m then
-				m.update_sound_params (channel, check_volume(vol), check_separation(sep))
+				m.update_sound_params (channel, check_volume (vol), check_separation (sep))
 			end
-
 		end
 
 	I_SetChannels
@@ -243,12 +247,10 @@ feature
 		end
 
 	I_SetMusicVolume (volume: INTEGER)
-			-- MUSIC API - dummy. Some code from DOS version.
 		do
-				-- Internal state variable.
-			i_main.s_sound.snd_MusicVolume := volume
-				-- Now set volume on output device.
-				-- Whatever( snd_MusicVolume );
+			if attached active_music_module as m then
+				m.set_music_volume (volume)
+			end
 		end
 
 	I_ResumeSong
@@ -314,14 +316,14 @@ feature
 		end
 
 	I_UpdateSound
-	do
-		if attached sound_module as m then
-			m.update
+		do
+			if attached sound_module as m then
+				m.update
+			end
+			if attached active_music_module as mm then
+				mm.poll
+			end
 		end
-		if attached active_music_module as mm then
-			mm.poll
-		end
-	end
 
 	I_StartSound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER): INTEGER
 		do
@@ -339,5 +341,4 @@ feature
 		do
 			Result := separation.max (0).min (254)
 		end
-
 end
