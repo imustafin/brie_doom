@@ -19,9 +19,18 @@ feature
 		do
 		end
 
+feature
+
+	SKYFLATNAME: STRING = "F_SKY1"
+
 feature -- sky mapping
 
-	skyflatnum: INTEGER
+	skyflatnum: INTEGER assign set_skyflatnum
+
+	set_skyflatnum (a_skyflatnum: like skyflatnum)
+		do
+			skyflatnum := a_skyflatnum
+		end
 
 	skytexture: INTEGER assign set_skytexture
 

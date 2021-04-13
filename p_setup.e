@@ -29,4 +29,9 @@ feature
 			i_main.r_things.R_InitSprites (i_main.info.sprnames)
 		end
 
+	P_SetupLevel (episode, map, playermask, skill: INTEGER)
+		do
+			{I_MAIN}.i_error ("P_SetupLevel not implemented")
+		end
+
 end

@@ -382,7 +382,6 @@ feature
 	S_ChangeMusic (a_musicnum: INTEGER; looping: BOOLEAN)
 		local
 			music: MUSICINFO_T
-			namebuf: STRING
 			musicnum: INTEGER
 			handle: ANY
 		do

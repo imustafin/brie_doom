@@ -40,4 +40,9 @@ feature
 			extralight := a_extralight
 		end
 
+	frags: ARRAY [INTEGER]
+		once
+			create Result.make_filled (0, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
+		end
+
 end

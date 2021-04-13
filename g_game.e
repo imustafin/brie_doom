@@ -55,6 +55,12 @@ feature
 			usergame := a_usergame
 		end
 
+feature
+
+	levelstarttic: INTEGER -- gametic at level start
+
+	starttime: INTEGER -- for comparative timing puroses
+
 feature -- controls (have defaults)
 
 	key_right: INTEGER assign set_key_right
@@ -717,9 +723,67 @@ feature
 				-- Stub
 		end
 
+feature -- G_DoLoadLevel
+
+	wipegamestate: INTEGER
+
 	G_DoLoadLevel
+		local
+			i: INTEGER
 		do
-				-- Stub
+				-- Set the sky map.
+				-- First thing, we have a dummy sky texture name,
+				-- a flat. The data is in the WAD only because
+				-- we look for an actual index, instead of simply
+				-- setting one
+			i_main.r_sky.skyflatnum := i_main.r_data.R_FlatNumForName ({R_SKY}.SKYFLATNAME)
+
+				-- DOOM determines the sky texture to be used
+				-- depending on the current episode, and the game version.
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial
+				-- or i_main.doomstat_h.gamemode = {GAME_MODE_T}.pack_tnt or i_main.doomstat_h.gamemode = {GAME_MODE_T}.pack_plut
+			then
+				i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY3")
+				if gamemap < 12 then
+					i_main.r_sky.skytexture := i_main.r_data.R_TextureNumForName ("SKY1")
+				elseif gamemap < 21 then
+					i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY2")
+				end
+			end
+			levelstarttic := gametic -- for time calculation
+
+			if wipegamestate = GS_LEVEL then
+				wipegamestate := -1 -- force a wipe
+			end
+			gamestate := GS_LEVEL
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				if playeringame [i] and then players [i].playerstate = {D_PLAYER}.PST_DEAD then
+					players [i].playerstate := {D_PLAYER}.PST_REBORN
+				end
+				players [i].frags.fill_with (0)
+				i := i + 1
+			end
+			i_main.p_setup.P_SetupLevel (gameepisode, gamemap, 0, gameskill)
+			displayplayer := consoleplayer -- view the guy you are playing
+			starttime := i_main.i_system.I_GetTime
+			gameaction := ga_nothing
+			i_main.z_zone.Z_CheckHeap
+
+				-- clear cmd building stuff
+			gamekeydown.fill_with (False)
+			joyxmove := 0
+			joyymove := 0
+			mousex := 0
+			mousey := 0
+			sendpause := False
+			sendsave := False
+			paused := False
+			mousebuttons.fill_with (False)
+			joybuttons.fill_with (False)
 		end
 
 	G_DoNewGame

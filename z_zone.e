@@ -23,6 +23,11 @@ feature
 				-- Stub
 		end
 
+	Z_CheckHeap
+		do
+				-- Stub
+		end
+
 feature -- ZONE MEMORY
 
 	PU_CACHE: INTEGER = 101

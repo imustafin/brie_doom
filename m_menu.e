@@ -259,7 +259,8 @@ feature
 
 	M_DrawNewGame
 		do
-				-- Stub
+			i_main.v_video.V_DrawPatchDirect (96, 14, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_NEWG", {Z_ZONE}.PU_CACHE)))
+			i_main.v_video.V_DrawPatchDirect (54, 38, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_SKILL", {Z_ZONE}.PU_CACHE)))
 		end
 
 	M_ChooseSkill (a_choice: INTEGER)

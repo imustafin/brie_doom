@@ -20,6 +20,7 @@ feature
 			i_main := a_i_main
 			create colormaps.make_empty
 			create textures.make_empty
+			create flattranslation.make_empty
 		end
 
 feature
@@ -29,6 +30,14 @@ feature
 	numtextures: INTEGER
 
 	textures: ARRAY [TEXTURE_T]
+
+	firstflat: INTEGER
+
+	lastflat: INTEGER
+
+	numflats: INTEGER
+
+	flattranslation: ARRAY [INTEGER]
 
 feature
 
@@ -107,8 +116,21 @@ feature
 		end
 
 	R_InitFlats
+		local
+			i: INTEGER
 		do
-				-- Stub
+			firstflat := i_main.w_wad.w_getnumforname ("F_START") + 1
+			lastflat := i_main.w_wad.w_getnumforname ("F_END") - 1
+			numflats := lastflat - firstflat + 1
+			create flattranslation.make_filled (0, 0, numflats + 1)
+			from
+				i := 0
+			until
+				i >= numflats
+			loop
+				flattranslation [i] := i
+				i := i + 1
+			end
 		end
 
 	R_InitSpriteLumps
@@ -176,6 +198,16 @@ feature
 					Result := -1
 				end
 			end
+		end
+
+	R_FlatNumForName (name: STRING): INTEGER
+			-- Retrieval, get a flat number for a flat name.
+		do
+			Result := i_main.w_wad.W_CheckNumForName (name)
+			if Result = -1 then
+				{I_MAIN}.i_error ("R_FlatNumForName: " + name + " not found%N")
+			end
+			Result := Result - firstflat
 		end
 
 end
