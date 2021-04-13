@@ -159,6 +159,16 @@ feature
 
 feature
 
+	S_ResumeSound
+		do
+			if mus_playing /= Void and mus_paused then
+				i_main.i_sound.i_resumesong
+				mus_paused := False
+			end
+		end
+
+feature
+
 	S_UpdateSounds (listener: MOBJ_T)
 			-- Updates music & sounds
 		local
@@ -171,7 +181,6 @@ feature
 			l_stopped: BOOLEAN
 		do
 			i_main.i_sound.I_UpdateSound
-
 			from
 				cnum := 0
 			until
@@ -293,61 +302,59 @@ feature
 			end
 		end
 
-	S_GetChannel(origin: detachable MOBJ_T; sfxinfo: SFXINFO_T): INTEGER
-		-- If none available, return -1. Otherwise channel #.
-	local
-		c: CHANNEL_T
-		found: BOOLEAN
-	do
-		-- Find an open channel
-		from
-			Result := 0
-		until
-			found or Result > channels.upper
-		loop
-			if channels[Result].sfxinfo = Void then
-				found := True
-			elseif attached origin and then channels[Result].origin = origin then
-				S_StopChannel(Result)
-				found := True
-			else
-				Result := Result + 1
-			end
-		end
-
-		-- None available
-		if Result > channels.upper then
-			-- Look for lower priority
+	S_GetChannel (origin: detachable MOBJ_T; sfxinfo: SFXINFO_T): INTEGER
+			-- If none available, return -1. Otherwise channel #.
+		local
+			c: CHANNEL_T
+			found: BOOLEAN
+		do
+				-- Find an open channel
 			from
 				Result := 0
-				found := False
 			until
 				found or Result > channels.upper
 			loop
-				if attached channels[Result].sfxinfo as csfxinfo and then csfxinfo.priority >= sfxinfo.priority then
+				if channels [Result].sfxinfo = Void then
+					found := True
+				elseif attached origin and then channels [Result].origin = origin then
+					S_StopChannel (Result)
 					found := True
 				else
 					Result := Result + 1
 				end
 			end
 
+				-- None available
 			if Result > channels.upper then
-				-- No lower priority
-				Result := -1
-			else
-				-- Otherwise, kick out lower priority
-				S_StopChannel(Result)
+					-- Look for lower priority
+				from
+					Result := 0
+					found := False
+				until
+					found or Result > channels.upper
+				loop
+					if attached channels [Result].sfxinfo as csfxinfo and then csfxinfo.priority >= sfxinfo.priority then
+						found := True
+					else
+						Result := Result + 1
+					end
+				end
+				if Result > channels.upper then
+						-- No lower priority
+					Result := -1
+				else
+						-- Otherwise, kick out lower priority
+					S_StopChannel (Result)
+				end
+			end
+			if Result /= -1 then
+				c := channels [Result]
+
+					-- channel is decided to be Result.
+				c.sfxinfo := sfxinfo
+				c.origin := origin
 			end
 		end
-
-		if Result /= -1 then
-			c := channels[Result]
-
-			-- channel is decided to be Result.
-			c.sfxinfo := sfxinfo
-			c.origin := origin
-		end
-	end
 
 	S_StopSound (origin: detachable MOBJ_T)
 		local

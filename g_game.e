@@ -298,7 +298,13 @@ feature
 			gamestate := a_gamestate
 		end
 
+	gameskill: INTEGER
+
+	gameepisode: INTEGER
+
 	gamemap: INTEGER
+
+	respawnmonsters: BOOLEAN
 
 feature
 
@@ -312,6 +318,8 @@ feature
 		end
 
 	deathmatch: BOOLEAN -- only if started as net death
+
+	netdemo: BOOLEAN
 
 feature -- G_InitNew
 
@@ -329,9 +337,115 @@ feature -- G_InitNew
 			gameaction := ga_newgame
 		end
 
-	G_InitNew (skill: INTEGER; episode: INTEGER; map: INTEGER)
+	G_InitNew (a_skill: INTEGER; a_episode: INTEGER; a_map: INTEGER)
+		local
+			i: INTEGER
+			skill: INTEGER
+			episode: INTEGER
+			map: INTEGER
 		do
-				-- Stub
+			skill := a_skill
+			episode := a_episode
+			map := a_map
+			if paused then
+				paused := False
+				i_main.s_sound.s_resumesound
+			end
+			if skill > sk_nightmare then
+				skill := sk_nightmare
+			end
+
+				-- This was quite messy with SPECIAL and commented parts
+				-- Supposedly hacks to make the latest edition work.
+				-- It might not work properly
+			if episode < 1 then
+				episode := 1
+			end
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.retail then
+				if episode > 4 then
+					episode := 4
+				end
+			elseif i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
+				if episode > 1 then
+					episode := 1 -- only start episode 1 on shareware
+				end
+			else
+				if episode > 3 then
+					episode := 3
+				end
+			end
+			if map < 1 then
+				map := 1
+			end
+			if map > 9 and i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				map := 9
+			end
+			i_main.m_random.m_clearrandom
+			check attached i_main.d_doom_main as main then
+				if skill = sk_nightmare or main.respawnparm then
+					respawnmonsters := True
+				else
+					respawnmonsters := False
+				end
+				if main.fastparm or (skill = sk_nightmare and gameskill /= sk_nightmare) then
+					from
+						i := {INFO}.S_SARG_RUN1
+					until
+						i > {INFO}.S_SARG_PAIN2
+					loop
+						{INFO}.states [i].tics := {INFO}.states [i].tics |>> 1
+						i := i + 1
+					end
+					{INFO}.mobjinfo [{INFO}.MT_BRUISERSHOT].speed := 20 * {M_FIXED}.FRACUNIT
+					{INFO}.mobjinfo [{INFO}.MT_HEADSHOT].speed := 20 * {M_FIXED}.FRACUNIT
+					{INFO}.mobjinfo [{INFO}.MT_TROOPSHOT].speed := 20 * {M_FIXED}.FRACUNIT
+				elseif skill /= sk_nightmare and gameskill = sk_nightmare then
+					from
+						i := {INFO}.S_SARG_RUN1
+					until
+						i > {INFO}.S_SARG_PAIN2
+					loop
+						{INFO}.states [i].tics := {INFO}.states [i].tics |<< 1
+						i := i + 1
+					end
+					{INFO}.mobjinfo [{INFO}.MT_BRUISERSHOT].speed := 15 * {M_FIXED}.FRACUNIT
+					{INFO}.mobjinfo [{INFO}.MT_HEADSHOT].speed := 10 * {M_FIXED}.FRACUNIT
+					{INFO}.mobjinfo [{INFO}.MT_TROOPSHOT].speed := 10 * {M_FIXED}.FRACUNIT
+				end
+			end
+
+				-- force players to be initialized upon first level load
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				players [i].playerstate := {D_PLAYER}.PST_REBORN
+				i := i + 1
+			end
+			usergame := True -- will be set false if a demo
+			paused := False
+			demoplayback := False
+			i_main.am_map.automapactive := False
+			viewactive := True
+			gameepisode := episode
+			gamemap := map
+			gameskill := skill
+			viewactive := True
+
+				-- set sky map for the episode
+
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY3")
+				if gamemap < 12 then
+					i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY1")
+				elseif gamemap < 21 then
+					i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY2")
+				end
+			else
+				i_main.r_sky.skytexture := i_main.r_data.r_texturenumforname ("SKY" + episode.out)
+			end
+			G_DoLoadLevel
 		end
 
 feature
@@ -610,8 +724,21 @@ feature
 
 	G_DoNewGame
 		do
-				-- Stub
-			{I_MAIN}.i_error ("G_DoNewGame not implemented")
+			demoplayback := False
+			netdemo := False
+			netgame := False
+			deathmatch := False
+			playeringame [1] := False
+			playeringame [2] := False
+			playeringame [3] := False
+			check attached i_main.d_doom_main as main then
+				main.respawnparm := False
+				main.fastparm := False
+				main.nomonsters := False
+			end
+			consoleplayer := 0
+			G_InitNew (d_skill, d_episode, d_map)
+			gameaction := ga_nothing
 		end
 
 	G_DoLoadGame

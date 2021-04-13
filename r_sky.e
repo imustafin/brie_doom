@@ -23,7 +23,12 @@ feature -- sky mapping
 
 	skyflatnum: INTEGER
 
-	skytexture: INTEGER
+	skytexture: INTEGER assign set_skytexture
+
+	set_skytexture (a_skytexture: like skytexture)
+		do
+			skytexture := a_skytexture
+		end
 
 	skytexturemid: INTEGER
 

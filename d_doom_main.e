@@ -50,6 +50,36 @@ feature -- DEMO LOOP
 
 feature
 
+	devparm: BOOLEAN assign set_devparm -- started game with -devparm
+
+	set_devparm (a_devparm: like devparm)
+		do
+			devparm := a_devparm
+		end
+
+	nomonsters: BOOLEAN assign set_nomonsters -- checkparm of -nomonsters
+
+	set_nomonsters (a_nomonsters: like nomonsters)
+		do
+			nomonsters := a_nomonsters
+		end
+
+	respawnparm: BOOLEAN assign set_respawnparm -- checkparm of -respawn
+
+	set_respawnparm (a_respawnparm: like respawnparm)
+		do
+			respawnparm := a_respawnparm
+		end
+
+	fastparm: BOOLEAN assign set_fastparm -- checkparm of -fast
+
+	set_fastparm (a_fastparm: like fastparm)
+		do
+			fastparm := a_fastparm
+		end
+
+feature
+
 	D_DoomMain
 		do
 			FindResponseFile

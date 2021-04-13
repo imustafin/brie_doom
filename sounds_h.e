@@ -369,8 +369,6 @@ feature -- musicenum_t
 feature -- S_sfx
 
 	S_sfx: ARRAYED_LIST [SFXINFO_T]
-		local
-			i: INTEGER
 		once
 			create Result.make (0)
 				-- skip dummy value at [0]

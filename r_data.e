@@ -19,11 +19,16 @@ feature
 		do
 			i_main := a_i_main
 			create colormaps.make_empty
+			create textures.make_empty
 		end
 
 feature
 
 	colormaps: ARRAY [LIGHTTABLE_T]
+
+	numtextures: INTEGER
+
+	textures: ARRAY[TEXTURE_T]
 
 feature
 
@@ -72,6 +77,36 @@ feature
 			print ("%NInitSprites")
 			R_InitColormaps
 			print ("%NInitColormaps")
+		end
+
+	R_TextureNumForName (name: STRING): INTEGER
+			-- Calls R_CheckTextureForName,
+			-- aborts with error message
+		do
+			Result := R_CheckTextureNumForName (name)
+			if Result = -1 then
+				{I_MAIN}.i_error ("R_TextureNumForName: " + name + " not found%N")
+			end
+		end
+
+	R_CheckTextureNumForName (name: STRING): INTEGER
+			-- Check whether texture is available.
+			-- Filter out NoTexture indicator.
+		do
+			if name.starts_with ("-") then
+				Result := 0
+			else
+				from
+					Result := 0
+				until
+					Result >= NUMTEXTURES or else textures [Result].name ~ name
+				loop
+					Result := Result + 1
+				end
+				if Result >= NUMTEXTURES then
+					Result := -1
+				end
+			end
 		end
 
 end

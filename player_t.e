@@ -33,4 +33,11 @@ feature
 			playerstate := a_playerstate
 		end
 
+	extralight: INTEGER assign set_extralight -- So gun flashes light up areas
+
+	set_extralight (a_extralight: like extralight)
+		do
+			extralight := a_extralight
+		end
+
 end

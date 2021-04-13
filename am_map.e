@@ -18,7 +18,12 @@ feature
 
 feature
 
-	automapactive: BOOLEAN
+	automapactive: BOOLEAN assign set_automapactive
+
+	set_automapactive (a_automapactive: like automapactive)
+		do
+			automapactive := a_automapactive
+		end
 
 feature
 
