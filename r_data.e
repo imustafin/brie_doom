@@ -28,11 +28,80 @@ feature
 
 	numtextures: INTEGER
 
-	textures: ARRAY[TEXTURE_T]
+	textures: ARRAY [TEXTURE_T]
 
 feature
 
 	R_InitTextures
+			-- Initializes the texture list
+			-- with the textures from the world map.
+		local
+			i: INTEGER
+			j: INTEGER
+			maptex1: TEXTUREX
+			maptex2: TEXTUREX
+			names: PNAMES
+			patchlookup: ARRAY [INTEGER] -- lumpnum of i-th patch
+		do
+				-- Load the patch names from pnames.lmp.
+			create names.from_pointer (i_main.w_wad.W_CacheLumpName ("PNAMES", {Z_ZONE}.pu_static))
+			create patchlookup.make_filled (0, 0, names.names.count - 1)
+			from
+				i := 0
+			until
+				i >= names.names.count - 1
+			loop
+				patchlookup [i] := i_main.w_wad.w_checknumforname (names.names [i])
+				i := i + 1
+			end
+
+				-- Load the map texture definitions from textures.lmp.
+				-- The data is contained in one or two lumps,
+				-- TEXTURE1 for shareware, plus TEXTURE2 for commercial.
+			create maptex1.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE1", {Z_ZONE}.pu_static))
+			numtextures := maptex1.textures.count
+			if i_main.w_wad.W_CheckNumForName ("TEXTURE2") /= -1 then
+				create maptex2.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE2", {Z_ZONE}.pu_static))
+				numtextures := numtextures + maptex2.textures.count
+			end
+
+				-- Make textures
+			create textures.make_filled (create {TEXTURE_T}.make, 0, numtextures - 1)
+			from
+				i := 0
+			until
+				i >= maptex1.textures.count
+			loop
+				textures [i] := create {TEXTURE_T}.make_from_maptexture_t (maptex1.textures [i], patchlookup)
+				i := i + 1
+			end
+			if attached maptex2 as m2 then
+				from
+					j := 0
+				until
+					j >= m2.textures.count
+				loop
+					textures [i] := create {TEXTURE_T}.make_from_maptexture_t (m2.textures [j], patchlookup)
+					i := i + 1
+					j := j + 1
+				end
+			end
+
+				-- Precalculate whatever possible
+			from
+				i := 0
+			until
+				i >= numtextures
+			loop
+				R_GenerateLookup (i)
+				i := i + 1
+			end
+
+				-- Create translation table for global animation.
+				-- Skip
+		end
+
+	R_GenerateLookup (texnum: INTEGER)
 		do
 				-- Stub
 		end
