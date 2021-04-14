@@ -210,4 +210,9 @@ feature
 			Result := Result - firstflat
 		end
 
+	R_PrecacheLevel
+		do
+				-- Stub
+		end
+
 end

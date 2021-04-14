@@ -221,4 +221,11 @@ feature
 				-- Stub
 		end
 
+	W_Reload
+		do
+			if reloadname /= Void then
+				{I_MAIN}.i_error ("W_Reload not implemented")
+			end
+		end
+
 end

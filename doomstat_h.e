@@ -19,6 +19,8 @@ feature
 
 	gamemode: GAME_MODE_T assign set_gamemode
 
+	precache: BOOLEAN
+
 feature
 
 	make

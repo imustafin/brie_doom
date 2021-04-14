@@ -15,15 +15,21 @@ create
 	make
 
 feature
-	make
-	do
 
-	end
+	make
+		do
+		end
 
 feature
+
 	P_InitPicAnims
-	do
-		-- Stub
-	end
+		do
+				-- Stub
+		end
+
+	P_SpawnSpecials
+		do
+				-- Stub
+		end
 
 end

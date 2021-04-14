@@ -206,7 +206,9 @@ feature -- D_DoomLoop
 				else
 					i_main.d_net.TryRunTics
 				end
-				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
+				check attached i_main.g_game.players [i_main.g_game.consoleplayer].mo as cpmo then
+					i_main.s_sound.S_UpdateSounds (cpmo) -- move positional sounds
+				end
 				D_Display
 			end
 		end

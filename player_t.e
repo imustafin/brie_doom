@@ -24,7 +24,12 @@ feature -- playerstate_t
 
 feature
 
-	mo: MOBJ_T
+	mo: detachable MOBJ_T assign set_mo
+
+	set_mo (a_mo: like mo)
+		do
+			mo := a_mo
+		end
 
 	playerstate: INTEGER assign set_playerstate
 
@@ -43,6 +48,36 @@ feature
 	frags: ARRAY [INTEGER]
 		once
 			create Result.make_filled (0, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
+		end
+
+	killcount: INTEGER assign set_killcount
+
+	set_killcount (a_killcount: like killcount)
+		do
+			killcount := a_killcount
+		end
+
+	secretcount: INTEGER assign set_secretcount
+
+	set_secretcount (a_secretcount: like secretcount)
+		do
+			secretcount := a_secretcount
+		end
+
+	itemcount: INTEGER assign set_itemcount
+
+	set_itemcount (a_itemcount: like itemcount)
+		do
+			itemcount := a_itemcount
+		end
+
+feature -- POV
+
+	viewz: FIXED_T assign set_viewz -- Focal origin above r.z
+
+	set_viewz (a_viewz: like viewz)
+		do
+			viewz := a_viewz
 		end
 
 end

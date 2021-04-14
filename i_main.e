@@ -184,6 +184,10 @@ feature -- Globals
 
 	i_midipipe: I_MIDIPIPE
 
+	p_tick: P_TICK
+
+	p_mobj: P_MOBJ
+
 feature {NONE} -- Initialization
 
 	make
@@ -207,6 +211,8 @@ feature {NONE} -- Initialization
 			create f_finale.make
 			create m_random.make
 			create i_midipipe
+			create p_tick.make
+			create p_mobj
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)
 			create inner_s_sound.make (Current)

@@ -492,4 +492,52 @@ feature
 			end
 		end
 
+	S_Start
+			-- Per level startup code.
+			-- Kills playing sounds at start of level,
+			-- determines music if any, changes music.
+		local
+			cnum: INTEGER
+			mnum: INTEGER
+			spmus: ARRAY [INTEGER]
+		do
+				-- kill all playing sounds at start of level
+				-- (trust me - a good idea)
+			from
+				cnum := 0
+			until
+				cnum >= numChannels
+			loop
+				if channels [cnum].sfxinfo /= Void then
+					S_StopChannel (cnum)
+				end
+				cnum := cnum + 1
+			end
+
+				-- start new music for the level
+			mus_paused := False
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				mnum := {SOUNDS_H}.mus_runnin + i_main.g_game.gamemap - 1
+			else
+				spmus := << --
+					-- Song - Who? - Where?
+				{SOUNDS_H}.mus_e3m4, -- American e4m1
+ {SOUNDS_H}.mus_e3m2, -- Romero e4m2
+ {SOUNDS_H}.mus_e3m3, -- Shawn e4m3
+ {SOUNDS_H}.mus_e1m5, -- American e4m4
+ {SOUNDS_H}.mus_e2m7, -- Tim 	e4m5
+ {SOUNDS_H}.mus_e2m4, -- Romero	e4m6
+ {SOUNDS_H}.mus_e2m6, -- J.Anderson	e4m7 CHIRON.WAD
+ {SOUNDS_H}.mus_e2m5, -- Shawn	e4m8
+ {SOUNDS_H}.mus_e1m9 -- Tim		e4m9
+				>>
+				if i_main.g_game.gameepisode < 4 then
+					mnum := {SOUNDS_H}.mus_e1m1 + (i_main.g_game.gameepisode - 1) * 9 + i_main.g_game.gamemap - 1
+				else
+					mnum := spmus [i_main.g_game.gamemap - 1]
+				end
+			end
+			S_ChangeMusic (mnum, True)
+		end
+
 end

@@ -21,6 +21,7 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
+			create wminfo
 		end
 
 feature
@@ -57,9 +58,41 @@ feature
 
 feature
 
+	bodyqueslot: INTEGER assign set_bodyqueslot
+
+	set_bodyqueslot (a_bodyqueslot: like bodyqueslot)
+		do
+			bodyqueslot := a_bodyqueslot
+		end
+
+feature
+
 	levelstarttic: INTEGER -- gametic at level start
 
 	starttime: INTEGER -- for comparative timing puroses
+
+	totalkills: INTEGER assign set_totalkills
+
+	set_totalkills (a_totalkills: like totalkills)
+		do
+			totalkills := a_totalkills
+		end
+
+	totalitems: INTEGER assign set_totalitems
+
+	set_totalitems (a_totalitems: like totalitems)
+		do
+			totalitems := a_totalitems
+		end
+
+	totalsecret: INTEGER assign set_totalsecret
+
+	set_totalsecret (a_totalsecret: like totalsecret)
+		do
+			totalsecret := a_totalsecret
+		end
+
+	wminfo: WBSTARTSTRUCT_T
 
 feature -- controls (have defaults)
 
@@ -915,6 +948,15 @@ feature -- G_PlayDemo
 		do
 			defdemoname := name
 			gameaction := ga_playdemo
+		end
+
+feature
+
+	G_DeathMatchSpawnPlayer (playernum: INTEGER)
+			-- Spawns a player at one of the random death match spots
+			-- called at level load and each death
+		do
+				-- Stub
 		end
 
 end
