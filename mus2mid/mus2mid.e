@@ -52,7 +52,7 @@ feature
 feature
 
 	write_midiheader
-		once
+		do
 			output.extend (('M').to_character_8.code.to_natural_8)
 			output.extend (('T').to_character_8.code.to_natural_8)
 			output.extend (('h').to_character_8.code.to_natural_8)
