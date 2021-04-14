@@ -23,6 +23,7 @@ feature
 			window_width := 800
 			window_height := 600
 			fullscreen := False
+			create i_videobuffer.make (1)
 		end
 
 feature
@@ -79,7 +80,7 @@ feature
 
 feature
 
-	I_VideoBuffer: POINTER -- originally pixel_t* (typedef uint8_t pixel_t)
+	I_VideoBuffer: PIXEL_T_BUFFER
 			--  The screen buffer; this is modified to draw things to the screen
 
 feature
@@ -177,13 +178,13 @@ feature -- I_InitGraphics
 				-- finally rendered into our window or full screen in I_FinishUpdate().
 
 			check attached screenbuffer as sb then
-				I_VideoBuffer := sb.pixels
+				create i_videobuffer.share_from_pointer (sb.pixels, {DOOMDEF_H}.screenwidth * {DOOMDEF_H}.screenheight)
 			end
 			i_main.v_video.V_RestoreBuffer
 
 				-- Clear the screen to black.
 
-			I_VideoBuffer.memory_set (0, {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT)
+			I_VideoBuffer.fill_zero
 
 				-- clear out any events waiting at the start and center the mouse
 			from
@@ -278,18 +279,9 @@ feature
 
 feature
 
-	I_ReadScreen (scr: ARRAY [NATURAL_8])
-		local
-			i: INTEGER
+	I_ReadScreen (scr: PIXEL_T_BUFFER)
 		do
-			from
-				i := 0
-			until
-				i >= {DOOMDEF_H}.SCREENWIDTH * {DOOMDEF_H}.SCREENHEIGHT
-			loop
-				scr [i] := i_main.v_video.screens [0] [i]
-				i := i + 1
-			end
+			scr.copy_from (I_VideoBuffer)
 		end
 
 feature

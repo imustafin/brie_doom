@@ -24,6 +24,7 @@ feature
 		do
 			i_main := a_i_main
 			create screens.make_empty
+			create dest_screen.make (0)
 		end
 
 	V_Init
@@ -131,10 +132,32 @@ feature
 			end
 		end
 
-	V_DrawBlock (x, y: INTEGER; scrn: INTEGER; width, height: INTEGER; src: ARRAY [NATURAL_8])
+	V_DrawBlock (x, y, width, a_height: INTEGER; a_src: PIXEL_T_BUFFER)
 			-- Draw a linear block of pixels into the view buffer.
+		local
+			dest: POINTER
+			height: INTEGER
+			src: POINTER
 		do
-				-- Stub
+			V_MarkRect(x, y, width, height)
+
+			dest := dest_screen.p.item + (y * {DOOMDEF_H}.screenwidth + x)
+
+			src := a_src.p.item
+
+			from
+				height := a_height - 1
+			until
+				height = 0
+			loop
+				dest.memory_copy (src, width * {PIXEL_T_BUFFER}.pixel_t_size)
+
+				src := src + width * {PIXEL_T_BUFFER}.pixel_t_size
+				dest := dest + ({DOOMDEF_H}.SCREENWIDTH * {PIXEL_T_BUFFER}.pixel_t_size)
+
+				height := height - 1
+			end
+
 		end
 
 	V_MarkRect (x, y, width, height: INTEGER)
@@ -145,7 +168,7 @@ feature
 
 feature
 
-	dest_screen: POINTER -- originally pixel_t*
+	dest_screen: PIXEL_T_BUFFER
 
 	V_RestoreBuffer
 		do

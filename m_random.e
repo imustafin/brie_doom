@@ -36,13 +36,13 @@ feature
 	P_Random: INTEGER
 		do
 			prndindex := (prndindex + 1) & 0xff
-			Result := rndtable [prndindex]
+			Result := rndtable [prndindex + 1]
 		end
 
 	M_Random: INTEGER
 		do
 			rndindex := (rndindex + 1) & 0xff
-			Result := rndtable [rndindex]
+			Result := rndtable [rndindex + 1]
 		end
 
 	M_ClearRandom

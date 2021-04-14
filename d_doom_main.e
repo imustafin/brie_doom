@@ -186,7 +186,7 @@ feature -- D_DoomLoop
 			until
 				False
 			loop
-				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + "%N")
+				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
 				check attached i_main.i_video as iv then
 					iv.I_StartFrame
 				end
@@ -320,7 +320,6 @@ feature -- D_Display
 			done: BOOLEAN
 			wipe: BOOLEAN
 			redrawsbar: BOOLEAN
-			l_tics_once: BOOLEAN
 		do
 			if i_main.g_game.nodrawers then
 					-- for comparative timing / profiling
@@ -441,12 +440,13 @@ feature -- D_Display
 						done
 					loop
 						from
-							l_tics_once := False
+							tics := 0 -- set zero to run loop at least once (do {} while(tics <= 0) from chocolate doom D_RunFrame
 						until
-							l_tics_once and tics /= 0
+							tics > 0
 						loop
 							nowtime := i_main.i_system.I_GetTime
 							tics := nowtime - wipestart
+							i_main.i_system.i_sleep (1)
 						end
 						wipestart := nowtime
 						check attached i_main.f_wipe as w then
