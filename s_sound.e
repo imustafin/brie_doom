@@ -393,7 +393,7 @@ feature
 				musicnum := {SOUNDS_H}.mus_introa
 			end
 			if musicnum <= {SOUNDS_H}.mus_None or musicnum >= {SOUNDS_H}.NUMMUSIC then
-				{I_MAIN}.i_error ("Bas music number " + musicnum.out)
+				{I_MAIN}.i_error ("Bad music number " + musicnum.out)
 			else
 				music := {SOUNDS_H}.S_music [musicnum]
 			end
