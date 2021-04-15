@@ -23,6 +23,7 @@ feature
 		do
 			i_main := a_i_main
 			create deathmatchstarts.make_empty
+			create nodes.make_empty
 		end
 
 feature
@@ -32,6 +33,8 @@ feature
 	deathmatchstarts: ARRAY [MAPTHING_T]
 
 	deathmatch_p: INTEGER -- index in deathmatchstarts
+
+	nodes: ARRAY [NODE_T]
 
 feature
 

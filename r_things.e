@@ -14,11 +14,29 @@ feature
 
 	make
 		do
+			create vissprites.make_empty
 		end
 
 feature
 
+	vissprites: ARRAY [VISSPRITE_T]
+
+	vissprite_p: INTEGER -- originally pointer inside vissprites
+
+feature
+
 	R_InitSprites (namelist: ARRAY [STRING])
+		do
+				-- Stub
+		end
+
+	R_ClearSprites
+			-- Called at frame start.
+		do
+			vissprite_p := 0
+		end
+
+	R_DrawMasked
 		do
 				-- Stub
 		end

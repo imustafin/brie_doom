@@ -86,13 +86,33 @@ feature
 
 feature -- Binary Angle Measument, BAM.
 
-	ANG45: INTEGER = 0x20000000
+	ANG45: ANGLE_T
+		once
+			Result := (0x20000000).as_natural_32
+		ensure
+			instance_free: class
+		end
 
-	ANG90: INTEGER = 0x40000000
+	ANG90: ANGLE_T
+		once
+			Result := (0x40000000).as_natural_32
+		ensure
+			instance_free: class
+		end
 
-	ANG180: INTEGER = 0x80000000
+	ANG180: ANGLE_T
+		once
+			Result := (0x80000000).as_natural_32
+		ensure
+			instance_free: class
+		end
 
-	ANG270: INTEGER = 0xc0000000
+	ANG270: ANGLE_T
+		once
+			Result := (0xc0000000).as_natural_32
+		ensure
+			instance_free: class
+		end
 
 feature
 

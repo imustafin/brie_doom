@@ -71,6 +71,10 @@ feature
 			itemcount := a_itemcount
 		end
 
+	fixedcolormap: INTEGER
+			-- Current PLAYPAL, ???
+			-- can be set to REDCOLORMAP for pain, etc.
+
 feature -- POV
 
 	viewz: FIXED_T assign set_viewz -- Focal origin above r.z

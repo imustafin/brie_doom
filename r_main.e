@@ -25,6 +25,10 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
+			create viewplayer.make
+			validcount := 1
+			create scalelightfixed.make_empty
+			create fixedcolormap
 		end
 
 feature
@@ -34,6 +38,33 @@ feature
 	viewy: FIXED_T
 
 	viewz: FIXED_T
+
+feature
+
+	viewplayer: PLAYER_T
+
+	viewangle: ANGLE_T
+
+	viewangleoffset: INTEGER
+
+	extralight: INTEGER
+
+	viewsin: FIXED_T
+
+	viewcos: FIXED_T
+
+	sscount: INTEGER
+
+	linecount: INTEGER
+
+	loopcount: INTEGER
+
+	fixedcolormap: LIGHTTABLE_T
+
+	scalelightfixed: ARRAY [LIGHTTABLE_T]
+
+	validcount: INTEGER
+			-- increment every time a check is made
 
 feature
 
@@ -103,7 +134,6 @@ feature
 				i > Result.upper
 			loop
 				Result [i] := finesine [i + l_start]
-
 				i := i + 1
 			end
 		ensure
@@ -366,7 +396,63 @@ feature
 
 	R_RenderPlayerView (player: PLAYER_T)
 		do
-				-- Stub
+			R_SetupFrame (player)
+
+				-- Clear buffers
+			i_main.r_bsp.R_ClearClipSegs
+			i_main.r_bsp.R_ClearDrawSegs
+			i_main.r_plane.R_ClearPlanes
+			i_main.r_things.R_ClearSprites
+
+				-- check for new console commands
+			i_main.d_net.NetUpdate
+
+				-- The head node is the last node output.
+			i_main.r_bsp.R_RenderBSPNode (i_main.p_setup.nodes.count - 1)
+
+				-- check for new console commands.
+			i_main.d_net.NetUpdate
+			i_main.r_plane.R_DrawPlanes
+
+				-- check for new console commands
+			i_main.d_net.NetUpdate
+			i_main.r_things.R_DrawMasked
+
+				-- check for new console commands
+			i_main.d_net.NetUpdate
+		end
+
+	R_SetupFrame (player: PLAYER_T)
+		local
+			i: INTEGER
+		do
+			viewplayer := player
+			check attached player.mo as mo then
+				viewx := mo.x
+				viewy := mo.y
+				viewangle := mo.angle + viewangleoffset.to_natural_32
+			end
+			extralight := player.extralight
+			viewz := player.viewz
+			viewsin := finesine [viewangle |>> ANGLETOFINESHIFT]
+			viewcos := finecosine [viewangle |>> ANGLETOFINESHIFT]
+			sscount := 0
+			if player.fixedcolormap /= 0 then
+				fixedcolormap := i_main.r_data.colormaps [player.fixedcolormap] -- originally colormaps + player->fixedcolormap*256*sizeof(lighttable_t)
+				i_main.r_segs.walllights := scalelightfixed
+				from
+					i := 0
+				until
+					i >= MAXLIGHTSCALE
+				loop
+					scalelightfixed [i] := fixedcolormap
+					i := i + 1
+				end
+			else
+				fixedcolormap := 0
+			end
+			framecount := framecount + 1
+			validcount := validcount + 1
 		end
 
 end

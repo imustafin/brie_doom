@@ -78,7 +78,14 @@ feature -- Globals
 			end
 		end
 
+	inner_r_plane: detachable R_PLANE
+
 	r_plane: R_PLANE
+		do
+			check attached inner_r_plane as x then
+				Result := x
+			end
+		end
 
 	r_sky: R_SKY
 
@@ -188,6 +195,17 @@ feature -- Globals
 
 	p_mobj: P_MOBJ
 
+	r_segs: R_SEGS
+
+	inner_r_bsp: detachable R_BSP
+
+	r_bsp: R_BSP
+		do
+			check attached inner_r_bsp as x then
+				Result := x
+			end
+		end
+
 feature {NONE} -- Initialization
 
 	make
@@ -199,7 +217,6 @@ feature {NONE} -- Initialization
 			create hu_lib.make
 			create am_map.make
 			create wi_stuff.make
-			create r_plane.make
 			create p_switch.make
 			create p_spec.make
 			create r_things.make
@@ -213,6 +230,9 @@ feature {NONE} -- Initialization
 			create i_midipipe
 			create p_tick.make
 			create p_mobj
+			create r_segs.make
+			create inner_r_plane.make (Current)
+			create inner_r_bsp.make (Current)
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)
 			create inner_s_sound.make (Current)
