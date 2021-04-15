@@ -143,7 +143,7 @@ feature
 
 	D_PageDrawer
 		do
-			i_main.v_video.V_DrawPatch (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (pagename, {Z_ZONE}.PU_CACHE)))
+			i_main.v_video.V_DrawPatch (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (pagename, {Z_ZONE}.PU_CACHE)))
 		end
 
 	advancedemo: BOOLEAN
@@ -416,7 +416,7 @@ feature -- D_Display
 					else
 						y := i_main.r_draw.viewwindowy + 4
 					end
-					i_main.v_video.V_DrawPatchDirect (i_main.r_draw.viewwindowx + (i_main.r_draw.scaledviewwidth - 68) // 2, y, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_PAUSE", {Z_ZONE}.PU_CACHE)))
+					i_main.v_video.V_DrawPatchDirect (i_main.r_draw.viewwindowx + (i_main.r_draw.scaledviewwidth - 68) // 2, y, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_PAUSE", {Z_ZONE}.PU_CACHE)))
 				end
 
 					-- menus go directly to the screen

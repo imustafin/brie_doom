@@ -597,10 +597,9 @@ feature -- I_FinishUpdate
 	lasttic: INTEGER
 
 	I_FinishUpdate
-		local
-			i: INTEGER
-			mp: MANAGED_POINTER
 		do
+				-- From chocolate doom
+
 				-- skip devparm
 			check attached screenbuffer as sb then
 				if palette_to_set then
@@ -614,17 +613,6 @@ feature -- I_FinishUpdate
 			end
 			check attached screenbuffer as sb and then attached argbbuffer as abb and then attached texture as t then
 				check attached renderer as r and then attached texture_upscaled as tu then
-
-						-- copy screen[0] to sb
-					create mp.share_from_pointer (sb.pixels, i_main.v_video.screens [0].count)
-					from
-						i := 0
-					until
-						i > i_main.v_video.screens [0].upper
-					loop
-						mp.put_natural_8 (i_main.v_video.screens [0] [i], i)
-						i := i + 1
-					end
 
 						-- Blit from the paletted 8-bit screen buffer to the intermediate
 						-- 32-bit RGBA buffer that we can load into the texture.

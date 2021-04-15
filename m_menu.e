@@ -182,9 +182,9 @@ feature -- Read This Menus (Had a "quick hack to fix romero bug")
 			inhelpscreens := True
 			gamemode := i_main.doomstat_h.gamemode
 			if gamemode = {GAME_MODE_T}.commercial then
-				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP", {Z_ZONE}.pu_cache)))
+				i_main.v_video.v_drawpatchdirect (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP", {Z_ZONE}.pu_cache)))
 			elseif gamemode = {GAME_MODE_T}.shareware or gamemode = {GAME_MODE_T}.registered or gamemode = {GAME_MODE_T}.retail then
-				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP1", {Z_ZONE}.pu_cache)))
+				i_main.v_video.v_drawpatchdirect (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP1", {Z_ZONE}.pu_cache)))
 			end
 		end
 
@@ -196,9 +196,9 @@ feature -- Read This Menus (Had a "quick hack to fix romero bug")
 			gamemode := i_main.doomstat_h.gamemode
 			if gamemode = {GAME_MODE_T}.retail or gamemode = {GAME_MODE_T}.commercial then
 					-- This hack keeps us from having to change menus.
-				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("CREDIT", {Z_ZONE}.pu_cache)))
+				i_main.v_video.v_drawpatchdirect (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("CREDIT", {Z_ZONE}.pu_cache)))
 			elseif gamemode = {GAME_MODE_T}.shareware or gamemode = {GAME_MODE_T}.registered then
-				i_main.v_video.v_drawpatchdirect (0, 0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP2", {Z_ZONE}.pu_cache)))
+				i_main.v_video.v_drawpatchdirect (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("HELP2", {Z_ZONE}.pu_cache)))
 			end
 		end
 
@@ -211,7 +211,7 @@ feature
 
 	M_DrawEpisode
 		do
-			i_main.v_video.v_drawpatchdirect (54, 38, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_EPISOD", {Z_ZONE}.PU_CACHE)))
+			i_main.v_video.v_drawpatchdirect (54, 38, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_EPISOD", {Z_ZONE}.PU_CACHE)))
 		end
 
 	M_ReadThis2 (choice: INTEGER)
@@ -259,8 +259,8 @@ feature
 
 	M_DrawNewGame
 		do
-			i_main.v_video.V_DrawPatchDirect (96, 14, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_NEWG", {Z_ZONE}.PU_CACHE)))
-			i_main.v_video.V_DrawPatchDirect (54, 38, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_SKILL", {Z_ZONE}.PU_CACHE)))
+			i_main.v_video.V_DrawPatchDirect (96, 14, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_NEWG", {Z_ZONE}.PU_CACHE)))
+			i_main.v_video.V_DrawPatchDirect (54, 38, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_SKILL", {Z_ZONE}.PU_CACHE)))
 		end
 
 	M_ChooseSkill (a_choice: INTEGER)
@@ -286,7 +286,7 @@ feature
 
 	M_DrawMainMenu
 		do
-			i_main.v_video.v_drawpatchdirect (94, 2, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_DOOM", {Z_ZONE}.pu_cache)))
+			i_main.v_video.v_drawpatchdirect (94, 2, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("M_DOOM", {Z_ZONE}.pu_cache)))
 		end
 
 feature
@@ -523,14 +523,14 @@ feature -- M_Drawer
 						i > cm.numitems
 					loop
 						if not cm.menuitems [i].name.is_empty then
-							i_main.v_video.V_DrawPatchDirect (x, y, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache)))
+							i_main.v_video.V_DrawPatchDirect (x, y, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (cm.menuitems [i].name, {Z_ZONE}.pu_cache)))
 						end
 						y := y + LINEHEIGHT
 						i := i + 1
 					end
 
 						-- DRAW SKULL
-					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + (itemOn - 1) * LINEHEIGHT, 0, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
+					i_main.v_video.V_DrawPatchDirect (x + SKULLXOFF, cm.y - 5 + (itemOn - 1) * LINEHEIGHT, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (skullName [whichSkull], {Z_ZONE}.pu_cache)))
 				end
 			end
 		end

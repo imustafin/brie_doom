@@ -23,26 +23,15 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create screens.make_empty
 			create dest_screen.make (0)
 		end
 
 	V_Init
-		local
-			i: INTEGER
 		do
-			create screens.make_filled (create {ARRAY [NATURAL_8]}.make_empty, 0, 4)
-			from
-				i := 0
-			until
-				i >= 5
-			loop
-				screens [i] := create {ARRAY [NATURAL_8]}.make_filled (0, 0, {DOOMDEF_H}.screenheight * {DOOMDEF_H}.screenwidth)
-				i := i + 1
-			end
+				-- no-op from chocolate doom
+				-- There used to be separate screens that could be drawn to;
+				-- these are now handled in the upper layers
 		end
-
-	screens: ARRAY [ARRAY [NATURAL_8]] -- Each screen is [SCREENWIDTH*SCREENHEIGHT]
 
 	gammatable: ARRAY [ARRAY [NATURAL_8]]
 		once
@@ -72,34 +61,34 @@ feature
 
 feature
 
-	V_DrawPatchDirect (x, y: INTEGER; scrn: INTEGER; patch: PATCH_T)
+	V_DrawPatchDirect (x, y: INTEGER; patch: PATCH_T)
 			-- Draws directly to the screen on the pc.
 		do
-			V_DrawPatch (x, y, scrn, patch)
+			V_DrawPatch (x, y, patch)
 		end
 
-	V_DrawPatch (a_x, a_y: INTEGER; scrn: INTEGER; patch: PATCH_T)
+	V_DrawPatch (a_x, a_y: INTEGER; patch: PATCH_T)
 			-- Masks a column based masked pic to the screen.
 		local
 			x, y: INTEGER
 			count: INTEGER
 			col: INTEGER
 			column: COLUMN_T
-			desttop: INTEGER -- orginally pointer to somewhere in screens[scrn]
-			dest: INTEGER -- originally byte*, now is an index of screens[scrn]
+			desttop: INTEGER -- index inside dest_screen
+			dest: INTEGER -- index inside deset_screen, offset from desttop
 			source: ARRAY [NATURAL_8] -- originally byte*
 			w: INTEGER
 			cols: ARRAYED_LIST [COLUMN_T]
 			i: INTEGER
 		do
+				-- From chocolate doom
+
 			x := a_x - patch.topoffset
 			y := a_y - patch.leftoffset
 
 				-- skip RANGECHECK
 
-			if scrn = 0 then
-				V_MarkRect (x, y, patch.width, patch.height)
-			end
+			V_MarkRect (x, y, patch.width, patch.height)
 			desttop := y * SCREENWIDTH + x
 			w := patch.width
 			cols := patch.columns
@@ -121,7 +110,7 @@ feature
 						count <= 0
 					loop
 						count := count - 1
-						screens [scrn] [dest] := source [i]
+						dest_screen.put (source [i], dest)
 						i := i + 1
 						dest := dest + SCREENWIDTH
 					end
@@ -139,25 +128,19 @@ feature
 			height: INTEGER
 			src: POINTER
 		do
-			V_MarkRect(x, y, width, height)
-
+			V_MarkRect (x, y, width, height)
 			dest := dest_screen.p.item + (y * {DOOMDEF_H}.screenwidth + x)
-
 			src := a_src.p.item
-
 			from
 				height := a_height - 1
 			until
 				height = 0
 			loop
 				dest.memory_copy (src, width * {PIXEL_T_BUFFER}.pixel_t_size)
-
 				src := src + width * {PIXEL_T_BUFFER}.pixel_t_size
 				dest := dest + ({DOOMDEF_H}.SCREENWIDTH * {PIXEL_T_BUFFER}.pixel_t_size)
-
 				height := height - 1
 			end
-
 		end
 
 	V_MarkRect (x, y, width, height: INTEGER)
