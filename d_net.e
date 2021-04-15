@@ -20,7 +20,14 @@ feature
 			i_main := a_i_main
 			create netbuffer.make
 			create doomcom.make
+			create localcmds.make_filled (create {TICCMD_T}, 0, BACKUPTICS - 1)
 		end
+
+feature
+
+	skiptics: INTEGER
+
+	localcmds: ARRAY [TICCMD_T]
 
 feature
 
@@ -176,13 +183,81 @@ feature
 				-- Stub
 		end
 
-feature
+feature -- NetUpdate
+
+	gametime: INTEGER
 
 	NetUpdate
 			-- Builds ticcmds for console player,
 			-- sends out a packet
+		local
+			nowtime: INTEGER
+			newtics: INTEGER
+			i, j: INTEGER
+			realstart: INTEGER
+			gameticdiv: INTEGER
+			break: BOOLEAN
+		do
+				-- check time
+			nowtime := i_main.i_system.i_gettime // ticdup
+			newtics := nowtime - gametime
+			gametime := nowtime
+			if newtics > 0 then
+					-- something to update
+				if skiptics <= newtics then
+					newtics := newtics - skiptics
+					skiptics := 0
+				else
+					skiptics := skiptics - newtics
+					newtics := 0
+				end
+				netbuffer.player := (i_main.g_game.consoleplayer).to_natural_8
+
+					-- build new ticcmds for console player
+				gameticdiv := i_main.g_game.gametic // ticdup
+				from
+					i := 0
+				until
+					break or i >= newtics
+				loop
+					i_main.i_video.I_StartTic
+					check attached i_main.d_doom_main as main then
+						main.d_processevents
+					end
+					if maketic - gameticdiv >= BACKUPTICS // 2 - 1 then
+						break := True -- can't hold any more
+					else
+						i_main.g_game.G_BuildTiccmd (localcmds [maketic \\ BACKUPTICS])
+						maketic := maketic + 1
+						i := i + 1
+					end
+				end
+				check attached i_main.d_doom_main as main then
+					if main.singletics then
+							-- Return
+					else
+						i_main.i_error ("Non-singletics NetUpdate not imlemented")
+					end
+				end
+			else
+				check attached i_main.d_doom_main as main then
+					if not main.singletics then
+							-- if singletics, would have returned beforee
+
+							-- :listen
+						GetPackets
+					end
+				end
+			end
+		end
+
+	GetPackets
 		do
 				-- Stub
 		end
+
+invariant
+	localcmds.count = BACKUPTICS
+	localcmds.lower = 0
 
 end

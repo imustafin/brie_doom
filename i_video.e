@@ -224,41 +224,49 @@ feature
 		end
 
 	I_StartTic
-		local
-			event: SDL_EVENT_UNION_API
 		do
-			from
-				create event.make
-			until
-				{SDL_EVENTS}.sdl_poll_event (event) = 0
-			loop
-				I_GetEvent (event)
+			if initialized then
+				I_GetEvent
+--				if usemouse and not nomouse and window_focused then
+--					I_ReadMouse
+--				end
+--				if joywait < I_GetTime then
+--					I_UpdateJoystick
+--				end
 			end
 		end
 
-	I_GetEvent (a_event: SDL_EVENT_UNION_API)
+	I_GetEvent
 		local
 			event: EVENT_T
+			sdl_event: SDL_EVENT_UNION_API
 		do
-			create event.make
-			if a_event.type = {SDL_CONSTANT_API}.sdl_keydown then
-				event.type := {EVENT_T}.ev_keydown
-				event.data1 := xlatekey (a_event.key.keysym)
-				check attached i_main.d_doom_main as d then
-					d.D_PostEvent (event)
+			from
+				create event.make
+				create sdl_event.make
+			until
+				{SDL_EVENTS}.sdl_poll_event (sdl_event) = 0
+			loop
+				create event.make
+				if sdl_event.type = {SDL_CONSTANT_API}.sdl_keydown then
+					event.type := {EVENT_T}.ev_keydown
+					event.data1 := xlatekey (sdl_event.key.keysym)
+					check attached i_main.d_doom_main as d then
+						d.D_PostEvent (event)
+					end
+				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_keyup then
+					event.type := {EVENT_T}.ev_keyup
+					event.data1 := xlatekey (sdl_event.key.keysym)
+					check attached i_main.d_doom_main as d then
+						d.D_PostEvent (event)
+					end
+				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_quit then
+					i_main.i_system.I_Quit
+				else
+						-- ignore SDL_MOUSEBUTTONDOWN
+						-- ignore SDL_MOUSEBUTTONUP
+						-- ignore SDL_MOUSEMOTION
 				end
-			elseif a_event.type = {SDL_CONSTANT_API}.sdl_keyup then
-				event.type := {EVENT_T}.ev_keyup
-				event.data1 := xlatekey (a_event.key.keysym)
-				check attached i_main.d_doom_main as d then
-					d.D_PostEvent (event)
-				end
-			elseif a_event.type = {SDL_CONSTANT_API}.sdl_quit then
-				i_main.i_system.I_Quit
-			else
-					-- ignore SDL_MOUSEBUTTONDOWN
-					-- ignore SDL_MOUSEBUTTONUP
-					-- ignore SDL_MOUSEMOTION
 			end
 		end
 
