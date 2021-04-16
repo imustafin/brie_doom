@@ -12,9 +12,14 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
+
 			create vissprites.make_empty
+			create spritelights.make_empty
 		end
 
 feature
@@ -22,6 +27,8 @@ feature
 	vissprites: ARRAY [VISSPRITE_T]
 
 	vissprite_p: INTEGER -- originally pointer inside vissprites
+
+	spritelights: ARRAY[LIGHTTABLE_T] -- lighttable_t**
 
 feature
 
@@ -37,6 +44,47 @@ feature
 		end
 
 	R_DrawMasked
+		do
+				-- Stub
+		end
+
+	R_AddSprites (sec: SECTOR_T)
+			-- During BSP traversal, this adds sprites by sector.
+		local
+			thing: detachable MOBJ_T
+			lightnum: INTEGER
+		do
+				-- BSP is traversed by subsector.
+				-- A sector might have beend split into several
+				-- subsectors during BSP building.
+				-- Thus we check whether its already added.
+			if sec.validcount /= i_main.r_main.validcount then
+					-- Well, now it will be done
+				sec.validcount := i_main.r_main.validcount
+				lightnum := (sec.lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
+				if lightnum < 0 then
+					spritelights := i_main.r_main.scalelight [0]
+				elseif lightnum >= {R_MAIN}.LIGHTLEVELS then
+					spritelights := i_main.r_main.scalelight [{R_MAIN}.LIGHTLEVELS - 1]
+				else
+					spritelights := i_main.r_main.scalelight [lightnum]
+				end
+
+					-- Handle all things in sector.
+				from
+					thing := sec.thinglist
+				until
+					thing = Void
+				loop
+					R_ProjectSprite (thing)
+					thing := thing.snext
+				end
+			end
+		end
+
+	R_ProjectSprite (thing: MOBJ_T)
+			-- Generates a vissprite for a thing
+			-- if it might be visible.
 		do
 				-- Stub
 		end

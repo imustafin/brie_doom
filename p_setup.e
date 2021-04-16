@@ -24,6 +24,8 @@ feature
 			i_main := a_i_main
 			create deathmatchstarts.make_empty
 			create nodes.make_empty
+			create subsectors.make_empty
+			create segs.make_empty
 		end
 
 feature
@@ -35,6 +37,10 @@ feature
 	deathmatch_p: INTEGER -- index in deathmatchstarts
 
 	nodes: ARRAY [NODE_T]
+
+	subsectors: ARRAY [SUBSECTOR_T]
+
+	segs: ARRAY [SEG_T]
 
 feature
 

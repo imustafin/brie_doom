@@ -219,7 +219,7 @@ feature {NONE} -- Initialization
 			create wi_stuff.make
 			create p_switch.make
 			create p_spec.make
-			create r_things.make
+			create r_things.make (Current)
 			create info.make
 			create z_zone.make
 			create r_draw.make

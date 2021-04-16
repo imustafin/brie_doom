@@ -29,6 +29,7 @@ feature
 			validcount := 1
 			create scalelightfixed.make_empty
 			create fixedcolormap
+			create viewangletox.make_filled (0, 0, FINEANGLES // 2 - 1)
 		end
 
 feature
@@ -53,7 +54,12 @@ feature
 
 	viewcos: FIXED_T
 
-	sscount: INTEGER
+	sscount: INTEGER assign set_sscount
+
+	set_sscount (a_sscount: like sscount)
+		do
+			sscount := a_sscount
+		end
 
 	linecount: INTEGER
 
@@ -65,6 +71,9 @@ feature
 
 	validcount: INTEGER
 			-- increment every time a check is made
+
+	FIELDOFVIEW: INTEGER = 2048
+			-- Fineangles in the SCREENWIDTH wide window.
 
 feature
 
@@ -96,13 +105,21 @@ feature
 
 feature -- Lighting constants.
 
-	LIGHTLEVELS: INTEGER = 16 -- Now why not 32 levels here?
+	LIGHTLEVELS: INTEGER = 16
+
+	LIGHTSEGSHIFT: INTEGER = 4
+
+	MAXLIGHTSCALE: INTEGER = 48
+
+	LIGHTSCALESHIFT: INTEGER = 12
+
+	MAXLIGHTZ: INTEGER = 128
+
+	LIGHTZSHIFT: INTEGER = 20
 
 	NUMCOLORMAPS: INTEGER = 32
 			-- Number of diminishing brightness levels.
 			-- There a 0-31, i.e. 32 LUT in the COLORMAP lump.
-
-	MAXLIGHTSCALE: INTEGER = 48
 
 	scalelight: ARRAY [ARRAY [LIGHTTABLE_T]]
 		local
@@ -165,6 +182,16 @@ feature -- R_SetViewSize
 			setblocks := blocks
 			setdetail := detail
 		end
+
+feature -- precalculated math tables
+
+	clipangle: ANGLE_T
+
+	viewangletox: ARRAY [INTEGER]
+			-- The viewangletox[viewangle + FINEANGLES/4] lookup
+			-- maps the visible view angles to screen X coordinates,
+			-- flattening the arc to a flat projection plane.
+			-- There will be many angles mapped to the same X.
 
 feature
 
@@ -281,8 +308,70 @@ feature
 		end
 
 	R_InitTextureMapping
+		local
+			i: INTEGER
+			x: INTEGER
+			t: INTEGER
+			focallength: FIXED_T
 		do
-				-- Stub
+			focallength := {M_FIXED}.fixeddiv (centerxfrac, {TABLES}.finetangent [FINEANGLES // 4 + {R_MAIN}.FIELDOFVIEW // 2])
+			from
+				i := 0
+			until
+				i >= FINEANGLES // 2
+			loop
+				if finetangent [i] > {M_FIXED}.FRACUNIT * 2 then
+					t := -1
+				elseif finetangent [i] < - {M_FIXED}.FRACUNIT * 2 then
+					t := i_main.r_draw.viewwidth + 1
+				else
+					t := {M_FIXED}.fixedmul (finetangent [i], focallength).to_integer_32
+					t := ((centerxfrac - t + {M_FIXED}.FRACUNIT - 1) |>> {M_FIXED}.FRACBITS).to_integer_32
+					if t < -1 then
+						t := -1
+					elseif t > i_main.r_draw.viewwidth + 1 then
+						t := i_main.r_draw.viewwidth + 1
+					end
+				end
+				viewangletox [i] := t
+				i := i + 1
+			end
+
+				-- Scan viewangletox[] to generate xtoviewangle[]:
+				-- xtoviewangle will give the smallest view angle
+				-- that maps to x
+			from
+				x := 0
+			until
+				x > i_main.r_draw.viewwidth
+			loop
+				from
+					i := 0
+				until
+					viewangletox [i] <= x
+				loop
+					i := i + 1
+				end
+				xtoviewangle [x] := ((i |<< ANGLETOFINESHIFT) - ANG90).to_natural_32
+				x := x + 1
+			end
+
+				-- Take out the fencepost cases from viewangletox
+			from
+				i := 0
+			until
+				i >= FINEANGLES // 2
+			loop
+				t := {M_FIXED}.fixedmul (finetangent [i], focallength).to_integer_32
+				t := centerx - t
+				if viewangletox [i] = -1 then
+					viewangletox [i] := 0
+				elseif viewangletox [i] = i_main.r_draw.viewwidth + 1 then
+					viewangletox [i] := i_main.r_draw.viewwidth
+				end
+				i := i + 1
+			end
+			clipangle := xtoviewangle [0]
 		end
 
 feature -- R_InitLightTables
@@ -454,5 +543,56 @@ feature
 			framecount := framecount + 1
 			validcount := validcount + 1
 		end
+
+	R_PointOnSide (x, y: FIXED_T; node: NODE_T): BOOLEAN
+			-- Traverse BSP (sub) tree,
+			-- check point against partition plane.
+			-- Returns side False (front) or True (back)
+		local
+			dx: FIXED_T
+			dy: FIXED_T
+			left: FIXED_T
+			right: FIXED_T
+		do
+			if node.dx = 0 then
+				if x <= node.x then
+					Result := node.dy > 0
+				else
+					Result := node.dy < 0
+				end
+			elseif node.dy = 0 then
+				if y <= node.y then
+					Result := node.dx < 0
+				else
+					Result := node.dx > 0
+				end
+			else
+				dx := (x - node.x)
+				dy := (y - node.y)
+
+					-- Try to quickly decide by looking at sign bits
+				if node.dy.bit_xor (node.dx).bit_xor (dx).bit_xor (dy).to_natural_64 & 0x80000000 /= 0 then
+					if node.dy.bit_xor (dx).to_natural_64 & 0x80000000 /= 0 then
+							-- left is negative
+						Result := True
+					else
+						Result := False
+					end
+				else
+					left := {M_FIXED}.FixedMul (node.dy |>> {M_FIXED}.FRACBITS, dx)
+					right := {M_FIXED}.FixedMul (dy, node.dx |>> {M_FIXED}.FRACBITS)
+					if right < left then
+							-- front side
+						Result := False
+					else
+						Result := True
+					end
+				end
+			end
+		end
+
+invariant
+	viewangletox.lower = 0
+	viewangletox.count = FINEANGLES // 2
 
 end

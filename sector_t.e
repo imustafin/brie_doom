@@ -37,11 +37,16 @@ feature
 	soundorg: detachable DEGENMOBJ_T
 			-- origin for any sounds played by the sector
 
-	validcount: INTEGER
+	validcount: INTEGER assign set_validcout
 			-- if == validcount, already checked
 
-	thinglist: detachable ARRAY [MOBJ_T]
-			-- list of mobjs in sector
+	set_validcout (a_validcount: like validcount)
+		do
+			validcount := a_validcount
+		end
+
+	thinglist: detachable MOBJ_T
+			-- list of mobjs in sector (head of linked list mobj_t.{snext,sprev})
 
 	specialdata: detachable ANY
 			-- thinker_t for reversable actions

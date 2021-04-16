@@ -17,12 +17,25 @@ feature
 	i_main: I_MAIN
 
 	make (a_i_main: like i_main)
+		local
+			i: INTEGER
 		do
 			i_main := a_i_main
 			create cachedheight.make_empty
 			create openings.make_empty
-			create ceilingclip.make_filled(0, 0, {DOOMDEF_H}.screenwidth - 1)
-			create floorclip.make_filled(0, 0, {DOOMDEF_H}.screenwidth - 1)
+			create ceilingclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
+			create floorclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
+
+				-- make visplanes
+			create visplanes.make_filled (create {VISPLANE_T}.make, 0, MAXVISPLANES - 1)
+			from
+				i := visplanes.lower
+			until
+				i > visplanes.upper
+			loop
+				visplanes [i] := create {VISPLANE_T}.make
+				i := i + 1
+			end
 		end
 
 feature
@@ -41,6 +54,26 @@ feature
 	lastopening: INTEGER -- originally pointer inside openings
 
 	cachedheight: ARRAY [FIXED_T] -- SCREENHEIGHT
+
+feature -- Here comes the obnoxious "visplane".
+
+	MAXVISPLANES: INTEGER = 128
+
+	visplanes: ARRAY [VISPLANE_T]
+
+	floorplane: detachable VISPLANE_T assign set_floorplane
+
+	set_floorplane (a_floorplane: like floorplane)
+		do
+			floorplane := a_floorplane
+		end
+
+	ceilingplane: detachable VISPLANE_T assign set_ceilingplane
+
+	set_ceilingplane (a_ceilingplane: like ceilingplane)
+		do
+			ceilingplane := a_ceilingplane
+		end
 
 feature -- Texture mapping
 
@@ -91,6 +124,51 @@ feature
 				-- Stub
 		end
 
+	R_FindPlane (a_height: FIXED_T; picnum: INTEGER; a_lightlevel: INTEGER): VISPLANE_T
+		local
+			c: INTEGER -- index in visplanes
+			height: FIXED_T
+			lightlevel: INTEGER
+			found: BOOLEAN
+			ch: VISPLANE_T
+		do
+			height := a_height
+			lightlevel := a_lightlevel
+			if picnum = i_main.r_sky.skyflatnum then
+				height := 0 -- all skys map together
+				lightlevel := 0
+			end
+			from
+				c := 0
+				found := False
+			until
+				found or c >= lastvisplane
+			loop
+				ch := visplanes [c]
+				if height = ch.height and picnum = ch.picnum and lightlevel = ch.lightlevel then
+					found := True
+				else
+					c := c + 1
+				end
+			end
+			if found then
+				Result := visplanes [c]
+			else
+				if lastvisplane = MAXVISPLANES then
+					{I_MAIN}.i_error ("R_FindPlane: no more visplanes")
+				end
+				lastvisplane := lastvisplane + 1
+				ch := visplanes [lastvisplane]
+				ch.height := height
+				ch.picnum := picnum
+				ch.lightlevel := lightlevel
+				ch.minx := {DOOMDEF_H}.screenwidth
+				ch.maxx := -1
+				ch.top.fill_with (0xff)
+				Result := ch
+			end
+		end
+
 feature
 
 	yslope: ARRAY [FIXED_T]
@@ -106,5 +184,7 @@ feature
 invariant
 	floorclip.count = {DOOMDEF_H}.SCREENWIDTH
 	ceilingclip.count = {DOOMDEF_H}.SCREENWIDTH
+	visplanes.count = MAXVISPLANES
+	visplanes.lower = 0
 
 end

@@ -33,4 +33,8 @@ feature -- ML enum
 
 	ML_BLOCKMAP: INTEGER = 10 -- LUT, motion clipping, walls/grid element
 
+feature
+
+	NF_SUBSECTOR: INTEGER = 0x8000
+
 end
