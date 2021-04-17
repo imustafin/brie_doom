@@ -14,6 +14,7 @@ feature
 			create bbox.make_filled (0, 0, 3)
 			create v1.default_create
 			create v2.default_create
+			create sidenum.make_filled (0, 0, 1)
 		end
 
 feature
@@ -32,7 +33,7 @@ feature
 
 	tag: INTEGER_16 -- Animation related
 
-	sidenum: detachable ARRAY [INTEGER_16]
+	sidenum: ARRAY [INTEGER_16]
 			-- Visual appearance: SideDefs.
 			-- sidenum[1] will be -1 if one sided
 
@@ -74,44 +75,45 @@ feature
 				else
 					slopetype := {R_DEFS}.ST_NEGATIVE
 				end
-				if v1.x < v2.x then
-					bbox [{M_BBOX}.BOXLEFT] := v1.x
-					bbox [{M_BBOX}.BOXRIGHT] := v2.x
-				else
-					bbox [{M_BBOX}.BOXLEFT] := v2.x
-					bbox [{M_BBOX}.BOXRIGHT] := v1.x
-				end
-				if v1.y < v2.y then
-					bbox [{M_BBOX}.BOXBOTTOM] := v1.y
-					bbox [{M_BBOX}.BOXTOP] := v2.y
-				else
-					bbox [{M_BBOX}.BOXBOTTOM] := v2.y
-					bbox [{M_BBOX}.BOXTOP] := v1.y
-				end
-				flags := m.read_integer_16_le (offset + 4)
-				special := m.read_integer_16_le (offset + 6)
-				tag := m.read_integer_16_le (offset + 8)
-				create sn.make_filled (0, 0, 1)
-				sn [0] := m.read_integer_16_le (offset + 10)
-				sn [1] := m.read_integer_16_le (offset + 12)
-				sidenum := sn
-				if sn [0] /= -1 then
-					frontsector := i_main.p_setup.sides [sn [0]].sector
-				else
-					frontsector := Void
-				end
-				if sn [1] /= -1 then
-					backsector := i_main.p_setup.sides [sn [1]].sector
-				else
-					frontsector := Void
-				end
+			end
+			if v1.x < v2.x then
+				bbox [{M_BBOX}.BOXLEFT] := v1.x
+				bbox [{M_BBOX}.BOXRIGHT] := v2.x
+			else
+				bbox [{M_BBOX}.BOXLEFT] := v2.x
+				bbox [{M_BBOX}.BOXRIGHT] := v1.x
+			end
+			if v1.y < v2.y then
+				bbox [{M_BBOX}.BOXBOTTOM] := v1.y
+				bbox [{M_BBOX}.BOXTOP] := v2.y
+			else
+				bbox [{M_BBOX}.BOXBOTTOM] := v2.y
+				bbox [{M_BBOX}.BOXTOP] := v1.y
+			end
+			flags := m.read_integer_16_le (offset + 4)
+			special := m.read_integer_16_le (offset + 6)
+			tag := m.read_integer_16_le (offset + 8)
+			create sn.make_filled (0, 0, 1)
+			sn [0] := m.read_integer_16_le (offset + 10)
+			sn [1] := m.read_integer_16_le (offset + 12)
+			sidenum := sn
+			if sn [0] /= -1 then
+				frontsector := i_main.p_setup.sides [sn [0]].sector
+			else
+				frontsector := Void
+			end
+			if sn [1] /= -1 then
+				backsector := i_main.p_setup.sides [sn [1]].sector
+			else
+				frontsector := Void
 			end
 		end
 
 	structure_size: INTEGER = 14
 
 invariant
-	attached sidenum as sn implies sn.count = 2
+	sidenum.count = 2
+	sidenum.lower = 0
 	bbox.count = 4
 	bbox.lower = 0
 

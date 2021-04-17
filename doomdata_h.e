@@ -33,6 +33,11 @@ feature -- ML enum
 
 	ML_BLOCKMAP: INTEGER = 10 -- LUT, motion clipping, walls/grid element
 
+feature -- Other ML_ ????
+
+	ML_TWOSIDED: INTEGER = 4
+			-- Backside will not be present at all if not two sided.
+
 feature
 
 	NF_SUBSECTOR: INTEGER = 0x8000

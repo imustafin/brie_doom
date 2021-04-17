@@ -51,6 +51,8 @@ feature
 
 	subsectors: ARRAY [SUBSECTOR_T]
 
+	numsegs: INTEGER
+
 	segs: ARRAY [SEG_T]
 
 	numvertexes: INTEGER
@@ -314,8 +316,21 @@ feature
 		end
 
 	P_LoadSegs (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numsegs := i_main.w_wad.w_lumplength (lump) // {SEG_T}.structure_size
+			create segs.make_filled (create {SEG_T}.make, 0, numsegs - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= numsegs
+			loop
+				segs [i] := create {SEG_T}.from_pointer (data, i * {SEG_T}.structure_size, i_main)
+				i := i + 1
+			end
 		end
 
 	P_GroupLines
