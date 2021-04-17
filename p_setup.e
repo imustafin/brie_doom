@@ -26,6 +26,9 @@ feature
 			create nodes.make_empty
 			create subsectors.make_empty
 			create segs.make_empty
+			create blocklinks.make_empty
+			create blockmaplump.make_empty
+			create blockmap.make_empty
 		end
 
 feature
@@ -41,6 +44,31 @@ feature
 	subsectors: ARRAY [SUBSECTOR_T]
 
 	segs: ARRAY [SEG_T]
+
+feature -- Blockmap
+
+		-- Created from axis aligned bounding box
+		-- of the map, a rectangular array of
+		-- blocks of size ...
+		-- Used to speed up collision detection
+		-- by spatial subdivision in 2D.
+
+	bmapwidth: INTEGER
+
+	bmapheight: INTEGER -- size in mapblocks
+
+	blockmap: ARRAY [INTEGER_16] -- int for larger maps
+			-- offsets in blockmap are from here
+
+	blockmaplump: ARRAY [INTEGER_16]
+			-- origin of block map
+
+	bmaporgx: FIXED_T
+
+	bmaporgy: FIXED_T
+			-- for thing chains
+
+	blocklinks: ARRAY [detachable MOBJ_T]
 
 feature
 
@@ -141,7 +169,16 @@ feature
 
 	P_LoadBlockMap (lump: INTEGER)
 		do
-				-- Stub
+			blockmaplump := {WAD_READER}.read_array_integer_16 (i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_level))
+			blockmap := blockmaplump.subarray (3, blockmaplump.upper) -- blockmaplump + 4
+			bmaporgx := blockmaplump [0].to_integer_32 |<< {M_FIXED}.FRACBITS
+			bmaporgy := blockmaplump [1].to_integer_32 |<< {M_FIXED}.FRACBITS
+			bmapwidth := blockmaplump [2]
+			bmapheight := blockmaplump [3]
+
+				-- clear out mobj chains
+			create blocklinks.make_filled (Void, 0, bmapwidth * bmapheight)
+
 		end
 
 	P_LoadVertexes (lump: INTEGER)
@@ -165,6 +202,7 @@ feature
 		end
 
 	P_LoadSubSectors (lump: INTEGER)
+		local
 		do
 				-- Stub
 		end
