@@ -32,6 +32,7 @@ feature
 			create vertexes.make_empty
 			create sectors.make_empty
 			create sides.make_empty
+			create lines.make_empty
 		end
 
 feature
@@ -59,6 +60,10 @@ feature
 	numsides: INTEGER
 
 	sides: ARRAY [SIDE_T]
+
+	numlines: INTEGER
+
+	lines: ARRAY[LINE_T]
 
 feature -- Blockmap
 
@@ -250,8 +255,22 @@ feature
 		end
 
 	P_LoadLineDefs (lump: INTEGER)
+			-- Also counts secret lines for intermissions.
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numlines := i_main.w_wad.w_lumplength (lump) // {LINE_T}.structure_size
+			create lines.make_filled (create {LINE_T}.make, 0, numlines - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= numlines
+			loop
+				lines [i] := create {LINE_T}.from_pointer (data, i * {LINE_T}.structure_size, i_main)
+				i := i + 1
+			end
 		end
 
 	P_LoadSubSectors (lump: INTEGER)
