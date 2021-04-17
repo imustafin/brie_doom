@@ -26,4 +26,11 @@ feature
 			walllights := a_walllights
 		end
 
+	rw_angle1: INTEGER assign set_rw_angle1
+
+	set_rw_angle1 (a_rw_angle1: like rw_angle1)
+		do
+			rw_angle1 := a_rw_angle1
+		end
+
 end

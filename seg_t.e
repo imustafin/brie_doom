@@ -8,17 +8,29 @@ note
 class
 	SEG_T
 
+create
+	make
+
 feature
 
-	v1: detachable VERTEX_T
+	make
+		do
+			create sidedef
+			create v1
+			create v2
+		end
 
-	v2: detachable VERTEX_T
+feature
+
+	v1: VERTEX_T
+
+	v2: VERTEX_T
 
 	offset: FIXED_T
 
 	angle: ANGLE_T
 
-	sidedef: detachable SIDE_T
+	sidedef: SIDE_T
 
 	linedef: detachable LINE_T
 
