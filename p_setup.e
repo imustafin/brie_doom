@@ -31,6 +31,7 @@ feature
 			create blockmap.make_empty
 			create vertexes.make_empty
 			create sectors.make_empty
+			create sides.make_empty
 		end
 
 feature
@@ -54,6 +55,10 @@ feature
 	numsectors: INTEGER
 
 	sectors: ARRAY [SECTOR_T]
+
+	numsides: INTEGER
+
+	sides: ARRAY [SIDE_T]
 
 feature -- Blockmap
 
@@ -227,8 +232,21 @@ feature
 		end
 
 	P_LoadSideDefs (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numsides := i_main.w_wad.w_lumplength (lump) // {SIDE_T}.structure_size
+			create sides.make_filled (create {SIDE_T}, 0, numsides - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= numsides
+			loop
+				sides [i] := create {SIDE_T}.from_pointer (data, i * {SIDE_T}.structure_size, i_main)
+				i := i + 1
+			end
 		end
 
 	P_LoadLineDefs (lump: INTEGER)
