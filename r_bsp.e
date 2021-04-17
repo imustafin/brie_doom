@@ -165,8 +165,8 @@ feature
 				angle1 := angle1 - i_main.r_main.viewangle
 				angle2 := angle2 - i_main.r_main.viewangle
 				tspan := angle1 + i_main.r_main.clipangle
-				if tspan > 2 * i_main.r_main.clipangle then
-					tspan := (tspan - 2 * i_main.r_main.clipangle).to_natural_32
+				if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
+					tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
 
 						-- Totally off the left edge?
 					if tspan >= span then
@@ -177,14 +177,14 @@ feature
 				end
 				if not returned then
 					tspan := i_main.r_main.clipangle - angle2
-					if tspan > 2 * i_main.r_main.clipangle then
-						tspan := (tspan - 2 * i_main.r_main.clipangle).to_natural_32
+					if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
+						tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
 
 							-- Totally off the left edge?
 						if tspan >= span then
 							returned := True
 						else
-							angle2 := (- i_main.r_main.clipangle.to_integer_32).to_natural_32
+							angle2 := - i_main.r_main.clipangle
 						end
 					end
 				end
@@ -322,8 +322,8 @@ feature -- R_CheckBBox
 					Result := True
 				else
 					tspan := angle1 + i_main.r_main.clipangle
-					if tspan > 2 * i_main.r_main.clipangle then
-						tspan := tspan - (2 * i_main.r_main.clipangle).to_natural_32
+					if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
+						tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
 
 							-- Totally off the left edge?
 						if tspan >= span then
@@ -334,15 +334,15 @@ feature -- R_CheckBBox
 						end
 						if not returned then
 							tspan := i_main.r_main.clipangle - angle2
-							if tspan > 2 * i_main.r_main.clipangle then
-								tspan := tspan - (2 * i_main.r_main.clipangle).to_natural_32
+							if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
+								tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
 
 									-- Totally off the left edge?
 								if tspan >= span then
 									Result := False
 									returned := True
 								else
-									angle2 := (-1 * i_main.r_main.clipangle).to_natural_32
+									angle2 := - i_main.r_main.clipangle
 								end
 							end
 						end

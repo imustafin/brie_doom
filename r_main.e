@@ -441,14 +441,14 @@ feature
 							Result := tantoangle [SlopeDiv (y, x)]
 						else
 								-- octant 1
-							Result := (ANG90 - 1 - tantoangle [SlopeDiv (x, y)]).as_natural_32
+							Result := ANG90 - (1).as_natural_32 - tantoangle [SlopeDiv (x, y)]
 						end
 					else
 							-- y < 0
 						y := - y
 						if x > y then
 								-- octant 8
-							Result := (- tantoangle [SlopeDiv (y, x)].as_integer_32).as_natural_32
+							Result := - tantoangle [SlopeDiv (y, x)]
 						else
 								-- octant 7
 							Result := (ANG270 + tantoangle [SlopeDiv (x, y)]).as_natural_32
@@ -461,20 +461,20 @@ feature
 							-- y >= 0
 						if x > y then
 								-- octant 3
-							Result := (ANG180 - 1 - tantoangle [SlopeDiv (y, x)]).as_natural_32
+							Result := ANG180 - (1).as_natural_32 - tantoangle [SlopeDiv (y, x)]
 						else
 								-- octant 2
-							Result := (ANG90 + tantoangle [SlopeDiv (x, y)]).as_natural_32
+							Result := ANG90 + tantoangle [SlopeDiv (x, y)]
 						end
 					else
 							-- y < 0
 						y := - y
 						if x > y then
 								-- octant 4
-							Result := (ANG180 + tantoangle [SlopeDiv (y, x)]).as_natural_32
+							Result := ANG180 + tantoangle [SlopeDiv (y, x)]
 						else
 								-- octant 5
-							Result := (ANG270 - 1 - tantoangle [SlopeDiv (x, y)]).as_natural_32
+							Result := ANG270 - (1).as_natural_32 - tantoangle [SlopeDiv (x, y)]
 						end
 					end
 				end

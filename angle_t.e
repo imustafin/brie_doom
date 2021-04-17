@@ -22,4 +22,10 @@ feature
 			set_item (a_natural)
 		end
 
+feature
+	flip_sign alias "-": like Current
+		do
+			Result := Current - Current - Current
+		end
+
 end
