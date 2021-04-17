@@ -43,6 +43,8 @@ feature
 
 	deathmatch_p: INTEGER -- index in deathmatchstarts
 
+	numnodes: INTEGER
+
 	nodes: ARRAY [NODE_T]
 
 	numsubsectors: INTEGER
@@ -294,8 +296,21 @@ feature
 		end
 
 	P_LoadNodes (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numnodes := i_main.w_wad.w_lumplength (lump) // {NODE_T}.structure_size
+			create nodes.make_filled (create {NODE_T}.make, 0, numnodes - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= numnodes
+			loop
+				nodes [i] := create {NODE_T}.from_pointer (data, i * {NODE_T}.structure_size)
+				i := i + 1
+			end
 		end
 
 	P_LoadSegs (lump: INTEGER)
