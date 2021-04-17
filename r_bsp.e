@@ -105,7 +105,9 @@ feature
 		do
 			i_main.r_main.sscount := i_main.r_main.sscount + 1
 			sub := i_main.p_setup.subsectors [num]
-			frontsector := sub.sector
+			check attached sub.sector as ss then
+				frontsector := ss
+			end
 			count := sub.numlines
 			line := sub.firstline
 			if frontsector.floorheight < i_main.r_main.viewz then

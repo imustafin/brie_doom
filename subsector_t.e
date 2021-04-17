@@ -13,21 +13,23 @@ class
 	SUBSECTOR_T
 
 create
-	make
+	default_create, from_pointer
 
 feature
 
-	make (a_sector: SECTOR_T)
-		do
-			sector := a_sector
-		end
-
-feature
-
-	sector: SECTOR_T
+	sector: detachable SECTOR_T
 
 	numlines: INTEGER_16
 
 	firstline: INTEGER_16
+
+feature
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER)
+		do
+			numlines := m.read_integer_16_le (offset)
+			firstline := m.read_integer_16_le (offset + 2)
+		end
+
+	structure_size: INTEGER = 4
 
 end

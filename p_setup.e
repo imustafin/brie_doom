@@ -45,6 +45,8 @@ feature
 
 	nodes: ARRAY [NODE_T]
 
+	numsubsectors: INTEGER
+
 	subsectors: ARRAY [SUBSECTOR_T]
 
 	segs: ARRAY [SEG_T]
@@ -63,7 +65,7 @@ feature
 
 	numlines: INTEGER
 
-	lines: ARRAY[LINE_T]
+	lines: ARRAY [LINE_T]
 
 feature -- Blockmap
 
@@ -275,8 +277,20 @@ feature
 
 	P_LoadSubSectors (lump: INTEGER)
 		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numsubsectors := i_main.w_wad.w_lumplength (lump) // {SUBSECTOR_T}.structure_size
+			create subsectors.make_filled (create {SUBSECTOR_T}, 0, numsubsectors - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= numsubsectors
+			loop
+				subsectors [i] := create {SUBSECTOR_T}.from_pointer (data, i * {SUBSECTOR_T}.structure_size)
+				i := i + 1
+			end
 		end
 
 	P_LoadNodes (lump: INTEGER)
