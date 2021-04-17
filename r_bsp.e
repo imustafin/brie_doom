@@ -252,15 +252,16 @@ feature -- R_CheckBBox
 			create Result.make_filled (create {ARRAY [INTEGER]}.make_empty, 0, 11)
 			Result [0] := <<3, 0, 2, 1>>
 			Result [1] := <<3, 0, 2, 0>>
-			Result [3] := <<3, 1, 2, 0>>
-			Result [4] := <<0, 0, 0, 0>> -- just {0} originally
-			Result [5] := <<2, 0, 2, 1>>
-			Result [6] := <<0, 0, 0, 0>>
-			Result [7] := <<3, 1, 3, 0>>
-			Result [8] := <<0, 0, 0, 0>> -- just {0} originally
-			Result [9] := <<2, 0, 3, 1>>
-			Result [10] := <<2, 1, 3, 1>>
-			Result [11] := <<2, 1, 3, 0>>
+			Result [2] := <<3, 1, 2, 0>>
+			Result [3] := <<0, 0, 0, 0>> -- just {0} originally
+			Result [4] := <<2, 0, 2, 1>>
+			Result [5] := <<0, 0, 0, 0>>
+			Result [6] := <<3, 1, 3, 0>>
+			Result [7] := <<0, 0, 0, 0>> -- just {0} originally
+			Result [8] := <<2, 0, 3, 1>>
+			Result [9] := <<2, 1, 3, 1>>
+			Result [10] := <<2, 1, 3, 0>>
+			Result [11] := <<0, 0, 0, 0>> -- omitted originally
 		ensure
 			Result.lower = 0
 			Result.count = 12
