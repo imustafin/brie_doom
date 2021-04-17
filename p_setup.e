@@ -29,6 +29,7 @@ feature
 			create blocklinks.make_empty
 			create blockmaplump.make_empty
 			create blockmap.make_empty
+			create vertexes.make_empty
 		end
 
 feature
@@ -44,6 +45,9 @@ feature
 	subsectors: ARRAY [SUBSECTOR_T]
 
 	segs: ARRAY [SEG_T]
+
+	numvertexes: INTEGER
+	vertexes: ARRAY[VERTEX_T]
 
 feature -- Blockmap
 
@@ -182,8 +186,25 @@ feature
 		end
 
 	P_LoadVertexes (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numvertexes := i_main.w_wad.W_LumpLength(lump) // {VERTEX_T}.structure_size
+
+			create vertexes.make_filled(create {VERTEX_T}.default_create, 0, numvertexes - 1)
+
+			data := i_main.w_wad.W_CacheLumpNum(lump, {Z_ZONE}.pu_static)
+
+			from
+				i := 0
+			until
+				i >= vertexes.upper
+			loop
+				vertexes[i] := create {VERTEX_T}.from_pointer (data, i * {VERTEX_T}.structure_size)
+
+				i := i + 1
+			end
 		end
 
 	P_LoadSectors (lump: INTEGER)
