@@ -10,7 +10,16 @@ class
 	SECTOR_T
 
 create
-	default_create, from_pointer
+	make, from_pointer
+
+feature
+
+	make
+		do
+			create lines.make (0)
+			create blockbox.make_filled (0, 0, 3)
+			create soundorg
+		end
 
 feature
 
@@ -34,10 +43,10 @@ feature
 	soundtarget: detachable MOBJ_T
 			-- thing that made a sound (or null)
 
-	blockbox: detachable ARRAY [INTEGER]
+	blockbox: ARRAY [INTEGER]
 			-- mapblock bounding box for height changes
 
-	soundorg: detachable DEGENMOBJ_T
+	soundorg: DEGENMOBJ_T
 			-- origin for any sounds played by the sector
 
 	validcount: INTEGER assign set_validcout
@@ -54,7 +63,14 @@ feature
 	specialdata: detachable ANY
 			-- thinker_t for reversable actions
 
-	lines: detachable ARRAY [LINE_T]
+	linecount: INTEGER assign set_linecount
+
+	set_linecount (a_linecount: like linecount)
+		do
+			linecount := a_linecount
+		end
+
+	lines: ARRAYED_LIST [LINE_T]
 
 feature
 
@@ -65,22 +81,27 @@ feature
 		do
 			floorheight := m.read_integer_16_le (offset).to_integer_32 |<< {M_FIXED}.fracbits
 			ceilingheight := m.read_integer_16_le (offset + 2).to_integer_32 |<< {M_FIXED}.fracbits
-			-- Read pic names
-			floorpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item +offset + 4, 8)).string
+				-- Read pic names
+			floorpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 4, 8)).string
 			ceilingpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 12, 8)).string
 			floorpic := i_main.r_data.R_FlatNumForName (floorpic_name).to_integer_16
 			ceilingpic := i_main.r_data.R_FlatNumForName (ceilingpic_name).to_integer_16
 
-			-- Read other data
+				-- Read other data
 			lightlevel := m.read_integer_16_le (offset + 20)
 			special := m.read_integer_16_le (offset + 22)
 			tag := m.read_integer_16_le (offset + 24)
 			thinglist := Void
+			linecount := 0
+			create lines.make (0)
+			create blockbox.make_filled (0, 0, 3)
+			create soundorg
 		end
 
 	structure_size: INTEGER = 26
 
 invariant
-	attached blockbox as bb implies bb.count = 4
+	blockbox.count = 4
+	blockbox.lower = 0
 
 end

@@ -44,4 +44,14 @@ feature
 			instance_free: class
 		end
 
+	M_ClearBox (box: ARRAY [FIXED_T])
+		do
+			box [BOXTOP] := {DOOMTYPE_H}.minint
+			box [BOXRIGHT] := {DOOMTYPE_H}.minint
+			box [BOXBOTTOM] := {DOOMTYPE_H}.maxint
+			box [BOXLEFT] := {DOOMTYPE_H}.maxint
+		ensure
+			instance_free: class
+		end
+
 end

@@ -230,7 +230,7 @@ feature
 			i: INTEGER
 		do
 			numsectors := i_main.w_wad.w_lumplength (lump) // {SECTOR_T}.structure_size
-			create sectors.make_filled (create {SECTOR_T}, 0, numsectors - 1)
+			create sectors.make_filled (create {SECTOR_T}.make, 0, numsectors - 1)
 			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
 			from
 				i := 0
@@ -336,9 +336,97 @@ feature
 	P_GroupLines
 			-- Builds sector line lists and subsector sector numbers.
 			-- Finds block bounding boxes for sectors.
+		local
+			linebuffer: ARRAY [LINE_T]
+			i, j: INTEGER
+			total: INTEGER
+			li: LINE_T
+			sector: SECTOR_T
+			ss: SUBSECTOR_T
+			seg: SEG_T
+			bbox: ARRAY [FIXED_T]
+			block: INTEGER
 		do
-				-- Stub
+			create bbox.make_filled (0, 0, 3)
+				-- look up sector number for each subsector
+			from
+				i := 0
+			until
+				i >= numsubsectors
+			loop
+				seg := segs [subsectors [i].firstline]
+				subsectors [i].sector := seg.sidedef.sector
+				i := i + 1
+			end
 
+				-- count number of lines in each sector
+			total := 0
+			from
+				i := 0
+			until
+				i >= numlines
+			loop
+				total := total + 1
+				if attached lines[i].frontsector as frontsector then
+					-- Very sus, check https://www.doomworld.com/forum/topic/85702-eureka-111-released/?tab=comments#comment-1551735
+					-- in theory, frontsector can't be Void but who knows...
+					frontsector.linecount := frontsector.linecount + 1
+				end
+				if attached lines [i].backsector as bs and then bs /= lines [i].frontsector then
+					bs.linecount := bs.linecount + 1
+				end
+				i := i + 1
+			end
+
+				-- build line tables for each sector
+			create linebuffer.make_filled (create {LINE_T}.make, 0, total - 1)
+			from
+				i := 0
+			until
+				i >= numsectors
+			loop
+				{M_BBOX}.M_ClearBox (bbox)
+				from
+					j := 0
+				until
+					j >= numlines
+				loop
+					if lines [j].frontsector = sectors [i] or lines [j].backsector = sectors [i] then
+						sectors [i].lines.extend (lines [j])
+						{M_BBOX}.M_AddToBox (bbox, lines [j].v1.x, lines [j].v1.y)
+						{M_BBOX}.M_AddToBox (bbox, lines [j].v2.x, lines [j].v2.y)
+					end
+					j := j + 1
+				end
+				check
+					sectors [i].lines.count = sectors [i].linecount
+				end
+
+					-- set the degenmobj_t to the middle of the bounding box
+				sectors [i].soundorg.x := (bbox [{M_BBOX}.BOXRIGHT] + bbox [{M_BBOX}.BOXLEFT]) // 2
+				sectors [i].soundorg.y := (bbox [{M_BBOX}.BOXTOP] + bbox [{M_BBOX}.BOXBOTTOM]) // 2
+
+					-- adjust bounding box to map blocks
+				block := ((bbox [{M_BBOX}.BOXTOP] - bmaporgy + {P_LOCAL}.MAXRADIUS) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+				block := if block >= bmapheight then bmapheight - 1 else block end
+				sectors [i].blockbox [{M_BBOX}.BOXTOP] := block
+
+					--
+				block := ((bbox [{M_BBOX}.BOXBOTTOM] - bmaporgy - {P_LOCAL}.MAXRADIUS) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+				block := if block < 0 then 0 else block end
+				sectors [i].blockbox [{M_BBOX}.BOXBOTTOM] := block
+
+					--
+				block := ((bbox [{M_BBOX}.BOXRIGHT] - bmaporgx + {P_LOCAL}.MAXRADIUS) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+				block := if block >= bmapwidth then bmapwidth - 1 else block end
+				sectors [i].blockbox [{M_BBOX}.BOXRIGHT] := block
+
+					--
+				block := ((bbox [{M_BBOX}.BOXLEFT] - bmaporgx - {P_LOCAL}.MAXRADIUS) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+				block := if block < 0 then 0 else block end
+				sectors [i].blockbox [{M_BBOX}.BOXLEFT] := block
+				i := i + 1
+			end
 		end
 
 	P_LoadThings (lump: INTEGER)

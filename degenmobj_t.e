@@ -15,9 +15,19 @@ class
 
 feature
 
-	x: FIXED_T
+	x: FIXED_T assign set_x
 
-	y: FIXED_T
+	set_x (a_x: like x)
+		do
+			x := a_x
+		end
+
+	y: FIXED_T assign set_y
+
+	set_y (a_y: like y)
+		do
+			y := a_y
+		end
 
 	z: FIXED_T
 

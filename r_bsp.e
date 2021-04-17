@@ -19,7 +19,7 @@ feature
 			i_main := a_i_main
 			create solidsegs.make_filled (create {CLIPRANGE_T}, 0, MAXSEGS - 1)
 			create drawsegs.make_empty
-			create frontsector
+			create frontsector.make
 			create curline.make
 		end
 

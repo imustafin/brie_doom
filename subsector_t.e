@@ -17,13 +17,19 @@ create
 
 feature
 
-	sector: detachable SECTOR_T
+	sector: detachable SECTOR_T assign set_sector
+
+	set_sector (a_sector: like sector)
+		do
+			sector := a_sector
+		end
 
 	numlines: INTEGER_16
 
 	firstline: INTEGER_16
 
 feature
+
 	from_pointer (m: MANAGED_POINTER; offset: INTEGER)
 		do
 			numlines := m.read_integer_16_le (offset)
