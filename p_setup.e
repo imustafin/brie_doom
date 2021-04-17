@@ -30,6 +30,7 @@ feature
 			create blockmaplump.make_empty
 			create blockmap.make_empty
 			create vertexes.make_empty
+			create sectors.make_empty
 		end
 
 feature
@@ -47,7 +48,12 @@ feature
 	segs: ARRAY [SEG_T]
 
 	numvertexes: INTEGER
-	vertexes: ARRAY[VERTEX_T]
+
+	vertexes: ARRAY [VERTEX_T]
+
+	numsectors: INTEGER
+
+	sectors: ARRAY [SECTOR_T]
 
 feature -- Blockmap
 
@@ -182,7 +188,6 @@ feature
 
 				-- clear out mobj chains
 			create blocklinks.make_filled (Void, 0, bmapwidth * bmapheight)
-
 		end
 
 	P_LoadVertexes (lump: INTEGER)
@@ -190,26 +195,35 @@ feature
 			data: MANAGED_POINTER
 			i: INTEGER
 		do
-			numvertexes := i_main.w_wad.W_LumpLength(lump) // {VERTEX_T}.structure_size
-
-			create vertexes.make_filled(create {VERTEX_T}.default_create, 0, numvertexes - 1)
-
-			data := i_main.w_wad.W_CacheLumpNum(lump, {Z_ZONE}.pu_static)
-
+			numvertexes := i_main.w_wad.W_LumpLength (lump) // {VERTEX_T}.structure_size
+			create vertexes.make_filled (create {VERTEX_T}.default_create, 0, numvertexes - 1)
+			data := i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_static)
 			from
 				i := 0
 			until
 				i >= vertexes.upper
 			loop
-				vertexes[i] := create {VERTEX_T}.from_pointer (data, i * {VERTEX_T}.structure_size)
-
+				vertexes [i] := create {VERTEX_T}.from_pointer (data, i * {VERTEX_T}.structure_size)
 				i := i + 1
 			end
 		end
 
 	P_LoadSectors (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
 		do
-				-- Stub
+			numsectors := i_main.w_wad.w_lumplength (lump) // {SECTOR_T}.structure_size
+			create sectors.make_filled (create {SECTOR_T}, 0, numsectors - 1)
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			from
+				i := 0
+			until
+				i >= sectors.upper
+			loop
+				sectors [i] := create {SECTOR_T}.from_pointer (data, i * {SECTOR_T}.structure_size, i_main)
+				i := i + 1
+			end
 		end
 
 	P_LoadSideDefs (lump: INTEGER)

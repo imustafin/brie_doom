@@ -9,6 +9,9 @@ note
 class
 	SECTOR_T
 
+create
+	default_create, from_pointer
+
 feature
 
 	floorheight: FIXED_T
@@ -52,6 +55,30 @@ feature
 			-- thinker_t for reversable actions
 
 	lines: detachable ARRAY [LINE_T]
+
+feature
+
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER; i_main: I_MAIN)
+		local
+			floorpic_name: STRING
+			ceilingpic_name: STRING
+		do
+			floorheight := m.read_integer_16_le (offset).to_integer_32 |<< {M_FIXED}.fracbits
+			ceilingheight := m.read_integer_16_le (offset + 2).to_integer_32 |<< {M_FIXED}.fracbits
+			-- Read pic names
+			floorpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item +offset + 4, 8)).string
+			ceilingpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 12, 8)).string
+			floorpic := i_main.r_data.R_FlatNumForName (floorpic_name).to_integer_16
+			ceilingpic := i_main.r_data.R_FlatNumForName (ceilingpic_name).to_integer_16
+
+			-- Read other data
+			lightlevel := m.read_integer_16_le (offset + 20)
+			special := m.read_integer_16_le (offset + 22)
+			tag := m.read_integer_16_le (offset + 24)
+			thinglist := Void
+		end
+
+	structure_size: INTEGER = 26
 
 invariant
 	attached blockbox as bb implies bb.count = 4
