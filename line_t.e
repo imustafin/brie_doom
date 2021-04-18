@@ -27,7 +27,12 @@ feature
 
 	dy: FIXED_T -- precalculated v2 - v1 for side checking
 
-	flags: INTEGER_16 -- Animation related
+	flags: INTEGER_16 assign set_flags -- Animation related
+
+	set_flags (a_flags: like flags)
+		do
+			flags := a_flags
+		end
 
 	special: INTEGER_16 -- Animation related
 

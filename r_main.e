@@ -28,7 +28,6 @@ feature
 			create viewplayer.make
 			validcount := 1
 			create scalelightfixed.make_empty
-			create fixedcolormap
 			create viewangletox.make_filled (0, 0, FINEANGLES // 2 - 1)
 		end
 
@@ -65,7 +64,7 @@ feature
 
 	loopcount: INTEGER
 
-	fixedcolormap: LIGHTTABLE_T
+	fixedcolormap: detachable LIGHTTABLE_T
 
 	scalelightfixed: ARRAY [LIGHTTABLE_T]
 
@@ -195,6 +194,43 @@ feature -- precalculated math tables
 
 feature
 
+	R_ScaleFromGlobalAngle(visangle: ANGLE_T): FIXED_T
+		-- Returns the texture mapping scale
+		-- for the current line (horizontal span)
+		-- at the given angle.
+		-- rw_distance must be calculated first
+		local
+			scale: FIXED_T
+			anglea: INTEGER
+			angleb: INTEGER
+			sinea: INTEGER
+			sineb: INTEGER
+			num: FIXED_T
+			den: INTEGER
+		do
+			anglea := ANG90 + (visangle - viewangle)
+			angleb := ANG90 + (visangle - i_main.r_segs.rw_normalangle)
+
+			-- both sines are allways positive
+			sinea := finesine[anglea |>> ANGLETOFINESHIFT]
+			sineb := finesine[angleb |>> ANGLETOFINESHIFT]
+			num := {M_FIXED}.FixedMul (projection, sineb) |<< detailshift
+			den := {M_FIXED}.FixedMul (i_main.r_segs.rw_distance, sinea).to_integer_32
+
+			if den > num |>> 16 then
+				scale := {M_FIXED}.FixedDiv (num, den)
+				if scale > 64 * {M_FIXED}.FRACUNIT then
+					scale := 64 * {M_FIXED}.FRACUNIT
+				elseif scale < 256 then
+					scale := 256
+				end
+			else
+				scale := 64 * {M_FIXED}.FRACUNIT
+			end
+
+			Result := scale
+		end
+
 	R_ExecuteSetViewSize
 		local
 			cosadj: FIXED_T
@@ -305,6 +341,31 @@ feature
 	R_InitTables
 		do
 				-- UNUSED - now getting from tables.c
+		end
+
+	R_PointToDist(x, y: FIXED_T): FIXED_T
+		local
+			angle: INTEGER
+			dx: FIXED_T
+			dy: FIXED_T
+			temp: FIXED_T
+			dist: FIXED_T
+		do
+			dx := (x - viewx).abs
+			dy := (y - viewy).abs
+
+			if dy > dx then
+				temp := dx
+				dx := dy
+				dy := temp
+			end
+
+			angle := (tantoangle[{M_FIXED}.FixedDiv(dy, dx).to_integer_32 |>> DBITS] + ANG90) |>> ANGLETOFINESHIFT
+
+			-- use as cosine
+			dist := {M_FIXED}.FixedDiv(dx, finesine[angle])
+
+			Result := dist
 		end
 
 	R_InitTextureMapping
@@ -534,7 +595,9 @@ feature
 				until
 					i >= MAXLIGHTSCALE
 				loop
-					scalelightfixed [i] := fixedcolormap
+					check attached fixedcolormap as fcm then
+						scalelightfixed [i] := fcm
+					end
 					i := i + 1
 				end
 			else

@@ -109,7 +109,16 @@ feature
 
 	SLOPERANGE: INTEGER = 2048
 
+	SLOPEBITS: INTEGER = 11
+
 	ANGLETOFINESHIFT: INTEGER = 19 -- 0x100000000 to 0x2000
+
+	DBITS: INTEGER
+		once
+			Result := {M_FIXED}.FRACBITS - SLOPEBITS
+		ensure
+			instance_free: class
+		end
 
 feature -- Binary Angle Measument, BAM.
 

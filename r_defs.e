@@ -18,4 +18,20 @@ feature -- slopetype_t
 
 	ST_NEGATIVE: INTEGER = 3
 
+feature
+
+	MAXDRAWSEGS: INTEGER = 256
+
+feature -- Silhouette
+	-- needed for clipping Segs (mainly)
+	-- and sprites representing things.
+
+	SIL_NONE: INTEGER = 0
+
+	SIL_BOTTOM: INTEGER = 1
+
+	SIL_TOP: INTEGER = 2
+
+	SIL_BOTH: INTEGER = 3
+
 end

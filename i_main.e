@@ -104,7 +104,14 @@ feature -- Globals
 
 	p_spec: P_SPEC
 
+	inner_r_things: detachable R_THINGS
+
 	r_things: R_THINGS
+		do
+			check attached inner_r_things as x then
+				Result := x
+			end
+		end
 
 	info: INFO
 
@@ -195,7 +202,14 @@ feature -- Globals
 
 	p_mobj: P_MOBJ
 
+	inner_r_segs: detachable R_SEGS
+
 	r_segs: R_SEGS
+		do
+			check attached inner_r_segs as x then
+					Result := x
+				end
+		end
 
 	inner_r_bsp: detachable R_BSP
 
@@ -219,7 +233,6 @@ feature {NONE} -- Initialization
 			create wi_stuff.make
 			create p_switch.make
 			create p_spec.make
-			create r_things.make (Current)
 			create info.make
 			create z_zone.make
 			create r_draw.make
@@ -230,8 +243,9 @@ feature {NONE} -- Initialization
 			create i_midipipe
 			create p_tick.make
 			create p_mobj
-			create r_segs.make
 			create inner_r_plane.make (Current)
+			create inner_r_segs.make (Current)
+			create inner_r_things.make (Current)
 			create inner_r_bsp.make (Current)
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)

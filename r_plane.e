@@ -23,6 +23,7 @@ feature
 			i_main := a_i_main
 			create cachedheight.make_empty
 			create openings.make_empty
+			create lastopening.make (0, openings)
 			create ceilingclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
 			create floorclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
 
@@ -51,7 +52,12 @@ feature
 
 	openings: ARRAY [INTEGER_16]
 
-	lastopening: INTEGER -- originally pointer inside openings
+	lastopening: INDEX_IN_ARRAY [INTEGER_16] assign set_lastopening -- originally pointer inside openings
+
+	set_lastopening (a_lastopening: like lastopening)
+		do
+			lastopening := a_lastopening
+		end
 
 	cachedheight: ARRAY [FIXED_T] -- SCREENHEIGHT
 
@@ -105,7 +111,7 @@ feature
 				i := i + 1
 			end
 			lastvisplane := 0
-			lastopening := 0
+			create lastopening.make (0, openings)
 
 				-- texture calculation
 			cachedheight.fill_with (0)
@@ -166,6 +172,59 @@ feature
 				ch.maxx := -1
 				ch.top.fill_with (0xff)
 				Result := ch
+			end
+		end
+
+	R_CheckPlane (pl: VISPLANE_T; start, stop: INTEGER): VISPLANE_T
+		local
+			intrl: INTEGER
+			intrh: INTEGER
+			unionl: INTEGER
+			unionh: INTEGER
+			x: INTEGER
+		do
+			if start < pl.minx then
+				intrl := pl.minx
+				unionl := start
+			else
+				unionl := pl.minx
+				intrl := start
+			end
+
+			if stop > pl.maxx then
+				intrh := pl.maxx
+				unionh := stop
+			else
+				unionh := pl.maxx
+				intrh := stop
+			end
+
+			from
+				x := intrl
+			until
+				x > intrh or else pl.top[x] = 0xff
+			loop
+				x := x + 1
+			end
+
+			if x > intrh then
+				pl.minx := unionl
+				pl.maxx := unionh
+
+				-- use the same one
+				Result := pl
+			else
+				-- make a new visplane
+				visplanes[lastvisplane].height := pl.height
+				visplanes[lastvisplane].picnum := pl.picnum
+				visplanes[lastvisplane].lightlevel := pl.lightlevel
+
+				Result := visplanes[lastvisplane]
+				lastvisplane := lastvisplane + 1
+
+				Result.minx := start
+				Result.maxx := start
+				Result.top.fill_with (0xff)
 			end
 		end
 

@@ -28,4 +28,17 @@ feature
 			Result := Current - Current - Current
 		end
 
+	abs: like Current
+		local
+			min_one: like Current
+		do
+			min_one := {NATURAL} 1
+			min_one := -min_one
+
+			if Current > min_one then
+				Result := -Current
+			else
+				Result := Current
+			end
+		end
 end

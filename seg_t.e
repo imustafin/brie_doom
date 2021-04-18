@@ -18,6 +18,7 @@ feature
 			create sidedef
 			create v1
 			create v2
+			create linedef.make
 		end
 
 feature
@@ -32,7 +33,7 @@ feature
 
 	sidedef: SIDE_T
 
-	linedef: detachable LINE_T
+	linedef: LINE_T
 
 		-- Sector references.
 		-- Could be retrieved from linedef, too.

@@ -21,6 +21,8 @@ feature
 			create drawsegs.make_empty
 			create frontsector.make
 			create curline.make
+			create linedef.make
+			create sidedef
 		end
 
 feature
@@ -33,13 +35,39 @@ feature
 
 	drawsegs: ARRAY [DRAWSEG_T]
 
-	ds_p: INTEGER -- pointer inside drawsegs
+	ds_p: INTEGER assign set_ds_p -- pointer inside drawsegs
+
+	set_ds_p (a_ds_p: like ds_p)
+		do
+			ds_p := a_ds_p
+		end
 
 	frontsector: SECTOR_T
 
 	backsector: detachable SECTOR_T
 
-	curline: SEG_T
+feature
+
+	curline: SEG_T assign set_curline
+
+	set_curline (a_curline: like curline)
+		do
+			curline := a_curline
+		end
+
+	sidedef: SIDE_T assign set_sidedef
+
+	set_sidedef (a_sidedef: like sidedef)
+		do
+			sidedef := a_sidedef
+		end
+
+	linedef: LINE_T assign set_linedef
+
+	set_linedef (a_linedef: like linedef)
+		do
+			linedef := a_linedef
+		end
 
 feature
 
@@ -241,8 +269,90 @@ feature
 			-- Does handle solid walls ,
 			-- e.g. single sided LineDefs (middle texture)
 			-- that entirely block the view.
+		local
+			next: INTEGER
+			start: INTEGER -- index in solidsegs
+			done: BOOLEAN -- returned?
+			goto_crunch: BOOLEAN -- goto crunch?
 		do
-				-- Stub
+				-- Find the first range that touches the range
+				-- (ajacent pixels are touching)
+			from
+				start := solidsegs.lower
+			until
+				solidsegs [start].last >= first - 1
+			loop
+				start := start + 1
+			end
+			if first < solidsegs [start].first then
+				if last < solidsegs [start].first - 1 then
+						-- Post is entirely visible (above start),
+						-- so insert a new clippost
+					i_main.r_segs.R_StoreWallRange (first, last)
+					next := newend
+					newend := newend + 1
+					from
+					until
+						next = start
+					loop
+						solidsegs [next] := solidsegs [next - 1]
+						next := next - 1
+					end
+					done := True
+				else
+						-- There is a fragment above *start
+					i_main.r_segs.R_StoreWallRange (first, solidsegs [start].first - 1)
+						-- Now adjust the clip size.
+					solidsegs [start].first := first
+				end
+			end
+			if not done then
+					-- Bottom contained in start?
+				if last <= solidsegs [start].last then
+					done := True
+				end
+			end
+			if not done then
+				next := start
+				from
+				until
+					last >= solidsegs [next + 1].first - 1
+				loop
+						-- There is a fragment between two posts.
+					i_main.r_segs.R_StoreWallRange (solidsegs [next].last + 1, solidsegs [next + 1].first - 1)
+					next := next + 1
+					if last <= solidsegs [next].last then
+							-- Bottom is contained in next.
+							-- Adjust the clip size.
+						solidsegs [start].last := solidsegs [next].last
+						goto_crunch := True
+					end
+				end
+			end
+			if not done and not goto_crunch then
+					-- There is a fragment after *next
+				i_main.r_segs.R_StoreWallRange (solidsegs [next].last + 1, last)
+					-- Adjust the clip size.
+				solidsegs [start].last := last
+			end
+			if not done then
+					-- Remove start + 1 to next from the clip list,
+					-- because start now covers their area
+				if next = start then
+						-- Post just extended past the bottom of one post.
+					done := True
+				end
+			end
+			from
+			until
+				next /= newend
+			loop
+				next := next + 1
+					-- Remove a post
+				start := start + 1
+				solidsegs [start] := solidsegs [next]
+			end
+			newend := start + 1
 		end
 
 feature -- R_CheckBBox

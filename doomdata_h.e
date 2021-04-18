@@ -38,6 +38,15 @@ feature -- Other ML_ ????
 	ML_TWOSIDED: INTEGER = 4
 			-- Backside will not be present at all if not two sided.
 
+	ML_MAPPED: INTEGER = 256
+			-- Set if already seen, thus drawn in automap.
+
+	ML_DONTPEGTOP: INTEGER = 8
+			-- upper texture unpegged
+
+	ML_DONTPEGBOTTOM: INTEGER = 16
+			-- lower texture unpegged
+
 feature
 
 	NF_SUBSECTOR: INTEGER = 0x8000

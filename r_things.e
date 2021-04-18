@@ -17,9 +17,10 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-
 			create vissprites.make_empty
 			create spritelights.make_empty
+			create screenheightarray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
+			create negonearray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 		end
 
 feature
@@ -28,7 +29,15 @@ feature
 
 	vissprite_p: INTEGER -- originally pointer inside vissprites
 
-	spritelights: ARRAY[LIGHTTABLE_T] -- lighttable_t**
+	spritelights: ARRAY [LIGHTTABLE_T] -- lighttable_t**
+
+feature
+	-- constant arrays
+	-- used for psprite clipping and initializing clipping
+
+	negonearray: ARRAY [INTEGER_16]
+
+	screenheightarray: ARRAY [INTEGER_16]
 
 feature
 
@@ -111,17 +120,10 @@ feature -- Sprite rotation
 			pspriteiscale := a_pspriteiscale
 		end
 
-		-- constant arrays
-		--  used for psprite clipping and initializing clipping
-
-	negonearray: ARRAY [INTEGER_16]
-		once
-			create Result.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
-		end
-
-	screenheightarray: ARRAY [INTEGER_16]
-		once
-			create Result.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
-		end
+invariant
+	screenheightarray.lower = 0
+	screenheightarray.count = {DOOMDEF_H}.SCREENWIDTH
+	negonearray.lower = 0
+	negonearray.count = {DOOMDEF_H}.SCREENWIDTH
 
 end

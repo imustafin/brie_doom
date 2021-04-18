@@ -21,6 +21,8 @@ feature
 			create colormaps.make_empty
 			create textures.make_empty
 			create flattranslation.make_empty
+			create texturetranslation.make_empty
+			create textureheight.make_empty
 		end
 
 feature
@@ -38,6 +40,10 @@ feature
 	numflats: INTEGER
 
 	flattranslation: ARRAY [INTEGER]
+
+	texturetranslation: ARRAY [INTEGER]
+
+	textureheight: ARRAY [INTEGER]
 
 feature
 

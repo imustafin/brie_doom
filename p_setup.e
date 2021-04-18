@@ -340,9 +340,6 @@ feature
 			linebuffer: ARRAY [LINE_T]
 			i, j: INTEGER
 			total: INTEGER
-			li: LINE_T
-			sector: SECTOR_T
-			ss: SUBSECTOR_T
 			seg: SEG_T
 			bbox: ARRAY [FIXED_T]
 			block: INTEGER
