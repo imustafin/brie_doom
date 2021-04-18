@@ -384,13 +384,190 @@ feature
 			end
 		end
 
+feature -- R_RenderSegLoop
+
+	HEIGHTBITS: INTEGER = 12
+
+	HEIGHTUNIT: INTEGER
+		once
+			Result := 1 |<< HEIGHTBITS
+		ensure
+			instance_free: class
+		end
+
 	R_RenderSegLoop
 			-- Draws zero, one, or two textures (and possibly a masked texture)
 			-- for walls.
 			-- Can draw or mark the starting pixel of floor and ceiling textures.
 			-- CALLED: CORE LOOPING ROUTINE
+		local
+			angle: ANGLE_T
+			index: NATURAL
+			yl: INTEGER
+			yh: INTEGER
+			mid: INTEGER
+			texturecolumn: FIXED_T
+			top: INTEGER
+			bottom: INTEGER
+				-- globals
+			ceilingclip: ARRAY [INTEGER_16]
+			floorclip: ARRAY [INTEGER_16]
+			ceilingplane: VISPLANE_T
+			floorplane: VISPLANE_T
+			xtoviewangle: ARRAY [ANGLE_T]
+			angletofineshift: INTEGER
+			finetangent: ARRAY [INTEGER]
+			fracbits: INTEGER
+			lightscaleshift: INTEGER
+			maxlightscale: INTEGER
+			colfunc: PROCEDURE
+			viewheight: INTEGER
 		do
-				-- Stub
+			ceilingclip := i_main.r_plane.ceilingclip
+			floorclip := i_main.r_plane.floorclip
+			check attached i_main.r_plane.ceilingplane as attached_ceilingplane then
+				ceilingplane := attached_ceilingplane
+			end
+			check attached i_main.r_plane.floorplane as attached_floorplane then
+				floorplane := attached_floorplane
+			end
+			xtoviewangle := i_main.r_main.xtoviewangle
+			angletofineshift := {TABLES}.angletofineshift
+			finetangent := {TABLES}.finetangent
+			fracbits := {M_FIXED}.fracbits
+			lightscaleshift := {R_MAIN}.lightscaleshift
+			maxlightscale := {R_MAIN}.maxlightscale
+			check attached i_main.r_main.colfunc as cf then
+				colfunc := cf
+			end
+			viewheight := i_main.r_draw.viewheight
+
+				-- body
+
+			from
+			until
+				rw_x >= rw_stopx
+			loop
+					-- mark floor / ceiling areas
+				yl := ((topfrac + HEIGHTUNIT - 1) |>> HEIGHTBITS).to_integer_32
+
+					-- no space above wall?
+				if yl < ceilingclip [rw_x] + 1 then
+					yl := ceilingclip [rw_x] + 1
+				end
+				if markceiling then
+					top := ceilingclip [rw_x] + 1
+					bottom := yl - 1
+					if bottom >= floorclip [rw_x] then
+						bottom := floorclip [rw_x] - 1
+					end
+					if top <= bottom then
+						ceilingplane.top [rw_x] := top.to_natural_8
+						ceilingplane.bottom [rw_x] := bottom.to_natural_8
+					end
+				end
+				yh := (bottomfrac |>> HEIGHTBITS).to_integer_32
+				if yh >= floorclip [rw_x] then
+					yh := floorclip [rw_x] - 1
+				end
+				if markfloor then
+					top := yh + 1
+					bottom := floorclip [rw_x] - 1
+					if top <= ceilingclip [rw_x] then
+						top := ceilingclip [rw_x] + 1
+					end
+					if top <= bottom then
+						floorplane.top [rw_x] := top.to_natural_8
+						floorplane.bottom [rw_x] := bottom.to_natural_8
+					end
+				end
+
+					-- texturecolumn and lighting are independent of wall tiers
+				if segtextured then
+						-- calculate texture offset
+					angle := (rw_centerangle + xtoviewangle [rw_x]) |>> ANGLETOFINESHIFT
+					texturecolumn := rw_offset - {M_FIXED}.fixedmul (finetangent [angle], rw_distance)
+					texturecolumn := texturecolumn |>> FRACBITS
+						-- calculate lighting
+					index := rw_scale |>> LIGHTSCALESHIFT
+					if index.to_integer_32 >= MAXLIGHTSCALE then
+						index := (MAXLIGHTSCALE - 1).to_natural_32
+					end
+					i_main.r_draw.dc_colormap := create {INDEX_IN_ARRAY[LIGHTTABLE_T]}.make(index.to_integer_32, walllights)
+					i_main.r_draw.dc_x := rw_x
+					i_main.r_draw.dc_iscale := ((0xffffffff).to_natural_32 // rw_scale.to_natural_32).to_integer_32
+				end
+
+					-- draw the wall tiers
+				if midtexture /= 0 then
+						-- single sided line
+					i_main.r_draw.dc_yl := yl
+					i_main.r_draw.dc_yh := yh
+					i_main.r_draw.dc_texturemid := rw_midtexturemid
+					i_main.r_draw.dc_source := i_main.r_data.R_GetColumn (midtexture, texturecolumn.to_integer_32)
+					colfunc.call
+					ceilingclip [rw_x] := viewheight.to_integer_16
+					floorclip [rw_x] := -1
+				else
+						-- two sided line
+					if toptexture /= 0 then
+						mid := (pixhigh |>> HEIGHTBITS).to_integer_32
+						pixhigh := pixhigh + pixhighstep
+						if mid >= floorclip [rw_x] then
+							mid := floorclip [rw_x] - 1
+						end
+						if mid >= yl then
+							i_main.r_draw.dc_yl := yl
+							i_main.r_draw.dc_yh := mid
+							i_main.r_draw.dc_texturemid := rw_toptexturemid
+							i_main.r_draw.dc_source := i_main.r_data.R_GetColumn (toptexture, texturecolumn.to_integer_32)
+							colfunc.call
+							ceilingclip [rw_x] := mid.to_integer_16
+						else
+							ceilingclip [rw_x] := (yl - 1).to_integer_16
+						end
+					else
+							-- no top wall
+						if markceiling then
+							ceilingclip [rw_x] := (yl - 1).to_integer_16
+						end
+					end
+					if bottomtexture /= 0 then
+							-- bottom wall
+						mid := ((pixlow + HEIGHTUNIT - 1) |>> HEIGHTBITS).to_integer_32
+						pixlow := pixlow + pixlowstep
+
+							-- no space above wall?
+						if mid <= ceilingclip [rw_x] then
+							mid := ceilingclip [rw_x] + 1
+						end
+						if mid <= yh then
+							i_main.r_draw.dc_yl := mid
+							i_main.r_draw.dc_yh := yh
+							i_main.r_draw.dc_texturemid := rw_bottomtexturemid
+							i_main.r_draw.dc_source := i_main.r_data.R_GetColumn (bottomtexture, texturecolumn.to_integer_32)
+							colfunc.call
+							floorclip [rw_x] := mid.to_integer_16
+						else
+							floorclip [rw_x] := (yh + 1).to_integer_16
+						end
+					else
+							-- no bottom wall
+						if markfloor then
+							floorclip [rw_x] := (yh + 1).to_integer_16
+						end
+					end
+					if maskedtexture then
+							-- save texturecol
+							-- for backdrawing of masked mid texture
+						maskedtexturecol.array [maskedtexturecol.index + rw_x] := texturecolumn.to_integer_16
+					end
+				end
+				rw_scale := rw_scale + rw_scalestep
+				topfrac := topfrac + topstep
+				bottomfrac := bottomfrac + bottomstep
+				rw_x := rw_x + 1
+			end
 		end
 
 end

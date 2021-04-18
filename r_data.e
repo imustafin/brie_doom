@@ -23,6 +23,10 @@ feature
 			create flattranslation.make_empty
 			create texturetranslation.make_empty
 			create textureheight.make_empty
+			create texturecomposite.make_empty
+			create texturecolumnofs.make_empty
+			create texturecolumnlump.make_empty
+			create texturewidthmask.make_empty
 		end
 
 feature
@@ -44,6 +48,14 @@ feature
 	texturetranslation: ARRAY [INTEGER]
 
 	textureheight: ARRAY [INTEGER]
+
+	texturewidthmask: ARRAY [INTEGER]
+
+	texturecolumnlump: ARRAY [ARRAY [INTEGER_16]]
+
+	texturecolumnofs: ARRAY [ARRAY [NATURAL_16]]
+
+	texturecomposite: ARRAY [POINTER]
 
 feature
 
@@ -219,6 +231,34 @@ feature
 	R_PrecacheLevel
 		do
 				-- Stub
+		end
+
+	R_GetColumn (tex, a_col: INTEGER): POINTER
+		local
+			lump: INTEGER
+			ofs: INTEGER
+			col: INTEGER
+		do
+			col := a_col
+			col := col & texturewidthmask [tex]
+			lump := texturecolumnlump [tex] [col]
+			ofs := texturecolumnofs [tex] [col]
+			if lump > 0 then
+				Result := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_cache).item + ofs
+			else
+				if texturecomposite [tex].is_default_pointer then
+					R_GenerateComposite (tex)
+				end
+				Result := texturecomposite [tex] + ofs
+			end
+		end
+
+	R_GenerateComposite (texnum: INTEGER)
+			-- Using the texture definition,
+			-- the composite texture is created from the patches,
+			-- and each column is cached
+		do
+			{I_MAIN}.i_error ("R_GenerateComposite not implemented")
 		end
 
 end

@@ -20,6 +20,7 @@ feature
 
 	make
 		do
+			create dc_colormap.make (0, create {ARRAY [LIGHTTABLE_T]}.make_empty)
 		end
 
 feature
@@ -82,6 +83,71 @@ feature
 
 	viewwindowy: INTEGER
 
+feature -- R_DrawColumn
+
+	dc_colormap: INDEX_IN_ARRAY [LIGHTTABLE_T] assign set_dc_colormap
+
+	set_dc_colormap (a_dc_colormap: like dc_colormap)
+		do
+			dc_colormap := a_dc_colormap
+		end
+
+	dc_x: INTEGER assign set_dc_x
+
+	set_dc_x (a_dc_x: like dc_x)
+		do
+			dc_x := a_dc_x
+		end
+
+	dc_yl: INTEGER assign set_dc_yl
+
+	set_dc_yl (a_dc_yl: like dc_yl)
+		do
+			dc_yl := a_dc_yl
+		end
+
+	dc_yh: INTEGER assign set_dc_yh
+
+	set_dc_yh (a_dc_yh: like dc_yh)
+		do
+			dc_yh := a_dc_yh
+		end
+
+	dc_iscale: FIXED_T assign set_dc_iscale
+
+	set_dc_iscale (a_dc_iscale: like dc_iscale)
+		do
+			dc_iscale := a_dc_iscale
+		end
+
+	dc_texturemid: FIXED_T assign set_dc_texturemid
+
+	set_dc_texturemid (a_dc_texturemid: like dc_texturemid)
+		do
+			dc_texturemid := a_dc_texturemid
+		end
+
+	dc_source: POINTER assign set_dc_source
+			-- first pixel in a column (possibly virtual)
+
+	set_dc_source (a_dc_source: like dc_source)
+		do
+			dc_source := a_dc_source
+		end
+
+	dccount: INTEGER
+			-- just for profiling
+
+	R_DrawColumn
+			-- A column is a vertical slice/span from a wall texture that,
+			-- given the DOOM style restrictions on the view orientation,
+			-- will always have constant z depth.
+			-- Thus a special case loop for very fast rendering can be used.
+			-- It has also been used with Wolfenshtein 3D.
+		do
+				-- Stub
+		end
+
 feature
 
 	R_FillBackScreen
@@ -100,11 +166,6 @@ feature
 		end
 
 feature
-
-	R_DrawColumn
-		do
-				-- Stub
-		end
 
 	R_DrawTranslatedColumn
 		do
