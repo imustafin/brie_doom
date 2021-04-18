@@ -89,7 +89,14 @@ feature -- Globals
 
 	r_sky: R_SKY
 
+	inner_r_draw: detachable R_DRAW
+
 	r_draw: R_DRAW
+		do
+			check attached inner_r_draw as x then
+				Result := x
+			end
+		end
 
 	inner_p_setup: detachable P_SETUP
 
@@ -207,8 +214,8 @@ feature -- Globals
 	r_segs: R_SEGS
 		do
 			check attached inner_r_segs as x then
-					Result := x
-				end
+				Result := x
+			end
 		end
 
 	inner_r_bsp: detachable R_BSP
@@ -235,7 +242,6 @@ feature {NONE} -- Initialization
 			create p_spec.make
 			create info.make
 			create z_zone.make
-			create r_draw.make
 			create st_stuff.make
 			create r_sky.make
 			create f_finale.make
@@ -243,6 +249,7 @@ feature {NONE} -- Initialization
 			create i_midipipe
 			create p_tick.make
 			create p_mobj
+			create inner_r_draw.make (Current)
 			create inner_r_plane.make (Current)
 			create inner_r_segs.make (Current)
 			create inner_r_things.make (Current)

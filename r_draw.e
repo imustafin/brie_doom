@@ -18,9 +18,14 @@ create
 
 feature
 
-	make
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
 		do
+			i_main := a_i_main
 			create dc_colormap.make (0, create {ARRAY [LIGHTTABLE_T]}.make_empty)
+			create dc_source.make (create {MANAGED_POINTER}.make (1), 0)
+			create ylookup.make_filled (create {PIXEL_T_BUFFER}.make (1), 0, MAXHEIGHT - 1)
 		end
 
 feature
@@ -40,10 +45,7 @@ feature
 			create Result.make_filled (0, 0, MAXWIDTH - 1)
 		end
 
-	ylookup: ARRAY [INTEGER] -- index in screen[0]
-		attribute
-			create Result.make_filled (0, 0, MAXHEIGHT - 1)
-		end
+	ylookup: ARRAY [PIXEL_T_BUFFER]
 
 feature
 
@@ -127,7 +129,7 @@ feature -- R_DrawColumn
 			dc_texturemid := a_dc_texturemid
 		end
 
-	dc_source: POINTER assign set_dc_source
+	dc_source: MANAGED_POINTER_WITH_OFFSET assign set_dc_source
 			-- first pixel in a column (possibly virtual)
 
 	set_dc_source (a_dc_source: like dc_source)
@@ -144,8 +146,48 @@ feature -- R_DrawColumn
 			-- will always have constant z depth.
 			-- Thus a special case loop for very fast rendering can be used.
 			-- It has also been used with Wolfenshtein 3D.
+		local
+			count: INTEGER
+			dest: PIXEL_T_BUFFER
+			ofs: INTEGER
+			frac: FIXED_T
+			fracstep: FIXED_T
+			val: NATURAL_8
+			dc_source_val: INTEGER
 		do
-				-- Stub
+			count := dc_yh - dc_yl
+
+				-- Zero length, column does not exceed a pixel
+			if count > 0 then
+					-- Framebuffer destination address.
+					-- Use ylookup LUT to avoid multiply with ScreenWidth.
+					-- Use columnofs LUT for subwindows?
+				dest := ylookup [dc_yl]
+				ofs := columnofs [dc_x]
+
+					-- Determine scaling,
+					-- which is the only mapping to be done.
+				fracstep := dc_iscale
+				frac := dc_texturemid + (dc_yl - i_main.r_main.centery) * fracstep
+
+					-- Inner loop that does the actual texture mapping,
+					-- e.g. a DDA-lile scaling.
+					-- This is as fast as it gets.
+				from
+					count := count + 1 -- add one because do{}while loop
+				until
+					count <= 0
+				loop
+						-- Re-map color indices from wall texture column
+						-- using a lighting/special effects LUT
+					dc_source_val := dc_source.m.read_natural_8_le (dc_source.ofs + (frac |>> {M_FIXED}.FRACBITS).to_integer_32 & 127)
+					val := dc_colormap.array [dc_colormap.index + dc_source_val].to_natural_8
+					dest.put (val, ofs)
+					ofs := ofs + SCREENWIDTH
+					frac := frac + fracstep
+					count := count - 1
+				end
+			end
 		end
 
 feature
@@ -181,7 +223,7 @@ feature
 
 	R_DrawColumnLow
 		do
-				-- Stub
+			{I_MAIN}.i_error ("R_DrawColumnLow not implemented")
 		end
 
 	R_DrawFuzzColumn
@@ -199,6 +241,8 @@ feature
 	R_InitBuffer (width, height: INTEGER)
 		local
 			i: INTEGER
+			ofs: INTEGER
+			left: INTEGER
 		do
 				-- Handle resize,
 				--  e.g. smaller view windows
@@ -228,9 +272,18 @@ feature
 			until
 				i >= height
 			loop
-				ylookup [i] := (i + viewwindowy) * SCREENWIDTH
+				ofs := (i + viewwindowy) * SCREENWIDTH
+				left := i_main.i_video.i_videobuffer.p.count - ofs -- how many bytes are there in I_VideoBuffer startin from ofs
+				check
+					left > 0
+				end
+				ylookup [i] := create {PIXEL_T_BUFFER}.share_from_pointer (i_main.i_video.I_VideoBuffer.p.item + ofs, left)
 				i := i + 1
 			end
 		end
+
+invariant
+	ylookup.lower = 0
+	ylookup.count = MAXHEIGHT
 
 end

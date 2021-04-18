@@ -55,7 +55,7 @@ feature
 
 	texturecolumnofs: ARRAY [ARRAY [NATURAL_16]]
 
-	texturecomposite: ARRAY [POINTER]
+	texturecomposite: ARRAY [detachable MANAGED_POINTER]
 
 feature
 
@@ -233,7 +233,7 @@ feature
 				-- Stub
 		end
 
-	R_GetColumn (tex, a_col: INTEGER): POINTER
+	R_GetColumn (tex, a_col: INTEGER): MANAGED_POINTER_WITH_OFFSET
 		local
 			lump: INTEGER
 			ofs: INTEGER
@@ -244,12 +244,14 @@ feature
 			lump := texturecolumnlump [tex] [col]
 			ofs := texturecolumnofs [tex] [col]
 			if lump > 0 then
-				Result := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_cache).item + ofs
+				create Result.make (i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_cache), ofs)
 			else
-				if texturecomposite [tex].is_default_pointer then
+				if texturecomposite [tex] = Void then
 					R_GenerateComposite (tex)
 				end
-				Result := texturecomposite [tex] + ofs
+				check attached texturecomposite [tex] as tc then
+					create Result.make (tc, ofs)
+				end
 			end
 		end
 
