@@ -25,17 +25,14 @@ feature
 feature
 	flip_sign alias "-": like Current
 		do
-			Result := Current - Current - Current
+			Result := {NATURAL} 0 - Current
 		end
 
 	abs: like Current
 		local
 			min_one: like Current
 		do
-			min_one := {NATURAL} 1
-			min_one := -min_one
-
-			if Current > min_one then
+			if bit_test(31) then
 				Result := -Current
 			else
 				Result := Current
