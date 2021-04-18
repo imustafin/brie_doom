@@ -187,6 +187,9 @@ feature -- D_DoomLoop
 				False
 			loop
 				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
+				if i_main.g_game.gamestate = {DOOMDEF_H}.gs_level then
+					print("in game")
+				end
 				check attached i_main.i_video as iv then
 					iv.I_StartFrame
 				end

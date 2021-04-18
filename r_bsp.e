@@ -15,9 +15,19 @@ feature
 	i_main: I_MAIN
 
 	make (a_i_main: I_MAIN)
+		local
+			i: INTEGER
 		do
 			i_main := a_i_main
 			create solidsegs.make_filled (create {CLIPRANGE_T}, 0, MAXSEGS - 1)
+			from
+				i := 0
+			until
+				i > solidsegs.upper
+			loop
+				solidsegs[i] := create {CLIPRANGE_T}
+				i := i + 1
+			end
 			create drawsegs.make_empty
 			create frontsector.make
 			create curline.make
@@ -261,8 +271,58 @@ feature
 			-- but does not includes it in the clip list.
 			-- Does handle windows,
 			-- e.g. LineDefs with upper and lower texture.
+		local
+			start: INTEGER -- index in solidsegs
+			returned: BOOLEAN
 		do
-				-- Stub
+				-- Find the first range that touches the range
+				-- (adjacent pixels are touching).
+				start := solidsegs.lower
+				from
+
+				until
+					solidsegs[start].last < first - 1
+				loop
+					start := start + 1
+				end
+
+				if first < solidsegs[start].first then
+					if last < solidsegs[start].first - 1 then
+						-- Post is entirely visible (above start)
+						i_main.r_segs.R_StoreWallRange(first, last)
+						returned := True
+					else
+						-- There is a wall segment above *start
+						i_main.r_segs.R_StoreWallRange(first, solidsegs[start].first - 1)
+					end
+				end
+
+				if not returned then
+					-- Bottom contained in start?
+					if last <= solidsegs[start].last then
+						returned := True
+					end
+				end
+
+				if not returned then
+					from
+
+					until
+						returned or last < solidsegs[start + 1].first - 1
+					loop
+						-- There is a fragment between two posts.
+						i_main.r_segs.R_StoreWallRange(solidsegs[start].last + 1, solidsegs[start + 1].first - 1)
+						start := start + 1
+
+						if last <= solidsegs[start].last then
+							returned := True
+						end
+					end
+				end
+
+				if not returned then
+					i_main.r_segs.R_StoreWallRange(solidsegs[start].last + 1, last)
+				end
 		end
 
 	R_ClipSolidWallSegment (first, last: INTEGER)
@@ -295,7 +355,7 @@ feature
 					until
 						next = start
 					loop
-						solidsegs [next] := solidsegs [next - 1]
+						solidsegs [next] := solidsegs [next - 1].twin
 						next := next - 1
 					end
 					done := True
