@@ -28,7 +28,7 @@ feature
 			create segs.make_empty
 			create blocklinks.make_empty
 			create blockmaplump.make_empty
-			create blockmap.make_empty
+			create blockmap.make_filled (0, 0, 0)
 			create vertexes.make_empty
 			create sectors.make_empty
 			create sides.make_empty
@@ -194,9 +194,19 @@ feature
 		end
 
 	P_LoadBlockMap (lump: INTEGER)
+		local
+			i: INTEGER
 		do
 			blockmaplump := {WAD_READER}.read_array_integer_16 (i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_level))
-			blockmap := blockmaplump.subarray (3, blockmaplump.upper) -- blockmaplump + 4
+			create blockmap.make_filled (0, 0, blockmaplump.upper - 4)
+			from
+				i := 4
+			until
+				i > blockmaplump.upper
+			loop
+				blockmap[i - 4] := blockmaplump[i]
+				i := i + 1
+			end
 			bmaporgx := blockmaplump [0].to_integer_32 |<< {M_FIXED}.FRACBITS
 			bmaporgy := blockmaplump [1].to_integer_32 |<< {M_FIXED}.FRACBITS
 			bmapwidth := blockmaplump [2]
@@ -364,9 +374,9 @@ feature
 				i >= numlines
 			loop
 				total := total + 1
-				if attached lines[i].frontsector as frontsector then
-					-- Very sus, check https://www.doomworld.com/forum/topic/85702-eureka-111-released/?tab=comments#comment-1551735
-					-- in theory, frontsector can't be Void but who knows...
+				check attached lines [i].frontsector as frontsector then
+						-- Very sus, check https://www.doomworld.com/forum/topic/85702-eureka-111-released/?tab=comments#comment-1551735
+						-- in theory, frontsector can't be Void but who knows...
 					frontsector.linecount := frontsector.linecount + 1
 				end
 				if attached lines [i].backsector as bs and then bs /= lines [i].frontsector then
@@ -430,5 +440,8 @@ feature
 		do
 				-- Stub
 		end
+
+invariant
+	blockmap.lower = 0
 
 end

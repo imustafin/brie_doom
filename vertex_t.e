@@ -27,7 +27,7 @@ feature
 			y := m.read_integer_16_le (2 + offset).to_integer_32 |<< {M_FIXED}.FRACBITS
 		end
 
-	structure_size: INTEGER = 2
+	structure_size: INTEGER = 4
 			-- sizeof(mapvertex_t)
 
 end

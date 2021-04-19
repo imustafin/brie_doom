@@ -110,7 +110,7 @@ feature
 			if sn [1] /= -1 then
 				backsector := i_main.p_setup.sides [sn [1]].sector
 			else
-				frontsector := Void
+				backsector := Void
 			end
 		end
 
