@@ -169,7 +169,7 @@ feature
 
 feature
 
-	S_UpdateSounds (listener: MOBJ_T)
+	S_UpdateSounds (listener: detachable MOBJ_T)
 			-- Updates music & sounds
 		local
 			audible: BOOLEAN
@@ -207,7 +207,9 @@ feature
 								-- check non-local sounds for distance clipping
 								--  or modify their params
 							if attached c.origin as origin and then listener /= origin then
-								audible := S_AdjustSoundParams (listener, origin, volume, sep)
+								check attached listener as l then
+									audible := S_AdjustSoundParams (listener, origin, volume, sep)
+								end
 							end
 							if not audible then
 								S_StopChannel (cnum)
@@ -259,18 +261,18 @@ feature
 			if not ignore then
 					-- Check to see if it is audible,
 					--  and if not, modify the params
-				check attached i_main.g_game.players [i_main.g_game.consoleplayer].mo as mo then
-					if attached origin and then origin /= mo then
+				if attached origin and then origin /= i_main.g_game.players [i_main.g_game.consoleplayer].mo then
+					check attached i_main.g_game.players [i_main.g_game.consoleplayer].mo as mo then
 						rc := S_AdjustSoundParams (mo, origin, volume, sep)
 						if origin.x = mo.x and origin.y = mo.y then
 							sep := NORM_SEP
 						end
-						if not rc then
-							ignore := True
-						end
-					else
-						sep := NORM_SEP
 					end
+					if not rc then
+						ignore := True
+					end
+				else
+					sep := NORM_SEP
 				end
 			end
 			if not ignore then

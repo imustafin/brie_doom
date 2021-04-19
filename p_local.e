@@ -40,4 +40,11 @@ feature
 			instance_free: class
 		end
 
+	VIEWHEIGHT: INTEGER
+		once
+			Result := 41 * {M_FIXED}.FRACUNIT
+		ensure
+			instance_free: class
+		end
+
 end

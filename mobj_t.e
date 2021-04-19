@@ -50,6 +50,22 @@ feature
 			flags := a_flags
 		end
 
+	player: detachable PLAYER_T assign set_player
+			-- Additional info record for player avatars only.
+			-- Only valid if type == MT_PLAYER
+
+	set_player (a_player: like player)
+		do
+			player := a_player
+		end
+
+	health: INTEGER assign set_health
+
+	set_health (a_health: like health)
+		do
+			health := a_health
+		end
+
 feature -- More list: links in sector (if needed)
 
 	snext: detachable MOBJ_T

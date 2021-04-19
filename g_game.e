@@ -967,4 +967,14 @@ feature
 				-- Stub
 		end
 
+feature
+
+
+	G_PlayerReborn(player: INTEGER)
+		-- Called after a player dies
+		-- almost everything is cleared and initialized
+		do
+			{I_MAIN}.i_error ("G_PlayerReborn is not implemented")
+		end
+
 end

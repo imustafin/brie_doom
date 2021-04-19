@@ -8,6 +8,22 @@ note
 class
 	DOOMDEF_H
 
+feature -- card_t
+
+	it_bluecard: INTEGER = 0
+
+	it_yellowcard: INTEGER = 1
+
+	it_redcard: INTEGER = 2
+
+	it_blueskull: INTEGER = 3
+
+	it_yellowskull: INTEGER = 4
+
+	it_redskull: INTEGER = 5
+
+	NUMCARDS: INTEGER = 6
+
 feature
 
 	SCREENWIDTH: INTEGER = 320
@@ -17,6 +33,20 @@ feature
 	MAXPLAYERS: INTEGER = 4
 
 	TICRATE: INTEGER = 35 -- State updates, number of tics / second.
+
+feature -- ammotype_t
+
+	am_clip: INTEGER = 0 -- Pistol / chaingun ammo
+
+	am_shell: INTEGER = 1 -- Shotgun / double barreled shotgun
+
+	am_cell: INTEGER = 2 -- Plasma rifle, BFG.
+
+	am_misl: INTEGER = 3 -- Missile launcher
+
+	NUMAMMO: INTEGER = 4
+
+	am_noammo: INTEGER = 5 -- Unlimited for chainsaw / fist.
 
 feature -- skill_t
 

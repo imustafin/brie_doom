@@ -227,6 +227,8 @@ feature -- Globals
 			end
 		end
 
+	p_pspr: P_PSPR
+
 feature {NONE} -- Initialization
 
 	make
@@ -248,7 +250,8 @@ feature {NONE} -- Initialization
 			create m_random.make
 			create i_midipipe
 			create p_tick.make
-			create p_mobj
+			create p_mobj.make (Current)
+			create p_pspr.make (Current)
 			create inner_r_draw.make (Current)
 			create inner_r_plane.make (Current)
 			create inner_r_segs.make (Current)

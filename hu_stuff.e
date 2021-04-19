@@ -76,9 +76,16 @@ feature
 
 feature
 
-	HU_Responder(ev: EVENT_T): BOOLEAN
-	do
-		-- Stub
-	end
+	HU_Responder (ev: EVENT_T): BOOLEAN
+		do
+				-- Stub
+		end
+
+feature
+
+	HU_Start
+		do
+				-- Stub
+		end
 
 end

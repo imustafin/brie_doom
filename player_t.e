@@ -10,8 +10,19 @@ create
 feature
 
 	make
+		local
+			i: INTEGER
 		do
-			create mo.make
+			create psprites.make_filled (create {PSPDEF_T}, 0, {P_PSPR}.NUMPSPRITES - 1)
+			from
+				i := 0
+			until
+				i > psprites.upper
+			loop
+				psprites [i] := create {PSPDEF_T}
+				i := i + 1
+			end
+			create cards.make_filled (False, 0, {DOOMDEF_H}.numcards - 1)
 		end
 
 feature -- playerstate_t
@@ -71,9 +82,69 @@ feature
 			itemcount := a_itemcount
 		end
 
-	fixedcolormap: INTEGER
+	fixedcolormap: INTEGER assign set_fixedcolormap
 			-- Current PLAYPAL, ???
 			-- can be set to REDCOLORMAP for pain, etc.
+
+	set_fixedcolormap (a_fixedcolormap: like fixedcolormap)
+		do
+			fixedcolormap := fixedcolormap
+		end
+
+	health: INTEGER
+
+	refire: INTEGER assign set_refire
+			-- Refired shots are less accurate
+
+	set_refire (a_refire: like refire)
+		do
+			refire := a_refire
+		end
+
+	message: detachable STRING assign set_message
+			-- Hint messages
+
+	set_message (a_message: like message)
+		do
+			message := a_message
+		end
+
+	damagecount: INTEGER assign set_damagecount
+
+	set_damagecount (a_damagecount: like damagecount)
+		do
+			damagecount := a_damagecount
+		end
+
+	bonuscount: INTEGER assign set_bonuscount
+
+	set_bonuscount (a_bonuscount: like bonuscount)
+		do
+			bonuscount := a_bonuscount
+		end
+
+	viewheight: FIXED_T assign set_viewheight
+			-- Base height above floor for viewz
+
+	set_viewheight (a_viewheight: like viewheight)
+		do
+			viewheight := a_viewheight
+		end
+
+	psprites: ARRAY [PSPDEF_T]
+			-- Overlay view sprites (gun, etc.)
+
+	readyweapon: INTEGER
+
+	pendingweapon: INTEGER assign set_pendingweapon
+			-- Is wp_nochange if not changing
+
+	set_pendingweapon (a_pendingweapon: like pendingweapon)
+		do
+			pendingweapon := a_pendingweapon
+		end
+
+	cards: ARRAY[BOOLEAN]
 
 feature -- POV
 
@@ -83,5 +154,12 @@ feature -- POV
 		do
 			viewz := a_viewz
 		end
+
+invariant
+	psprites.lower = 0
+	psprites.count = {P_PSPR}.NUMPSPRITES
+
+	cards.lower = 0
+	cards.count = {DOOMDEF_H}.NUMCARDS
 
 end

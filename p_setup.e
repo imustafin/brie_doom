@@ -498,7 +498,7 @@ feature -- P_LoadThings
 				end
 				if spawn then
 						-- Do spawn all other stuff
-					i_main.p_mobj.P_SpawnMapThing (mt, i_main)
+					i_main.p_mobj.P_SpawnMapThing (mt)
 				end
 			end
 		end

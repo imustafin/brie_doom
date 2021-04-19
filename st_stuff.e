@@ -35,8 +35,15 @@ feature
 feature
 
 	ST_Responder (ev: EVENT_T): BOOLEAN
-	do
-		-- Stub
-	end
+		do
+				-- Stub
+		end
+
+feature
+
+	ST_Start
+		do
+				-- Stub
+		end
 
 end

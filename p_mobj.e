@@ -11,6 +11,18 @@ inherit
 
 	MOBJFLAG_T
 
+create
+	make
+
+feature
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+		end
+
 feature -- P_RemoveMobj
 
 	iquehead: INTEGER assign set_iquehead
@@ -31,11 +43,66 @@ feature -- P_RemoveMobj
 			-- Called when a player is spawned on the level.
 			-- Most of the player structure stays unchanged
 			-- between levels.
+		local
+			p: PLAYER_T
+			x, y, z: FIXED_T
+			mobj: MOBJ_T
+			i: INTEGER
 		do
-			{I_MAIN}.i_error ("P_SpawnPlayer not implemented")
+				-- not playing?
+			if not i_main.g_game.playeringame [mthing.type - 1] then
+					-- return
+			else
+				p := i_main.g_game.players [mthing.type - 1]
+				if p.playerstate = {PLAYER_T}.PST_REBORN then
+					i_main.g_game.G_PlayerReborn (mthing.type - 1)
+				end
+				x := (mthing.x |<< {M_FIXED}.FRACBITS).to_integer_32
+				y := (mthing.y |<< {M_FIXED}.FRACBITS).to_integer_32
+				z := {P_LOCAL}.ONFLOORZ
+				mobj := P_SpawnMobj (x, y, z, {INFO}.MT_PLAYER)
+
+					-- set color translations for player sprites
+				if mthing.type > 1 then
+					mobj.flags := mobj.flags | (mthing.type - 1) |<< MF_TRANSSHIFT
+				end
+				mobj.angle := {R_MAIN}.ANG45 * (mthing.angle.to_natural_32 // 45)
+				mobj.player := p
+				mobj.health := p.health
+				p.mo := mobj
+				p.playerstate := {PLAYER_T}.PST_LIVE
+				p.refire := 0
+				p.message := Void
+				p.damagecount := 0
+				p.bonuscount := 0
+				p.extralight := 0
+				p.fixedcolormap := 0
+				p.viewheight := {P_LOCAL}.VIEWHEIGHT
+
+					-- setup gun psprite
+				i_main.p_pspr.P_SetupPsprites (p)
+
+					-- give all cards in death match mode
+				if i_main.g_game.deathmatch then
+					from
+						i := 0
+					until
+						i >= {DOOMDEF_H}.NUMCARDS
+					loop
+						p.cards [i] := True
+						i := i + 1
+					end
+				end
+				if mthing.type - 1 = i_main.g_game.consoleplayer then
+						-- wake up the status bar
+					i_main.st_stuff.ST_Start
+						-- wake up the heads up text
+					i_main.hu_stuff.HU_Start
+				end
+			end
 		end
 
-	P_SpawnMapThing (mthing: MAPTHING_T; i_main: I_MAIN)
+	P_SpawnMapThing (mthing: MAPTHING_T)
 		local
 			i: INTEGER
 			b: INTEGER -- originally called bit
