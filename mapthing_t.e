@@ -10,7 +10,7 @@ class
 	MAPTHING_T
 
 create
-	from_pointer
+	default_create, from_pointer
 
 feature
 

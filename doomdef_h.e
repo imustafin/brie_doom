@@ -100,4 +100,9 @@ feature -- gamestate_t
 
 	GS_DEMOSCREEN: INTEGER = 3
 
+feature
+
+	MTF_AMBUSH: INTEGER = 8
+			-- Deaf monsters/do not react to sound
+
 end

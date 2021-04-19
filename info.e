@@ -9,6 +9,12 @@ note
 class
 	INFO
 
+inherit
+
+	SFXENUM_T
+
+	MOBJFLAG_T
+
 create
 	make
 
@@ -3513,14 +3519,3307 @@ feature -- mobjtype_t
 
 	NUMMOBJTYPES: INTEGER = 137
 
+feature -- mobjinfo
+
 	mobjinfo: ARRAY [MOBJINFO_T]
+		local
+			fracunit: INTEGER
 		once
-			create Result.make_filled (create {MOBJINFO_T}.make, 0, NUMMOBJTYPES - 1)
+			fracunit := {M_FIXED}.fracunit
+			create Result.make_filled (create {MOBJINFO_T}, 0, NUMMOBJTYPES - 1)
+				-- MT_PLAYER
+			Result [0] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_PLAY, -- spawnstate
+ 100, -- spawnhealth
+ S_PLAY_RUN1, -- seestate
+ sfx_None, -- seesound
+ 0, -- reactiontime
+ sfx_None, -- attacksound
+ S_PLAY_PAIN, -- painstate
+ 255, -- painchance
+ sfx_plpain, -- painsound
+ S_NULL, -- meleestate
+ S_PLAY_ATK1, -- missilestate
+ S_PLAY_DIE1, -- deathstate
+ S_PLAY_XDIE1, -- xdeathstate
+ sfx_pldeth, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_DROPOFF | MF_PICKUP | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [1] := create {MOBJINFO_T}.make (3004, -- doomednum
+ S_POSS_STND, -- spawnstate
+ 20, -- spawnhealth
+ S_POSS_RUN1, -- seestate
+ sfx_posit1, -- seesound
+ 8, -- reactiontime
+ sfx_pistol, -- attacksound
+ S_POSS_PAIN, -- painstate
+ 200, -- painchance
+ sfx_popain, -- painsound
+ 0, -- meleestate
+ S_POSS_ATK1, -- missilestate
+ S_POSS_DIE1, -- deathstate
+ S_POSS_XDIE1, -- xdeathstate
+ sfx_podth1, -- deathsound
+ 8, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_posact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_POSS_RAISE1 -- raisestate
+			)
+			Result [2] := create {MOBJINFO_T}.make (9, -- doomednum
+ S_SPOS_STND, -- spawnstate
+ 30, -- spawnhealth
+ S_SPOS_RUN1, -- seestate
+ sfx_posit2, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_SPOS_PAIN, -- painstate
+ 170, -- painchance
+ sfx_popain, -- painsound
+ 0, -- meleestate
+ S_SPOS_ATK1, -- missilestate
+ S_SPOS_DIE1, -- deathstate
+ S_SPOS_XDIE1, -- xdeathstate
+ sfx_podth2, -- deathsound
+ 8, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_posact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_SPOS_RAISE1 -- raisestate
+			)
+			Result [3] := create {MOBJINFO_T}.make (64, -- doomednum
+ S_VILE_STND, -- spawnstate
+ 700, -- spawnhealth
+ S_VILE_RUN1, -- seestate
+ sfx_vilsit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_VILE_PAIN, -- painstate
+ 10, -- painchance
+ sfx_vipain, -- painsound
+ 0, -- meleestate
+ S_VILE_ATK1, -- missilestate
+ S_VILE_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_vildth, -- deathsound
+ 15, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 500, -- mass
+ 0, -- damage
+ sfx_vilact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [4] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_FIRE1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [5] := create {MOBJINFO_T}.make (66, -- doomednum
+ S_SKEL_STND, -- spawnstate
+ 300, -- spawnhealth
+ S_SKEL_RUN1, -- seestate
+ sfx_skesit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_SKEL_PAIN, -- painstate
+ 100, -- painchance
+ sfx_popain, -- painsound
+ S_SKEL_FIST1, -- meleestate
+ S_SKEL_MISS1, -- missilestate
+ S_SKEL_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_skedth, -- deathsound
+ 10, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 500, -- mass
+ 0, -- damage
+ sfx_skeact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_SKEL_RAISE1 -- raisestate
+			)
+			Result [6] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_TRACER, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_skeatk, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_TRACEEXP1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_barexp, -- deathsound
+ 10 * FRACUNIT, -- speed
+ 11 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 10, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [7] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_SMOKE1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [8] := create {MOBJINFO_T}.make (67, -- doomednum
+ S_FATT_STND, -- spawnstate
+ 600, -- spawnhealth
+ S_FATT_RUN1, -- seestate
+ sfx_mansit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_FATT_PAIN, -- painstate
+ 80, -- painchance
+ sfx_mnpain, -- painsound
+ 0, -- meleestate
+ S_FATT_ATK1, -- missilestate
+ S_FATT_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_mandth, -- deathsound
+ 8, -- speed
+ 48 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 1000, -- mass
+ 0, -- damage
+ sfx_posact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_FATT_RAISE1 -- raisestate
+			)
+			Result [9] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_FATSHOT1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_firsht, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_FATSHOTX1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 20 * FRACUNIT, -- speed
+ 6 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 8, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [10] := create {MOBJINFO_T}.make (65, -- doomednum
+ S_CPOS_STND, -- spawnstate
+ 70, -- spawnhealth
+ S_CPOS_RUN1, -- seestate
+ sfx_posit2, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_CPOS_PAIN, -- painstate
+ 170, -- painchance
+ sfx_popain, -- painsound
+ 0, -- meleestate
+ S_CPOS_ATK1, -- missilestate
+ S_CPOS_DIE1, -- deathstate
+ S_CPOS_XDIE1, -- xdeathstate
+ sfx_podth2, -- deathsound
+ 8, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_posact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_CPOS_RAISE1 -- raisestate
+			)
+			Result [11] := create {MOBJINFO_T}.make (3001, -- doomednum
+ S_TROO_STND, -- spawnstate
+ 60, -- spawnhealth
+ S_TROO_RUN1, -- seestate
+ sfx_bgsit1, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_TROO_PAIN, -- painstate
+ 200, -- painchance
+ sfx_popain, -- painsound
+ S_TROO_ATK1, -- meleestate
+ S_TROO_ATK1, -- missilestate
+ S_TROO_DIE1, -- deathstate
+ S_TROO_XDIE1, -- xdeathstate
+ sfx_bgdth1, -- deathsound
+ 8, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_bgact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_TROO_RAISE1 -- raisestate
+			)
+			Result [12] := create {MOBJINFO_T}.make (3002, -- doomednum
+ S_SARG_STND, -- spawnstate
+ 150, -- spawnhealth
+ S_SARG_RUN1, -- seestate
+ sfx_sgtsit, -- seesound
+ 8, -- reactiontime
+ sfx_sgtatk, -- attacksound
+ S_SARG_PAIN, -- painstate
+ 180, -- painchance
+ sfx_dmpain, -- painsound
+ S_SARG_ATK1, -- meleestate
+ 0, -- missilestate
+ S_SARG_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_sgtdth, -- deathsound
+ 10, -- speed
+ 30 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 400, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_SARG_RAISE1 -- raisestate
+			)
+			Result [13] := create {MOBJINFO_T}.make (58, -- doomednum
+ S_SARG_STND, -- spawnstate
+ 150, -- spawnhealth
+ S_SARG_RUN1, -- seestate
+ sfx_sgtsit, -- seesound
+ 8, -- reactiontime
+ sfx_sgtatk, -- attacksound
+ S_SARG_PAIN, -- painstate
+ 180, -- painchance
+ sfx_dmpain, -- painsound
+ S_SARG_ATK1, -- meleestate
+ 0, -- missilestate
+ S_SARG_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_sgtdth, -- deathsound
+ 10, -- speed
+ 30 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 400, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_SHADOW | MF_COUNTKILL, -- flags
+ S_SARG_RAISE1 -- raisestate
+			)
+			Result [14] := create {MOBJINFO_T}.make (3005, -- doomednum
+ S_HEAD_STND, -- spawnstate
+ 400, -- spawnhealth
+ S_HEAD_RUN1, -- seestate
+ sfx_cacsit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_HEAD_PAIN, -- painstate
+ 128, -- painchance
+ sfx_dmpain, -- painsound
+ 0, -- meleestate
+ S_HEAD_ATK1, -- missilestate
+ S_HEAD_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_cacdth, -- deathsound
+ 8, -- speed
+ 31 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 400, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_FLOAT | MF_NOGRAVITY | MF_COUNTKILL, -- flags
+ S_HEAD_RAISE1 -- raisestate
+			)
+			Result [15] := create {MOBJINFO_T}.make (3003, -- doomednum
+ S_BOSS_STND, -- spawnstate
+ 1000, -- spawnhealth
+ S_BOSS_RUN1, -- seestate
+ sfx_brssit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_BOSS_PAIN, -- painstate
+ 50, -- painchance
+ sfx_dmpain, -- painsound
+ S_BOSS_ATK1, -- meleestate
+ S_BOSS_ATK1, -- missilestate
+ S_BOSS_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_brsdth, -- deathsound
+ 8, -- speed
+ 24 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 1000, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_BOSS_RAISE1 -- raisestate
+			)
+			Result [16] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_BRBALL1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_firsht, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_BRBALLX1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 15 * FRACUNIT, -- speed
+ 6 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 8, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [17] := create {MOBJINFO_T}.make (69, -- doomednum
+ S_BOS2_STND, -- spawnstate
+ 500, -- spawnhealth
+ S_BOS2_RUN1, -- seestate
+ sfx_kntsit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_BOS2_PAIN, -- painstate
+ 50, -- painchance
+ sfx_dmpain, -- painsound
+ S_BOS2_ATK1, -- meleestate
+ S_BOS2_ATK1, -- missilestate
+ S_BOS2_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_kntdth, -- deathsound
+ 8, -- speed
+ 24 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 1000, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_BOS2_RAISE1 -- raisestate
+			)
+			Result [18] := create {MOBJINFO_T}.make (3006, -- doomednum
+ S_SKULL_STND, -- spawnstate
+ 100, -- spawnhealth
+ S_SKULL_RUN1, -- seestate
+ 0, -- seesound
+ 8, -- reactiontime
+ sfx_sklatk, -- attacksound
+ S_SKULL_PAIN, -- painstate
+ 256, -- painchance
+ sfx_dmpain, -- painsound
+ 0, -- meleestate
+ S_SKULL_ATK1, -- missilestate
+ S_SKULL_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 8, -- speed
+ 16 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 50, -- mass
+ 3, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_FLOAT | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [19] := create {MOBJINFO_T}.make (7, -- doomednum
+ S_SPID_STND, -- spawnstate
+ 3000, -- spawnhealth
+ S_SPID_RUN1, -- seestate
+ sfx_spisit, -- seesound
+ 8, -- reactiontime
+ sfx_shotgn, -- attacksound
+ S_SPID_PAIN, -- painstate
+ 40, -- painchance
+ sfx_dmpain, -- painsound
+ 0, -- meleestate
+ S_SPID_ATK1, -- missilestate
+ S_SPID_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_spidth, -- deathsound
+ 12, -- speed
+ 128 * FRACUNIT, -- radius
+ 100 * FRACUNIT, -- height
+ 1000, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [20] := create {MOBJINFO_T}.make (68, -- doomednum
+ S_BSPI_STND, -- spawnstate
+ 500, -- spawnhealth
+ S_BSPI_SIGHT, -- seestate
+ sfx_bspsit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_BSPI_PAIN, -- painstate
+ 128, -- painchance
+ sfx_dmpain, -- painsound
+ 0, -- meleestate
+ S_BSPI_ATK1, -- missilestate
+ S_BSPI_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_bspdth, -- deathsound
+ 12, -- speed
+ 64 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 600, -- mass
+ 0, -- damage
+ sfx_bspact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_BSPI_RAISE1 -- raisestate
+			)
+			Result [21] := create {MOBJINFO_T}.make (16, -- doomednum
+ S_CYBER_STND, -- spawnstate
+ 4000, -- spawnhealth
+ S_CYBER_RUN1, -- seestate
+ sfx_cybsit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_CYBER_PAIN, -- painstate
+ 20, -- painchance
+ sfx_dmpain, -- painsound
+ 0, -- meleestate
+ S_CYBER_ATK1, -- missilestate
+ S_CYBER_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_cybdth, -- deathsound
+ 16, -- speed
+ 40 * FRACUNIT, -- radius
+ 110 * FRACUNIT, -- height
+ 1000, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [22] := create {MOBJINFO_T}.make (71, -- doomednum
+ S_PAIN_STND, -- spawnstate
+ 400, -- spawnhealth
+ S_PAIN_RUN1, -- seestate
+ sfx_pesit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_PAIN_PAIN, -- painstate
+ 128, -- painchance
+ sfx_pepain, -- painsound
+ 0, -- meleestate
+ S_PAIN_ATK1, -- missilestate
+ S_PAIN_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_pedth, -- deathsound
+ 8, -- speed
+ 31 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 400, -- mass
+ 0, -- damage
+ sfx_dmact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_FLOAT | MF_NOGRAVITY | MF_COUNTKILL, -- flags
+ S_PAIN_RAISE1 -- raisestate
+			)
+			Result [23] := create {MOBJINFO_T}.make (84, -- doomednum
+ S_SSWV_STND, -- spawnstate
+ 50, -- spawnhealth
+ S_SSWV_RUN1, -- seestate
+ sfx_sssit, -- seesound
+ 8, -- reactiontime
+ 0, -- attacksound
+ S_SSWV_PAIN, -- painstate
+ 170, -- painchance
+ sfx_popain, -- painsound
+ 0, -- meleestate
+ S_SSWV_ATK1, -- missilestate
+ S_SSWV_DIE1, -- deathstate
+ S_SSWV_XDIE1, -- xdeathstate
+ sfx_ssdth, -- deathsound
+ 8, -- speed
+ 20 * FRACUNIT, -- radius
+ 56 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_posact, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_SSWV_RAISE1 -- raisestate
+			)
+			Result [24] := create {MOBJINFO_T}.make (72, -- doomednum
+ S_KEENSTND, -- spawnstate
+ 100, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_KEENPAIN, -- painstate
+ 256, -- painchance
+ sfx_keenpn, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_COMMKEEN, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_keendt, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 72 * FRACUNIT, -- height
+ 10000000, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY | MF_SHOOTABLE | MF_COUNTKILL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [25] := create {MOBJINFO_T}.make (88, -- doomednum
+ S_BRAIN, -- spawnstate
+ 250, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_BRAIN_PAIN, -- painstate
+ 255, -- painchance
+ sfx_bospn, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_BRAIN_DIE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_bosdth, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 10000000, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SHOOTABLE, -- flags
+ S_NULL -- raisestate
+			)
+			Result [26] := create {MOBJINFO_T}.make (89, -- doomednum
+ S_BRAINEYE, -- spawnstate
+ 1000, -- spawnhealth
+ S_BRAINEYESEE, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 32 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOSECTOR, -- flags
+ S_NULL -- raisestate
+			)
+			Result [27] := create {MOBJINFO_T}.make (87, -- doomednum
+ S_NULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 32 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOSECTOR, -- flags
+ S_NULL -- raisestate
+			)
+			Result [28] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_SPAWN1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_bospit, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 10 * FRACUNIT, -- speed
+ 6 * FRACUNIT, -- radius
+ 32 * FRACUNIT, -- height
+ 100, -- mass
+ 3, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY | MF_NOCLIP, -- flags
+ S_NULL -- raisestate
+			)
+			Result [29] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_SPAWNFIRE1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [30] := create {MOBJINFO_T}.make (2035, -- doomednum
+ S_BAR1, -- spawnstate
+ 20, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_BEXP, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_barexp, -- deathsound
+ 0, -- speed
+ 10 * FRACUNIT, -- radius
+ 42 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SHOOTABLE | MF_NOBLOOD, -- flags
+ S_NULL -- raisestate
+			)
+			Result [31] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_TBALL1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_firsht, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_TBALLX1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 10 * FRACUNIT, -- speed
+ 6 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 3, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [32] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_RBALL1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_firsht, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_RBALLX1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 10 * FRACUNIT, -- speed
+ 6 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 5, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [33] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_ROCKET, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_rlaunc, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_EXPLODE1, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_barexp, -- deathsound
+ 20 * FRACUNIT, -- speed
+ 11 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 20, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [34] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_PLASBALL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_plasma, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_PLASEXP, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 25 * FRACUNIT, -- speed
+ 13 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 5, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [35] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_BFGSHOT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ 0, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_BFGLAND, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_rxplod, -- deathsound
+ 25 * FRACUNIT, -- speed
+ 13 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 100, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [36] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_ARACH_PLAZ, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_plasma, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_ARACH_PLEX, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_firxpl, -- deathsound
+ 25 * FRACUNIT, -- speed
+ 13 * FRACUNIT, -- radius
+ 8 * FRACUNIT, -- height
+ 100, -- mass
+ 5, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_MISSILE | MF_DROPOFF | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [37] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_PUFF1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [38] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_BLOOD1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP, -- flags
+ S_NULL -- raisestate
+			)
+			Result [39] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_TFOG, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [40] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_IFOG, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [41] := create {MOBJINFO_T}.make (14, -- doomednum
+ S_NULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOSECTOR, -- flags
+ S_NULL -- raisestate
+			)
+			Result [42] := create {MOBJINFO_T}.make (-1, -- doomednum
+ S_BFGEXP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [43] := create {MOBJINFO_T}.make (2018, -- doomednum
+ S_ARM1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [44] := create {MOBJINFO_T}.make (2019, -- doomednum
+ S_ARM2, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [45] := create {MOBJINFO_T}.make (2014, -- doomednum
+ S_BON1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [46] := create {MOBJINFO_T}.make (2015, -- doomednum
+ S_BON2, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [47] := create {MOBJINFO_T}.make (5, -- doomednum
+ S_BKEY, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [48] := create {MOBJINFO_T}.make (13, -- doomednum
+ S_RKEY, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [49] := create {MOBJINFO_T}.make (6, -- doomednum
+ S_YKEY, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [50] := create {MOBJINFO_T}.make (39, -- doomednum
+ S_YSKULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [51] := create {MOBJINFO_T}.make (38, -- doomednum
+ S_RSKULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [52] := create {MOBJINFO_T}.make (40, -- doomednum
+ S_BSKULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_NOTDMATCH, -- flags
+ S_NULL -- raisestate
+			)
+			Result [53] := create {MOBJINFO_T}.make (2011, -- doomednum
+ S_STIM, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [54] := create {MOBJINFO_T}.make (2012, -- doomednum
+ S_MEDI, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [55] := create {MOBJINFO_T}.make (2013, -- doomednum
+ S_SOUL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [56] := create {MOBJINFO_T}.make (2022, -- doomednum
+ S_PINV, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [57] := create {MOBJINFO_T}.make (2023, -- doomednum
+ S_PSTR, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [58] := create {MOBJINFO_T}.make (2024, -- doomednum
+ S_PINS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [59] := create {MOBJINFO_T}.make (2025, -- doomednum
+ S_SUIT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [60] := create {MOBJINFO_T}.make (2026, -- doomednum
+ S_PMAP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [61] := create {MOBJINFO_T}.make (2045, -- doomednum
+ S_PVIS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [62] := create {MOBJINFO_T}.make (83, -- doomednum
+ S_MEGA, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL | MF_COUNTITEM, -- flags
+ S_NULL -- raisestate
+			)
+			Result [63] := create {MOBJINFO_T}.make (2007, -- doomednum
+ S_CLIP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [64] := create {MOBJINFO_T}.make (2048, -- doomednum
+ S_AMMO, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [65] := create {MOBJINFO_T}.make (2010, -- doomednum
+ S_ROCK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [66] := create {MOBJINFO_T}.make (2046, -- doomednum
+ S_BROK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [67] := create {MOBJINFO_T}.make (2047, -- doomednum
+ S_CELL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [68] := create {MOBJINFO_T}.make (17, -- doomednum
+ S_CELP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [69] := create {MOBJINFO_T}.make (2008, -- doomednum
+ S_SHEL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [70] := create {MOBJINFO_T}.make (2049, -- doomednum
+ S_SBOX, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [71] := create {MOBJINFO_T}.make (8, -- doomednum
+ S_BPAK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [72] := create {MOBJINFO_T}.make (2006, -- doomednum
+ S_BFUG, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [73] := create {MOBJINFO_T}.make (2002, -- doomednum
+ S_MGUN, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [74] := create {MOBJINFO_T}.make (2005, -- doomednum
+ S_CSAW, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [75] := create {MOBJINFO_T}.make (2003, -- doomednum
+ S_LAUN, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [76] := create {MOBJINFO_T}.make (2004, -- doomednum
+ S_PLAS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [77] := create {MOBJINFO_T}.make (2001, -- doomednum
+ S_SHOT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [78] := create {MOBJINFO_T}.make (82, -- doomednum
+ S_SHOT2, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPECIAL, -- flags
+ S_NULL -- raisestate
+			)
+			Result [79] := create {MOBJINFO_T}.make (85, -- doomednum
+ S_TECHLAMP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [80] := create {MOBJINFO_T}.make (86, -- doomednum
+ S_TECH2LAMP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [81] := create {MOBJINFO_T}.make (2028, -- doomednum
+ S_COLU, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [82] := create {MOBJINFO_T}.make (30, -- doomednum
+ S_TALLGRNCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [83] := create {MOBJINFO_T}.make (31, -- doomednum
+ S_SHRTGRNCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [84] := create {MOBJINFO_T}.make (32, -- doomednum
+ S_TALLREDCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [85] := create {MOBJINFO_T}.make (33, -- doomednum
+ S_SHRTREDCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [86] := create {MOBJINFO_T}.make (37, -- doomednum
+ S_SKULLCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [87] := create {MOBJINFO_T}.make (36, -- doomednum
+ S_HEARTCOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [88] := create {MOBJINFO_T}.make (41, -- doomednum
+ S_EVILEYE, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [89] := create {MOBJINFO_T}.make (42, -- doomednum
+ S_FLOATSKULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [90] := create {MOBJINFO_T}.make (43, -- doomednum
+ S_TORCHTREE, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [91] := create {MOBJINFO_T}.make (44, -- doomednum
+ S_BLUETORCH, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [92] := create {MOBJINFO_T}.make (45, -- doomednum
+ S_GREENTORCH, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [93] := create {MOBJINFO_T}.make (46, -- doomednum
+ S_REDTORCH, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [94] := create {MOBJINFO_T}.make (55, -- doomednum
+ S_BTORCHSHRT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [95] := create {MOBJINFO_T}.make (56, -- doomednum
+ S_GTORCHSHRT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [96] := create {MOBJINFO_T}.make (57, -- doomednum
+ S_RTORCHSHRT, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [97] := create {MOBJINFO_T}.make (47, -- doomednum
+ S_STALAGTITE, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [98] := create {MOBJINFO_T}.make (48, -- doomednum
+ S_TECHPILLAR, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [99] := create {MOBJINFO_T}.make (34, -- doomednum
+ S_CANDLESTIK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [100] := create {MOBJINFO_T}.make (35, -- doomednum
+ S_CANDELABRA, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [101] := create {MOBJINFO_T}.make (49, -- doomednum
+ S_BLOODYTWITCH, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 68 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [102] := create {MOBJINFO_T}.make (50, -- doomednum
+ S_MEAT2, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 84 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [103] := create {MOBJINFO_T}.make (51, -- doomednum
+ S_MEAT3, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 84 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [104] := create {MOBJINFO_T}.make (52, -- doomednum
+ S_MEAT4, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 68 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [105] := create {MOBJINFO_T}.make (53, -- doomednum
+ S_MEAT5, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 52 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [106] := create {MOBJINFO_T}.make (59, -- doomednum
+ S_MEAT2, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 84 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [107] := create {MOBJINFO_T}.make (60, -- doomednum
+ S_MEAT4, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 68 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [108] := create {MOBJINFO_T}.make (61, -- doomednum
+ S_MEAT3, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 52 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [109] := create {MOBJINFO_T}.make (62, -- doomednum
+ S_MEAT5, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 52 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [110] := create {MOBJINFO_T}.make (63, -- doomednum
+ S_BLOODYTWITCH, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 68 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [111] := create {MOBJINFO_T}.make (22, -- doomednum
+ S_HEAD_DIE6, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [112] := create {MOBJINFO_T}.make (15, -- doomednum
+ S_PLAY_DIE7, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [113] := create {MOBJINFO_T}.make (18, -- doomednum
+ S_POSS_DIE5, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [114] := create {MOBJINFO_T}.make (21, -- doomednum
+ S_SARG_DIE6, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [115] := create {MOBJINFO_T}.make (23, -- doomednum
+ S_SKULL_DIE6, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [116] := create {MOBJINFO_T}.make (20, -- doomednum
+ S_TROO_DIE5, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [117] := create {MOBJINFO_T}.make (19, -- doomednum
+ S_SPOS_DIE5, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [118] := create {MOBJINFO_T}.make (10, -- doomednum
+ S_PLAY_XDIE9, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [119] := create {MOBJINFO_T}.make (12, -- doomednum
+ S_PLAY_XDIE9, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [120] := create {MOBJINFO_T}.make (28, -- doomednum
+ S_HEADSONSTICK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [121] := create {MOBJINFO_T}.make (24, -- doomednum
+ S_GIBS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ 0, -- flags
+ S_NULL -- raisestate
+			)
+			Result [122] := create {MOBJINFO_T}.make (27, -- doomednum
+ S_HEADONASTICK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [123] := create {MOBJINFO_T}.make (29, -- doomednum
+ S_HEADCANDLES, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [124] := create {MOBJINFO_T}.make (25, -- doomednum
+ S_DEADSTICK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [125] := create {MOBJINFO_T}.make (26, -- doomednum
+ S_LIVESTICK, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [126] := create {MOBJINFO_T}.make (54, -- doomednum
+ S_BIGTREE, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 32 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [127] := create {MOBJINFO_T}.make (70, -- doomednum
+ S_BBAR1, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID, -- flags
+ S_NULL -- raisestate
+			)
+			Result [128] := create {MOBJINFO_T}.make (73, -- doomednum
+ S_HANGNOGUTS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 88 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [129] := create {MOBJINFO_T}.make (74, -- doomednum
+ S_HANGBNOBRAIN, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 88 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [130] := create {MOBJINFO_T}.make (75, -- doomednum
+ S_HANGTLOOKDN, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [131] := create {MOBJINFO_T}.make (76, -- doomednum
+ S_HANGTSKULL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [132] := create {MOBJINFO_T}.make (77, -- doomednum
+ S_HANGTLOOKUP, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [133] := create {MOBJINFO_T}.make (78, -- doomednum
+ S_HANGTNOBRAIN, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 16 * FRACUNIT, -- radius
+ 64 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_SOLID | MF_SPAWNCEILING | MF_NOGRAVITY, -- flags
+ S_NULL -- raisestate
+			)
+			Result [134] := create {MOBJINFO_T}.make (79, -- doomednum
+ S_COLONGIBS, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP, -- flags
+ S_NULL -- raisestate
+			)
+			Result [135] := create {MOBJINFO_T}.make (80, -- doomednum
+ S_SMALLPOOL, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP, -- flags
+ S_NULL -- raisestate
+			)
+			Result [136] := create {MOBJINFO_T}.make (81, -- doomednum
+ S_BRAINSTEM, -- spawnstate
+ 1000, -- spawnhealth
+ S_NULL, -- seestate
+ sfx_None, -- seesound
+ 8, -- reactiontime
+ sfx_None, -- attacksound
+ S_NULL, -- painstate
+ 0, -- painchance
+ sfx_None, -- painsound
+ S_NULL, -- meleestate
+ S_NULL, -- missilestate
+ S_NULL, -- deathstate
+ S_NULL, -- xdeathstate
+ sfx_None, -- deathsound
+ 0, -- speed
+ 20 * FRACUNIT, -- radius
+ 16 * FRACUNIT, -- height
+ 100, -- mass
+ 0, -- damage
+ sfx_None, -- activesound
+ MF_NOBLOCKMAP, -- flags
+ S_NULL -- raisestate
+			)
 		ensure
-			Result.lower = 0
-			Result.upper = NUMMOBJTYPES - 1
-			Result.count = NUMMOBJTYPES
 			instance_free: class
+			Result.lower = 0
+			Result.count = NUMMOBJTYPES
 		end
 
 end

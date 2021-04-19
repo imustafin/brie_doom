@@ -26,4 +26,18 @@ feature
 			instance_free: class
 		end
 
+	ONFLOORZ: INTEGER
+		once
+			Result := {DOOMTYPE_H}.MININT
+		ensure
+			instance_free: class
+		end
+
+	ONCEILINGZ: INTEGER
+		once
+			Result := {DOOMTYPE_H}.MAXINT
+		ensure
+			instance_free: class
+		end
+
 end

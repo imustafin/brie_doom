@@ -21,7 +21,34 @@ feature
 
 	z: FIXED_T
 
-	angle: ANGLE_T -- orientation
+	angle: ANGLE_T assign set_angle -- orientation
+
+	set_angle (a_angle: like angle)
+		do
+			angle := a_angle
+		end
+
+	spawnpoint: detachable MAPTHING_T assign set_spawnpoint
+			-- For nightmare respawn
+
+	set_spawnpoint (a_spawnpoint: like spawnpoint)
+		do
+			spawnpoint := spawnpoint
+		end
+
+	tics: INTEGER assign set_tics -- state tic counter
+
+	set_tics (a_tics: like tics)
+		do
+			tics := a_tics
+		end
+
+	flags: INTEGER assign set_flags
+
+	set_flags (a_flags: like flags)
+		do
+			flags := a_flags
+		end
 
 feature -- More list: links in sector (if needed)
 

@@ -20,6 +20,8 @@ feature
 	i_main: I_MAIN
 
 	make (a_i_main: like i_main)
+		local
+			i:INTEGER
 		do
 			i_main := a_i_main
 			create deathmatchstarts.make_empty
@@ -33,6 +35,15 @@ feature
 			create sectors.make_empty
 			create sides.make_empty
 			create lines.make_empty
+			create playerstarts.make_filled (create {MAPTHING_T}, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
+			from
+				i := 0
+			until
+				i > playerstarts.upper
+			loop
+				playerstarts[i] := create {MAPTHING_T}
+				i := i + 1
+			end
 		end
 
 feature
@@ -41,7 +52,12 @@ feature
 
 	deathmatchstarts: ARRAY [MAPTHING_T]
 
-	deathmatch_p: INTEGER -- index in deathmatchstarts
+	deathmatch_p: INTEGER assign set_deathmatch_p -- index in deathmatchstarts
+
+	set_deathmatch_p (a_deathmatch_p: like deathmatch_p)
+		do
+			deathmatch_p := a_deathmatch_p
+		end
 
 	numnodes: INTEGER
 
@@ -70,6 +86,8 @@ feature
 	numlines: INTEGER
 
 	lines: ARRAY [LINE_T]
+
+	playerstarts: ARRAY [MAPTHING_T]
 
 feature -- Blockmap
 
@@ -472,20 +490,22 @@ feature -- P_LoadThings
 			loop
 				spawn := True
 					-- Do not spawn cool, new monsters if !commercial
-				create mt.from_pointer(data, i * {MAPTHING_T}.structure_size)
+				create mt.from_pointer (data, i * {MAPTHING_T}.structure_size)
 				if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
-					if commercial_monsters.has  (mt.type) then
+					if commercial_monsters.has (mt.type) then
 						spawn := False
 					end
 				end
 				if spawn then
 						-- Do spawn all other stuff
-					i_main.p_mobj.P_SpawnMapThing (mt)
+					i_main.p_mobj.P_SpawnMapThing (mt, i_main)
 				end
 			end
 		end
 
 invariant
 	blockmap.lower = 0
+	playerstarts.lower = 0
+	playerstarts.count = {DOOMDEF_H}.MAXPLAYERS
 
 end
