@@ -204,7 +204,7 @@ feature
 			until
 				i > blockmaplump.upper
 			loop
-				blockmap[i - 4] := blockmaplump[i]
+				blockmap [i - 4] := blockmaplump [i]
 				i := i + 1
 			end
 			bmaporgx := blockmaplump [0].to_integer_32 |<< {M_FIXED}.FRACBITS
@@ -436,9 +436,53 @@ feature
 			end
 		end
 
+feature -- P_LoadThings
+
+	commercial_monsters: ARRAY [INTEGER]
+		once
+			Result := <<68, -- Arachnotron
+ 64, -- Archvile
+ 88, -- Boss Brain
+ 89, -- Boss Shooter
+ 69, -- Hell Knight
+ 67, -- Mancubus
+ 71, -- Pain Elemental
+ 65, -- Former Human Commando
+ 66, -- Revenant
+ 84 -- Wolf SS
+			>>
+		ensure
+			instance_free: class
+		end
+
 	P_LoadThings (lump: INTEGER)
+		local
+			data: MANAGED_POINTER
+			i: INTEGER
+			mt: MAPTHING_T
+			numthings: INTEGER
+			spawn: BOOLEAN
 		do
-				-- Stub
+			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			numthings := i_main.w_wad.w_lumplength (lump) // {MAPTHING_T}.structure_size
+			from
+				i := 0
+			until
+				i >= numthings
+			loop
+				spawn := True
+					-- Do not spawn cool, new monsters if !commercial
+				create mt.from_pointer(data, i * {MAPTHING_T}.structure_size)
+				if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+					if commercial_monsters.has  (mt.type) then
+						spawn := False
+					end
+				end
+				if spawn then
+						-- Do spawn all other stuff
+					i_main.p_mobj.P_SpawnMapThing (mt)
+				end
+			end
 		end
 
 invariant

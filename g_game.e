@@ -752,8 +752,16 @@ feature
 feature
 
 	G_DoReborn (playernum: INTEGER)
+		local
+			i: INTEGER
 		do
-				-- Stub
+			if not netgame then
+				-- reload the level from scratch
+				gameaction := ga_loadlevel
+			else
+				{I_MAIN}.i_error ("G_DoReborn for netgame not implemented")
+			end
+
 		end
 
 feature -- G_DoLoadLevel
