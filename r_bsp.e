@@ -28,7 +28,7 @@ feature
 				solidsegs[i] := create {CLIPRANGE_T}
 				i := i + 1
 			end
-			create drawsegs.make_empty
+			create drawsegs.make_filled (create {DRAWSEG_T}.make, 0, {R_DEFS}.MAXDRAWSEGS - 1)
 			create frontsector.make
 			create curline.make
 			create linedef.make
@@ -554,5 +554,6 @@ feature -- R_CheckBBox
 
 invariant
 	solidsegs.count = MAXSEGS
+	drawsegs.lower = 0 and drawsegs.count = {R_DEFS}.MAXDRAWSEGS
 
 end
