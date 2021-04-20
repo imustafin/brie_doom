@@ -159,6 +159,14 @@ feature
 
 feature
 
+	S_PauseSound
+		do
+			if mus_playing /= Void and not mus_paused then
+				i_main.i_sound.i_pausesong
+				mus_paused := True
+			end
+		end
+
 	S_ResumeSound
 		do
 			if mus_playing /= Void and mus_paused then

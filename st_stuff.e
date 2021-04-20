@@ -46,4 +46,11 @@ feature
 				-- Stub
 		end
 
+feature
+
+	ST_Ticker
+		do
+				-- Stub
+		end
+
 end

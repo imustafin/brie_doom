@@ -24,6 +24,20 @@ feature
 
 feature
 
+	player_names: ARRAY [STRING]
+		once
+			create Result.make_filled ("", 0, 4)
+			Result [0] := {D_ENGLSH}.HUSTR_PLRGREEN
+			Result [1] := {D_ENGLSH}.HUSTR_PLRINDIGO
+			Result [2] := {D_ENGLSH}.HUSTR_PLRBROWN
+			Result [3] := {D_ENGLSH}.HUSTR_PLRRED
+		ensure
+			Result.lower = 0
+			instance_free: class
+		end
+
+feature
+
 	HU_Init
 		do
 				-- Stub
@@ -84,6 +98,13 @@ feature
 feature
 
 	HU_Start
+		do
+				-- Stub
+		end
+
+feature
+
+	HU_Ticker
 		do
 				-- Stub
 		end

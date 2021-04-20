@@ -188,7 +188,7 @@ feature -- D_DoomLoop
 			loop
 				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
 				if i_main.g_game.gamestate = {DOOMDEF_H}.gs_level then
-					print("in game")
+					print ("in game")
 				end
 				check attached i_main.i_video as iv then
 					iv.I_StartFrame
@@ -209,8 +209,7 @@ feature -- D_DoomLoop
 				else
 					i_main.d_net.TryRunTics
 				end
-
-				i_main.s_sound.S_UpdateSounds (i_main.g_game.players[i_main.g_game.consoleplayer].mo) -- move positional sounds
+				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
 				D_Display
 			end
 		end
@@ -485,6 +484,15 @@ feature -- EVENT HANDLING
 		ensure
 			advanced_if_there_was_space: old eventhead < {D_EVENT}.maxevents - 1 implies eventhead = old eventhead + 1
 			wrapped_if_there_was_no_space: old eventhead = {D_EVENT}.maxevents - 1 implies eventhead = 0
+		end
+
+	D_PageTicker
+			-- Handles timing for warped projection
+		do
+			pagetic := pagetic - 1
+			if pagetic < 0 then
+				D_AdvanceDemo
+			end
 		end
 
 end

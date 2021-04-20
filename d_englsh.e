@@ -35,4 +35,12 @@ feature
 			instance_free: class
 		end
 
+	HUSTR_PLRGREEN: STRING = "Green: "
+
+	HUSTR_PLRINDIGO: STRING = "Indigo: "
+
+	HUSTR_PLRBROWN: STRING = "Brown: "
+
+	HUSTR_PLRRED: STRING = "Red: "
+
 end

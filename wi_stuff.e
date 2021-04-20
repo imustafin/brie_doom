@@ -23,4 +23,9 @@ feature
 				-- Stub
 		end
 
+	WI_Ticker
+		do
+				-- Stub
+		end
+
 end

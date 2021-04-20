@@ -44,6 +44,7 @@ feature
 			create weaponowned.make_filled (False, 0, {DOOMDEF_H}.NUMWEAPONS - 1)
 			create ammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
 			create maxammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
+			create cmd
 		end
 
 	reset
@@ -202,6 +203,8 @@ feature
 	ammo: ARRAY [INTEGER]
 
 	maxammo: ARRAY [INTEGER]
+
+	cmd: TICCMD_T
 
 feature -- POV
 

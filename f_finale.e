@@ -37,4 +37,9 @@ feature
 				-- Stub
 		end
 
+	F_Ticker
+		do
+				-- Stub
+		end
+
 end

@@ -241,7 +241,12 @@ feature -- P_RemoveMobj
 
 	P_MobjThinker (mobj: MOBJ_T)
 		do
-			-- STUB
+				-- STUB
+		end
+
+	P_RespawnSpecials
+		do
+				-- Stub
 		end
 
 end

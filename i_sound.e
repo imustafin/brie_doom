@@ -250,6 +250,13 @@ feature
 			end
 		end
 
+	I_PauseSong
+	do
+		if attached active_music_module as m then
+			m.pause_music
+		end
+	end
+
 	I_ResumeSong
 		do
 			if attached active_music_module as m then

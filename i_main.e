@@ -251,7 +251,7 @@ feature {NONE} -- Initialization
 			create f_finale.make
 			create m_random.make
 			create i_midipipe
-			create p_tick.make
+			create p_tick.make (Current)
 			create p_maputl.make (Current)
 			create p_mobj.make (Current)
 			create p_pspr.make (Current)

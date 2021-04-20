@@ -26,6 +26,10 @@ feature
 
 feature
 
+	TURBOTHRESHOLD: INTEGER = 0x32
+
+feature
+
 	nodrawers: BOOLEAN -- for comparative timing purposes
 
 feature
@@ -255,6 +259,8 @@ feature -- controls (have defaults)
 		end
 
 	savegameslot: INTEGER
+
+	savedescription: detachable STRING
 
 	turnheld: INTEGER
 
@@ -708,6 +714,9 @@ feature
 			-- Make ticcmd_ts for the players.
 		local
 			i: INTEGER
+			buf: INTEGER
+			cmd: TICCMD_T
+			btn: INTEGER
 		do
 				-- do player reborns if needed
 			from
@@ -747,6 +756,98 @@ feature
 					gameaction := ga_nothing
 				end
 			end
+
+				-- get commands, check consistancy,
+				-- and build new consistancy check
+			buf := (gametic // i_main.d_net.ticdup) \\ {D_NET}.BACKUPTICS
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				if playeringame [i] then
+					cmd := players [i].cmd
+					cmd.copy (i_main.d_net.netcmds [i] [buf])
+					if demoplayback then
+						G_ReadDemoTiccmd (cmd)
+					end
+					if demorecording then
+						G_WriteDemoTiccmd (cmd)
+					end
+
+						-- check for turbo cheats
+					if cmd.forwardmove.code > TURBOTHRESHOLD and (gametic & 31 /= 0) and ((gametic |>> 5) & 3) = i then
+						players [consoleplayer].message := {HU_STUFF}.player_names [i] + " is turbo!"
+					end
+					if netgame and not netdemo and gametic \\ i_main.d_net.ticdup = 0 then
+						if gametic > {D_NET}.BACKUPTICS and consistancy [i] [buf] /= cmd.consistancy then
+							{I_MAIN}.i_error ("consistancy failure (" + cmd.consistancy.out + " should be " + consistancy [i] [buf].out + ")")
+						end
+						if attached players [i].mo as mo then
+							consistancy [i] [buf] := mo.x.to_integer_32
+						else
+							consistancy [i] [buf] := i_main.m_random.rndindex
+						end
+					end
+				end
+				i := i + 1
+			end
+
+				-- check for special buttons
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				if playeringame [i] then
+					if players [i].cmd.buttons & {D_EVENT}.BT_SPECIAL /= 0 then
+						btn := players [i].cmd.buttons & {D_EVENT}.BT_SPECIALMASK
+						if btn = {D_EVENT}.BTS_PAUSE then
+							paused := not paused
+							if paused then
+								i_main.s_sound.S_PauseSound
+							else
+								i_main.s_sound.S_ResumeSound
+							end
+						elseif btn = {D_EVENT}.BTS_SAVEGAME then
+							if savedescription = Void then
+								savedescription := "NET GAME"
+							end
+							savegameslot := (players [i].cmd.buttons & {D_EVENT}.BTS_SAVEMASK) |>> {D_EVENT}.BTS_SAVESHIFT
+							gameaction := ga_savegame
+						end
+					end
+				end
+				i := i + 1
+			end
+
+				-- do main actions
+			if gamestate = GS_LEVEL then
+				i_main.p_tick.P_Ticker
+				i_main.st_stuff.ST_Ticker
+				i_main.am_map.AM_Ticker
+				i_main.hu_stuff.HU_Ticker
+			elseif gamestate = GS_INTERMISSION then
+				i_main.wi_stuff.WI_Ticker
+			elseif gamestate = GS_FINALE then
+				i_main.f_finale.F_Ticker
+			elseif gamestate = GS_DEMOSCREEN then
+				check attached i_main.d_doom_main as d_doom_main then
+					d_doom_main.D_PageTicker
+				end
+			end
+		end
+
+feature -- demo
+
+	G_ReadDemoTiccmd (cmd: TICCMD_T)
+		do
+				-- Stub
+		end
+
+	G_WriteDemoTiccmd (cmd: TICCMD_T)
+		do
+				-- Stub
 		end
 
 feature

@@ -32,4 +32,10 @@ feature
 				-- Stub
 		end
 
+	P_UpdateSpecials
+			-- Animate planes, scroll walls, etc.
+		do
+				-- Stub
+		end
+
 end
