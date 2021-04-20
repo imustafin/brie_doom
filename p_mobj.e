@@ -57,8 +57,8 @@ feature -- P_RemoveMobj
 				if p.playerstate = {PLAYER_T}.PST_REBORN then
 					i_main.g_game.G_PlayerReborn (mthing.type - 1)
 				end
-				x := (mthing.x |<< {M_FIXED}.FRACBITS).to_integer_32
-				y := (mthing.y |<< {M_FIXED}.FRACBITS).to_integer_32
+				x := mthing.x.to_integer_32 |<< {M_FIXED}.FRACBITS
+				y := mthing.y.to_integer_32 |<< {M_FIXED}.FRACBITS
 				z := {P_LOCAL}.ONFLOORZ
 				mobj := P_SpawnMobj (x, y, z, {INFO}.MT_PLAYER)
 
