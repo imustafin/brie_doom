@@ -4,6 +4,10 @@ note
 class
 	PLAYER_T
 
+inherit
+
+	POWERTYPE_T
+
 create
 	make
 
@@ -45,13 +49,14 @@ feature
 			create ammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
 			create maxammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
 			create cmd
+			create powers.make_filled (0, 0, NUMPOWERS - 1)
 		end
 
 	reset
 		do
 			make
 		ensure
-			-- as_if_newly_created: Current.is_equal( create {PLAYER_T}.make)
+				-- as_if_newly_created: Current.is_equal( create {PLAYER_T}.make)
 		end
 
 feature -- playerstate_t
@@ -63,6 +68,24 @@ feature -- playerstate_t
 	PST_REBORN: INTEGER = 2 -- Ready to restart/respawn???
 
 feature
+
+	powers: ARRAY [INTEGER]
+
+	bob: FIXED_T assign set_bob
+			-- bounded/scaled total momentum
+
+	deltaviewheight: FIXED_T assign set_deltaviewheight
+			-- Bob/squat speed.
+
+	set_deltaviewheight (a_deltaviewheight: like deltaviewheight)
+		do
+			deltaviewheight := a_deltaviewheight
+		end
+
+	set_bob (a_bob: like bob)
+		do
+			bob := a_bob
+		end
 
 	mo: detachable MOBJ_T assign set_mo
 
@@ -206,6 +229,9 @@ feature
 
 	cmd: TICCMD_T
 
+	cheats: INTEGER
+			-- Bit flags, for cheats and debug.
+
 feature -- POV
 
 	viewz: FIXED_T assign set_viewz -- Focal origin above r.z
@@ -227,5 +253,6 @@ invariant
 	ammo.count = {DOOMDEF_H}.NUMAMMO
 	maxammo.lower = 0
 	maxammo.count = {DOOMDEF_H}.NUMAMMO
+	powers.lower = 0 and powers.count = NUMPOWERS
 
 end

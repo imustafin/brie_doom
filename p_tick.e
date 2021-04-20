@@ -69,7 +69,7 @@ feature
 						i >= {DOOMDEF_H}.MAXPLAYERS
 					loop
 						if i_main.g_game.playeringame [i] then
-							{P_USER}.P_PlayerThink (i_main.g_game.players [i])
+							i_main.p_user.P_PlayerThink (i_main.g_game.players [i])
 						end
 						i := i + 1
 					end

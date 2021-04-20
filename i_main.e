@@ -231,6 +231,8 @@ feature -- Globals
 
 	p_maputl: P_MAPUTL
 
+	p_user: P_USER
+
 feature {NONE} -- Initialization
 
 	make
@@ -251,6 +253,7 @@ feature {NONE} -- Initialization
 			create f_finale.make
 			create m_random.make
 			create i_midipipe
+			create p_user.make (Current)
 			create p_tick.make (Current)
 			create p_maputl.make (Current)
 			create p_mobj.make (Current)

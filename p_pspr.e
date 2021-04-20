@@ -24,7 +24,7 @@ feature -- psprnum_t
 
 	ps_weapon: INTEGER = 0
 
-	ps_flah: INTEGER = 1
+	ps_flash: INTEGER = 1
 
 	NUMPSPRITES: INTEGER = 2
 
@@ -118,6 +118,40 @@ feature
 					stnum := s.nextstate
 				end
 			end
+		end
+
+	P_MovePsprites (player: PLAYER_T)
+			-- Called every tic by player thinking routine.
+		local
+			i: INTEGER
+			psp: INTEGER -- index in player.psprites
+			state: STATE_T
+		do
+			psp := 0
+			from
+				i := 0
+			until
+				i >= NUMPSPRITES
+			loop
+					-- a null state means not active
+				if state = player.psprites [psp].state then
+						-- drop tic count and possibly change state
+
+						-- a -1 tic count never changes
+					if player.psprites [psp].tics /= -1 then
+						player.psprites [psp].tics := player.psprites [psp].tics - 1
+						if player.psprites [psp].tics = 0 then
+							check attached player.psprites [psp].state as psp_state then
+								P_SetPsprite (player, i, psp_state.nextstate)
+							end
+						end
+					end
+				end
+				psp := psp + 1
+				i := i + 1
+			end
+			player.psprites [ps_flash].sx := player.psprites [ps_weapon].sx
+			player.psprites [ps_flash].sy := player.psprites [ps_weapon].sy
 		end
 
 end

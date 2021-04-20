@@ -212,4 +212,22 @@ feature -- Interaction info, by BLOCKMAP
 			bprev := a_bprev
 		end
 
+feature -- Momentums, used to update position
+
+	momx: FIXED_T assign set_momx
+
+	set_momx (a_momx: like momx)
+		do
+			momx := a_momx
+		end
+
+	momy: FIXED_T assign set_momy
+
+	set_momy (a_momy: like momy)
+		do
+			momy := a_momy
+		end
+
+	momz: FIXED_T
+
 end

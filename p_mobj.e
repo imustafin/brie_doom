@@ -11,6 +11,8 @@ inherit
 
 	MOBJFLAG_T
 
+	STATENUM_T
+
 create
 	make
 
@@ -247,6 +249,46 @@ feature -- P_RemoveMobj
 	P_RespawnSpecials
 		do
 				-- Stub
+		end
+
+	P_SetMobjState (mobj: MOBJ_T; a_state: INTEGER): BOOLEAN
+			-- Returns true if the mobj is still present
+		local
+			st: STATE_T
+			state: INTEGER
+		do
+			state := a_state
+			from
+				Result := True
+			until
+				not Result or mobj.tics + 1 = 0 -- + 1 because do{}while loop
+			loop
+				if state = S_NULL then
+					mobj.state := Void
+					P_RemoveMobj (mobj)
+					Result := False
+				else
+					st := {INFO}.states [state]
+					mobj.state := st
+					mobj.tics := st.tics.to_integer_32
+					mobj.sprite := st.sprite
+					mobj.frame := st.frame.to_integer_32
+
+						-- Modified handling.
+						-- Call action functions when the state is set
+					if attached st.action.acp1 as acp1 then
+						acp1.call (mobj)
+					end
+					state := st.nextstate
+				end
+			end
+		end
+
+feature -- P_RemoveMobj
+
+	P_RemoveMobj (mobj: MOBJ_T)
+		do
+			{I_MAIN}.i_error ("P_RemoveMobj is not implemented yet")
 		end
 
 end

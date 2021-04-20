@@ -38,4 +38,11 @@ feature
 				-- Stub
 		end
 
+	P_PlayerInSpecialSector (player: PLAYER_T)
+			-- Called every tic frame
+			-- that the player origin is in a special sector
+		do
+			{I_MAIN}.i_error ("P_PlayerInSpecialSector is not implemented")
+		end
+
 end
