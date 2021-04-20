@@ -236,7 +236,7 @@ feature -- P_RemoveMobj
 			else
 				mobj.z := z
 			end
-			mobj.thinker.function.acp1 := agent P_MobjThinker
+			mobj.thinker.function.acp1 := (agent P_MobjThinker (mobj))
 			i_main.p_tick.P_AddThinker (mobj.thinker)
 			Result := mobj
 		end

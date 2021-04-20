@@ -16,7 +16,7 @@ feature
 
 feature
 
-	acp1: detachable PROCEDURE [TUPLE [ANY]] assign set_acp1
+	acp1: detachable PROCEDURE [TUPLE []] assign set_acp1
 
 	set_acp1 (a_acp1: like acp1)
 		do

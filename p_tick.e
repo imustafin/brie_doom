@@ -99,7 +99,7 @@ feature
 						currentthinker.prev.next := currentthinker.next
 					else
 						if attached currentthinker.function.acp1 as acp1 then
-							acp1.call (currentthinker)
+							acp1.call
 						end
 					end
 
