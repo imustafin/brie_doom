@@ -22,7 +22,35 @@ feature
 				psprites [i] := create {PSPDEF_T}
 				i := i + 1
 			end
+			psprites.compare_objects
 			create cards.make_filled (False, 0, {DOOMDEF_H}.numcards - 1)
+			mo := Void
+			playerstate := 0
+			extralight := 0
+			create frags.make_filled (0, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
+			killcount := 0
+			secretcount := 0
+			itemcount := 0
+			fixedcolormap := 0
+			health := 0
+			refire := 0
+			message := Void
+			damagecount := 0
+			bonuscount := 0
+			viewheight := 0
+			readyweapon := 0
+			pendingweapon := 0
+			viewz := 0
+			create weaponowned.make_filled (False, 0, {DOOMDEF_H}.NUMWEAPONS - 1)
+			create ammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
+			create maxammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
+		end
+
+	reset
+		do
+			make
+		ensure
+			-- as_if_newly_created: Current.is_equal( create {PLAYER_T}.make)
 		end
 
 feature -- playerstate_t
@@ -57,9 +85,6 @@ feature
 		end
 
 	frags: ARRAY [INTEGER]
-		once
-			create Result.make_filled (0, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
-		end
 
 	killcount: INTEGER assign set_killcount
 
@@ -91,7 +116,12 @@ feature
 			fixedcolormap := fixedcolormap
 		end
 
-	health: INTEGER
+	health: INTEGER assign set_health
+
+	set_health (a_health: like health)
+		do
+			health := a_health
+		end
 
 	refire: INTEGER assign set_refire
 			-- Refired shots are less accurate
@@ -134,7 +164,12 @@ feature
 	psprites: ARRAY [PSPDEF_T]
 			-- Overlay view sprites (gun, etc.)
 
-	readyweapon: INTEGER
+	readyweapon: INTEGER assign set_readyweapon
+
+	set_readyweapon (a_readyweapon: like readyweapon)
+		do
+			readyweapon := a_readyweapon
+		end
 
 	pendingweapon: INTEGER assign set_pendingweapon
 			-- Is wp_nochange if not changing
@@ -144,7 +179,29 @@ feature
 			pendingweapon := a_pendingweapon
 		end
 
-	cards: ARRAY[BOOLEAN]
+	cards: ARRAY [BOOLEAN]
+
+	attackdown: BOOLEAN assign set_attackdown
+			-- originally int, True if button down last tic.
+
+	set_attackdown (a_attackdown: like attackdown)
+		do
+			attackdown := a_attackdown
+		end
+
+	usedown: BOOLEAN assign set_usedown
+			-- originally int, True if button down last tic.
+
+	set_usedown (a_usedown: like usedown)
+		do
+			usedown := a_usedown
+		end
+
+	weaponowned: ARRAY [BOOLEAN]
+
+	ammo: ARRAY [INTEGER]
+
+	maxammo: ARRAY [INTEGER]
 
 feature -- POV
 
@@ -158,8 +215,14 @@ feature -- POV
 invariant
 	psprites.lower = 0
 	psprites.count = {P_PSPR}.NUMPSPRITES
-
+	psprites.object_comparison
 	cards.lower = 0
 	cards.count = {DOOMDEF_H}.NUMCARDS
+	weaponowned.lower = 0
+	weaponowned.count = {DOOMDEF_H}.NUMWEAPONS
+	ammo.lower = 0
+	ammo.count = {DOOMDEF_H}.NUMAMMO
+	maxammo.lower = 0
+	maxammo.count = {DOOMDEF_H}.NUMAMMO
 
 end

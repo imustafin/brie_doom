@@ -47,4 +47,6 @@ feature
 			instance_free: class
 		end
 
+	MAXHEALTH: INTEGER = 100
+
 end

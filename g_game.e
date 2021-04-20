@@ -756,12 +756,11 @@ feature
 			i: INTEGER
 		do
 			if not netgame then
-				-- reload the level from scratch
+					-- reload the level from scratch
 				gameaction := ga_loadlevel
 			else
 				{I_MAIN}.i_error ("G_DoReborn for netgame not implemented")
 			end
-
 		end
 
 feature -- G_DoLoadLevel
@@ -969,12 +968,44 @@ feature
 
 feature
 
-
-	G_PlayerReborn(player: INTEGER)
-		-- Called after a player dies
-		-- almost everything is cleared and initialized
+	G_PlayerReborn (player: INTEGER)
+			-- Called after a player dies
+			-- almost everything is cleared and initialized
+		local
+			p: PLAYER_T
+			i: INTEGER
+			frags: ARRAY [INTEGER]
+			killcount: INTEGER
+			itemcount: INTEGER
+			secretcount: INTEGER
 		do
-			{I_MAIN}.i_error ("G_PlayerReborn is not implemented")
+			create frags.make_empty
+			frags.copy (players [player].frags)
+			killcount := players [player].killcount
+			itemcount := players [player].itemcount
+			secretcount := players [player].secretcount
+			p := players [player]
+			p.reset
+			p.frags.copy (frags)
+			p.killcount := killcount
+			p.secretcount := secretcount
+			p.usedown := True
+			p.attackdown := True
+			p.playerstate := {PLAYER_T}.pst_live
+			p.health := {P_LOCAL}.MAXHEALTH
+			p.readyweapon := wp_pistol
+			p.pendingweapon := wp_pistol
+			p.weaponowned [wp_fist] := True
+			p.weaponowned [wp_pistol] := True
+			p.ammo [am_clip] := 50
+			from
+				i := 0
+			until
+				i >= NUMAMMO
+			loop
+				p.maxammo [i] := {P_INTER}.maxammo [i]
+				i := i + 1
+			end
 		end
 
 end
