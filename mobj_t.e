@@ -171,12 +171,45 @@ feature
 			thinker := a_thinker
 		end
 
-	subsector: detachable SUBSECTOR_T
+	subsector: detachable SUBSECTOR_T assign set_subsector
+
+	set_subsector (a_subsector: like subsector)
+		do
+			subsector := a_subsector
+		end
 
 feature -- More list: links in sector (if needed)
 
-	snext: detachable MOBJ_T
+	snext: detachable MOBJ_T assign set_snext
 
-	sprev: detachable MOBJ_T
+	set_snext (a_snext: like snext)
+		do
+			snext := a_snext
+		end
+
+	sprev: detachable MOBJ_T assign set_sprev
+
+	set_sprev (a_sprev: like sprev)
+		do
+			sprev := a_sprev
+		end
+
+feature -- Interaction info, by BLOCKMAP
+
+		-- Link in blocks (if needed)
+
+	bnext: detachable MOBJ_T assign set_bnext
+
+	set_bnext (a_bnext: like bnext)
+		do
+			bnext := a_bnext
+		end
+
+	bprev: detachable MOBJ_T assign set_bprev
+
+	set_bprev (a_bprev: like bprev)
+		do
+			bprev := a_bprev
+		end
 
 end

@@ -486,7 +486,7 @@ feature -- P_LoadThings
 			from
 				i := 0
 			until
-				i >= numthings
+				not spawn or i >= numthings
 			loop
 				spawn := True
 					-- Do not spawn cool, new monsters if !commercial
@@ -500,6 +500,8 @@ feature -- P_LoadThings
 						-- Do spawn all other stuff
 					i_main.p_mobj.P_SpawnMapThing (mt)
 				end
+
+				i := i + 1
 			end
 		end
 

@@ -194,11 +194,11 @@ feature -- precalculated math tables
 
 feature
 
-	R_ScaleFromGlobalAngle(visangle: ANGLE_T): FIXED_T
-		-- Returns the texture mapping scale
-		-- for the current line (horizontal span)
-		-- at the given angle.
-		-- rw_distance must be calculated first
+	R_ScaleFromGlobalAngle (visangle: ANGLE_T): FIXED_T
+			-- Returns the texture mapping scale
+			-- for the current line (horizontal span)
+			-- at the given angle.
+			-- rw_distance must be calculated first
 		local
 			scale: FIXED_T
 			anglea: INTEGER
@@ -211,12 +211,11 @@ feature
 			anglea := ANG90 + (visangle - viewangle)
 			angleb := ANG90 + (visangle - i_main.r_segs.rw_normalangle)
 
-			-- both sines are allways positive
-			sinea := finesine[anglea |>> ANGLETOFINESHIFT]
-			sineb := finesine[angleb |>> ANGLETOFINESHIFT]
+				-- both sines are allways positive
+			sinea := finesine [anglea |>> ANGLETOFINESHIFT]
+			sineb := finesine [angleb |>> ANGLETOFINESHIFT]
 			num := {M_FIXED}.FixedMul (projection, sineb) |<< detailshift
 			den := {M_FIXED}.FixedMul (i_main.r_segs.rw_distance, sinea).to_integer_32
-
 			if den > num |>> 16 then
 				scale := {M_FIXED}.FixedDiv (num, den)
 				if scale > 64 * {M_FIXED}.FRACUNIT then
@@ -227,7 +226,6 @@ feature
 			else
 				scale := 64 * {M_FIXED}.FRACUNIT
 			end
-
 			Result := scale
 		end
 
@@ -343,7 +341,7 @@ feature
 				-- UNUSED - now getting from tables.c
 		end
 
-	R_PointToDist(x, y: FIXED_T): FIXED_T
+	R_PointToDist (x, y: FIXED_T): FIXED_T
 		local
 			angle: INTEGER
 			dx: FIXED_T
@@ -353,18 +351,15 @@ feature
 		do
 			dx := (x - viewx).abs
 			dy := (y - viewy).abs
-
 			if dy > dx then
 				temp := dx
 				dx := dy
 				dy := temp
 			end
+			angle := (tantoangle [{M_FIXED}.FixedDiv (dy, dx).to_integer_32 |>> DBITS] + ANG90) |>> ANGLETOFINESHIFT
 
-			angle := (tantoangle[{M_FIXED}.FixedDiv(dy, dx).to_integer_32 |>> DBITS] + ANG90) |>> ANGLETOFINESHIFT
-
-			-- use as cosine
-			dist := {M_FIXED}.FixedDiv(dx, finesine[angle])
-
+				-- use as cosine
+			dist := {M_FIXED}.FixedDiv (dx, finesine [angle])
 			Result := dist
 		end
 
@@ -651,6 +646,31 @@ feature
 						Result := True
 					end
 				end
+			end
+		end
+
+feature
+
+	R_PointInSubsector (x, y: FIXED_T): SUBSECTOR_T
+		local
+			node: NODE_T
+			side: INTEGER
+			nodenum: INTEGER
+		do
+				-- single subsector is a special case
+			if i_main.p_setup.numnodes = 0 then
+				Result := i_main.p_setup.subsectors [i_main.p_setup.subsectors.lower]
+			else
+				nodenum := i_main.p_setup.numnodes - 1
+				from
+				until
+					nodenum & {DOOMDATA_H}.NF_SUBSECTOR /= 0
+				loop
+					node := i_main.p_setup.nodes [nodenum]
+					side := R_PointOnSide (x, y, node).to_integer
+					nodenum := node.children [side]
+				end
+				Result := i_main.p_setup.subsectors [nodenum & {DOOMDATA_H}.NF_SUBSECTOR.bit_not]
 			end
 		end
 

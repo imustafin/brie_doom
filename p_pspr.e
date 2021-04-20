@@ -48,7 +48,7 @@ feature
 			from
 				i := 0
 			until
-				i > NUMPSPRITES
+				i >= NUMPSPRITES
 			loop
 				player.psprites [i].state := Void
 				i := i + 1

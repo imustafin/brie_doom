@@ -218,7 +218,7 @@ feature -- P_RemoveMobj
 			mobj.frame := st.frame.to_integer_32
 
 				-- set subsector and/or block links
-			{P_MAPUTL}.P_SetThingPosition (mobj)
+			i_main.p_maputl.P_SetThingPosition (mobj)
 			check attached mobj.subsector as subsector then
 				check attached subsector.sector as sector then
 					mobj.floorz := sector.floorheight

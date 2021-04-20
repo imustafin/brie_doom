@@ -57,8 +57,13 @@ feature
 			validcount := a_validcount
 		end
 
-	thinglist: detachable MOBJ_T
+	thinglist: detachable MOBJ_T assign set_thinglist
 			-- list of mobjs in sector (head of linked list mobj_t.{snext,sprev})
+
+	set_thinglist (a_thinglist: like thinglist)
+		do
+			thinglist := a_thinglist
+		end
 
 	specialdata: detachable ANY
 			-- thinker_t for reversable actions

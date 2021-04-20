@@ -229,6 +229,8 @@ feature -- Globals
 
 	p_pspr: P_PSPR
 
+	p_maputl: P_MAPUTL
+
 feature {NONE} -- Initialization
 
 	make
@@ -250,6 +252,7 @@ feature {NONE} -- Initialization
 			create m_random.make
 			create i_midipipe
 			create p_tick.make
+			create p_maputl.make (Current)
 			create p_mobj.make (Current)
 			create p_pspr.make (Current)
 			create inner_r_draw.make (Current)
