@@ -38,4 +38,13 @@ feature
 			thinkercap.prev := thinkercap
 		end
 
+	P_AddThinker (thinker: THINKER_T)
+			-- Adds a new thinker at the end of the list
+		do
+			thinkercap.prev.next := thinker
+			thinker.next := thinkercap
+			thinker.prev := thinkercap.prev
+			thinkercap.prev := thinker
+		end
+
 end

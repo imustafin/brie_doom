@@ -190,10 +190,58 @@ feature -- P_RemoveMobj
 		end
 
 	P_SpawnMobj (x, y, z: FIXED_T; type: INTEGER): MOBJ_T
+		local
+			mobj: MOBJ_T
+			st: STATE_T
+			info: MOBJINFO_T
 		do
-				-- Stub
-			{I_MAIN}.i_error ("P_SpanMobj not implemented")
-			create Result.make
+			create mobj.make
+			info := {INFO}.mobjinfo [type]
+			mobj.type := type
+			mobj.info := info
+			mobj.x := x
+			mobj.y := y
+			mobj.radius := info.radius
+			mobj.height := info.height
+			mobj.flags := info.flags
+			mobj.health := info.spawnhealth
+			if i_main.g_game.gameskill /= {DOOMDEF_H}.sk_nightmare then
+				mobj.reactiontime := info.reactiontime
+			end
+			mobj.lastlook := i_main.m_random.p_random \\ {DOOMDEF_H}.MAXPLAYERS
+				-- do not set the state with P_SetMobjState,
+				-- because action routines can not be called yet
+			st := {INFO}.states [info.spawnstate]
+			mobj.state := st
+			mobj.tics := st.tics.to_integer_32
+			mobj.sprite := st.sprite
+			mobj.frame := st.frame.to_integer_32
+
+				-- set subsector and/or block links
+			{P_MAPUTL}.P_SetThingPosition (mobj)
+			check attached mobj.subsector as subsector then
+				check attached subsector.sector as sector then
+					mobj.floorz := sector.floorheight
+					mobj.ceilingz := sector.ceilingheight
+				end
+			end
+			if z = {P_LOCAL}.ONFLOORZ then
+				mobj.z := mobj.floorz
+			elseif z = {P_LOCAL}.ONCEILINGZ then
+				check attached mobj.info as attached_info then
+					mobj.z := mobj.ceilingz - attached_info.height
+				end
+			else
+				mobj.z := z
+			end
+			mobj.thinker.function.acp1 := agent P_MobjThinker
+			i_main.p_tick.P_AddThinker (mobj.thinker)
+			Result := mobj
+		end
+
+	P_MobjThinker (mobj: MOBJ_T)
+		do
+			-- STUB
 		end
 
 end

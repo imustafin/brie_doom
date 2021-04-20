@@ -11,15 +11,31 @@ feature
 
 	make
 		do
+			create thinker.make
 		end
 
 feature
 
-	x: FIXED_T
+	x: FIXED_T assign set_x
 
-	y: FIXED_T
+	set_x (a_x: like x)
+		do
+			x := a_x
+		end
 
-	z: FIXED_T
+	y: FIXED_T assign set_y
+
+	set_y (a_y: like y)
+		do
+			y := a_y
+		end
+
+	z: FIXED_T assign set_z
+
+	set_z (a_z: like z)
+		do
+			z := a_z
+		end
 
 	angle: ANGLE_T assign set_angle -- orientation
 
@@ -65,6 +81,97 @@ feature
 		do
 			health := a_health
 		end
+
+	type: INTEGER assign set_type
+
+	set_type (a_type: like type)
+		do
+			type := a_type
+		end
+
+	info: detachable MOBJINFO_T assign set_info
+
+	set_info (a_info: like info)
+		do
+			info := a_info
+		end
+
+	radius: FIXED_T assign set_radius
+
+	set_radius (a_radius: like radius)
+		do
+			radius := a_radius
+		end
+
+	height: FIXED_T assign set_height
+
+	set_height (a_height: like height)
+		do
+			height := a_height
+		end
+
+	reactiontime: INTEGER assign set_reactiontime
+			-- Reaction time: if non 0, don't attack yet
+			-- Used by player to freeze a bit after teleporting
+
+	set_reactiontime (a_reactiontime: like reactiontime)
+		do
+			reactiontime := a_reactiontime
+		end
+
+	lastlook: INTEGER assign set_lastlook
+			-- Player number last looked for
+
+	set_lastlook (a_lastlook: like lastlook)
+		do
+			lastlook := a_lastlook
+		end
+
+	state: detachable STATE_T assign set_state
+
+	set_state (a_state: like state)
+		do
+			state := a_state
+		end
+
+	sprite: INTEGER assign set_sprite -- used to find patch_t and flip value
+
+	set_sprite (a_sprite: like sprite)
+		do
+			sprite := a_sprite
+		end
+
+	frame: INTEGER assign set_frame -- might be ORed with FF_FULLBRIGHT
+
+	set_frame (a_frame: like frame)
+		do
+			frame := a_frame
+		end
+
+		-- The closest interval over all contacted Sectors.
+
+	floorz: FIXED_T assign set_floorz
+
+	set_floorz (a_floorz: like floorz)
+		do
+			floorz := a_floorz
+		end
+
+	ceilingz: FIXED_T assign set_ceilingz
+
+	set_ceilingz (a_ceilingz: like ceilingz)
+		do
+			ceilingz := a_ceilingz
+		end
+
+	thinker: THINKER_T assign set_thinker
+
+	set_thinker (a_thinker: like thinker)
+		do
+			thinker := a_thinker
+		end
+
+	subsector: detachable SUBSECTOR_T
 
 feature -- More list: links in sector (if needed)
 
