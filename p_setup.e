@@ -21,10 +21,10 @@ feature
 
 	make (a_i_main: like i_main)
 		local
-			i:INTEGER
+			i: INTEGER
 		do
 			i_main := a_i_main
-			create deathmatchstarts.make_empty
+			create deathmatchstarts.make_filled (create {MAPTHING_T}, 0, MAX_DEATHMATCH_STARTS - 1)
 			create nodes.make_empty
 			create subsectors.make_empty
 			create segs.make_empty
@@ -41,7 +41,7 @@ feature
 			until
 				i > playerstarts.upper
 			loop
-				playerstarts[i] := create {MAPTHING_T}
+				playerstarts [i] := create {MAPTHING_T}
 				i := i + 1
 			end
 		end
@@ -49,6 +49,8 @@ feature
 feature
 
 	rejectmatrix: detachable MANAGED_POINTER
+
+	MAX_DEATHMATCH_STARTS: INTEGER = 10
 
 	deathmatchstarts: ARRAY [MAPTHING_T]
 
@@ -485,6 +487,7 @@ feature -- P_LoadThings
 			numthings := i_main.w_wad.w_lumplength (lump) // {MAPTHING_T}.structure_size
 			from
 				i := 0
+				spawn := True
 			until
 				not spawn or i >= numthings
 			loop
@@ -500,7 +503,6 @@ feature -- P_LoadThings
 						-- Do spawn all other stuff
 					i_main.p_mobj.P_SpawnMapThing (mt)
 				end
-
 				i := i + 1
 			end
 		end
@@ -509,5 +511,6 @@ invariant
 	blockmap.lower = 0
 	playerstarts.lower = 0
 	playerstarts.count = {DOOMDEF_H}.MAXPLAYERS
+	deathmatchstarts.lower = 0 and deathmatchstarts.count = MAX_DEATHMATCH_STARTS
 
 end
