@@ -25,7 +25,7 @@ feature
 			until
 				i > solidsegs.upper
 			loop
-				solidsegs[i] := create {CLIPRANGE_T}
+				solidsegs [i] := create {CLIPRANGE_T}
 				i := i + 1
 			end
 			create drawsegs.make_filled (create {DRAWSEG_T}.make, 0, {R_DEFS}.MAXDRAWSEGS - 1)
@@ -277,52 +277,45 @@ feature
 		do
 				-- Find the first range that touches the range
 				-- (adjacent pixels are touching).
-				start := solidsegs.lower
-				from
-
-				until
-					solidsegs[start].last < first - 1
-				loop
-					start := start + 1
-				end
-
-				if first < solidsegs[start].first then
-					if last < solidsegs[start].first - 1 then
+			start := solidsegs.lower
+			from
+			until
+				solidsegs [start].last >= first - 1
+			loop
+				start := start + 1
+			end
+			if first < solidsegs [start].first then
+				if last < solidsegs [start].first - 1 then
 						-- Post is entirely visible (above start)
-						i_main.r_segs.R_StoreWallRange(first, last)
-						returned := True
-					else
+					i_main.r_segs.R_StoreWallRange (first, last)
+					returned := True
+				else
 						-- There is a wall segment above *start
-						i_main.r_segs.R_StoreWallRange(first, solidsegs[start].first - 1)
-					end
+					i_main.r_segs.R_StoreWallRange (first, solidsegs [start].first - 1)
 				end
-
-				if not returned then
+			end
+			if not returned then
 					-- Bottom contained in start?
-					if last <= solidsegs[start].last then
+				if last <= solidsegs [start].last then
+					returned := True
+				end
+			end
+			if not returned then
+				from
+				until
+					returned or last < solidsegs [start + 1].first - 1
+				loop
+						-- There is a fragment between two posts.
+					i_main.r_segs.R_StoreWallRange (solidsegs [start].last + 1, solidsegs [start + 1].first - 1)
+					start := start + 1
+					if last <= solidsegs [start].last then
 						returned := True
 					end
 				end
-
-				if not returned then
-					from
-
-					until
-						returned or last < solidsegs[start + 1].first - 1
-					loop
-						-- There is a fragment between two posts.
-						i_main.r_segs.R_StoreWallRange(solidsegs[start].last + 1, solidsegs[start + 1].first - 1)
-						start := start + 1
-
-						if last <= solidsegs[start].last then
-							returned := True
-						end
-					end
-				end
-
-				if not returned then
-					i_main.r_segs.R_StoreWallRange(solidsegs[start].last + 1, last)
-				end
+			end
+			if not returned then
+				i_main.r_segs.R_StoreWallRange (solidsegs [start].last + 1, last)
+			end
 		end
 
 	R_ClipSolidWallSegment (first, last: INTEGER)
@@ -502,49 +495,49 @@ feature -- R_CheckBBox
 						else
 							angle1 := i_main.r_main.clipangle
 						end
-						if not returned then
-							tspan := i_main.r_main.clipangle - angle2
-							if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
-								tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
+					end
+					if not returned then
+						tspan := i_main.r_main.clipangle - angle2
+						if tspan > (2).as_natural_32 * i_main.r_main.clipangle then
+							tspan := tspan - (2).as_natural_32 * i_main.r_main.clipangle
 
-									-- Totally off the left edge?
-								if tspan >= span then
-									Result := False
-									returned := True
-								else
-									angle2 := - i_main.r_main.clipangle
-								end
-							end
-						end
-						if not returned then
-								-- Find the first clippost
-								-- that touches the source post
-								-- (adjacent pixels are touching).
-							angle1 := (angle1 + {R_MAIN}.ANG90) |>> {R_MAIN}.ANGLETOFINESHIFT
-							angle2 := (angle2 + {R_MAIN}.ANG90) |>> {R_MAIN}.ANGLETOFINESHIFT
-							sx1 := i_main.r_main.viewangletox [angle1]
-							sx2 := i_main.r_main.viewangletox [angle2]
-
-								-- Does not cross a pixel
-							if sx1 = sx2 then
+								-- Totally off the left edge?
+							if tspan >= span then
 								Result := False
 								returned := True
+							else
+								angle2 := - i_main.r_main.clipangle
 							end
-							if not returned then
-								sx2 := sx2 - 1
-								start := 0
-								from
-								until
-									solidsegs [start].last < sx2
-								loop
-									start := start + 1
-								end
-								if sx1 >= solidsegs [start].first and sx2 <= solidsegs [start].last then
-										-- The clippost contains the new span.
-									Result := False
-								else
-									Result := True
-								end
+						end
+					end
+					if not returned then
+							-- Find the first clippost
+							-- that touches the source post
+							-- (adjacent pixels are touching).
+						angle1 := (angle1 + {R_MAIN}.ANG90) |>> {R_MAIN}.ANGLETOFINESHIFT
+						angle2 := (angle2 + {R_MAIN}.ANG90) |>> {R_MAIN}.ANGLETOFINESHIFT
+						sx1 := i_main.r_main.viewangletox [angle1]
+						sx2 := i_main.r_main.viewangletox [angle2]
+
+							-- Does not cross a pixel
+						if sx1 = sx2 then
+							Result := False
+							returned := True
+						end
+						if not returned then
+							sx2 := sx2 - 1
+							start := 0
+							from
+							until
+								solidsegs [start].last >= sx2
+							loop
+								start := start + 1
+							end
+							if sx1 >= solidsegs [start].first and sx2 <= solidsegs [start].last then
+									-- The clippost contains the new span.
+								Result := False
+							else
+								Result := True
 							end
 						end
 					end

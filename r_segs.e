@@ -295,7 +295,7 @@ feature
 						-- use different light tables
 						-- for horizontal / vertical / diagonal
 						-- OPTIMIZE: get rid of LIGHTSEGSHIFT globally
-					if i_main.r_main.fixedcolormap = Void then
+					if i_main.r_main.fixedcolormap = Void or attached i_main.r_main.fixedcolormap as fcm and then fcm ~ 0 then
 						lightnum := (i_main.r_bsp.frontsector.lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
 						if i_main.r_bsp.curline.v1.y = i_main.r_bsp.curline.v2.y then
 							lightnum := lightnum - 1
