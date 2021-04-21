@@ -20,7 +20,7 @@ feature
 			create vissprites.make_empty
 			create spritelights.make_empty
 			create screenheightarray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
-			create negonearray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
+			create negonearray.make_filled (-1, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 		end
 
 feature
@@ -125,5 +125,6 @@ invariant
 	screenheightarray.count = {DOOMDEF_H}.SCREENWIDTH
 	negonearray.lower = 0
 	negonearray.count = {DOOMDEF_H}.SCREENWIDTH
+	across negonearray as i_neg all i_neg.item = -1 end
 
 end
