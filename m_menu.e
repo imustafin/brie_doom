@@ -111,7 +111,7 @@ feature
 
 	NewDef: MENU_T
 		once
-			create Result.make (newg_end, EpiDef, NewGameMenu, agent M_DrawNewGame, 48, 63, hurtme)
+			create Result.make (newg_end, EpiDef, NewGameMenu, agent M_DrawNewGame, 48, 63, hurtme + 1)
 		end
 
 	MainMenu: ARRAY [MENUITEM_T]
