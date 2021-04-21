@@ -27,7 +27,7 @@ feature
 			i_main := a_i_main
 			create viewplayer.make
 			validcount := 1
-			create scalelightfixed.make_empty
+			create scalelightfixed.make_filled(0, 0, MAXLIGHTSCALE - 1)
 			create viewangletox.make_filled (0, 0, FINEANGLES // 2 - 1)
 		end
 
@@ -677,5 +677,6 @@ feature
 invariant
 	viewangletox.lower = 0
 	viewangletox.count = FINEANGLES // 2
+	scalelightfixed.lower = 0 and scalelightfixed.count = MAXLIGHTSCALE
 
 end

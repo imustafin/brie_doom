@@ -23,7 +23,6 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create dc_colormap.make (0, create {ARRAY [LIGHTTABLE_T]}.make_empty)
 			create dc_source.make (create {MANAGED_POINTER}.make (1), 0)
 			create ylookup.make_filled (create {PIXEL_T_BUFFER}.make (1), 0, MAXHEIGHT - 1)
 		end
@@ -87,7 +86,7 @@ feature
 
 feature -- R_DrawColumn
 
-	dc_colormap: INDEX_IN_ARRAY [LIGHTTABLE_T] assign set_dc_colormap
+	dc_colormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T] assign set_dc_colormap
 
 	set_dc_colormap (a_dc_colormap: like dc_colormap)
 		do
@@ -181,7 +180,10 @@ feature -- R_DrawColumn
 						-- Re-map color indices from wall texture column
 						-- using a lighting/special effects LUT
 					dc_source_val := dc_source.m.read_natural_8_le (dc_source.ofs + (frac |>> {M_FIXED}.FRACBITS).to_integer_32 & 127)
-					val := dc_colormap.array [dc_colormap.index + dc_source_val].to_natural_8
+					check attached dc_colormap as dc_cmap then
+						val := dc_cmap.array [dc_cmap.index + dc_source_val].to_natural_8
+					end
+
 					dest.put (val, ofs)
 					ofs := ofs + SCREENWIDTH
 					frac := frac + fracstep

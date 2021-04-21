@@ -21,13 +21,12 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create walllights.make_empty
 			create maskedtexturecol.make (0, i_main.r_plane.openings)
 		end
 
 feature
 
-	walllights: ARRAY [LIGHTTABLE_T] assign set_walllights
+	walllights: detachable ARRAY [LIGHTTABLE_T] assign set_walllights
 
 	set_walllights (a_walllights: like walllights)
 		do
@@ -493,7 +492,9 @@ feature -- R_RenderSegLoop
 					if index.to_integer_32 >= MAXLIGHTSCALE then
 						index := (MAXLIGHTSCALE - 1).to_natural_32
 					end
-					i_main.r_draw.dc_colormap := create {INDEX_IN_ARRAY[LIGHTTABLE_T]}.make(index.to_integer_32, walllights)
+					check attached walllights as wls then
+						i_main.r_draw.dc_colormap := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (index.to_integer_32, wls)
+					end
 					i_main.r_draw.dc_x := rw_x
 					i_main.r_draw.dc_iscale := ((0xffffffff).to_natural_32 // rw_scale.to_natural_32).to_integer_32
 				end
