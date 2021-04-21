@@ -252,7 +252,7 @@ feature
 			centerxfrac := centerx |<< {M_FIXED}.FRACBITS
 			centeryfrac := centery |<< {M_FIXED}.FRACBITS
 			projection := centerxfrac
-			if detailshift /= 0 then
+			if detailshift = 0 then
 				colfunc := agent (i_main.r_draw).R_DrawColumn
 				basecolfunc := agent (i_main.r_draw).R_DrawColumn
 				transcolfunc := agent (i_main.r_draw).R_DrawTranslatedColumn

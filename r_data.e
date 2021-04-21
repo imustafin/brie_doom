@@ -400,8 +400,104 @@ feature
 			-- Using the texture definition,
 			-- the composite texture is created from the patches,
 			-- and each column is cached
+		local
+			block: MANAGED_POINTER
+			texture: TEXTURE_T
+			patch: INTEGER -- index inside texture.patches
+			realpatch: PATCH_T
+			x: INTEGER
+			x1: INTEGER
+			x2: INTEGER
+			i: INTEGER
+			patchcol: COLUMN_T
+			collump: ARRAY [INTEGER_16]
+			colofs: ARRAY [NATURAL_16]
 		do
-			{I_MAIN}.i_error ("R_GenerateComposite not implemented")
+			texture := textures [texnum]
+			check attached texturecompositesize as tcs then
+				check attached texturecomposite as tc then
+					block := create {MANAGED_POINTER}.make (tcs [texnum])
+					tc [texnum] := block
+				end
+			end
+			check attached texturecolumnlump as tcl then
+				collump := tcl [texnum]
+			end
+			check attached texturecolumnofs as tcofs then
+				check attached tcofs [texnum] as tcofs_texnum then
+					colofs := tcofs_texnum
+				end
+			end
+
+				-- Composite the columns together.
+			from
+				i := 0
+				patch := 0
+			until
+				i >= texture.patches.count
+			loop
+				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch, {Z_ZONE}.pu_cache))
+				x1 := texture.patches [patch].originx
+				x2 := x1 + realpatch.width
+				if x1 < 0 then
+					x := 0
+				else
+					x := x1
+				end
+				if x2 > texture.width then
+					x2 := texture.width
+				end
+				from
+				until
+					x >= x2
+				loop
+						-- Column does not have multiple patches?
+					check attached collump then
+						if collump [x] >= 0 then
+								-- continue
+						else
+							R_DrawColumnInCache (realpatch, x - x1, block.item, colofs [x], texture.patches [patch].originy, texture.height)
+						end
+					end
+					x := x + 1
+				end
+				i := i + 1
+				patch := patch + 1
+			end
+		end
+
+	R_DrawColumnInCache (realpatch: PATCH_T; start_patch_offset_index: INTEGER; cache: POINTER; cache_offset: INTEGER; originy: INTEGER; cacheheight: INTEGER)
+		local
+			count: INTEGER
+			position: INTEGER
+			source: POINTER
+			dest: INTEGER -- current offset in cache
+			patch: INTEGER -- index in realpatch.columnofs
+			column: COLUMN_T
+		do
+				-- 							patch := realpatch.column_by_offset (realpatch.columnofs [x - x1])
+			dest := cache_offset + 3
+			from
+				patch := start_patch_offset_index
+			until
+				patch > realpatch.columnofs.upper
+			loop
+				column := realpatch.column_by_offset (realpatch.columnofs [patch])
+				source := column.pointer.item + 3
+				count := column.posts [1].length
+				position := originy + column.posts [1].topdelta
+				if position < 0 then
+					count := count + position
+					position := 0
+				end
+				if position + count > cacheheight then
+					count := cacheheight - position
+				end
+				if count > 0 then
+					(cache + position).memory_copy (source, count)
+				end
+				patch := patch + 1
+			end
 		end
 
 end

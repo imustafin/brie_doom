@@ -37,16 +37,19 @@ feature
 			i: INTEGER
 		do
 			create Result.make (width)
-
 			from
 				i := 0
 			until
 				i >= width
 			loop
-				Result.extend(create {COLUMN_T}.from_pointer(pointer, columnofs[i]))
-
+				Result.extend(column_by_offset(columnofs[i]))
 				i := i + 1
 			end
+		end
+
+	column_by_offset (offset: INTEGER): COLUMN_T
+		do
+			create Result.from_pointer (pointer, offset)
 		end
 
 feature
@@ -72,5 +75,8 @@ feature
 				i := i + 1
 			end
 		end
+
+invariant
+	columnofs.lower = 0
 
 end
