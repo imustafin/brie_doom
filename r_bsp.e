@@ -473,7 +473,7 @@ feature -- R_CheckBBox
 			else
 				boxy := 2
 			end
-			boxpos := (boxx |<< 2) + boxx
+			boxpos := (boxy |<< 2) + boxx
 			if boxpos = 5 then
 				Result := True
 			else
