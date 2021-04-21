@@ -22,7 +22,7 @@ feature
 		do
 			i_main := a_i_main
 			create cachedheight.make_empty
-			create openings.make_empty
+			create openings.make_filled (0, 0, MAXOPENINGS - 1)
 			create lastopening.make (0, openings)
 			create ceilingclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
 			create floorclip.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
@@ -49,6 +49,13 @@ feature
 	ceilingclip: ARRAY [INTEGER_16]
 
 	lastvisplane: INTEGER -- originally pointer inside visplanes
+
+	MAXOPENINGS: INTEGER
+		once
+			Result := {DOOMDEF_H}.screenwidth * 64
+		ensure
+			instance_free: class
+		end
 
 	openings: ARRAY [INTEGER_16]
 
@@ -190,7 +197,6 @@ feature
 				unionl := pl.minx
 				intrl := start
 			end
-
 			if stop > pl.maxx then
 				intrh := pl.maxx
 				unionh := stop
@@ -198,30 +204,26 @@ feature
 				unionh := pl.maxx
 				intrh := stop
 			end
-
 			from
 				x := intrl
 			until
-				x > intrh or else pl.top[x] = 0xff
+				x > intrh or else pl.top [x] = 0xff
 			loop
 				x := x + 1
 			end
-
 			if x > intrh then
 				pl.minx := unionl
 				pl.maxx := unionh
 
-				-- use the same one
+					-- use the same one
 				Result := pl
 			else
-				-- make a new visplane
-				visplanes[lastvisplane].height := pl.height
-				visplanes[lastvisplane].picnum := pl.picnum
-				visplanes[lastvisplane].lightlevel := pl.lightlevel
-
-				Result := visplanes[lastvisplane]
+					-- make a new visplane
+				visplanes [lastvisplane].height := pl.height
+				visplanes [lastvisplane].picnum := pl.picnum
+				visplanes [lastvisplane].lightlevel := pl.lightlevel
+				Result := visplanes [lastvisplane]
 				lastvisplane := lastvisplane + 1
-
 				Result.minx := start
 				Result.maxx := start
 				Result.top.fill_with (0xff)
@@ -245,5 +247,6 @@ invariant
 	ceilingclip.count = {DOOMDEF_H}.SCREENWIDTH
 	visplanes.count = MAXVISPLANES
 	visplanes.lower = 0
+	openings.lower = 0 and openings.count = MAXOPENINGS
 
 end

@@ -23,9 +23,6 @@ feature
 			create flattranslation.make_empty
 			create texturetranslation.make_empty
 			create textureheight.make_empty
-			create texturecomposite.make_empty
-			create texturecolumnofs.make_empty
-			create texturecolumnlump.make_empty
 			create texturewidthmask.make_empty
 		end
 
@@ -51,11 +48,13 @@ feature
 
 	texturewidthmask: ARRAY [INTEGER]
 
-	texturecolumnlump: ARRAY [ARRAY [INTEGER_16]]
+	texturecolumnlump: detachable ARRAY [detachable ARRAY [INTEGER_16]]
 
-	texturecolumnofs: ARRAY [ARRAY [NATURAL_16]]
+	texturecolumnofs: detachable ARRAY [detachable ARRAY [NATURAL_16]]
 
-	texturecomposite: ARRAY [detachable MANAGED_POINTER]
+	texturecomposite: detachable ARRAY [detachable MANAGED_POINTER]
+
+	texturecompositesize: detachable ARRAY [INTEGER]
 
 feature
 
@@ -94,6 +93,12 @@ feature
 
 				-- Make textures
 			create textures.make_filled (create {TEXTURE_T}.make, 0, numtextures - 1)
+			create texturewidthmask.make_filled (0, 0, numtextures - 1)
+			create textureheight.make_filled (0, 0, numtextures - 1)
+			create texturecolumnlump.make_filled (Void, 0, numtextures - 1)
+			create texturecomposite.make_filled (Void, 0, numtextures - 1)
+			create texturecompositesize.make_filled (0, 0, numtextures - 1)
+			create texturecolumnofs.make_filled (Void, 0, numtextures - 1)
 			from
 				i := 0
 			until
@@ -113,6 +118,28 @@ feature
 					j := j + 1
 				end
 			end
+			from
+				i := textures.lower
+			until
+				i > textures.upper
+			loop
+				check attached texturecolumnlump as tcl then
+					tcl [i] := create {ARRAY [INTEGER_16]}.make_filled (0, 0, textures [i].width - 1)
+				end
+				check attached texturecolumnofs as tco then
+					tco [i] := create {ARRAY [NATURAL_16]}.make_filled (0, 0, textures [i].width - 1)
+				end
+				from
+					j := 1
+				until
+					j * 2 > textures [i].width
+				loop
+					j := j |<< 1
+				end
+				texturewidthmask [i] := j - 1
+				textureheight [i] := textures [i].height |<< {M_FIXED}.FRACBITS
+				i := i + 1
+			end
 
 				-- Precalculate whatever possible
 			from
@@ -125,12 +152,114 @@ feature
 			end
 
 				-- Create translation table for global animation.
-				-- Skip
+			create texturetranslation.make_filled (0, 0, numtextures + 1)
+			from
+				i := 0
+			until
+				i >= numtextures
+			loop
+				texturetranslation [i] := i
+				i := i + 1
+			end
+		ensure
+			not texturetranslation.is_empty
+			not texturewidthmask.is_empty
 		end
 
 	R_GenerateLookup (texnum: INTEGER)
+		local
+			texture: TEXTURE_T
+			patchcount: ARRAY [INTEGER] -- patchcount[texture->width]
+			patch: INTEGER -- index inside textures.patches
+			realpatch: PATCH_T
+			x: INTEGER
+			x1: INTEGER
+			x2: INTEGER
+			i: INTEGER
+			collump: ARRAY [INTEGER_16]
+			colofs: ARRAY [NATURAL_16]
 		do
-				-- Stub
+			texture := textures [texnum]
+
+				-- Composite texture not created yet
+			check attached texturecomposite as tc then
+				tc [texnum] := Void
+			end
+			check attached texturecompositesize as tcs then
+				tcs [texnum] := 0
+			end
+			check attached texturecolumnlump as tcl then
+				collump := tcl [texnum]
+			end
+			check attached texturecolumnofs as tcofs then
+				check attached tcofs [texnum] as tcofs_texnum then
+					colofs := tcofs [texnum]
+				end
+			end
+
+				-- Now coun the number of columns
+				-- that are covered by more than one patch.
+				-- Fill in the lump / offset, so columns
+				-- with only a single patch are all done.
+			create patchcount.make_filled (0, 0, texture.width - 1)
+			from
+				i := 0
+				patch := 0
+			until
+				i >= texture.patches.count
+			loop
+				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch, {Z_ZONE}.pu_cache))
+				x1 := texture.patches [patch].originx
+				x2 := x1 + realpatch.width
+				if x1 < 0 then
+					x := 0
+				else
+					x := x1
+				end
+				if x2 > texture.width then
+					x2 := texture.width
+				end
+				from
+				until
+					x >= x2
+				loop
+					patchcount [x] := patchcount [x] + 1
+					check attached collump as cl then
+						collump [x] := texture.patches [patch].patch.to_integer_16
+					end
+					check attached colofs then
+						colofs [x] := (realpatch.columnofs [x - x1] + 3).to_natural_16
+					end
+					x := x + 1
+				end
+				i := i + 1
+				patch := patch + 1
+			end
+			from
+				x := 0
+			until
+				x >= texture.width
+			loop
+				if patchcount [x] = 0 then
+					print ("R_GenerateLookup: column without a patch (" + texture.name + ")%N")
+					x := texture.width -- return
+				elseif patchcount [x] > 1 then
+						-- Use the cached block
+					check attached collump as cl then
+						cl [x] := -1
+					end
+					check attached texturecompositesize as tcs then
+						check attached colofs then
+							colofs [x] := tcs [texnum].to_natural_16
+						end
+						if tcs [texnum] > 0x10000 - texture.height then
+							{I_MAIN}.i_error ("R_GenerateLookup: texture " + texnum.out + " is > 64k")
+						end
+						tcs [texnum] := tcs [texnum] + texture.height
+					end
+				end
+				x := x + 1
+			end
 		end
 
 	R_InitFlats
@@ -241,16 +370,28 @@ feature
 		do
 			col := a_col
 			col := col & texturewidthmask [tex]
-			lump := texturecolumnlump [tex] [col]
-			ofs := texturecolumnofs [tex] [col]
+			check attached texturecolumnlump as tcl then
+				check attached tcl [tex] as tcl_tex then
+					check attached tcl_tex [col] as tcl_tex_col then
+						lump := tcl_tex_col
+					end
+				end
+			end
+			check attached texturecolumnofs as tcofs then
+				check attached tcofs [tex] as tcofs_tex then
+					ofs := tcofs_tex [col]
+				end
+			end
 			if lump > 0 then
 				create Result.make (i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_cache), ofs)
 			else
-				if texturecomposite [tex] = Void then
-					R_GenerateComposite (tex)
-				end
-				check attached texturecomposite [tex] as tc then
-					create Result.make (tc, ofs)
+				check attached texturecomposite as tc_ar then
+					if tc_ar [tex] = Void then
+						R_GenerateComposite (tex)
+					end
+					check attached tc_ar [tex] as tc then
+						create Result.make (tc, ofs)
+					end
 				end
 			end
 		end

@@ -20,6 +20,7 @@ feature
 			len: NATURAL_32
 			pos: INTEGER
 			i: INTEGER
+			cstr: C_STRING
 		do
 			len := m.read_natural_32_le (0)
 			pos := 4 -- after len
@@ -29,7 +30,8 @@ feature
 			until
 				i >= len.to_integer_32
 			loop
-				names [i] := create {STRING}.make_from_c (m.item + pos + i * 8)
+				cstr := create {C_STRING}.make_by_pointer_and_count(m.item + pos + i * 8, 8)
+				names [i] := cstr.string
 				i := i + 1
 			end
 		end
