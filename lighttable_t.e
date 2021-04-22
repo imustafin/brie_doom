@@ -13,19 +13,20 @@ class
 
 inherit
 
-	INTEGER_8_REF
+	NATURAL_8_REF
 
 create
-	default_create, from_integer
+	default_create, from_natural_8
 
 convert
-	from_integer ({INTEGER})
+	from_natural_8 ({NATURAL_8}),
+	to_natural_8: {NATURAL_8}
 
 feature
 
-	from_integer (a_integer: INTEGER)
+	from_natural_8 (a_val: NATURAL_8)
 		do
-			set_item (a_integer.as_integer_8)
+			set_item (a_val)
 		end
 
 end

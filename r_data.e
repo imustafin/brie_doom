@@ -291,16 +291,17 @@ feature
 			lump, length: INTEGER
 			p: MANAGED_POINTER
 		do
+			-- No 256 byte align
 			lump := i_main.w_wad.W_GetNumForName ("COLORMAP")
 			length := i_main.w_wad.W_LumpLength (lump)
-			create colormaps.make_filled (0, 0, length - 1)
+			create colormaps.make_filled ({NATURAL_8} 0, 0, length - 1)
 			p := i_main.w_wad.W_ReadLump (lump)
 			from
 				i := 0
 			until
 				i > colormaps.upper
 			loop
-				colormaps [i] := p.read_integer_8_le (i).as_integer_32
+				colormaps [i] := p.read_natural_8_le (i)
 				i := i + 1
 			end
 		end

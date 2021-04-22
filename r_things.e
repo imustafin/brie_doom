@@ -29,7 +29,7 @@ feature
 
 	vissprite_p: INTEGER -- originally pointer inside vissprites
 
-	spritelights: ARRAY [LIGHTTABLE_T] -- lighttable_t**
+	spritelights: detachable ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]] -- lighttable_t**
 
 feature
 	-- constant arrays
@@ -71,12 +71,14 @@ feature
 					-- Well, now it will be done
 				sec.validcount := i_main.r_main.validcount
 				lightnum := (sec.lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
-				if lightnum < 0 then
-					spritelights := i_main.r_main.scalelight [0]
-				elseif lightnum >= {R_MAIN}.LIGHTLEVELS then
-					spritelights := i_main.r_main.scalelight [{R_MAIN}.LIGHTLEVELS - 1]
-				else
-					spritelights := i_main.r_main.scalelight [lightnum]
+				check attached i_main.r_main.scalelight as scalelight then
+					if lightnum < 0 then
+						spritelights := scalelight [0]
+					elseif lightnum >= {R_MAIN}.LIGHTLEVELS then
+						spritelights := scalelight [{R_MAIN}.LIGHTLEVELS - 1]
+					else
+						spritelights := scalelight [lightnum]
+					end
 				end
 
 					-- Handle all things in sector.

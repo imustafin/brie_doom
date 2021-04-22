@@ -23,12 +23,24 @@ feature
 	i_main: I_MAIN
 
 	make (a_i_main: like i_main)
+		local
+			i: INTEGER
 		do
 			i_main := a_i_main
 			create viewplayer.make
 			validcount := 1
-			create scalelightfixed.make_filled(0, 0, MAXLIGHTSCALE - 1)
+			create scalelightfixed.make_filled (Void, 0, MAXLIGHTSCALE - 1)
 			create viewangletox.make_filled (0, 0, FINEANGLES // 2 - 1)
+				-- Create scalelight
+			from
+				create scalelight.make_filled (create {ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]}.make_empty, 0, LIGHTLEVELS - 1)
+				i := 0
+			until
+				i >= LIGHTLEVELS
+			loop
+				scalelight [i] := create {ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]}.make_filled (Void, 0, MAXLIGHTSCALE - 1)
+				i := i + 1
+			end
 		end
 
 feature
@@ -64,9 +76,9 @@ feature
 
 	loopcount: INTEGER
 
-	fixedcolormap: detachable LIGHTTABLE_T
+	fixedcolormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T] -- lighttable_t*
 
-	scalelightfixed: ARRAY [LIGHTTABLE_T]
+	scalelightfixed: ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]] -- lighttable_t* []
 
 	validcount: INTEGER
 			-- increment every time a check is made
@@ -120,20 +132,7 @@ feature -- Lighting constants.
 			-- Number of diminishing brightness levels.
 			-- There a 0-31, i.e. 32 LUT in the COLORMAP lump.
 
-	scalelight: ARRAY [ARRAY [LIGHTTABLE_T]]
-		local
-			i: INTEGER
-		once
-			create Result.make_filled (create {ARRAY [LIGHTTABLE_T]}.make_empty, 0, LIGHTLEVELS - 1)
-			from
-				i := 0
-			until
-				i >= LIGHTLEVELS
-			loop
-				Result [i] := create {ARRAY [LIGHTTABLE_T]}.make_filled (0, 0, MAXLIGHTSCALE - 1)
-				i := i + 1
-			end
-		end
+	scalelight: ARRAY [ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]] -- lighttable_t* [][]
 
 feature
 
@@ -322,7 +321,7 @@ feature
 					if level >= NUMCOLORMAPS then
 						level := NUMCOLORMAPS - 1
 					end
-					scalelight [i] [j] := i_main.r_data.colormaps [level * 256]
+					scalelight [i] [j] := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (level * 256, i_main.r_data.colormaps)
 					j := j + 1
 				end
 				i := i + 1
@@ -583,7 +582,7 @@ feature
 			viewcos := finecosine [viewangle |>> ANGLETOFINESHIFT]
 			sscount := 0
 			if player.fixedcolormap /= 0 then
-				fixedcolormap := i_main.r_data.colormaps [player.fixedcolormap] -- originally colormaps + player->fixedcolormap*256*sizeof(lighttable_t)
+				fixedcolormap := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (player.fixedcolormap, i_main.r_data.colormaps) -- originally colormaps + player->fixedcolormap*256*sizeof(lighttable_t)
 				i_main.r_segs.walllights := scalelightfixed
 				from
 					i := 0
@@ -596,7 +595,7 @@ feature
 					i := i + 1
 				end
 			else
-				fixedcolormap := 0
+				fixedcolormap := Void
 			end
 			framecount := framecount + 1
 			validcount := validcount + 1
@@ -678,5 +677,6 @@ invariant
 	viewangletox.lower = 0
 	viewangletox.count = FINEANGLES // 2
 	scalelightfixed.lower = 0 and scalelightfixed.count = MAXLIGHTSCALE
+	scalelight.lower = 0 and scalelight.count = LIGHTLEVELS and across scalelight as sc_level all sc_level.item.lower = 0 and sc_level.item.count = MAXLIGHTSCALE end
 
 end
