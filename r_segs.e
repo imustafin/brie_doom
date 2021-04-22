@@ -413,8 +413,6 @@ feature -- R_RenderSegLoop
 				-- globals
 			ceilingclip: ARRAY [INTEGER_16]
 			floorclip: ARRAY [INTEGER_16]
-			ceilingplane: VISPLANE_T
-			floorplane: VISPLANE_T
 			xtoviewangle: ARRAY [ANGLE_T]
 			angletofineshift: INTEGER
 			finetangent: ARRAY [INTEGER]
@@ -426,12 +424,6 @@ feature -- R_RenderSegLoop
 		do
 			ceilingclip := i_main.r_plane.ceilingclip
 			floorclip := i_main.r_plane.floorclip
-			check attached i_main.r_plane.ceilingplane as attached_ceilingplane then
-				ceilingplane := attached_ceilingplane
-			end
-			check attached i_main.r_plane.floorplane as attached_floorplane then
-				floorplane := attached_floorplane
-			end
 			xtoviewangle := i_main.r_main.xtoviewangle
 			angletofineshift := {TABLES}.angletofineshift
 			finetangent := {TABLES}.finetangent
@@ -463,8 +455,10 @@ feature -- R_RenderSegLoop
 						bottom := floorclip [rw_x] - 1
 					end
 					if top <= bottom then
-						ceilingplane.top [rw_x] := top.to_natural_8
-						ceilingplane.bottom [rw_x] := bottom.to_natural_8
+						check attached i_main.r_plane.ceilingplane as ceilingplane then
+							ceilingplane.top [rw_x] := top.to_natural_8
+							ceilingplane.bottom [rw_x] := bottom.to_natural_8
+						end
 					end
 				end
 				yh := (bottomfrac |>> HEIGHTBITS).to_integer_32
@@ -478,8 +472,10 @@ feature -- R_RenderSegLoop
 						top := ceilingclip [rw_x] + 1
 					end
 					if top <= bottom then
-						floorplane.top [rw_x] := top.to_natural_8
-						floorplane.bottom [rw_x] := bottom.to_natural_8
+						check attached i_main.r_plane.floorplane as floorplane then
+							floorplane.top [rw_x] := top.to_natural_8
+							floorplane.bottom [rw_x] := bottom.to_natural_8
+						end
 					end
 				end
 
@@ -495,7 +491,7 @@ feature -- R_RenderSegLoop
 						index := (MAXLIGHTSCALE - 1).to_natural_32
 					end
 					check attached walllights as wls then
-						i_main.r_draw.dc_colormap := wls[index.to_integer_32]
+						i_main.r_draw.dc_colormap := wls [index.to_integer_32]
 					end
 					i_main.r_draw.dc_x := rw_x
 					i_main.r_draw.dc_iscale := ((0xffffffff).to_natural_32 // rw_scale.to_natural_32).to_integer_32
