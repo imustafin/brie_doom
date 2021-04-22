@@ -268,17 +268,30 @@ feature -- controls (have defaults)
 
 	forwardmove: ARRAY [INTEGER]
 		once
-			Result := <<0x19, 0x32>>
+			create Result.make_filled(0, 0, 1)
+			Result[0] := 0x19
+			Result[1] := 0x32
+		ensure
+			Result.lower = 0 and Result.count = 2
 		end
 
 	sidemove: ARRAY [INTEGER]
 		once
-			Result := <<0x18, 0x28>>
+			create Result.make_filled (0, 0, 1)
+			Result[0] := 0x18
+			Result[1] := 0x28
+		ensure
+			Result.lower = 0 and Result.count = 2
 		end
 
 	angleturn: ARRAY [INTEGER] -- + slow turn
 		once
-			Result := <<640, 1280, 320>>
+			create Result.make_filled(0, 0, 2)
+			Result[0] := 640
+			Result[1] := 1280
+			Result[2] := 320
+		ensure
+			Result.lower = 0 and Result.count = 3
 		end
 
 feature
