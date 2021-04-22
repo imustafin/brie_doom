@@ -369,7 +369,7 @@ feature
 				next := start
 				from
 				until
-					last >= solidsegs [next + 1].first - 1
+					last < solidsegs [next + 1].first - 1
 				loop
 						-- There is a fragment between two posts.
 					i_main.r_segs.R_StoreWallRange (solidsegs [next].last + 1, solidsegs [next + 1].first - 1)
