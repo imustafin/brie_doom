@@ -239,6 +239,11 @@ feature -- Momentums, used to update position
 			momy := a_momy
 		end
 
-	momz: FIXED_T
+	momz: FIXED_T assign set_momz
+
+	set_momz (a_momz: like momz)
+		do
+			momz := a_momz
+		end
 
 end
