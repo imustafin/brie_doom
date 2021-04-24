@@ -10,6 +10,13 @@ note
 class
 	CLIPRANGE_T
 
+inherit
+
+	ANY
+		redefine
+			out
+		end
+
 feature
 
 	first: INTEGER assign set_first
@@ -24,6 +31,13 @@ feature
 	set_last (a_last: INTEGER)
 		do
 			last := a_last
+		end
+
+feature
+
+	out: STRING
+		do
+			Result := "(" + first.out + ", " + last.out + ")"
 		end
 
 end
