@@ -32,7 +32,7 @@ feature
 			p.item.memory_set (0, p.count)
 		end
 
-	copy_from(other: PIXEL_T_BUFFER)
+	copy_from (other: PIXEL_T_BUFFER)
 		require
 			p.count = other.p.count
 		do
@@ -52,11 +52,12 @@ feature
 		end
 
 	put (v: NATURAL_8; i: INTEGER)
+			-- put i-th pixel
 		do
 			p.put_natural_8 (v, i * pixel_t_size)
 		end
 
-	put_dpixel(v: NATURAL_16; i: INTEGER)
+	put_dpixel (v: NATURAL_16; i: INTEGER)
 		do
 			p.put_natural_16 (v, i * dpixel_t_size)
 		end
@@ -74,7 +75,7 @@ feature
 		end
 
 	dpixel_t_size: INTEGER
-		-- Get actual C size of dpixel_t (which is typedef uint16_t dpixel_t)
+			-- Get actual C size of dpixel_t (which is typedef uint16_t dpixel_t)
 		external
 			"C inline"
 		alias
