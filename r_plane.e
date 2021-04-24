@@ -406,13 +406,13 @@ feature
 				Result := pl
 			else
 					-- make a new visplane
-				visplanes [lastvisplane].height := pl.height
-				visplanes [lastvisplane].picnum := pl.picnum
-				visplanes [lastvisplane].lightlevel := pl.lightlevel
-				Result := visplanes [lastvisplane]
+				Result := visplanes[lastvisplane]
 				lastvisplane := lastvisplane + 1
+				Result.height := pl.height
+				Result.picnum := pl.picnum
+				Result.lightlevel := pl.lightlevel
 				Result.minx := start
-				Result.maxx := start
+				Result.maxx := stop
 				Result.top.fill_with (0xff)
 			end
 		end
