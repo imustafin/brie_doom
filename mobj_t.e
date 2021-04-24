@@ -14,6 +14,17 @@ feature
 			create thinker.make
 		end
 
+feature -- Movement direction, movement generation (zig-zagging)
+
+	movedir: INTEGER -- 0-7
+
+	movecount: INTEGER assign set_movecount -- when 0, select a new dir
+
+	set_movecount (a_movecount: like movecount)
+		do
+			movecount := a_movecount
+		end
+
 feature
 
 	x: FIXED_T assign set_x

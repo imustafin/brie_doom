@@ -236,14 +236,94 @@ feature -- P_RemoveMobj
 			else
 				mobj.z := z
 			end
-			mobj.thinker.function.acp1 := (agent P_MobjThinker (mobj))
+			mobj.thinker.function.acp1 := (agent P_MobjThinker(mobj))
 			i_main.p_tick.P_AddThinker (mobj.thinker)
 			Result := mobj
 		end
 
 	P_MobjThinker (mobj: MOBJ_T)
+		local
+			returned: BOOLEAN
 		do
-				-- STUB
+				-- momentum movement
+			if mobj.momx /= 0 or mobj.momy /= 0 or mobj.flags & MF_SKULLFLY /= 0 then
+				P_XYMovement (mobj)
+				if mobj.thinker.function.acv = Void then -- originally compared with (actionf_v)(-1)
+					returned := True -- mobj was removed (very Sus)
+				end
+			end
+			if not returned then
+				if mobj.z /= mobj.floorz or mobj.momz /= 0 then
+					P_ZMovement (mobj)
+					if mobj.thinker.function.acv = Void then
+						returned := True
+					end
+				end
+			end
+			if not returned then
+					-- cycle through states,
+					-- calling action functions at transitions
+				if mobj.tics /= -1 then
+					mobj.tics := mobj.tics - 1
+
+						-- you can cycle through multiple states in a tic
+					if mobj.tics = 0 then
+						check attached mobj.state as state then
+							if not P_SetMobjState (mobj, state.nextstate) then
+								returned := True -- freed itself
+							end
+						end
+					end
+				else
+						-- check for nightmare respawn
+					if mobj.flags & MF_COUNTKILL = 0 then
+						returned := True
+					end
+					if not returned then
+						if not i_main.g_game.respawnmonsters then
+							returned := True
+						end
+					end
+					if not returned then
+						mobj.movecount := mobj.movecount + 1
+						if mobj.movecount < 12 * 35 then
+							returned := True
+						end
+					end
+					if not returned then
+						if i_main.p_tick.leveltime & 31 /= 0 then
+							returned := True
+						end
+					end
+					if not returned then
+						if i_main.m_random.p_random > 4 then
+							returned := True
+						end
+					end
+					if not returned then
+						P_NightmareRespawn (mobj)
+					end
+				end
+			end
+		end
+
+	STOPSPEED: INTEGER = 0x1000
+
+	FRICTION: INTEGER = 0xe800
+
+	P_XYMovement (mo: MOBJ_T)
+		do
+				-- Stub
+		end
+
+	P_ZMovement (mo: MOBJ_T)
+		do
+				-- Stub
+		end
+
+	P_NightmareRespawn (mo: MOBJ_T)
+		do
+				-- Stub
 		end
 
 	P_RespawnSpecials
@@ -256,13 +336,16 @@ feature -- P_RemoveMobj
 		local
 			st: STATE_T
 			state: INTEGER
+			did_once: BOOLEAN
 		do
 			state := a_state
 			from
 				Result := True
+				did_once := False
 			until
-				not Result or mobj.tics + 1 = 0 -- + 1 because do{}while loop
+				did_once and (not Result or mobj.tics /= 0)
 			loop
+				did_once := True
 				if state = S_NULL then
 					mobj.state := Void
 					P_RemoveMobj (mobj)
@@ -277,7 +360,8 @@ feature -- P_RemoveMobj
 						-- Modified handling.
 						-- Call action functions when the state is set
 					if attached st.action.acp1 as acp1 then
-						acp1.call (mobj)
+--						acp1.call (mobj)
+							print("P_SetbMobjState: handler not called!%N")
 					end
 					state := st.nextstate
 				end
