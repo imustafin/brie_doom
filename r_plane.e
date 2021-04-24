@@ -394,7 +394,7 @@ feature
 			from
 				x := intrl
 			until
-				x > intrh or else pl.top [x] = 0xff
+				x > intrh or else pl.top[x] /= 0xff
 			loop
 				x := x + 1
 			end
