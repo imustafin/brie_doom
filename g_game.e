@@ -972,6 +972,7 @@ feature -- G_DoLoadLevel
 	G_DoPlayDemo
 		do
 				-- Stub
+				gameaction := ga_nothing
 		end
 
 	G_DoCompleted
