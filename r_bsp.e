@@ -351,6 +351,8 @@ feature
 						solidsegs [next] := solidsegs [next - 1].twin
 						next := next - 1
 					end
+					solidsegs[next].first := first
+					solidsegs[next].last := last
 					done := True
 				else
 						-- There is a fragment above *start
@@ -369,7 +371,7 @@ feature
 				next := start
 				from
 				until
-					last < solidsegs [next + 1].first - 1
+					goto_crunch or last < solidsegs [next + 1].first - 1
 				loop
 						-- There is a fragment between two posts.
 					i_main.r_segs.R_StoreWallRange (solidsegs [next].last + 1, solidsegs [next + 1].first - 1)
@@ -388,6 +390,7 @@ feature
 					-- Adjust the clip size.
 				solidsegs [start].last := last
 			end
+			-- crunch:
 			if not done then
 					-- Remove start + 1 to next from the clip list,
 					-- because start now covers their area
@@ -396,16 +399,18 @@ feature
 					done := True
 				end
 			end
-			from
-			until
-				next /= newend
-			loop
-				next := next + 1
-					-- Remove a post
-				start := start + 1
-				solidsegs [start] := solidsegs [next]
+			if not done then
+				from
+				until
+					next = newend
+				loop
+					next := next + 1
+						-- Remove a post
+					start := start + 1
+					solidsegs [start] := solidsegs [next].twin
+				end
+				newend := start + 1
 			end
-			newend := start + 1
 		end
 
 feature -- R_CheckBBox
