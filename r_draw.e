@@ -183,7 +183,6 @@ feature -- R_DrawColumn
 					check attached dc_colormap as dc_cmap then
 						val := dc_cmap.array [dc_cmap.index + dc_source_val]
 					end
-
 					dest.put (val, ofs)
 					ofs := ofs + SCREENWIDTH
 					frac := frac + fracstep
@@ -216,9 +215,118 @@ feature
 				-- Stub
 		end
 
-	R_DrawSpan
+feature -- R_DrawSpan
+
+	ds_xstep: FIXED_T assign set_ds_xstep
+
+	set_ds_xstep (a_ds_xstep: like ds_xstep)
 		do
-				-- Stub
+			ds_xstep := a_ds_xstep
+		end
+
+	ds_ystep: FIXED_T assign set_ds_ystep
+
+	set_ds_ystep (a_ds_ystep: like ds_ystep)
+		do
+			ds_ystep := a_ds_ystep
+		end
+
+	ds_xfrac: FIXED_T assign set_ds_xfrac
+
+	set_ds_xfrac (a_ds_xfrac: like ds_xfrac)
+		do
+			ds_xfrac := a_ds_xfrac
+		end
+
+	ds_yfrac: FIXED_T assign set_ds_yfrac
+
+	set_ds_yfrac (a_ds_yfrac: like ds_yfrac)
+		do
+			ds_yfrac := a_ds_yfrac
+		end
+
+	ds_colormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T] assign set_ds_colormap -- lighttable_t*
+
+	set_ds_colormap (a_ds_colormap: like ds_colormap)
+		do
+			ds_colormap := a_ds_colormap
+		end
+
+	ds_y: INTEGER assign set_ds_y
+
+	set_ds_y (a_ds_y: like ds_y)
+		do
+			ds_y := a_ds_y
+		end
+
+	ds_x1: INTEGER assign set_ds_x1
+
+	set_ds_x1 (a_ds_x1: like ds_x1)
+		do
+			ds_x1 := a_ds_x1
+		end
+
+	ds_x2: INTEGER assign set_ds_x2
+
+	set_ds_x2 (a_ds_x2: like ds_x2)
+		do
+			ds_x2 := a_ds_x2
+		end
+
+	ds_source: detachable MANAGED_POINTER_WITH_OFFSET assign set_ds_source
+
+	set_ds_source (a_ds_source: like ds_source)
+		do
+			ds_source := a_ds_source
+		end
+
+	R_DrawSpan
+			-- Draws the actual span
+		require
+				-- #ifdef RANGECHECK
+			ds_x2 >= ds_x1
+			ds_x1 >= 0
+			ds_x2 < SCREENWIDTH
+			ds_y <= SCREENHEIGHT -- originally casted ds_y to unsigned
+		local
+			xfrac: FIXED_T
+			yfrac: FIXED_T
+			dest: PIXEL_T_BUFFER
+			ofs: INTEGER
+			count: INTEGER
+			spot: INTEGER
+			ds_source_val: INTEGER
+		do
+			xfrac := ds_xfrac
+			yfrac := ds_yfrac
+			dest := ylookup [ds_y]
+			ofs := columnofs [ds_x1]
+
+				-- We do not check for zero spans here?
+			count := ds_x2 - ds_x1
+			from
+				count := count + 1 -- add one because do{}while loop
+			until
+				count = 0
+			loop
+					-- Current texture index in u,v
+				spot := (((yfrac |>> (16 - 6)) & (63 * 64)) + ((xfrac |>> 16) & 63)).to_integer_32
+
+					-- Lookup pixel from flat texture file,
+					-- re-indexing using light/colormap
+				check attached ds_source as src then
+					ds_source_val := src.m.read_natural_8_le (src.ofs + spot)
+				end
+				check attached ds_colormap as dsc then
+					dest.put (dsc.array [dsc.index + ds_source_val], ofs)
+					ofs := ofs + 1
+				end
+
+					-- Next step in u,v
+				xfrac := xfrac + ds_xstep
+				yfrac := yfrac + ds_ystep
+				count := count - 1
+			end
 		end
 
 feature

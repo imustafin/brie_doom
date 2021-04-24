@@ -11,8 +11,8 @@ feature
 
 	make
 		do
-			create top.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
-			create bottom.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
+			create top.make_filled (0, -1, {DOOMDEF_H}.screenwidth)
+			create bottom.make_filled (0, -1, {DOOMDEF_H}.screenwidth)
 		end
 
 feature
@@ -52,28 +52,17 @@ feature
 			maxx := a_maxx
 		end
 
-		-- leave pads for [minx-1]/[maxx+1]
-
-	pad: NATURAL_8
-
 		-- Here lies the rub for all
 		-- dynamic resize/change of resolution
 
+		-- pads for [minx-1]/[maxx+1] are in array (lower = -1)
+
 	top: ARRAY [NATURAL_8]
-
-	pad2: NATURAL_8
-
-	pad3: NATURAL_8
-			-- See above
 
 	bottom: ARRAY [NATURAL_8]
 
-	pad4: NATURAL_8
-
 invariant
-	top.count = {DOOMDEF_H}.SCREENWIDTH
-	top.lower = 0
-	bottom.count = {DOOMDEF_H}.SCREENWIDTH
-	bottom.lower = 0
+	top_has_pad_plus_minus_1: top.lower = -1 and top.count = {DOOMDEF_H}.SCREENWIDTH + 2
+	bottom_has_pad_plus_minus_1: bottom.lower = -1 and bottom.count = {DOOMDEF_H}.SCREENWIDTH + 2
 
 end

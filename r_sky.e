@@ -23,6 +23,9 @@ feature
 
 	SKYFLATNAME: STRING = "F_SKY1"
 
+	ANGLETOSKYSHIFT: INTEGER = 22
+		-- The sky map is 256*128*4 maps
+
 feature -- sky mapping
 
 	skyflatnum: INTEGER assign set_skyflatnum

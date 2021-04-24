@@ -41,6 +41,16 @@ feature
 				scalelight [i] := create {ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]}.make_filled (Void, 0, MAXLIGHTSCALE - 1)
 				i := i + 1
 			end
+				-- Create zlight
+			from
+				create zlight.make_filled (create {ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]}.make_empty, 0, LIGHTLEVELS - 1)
+				i := 0
+			until
+				i >= LIGHTLEVELS
+			loop
+				zlight [i] := create {ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]}.make_filled (Void, 0, MAXLIGHTZ - 1)
+				i := i + 1
+			end
 		end
 
 feature
@@ -79,6 +89,8 @@ feature
 	fixedcolormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T] -- lighttable_t*
 
 	scalelightfixed: ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]] -- lighttable_t* []
+
+	zlight: ARRAY [ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]] -- ligghttable_t* [][]
 
 	validcount: INTEGER
 			-- increment every time a check is made
@@ -434,8 +446,42 @@ feature -- R_InitLightTables
 	DISTMAP: INTEGER = 2
 
 	R_InitLightTables
+			-- Only inits the zlight table,
+			-- because the scalelight table changes with view size
+		local
+			i: INTEGER
+			j: INTEGER
+			level: INTEGER
+			startmap: INTEGER
+			scale: INTEGER
 		do
-				-- Stub
+				-- Calculate the light levels to use
+				-- for each level/distance combination.
+			from
+				i := 0
+			until
+				i >= LIGHTLEVELS
+			loop
+				startmap := ((LIGHTLEVELS - 1 - i) * 2) * NUMCOLORMAPS // LIGHTLEVELS
+				from
+					j := 0
+				until
+					j >= MAXLIGHTZ
+				loop
+					scale := {M_FIXED}.fixeddiv (SCREENWIDTH // 2 * {M_FIXED}.FRACUNIT, (j + 1) |<< LIGHTZSHIFT).to_integer_32
+					scale := scale |>> LIGHTSCALESHIFT
+					level := startmap - scale // DISTMAP
+					if level < 0 then
+						level := 0
+					end
+					if level >= NUMCOLORMAPS then
+						level := NUMCOLORMAPS - 1
+					end
+					zlight [i] [j] := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (level * 256, i_main.r_data.colormaps)
+					j := j + 1
+				end
+				i := i + 1
+			end
 		end
 
 feature -- R_Init
@@ -678,5 +724,6 @@ invariant
 	viewangletox.count = FINEANGLES // 2
 	scalelightfixed.lower = 0 and scalelightfixed.count = MAXLIGHTSCALE
 	scalelight.lower = 0 and scalelight.count = LIGHTLEVELS and across scalelight as sc_level all sc_level.item.lower = 0 and sc_level.item.count = MAXLIGHTSCALE end
+	zlight.lower = 0 and zlight.count = LIGHTLEVELS and across zlight as zl_level all zl_level.item.lower = 0 and zl_level.item.count = MAXLIGHTZ end
 
 end
