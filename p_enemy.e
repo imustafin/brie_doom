@@ -57,6 +57,11 @@ feature
 				-- Stub
 		end
 
+	agent_a_look: PROCEDURE
+		do
+			Result := agent A_Look
+		end
+
 	A_Chase (actor: MOBJ_T)
 			-- Actor has a melee attack,
 			-- so it tries to close as fast as possible

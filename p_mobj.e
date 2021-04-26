@@ -360,8 +360,7 @@ feature -- P_RemoveMobj
 						-- Modified handling.
 						-- Call action functions when the state is set
 					if attached st.action.acp1 as acp1 then
---						acp1.call (mobj)
-							print("P_SetbMobjState: handler not called!%N")
+						acp1.call (mobj)
 					end
 					state := st.nextstate
 				end
