@@ -60,13 +60,9 @@ feature -- Globals
 			end
 		end
 
-	inner_r_main: detachable R_MAIN
-
 	r_main: R_MAIN
-		do
-			check attached inner_r_main as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	inner_r_data: detachable R_DATA
@@ -89,13 +85,9 @@ feature -- Globals
 
 	r_sky: R_SKY
 
-	inner_r_draw: detachable R_DRAW
-
 	r_draw: R_DRAW
-		do
-			check attached inner_r_draw as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	inner_p_setup: detachable P_SETUP
@@ -233,6 +225,11 @@ feature -- Globals
 
 	p_user: P_USER
 
+	d_display: D_DISPLAY
+		once
+			create Result.make (Current)
+		end
+
 feature {NONE} -- Initialization
 
 	make
@@ -258,7 +255,6 @@ feature {NONE} -- Initialization
 			create p_maputl.make (Current)
 			create p_mobj.make (Current)
 			create p_pspr.make (Current)
-			create inner_r_draw.make (Current)
 			create inner_r_plane.make (Current)
 			create inner_r_segs.make (Current)
 			create inner_r_things.make (Current)
@@ -273,7 +269,6 @@ feature {NONE} -- Initialization
 			create inner_w_wad.make (Current)
 			create inner_p_setup.make (Current)
 			create inner_i_system.make (Current)
-			create inner_r_main.make (Current)
 			create d_doom_main.make (Current)
 			create f_wipe.make (Current)
 			create inner_v_video.make (Current)
