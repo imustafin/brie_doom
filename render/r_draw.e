@@ -179,7 +179,7 @@ feature -- R_DrawColumn
 				loop
 						-- Re-map color indices from wall texture column
 						-- using a lighting/special effects LUT
-					dc_source_val := dc_source.m.read_natural_8_le (dc_source.ofs + (frac |>> {M_FIXED}.FRACBITS).to_integer_32 & 127)
+					dc_source_val := dc_source.m.read_natural_8_le (dc_source.ofs + ((frac |>> {M_FIXED}.FRACBITS).to_integer_32 & 127))
 					check attached dc_colormap as dc_cmap then
 						val := dc_cmap.array [dc_cmap.index + dc_source_val]
 					end

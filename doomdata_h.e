@@ -47,6 +47,12 @@ feature -- Other ML_ ????
 	ML_DONTPEGBOTTOM: INTEGER = 16
 			-- lower texture unpegged
 
+	ML_BLOCKING: INTEGER = 1
+			-- Solid, is an obstacle
+
+	ML_BLOCKMONSTERS: INTEGER = 2
+			-- Blocks monsters only
+
 feature
 
 	NF_SUBSECTOR: INTEGER = 0x8000

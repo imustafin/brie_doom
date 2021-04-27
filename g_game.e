@@ -866,8 +866,6 @@ feature -- demo
 feature
 
 	G_DoReborn (playernum: INTEGER)
-		local
-			i: INTEGER
 		do
 			if not netgame then
 					-- reload the level from scratch

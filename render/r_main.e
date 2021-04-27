@@ -92,8 +92,13 @@ feature
 
 	zlight: ARRAY [ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]] -- ligghttable_t* [][]
 
-	validcount: INTEGER
+	validcount: INTEGER assign set_validcount
 			-- increment every time a check is made
+
+	set_validcount (a_validcount: like validcount)
+		do
+			validcount := a_validcount
+		end
 
 	FIELDOFVIEW: INTEGER = 2048
 			-- Fineangles in the SCREENWIDTH wide window.

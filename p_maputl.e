@@ -161,4 +161,132 @@ feature
 			end
 		end
 
+	P_BlockThingsIterator (x, y: INTEGER; func: FUNCTION [MOBJ_T, BOOLEAN]): BOOLEAN
+		local
+			mobj: MOBJ_T
+		do
+			if x < 0 or y < 0 or x >= i_main.p_setup.bmapwidth or y >= i_main.p_setup.bmapheight then
+				Result := True
+			else
+				from
+					Result := True
+					mobj := i_main.p_setup.blocklinks [y * i_main.p_setup.bmapwidth + x]
+				until
+					not Result or mobj = Void
+				loop
+					Result := func.item (mobj)
+					mobj := mobj.bnext
+				end
+			end
+		end
+
+	P_BlockLinesIterator (x, y: INTEGER; func: FUNCTION [LINE_T, BOOLEAN]): BOOLEAN
+			-- The validcount flags are used to avoid checking lines
+			-- that are marked in multiple mapblocks,
+			-- so increment validcount before the first call
+			-- to P_BlocLinesIterator, then make one or more calls to it.
+		local
+			offset: INTEGER
+			list: INTEGER -- index in blockmaplump
+			ld: LINE_T
+			returned: BOOLEAN
+		do
+			if x < 0 or y < 0 or x >= i_main.p_setup.bmapwidth or y >= i_main.p_setup.bmapheight then
+				Result := True
+				returned := True
+			end
+			if not returned then
+				offset := y * i_main.p_setup.bmapwidth + x
+				offset := i_main.p_setup.blockmap [offset]
+				from
+					Result := True
+					list := offset
+				until
+					not Result or i_main.p_setup.blockmaplump [list] = -1
+				loop
+					ld := i_main.p_setup.lines [i_main.p_setup.blockmaplump [list]]
+					if ld.validcount = i_main.r_main.validcount then
+							-- continue -- line has already been checked
+					else
+						if not func.item (ld) then
+							Result := False
+						end
+					end
+					list := list + 1
+				end
+			end
+		end
+
+	P_BoxOnLineSide (tmbox: ARRAY [INTEGER]; ld: LINE_T): INTEGER
+			-- Considers the line to be infinite
+			-- Returns side 0 or 1, -1 if box crosses the line
+		local
+			p1: INTEGER
+			p2: INTEGER
+		do
+			if ld.slopetype = {R_DEFS}.ST_HORIZONTAL then
+				p1 := (tmbox [{M_BBOX}.BOXTOP] > ld.v1.y).to_integer
+				p2 := (tmbox [{M_BBOX}.BOXBOTTOM] > ld.v1.y).to_integer
+				if ld.dx < 0 then
+					p1 := p1.bit_xor (1)
+					p2 := p2.bit_xor (1)
+				end
+			elseif ld.slopetype = {R_DEFS}.ST_VERTICAL then
+				p1 := (tmbox [{M_BBOX}.BOXTOP] < ld.v1.x).to_integer
+				p2 := (tmbox [{M_BBOX}.BOXLEFT] < ld.v1.x).to_integer
+				if ld.dy < 0 then
+					p1 := p1.bit_xor (1)
+					p2 := p2.bit_xor (1)
+				end
+			elseif ld.slopetype = {R_DEFS}.ST_POSITIVE then
+				p1 := P_PointOnLineSide (tmbox [{M_BBOX}.BOXLEFT], tmbox [{M_BBOX}.BOXTOP], ld)
+				p2 := P_PointOnLineSide (tmbox [{M_BBOX}.BOXRIGHT], tmbox [{M_BBOX}.BOXBOTTOM], ld)
+			elseif ld.slopetype = {R_DEFS}.ST_NEGATIVE then
+				p1 := P_PointOnLineSide (tmbox [{M_BBOX}.BOXRIGHT], tmbox [{M_BBOX}.BOXTOP], ld)
+				p2 := P_PointOnLineSide (tmbox [{M_BBOX}.BOXLEFT], tmbox [{M_BBOX}.BOXBOTTOM], ld)
+			end
+			if p1 = p2 then
+				Result := p1
+			else
+				Result := -1
+			end
+		end
+
+feature -- P_LineOpening
+
+	opentop: FIXED_T
+
+	openbottom: FIXED_T
+
+	openrange: FIXED_T
+
+	lowfloor: FIXED_T
+
+	P_LineOpening (linedef: LINE_T)
+			-- Sets opentop and openbottom to the window
+			-- through a two sided line.
+			-- OPTIMIZE: keep this precalculated
+		do
+			if linedef.sidenum [1] = -1 then
+					-- single sided line
+				openrange := 0
+			else
+				check attached linedef.frontsector as front and then attached linedef.backsector as back then
+					if front.ceilingheight < back.ceilingheight then
+						opentop := front.ceilingheight
+					else
+						opentop := back.ceilingheight
+					end
+					if front.floorheight > back.floorheight then
+						openbottom := front.floorheight
+						lowfloor := back.floorheight
+					else
+						openbottom := front.floorheight
+						lowfloor := front.floorheight
+					end
+					openrange := opentop - openbottom
+				end
+			end
+		end
+
 end

@@ -23,4 +23,19 @@ feature
 			instance_free: class
 		end
 
+	P_DamageMobj (target: MOBJ_T; inflictor, source: detachable MOBJ_T; damage: INTEGER)
+		do
+				-- Stub
+		ensure
+			instane_free: class
+		end
+
+	P_TouchSpecialThing (special, toucher: MOBJ_T)
+		do
+				-- Stub
+
+		ensure
+			instance_free: class
+		end
+
 end
