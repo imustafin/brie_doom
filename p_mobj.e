@@ -249,14 +249,14 @@ feature -- P_RemoveMobj
 			if mobj.momx /= 0 or mobj.momy /= 0 or mobj.flags & MF_SKULLFLY /= 0 then
 				P_XYMovement (mobj)
 				if mobj.thinker.function.acv = Void then -- originally compared with (actionf_v)(-1)
-					returned := True -- mobj was removed (very Sus)
+					-- returned := True -- mobj was removed (very Sus)
 				end
 			end
 			if not returned then
 				if mobj.z /= mobj.floorz or mobj.momz /= 0 then
 					P_ZMovement (mobj)
 					if mobj.thinker.function.acv = Void then
-						returned := True
+						-- returned := True
 					end
 				end
 			end
@@ -424,7 +424,7 @@ feature -- P_RemoveMobj
 						-- if in a walking frame, stop moving
 					if attached mo.player as player and then attached player.mo as pmo and then attached pmo.state as st and then st.is_player_run then
 						if P_SetMobjState (pmo, S_PLAY) then
-							-- Do nothing
+								-- Do nothing
 						end
 					end
 					mo.momx := 0
@@ -442,8 +442,79 @@ feature -- P_RemoveMobj
 		end
 
 	P_ZMovement (mo: MOBJ_T)
+		local
+			dist: FIXED_T
+			delta: FIXED_T
+			returned: BOOLEAN
 		do
-				-- Stub
+				-- check for smooth step up
+			if attached mo.player as player and then mo.z < mo.floorz then
+				player.viewheight := player.viewheight - (mo.floorz - mo.z)
+				player.deltaviewheight := ({P_LOCAL}.VIEWHEIGHT - player.viewheight) |>> 3
+			end
+
+				-- adjust height
+			mo.z := mo.z + mo.momz
+			if mo.flags & MF_FLOAT /= 0 and attached mo.target as target then
+					-- float down towards target if too close
+				dist := i_main.p_maputl.P_AproxDistance (mo.x - target.x, mo.y - target.y)
+				delta := (target.z + (mo.height |>> 1)) - mo.z
+				if delta < 0 and dist < - (delta * 3) then
+					mo.z := mo.z - {P_LOCAL}.FLOATSPEED
+				elseif delta > 0 and dist < (delta * 3) then
+					mo.z := mo.z + {P_LOCAL}.FLOATSPEED
+				end
+			end
+
+				-- clip movement
+			if mo.z <= mo.floorz then
+					-- hit the floor
+
+					-- Note (id):
+					-- somebody left this after setting momz to 0,
+					-- kinda useless there.
+				if mo.flags & MF_SKULLFLY /= 0 then
+						-- the skull slammed into something
+					mo.momz := - mo.momz
+				end
+				if mo.momz < 0 then
+					if attached mo.player as player and mo.momz < - {P_LOCAL}.GRAVITY * 8 then
+							-- Squat down.
+							-- Decrease viewheight for a moment
+							-- after hitting the ground (hard),
+							-- and utter appropriate sound.
+						player.deltaviewheight := mo.momz |>> 3
+						i_main.s_sound.s_startsound (mo, {SFXENUM_T}.sfx_oof)
+					end
+				end
+				mo.z := mo.floorz
+				if mo.flags & MF_MISSILE /= 0 and mo.flags & MF_NOCLIP = 0 then
+					P_ExplodeMissile (mo)
+					returned := True
+				end
+			elseif not returned and mo.flags & MF_NOGRAVITY = 0 then
+				if mo.momz = 0 then
+					mo.momz := - {P_LOCAL}.GRAVITY * 2
+				else
+					mo.momz := mo.momz - {P_LOCAL}.GRAVITY
+				end
+			end
+			if not returned then
+				if mo.z + mo.height > mo.ceilingz then
+						-- hit the ceiling
+					if mo.momz > 0 then
+						mo.momz := 0
+					end
+					mo.z := mo.ceilingz - mo.height
+					if mo.flags & MF_SKULLFLY /= 0 then
+							-- the skull slammed into something
+						mo.momz := - mo.momz
+					end
+					if mo.flags & MF_MISSILE /= 0 and mo.flags & MF_NOCLIP = 0 then
+						P_ExplodeMissile (mo)
+					end
+				end
+			end
 		end
 
 	P_NightmareRespawn (mo: MOBJ_T)

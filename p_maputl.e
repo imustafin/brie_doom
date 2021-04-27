@@ -148,4 +148,17 @@ feature
 			Result = 0 or Result = 1
 		end
 
+	P_AproxDistance (a_dx, a_dy: FIXED_T): FIXED_T
+		local
+			dx, dy: FIXED_T
+		do
+			dx := a_dx.abs
+			dy := a_dy.abs
+			if dx < dy then
+				Result := dx + dy - (dx |>> 1)
+			else
+				Result := dx + dy - (dy |>> 1)
+			end
+		end
+
 end

@@ -27,6 +27,10 @@ feature -- Movement direction, movement generation (zig-zagging)
 
 feature
 
+	target: detachable MOBJ_T
+			-- Thing being chased/attacked (or NULL),
+			-- also the originator for missiles.
+
 	x: FIXED_T assign set_x
 
 	set_x (a_x: like x)
