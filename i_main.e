@@ -230,6 +230,11 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	p_map: P_MAP
+		once
+			create Result.make (Current)
+		end
+
 feature {NONE} -- Initialization
 
 	make

@@ -45,4 +45,11 @@ feature
 			{I_MAIN}.i_error ("P_PlayerInSpecialSector is not implemented")
 		end
 
+	P_CrossSpecialLine (linenum, side: INTEGER; thing: MOBJ_T)
+			-- Called every time a thing origin is about
+			-- to cross a line with a non 0 special
+		do
+				-- Stub
+		end
+
 end

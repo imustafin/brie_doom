@@ -17,14 +17,14 @@ create
 
 feature
 
-	forwardmove: CHARACTER assign set_forwardmove -- *2048 for move
+	forwardmove: INTEGER_8 assign set_forwardmove -- *2048 for move
 
 	set_forwardmove (a_forwardmove: like forwardmove)
 		do
 			forwardmove := a_forwardmove
 		end
 
-	sidemove: CHARACTER assign set_sidemove -- *2048 for move
+	sidemove: INTEGER_8 assign set_sidemove -- *2048 for move
 
 	set_sidemove (a_sidemove: like sidemove)
 		do

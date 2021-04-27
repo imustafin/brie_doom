@@ -709,8 +709,8 @@ feature
 			elseif side < - MAXPLMOVE then
 				side := - MAXPLMOVE
 			end
-			cmd.forwardmove := cmd.forwardmove + forward
-			cmd.sidemove := cmd.sidemove + side
+			cmd.forwardmove := (cmd.forwardmove + forward).to_integer_8
+			cmd.sidemove := (cmd.sidemove + side).to_integer_8
 
 				-- special buttons
 			if sendpause then
@@ -789,7 +789,7 @@ feature
 					end
 
 						-- check for turbo cheats
-					if cmd.forwardmove.code > TURBOTHRESHOLD and (gametic & 31 /= 0) and ((gametic |>> 5) & 3) = i then
+					if cmd.forwardmove > TURBOTHRESHOLD and (gametic & 31 /= 0) and ((gametic |>> 5) & 3) = i then
 						players [consoleplayer].message := {HU_STUFF}.player_names [i] + " is turbo!"
 					end
 					if netgame and not netdemo and gametic \\ i_main.d_net.ticdup = 0 then

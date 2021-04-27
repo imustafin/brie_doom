@@ -312,6 +312,131 @@ feature -- P_RemoveMobj
 	FRICTION: INTEGER = 0xe800
 
 	P_XYMovement (mo: MOBJ_T)
+		local
+			ptryx: FIXED_T
+			ptryy: FIXED_T
+			xmove: FIXED_T
+			ymove: FIXED_T
+			returned: BOOLEAN
+			did_once: BOOLEAN
+		do
+			if mo.momx = 0 and mo.momy = 0 then
+				if mo.flags & MF_SKULLFLY /= 0 then
+						-- the skull slammed into something
+					mo.flags := mo.flags & MF_SKULLFLY.bit_not
+					mo.momx := 0
+					mo.momy := 0
+					mo.momz := 0
+					check attached mo.info as info then
+						if P_SetMobjState (mo, info.spawnstate) then
+								-- do nothing
+						end
+					end
+				end
+				returned := True
+			end
+			if not returned then
+				if mo.momx > {P_LOCAL}.MAXMOVE then
+					mo.momx := {P_LOCAL}.MAXMOVE
+				elseif mo.momx < - {P_LOCAL}.MAXMOVE then
+					mo.momx := - {P_LOCAL}.MAXMOVE
+				end
+				if mo.momy > {P_LOCAL}.MAXMOVE then
+					mo.momy := {P_LOCAL}.MAXMOVE
+				elseif mo.momy < - {P_LOCAL}.MAXMOVE then
+					mo.momy := - {P_LOCAL}.MAXMOVE
+				end
+				xmove := mo.momx
+				ymove := mo.momy
+			end
+			from
+			until
+				returned or (did_once and xmove = 0 and ymove = 0)
+			loop
+				did_once := True
+				if xmove > {P_LOCAL}.MAXMOVE // 2 or ymove > {P_LOCAL}.MAXMOVE // 2 then
+					ptryx := mo.x + xmove // 2
+					ptryy := mo.y + ymove // 2
+					xmove := xmove |>> 1
+					ymove := ymove |>> 1
+				else
+					ptryx := mo.x + xmove
+					ptryy := mo.y + ymove
+					xmove := 0
+					ymove := 0
+				end
+				if not i_main.p_map.P_TryMove (mo, ptryx, ptryy) then
+						-- blocked move
+					if attached mo.player then
+							-- try to slide along it
+						i_main.p_map.P_SlideMove (mo)
+					elseif mo.flags & MF_MISSILE /= 0 then
+							-- explode a missile
+						if attached i_main.p_map.ceilingline as cl and then attached cl.backsector as bs and then bs.ceilingpic = i_main.r_sky.skyflatnum then
+								-- Hack to prevent missiles exploding
+								-- against the sky.
+								-- Does not handle sky floors
+							P_RemoveMobj (mo)
+							returned := True
+						else
+							P_ExplodeMissile (mo)
+						end
+					else
+						mo.momx := 0
+						mo.momy := 0
+					end
+				end
+			end
+			if not returned then
+					-- slow down
+				if attached mo.player as player and then player.cheats & {CHEAT_T}.CF_NOMOMENTUM /= 0 then
+						-- debug option for no sliding at all
+					mo.momx := 0
+					mo.momy := 0
+					returned := True
+				end
+			end
+			if not returned then
+				if mo.flags & (MF_MISSILE | MF_SKULLFLY) /= 0 then
+					returned := True -- no friction for missiles ever
+				end
+			end
+			if not returned then
+				if mo.z > mo.floorz then
+					returned := True -- no friction when airborne
+				end
+			end
+			if not returned then
+				if mo.flags & MF_CORPSE /= 0 then
+						-- do not stop sliding
+						-- if halfway off a step with some momentum
+					if mo.momx > {M_FIXED}.FRACUNIT // 4 or mo.momx < - {M_FIXED}.FRACUNIT // 4 or mo.momy > {M_FIXED}.FRACUNIT // 4 or mo.momy < - {M_FIXED}.FRACUNIT // 4 then
+						check attached mo.subsector as sub and then attached sub.sector as sector then
+							if mo.floorz /= sector.floorheight then
+								returned := True
+							end
+						end
+					end
+				end
+			end
+			if not returned then
+				if mo.momx > - STOPSPEED and mo.momx < STOPSPEED and mo.momy > - STOPSPEED and mo.momy < STOPSPEED and (mo.player = Void or (attached mo.player as player and then player.cmd.forwardmove = 0 and then player.cmd.sidemove = 0)) then
+						-- if in a walking frame, stop moving
+					if attached mo.player as player and then attached player.mo as pmo and then attached pmo.state as st and then st.is_player_run then
+						if P_SetMobjState (pmo, S_PLAY) then
+							-- Do nothing
+						end
+					end
+					mo.momx := 0
+					mo.momy := 0
+				else
+					mo.momx := {M_FIXED}.FixedMul (mo.momx, FRICTION)
+					mo.momy := {M_FIXED}.FixedMul (mo.momy, FRICTION)
+				end
+			end
+		end
+
+	P_ExplodeMissile (mo: MOBJ_T)
 		do
 				-- Stub
 		end

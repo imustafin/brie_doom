@@ -19,6 +19,13 @@ feature
 			instance_free: class
 		end
 
+	MAXMOVE: INTEGER
+		once
+			Result := 30 * {M_FIXED}.fracunit
+		ensure
+			instance_free: class
+		end
+
 	MAPBLOCKSHIFT: INTEGER
 		once
 			Result := {M_FIXED}.fracbits + 7

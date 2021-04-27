@@ -53,6 +53,8 @@ feature
 			cmd: TICCMD_T
 			newweapon: INTEGER
 		do
+			if attached player.mo as mo then
+			end
 				-- fixme: do this in the cheat code
 			if player.cheats & CF_NOCLIP /= 0 then
 				check attached player.mo as mo then
@@ -69,8 +71,8 @@ feature
 			check attached player.mo as mo then
 				if mo.flags & MF_JUSTATTACKED /= 0 then
 					cmd.angleturn := 0
-					cmd.forwardmove := (0xc800 // 512).to_character_8
-					cmd.sidemove := (0).to_character_8
+					cmd.forwardmove := (0xc800 // 512).to_integer_8
+					cmd.sidemove := (0).to_integer_8
 					mo.flags := mo.flags & MF_JUSTATTACKED.bit_not
 				end
 			end
@@ -202,13 +204,13 @@ feature
 
 					-- Do not let the player control movement if not onground.
 				onground := (mo.z <= mo.floorz)
-				if cmd.forwardmove.code /= 0 and onground then
-					P_Thrust (player, mo.angle, cmd.forwardmove.code * 2048)
+				if cmd.forwardmove /= 0 and onground then
+					P_Thrust (player, mo.angle, cmd.forwardmove * 2048)
 				end
-				if cmd.sidemove.code /= 0 and onground then
-					P_Thrust (player, mo.angle - {R_MAIN}.ANG90, cmd.sidemove.code * 2048)
+				if cmd.sidemove /= 0 and onground then
+					P_Thrust (player, mo.angle - {R_MAIN}.ANG90, cmd.sidemove * 2048)
 				end
-				if (cmd.forwardmove.code /= 0 or cmd.sidemove.code /= 0) and mo.state = {INFO}.states [{INFO}.S_PLAY] then
+				if (cmd.forwardmove /= 0 or cmd.sidemove /= 0) and mo.state = {INFO}.states [{INFO}.S_PLAY] then
 						-- do nothing with b
 					b := i_main.p_mobj.P_SetMobjState (mo, S_PLAY_RUN1)
 				end

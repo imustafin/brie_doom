@@ -41,4 +41,14 @@ feature
 
 	misc2: INTEGER_64
 
+feature
+
+	is_player_run: BOOLEAN
+		local
+			indices: ARRAY [INTEGER]
+		do
+			indices := <<{STATENUM_T}.s_play_run1, {STATENUM_T}.s_play_run2, {STATENUM_T}.s_play_run3, {STATENUM_T}.s_play_run4>>
+			Result := across indices as i some Current = {INFO}.states [i.item] end
+		end
+
 end

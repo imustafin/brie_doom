@@ -25,6 +25,47 @@ feature
 
 feature
 
+	P_UnsetThingPosition (thing: MOBJ_T)
+			-- Unlinks a thing from block map and sectors.
+			-- On each position change, BLOCKMAP and other
+			-- lookups maintaining lists of things inside
+			-- these structures need to be updated.
+		local
+			blockx: INTEGER
+			blocky: INTEGER
+		do
+			if thing.flags & {MOBJFLAG_T}.MF_NOSECTOR = 0 then
+					-- inert things don't need to be in blockmap?
+					-- unlink from subsector
+				if attached thing.snext as snext then
+					snext.sprev := thing.sprev
+				end
+				if attached thing.sprev as sprev then
+					sprev.snext := thing.snext
+				else
+					check attached thing.subsector as sub and then attached sub.sector as sec then
+						sec.thinglist := thing.snext
+					end
+				end
+			end
+			if thing.flags & {MOBJFLAG_T}.MF_NOBLOCKMAP = 0 then
+					-- inert things don't need to be in blockmap
+					-- unlink from black map
+				if attached thing.bnext as bnext then
+					bnext.bprev := thing.bprev
+				end
+				if attached thing.bprev as bprev then
+					bprev.bnext := thing.bnext
+				else
+					blockx := ((thing.x - i_main.p_setup.bmaporgx) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+					blocky := ((thing.y - i_main.p_setup.bmaporgy) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
+					if blockx >= 0 and blockx < i_main.p_setup.bmapwidth and blocky >= 0 and blocky < i_main.p_setup.bmapheight then
+						i_main.p_setup.blocklinks [blocky * i_main.p_setup.bmapwidth + blockx] := thing.bnext
+					end
+				end
+			end
+		end
+
 	P_SetThingPosition (thing: MOBJ_T)
 			-- Links a thing into both a block and a subsector
 			-- based on it's x y.
@@ -70,6 +111,41 @@ feature
 					thing.bprev := Void
 				end
 			end
+		end
+
+	P_PointOnLineSide (x, y: FIXED_T; line: LINE_T): INTEGER
+			-- Returns 0 or 1
+		local
+			dx: FIXED_T
+			dy: FIXED_T
+			left: FIXED_T
+			right: FIXED_T
+		do
+			if line.dx = 0 then
+				if x <= line.v1.x then
+					Result := (line.dy > 0).to_integer
+				else
+					Result := (line.dy < 0).to_integer
+				end
+			elseif line.dy = 0 then
+				if y <= line.v1.y then
+					Result := (line.dx < 0).to_integer
+				else
+					Result := (line.dx > 0).to_integer
+				end
+			else
+				dx := x - line.v1.x
+				dy := y - line.v1.y
+				left := {M_FIXED}.fixedmul (line.dy |>> {M_FIXED}.FRACBITS, dx)
+				right := {M_FIXED}.fixedmul (dy, line.dx |>> {M_FIXED}.FRACBITS)
+				if right < left then
+					Result := 0
+				else
+					Result := 1
+				end
+			end
+		ensure
+			Result = 0 or Result = 1
 		end
 
 end
