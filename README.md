@@ -9,6 +9,16 @@ with autio/video output inspired by https://github.com/chocolate-doom/chocolate-
 Big thanks to https://github.com/makava/sdldoom-1.10-mod for a version
 which compiles on modern systems.
 
+
+## Screenshots
+This project is now in active development and everything changes frequently.
+Anyways, here are some pictures:
+
+<img src="docs/menu.png" width="320">
+<img src="docs/e1m1.png" width="320">
+<img src="docs/window.png" width="320">
+<img src="docs/armor.png" width="320">
+
 ## Requirements
 * My wrap_sdl fork https://github.com/imustafin/wrap_sdl
 
