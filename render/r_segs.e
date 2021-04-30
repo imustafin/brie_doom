@@ -363,13 +363,13 @@ feature
 				if (i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].silhouette & SIL_TOP /= 0 or maskedtexture) and i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].sprtopclip = Void then
 
 						-- memcpy (lastopening, ceilingclip + start, 2 * (rw_stopx - start))
-					i_main.r_plane.lastopening.array.subcopy (i_main.r_plane.ceilingclip, start, start + rw_stopx - start, i_main.r_plane.lastopening.index)
+					i_main.r_plane.lastopening.subcopy (i_main.r_plane.ceilingclip, start, rw_stopx, 0)
 					i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].sprtopclip := i_main.r_plane.lastopening - start
 					i_main.r_plane.lastopening := i_main.r_plane.lastopening + rw_stopx - start
 				end
 				if (i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].silhouette & SIL_BOTTOM /= 0 or maskedtexture) and i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].sprbottomclip = Void then
 						-- memcpy (lastopening, floorclip + start, 2 * (rw_stopx - start))
-					i_main.r_plane.lastopening.array.subcopy (i_main.r_plane.floorclip, start, start + rw_stopx - start, i_main.r_plane.lastopening.index)
+					i_main.r_plane.lastopening.subcopy (i_main.r_plane.floorclip, start, rw_stopx, 0)
 					i_main.r_bsp.drawsegs [i_main.r_bsp.ds_p].sprbottomclip := i_main.r_plane.lastopening - start
 					i_main.r_plane.lastopening := i_main.r_plane.lastopening + rw_stopx - start
 				end
@@ -559,7 +559,7 @@ feature -- R_RenderSegLoop
 					if maskedtexture then
 							-- save texturecol
 							-- for backdrawing of masked mid texture
-						maskedtexturecol.array [maskedtexturecol.index + rw_x] := texturecolumn.to_integer_16
+						maskedtexturecol[rw_x] := texturecolumn.to_integer_16
 					end
 				end
 				rw_scale := rw_scale + rw_scalestep

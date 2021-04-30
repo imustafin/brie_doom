@@ -179,9 +179,9 @@ feature -- R_DrawColumn
 				loop
 						-- Re-map color indices from wall texture column
 						-- using a lighting/special effects LUT
-					dc_source_val := dc_source.m.read_natural_8_le (dc_source.ofs + ((frac |>> {M_FIXED}.FRACBITS).to_integer_32 & 127))
+					dc_source_val := dc_source.read_byte ((frac |>> {M_FIXED}.FRACBITS) & 127)
 					check attached dc_colormap as dc_cmap then
-						val := dc_cmap.array [dc_cmap.index + dc_source_val]
+						val := dc_cmap [dc_source_val]
 					end
 					dest.put (val, ofs)
 					ofs := ofs + SCREENWIDTH
@@ -315,10 +315,10 @@ feature -- R_DrawSpan
 					-- Lookup pixel from flat texture file,
 					-- re-indexing using light/colormap
 				check attached ds_source as src then
-					ds_source_val := src.m.read_natural_8_le (src.ofs + spot)
+					ds_source_val := src.read_byte (spot)
 				end
 				check attached ds_colormap as dsc then
-					dest.put (dsc.array [dsc.index + ds_source_val], ofs)
+					dest.put (dsc [ds_source_val], ofs)
 					ofs := ofs + 1
 				end
 

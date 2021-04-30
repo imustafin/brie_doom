@@ -9,16 +9,31 @@ create
 
 feature
 
-	make (a_m: like m; a_ofs: like ofs)
+	make (a_mp: like mp; a_ofs: like ofs)
 		do
-			m := a_m
+			mp := a_mp
 			ofs := a_ofs
 		end
 
+feature {NONE}
+
+	mp: MANAGED_POINTER
+
 feature
 
-	m: MANAGED_POINTER
-
 	ofs: INTEGER
+
+	count: INTEGER
+		do
+			Result := mp.count
+		end
+
+	read_byte (pos: INTEGER): NATURAL_8
+		require
+			ofs + pos >= 0
+			ofs + pos + {MANAGED_POINTER}.natural_8_bytes <= count
+		do
+			Result := mp.read_natural_8_le (ofs + pos)
+		end
 
 end
