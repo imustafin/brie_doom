@@ -90,26 +90,20 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	inner_p_setup: detachable P_SETUP
 
 	p_setup: P_SETUP
-		do
-			check attached inner_p_setup as x then
-				Result := x
-			end
+		once
+			create Result.make(Current)
 		end
 
 	p_switch: P_SWITCH
 
 	p_spec: P_SPEC
 
-	inner_r_things: detachable R_THINGS
 
 	r_things: R_THINGS
-		do
-			check attached inner_r_things as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	info: INFO
@@ -262,7 +256,6 @@ feature {NONE} -- Initialization
 			create p_pspr.make (Current)
 			create inner_r_plane.make (Current)
 			create inner_r_segs.make (Current)
-			create inner_r_things.make (Current)
 			create inner_r_bsp.make (Current)
 			create inner_r_data.make (Current)
 			create inner_i_sound.make (Current)
@@ -272,7 +265,6 @@ feature {NONE} -- Initialization
 			create inner_i_video.make (Current)
 			create inner_m_menu.make (Current)
 			create inner_w_wad.make (Current)
-			create inner_p_setup.make (Current)
 			create inner_i_system.make (Current)
 			create d_doom_main.make (Current)
 			create f_wipe.make (Current)
