@@ -291,7 +291,7 @@ feature
 			lump, length: INTEGER
 			p: MANAGED_POINTER
 		do
-			-- No 256 byte align
+				-- No 256 byte align
 			lump := i_main.w_wad.W_GetNumForName ("COLORMAP")
 			length := i_main.w_wad.W_LumpLength (lump)
 			create colormaps.make_filled ({NATURAL_8} 0, 0, length - 1)
@@ -410,7 +410,6 @@ feature
 			x1: INTEGER
 			x2: INTEGER
 			i: INTEGER
-			patchcol: COLUMN_T
 			collump: ARRAY [INTEGER_16]
 			colofs: ARRAY [NATURAL_16]
 		do
@@ -457,7 +456,7 @@ feature
 						if collump [x] >= 0 then
 								-- continue
 						else
-							R_DrawColumnInCache (realpatch, x - x1, block.item, colofs [x], texture.patches [patch].originy, texture.height)
+							R_DrawColumnInCache (realpatch, x - x1, block, colofs [x], texture.patches [patch].originy, texture.height)
 						end
 					end
 					x := x + 1
@@ -467,26 +466,23 @@ feature
 			end
 		end
 
-	R_DrawColumnInCache (realpatch: PATCH_T; start_patch_offset_index: INTEGER; cache: POINTER; cache_offset: INTEGER; originy: INTEGER; cacheheight: INTEGER)
+	R_DrawColumnInCache (real_patch: PATCH_T; col_num: INTEGER; cache: MANAGED_POINTER; cache_ofs: INTEGER; originy: INTEGER; cacheheight: INTEGER)
 		local
 			count: INTEGER
 			position: INTEGER
-			source: POINTER
-			dest: INTEGER -- current offset in cache
-			patch: INTEGER -- index in realpatch.columnofs
+			source: ARRAY [NATURAL_8]
 			column: COLUMN_T
+			post_num: INTEGER
 		do
-				-- 							patch := realpatch.column_by_offset (realpatch.columnofs [x - x1])
-			dest := cache_offset + 3
 			from
-				patch := start_patch_offset_index
+				column := real_patch.columns [col_num + 1]
+				post_num := 1
 			until
-				patch > realpatch.columnofs.upper
+				post_num > column.posts.upper
 			loop
-				column := realpatch.column_by_offset (realpatch.columnofs [patch])
-				source := column.pointer.item + 3
-				count := column.posts [1].length
-				position := originy + column.posts [1].topdelta
+				source := column.posts [post_num].body
+				count := column.posts [post_num].length
+				position := originy + column.posts [post_num].topdelta
 				if position < 0 then
 					count := count + position
 					position := 0
@@ -495,9 +491,9 @@ feature
 					count := cacheheight - position
 				end
 				if count > 0 then
-					(cache + position).memory_copy (source, count)
+					cache.put_array (source.subarray (1, count), cache_ofs + position)
 				end
-				patch := patch + 1
+				post_num := post_num + 1
 			end
 		end
 
