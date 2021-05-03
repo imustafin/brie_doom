@@ -61,6 +61,8 @@ feature
 			Result.extend (["key_strafe", agent (i_main.g_game).set_key_strafe, KEY_RALT])
 			Result.extend (["key_speed", agent (i_main.g_game).set_key_speed, KEY_RSHIFT])
 			Result.extend (["use_mouse", agent set_usemouse, 1])
+			Result.extend (["key_debug_a", agent (i_main.g_game).set_key_debug_a, ('n').code]) -- debug
+			Result.extend (["key_debug_b", agent (i_main.g_game).set_key_debug_b, ('m').code]) -- debug
 			Result.extend (["mouseb_fire", agent (i_main.g_game).set_mousebfire, 0])
 			Result.extend (["mouseb_strafe", agent (i_main.g_game).set_mousebstrafe, 1])
 			Result.extend (["mouseb_forward", agent (i_main.g_game).set_mousebforward, 2])

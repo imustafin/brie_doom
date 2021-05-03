@@ -156,6 +156,22 @@ feature -- controls (have defaults)
 			key_use := a_key_use
 		end
 
+	key_debug_a: INTEGER assign set_key_debug_a
+			-- DEBUG
+
+	set_key_debug_a (a_key_debug_a: like key_debug_a)
+		do
+			key_debug_a := a_key_debug_a
+		end
+
+	key_debug_b: INTEGER assign set_key_debug_b
+			-- DEBUG
+
+	set_key_debug_b (a_key_debug_b: like key_debug_b)
+		do
+			key_debug_b := a_key_debug_b
+		end
+
 	key_strafe: INTEGER assign set_key_strafe
 
 	set_key_strafe (a_key_strafe: like key_strafe)
@@ -268,9 +284,9 @@ feature -- controls (have defaults)
 
 	forwardmove: ARRAY [INTEGER]
 		once
-			create Result.make_filled(0, 0, 1)
-			Result[0] := 0x19
-			Result[1] := 0x32
+			create Result.make_filled (0, 0, 1)
+			Result [0] := 0x19
+			Result [1] := 0x32
 		ensure
 			Result.lower = 0 and Result.count = 2
 		end
@@ -278,18 +294,18 @@ feature -- controls (have defaults)
 	sidemove: ARRAY [INTEGER]
 		once
 			create Result.make_filled (0, 0, 1)
-			Result[0] := 0x18
-			Result[1] := 0x28
+			Result [0] := 0x18
+			Result [1] := 0x28
 		ensure
 			Result.lower = 0 and Result.count = 2
 		end
 
 	angleturn: ARRAY [INTEGER] -- + slow turn
 		once
-			create Result.make_filled(0, 0, 2)
-			Result[0] := 640
-			Result[1] := 1280
-			Result[2] := 320
+			create Result.make_filled (0, 0, 2)
+			Result [0] := 640
+			Result [1] := 1280
+			Result [2] := 320
 		ensure
 			Result.lower = 0 and Result.count = 3
 		end
@@ -538,6 +554,27 @@ feature
 				-- Stub
 		end
 
+	debug_a
+		do
+			if attached players [consoleplayer].mo as mo then
+				print ("DEBUG_A: player.mo (" + mo.x.out + " " + mo.y.out + " " + mo.z.out + " " + mo.angle.out + ")%N")
+			else
+				print ("DEBUG_A: player.mo is Void%N")
+			end
+		end
+
+	debug_b
+		do
+			if attached players [consoleplayer].mo as mo then
+				mo.x := 69206016
+				mo.y := -236978176
+				mo.z := 0
+				mo.angle := (-541065216).to_natural_32
+			else
+				print ("DEBUG_B: player.mo is Void%N")
+			end
+		end
+
 	G_BuildTiccmd (cmd: TICCMD_T)
 			-- Builds a ticcmd from all of the available inputs
 			-- or reads it from the demo buffer.
@@ -556,6 +593,14 @@ feature
 			base := i_main.i_system.I_BaseTiccmd
 			cmd.copy_from (base) -- memcpy(cmd,base,sizeof(*cmd))
 			cmd.consistancy := consistancy [consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS]
+
+				-- DEBUG
+			if gamekeydown [key_debug_a] then
+				debug_a
+			end
+			if gamekeydown [key_debug_b] then
+				debug_b
+			end
 			strafe := gamekeydown [key_strafe] or mousebuttons [mousebstrafe] or joybuttons [joybstrafe]
 			speed := if gamekeydown [key_speed] or joybuttons [joybspeed] then 1 else 0 end
 			forward := 0
@@ -970,7 +1015,7 @@ feature -- G_DoLoadLevel
 	G_DoPlayDemo
 		do
 				-- Stub
-				gameaction := ga_nothing
+			gameaction := ga_nothing
 		end
 
 	G_DoCompleted
