@@ -63,12 +63,62 @@ feature
 
 feature
 
+	usething: detachable MOBJ_T
+
 	P_UseLines (player: PLAYER_T)
 			-- Looks for special lines in front of the player to activate
+		require
+			player.mo /= Void
+		local
+			angle: INTEGER
+			x1: FIXED_T
+			y1: FIXED_T
+			x2: FIXED_T
+			y2: FIXED_T
 		do
-			{I_MAIN}.i_error ("P_UseLines is not implemented")
-		ensure
-			instance_free: class
+			check attached player.mo as mo then
+				usething := mo
+				angle := mo.angle |>> {TABLES}.ANGLETOFINESHIFT
+				x1 := mo.x
+				y1 := mo.y
+				x2 := x1 + ({P_LOCAL}.USERANGE |>> {M_FIXED}.FRACBITS) * i_main.r_main.finecosine [angle]
+				y2 := y1 + ({P_LOCAL}.USERANGE |>> {M_FIXED}.FRACBITS) * i_main.r_main.finesine [angle]
+				if i_main.p_maputl.P_PathTraverse (x1, y1, x2, y2, {P_LOCAL}.PT_ADDLINES, agent PTR_UseTraverse) then
+						-- do nothing
+				end
+			end
+		end
+
+	PTR_UseTraverse (in: INTERCEPT_T): BOOLEAN
+		require
+			usething /= Void
+		local
+			side: INTEGER
+		do
+			check attached in.line as line and then attached usething as ut then
+				if line.special = 0 then
+					i_main.p_maputl.P_LineOpening (line)
+					if i_main.p_maputl.openrange <= 0 then
+						i_main.s_sound.s_startsound (usething, {SFXENUM_T}.sfx_noway)
+
+							-- can't use through a wall
+						Result := False
+					else
+						Result := True
+					end
+				else
+					side := 0
+					if i_main.p_maputl.P_PointOnLineSide (ut.x, ut.y, line) = 1 then
+						side := 1
+					end
+					if i_main.p_switch.P_UseSpecialLine (ut, line, side) then
+							-- do nothing
+					end
+
+						-- can't use for than one special line in a row
+					Result := False
+				end
+			end
 		end
 
 	P_TryMove (thing: MOBJ_T; x, y: FIXED_T): BOOLEAN

@@ -42,6 +42,11 @@ feature
 			Result := array [num + index]
 		end
 
+	this: G
+		do
+			Result := array[index]
+		end
+
 	put (v: G; num: INTEGER)
 		require
 			valid_index (num)

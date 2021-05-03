@@ -90,16 +90,14 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-
 	p_setup: P_SETUP
 		once
-			create Result.make(Current)
+			create Result.make (Current)
 		end
 
 	p_switch: P_SWITCH
 
 	p_spec: P_SPEC
-
 
 	r_things: R_THINGS
 		once
@@ -192,6 +190,9 @@ feature -- Globals
 	i_midipipe: I_MIDIPIPE
 
 	p_tick: P_TICK
+		once
+			create Result.make (Current)
+		end
 
 	p_mobj: P_MOBJ
 
@@ -216,8 +217,14 @@ feature -- Globals
 	p_pspr: P_PSPR
 
 	p_maputl: P_MAPUTL
+		once
+			create Result.make (Current)
+		end
 
 	p_user: P_USER
+		once
+			create Result.make (Current)
+		end
 
 	d_display: D_DISPLAY
 		once
@@ -249,9 +256,6 @@ feature {NONE} -- Initialization
 			create f_finale.make
 			create m_random.make
 			create i_midipipe
-			create p_user.make (Current)
-			create p_tick.make (Current)
-			create p_maputl.make (Current)
 			create p_mobj.make (Current)
 			create p_pspr.make (Current)
 			create inner_r_plane.make (Current)

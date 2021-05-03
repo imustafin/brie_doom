@@ -19,8 +19,20 @@ feature
 	i_main: I_MAIN
 
 	make (a_i_main: like i_main)
+		local
+			i: INTEGER
 		do
 			i_main := a_i_main
+			create trace
+			create intercepts.make_filled (create {INTERCEPT_T}, 0, {P_LOCAL}.MAXINTERCEPTS - 1)
+			from
+				i := 0
+			until
+				i > intercepts.upper
+			loop
+				intercepts [i] := create {INTERCEPT_T}
+				i := i + 1
+			end
 		end
 
 feature
@@ -180,7 +192,7 @@ feature
 			end
 		end
 
-	P_BlockLinesIterator (x, y: INTEGER; func: FUNCTION [LINE_T, BOOLEAN]): BOOLEAN
+	P_BlockLinesIterator (x, y: INTEGER; func: PREDICATE[LINE_T]): BOOLEAN
 			-- The validcount flags are used to avoid checking lines
 			-- that are marked in multiple mapblocks,
 			-- so increment validcount before the first call
@@ -288,5 +300,338 @@ feature -- P_LineOpening
 				end
 			end
 		end
+
+feature
+
+	earlyout: BOOLEAN
+
+	intercepts: ARRAY [INTERCEPT_T]
+
+	intercept_p: detachable INDEX_IN_ARRAY [INTERCEPT_T]
+
+	trace: DIVLINE_T
+
+	P_PathTraverse (a_x1, a_y1, a_x2, a_y2: FIXED_T; flags: INTEGER; trav: PREDICATE [INTERCEPT_T]): BOOLEAN
+		local
+			xt1, yt1, xt2, yt2: FIXED_T
+			xstep, ystep: FIXED_T
+			partial: FIXED_T
+			xintercept, yintercept: FIXED_T
+			mapx: INTEGER
+			mapy: INTEGER
+			mapxstep: INTEGER
+			mapystep: INTEGER
+			count: INTEGER
+			returned: BOOLEAN
+			break: BOOLEAN
+			x1, y1, x2, y2: FIXED_T
+		do
+			x1 := a_x1
+			y1 := a_y1
+			x2 := a_x2
+			y2 := a_y2
+			earlyout := flags & {P_LOCAL}.PT_EARLYOUT /= 0
+			i_main.r_main.validcount := i_main.r_main.validcount + 1
+			create intercept_p.make (0, intercepts)
+			if ((x1 - i_main.p_setup.bmaporgx) & ({P_LOCAL}.MAPBLOCKSIZE - 1)) = 0 then
+				x1 := x1 + {M_FIXED}.FRACUNIT -- don't side exactly on a line
+			end
+			if ((y1 - i_main.p_setup.bmaporgy) & ({P_LOCAL}.MAPBLOCKSIZE - 1)) = 0 then
+				y1 := y1 + {M_FIXED}.FRACUNIT -- don't side exactly on a line
+			end
+			trace.x := x1
+			trace.y := y1
+			trace.dx := x2 - x1
+			trace.dy := y2 - y1
+			x1 := x1 - i_main.p_setup.bmaporgx
+			y1 := y1 - i_main.p_setup.bmaporgx
+			xt1 := x1 |>> {P_LOCAL}.MAPBLOCKSHIFT
+			yt1 := y1 |>> {P_LOCAL}.MAPBLOCKSHIFT
+			x2 := x2 - i_main.p_setup.bmaporgx
+			y2 := y2 - i_main.p_setup.bmaporgy
+			xt2 := x2 |>> {P_LOCAL}.MAPBLOCKSHIFT
+			yt2 := y2 |>> {P_LOCAL}.MAPBLOCKSHIFT
+			if xt2 > xt1 then
+				mapxstep := 1
+				partial := (x1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1)
+				ystep := {M_FIXED}.fixeddiv (y2 - y1, (x2 - x1).abs)
+			else
+				mapxstep := 0
+				partial := {M_FIXED}.FRACUNIT
+				ystep := 256 * {M_FIXED}.FRACUNIT
+			end
+			yintercept := (y1 |>> {P_LOCAL}.MAPBTOFRAC) + {M_FIXED}.fixedmul (partial, ystep)
+			if yt2 > yt1 then
+				mapystep := -1
+				partial := (y1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1)
+				xstep := {M_FIXED}.fixeddiv (x2 - x1, (y2 - y1).abs)
+			else
+				mapystep := 0
+				partial := {M_FIXED}.FRACUNIT
+				xstep := 256 * {M_FIXED}.FRACUNIT
+			end
+			xintercept := (x1 |>> {P_LOCAL}.MAPBTOFRAC) + {M_FIXED}.fixedmul (partial, xstep)
+
+				-- Step through map blocks.
+				-- Count is present to prevent a round off error
+				-- from skipping the break
+			mapx := xt1
+			mapy := yt1
+			from
+				count := 0
+				returned := False
+				break := False
+			until
+				returned or break or count >= 64
+			loop
+				if flags & {P_LOCAL}.PT_ADDLINES /= 0 then
+					if not P_BlockLinesIterator (mapx, mapy, agent PIT_AddLineIntercepts) then
+						Result := False
+						returned := True -- early out
+					end
+				end
+				if not returned then
+					if flags & {P_LOCAL}.PT_ADDTHINGS /= 0 then
+						if not P_BlockThingsIterator (mapx, mapy, agent PIT_AddThingIntercepts) then
+							Result := False
+							returned := True -- early out
+						end
+					end
+				end
+				if not returned then
+					if mapx = xt2 and mapy = yt2 then
+						break := True
+					end
+				end
+				if not returned and not break then
+					if (yintercept |>> {M_FIXED}.FRACBITS) = mapy then
+						yintercept := yintercept + ystep
+						mapx := mapx + mapxstep
+					elseif (xintercept |>> {M_FIXED}.FRACBITS) = mapx then
+						xintercept := xintercept + xstep
+						mapy := mapy + mapystep
+					end
+				end
+				count := count + 1
+			end
+			if not returned then
+				Result := P_TraverseIntercepts (trav, {M_FIXED}.FRACUNIT)
+			end
+		end
+
+	PIT_AddThingIntercepts (thing: MOBJ_T): BOOLEAN
+		local
+			x1: FIXED_T
+			y1: FIXED_T
+			x2: FIXED_T
+			y2: FIXED_T
+			s1: INTEGER
+			s2: INTEGER
+			tracepositive: BOOLEAN
+			dl: DIVLINE_T
+			frac: FIXED_T
+		do
+			tracepositive := (trace.dx.bit_xor (trace.dy)) > 0
+				-- check a corner to corner crossection for hit
+			if tracepositive then
+				x1 := thing.x - thing.radius
+				y1 := thing.y + thing.radius
+				x2 := thing.x + thing.radius
+				y2 := thing.y - thing.radius
+			else
+				x1 := thing.x - thing.radius
+				y1 := thing.y - thing.radius
+				x2 := thing.x + thing.radius
+				y2 := thing.y + thing.radius
+			end
+			s1 := P_PointOnDivlineSide (x1, y1, trace).to_integer
+			s2 := P_PointOnDivlineSide (x2, y2, trace).to_integer
+			if s1 = s2 then
+				Result := True -- line isn't crossed
+			else
+				create dl
+				dl.x := x1
+				dl.y := y1
+				dl.dx := x2 - x1
+				dl.dy := y2 - y1
+				frac := P_InterceptVector (trace, dl)
+				if frac < 0 then
+					Result := True -- behind source
+				else
+					check attached intercept_p as ip then
+						ip.this.frac := frac
+						ip.this.isaline := False
+						ip.this.thing := thing
+						intercept_p := ip + 1
+					end
+					Result := True
+				end
+			end
+		end
+
+	PIT_AddLineIntercepts (ld: LINE_T): BOOLEAN
+			-- Looks for lines in the given block
+			-- that intercept the given trace
+			-- to add to the intercepts list.
+			--
+			-- A line is crossed if its endpoints
+			-- are on opposite sides of the trace.
+			-- Returns true if earlyout and a solid line hit.
+		local
+			s1: INTEGER
+			s2: INTEGER
+			frac: FIXED_T
+			dl: DIVLINE_T
+		do
+				-- avoid precision problems with two routines
+			if trace.dx > {M_FIXED}.fracunit * 16 or trace.dy > {M_FIXED}.fracunit * 16 or trace.dx < - {M_FIXED}.fracunit * 16 or trace.dy < - {M_FIXED}.fracunit then
+				s1 := P_PointOnDivlineSide (ld.v1.x, ld.v1.y, trace).to_integer
+				s2 := P_PointOnDivlineSide (ld.v2.x, ld.v2.y, trace).to_integer
+			else
+				s1 := P_PointOnLineSide (trace.x, trace.y, ld)
+				s2 := P_PointOnLineSide (trace.x + trace.dx, trace.y + trace.dy, ld)
+			end
+			if s1 = s2 then
+				Result := True -- line isn't crossed
+			else
+					-- hit the line
+				create dl.make_from_line (ld)
+				frac := P_InterceptVector (trace, dl)
+				if frac < 0 then
+					Result := True -- behind source
+				else
+						-- try to early out the check
+					if earlyout and frac < {M_FIXED}.fracunit and ld.backsector = Void then
+						Result := False -- stop checking
+					else
+						check attached intercept_p as ip then
+							ip.this.frac := frac
+							ip.this.isaline := True
+							ip.this.line := ld
+							intercept_p := ip + 1
+							Result := True -- continue
+						end
+					end
+				end
+			end
+		end
+
+	P_InterceptVector (v2, v1: DIVLINE_T): FIXED_T
+			-- Returns the fractional intercept point
+			-- along the first divline.
+			-- This is only called by the addthings
+			-- and addlines traversers.
+		local
+			frac: FIXED_T
+			num: FIXED_T
+			den: FIXED_T
+		do
+			den := {M_FIXED}.fixedmul (v1.dy |>> 8, v2.dx) - {M_FIXED}.fixedmul (v1.dx |>> 8, v2.dy)
+			if den = 0 then
+				Result := 0
+			else
+				num := {M_FIXED}.fixedmul ((v1.x - v2.x) |>> 8, v1.dy) + {M_FIXED}.fixedmul ((v2.y - v1.y) |>> 8, v1.dx)
+				frac := {M_FIXED}.fixeddiv (num, den)
+				Result := frac
+			end
+		end
+
+	P_PointOnDivlineSide (x, y: FIXED_T; line: DIVLINE_T): BOOLEAN
+			-- Returns True for 1, False for 0
+		local
+			dx: FIXED_T
+			dy: FIXED_T
+			left: FIXED_T
+			right: FIXED_T
+		do
+			if line.dx = 0 then
+				if x <= line.x then
+					Result := line.dy > 0
+				else
+					Result := line.dy < 0
+				end
+			elseif line.dy = 0 then
+				if y <= line.y then
+					Result := line.dx < 0
+				else
+					Result := line.dx > 0
+				end
+			else
+				dx := (x - line.x)
+				dy := (y - line.y)
+
+					-- try to quickly decide by looking at sign bits
+				if line.dy.bit_xor (line.dx).bit_xor (dx).bit_xor (dy) & (0x80000000).to_integer_32 /= 0 then
+					if line.dy.bit_xor (dx) & (0x80000000).to_integer_32 /= 0 then
+						Result := True
+					else
+						Result := False
+					end
+				else
+					left := {M_FIXED}.fixedmul (line.dy |>> 8, dx |>> 8)
+					right := {M_FIXED}.fixedmul (dy |>> 8, line.dx |>> 8)
+					if right < left then
+						Result := False -- front side
+					else
+						Result := True -- back side
+
+					end
+				end
+			end
+		end
+
+	P_TraverseIntercepts (func: PREDICATE [INTERCEPT_T]; maxfrac: FIXED_T): BOOLEAN
+			-- Returns true if the traverser function returns true
+			-- for all lines.
+		require
+			intercept_p /= Void
+		local
+			count: INTEGER
+			dist: FIXED_T
+			scan: INDEX_IN_ARRAY [INTERCEPT_T]
+			in: INTERCEPT_T
+			returned: BOOLEAN
+		do
+			from
+				check attached intercept_p as ip then
+					count := ip.index
+				end
+			until
+				returned or count = 0
+			loop
+				count := count - 1
+				dist := {DOOMTYPE_H}.MAXINT
+				from
+					create scan.make (0, intercepts)
+				until
+					intercept_p = Void or else (attached intercept_p as ip and then scan.index >= ip.index)
+				loop
+					if scan.this.frac < dist then
+						dist := scan.this.frac
+						in := scan.this
+					end
+					create scan.make (scan.index + 1, intercepts)
+				end
+				if dist > maxfrac then
+					Result := True -- checked everything in range
+					returned := True
+				else
+					check attached in as attached_in then
+						if not func.item (attached_in) then
+							Result := False -- don't bother going farther
+							returned := True
+						else
+							attached_in.frac := {DOOMTYPE_H}.MAXINT
+						end
+					end
+				end
+			end
+			if not returned then
+				Result := True
+			end
+		end
+
+invariant
+	{UTILS [INTERCEPT_T]}.invariant_ref_array (intercepts, {P_LOCAL}.MAXINTERCEPTS)
 
 end

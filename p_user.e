@@ -128,7 +128,7 @@ feature
 					-- check for use
 				if cmd.buttons & {D_EVENT}.BT_USE /= 0 then
 					if not player.usedown then
-						{P_MAP}.P_UseLines (player)
+						i_main.p_map.P_UseLines (player)
 						player.usedown := True
 					end
 				else

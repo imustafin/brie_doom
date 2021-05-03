@@ -70,4 +70,35 @@ feature
 
 	MAXHEALTH: INTEGER = 100
 
+	USERANGE: INTEGER
+		once
+			Result := 64 * {M_FIXED}.fracunit
+		ensure
+			instance_free: class
+		end
+
+	PT_ADDLINES: INTEGER = 1
+
+	PT_ADDTHINGS: INTEGER = 2
+
+	PT_EARLYOUT: INTEGER = 4
+
+	MAPBLOCKUNITS: INTEGER = 128
+
+	MAPBLOCKSIZE: INTEGER
+		once
+			Result := MAPBLOCKUNITS * {M_FIXED}.FRACUNIT
+		ensure
+			instance_free: class
+		end
+
+	MAPBTOFRAC: INTEGER
+		once
+			Result := MAPBLOCKSHIFT - {M_FIXED}.FRACBITS
+		ensure
+			instance_free: class
+		end
+
+	MAXINTERCEPTS: INTEGER = 128
+
 end
