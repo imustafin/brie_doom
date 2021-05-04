@@ -192,7 +192,7 @@ feature
 			end
 		end
 
-	P_BlockLinesIterator (x, y: INTEGER; func: PREDICATE[LINE_T]): BOOLEAN
+	P_BlockLinesIterator (x, y: INTEGER; func: PREDICATE [LINE_T]): BOOLEAN
 			-- The validcount flags are used to avoid checking lines
 			-- that are marked in multiple mapblocks,
 			-- so increment validcount before the first call
@@ -344,7 +344,7 @@ feature
 			trace.dx := x2 - x1
 			trace.dy := y2 - y1
 			x1 := x1 - i_main.p_setup.bmaporgx
-			y1 := y1 - i_main.p_setup.bmaporgx
+			y1 := y1 - i_main.p_setup.bmaporgy
 			xt1 := x1 |>> {P_LOCAL}.MAPBLOCKSHIFT
 			yt1 := y1 |>> {P_LOCAL}.MAPBLOCKSHIFT
 			x2 := x2 - i_main.p_setup.bmaporgx
@@ -353,6 +353,10 @@ feature
 			yt2 := y2 |>> {P_LOCAL}.MAPBLOCKSHIFT
 			if xt2 > xt1 then
 				mapxstep := 1
+				partial := {M_FIXED}.fracunit - ((x1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1))
+				ystep := {M_FIXED}.fixeddiv (y2 - y1, (x2 - x1).abs)
+			elseif xt2 < xt1 then
+				mapxstep := -1
 				partial := (x1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1)
 				ystep := {M_FIXED}.fixeddiv (y2 - y1, (x2 - x1).abs)
 			else
@@ -362,6 +366,10 @@ feature
 			end
 			yintercept := (y1 |>> {P_LOCAL}.MAPBTOFRAC) + {M_FIXED}.fixedmul (partial, ystep)
 			if yt2 > yt1 then
+				mapystep := 1
+				partial := {M_FIXED}.FRACUNIT - ((y1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1))
+				xstep := {M_FIXED}.fixeddiv (x2 - x1, (y2 - y1).abs)
+			elseif yt2 < yt1 then
 				mapystep := -1
 				partial := (y1 |>> {P_LOCAL}.MAPBTOFRAC) & ({M_FIXED}.FRACUNIT - 1)
 				xstep := {M_FIXED}.fixeddiv (x2 - x1, (y2 - y1).abs)
@@ -604,7 +612,7 @@ feature
 				from
 					create scan.make (0, intercepts)
 				until
-					intercept_p = Void or else (attached intercept_p as ip and then scan.index >= ip.index)
+					returned or (intercept_p = Void or else (attached intercept_p as ip and then scan.index >= ip.index))
 				loop
 					if scan.this.frac < dist then
 						dist := scan.this.frac
