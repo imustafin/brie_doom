@@ -53,4 +53,9 @@ feature
 		deferred
 		end
 
+	sound_is_playing (channel: INTEGER): BOOLEAN
+		-- Query if a sound is playing on the given channel
+		deferred
+		end
+
 end

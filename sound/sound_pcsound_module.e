@@ -47,24 +47,29 @@ feature
 				-- Stub
 		end
 
-update_sound_params (channel, vol, sep: INTEGER)
+	update_sound_params (channel, vol, sep: INTEGER)
 		do
-			-- Stub
+				-- Stub
 		end
 
 	start_sound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER): INTEGER
 		do
-			-- Stub
+				-- Stub
 		end
 
 	stop_sound (channel: INTEGER)
 		do
-			-- Stub
+				-- Stub
 		end
 
 	cache_sounds (sounds: ARRAY [SFXINFO_T])
 		do
-			-- Stub
+				-- Stub
+		end
+
+	sound_is_playing (channel: INTEGER): BOOLEAN
+		do
+				-- Stub
 		end
 
 feature

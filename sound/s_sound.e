@@ -179,12 +179,12 @@ feature
 
 	S_UpdateSounds (listener: detachable MOBJ_T)
 			-- Updates music & sounds
+			-- from chocolate doom
 		local
 			audible: BOOLEAN
 			cnum: INTEGER
 			volume: INTEGER_32_REF
 			sep: INTEGER_32_REF
-			l_sfx_detachable: SFXINFO_T
 			c: CHANNEL_T
 			l_stopped: BOOLEAN
 		do
@@ -196,8 +196,7 @@ feature
 			loop
 				l_stopped := False
 				c := channels [cnum]
-				l_sfx_detachable := c.sfxinfo
-				if attached l_sfx_detachable as sfx then
+				if attached c.sfxinfo as sfx then
 					if i_main.i_sound.I_SoundIsPlaying (c.handle) then
 							-- initialize parameters.
 						volume := snd_SfxVolume
@@ -218,11 +217,11 @@ feature
 								check attached listener as l then
 									audible := S_AdjustSoundParams (listener, origin, volume, sep)
 								end
-							end
-							if not audible then
-								S_StopChannel (cnum)
-							else
-								i_main.i_sound.I_UpdateSoundParams (c.handle, volume, sep)
+								if not audible then
+									S_StopChannel (cnum)
+								else
+									i_main.i_sound.I_UpdateSoundParams (c.handle, volume, sep)
+								end
 							end
 						end
 					else
@@ -442,15 +441,34 @@ feature
 		end
 
 	S_StopChannel (cnum: INTEGER)
+			-- from chocolate doom
 		local
 			c: CHANNEL_T
+			i: INTEGER
 		do
 			c := channels [cnum]
 			if attached c.sfxinfo as sfxinfo then
+					-- stop the sound playing
 				if i_main.i_sound.I_SoundIsPlaying (c.handle) then
-					sfxinfo.usefulness := sfxinfo.usefulness - 1
-					c.sfxinfo := Void
+					i_main.i_sound.i_stopsound (c.handle)
 				end
+
+					-- check to see if other channels are playing the sound
+
+				from
+					i := 0
+				until
+					i > channels.upper or else (cnum /= i and c.sfxinfo = channels [i].sfxinfo)
+				loop
+					i := i + 1
+				end
+
+					-- degrade usefulness of sound data
+				if attached c.sfxinfo as si then
+					si.usefulness := si.usefulness - 1
+				end
+				c.sfxinfo := Void
+				c.origin := Void
 			end
 		end
 

@@ -182,10 +182,19 @@ feature
 			end
 		end
 
-	I_SoundIsPlaying (handle: INTEGER): BOOLEAN
+	I_StopSound(channel: INTEGER)
 		do
-				-- Ouch.
-			Result := i_main.g_game.gametic < handle
+			if attached sound_module as m then
+				m.stop_sound (channel)
+			end
+		end
+
+	I_SoundIsPlaying (channel: INTEGER): BOOLEAN
+		-- from chocolate doom
+		do
+			if attached sound_module as m then
+				Result := m.sound_is_playing(channel)
+			end
 		end
 
 	I_UpdateSoundParams (channel, vol, sep: INTEGER)
