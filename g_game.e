@@ -522,6 +522,28 @@ feature -- G_InitNew
 			G_DoLoadLevel
 		end
 
+feature -- G_DoCompleted
+
+	secretexit: BOOLEAN
+
+	G_ExitLevel
+		do
+			secretexit := False
+			gameaction := ga_completed
+		end
+
+	G_SecretExitLevel
+			-- Here's for the german edition
+		do
+				-- IF NO WOLF3D LEVELS, NO SECRET EXIT!
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial and i_main.w_wad.W_CheckNumForName ("map31") < 0 then
+				secretexit := False
+			else
+				secretexit := True
+				gameaction := ga_completed
+			end
+		end
+
 feature
 
 	consoleplayer: INTEGER assign set_consoleplayer -- player taking events and displaying
@@ -566,10 +588,10 @@ feature
 	debug_b
 		do
 			if attached players [consoleplayer].mo as mo then
-				mo.x := 69206016
-				mo.y := -236978176
+				mo.x := 97468470
+				mo.y := -162077325
 				mo.z := 0
-				mo.angle := (-541065216).to_natural_32
+				mo.angle := (-37748736).to_natural_32
 			else
 				print ("DEBUG_B: player.mo is Void%N")
 			end

@@ -52,4 +52,13 @@ feature
 				-- Stub
 		end
 
+feature -- Special Stuff that can not be categorized
+
+	EV_DoDonut (line: LINE_T): BOOLEAN
+		do
+			{I_MAIN}.i_error ("EV_DoDonut not implemented")
+		ensure
+			instance_free: class
+		end
+
 end

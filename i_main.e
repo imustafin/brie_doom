@@ -96,6 +96,9 @@ feature -- Globals
 		end
 
 	p_switch: P_SWITCH
+		once
+			create Result.make (Current)
+		end
 
 	p_spec: P_SPEC
 
@@ -247,7 +250,6 @@ feature {NONE} -- Initialization
 			create hu_lib.make
 			create am_map.make
 			create wi_stuff.make
-			create p_switch.make
 			create p_spec.make
 			create info.make
 			create z_zone.make

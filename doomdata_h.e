@@ -47,6 +47,9 @@ feature -- Other ML_ ????
 	ML_DONTPEGBOTTOM: INTEGER = 16
 			-- lower texture unpegged
 
+	ML_SECRET: INTEGER = 32
+		-- In AutoMap: don't map as two sided: IT'S A SECRET!
+
 	ML_BLOCKING: INTEGER = 1
 			-- Solid, is an obstacle
 
