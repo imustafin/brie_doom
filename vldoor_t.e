@@ -4,6 +4,10 @@ note
 class
 	VLDOOR_T
 
+inherit
+
+	WITH_THINKER
+
 create
 	make
 
@@ -11,13 +15,11 @@ feature
 
 	make (a_sector: like sector)
 		do
-			create thinker.make
+			make_thinker
 			sector := a_sector
 		end
 
 feature
-
-	thinker: THINKER_T
 
 	type: INTEGER assign set_type -- vldoor_e
 

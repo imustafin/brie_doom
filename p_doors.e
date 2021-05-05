@@ -116,9 +116,9 @@ feature
 			if not returned then
 				check attached sec then
 					create door.make(sec)
-					i_main.p_tick.P_AddThinker (door.thinker)
+					i_main.p_tick.P_AddThinker (door)
 					sec.specialdata := door
-					door.thinker.function.acp1 := agent T_VerticalDoor
+					door.thinker.function := agent T_VerticalDoor(door)
 					door.direction := 1
 					door.speed := {P_SPEC}.VDOORSPEED
 					door.topwait := {P_SPEC}.VDOORWAIT

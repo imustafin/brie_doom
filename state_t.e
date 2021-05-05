@@ -33,7 +33,7 @@ feature
 			tics := a_tics
 		end
 
-	action: ACTIONF_T
+	action: detachable PROCEDURE
 
 	nextstate: INTEGER -- statenum_t
 

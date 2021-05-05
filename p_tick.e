@@ -18,13 +18,12 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create thinkercap.make
+			create thinkers.make
 		end
 
 feature
 
-	thinkercap: THINKER_T
-			-- Both the head and tail of the thinker list.
+	thinkers: LINKED_LIST [WITH_THINKER]
 
 	leveltime: INTEGER assign set_leveltime
 
@@ -37,17 +36,13 @@ feature
 
 	P_InitThinkers
 		do
-			thinkercap.next := thinkercap
-			thinkercap.prev := thinkercap
+			thinkers.wipe_out
 		end
 
-	P_AddThinker (thinker: THINKER_T)
+	P_AddThinker (thinker: WITH_THINKER)
 			-- Adds a new thinker at the end of the list
 		do
-			thinkercap.prev.next := thinker
-			thinker.next := thinkercap
-			thinker.prev := thinkercap.prev
-			thinkercap.prev := thinker
+			thinkers.force (thinker)
 		end
 
 	P_RemoveThinker (thinker: THINKER_T)
@@ -91,21 +86,17 @@ feature
 		local
 			currentthinker: THINKER_T
 		do
-			currentthinker := thinkercap.next
 			from
+				thinkers.start
 			until
-				currentthinker = thinkercap
+				thinkers.exhausted
 			loop
-				if attached currentthinker.function.acv as acv then
-						-- time to remove it
-					currentthinker.next.prev := currentthinker.prev
-					currentthinker.prev.next := currentthinker.next
+				if attached thinkers.item.thinker.function as function then
+					function.call
+					thinkers.forth
 				else
-					if attached currentthinker.function.acp1 as acp1 then
-						acp1.call
-					end
+					thinkers.remove
 				end
-				currentthinker := currentthinker.next
 			end
 		end
 

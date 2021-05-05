@@ -236,8 +236,8 @@ feature -- P_RemoveMobj
 			else
 				mobj.z := z
 			end
-			mobj.thinker.function.acp1 := (agent P_MobjThinker(mobj))
-			i_main.p_tick.P_AddThinker (mobj.thinker)
+			mobj.thinker.function := agent P_MobjThinker(mobj)
+			i_main.p_tick.P_AddThinker (mobj)
 			Result := mobj
 		end
 
@@ -248,15 +248,15 @@ feature -- P_RemoveMobj
 				-- momentum movement
 			if mobj.momx /= 0 or mobj.momy /= 0 or mobj.flags & MF_SKULLFLY /= 0 then
 				P_XYMovement (mobj)
-				if mobj.thinker.function.acv = Void then -- originally compared with (actionf_v)(-1)
-					-- returned := True -- mobj was removed (very Sus)
+				if mobj.thinker.function = Void then
+					returned := True -- mobj was removed
 				end
 			end
 			if not returned then
 				if mobj.z /= mobj.floorz or mobj.momz /= 0 then
 					P_ZMovement (mobj)
-					if mobj.thinker.function.acv = Void then
-						-- returned := True
+					if mobj.thinker.function = Void then
+						returned := True
 					end
 				end
 			end
@@ -555,8 +555,8 @@ feature -- P_RemoveMobj
 
 						-- Modified handling.
 						-- Call action functions when the state is set
-					if attached st.action.acp1 as acp1 then
-						acp1.call (mobj)
+					if attached st.action as action then
+						action.call (mobj)
 					end
 					state := st.nextstate
 				end

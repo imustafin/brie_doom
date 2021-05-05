@@ -4,6 +4,10 @@ note
 class
 	MOBJ_T
 
+inherit
+
+	WITH_THINKER
+
 create
 	make
 
@@ -11,7 +15,7 @@ feature
 
 	make
 		do
-			create thinker.make
+			make_thinker
 		end
 
 feature -- Movement direction, movement generation (zig-zagging)
@@ -177,13 +181,6 @@ feature
 	set_ceilingz (a_ceilingz: like ceilingz)
 		do
 			ceilingz := a_ceilingz
-		end
-
-	thinker: THINKER_T assign set_thinker
-
-	set_thinker (a_thinker: like thinker)
-		do
-			thinker := a_thinker
 		end
 
 	subsector: detachable SUBSECTOR_T assign set_subsector

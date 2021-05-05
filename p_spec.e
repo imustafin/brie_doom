@@ -63,9 +63,42 @@ feature
 				-- Stub
 		end
 
-	P_FindLowestCeilingSurrounding(sec: SECTOR_T): FIXED_T
+	P_FindLowestCeilingSurrounding (sec: SECTOR_T): FIXED_T
+		local
+			i: INTEGER
+			ch: LINE_T
+			other: SECTOR_T
 		do
-			{I_MAIN}.i_error ("P_FindLowestCeilingSurrounding not implemented")
+			Result := {DOOMTYPE_H}.MAXINT
+			from
+				i := sec.lines.lower
+			until
+				i > sec.lines.upper
+			loop
+				ch := sec.lines [i]
+				other := getNextSector (ch, sec)
+				if attached other then
+					if other.ceilingheight < Result then
+						Result := other.ceilingheight
+					end
+				end
+				i := i + 1
+			end
+		end
+
+	getNextSector (line: LINE_T; sec: SECTOR_T): detachable SECTOR_T
+			-- Return sector_t * of sector next to current.
+			-- NULL if not two-sided line
+		do
+			if line.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+				Result := Void
+			else
+				if line.frontsector = sec then
+					Result := line.backsector
+				else
+					Result := line.frontsector
+				end
+			end
 		end
 
 feature -- Special Stuff that can not be categorized

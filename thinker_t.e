@@ -13,7 +13,6 @@ feature
 		do
 			prev := Current
 			next := Current
-			create function.make_one (Void)
 		end
 
 feature
@@ -32,6 +31,14 @@ feature
 			next := a_next
 		end
 
-	function: ACTIONF_T
+	function: detachable PROCEDURE assign set_function
+
+	set_function (a_function: like function)
+		do
+			function := a_function
+		end
+
+invariant
+	attached function as i_f implies i_f.open_count = 0
 
 end

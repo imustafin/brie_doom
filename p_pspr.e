@@ -108,8 +108,8 @@ feature
 
 					-- Call action routine.
 					-- Modified handling.
-				if attached state.action.acp2 as acp2 then
-					acp2.call (player, psp)
+				if attached state.action as action then
+					action.call (player, psp)
 					if psp.state = Void then
 						break := True
 					end
