@@ -486,6 +486,7 @@ feature -- P_RemoveMobj
 						player.deltaviewheight := mo.momz |>> 3
 						i_main.s_sound.s_startsound (mo, {SFXENUM_T}.sfx_oof)
 					end
+					mo.momz := 0
 				end
 				mo.z := mo.floorz
 				if mo.flags & MF_MISSILE /= 0 and mo.flags & MF_NOCLIP = 0 then
