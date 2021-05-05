@@ -244,6 +244,16 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	p_inter: P_INTER
+		once
+			create Result
+		end
+
+	p_floor: P_FLOOR
+		once
+			create Result.make (Current)
+		end
+
 feature {NONE} -- Initialization
 
 	make

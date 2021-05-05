@@ -45,9 +45,13 @@ feature
 			thinkers.force (thinker)
 		end
 
-	P_RemoveThinker (thinker: THINKER_T)
+	P_RemoveThinker (thinker: WITH_THINKER)
 		do
-			{I_MAIN}.i_error ("P_RemoveThinker not implemented")
+			thinkers.start
+			thinkers.prune (thinker)
+		ensure
+			across old thinkers as ots some ots.item = thinker end implies old thinkers.count = thinkers.count + 1
+			across old thinkers as ots all ots.item /= thinker end implies old thinkers ~ thinkers
 		end
 
 	P_Ticker
@@ -93,7 +97,9 @@ feature
 			loop
 				if attached thinkers.item.thinker.function as function then
 					function.call
-					thinkers.forth
+					if not thinkers.after then
+						thinkers.forth
+					end
 				else
 					thinkers.remove
 				end

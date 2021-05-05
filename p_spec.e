@@ -53,7 +53,7 @@ feature
 			-- Called every tic frame
 			-- that the player origin is in a special sector
 		do
-			{I_MAIN}.i_error ("P_PlayerInSpecialSector is not implemented")
+			-- Stub
 		end
 
 	P_CrossSpecialLine (linenum, side: INTEGER; thing: MOBJ_T)

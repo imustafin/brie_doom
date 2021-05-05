@@ -588,10 +588,10 @@ feature
 	debug_b
 		do
 			if attached players [consoleplayer].mo as mo then
-				mo.x := 97468470
-				mo.y := -162077325
+				mo.x := 197525895
+				mo.y := -265927178
 				mo.z := 0
-				mo.angle := (-37748736).to_natural_32
+				mo.angle := (3355443200).to_natural_32
 			else
 				print ("DEBUG_B: player.mo is Void%N")
 			end

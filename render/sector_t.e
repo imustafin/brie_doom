@@ -23,9 +23,19 @@ feature
 
 feature
 
-	floorheight: FIXED_T
+	floorheight: FIXED_T assign set_floorheight
 
-	ceilingheight: FIXED_T
+	set_floorheight (a_floorheight: like floorheight)
+		do
+			floorheight := a_floorheight
+		end
+
+	ceilingheight: FIXED_T assign set_ceilingheight
+
+	set_ceilingheight (a_ceilingheight: like ceilingheight)
+		do
+			ceilingheight := a_ceilingheight
+		end
 
 	floorpic: INTEGER_16
 

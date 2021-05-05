@@ -489,6 +489,119 @@ feature
 				-- Stub
 		end
 
+feature -- SECTOR HEIGHT CHANGING
+
+		-- After modifying a sectors floor or ceiling height,
+		-- call this routine to adjust the positions
+		-- of all things that touch the sector.
+		--
+		-- If anything doesn't fit anymore, true will be returned.
+		-- If crunch is true, they will take damage
+		-- as they are being crushed.
+		-- If Crunch is false, you should set the sector height back
+		-- the way it was and call P_ChangeSector again to undo the changes.
+
+	crushchange: BOOLEAN
+
+	nofit: BOOLEAN
+
+	P_ThingHeightClip (thing: MOBJ_T): BOOLEAN
+		local
+			onfloor: BOOLEAN
+		do
+			onfloor := (thing.z = thing.floorz)
+			P_CheckPosition (thing, thing.x, thing.y).do_nothing
+				-- what about stranding a monster partially off an edge?
+
+			thing.floorz := tmfloorz
+			thing.ceilingz := tmceilingz
+			if onfloor then
+					-- walking monsters rise and fall with the floor
+				thing.z := thing.floorz
+			else
+					-- don't adjust a floating monster unless forced to
+				if thing.z + thing.height > thing.ceilingz then
+					thing.z := thing.ceilingz - thing.height
+				end
+			end
+			if thing.ceilingz - thing.floorz < thing.height then
+				Result := False
+			else
+				Result := True
+			end
+		end
+
+	PIT_ChangeSector (thing: MOBJ_T): BOOLEAN
+		local
+			mo: MOBJ_T
+		do
+			if P_ThingHeightClip (thing) then
+					-- keep checking
+				Result := True
+			else
+					-- crunch bodies to giblets
+				if thing.health <= 0 then
+					i_main.p_mobj.P_SetMobjState (thing, {STATENUM_T}.S_GIBS).do_nothing
+					thing.flags := thing.flags & MF_SOLID.bit_not
+					thing.height := 0
+					thing.radius := 0
+
+						-- keep checking
+					Result := True
+				else
+						-- crunch dropped items
+					if thing.flags & MF_DROPPED /= 0 then
+						i_main.p_mobj.P_RemoveMobj (thing)
+							-- keep checking
+						Result := True
+					else
+						if thing.flags & MF_SHOOTABLE = 0 then
+								-- assume it is bloody gibs or something
+							Result := True
+						else
+							nofit := True
+							if crushchange and i_main.p_tick.leveltime & 3 = 0 then
+								i_main.p_inter.P_DamageMobj (thing, Void, Void, 10)
+									-- spray blood in a random direction
+								mo := i_main.p_mobj.P_SpawnMobj (thing.x, thing.y, thing.z + thing.height // 2, MT_BLOOD)
+								mo.momx := (i_main.m_random.P_Random - i_main.m_random.P_Random) |<< 12
+								mo.momy := (i_main.m_random.P_Random - i_main.m_random.P_Random) |<< 12
+							end
+								-- keep checking (crush other things)
+							Result := True
+						end
+					end
+				end
+			end
+		end
+
+	P_ChangeSector (sector: SECTOR_T; crunch: BOOLEAN): BOOLEAN
+		local
+			x: INTEGER
+			y: INTEGER
+		do
+			nofit := False
+			crushchange := crunch
+
+				-- re-check heights for all things near the moving sector
+			from
+				x := sector.blockbox [{M_BBOX}.BOXLEFT]
+			until
+				x > sector.blockbox [{M_BBOX}.BOXRIGHT]
+			loop
+				from
+					y := sector.blockbox [{M_BBOX}.BOXBOTTOM]
+				until
+					y > sector.blockbox [{M_BBOX}.BOXTOP]
+				loop
+					i_main.p_maputl.P_BlockThingsIterator (x, y, agent PIT_ChangeSector).do_nothing
+					y := y + 1
+				end
+				x := x + 1
+			end
+			Result := nofit
+		end
+
 invariant
 	spechit.lower = 0 and spechit.count = MAXSPECIALCROSS
 	tmbbox.lower = 0 and tmbbox.count = 4

@@ -191,15 +191,15 @@ feature
 				end
 			elseif door.direction = -1 then
 					-- DOWN
-				res := {P_FLOOR}.T_MovePlane (door.sector, door.speed, door.sector.floorheight, False, 1, door.direction)
+				res := i_main.p_floor.T_MovePlane (door.sector, door.speed, door.sector.floorheight, False, 1, door.direction)
 				if res = {RESULT_E}.pastdest then
 					if door.type = blazeRaise or door.type = blazeClose then
 						door.sector.specialdata := Void
-						i_main.p_tick.p_removethinker (door.thinker) -- unlink and free
+						i_main.p_tick.p_removethinker (door) -- unlink and free
 						i_main.s_sound.s_startsound (door.sector.soundorg, {SFXENUM_T}.sfx_bdcls)
 					elseif door.type = normal or door.type = close then
 						door.sector.specialdata := Void
-						i_main.p_tick.p_removethinker (door.thinker)
+						i_main.p_tick.p_removethinker (door)
 					elseif door.type = close30ThenOpen then
 						door.direction := 0
 						door.topcountdown := 35 * 30
@@ -213,14 +213,14 @@ feature
 					end
 				end
 			elseif door.direction = 1 then
-				res := {P_FLOOR}.T_MovePlane (door.sector, door.speed, door.topheight, False, 1, door.direction)
+				res := i_main.p_floor.T_MovePlane (door.sector, door.speed, door.topheight, False, 1, door.direction)
 				if res = {RESULT_E}.pastdest then
 					if door.type = blazeRaise or door.type = normal then
 						door.direction := 0 -- wait at top
 						door.topcountdown := door.topwait
 					elseif door.type = close30ThenOpen or door.type = blazeOpen or door.type = open then
 						door.sector.specialdata := Void
-						i_main.p_tick.p_removethinker (door.thinker) -- unlink and free
+						i_main.p_tick.p_removethinker (door) -- unlink and free
 					end
 				end
 			end
