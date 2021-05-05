@@ -93,7 +93,7 @@ feature
 					or line.special = 117 -- Blazing door raise
 					or line.special = 118 -- Blazing door open
 				then
-					{P_DOORS}.EV_VerticalDoor (line, thing)
+					i_main.p_doors.EV_VerticalDoor (line, thing)
 				elseif -- SWITCHES
 					line.special = 7
 				then

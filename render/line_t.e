@@ -34,7 +34,12 @@ feature
 			flags := a_flags
 		end
 
-	special: INTEGER_16 -- Animation related
+	special: INTEGER_16 assign set_special -- Animation related
+
+	set_special (a_special: like special)
+		do
+			special := a_special
+		end
 
 	tag: INTEGER_16 -- Animation related
 

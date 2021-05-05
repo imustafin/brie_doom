@@ -43,4 +43,12 @@ feature
 
 	HUSTR_PLRRED: STRING = "Red: "
 
+feature -- P_Doors.C
+
+	PD_BLUEK: STRING = "You need a blue key to open this door"
+
+	PD_REDK: STRING = "You need a red key to open this door"
+
+	PD_YELLOWK: STRING = "You need a yellow key to open this door"
+
 end

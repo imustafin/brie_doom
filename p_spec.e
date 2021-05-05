@@ -22,6 +22,17 @@ feature
 
 feature
 
+	VDOORSPEED: INTEGER
+		once
+			Result := {M_FIXED}.fracunit * 2
+		ensure
+			instance_free: class
+		end
+
+	VDOORWAIT: INTEGER = 150
+
+feature
+
 	P_InitPicAnims
 		do
 				-- Stub
@@ -50,6 +61,11 @@ feature
 			-- to cross a line with a non 0 special
 		do
 				-- Stub
+		end
+
+	P_FindLowestCeilingSurrounding(sec: SECTOR_T): FIXED_T
+		do
+			{I_MAIN}.i_error ("P_FindLowestCeilingSurrounding not implemented")
 		end
 
 feature -- Special Stuff that can not be categorized

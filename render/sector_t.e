@@ -65,8 +65,13 @@ feature
 			thinglist := a_thinglist
 		end
 
-	specialdata: detachable ANY
+	specialdata: detachable ANY assign set_specialdata
 			-- thinker_t for reversable actions
+
+	set_specialdata (a_specialdata: like specialdata)
+		do
+			specialdata := a_specialdata
+		end
 
 	linecount: INTEGER assign set_linecount
 

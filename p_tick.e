@@ -18,7 +18,6 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-
 			create thinkercap.make
 		end
 
@@ -49,6 +48,11 @@ feature
 			thinker.next := thinkercap
 			thinker.prev := thinkercap.prev
 			thinkercap.prev := thinker
+		end
+
+	P_RemoveThinker (thinker: THINKER_T)
+		do
+			{I_MAIN}.i_error ("P_RemoveThinker not implemented")
 		end
 
 	P_Ticker
@@ -83,27 +87,26 @@ feature
 			end
 		end
 
-		P_RunThinkers
-			local
-				currentthinker: THINKER_T
-			do
-				currentthinker := thinkercap.next
-				from
-
-				until
-					currentthinker = thinkercap
-				loop
-					if attached currentthinker.function.acv as acv then
+	P_RunThinkers
+		local
+			currentthinker: THINKER_T
+		do
+			currentthinker := thinkercap.next
+			from
+			until
+				currentthinker = thinkercap
+			loop
+				if attached currentthinker.function.acv as acv then
 						-- time to remove it
-						currentthinker.next.prev := currentthinker.prev
-						currentthinker.prev.next := currentthinker.next
-					else
-						if attached currentthinker.function.acp1 as acp1 then
-							acp1.call
-						end
+					currentthinker.next.prev := currentthinker.prev
+					currentthinker.prev.next := currentthinker.next
+				else
+					if attached currentthinker.function.acp1 as acp1 then
+						acp1.call
 					end
-
-					currentthinker := currentthinker.next
 				end
+				currentthinker := currentthinker.next
 			end
+		end
+
 end

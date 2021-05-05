@@ -239,6 +239,11 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	p_doors: P_DOORS
+		once
+			create Result.make (Current)
+		end
+
 feature {NONE} -- Initialization
 
 	make
