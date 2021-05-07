@@ -9,7 +9,7 @@
 			<exclude>/\.git$</exclude>
 			<exclude>/\.svn$</exclude>
 		</file_rule>
-		<option profile="false" warning="true" syntax="standard" manifest_array_type="mismatch_error">
+		<option profile="true" warning="true" syntax="standard" manifest_array_type="mismatch_error">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<setting name="absent_explicit_assertion" value="true"/>
@@ -29,7 +29,6 @@
 		<cluster name="brie_doom" location=".\">
 			<option profile="true" syntax="standard" manifest_array_type="mismatch_error">
 			</option>
-			<cluster name="mus2mid" location=".\mus2mid\" recursive="true"/>
 			<cluster name="tests" location=".\tests\" recursive="true"/>
 			<cluster name="render" location=".\render\" recursive="true">
 				<option profile="false">
@@ -41,7 +40,13 @@
 					<assertions/>
 				</option>
 			</cluster>
-			<cluster name="sound" location=".\sound\" recursive="true">
+			<cluster name="sound" location=".\sound\">
+				<option profile="false">
+					<assertions/>
+				</option>
+				<cluster name="mus2mid" location="sound\mus2mid\" recursive="true"/>
+			</cluster>
+			<cluster name="pointers" location=".\pointers\" recursive="true">
 				<option profile="false">
 					<assertions/>
 				</option>
