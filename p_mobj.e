@@ -221,6 +221,16 @@ feature -- P_RemoveMobj
 
 				-- set subsector and/or block links
 			i_main.p_maputl.P_SetThingPosition (mobj)
+			after_p_set_thing_position(mobj, z)
+
+			mobj.thinker.function := agent P_MobjThinker(mobj)
+			i_main.p_tick.P_AddThinker (mobj)
+			Result := mobj
+		end
+
+	after_p_set_thing_position (mobj: MOBJ_T; z: FIXED_T)
+		-- Part of P_SpawnMobj for updating coords from subsector info
+		do
 			check attached mobj.subsector as subsector then
 				check attached subsector.sector as sector then
 					mobj.floorz := sector.floorheight
@@ -236,9 +246,7 @@ feature -- P_RemoveMobj
 			else
 				mobj.z := z
 			end
-			mobj.thinker.function := agent P_MobjThinker(mobj)
-			i_main.p_tick.P_AddThinker (mobj)
-			Result := mobj
+
 		end
 
 	P_MobjThinker (mobj: MOBJ_T)

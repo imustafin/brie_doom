@@ -592,6 +592,8 @@ feature
 				mo.y := -265927178
 				mo.z := 0
 				mo.angle := (3355443200).to_natural_32
+				i_main.p_maputl.P_SetThingPosition (mo)
+				i_main.p_mobj.after_p_set_thing_position(mo, {P_LOCAL}.onfloorz)
 			else
 				print ("DEBUG_B: player.mo is Void%N")
 			end
