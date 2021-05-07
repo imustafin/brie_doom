@@ -69,6 +69,8 @@ feature
 
 	V_DrawPatch (a_x, a_y: INTEGER; patch: PATCH_T)
 			-- Masks a column based masked pic to the screen.
+		require
+
 		local
 			x, y: INTEGER
 			count: INTEGER
@@ -123,6 +125,8 @@ feature
 
 	V_DrawBlock (x, y, width, a_height: INTEGER; a_src: PIXEL_T_BUFFER)
 			-- Draw a linear block of pixels into the view buffer.
+		require
+			RANGECHECK: x >= 0 and x + width <= {DOOMDEF_H}.screenwidth and y >= 0 and y + a_height <= {DOOMDEF_H}.screenheight
 		local
 			dest: POINTER
 			height: INTEGER

@@ -145,6 +145,8 @@ feature -- R_DrawColumn
 			-- will always have constant z depth.
 			-- Thus a special case loop for very fast rendering can be used.
 			-- It has also been used with Wolfenshtein 3D.
+		require
+			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		local
 			count: INTEGER
 			dest: PIXEL_T_BUFFER
@@ -211,6 +213,8 @@ feature
 feature
 
 	R_DrawTranslatedColumn
+		require
+			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		do
 				-- Stub
 		end
@@ -283,11 +287,7 @@ feature -- R_DrawSpan
 	R_DrawSpan
 			-- Draws the actual span
 		require
-				-- #ifdef RANGECHECK
-			ds_x2 >= ds_x1
-			ds_x1 >= 0
-			ds_x2 < SCREENWIDTH
-			ds_y <= SCREENHEIGHT -- originally casted ds_y to unsigned
+			RANGECHECK: ds_x2 >= ds_x1 and ds_x1 >= 0 and ds_x2 < SCREENWIDTH and ds_y <= SCREENHEIGHT -- originally casted ds_y to unsigned
 		local
 			xfrac: FIXED_T
 			yfrac: FIXED_T
@@ -332,16 +332,22 @@ feature -- R_DrawSpan
 feature
 
 	R_DrawColumnLow
+		require
+			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		do
 			{I_MAIN}.i_error ("R_DrawColumnLow not implemented")
 		end
 
 	R_DrawFuzzColumn
+		require
+			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		do
 				-- Stub
 		end
 
 	r_DrawSpanLow
+		require
+			RANGECHECK: ds_x2 >= ds_x1 and ds_x1 >= 0 and ds_x2 < SCREENWIDTH and ds_y <= SCREENHEIGHT
 		do
 				-- Stub
 		end

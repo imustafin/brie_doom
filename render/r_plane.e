@@ -154,10 +154,9 @@ feature
 	R_DrawPlanes
 			-- At the end of each frame.
 		require
-				-- ifdef RANGECHECK
-			i_main.r_bsp.ds_p <= {R_DEFS}.MAXDRAWSEGS
-			lastvisplane <= MAXVISPLANES
-			lastopening.index <= MAXOPENINGS
+			RANGECHECK_drawsegs_overflow: i_main.r_bsp.ds_p <= {R_DEFS}.MAXDRAWSEGS
+			RANGECHECK_visplane_overflow: lastvisplane <= MAXVISPLANES
+			RANGECHECK_opening_overflow: lastopening.index <= MAXOPENINGS
 		local
 			pl: INTEGER -- index inside visplanes
 			light: INTEGER
@@ -273,11 +272,7 @@ feature
 
 	R_MapPlane (y, x1, x2: INTEGER)
 		require
-				-- #ifdef RANGECHECK
-			x2 >= x1
-			x1 >= 0
-			x2 < i_main.r_draw.viewwidth
-			y <= i_main.r_draw.viewheight -- originally caster y to unsigned
+			RANGECHECK: x2 >= x1 and x1 >= 0 and x2 < i_main.r_draw.viewwidth and y <= i_main.r_draw.viewheight -- originally casted y to unsigned
 		local
 			angle: ANGLE_T
 			distance: FIXED_T

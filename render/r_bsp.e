@@ -136,6 +136,9 @@ feature
 			-- Determine floor/ceiling planes.
 			-- Add sprites of things in sector.
 			-- Draw one or more line segments.
+		require
+			-- RANGECHECK
+			i_main.p_setup.subsectors.valid_index (num)
 		local
 			count: INTEGER
 			line: INTEGER -- index in i_main.p_setup.segs

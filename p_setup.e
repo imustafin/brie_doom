@@ -65,8 +65,6 @@ feature
 
 	nodes: ARRAY [NODE_T]
 
-	numsubsectors: INTEGER
-
 	subsectors: ARRAY [SUBSECTOR_T]
 
 	numsegs: INTEGER
@@ -313,6 +311,7 @@ feature
 		local
 			data: MANAGED_POINTER
 			i: INTEGER
+			numsubsectors: INTEGER
 		do
 			numsubsectors := i_main.w_wad.w_lumplength (lump) // {SUBSECTOR_T}.structure_size
 			create subsectors.make_filled (create {SUBSECTOR_T}, 0, numsubsectors - 1)
@@ -377,9 +376,9 @@ feature
 			create bbox.make_filled (0, 0, 3)
 				-- look up sector number for each subsector
 			from
-				i := 0
+				i := subsectors.lower
 			until
-				i >= numsubsectors
+				i > subsectors.upper
 			loop
 				seg := segs [subsectors [i].firstline]
 				subsectors [i].sector := seg.sidedef.sector

@@ -107,6 +107,8 @@ feature
 	R_StoreWallRange (start, stop: INTEGER)
 			-- A wall segment will be drawn
 			-- between start and stop pixels (inclusive)
+		require
+			RANGECHECK: start < i_main.r_draw.viewwidth and start <= stop
 		local
 			hyp: FIXED_T
 			sineval: FIXED_T
