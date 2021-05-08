@@ -263,7 +263,7 @@ feature
 			from
 				i := 0
 			until
-				i >= sectors.upper
+				i > sectors.upper
 			loop
 				sectors [i] := create {SECTOR_T}.from_pointer (data, i * {SECTOR_T}.structure_size, i_main)
 				i := i + 1
