@@ -137,7 +137,7 @@ feature
 					j := j |<< 1
 				end
 				texturewidthmask [i] := j - 1
-				textureheight [i] := textures [i].height |<< {M_FIXED}.FRACBITS
+				textureheight [i] := textures [i].height.to_integer_32 |<< {M_FIXED}.FRACBITS
 				i := i + 1
 			end
 
