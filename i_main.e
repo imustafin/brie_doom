@@ -16,10 +16,6 @@ create
 
 feature -- Globals
 
-	myargc: INTEGER
-
-	myargv: ARRAY [IMMUTABLE_STRING_32]
-
 	doomstat_h: DOOMSTAT_H
 
 	inner_v_video: detachable V_VIDEO
@@ -254,13 +250,14 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	m_argv: M_ARGV
+
 feature {NONE} -- Initialization
 
 	make
 			-- Run application.
 		do
-			myargv := argument_array
-			myargc := argument_count + 1
+			create m_argv.make (argument_array)
 			create doomstat_h.make
 			create hu_lib.make
 			create am_map.make

@@ -117,6 +117,7 @@ feature
 				-- skip -nosfx
 				-- skip -nomusic
 				-- skip -nomusicpacks
+			nomusic := i_main.m_argv.m_checkparm ("-nomusic").to_boolean
 			nomusicpacks := True
 
 				-- Auto configure the music pack directory.
@@ -182,7 +183,7 @@ feature
 			end
 		end
 
-	I_StopSound(channel: INTEGER)
+	I_StopSound (channel: INTEGER)
 		do
 			if attached sound_module as m then
 				m.stop_sound (channel)
@@ -190,10 +191,10 @@ feature
 		end
 
 	I_SoundIsPlaying (channel: INTEGER): BOOLEAN
-		-- from chocolate doom
+			-- from chocolate doom
 		do
 			if attached sound_module as m then
-				Result := m.sound_is_playing(channel)
+				Result := m.sound_is_playing (channel)
 			end
 		end
 
@@ -260,11 +261,11 @@ feature
 		end
 
 	I_PauseSong
-	do
-		if attached active_music_module as m then
-			m.pause_music
+		do
+			if attached active_music_module as m then
+				m.pause_music
+			end
 		end
-	end
 
 	I_ResumeSong
 		do
@@ -354,4 +355,5 @@ feature
 		do
 			Result := separation.max (0).min (254)
 		end
+
 end
