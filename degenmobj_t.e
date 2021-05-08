@@ -29,6 +29,11 @@ feature
 			y := a_y
 		end
 
-	z: FIXED_T
+	z: FIXED_T assign set_z
+
+	set_z (a_z: like z)
+		do
+			z := a_z
+		end
 
 end

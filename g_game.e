@@ -588,9 +588,9 @@ feature
 	debug_b
 		do
 			if attached players [consoleplayer].mo as mo then
-				mo.x := 197525895
-				mo.y := -265927178
-				mo.angle := (3355443200).to_natural_32
+				mo.x := 200721466
+				mo.y := -317314360
+				mo.angle := (1656750080).to_natural_32
 				i_main.p_maputl.P_SetThingPosition (mo)
 				i_main.p_mobj.after_p_set_thing_position(mo, {P_LOCAL}.onfloorz)
 			else

@@ -31,6 +31,15 @@ feature
 
 	VDOORWAIT: INTEGER = 150
 
+	MAXSWITCHES: INTEGER = 50
+			-- max # of wall switches in a level
+
+	MAXBUTTONS: INTEGER = 16
+			-- 4 players, 4 buttons each at once, max.
+
+	BUTTONTIME: INTEGER = 35
+			-- 1 second, in ticks.
+
 feature
 
 	P_InitPicAnims
@@ -53,7 +62,7 @@ feature
 			-- Called every tic frame
 			-- that the player origin is in a special sector
 		do
-			-- Stub
+				-- Stub
 		end
 
 	P_CrossSpecialLine (linenum, side: INTEGER; thing: MOBJ_T)

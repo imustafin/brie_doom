@@ -19,11 +19,26 @@ feature
 	rowoffset: FIXED_T
 			-- add this to the calculated texture top
 
-	toptexture: INTEGER_16
+	toptexture: INTEGER_16 assign set_toptexture
 
-	bottomtexture: INTEGER_16
+	set_toptexture (a_toptexture: like toptexture)
+		do
+			toptexture := a_toptexture
+		end
 
-	midtexture: INTEGER_16
+	bottomtexture: INTEGER_16 assign set_bottomtexture
+
+	set_bottomtexture (a_bottomtexture: like bottomtexture)
+		do
+			bottomtexture := a_bottomtexture
+		end
+
+	midtexture: INTEGER_16 assign set_midtexture
+
+	set_midtexture (a_midtexture: like midtexture)
+		do
+			midtexture := a_midtexture
+		end
 
 	sector: detachable SECTOR_T
 			-- Sector the SideDef is facing.
