@@ -592,7 +592,7 @@ feature
 				mo.y := -317314360
 				mo.angle := (1656750080).to_natural_32
 				i_main.p_maputl.P_SetThingPosition (mo)
-				i_main.p_mobj.after_p_set_thing_position(mo, {P_LOCAL}.onfloorz)
+				i_main.p_mobj.after_p_set_thing_position (mo, {P_LOCAL}.onfloorz)
 			else
 				print ("DEBUG_B: player.mo is Void%N")
 			end
@@ -1027,12 +1027,12 @@ feature -- G_DoLoadLevel
 
 	G_DoLoadGame
 		do
-				-- Stub
+			{I_MAIN}.i_error ("G_DoLoadGame not implemented")
 		end
 
 	G_DoSaveGame
 		do
-				-- Stub
+			{I_MAIN}.i_error ("G_DoSaveGame not implemented")
 		end
 
 	G_DoPlayDemo
@@ -1043,12 +1043,12 @@ feature -- G_DoLoadLevel
 
 	G_DoCompleted
 		do
-				-- Stub
+			{I_MAIN}.i_error ("G_DoCompleted not implemented")
 		end
 
 	G_DoWorldDone
 		do
-				-- Stub
+			{I_MAIN}.i_error ("G_DoWorldDone not implemented")
 		end
 
 feature
