@@ -35,6 +35,26 @@ feature
 		end
 
 feature
+	-- GLOBAL LOCATIONS
+
+	WI_TITLEY: INTEGER = 2
+
+	WI_SPACINGY: INTEGER = 33
+
+		-- SINGPLE-PLAYER STUFF
+
+	SP_STATSX: INTEGER = 50
+
+	SP_STATSY: INTEGER = 50
+
+	SP_TIMEX: INTEGER = 16
+
+	SP_TIMEY: INTEGER
+		once
+			Result := (SCREENHEIGHT - 32)
+		end
+
+feature
 
 	wbs: detachable WBSTARTSTRUCT_T
 
@@ -271,12 +291,223 @@ feature -- GRAPHICS
 
 	lnames: detachable ARRAY [detachable PATCH_T]
 
-feature
+feature -- Drawing
+
+	WI_drawDeathmatchStats
+		do
+			{I_MAIN}.i_error ("WI_drawDeathmatchStats not implemented")
+		end
+
+	WI_drawNetgameStats
+		do
+			{I_MAIN}.i_error ("WI_drawNetgameStats not implemented")
+		end
+
+	WI_drawShowNextLoc
+		do
+			{I_MAIN}.i_error ("WI_drawShowNextLoc not implemented")
+		end
+
+	WI_drawNoState
+		do
+			{I_MAIN}.i_error ("WI_drawNoState not implemented")
+		end
+
+	WI_slamBackground
+			-- from chocolate doom
+		do
+			check attached bg as l_bg then
+				i_main.v_video.v_drawpatch (0, 0, l_bg)
+			end
+		end
+
+	WI_drawAnimatedBack
+		do
+				-- Stub
+			print ("WI_drawAnimatedBack is not implemented")
+		end
+
+	WI_drawLF
+			-- Draws "<Levelname> Finished!"
+		local
+			y: INTEGER
+		do
+			check attached wbs as l_wbs and then attached lnames as lns and then attached lns [l_wbs.last] as lname then
+				y := WI_TITLEY
+					-- draw <LevelName>
+				i_main.v_video.v_drawpatch ((SCREENWIDTH - lname.width.to_integer_32) // 2, y, lname)
+
+					-- draw "Finished!"
+				y := y + (5 * lname.height.to_integer_32) // 4
+				check attached finished as l_finished then
+					i_main.v_video.v_drawpatch ((SCREENWIDTH - l_finished.width.to_integer_32) // 2, y, l_finished)
+				end
+			end
+		end
+
+	WI_drawPercent (x, y, a_p: INTEGER)
+		do
+			if a_p >= 0 then
+				check attached percent as l_percent then
+					i_main.v_video.v_drawpatch (x, y, l_percent)
+				end
+				WI_drawNum (x, y, a_p, -1).do_nothing
+			end
+		end
+
+	WI_drawTime (a_x, y, t: INTEGER)
+			-- Display level completion time and par,
+			-- or "sucks" message if overflow
+		local
+			div: INTEGER
+			n: INTEGER
+			did: BOOLEAN
+			x: INTEGER
+		do
+			x := a_x
+			if t >= 0 then
+				if t <= 61 * 59 then
+					div := 1
+					from
+					until
+						did and t // div = 0
+					loop
+						n := (t // div) \\ 60
+						check attached colon as l_colon then
+							x := WI_drawNum (x, y, n, 2) - l_colon.width.to_integer_32
+						end
+						div := div * 60
+
+							-- draw
+						if div = 60 or t // div /= 0 then
+							check attached colon as l_colon then
+								i_main.v_video.v_drawpatch (x, y, l_colon)
+							end
+						end
+					end
+				else
+					check attached sucks as l_sucks then
+						i_main.v_video.v_drawpatch (x - l_sucks.width.to_integer_32, y, l_sucks)
+					end
+				end
+			end
+		end
+
+	WI_drawNum (a_x, y, a_n, a_digits: INTEGER): INTEGER
+			-- Draws a number.
+			-- If digits > 0, then use that many digits minimum,
+			-- otherwise only use as many as neccessary.
+			-- Returns new x position
+		local
+			fontwidth: INTEGER
+			neg: BOOLEAN
+			temp: INTEGER
+			digits: INTEGER
+			x: INTEGER
+			n: INTEGER
+		do
+			x := a_x
+			digits := a_digits
+			n := a_n
+			check attached num [0] as num0 then
+				fontwidth := num0.width.to_integer_32
+			end
+			if digits < 0 then
+				if n = 0 then
+						-- make variable-length zeros 1 digit long
+					digits := 1
+				else
+						-- figure out # of digits in #
+					digits := n.out.count
+				end
+			end
+			neg := n < 0
+			if neg then
+				n := - n
+			end
+
+				-- if non-number, do not draw it
+			if n = 1994 then
+				Result := 0
+			else
+					-- draw the new number
+				from
+				until
+					digits > 0
+				loop
+					digits := digits - 1
+					x := x - fontwidth
+					check attached num [n \\ 10] as num_patch then
+						i_main.v_video.v_drawpatch (x, y, num_patch)
+					end
+					n := n // 10
+				end
+					-- draw a minus sign if neccessary
+				if neg then
+					x := x - 8
+					check attached wiminus as wmn then
+						i_main.v_video.v_drawpatch (x, y, wmn)
+					end
+				end
+				Result := x
+			end
+		end
+
+	WI_drawStats
+		local
+			lh: INTEGER
+		do
+			check attached num [0] as n0 then
+				lh := (3 * n0.height.to_integer_32) // 2
+			end
+			WI_slamBackground
+				-- draw animated background
+			WI_drawAnimatedBack
+			WI_drawLF
+			check attached kills as l_kills then
+				i_main.v_video.V_DrawPatch (SP_STATSX, SP_STATSY, l_kills)
+			end
+			WI_drawPercent (SCREENWIDTH - SP_STATSX, SP_STATSY, cnt_kills [0])
+			check attached items as l_items then
+				i_main.v_video.V_DrawPatch (SP_STATSX, SP_STATSY + lh, l_items)
+			end
+			WI_drawPercent (SCREENWIDTH - SP_STATSX, SP_STATSY + lh, cnt_items [0])
+			check attached sp_secret as l_sp_secret then
+				i_main.v_video.V_DrawPatch (SP_STATSX, SP_STATSY + 2 * lh, l_sp_secret)
+			end
+			WI_drawPercent (SCREENWIDTH - SP_STATSX, SP_STATSY + 2 * lh, cnt_secret [0])
+			check attached time as l_time then
+				i_main.v_video.V_DrawPatch (SP_TIMEX, SP_TIMEY, l_time)
+			end
+			WI_drawTime (SCREENWIDTH // 2 - SP_TIMEX, SP_TIMEY, cnt_time)
+			check attached wbs as l_wbs then
+				if l_wbs.epsd < 3 then
+					check attached par as l_par then
+						i_main.v_video.V_DrawPatch (SCREENWIDTH // 2 + SP_TIMEX, SP_TIMEY, l_par)
+					end
+					WI_drawTime (SCREENWIDTH - SP_TIMEX, SP_TIMEY, cnt_par)
+				end
+			end
+		end
 
 	WI_Drawer
 		do
-				-- Stub
+			if state = StatCount then
+				if i_main.g_game.deathmatch then
+					WI_drawDeathmatchStats
+				elseif i_main.g_game.netgame then
+					WI_drawNetgameStats
+				else
+					WI_drawStats
+				end
+			elseif state = ShowNextLoc then
+				WI_drawShowNextLoc
+			elseif state = NoState then
+				WI_drawNoState
+			end
 		end
+
+feature
 
 	WI_Ticker
 		do
@@ -422,7 +653,10 @@ feature
 				-- "finished"
 			finished := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIF", {Z_ZONE}.pu_static))
 				-- "entering"
-			entering := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTK", {Z_ZONE}.pu_static))
+			entering := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIENTER", {Z_ZONE}.pu_static))
+				-- "kills"
+			kills := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTK", {Z_ZONE}.pu_static))
+
 				-- "scrt"
 			secret := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTS", {Z_ZONE}.pu_static))
 				-- "secret"
