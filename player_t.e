@@ -232,6 +232,14 @@ feature
 	cheats: INTEGER
 			-- Bit flags, for cheats and debug.
 
+	didsecret: BOOLEAN assign set_didsecret
+			-- True if secret level has been done.
+
+	set_didsecret (a_didsecret: like didsecret)
+		do
+			didsecret := a_didsecret
+		end
+
 feature -- POV
 
 	viewz: FIXED_T assign set_viewz -- Focal origin above r.z

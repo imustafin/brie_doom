@@ -28,4 +28,9 @@ feature
 				-- Stub
 		end
 
+	WI_Start(wbstartstruct: WBSTARTSTRUCT_T)
+		do
+			{I_MAIN}.i_error ("WI_Start not implemented")
+		end
+
 end

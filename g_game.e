@@ -22,6 +22,13 @@ feature
 		do
 			i_main := a_i_main
 			create wminfo
+			pars := <<<<30, 75, 120, 90, 165, 180, 180, 30, 165>>, <<90, 90, 90, 120, 90, 360, 240, 30, 170>>, <<90, 45, 90, 150, 90, 90, 165, 30, 135>>>>
+			cpars := <<30, 90, 120, 120, 90, 150, 120, 120, 270, 90, --  1-10
+ 210, 150, 150, 150, 210, 150, 420, 150, 210, 150, -- 11-20
+ 240, 150, 180, 150, 150, 300, 330, 420, 300, 180, -- 21-30
+ 120, 30 -- 31-32
+			>>
+			cpars.rebase (0)
 		end
 
 feature
@@ -1041,9 +1048,132 @@ feature -- G_DoLoadLevel
 			gameaction := ga_nothing
 		end
 
-	G_DoCompleted
+	G_PlayerFinishLevel (player: INTEGER)
+			-- Can when a player completes a level.
+		local
+			p: PLAYER_T
 		do
-			{I_MAIN}.i_error ("G_DoCompleted not implemented")
+			p := players [player]
+			p.powers.fill_with (0)
+			p.cards.fill_with (False)
+			check attached p.mo as mo then
+				mo.flags := mo.flags & {P_MOBJ}.MF_SHADOW.bit_not -- cancel invisibility
+			end
+			p.extralight := 0 -- cancel gun flashes
+			p.fixedcolormap := 0 -- cancel ir gogles
+			p.damagecount := 0 -- no palette changes
+			p.bonuscount := 0
+		end
+
+	cpars: ARRAY [INTEGER]
+
+	pars: ARRAY [ARRAY [INTEGER]]
+
+	statcopy: detachable WBSTARTSTRUCT_T
+
+	G_DoCompleted
+		local
+			i: INTEGER
+			returned: BOOLEAN
+		do
+			gameaction := ga_nothing
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				if playeringame [i] then
+					G_PlayerFinishLevel (i) -- take away cards and stuff
+				end
+				i := i + 1
+			end
+			if i_main.am_map.automapactive then
+				i_main.am_map.AM_Stop
+			end
+			if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				if gamemap = 8 then
+					gameaction := ga_victory
+					returned := True
+				elseif gamemap = 9 then
+					from
+						i := 0
+					until
+						i >= MAXPLAYERS
+					loop
+						players [i].didsecret := True
+						i := i + 1
+					end
+				end
+				if not returned then
+					wminfo.didsecret := players [consoleplayer].didsecret
+					wminfo.epsd := gameepisode - 1
+					wminfo.last := gamemap - 1
+
+						-- wminfo.next is 0 biased, unlike gamemap
+					if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+						if secretexit then
+							if gamemap = 15 then
+								wminfo.next := 30
+							elseif gamemap = 31 then
+								wminfo.next := 31
+							end
+						else
+							if gamemap = 31 or gamemap = 32 then
+								wminfo.next := 15
+							else
+								wminfo.next := gamemap
+							end
+						end
+					else
+						if secretexit then
+							wminfo.next := 8 -- go to secret level
+						elseif gamemap = 9 then
+								-- returning from secret level
+							if gameepisode = 1 then
+								wminfo.next := 3
+							elseif gameepisode = 2 then
+								wminfo.next := 5
+							elseif gameepisode = 3 then
+								wminfo.next := 6
+							elseif gameepisode = 4 then
+								wminfo.next := 2
+							end
+						else
+							wminfo.next := gamemap -- go to next level
+						end
+					end
+					wminfo.maxkills := totalkills
+					wminfo.maxitems := totalitems
+					wminfo.maxsecret := totalsecret
+					wminfo.maxfrags := 0
+					if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+						wminfo.partime := 35 * cpars [gamemap - 1]
+					else
+						wminfo.partime := 35 * pars [gameepisode] [gamemap]
+					end
+					wminfo.pnum := consoleplayer
+					from
+						i := 0
+					until
+						i >= MAXPLAYERS
+					loop
+						wminfo.plyr [i].in := playeringame [i]
+						wminfo.plyr [i].skills := players [i].killcount
+						wminfo.plyr [i].sitems := players [i].itemcount
+						wminfo.plyr [i].ssecret := players [i].secretcount
+						wminfo.plyr [i].stime := i_main.p_tick.leveltime
+						wminfo.plyr [i].frags.copy (players [i].frags)
+						i := i + 1
+					end
+					gamestate := GS_INTERMISSION
+					viewactive := False
+					i_main.am_map.automapactive := False
+					if attached statcopy as statcopy_attached then
+						statcopy_attached.copy (wminfo)
+					end
+					i_main.wi_stuff.WI_Start (wminfo)
+				end
+			end
 		end
 
 	G_DoWorldDone
@@ -1188,5 +1318,9 @@ feature
 				i := i + 1
 			end
 		end
+
+invariant
+	cpars.lower = 0 and cpars.count = 32
+	pars.lower = 1 and pars.count = 3 and across pars as p all p.item.lower = 1 and p.item.count = 9 end
 
 end

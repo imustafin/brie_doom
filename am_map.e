@@ -39,6 +39,11 @@ feature
 				-- Stub
 		end
 
+	AM_Stop
+		do
+				-- Stub
+		end
+
 feature
 
 	AM_Ticker
