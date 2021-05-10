@@ -32,7 +32,7 @@ feature
 			until
 				not Result or i >= ar.count
 			loop
-				Result := across ar.subarray (i + 1, ar.upper) as it all it.item /= ar [i] end
+				Result := across ar.subarray (i + 1, ar.upper) as it all it.item /= Void implies it.item /= ar [i] end
 				i := i + 1
 			end
 		ensure

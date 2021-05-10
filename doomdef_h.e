@@ -135,4 +135,14 @@ feature
 	MTF_AMBUSH: INTEGER = 8
 			-- Deaf monsters/do not react to sound
 
+feature
+
+	english: INTEGER = 0
+
+	french: INTEGER = 1
+
+	german: INTEGER = 2
+
+	unknown: INTEGER = 3
+
 end

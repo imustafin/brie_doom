@@ -183,6 +183,9 @@ feature -- Globals
 	am_map: AM_MAP
 
 	wi_stuff: WI_STUFF
+		once
+			create Result.make (Current)
+		end
 
 	m_random: M_RANDOM
 
@@ -261,7 +264,6 @@ feature {NONE} -- Initialization
 			create doomstat_h.make
 			create hu_lib.make
 			create am_map.make
-			create wi_stuff.make
 			create p_spec.make
 			create info.make
 			create z_zone.make
