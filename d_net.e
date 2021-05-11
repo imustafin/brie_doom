@@ -21,6 +21,9 @@ feature
 			create netbuffer.make
 			create doomcom.make
 			create localcmds.make_filled (create {TICCMD_T}, 0, BACKUPTICS - 1)
+			create nodeforplayer.make_filled (0, 0, {DOOMDEF_H}.MAXPLAYERS - 1)
+			create frameskip.make_filled (False, 0, 3)
+			create frametics.make_filled (0, 0, 3)
 		end
 
 feature
@@ -28,6 +31,8 @@ feature
 	skiptics: INTEGER
 
 	localcmds: ARRAY [TICCMD_T]
+
+	nodeforplayer: ARRAY [INTEGER]
 
 feature
 
@@ -171,12 +176,165 @@ feature
 			maketic := a_maketic
 		end
 
-feature
+feature -- TryRunTics
+
+	oldentertics: INTEGER
+
+	frametics: ARRAY [INTEGER]
+
+	frameon: INTEGER
+
+	frameskip: ARRAY [BOOLEAN]
+
+	oldnettics: INTEGER
 
 	TryRunTics
+		local
+			i: INTEGER
+			lowtic: INTEGER
+			entertic: INTEGER
+			realtics: INTEGER
+			availabletics: INTEGER
+			counts: INTEGER
+			numplaying: INTEGER
+			returned: BOOLEAN
+			cmd: TICCMD_T
+			buf: INTEGER
+			j: INTEGER
 		do
-				-- Stub
+				-- get real tics
+			entertic := i_main.i_system.i_gettime // ticdup
+			realtics := entertic - oldentertics
+			oldentertics := entertic
+
+				-- get available tics
+			NetUpdate
+			lowtic := {DOOMTYPE_H}.MAXINT
+			numplaying := 0
+			from
+				i := 0
+			until
+				i >= doomcom.numnodes
+			loop
+				if nodeingame [i] then
+					numplaying := numplaying + 1
+					if nettics [i] < lowtic then
+						lowtic := nettics [i]
+					end
+				end
+				i := i + 1
+			end
+			availabletics := lowtic - i_main.g_game.gametic // ticdup
+
+				-- decide how many tics to run
+			if realtics < availabletics - 1 then
+				counts := realtics + 1
+			elseif realtics < availabletics then
+				counts := realtics
+			else
+				counts := availabletics
+			end
+			if counts < 1 then
+				counts := 1
+			end
+			frameon := frameon + 1
+			if i_main.d_doom_main.debugfile /= Void then
+				{I_MAIN}.i_error ("debug file writing not implemented")
+			end
+			if not i_main.g_game.demoplayback then
+					-- ideally nettics[0] should be 1 - 3 tics above lowtic
+					-- if we are consistantly slower, speed up time
+				from
+					i := 0
+				until
+					i >= {DOOMDEF_H}.MAXPLAYERS or else i_main.g_game.playeringame [i]
+				loop
+					i := i + 1
+				end
+				if i_main.g_game.consoleplayer = i then
+						-- the key player does not adapt
+				else
+					if nettics [0] <= nettics [nodeforplayer [i]] then
+						gametime := gametime - 1
+					end
+					frameskip [frameon & 3] := oldnettics > nettics [nodeforplayer [i]]
+					oldnettics := nettics [0]
+					if frameskip [0] and frameskip [1] and frameskip [2] and frameskip [3] then
+						skiptics := 1
+					end
+				end
+			end
+
+				-- wait for new tics if needed
+			from
+			until
+				lowtic >= i_main.g_game.gametic // ticdup + counts
+			loop
+				NetUpdate
+				lowtic := {DOOMTYPE_H}.MAXINT
+				from
+					i := 0
+				until
+					returned or i >= doomcom.numnodes
+				loop
+					if nodeingame [i] and nettics [i] < lowtic then
+						lowtic := nettics [i]
+						i := i + 1
+					end
+				end
+				if lowtic < i_main.g_game.gametic // ticdup then
+					{I_MAIN}.i_error ("TryRunTics: lowtic < gametic")
+				end
+
+					-- don't stay in here forever -- give the menu a chance to work
+				if i_main.i_system.i_gettime // ticdup - entertic >= 20 then
+					i_main.m_menu.m_ticker
+					returned := True
+				end
+			end
+				-- run the count * ticdup dics
+			from
+			until
+				counts = 0
+			loop
+				counts := counts - 1
+				from
+					i := 0
+				until
+					i >= ticdup
+				loop
+					if i_main.g_game.gametic // ticdup > lowtic then
+						{I_MAIN}.i_error ("gametic > lowtic")
+					end
+					if i_main.d_doom_main.advancedemo then
+						i_main.d_doom_main.D_DoAdvanceDemo
+					end
+					i_main.m_menu.M_Ticker
+					i_main.g_game.G_Ticker
+					i_main.g_game.gametic := i_main.g_game.gametic + 1
+						-- modify command for duplicated tics
+					if i /= ticdup - 1 then
+						buf := (i_main.g_game.gametic // ticdup) \\ BACKUPTICS
+						from
+							j := 0
+						until
+							j >= {DOOMDEF_H}.MAXPLAYERS
+						loop
+							cmd := netcmds [j] [buf]
+							cmd.chatchar := (0).to_character_8
+							if cmd.buttons & {D_EVENT}.BT_SPECIAL /= 0 then
+								cmd.buttons := 0
+							end
+							j := j + 1
+						end
+					end
+					i := i + 1
+				end
+			end
+			NetUpdate
 		end
+
+feature
 
 	D_ArbitrateNetStart
 		do
@@ -243,7 +401,7 @@ feature -- NetUpdate
 				check attached i_main.d_doom_main as main then
 					if not main.singletics then
 							-- if singletics, would have returned beforee
-
+						
 							-- :listen
 						GetPackets
 					end
@@ -259,5 +417,8 @@ feature -- NetUpdate
 invariant
 	localcmds.count = BACKUPTICS
 	localcmds.lower = 0
+	frametics.lower = 0 and frametics.count = 4
+	frameskip.lower = 0 and frameskip.count = 4
+	nodeforplayer.lower = 0 and nodeforplayer.count = {DOOMDEF_H}.MAXPLAYERS
 
 end

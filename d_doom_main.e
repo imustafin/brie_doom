@@ -23,8 +23,6 @@ feature
 		do
 			i_main := a_i_main
 			create {LINKED_LIST [STRING]} wadfiles.make
-
-			
 			pagename := ""
 		end
 
@@ -39,6 +37,8 @@ feature
 	autostart: BOOLEAN
 
 	singletics: BOOLEAN = True -- debug flag to cancel adaptiveness
+
+	debugfile: detachable FILE
 
 feature -- DEMO LOOP
 
@@ -140,8 +140,6 @@ feature
 			demosequence := -1
 			D_AdvanceDemo
 		end
-
-
 
 	advancedemo: BOOLEAN
 
@@ -291,7 +289,6 @@ feature -- D_DoomLoop
 					-- Should not reach here
 			end
 		end
-
 
 feature -- EVENT HANDLING
 

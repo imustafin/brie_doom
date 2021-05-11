@@ -172,7 +172,10 @@ feature -- Globals
 
 	i_net: detachable I_NET
 
-	d_doom_main: detachable D_DOOM_MAIN
+	d_doom_main: D_DOOM_MAIN
+		once
+			create Result.make (Current)
+		end
 
 	f_finale: F_FINALE
 
@@ -291,15 +294,12 @@ feature {NONE} -- Initialization
 			create inner_m_menu.make (Current)
 			create inner_w_wad.make (Current)
 			create inner_i_system.make (Current)
-			create d_doom_main.make (Current)
 			create f_wipe.make (Current)
 			create inner_v_video.make (Current)
 			create i_net.make (Current)
 			create inner_d_net.make (Current)
 			create inner_m_misc.make (Current)
-			check attached d_doom_main as d then
-				d.D_DoomMain
-			end
+			d_doom_main.D_DoomMain
 		end
 
 feature -- i_system.c
