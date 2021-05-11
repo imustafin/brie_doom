@@ -1193,7 +1193,11 @@ feature -- G_DoLoadLevel
 
 	G_DoWorldDone
 		do
-			{I_MAIN}.i_error ("G_DoWorldDone not implemented")
+			gamestate := GS_LEVEL
+			gamemap := wminfo.next + 1
+			G_DoLoadLevel
+			gameaction := ga_nothing
+			viewactive := True
 		end
 
 feature

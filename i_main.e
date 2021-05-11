@@ -255,6 +255,11 @@ feature -- Globals
 
 	m_argv: M_ARGV
 
+	p_spr: P_SPR
+		once
+			create Result
+		end
+
 feature {NONE} -- Initialization
 
 	make

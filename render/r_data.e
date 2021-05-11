@@ -338,7 +338,7 @@ feature
 				from
 					Result := 0
 				until
-					Result >= NUMTEXTURES or else textures [Result].name ~ name
+					Result >= NUMTEXTURES or else textures [Result].name.as_upper ~ name.as_upper
 				loop
 					Result := Result + 1
 				end

@@ -109,7 +109,7 @@ feature
 					-- Call action routine.
 					-- Modified handling.
 				if attached state.action as action then
-					action.call (player, psp)
+					action.call (i_main.p_spr, player, psp)
 					if psp.state = Void then
 						break := True
 					end
