@@ -37,6 +37,94 @@ feature
 			instance_free: class
 		end
 
+	WEAPONTOP: INTEGER
+		once
+			Result := 32 * {M_FIXED}.fracunit
+		end
+
+	RAISESPEED: INTEGER
+		once
+			Result := {M_FIXED}.fracunit * 6
+		ensure
+			instance_free: class
+		end
+
+feature
+
+	A_Raise (player: PLAYER_T; psp: PSPDEF_T)
+		local
+			newstate: INTEGER
+		do
+			psp.sy := psp.sy - RAISESPEED
+			if psp.sy > WEAPONTOP then
+					-- return
+			else
+				psp.sy := WEAPONTOP
+					-- The weapon has been raised all the way,
+					-- so change to the ready state.
+				newstate := {D_ITEMS}.weaponinfo [player.readyweapon].readystate
+				P_SetPsprite (player, ps_weapon, newstate)
+			end
+		end
+
+	A_WeaponReady (player: PLAYER_T; psp: PSPDEF_T)
+			-- The player can fire the weapon
+			-- or change to another weapon at this time.
+			-- Follows after getting weapon up,
+			-- or after previous attack/fire sequence.
+		local
+			newstate: INTEGER
+			angle: INTEGER
+			returned: BOOLEAN
+		do
+				-- get out of attack state
+			check attached player.mo as mo then
+				if mo.state = {INFO}.states [{INFO}.S_PLAY_ATK1] or mo.state = {INFO}.states [{INFO}.S_PLAY_ATK2] then
+					i_main.p_mobj.P_SetMobjState (mo, {INFO}.S_PLAY).do_nothing
+				end
+				if player.readyweapon = {DOOMDEF_H}.wp_chainsaw and psp.state = {INFO}.states [{INFO}.S_SAW] then
+					i_main.s_sound.s_startsound (mo, {SFXENUM_T}.sfx_sawidl)
+				end
+
+					-- check for range
+					-- if player is dead, put the weapon away
+				if player.pendingweapon /= {DOOMDEF_H}.wp_nochange or player.health = 0 then
+						-- change weapon
+						-- (pending weapon should allready be validated)
+					newstate := {D_ITEMS}.weaponinfo [player.readyweapon].downstate
+					P_SetPsprite (player, ps_weapon, newstate)
+					returned := True
+				end
+				if not returned then
+						-- check for fire
+						-- the missile launcher and bfg do not auto fire
+					if player.cmd.buttons & {D_EVENT}.BT_ATTACK /= 0 then
+						if not player.attackdown or (player.readyweapon /= {DOOMDEF_H}.wp_missile and player.readyweapon /= {DOOMDEF_H}.wp_bfg) then
+							player.attackdown := True
+							P_FireWeapon (player)
+							returned := True
+						end
+					else
+						player.attackdown := False
+					end
+				end
+				if not returned then
+						-- bob the weapon based on movement speed
+					angle := (128 * i_main.p_tick.leveltime) & {R_MAIN}.FINEMASK
+					psp.sx := {M_FIXED}.FRACUNIT + {M_FIXED}.fixedmul (player.bob, {R_MAIN}.finecosine [angle])
+					angle := angle & ({R_MAIN}.FINEANGLES // 2 - 1)
+					psp.sy := WEAPONTOP + {M_FIXED}.fixedmul (player.bob, {R_MAIN}.finesine [angle])
+				end
+			end
+		end
+
+feature
+
+	P_FireWeapon (player: PLAYER_T)
+		do
+				-- Stub
+		end
+
 feature
 
 	P_SetupPsprites (player: PLAYER_T)
@@ -84,13 +172,15 @@ feature
 			state: STATE_T
 			break: BOOLEAN
 			stnum: INTEGER
+			did: BOOLEAN
 		do
 			stnum := a_stnum
 			psp := player.psprites [position]
 			from
 			until
-				break or else psp.tics = 0
+				did and (break or psp.tics /= 0)
 			loop
+				did := True
 				if stnum = 0 then
 						-- object removed itself
 					psp.state := Void
@@ -109,7 +199,7 @@ feature
 					-- Call action routine.
 					-- Modified handling.
 				if attached state.action as action then
-					action.call (i_main.p_spr, player, psp)
+					action.call (i_main.p_pspr, player, psp)
 					if psp.state = Void then
 						break := True
 					end

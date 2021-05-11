@@ -17,23 +17,9 @@ feature
 			instance_free: class
 		end
 
-	A_WeaponReady (player: PLAYER_T; psp: PSPDEF_T)
-			-- The player can fire the weapon
-			-- or change to another weapon at this time.
-			-- Follows after getting weapon up,
-			-- or after previous attack/fire sequence.
-		do
-				-- Stub
-		end
-
 	A_Lower (player: PLAYER_T; psp: PSPDEF_T)
 			-- Lowers current weapon,
 			-- and changes weapon at bottom.
-		do
-				-- Stub
-		end
-
-	A_Raise (player: PLAYER_T; psp: PSPDEF_T)
 		do
 				-- Stub
 		end
