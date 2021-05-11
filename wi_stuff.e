@@ -56,6 +56,11 @@ feature
 
 feature
 
+	SHOWNEXTLOCDELAY: INTEGER = 4
+			-- in seconds
+
+feature
+
 	wbs: detachable WBSTARTSTRUCT_T
 
 	plrs: detachable ARRAY [WBPLAYERSTRUCT_T]
@@ -165,6 +170,61 @@ feature
 			Result.lower = 0
 		end
 
+	lnodes: ARRAY [ARRAY [POINT_T]]
+		do
+			Result := <<
+				-- Episode 0 World Map
+			<<
+				--
+			create {POINT_T}.make (185, 164), -- location of level 0 (CJ)
+ create {POINT_T}.make (148, 143), -- location of level 1 (CJ)
+ create {POINT_T}.make (69, 122), -- location of level 2 (CJ)
+ create {POINT_T}.make (209, 102), -- location of level 3 (CJ)
+ create {POINT_T}.make (116, 89), -- location of level 4 (CJ)
+ create {POINT_T}.make (166, 55), -- location of level 5 (CJ)
+ create {POINT_T}.make (71, 56), -- location of level 6 (CJ)
+ create {POINT_T}.make (135, 29), -- location of level 7 (CJ)
+ create {POINT_T}.make (71, 24) -- location of level 8 (CJ)
+				--
+			>>,
+
+				-- Episode 1 World Map should go here
+ <<
+				--
+			create {POINT_T}.make (254, 25), -- location of level 0 (CJ)
+ create {POINT_T}.make (97, 50), -- location of level 1 (CJ)
+ create {POINT_T}.make (188, 64), -- location of level 2 (CJ)
+ create {POINT_T}.make (128, 78), -- location of level 3 (CJ)
+ create {POINT_T}.make (214, 92), -- location of level 4 (CJ)
+ create {POINT_T}.make (133, 130), -- location of level 5 (CJ)
+ create {POINT_T}.make (208, 136), -- location of level 6 (CJ)
+ create {POINT_T}.make (148, 140), -- location of level 7 (CJ)
+ create {POINT_T}.make (235, 158) -- location of level 8 (CJ)
+				--
+			>>,
+
+				-- Episode 2 World Map should go here
+ <<
+				--
+			create {POINT_T}.make (156, 168), -- location of level 0 (CJ)
+ create {POINT_T}.make (48, 154), -- location of level 1 (CJ)
+ create {POINT_T}.make (174, 95), -- location of level 2 (CJ)
+ create {POINT_T}.make (265, 75), -- location of level 3 (CJ)
+ create {POINT_T}.make (130, 48), -- location of level 4 (CJ)
+ create {POINT_T}.make (279, 23), -- location of level 5 (CJ)
+ create {POINT_T}.make (198, 48), -- location of level 6 (CJ)
+ create {POINT_T}.make (140, 25), -- location of level 7 (CJ)
+ create {POINT_T}.make (281, 136) -- location of level 8 (CJ)
+				--
+			>>>>
+			Result.rebase (0)
+			across
+				Result as ri
+			loop
+				ri.item.rebase (0)
+			end
+		end
+
 feature
 
 	NUMANIMS: ARRAY [INTEGER]
@@ -172,6 +232,8 @@ feature
 	anims: ARRAY [ARRAY [ANIM_T]]
 
 	NUMCMAPS: INTEGER
+
+	snl_pointeron: BOOLEAN
 
 feature
 
@@ -303,14 +365,118 @@ feature -- Drawing
 			{I_MAIN}.i_error ("WI_drawNetgameStats not implemented")
 		end
 
-	WI_drawShowNextLoc
+	WI_drawEL
+			-- Draws "Entering <LevelName>"
+		local
+			y: INTEGER
 		do
-			{I_MAIN}.i_error ("WI_drawShowNextLoc not implemented")
+			y := WI_TITLEY
+				-- draw "Entering"
+			check attached entering as l_entering then
+				i_main.v_video.v_drawpatch ((SCREENWIDTH - l_entering.width.to_integer_32) // 2, y, l_entering)
+			end
+
+				-- draw level
+			check attached wbs as l_wbs and then attached lnames as lns and then attached lns [l_wbs.next] as next then
+				y := y + (5 * next.height.to_integer_32) // 4
+				i_main.v_video.v_drawpatch ((SCREENWIDTH - next.width.to_integer_32) // 2, y, next)
+			end
+		end
+
+	WI_drawOnLnode (n: INTEGER; c: ARRAY [PATCH_T])
+		local
+			i: INTEGER
+			left: INTEGER
+			top: INTEGER
+			right: INTEGER
+			bottom: INTEGER
+			fits: BOOLEAN
+		do
+			from
+				i := 0
+			until
+				fits or i = 2
+			loop
+				check attached wbs as l_wbs then
+					left := lnodes [l_wbs.epsd] [n].x - c [i].leftoffset.to_integer_32
+					top := lnodes [l_wbs.epsd] [n].y - c [i].topoffset.to_integer_32
+					right := left + c [i].width.to_integer_32
+					bottom := top + c [i].height.to_integer_32
+					if left >= 0 and right <= SCREENWIDTH and top >= 0 and bottom < SCREENHEIGHT then
+						fits := True
+					else
+						i := i + 1
+					end
+					if fits and i < 2 then
+						i_main.v_video.v_drawpatch (lnodes [l_wbs.epsd] [n].x, lnodes [l_wbs.epsd] [n].y, c [i])
+					else
+							-- DEBUG
+						print ("Could not place patch on level " + (n + 1).out + "%N")
+					end
+				end
+			end
+		end
+
+	WI_drawShowNextLoc
+		local
+			i: INTEGER
+			last: INTEGER
+			returned: BOOLEAN
+			splat_ar, yah_ar: ARRAY [PATCH_T]
+		do
+			check attached splat as l_splat then
+				splat_ar := <<l_splat>>
+				splat_ar.rebase (0)
+			end
+			WI_slamBackground
+			WI_drawAnimatedBack
+			if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				check attached wbs as l_wbs then
+					if l_wbs.epsd > 2 then
+						WI_drawEL
+						returned := True
+					end
+					if not returned then
+						last := if l_wbs.last = 8 then l_wbs.next - 1 else l_wbs.last end
+							-- draw a splat on taken cities.
+						from
+							i := 0
+						until
+							i > last
+						loop
+							WI_drawOnLnode (i, splat_ar)
+							i := i + 1
+						end
+							-- splat the secret level?
+						if l_wbs.didsecret then
+							WI_drawOnLnode (8, splat_ar)
+						end
+
+							-- draw flashing ptr
+						if snl_pointeron then
+							check attached yah [0] as yah0 and then attached yah [1] as yah1 then
+								yah_ar := <<yah0, yah1>>
+								yah_ar.rebase (0)
+								WI_drawOnLnode (l_wbs.next, yah_ar)
+							end
+						end
+					end
+				end
+			end
+			if not returned then
+					-- draws which level you are entering...
+				check attached wbs as l_wbs then
+					if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial or l_wbs.next /= 30 then
+						WI_drawEL
+					end
+				end
+			end
 		end
 
 	WI_drawNoState
 		do
-			{I_MAIN}.i_error ("WI_drawNoState not implemented")
+			snl_pointeron := True
+			WI_drawShowNextLoc
 		end
 
 	WI_slamBackground
@@ -372,6 +538,7 @@ feature -- Drawing
 					until
 						did and t // div = 0
 					loop
+						did := True
 						n := (t // div) \\ 60
 						check attached colon as l_colon then
 							x := WI_drawNum (x, y, n, 2) - l_colon.width.to_integer_32
@@ -509,9 +676,196 @@ feature -- Drawing
 
 feature
 
+	WI_checkForAccelerate
+		local
+			i: INTEGER
+			player: PLAYER_T
+		do
+				-- check for button presses to skip delays
+			from
+				i := 0
+			until
+				i >= MAXPLAYERS
+			loop
+				player := i_main.g_game.players [i]
+				if player.cmd.buttons & {D_EVENT}.BT_ATTACK /= 0 then
+					if not player.attackdown then
+						acceleratestage := 1
+					end
+					player.attackdown := True
+				else
+					player.attackdown := False
+				end
+				if player.cmd.buttons & {D_EVENT}.BT_USE /= 0 then
+					if not player.usedown then
+						acceleratestage := 1
+					end
+					player.usedown := True
+				else
+					player.usedown := False
+				end
+				i := i + 1
+			end
+		end
+
+	WI_updateDeathmatchStats
+		do
+			{I_MAIN}.i_error ("WI_updateDeathmatchStats not implemented")
+		end
+
+	WI_updateNetgameStats
+		do
+			{I_MAIN}.i_error ("WI_updateNetgameStats not implemented")
+		end
+
+	WI_updateStats
+		do
+			WI_updateAnimatedBack
+			check attached plrs as l_plrs and then attached l_plrs [me] as pme and then attached wbs as l_wbs then
+				if acceleratestage /= 0 and sp_state /= 10 then
+					acceleratestage := 0
+					cnt_kills [0] := (pme.skills * 100) // l_wbs.maxkills
+					cnt_items [0] := (pme.sitems * 100) // l_wbs.maxitems
+					cnt_secret [0] := (pme.ssecret * 100) // l_wbs.maxsecret
+					cnt_time := pme.stime // TICRATE
+					cnt_par := l_wbs.partime // TICRATE
+					i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+					sp_state := 10
+				end
+				if sp_state = 2 then
+					cnt_kills [0] := cnt_kills [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_kills [0] >= (pme.skills * 100) // l_wbs.maxkills then
+						cnt_kills [0] := (pme.skills * 100) // l_wbs.maxkills
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 4 then
+					cnt_items [0] := cnt_items [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_items [0] >= (pme.sitems * 100) // l_wbs.maxitems then
+						cnt_items [0] := (pme.sitems * 100) // l_wbs.maxitems
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 6 then
+					cnt_secret [0] := cnt_secret [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_secret [0] >= (pme.ssecret * 100) // l_wbs.maxsecret then
+						cnt_secret [0] := (pme.ssecret * 100) // l_wbs.maxsecret
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 8 then
+					if bcnt & 3 = 0 then
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					cnt_time := cnt_time + 3
+					if cnt_time >= pme.stime // TICRATE then
+						cnt_time := pme.stime // TICRATE
+					end
+					cnt_par := cnt_par + 3
+					if cnt_par >= l_wbs.partime // TICRATE then
+						cnt_par := l_wbs.partime // TICRATE
+						if cnt_time >= pme.stime // TICRATE then
+							i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+							sp_state := sp_state
+						end
+					end
+				elseif sp_state = 10 then
+					if acceleratestage /= 0 then
+						i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_sgcock)
+						if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+							WI_initNoState
+						else
+							WI_initShowNextLoc
+						end
+					end
+				elseif sp_state & 1 /= 0 then
+					cnt_pause := cnt_pause - 1
+					if cnt_pause = 0 then
+						sp_state := sp_state + 1
+						cnt_pause := TICRATE
+					end
+				end
+			end
+		end
+
+	WI_updateShowNextLoc
+		do
+			WI_updateAnimatedBack
+			cnt := cnt - 1
+			if cnt = 0 or acceleratestage /= 0 then
+				WI_initNoState
+			else
+				snl_pointeron := (cnt & 31) < 20
+			end
+		end
+
+	WI_initNoState
+		do
+			state := NoState
+			acceleratestage := 0
+			cnt := 10
+		end
+
+	WI_initShowNextLoc
+		do
+			state := ShowNextLoc
+			acceleratestage := 0
+			cnt := SHOWNEXTLOCDELAY * TICRATE
+			WI_initAnimatedBack
+		end
+
 	WI_Ticker
+			-- Updates stuff each tick
+		do
+				-- counter for general background animation
+			bcnt := bcnt + 1
+			if bcnt = 1 then
+					-- intermission music
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					i_main.s_sound.s_changemusic ({SOUNDS_H}.mus_dm2int, True)
+				else
+					i_main.s_sound.s_changemusic ({SOUNDS_H}.mus_inter, True)
+				end
+			end
+			WI_checkForAccelerate
+			if state = StatCount then
+				if i_main.g_game.deathmatch then
+					WI_updateDeathmatchStats
+				elseif i_main.g_game.netgame then
+					WI_updateNetgameStats
+				else
+					WI_updateStats
+				end
+			elseif state = ShowNextLoc then
+				WI_updateShowNextLoc
+			elseif state = NoState then
+				WI_updateNoState
+			end
+		end
+
+	WI_updateNoState
+		do
+			WI_updateAnimatedBack
+			cnt := cnt - 1
+			if cnt = 0 then
+				WI_End
+				i_main.g_game.G_WorldDone
+			end
+		end
+
+	WI_updateAnimatedBack
 		do
 				-- Stub
+			print ("WI_updateAnimatedBack not implemented")
 		end
 
 	WI_initVariables (wbstartstruct: WBSTARTSTRUCT_T)
@@ -762,6 +1116,17 @@ feature
 					end
 				end
 			end
+		end
+
+	WI_End
+		do
+			WI_unloadData
+		end
+
+	WI_unloadData
+		do
+				-- Stub
+			print ("WI_unloadData not implemented")
 		end
 
 	WI_Start (wbstartstruct: WBSTARTSTRUCT_T)

@@ -119,20 +119,24 @@ feature
 
 feature
 
-	WriteTime (time: NATURAL_32)
+	WriteTime (a_time: NATURAL_32)
 			-- Write timestamp to a MIDI file
 		local
 			buffer: NATURAL_32
 			writeval: NATURAL_8
 			done: BOOLEAN
+			time: NATURAL_32
 		do
+			time := a_time
 			from
 				buffer := time & 0x7F
+				time := time |>> 7
 			until
-				time |>> 7 = 0
+				time = 0
 			loop
 				buffer := buffer |<< 8
-				buffer := ((time & 0x7F) | 0x80)
+				buffer := buffer | ((time & 0x7F) | 0x80)
+				time := time |>> 7
 			end
 			from
 				done := False

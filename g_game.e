@@ -1176,6 +1176,21 @@ feature -- G_DoLoadLevel
 			end
 		end
 
+	G_WorldDone
+		do
+			gameaction := ga_worlddone
+			if secretexit then
+				players [consoleplayer].didsecret := True
+			end
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				if gamemap = 15 or gamemap = 31 and not secretexit then
+						-- break
+				elseif gamemap = 6 or gamemap = 11 or gamemap = 20 or gamemap = 30 or gamemap = 15 or gamemap = 31 then
+					i_main.f_finale.F_StartFinale
+				end
+			end
+		end
+
 	G_DoWorldDone
 		do
 			{I_MAIN}.i_error ("G_DoWorldDone not implemented")
