@@ -12,9 +12,19 @@ class
 
 feature
 
-	prev: detachable VISSPRITE_T
+	prev: detachable VISSPRITE_T assign set_prev
 
-	next: detachable VISSPRITE_T
+	set_prev (a_prev: like prev)
+		do
+			prev := a_prev
+		end
+
+	next: detachable VISSPRITE_T assign set_next
+
+	set_next (a_next: like next)
+		do
+			next := a_next
+		end
 
 	x1: INTEGER
 

@@ -22,9 +22,12 @@ feature
 			create screenheightarray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 			create negonearray.make_filled (-1, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 			create vsprsortedhead
+			vissprites := {REF_ARRAY_CREATOR [VISSPRITE_T]}.make_ref_array (MAXVISSPRITES)
 		end
 
 feature
+
+	MAXVISSPRITES: INTEGER = 128
 
 	vissprites: ARRAY [VISSPRITE_T]
 
@@ -58,8 +61,75 @@ feature -- R_SortVisSprites
 	vsprsortedhead: VISSPRITE_T
 
 	R_SortVisSprites
+		local
+			i: INTEGER
+			count: INTEGER
+			ds: INDEX_IN_ARRAY [VISSPRITE_T]
+			dss: VISSPRITE_T
+			best: VISSPRITE_T
+			unsorted: VISSPRITE_T
+			bestscale: FIXED_T
 		do
-				-- Stub
+			count := vissprite_p - vissprites.lower
+			create unsorted
+			unsorted.next := unsorted
+			unsorted.prev := unsorted
+			if count = 0 then
+					-- return
+			else
+				from
+					create ds.make (vissprites.lower, vissprites)
+				until
+					ds.index >= vissprite_p
+				loop
+					ds.this.next := (ds + 1).this
+					ds.this.prev := (ds - 1).this
+					ds := ds + 1
+				end
+				vissprites [0].prev := unsorted
+				unsorted.next := vissprites [0]
+				vissprites [vissprite_p - 1].next := unsorted
+				unsorted.prev := vissprites [vissprite_p - 1]
+
+					-- pull the vissprites out by scale
+				vsprsortedhead.next := vsprsortedhead
+				vsprsortedhead.prev := vsprsortedhead
+				from
+					i := 0
+				until
+					i >= count
+				loop
+					bestscale := {DOOMTYPE_H}.maxint
+					from
+						dss := unsorted.next
+					until
+						dss = unsorted
+					loop
+						check attached dss then
+							if dss.scale < bestscale then
+								bestscale := dss.scale
+								best := dss
+							end
+							dss := dss.next
+						end
+					end
+					check attached best then
+						check attached best.next as bnext then
+							bnext.prev := best.prev
+						end
+						check attached best.prev as bprev then
+							bprev.next := best.next
+						end
+						best.next := vsprsortedhead
+						best.prev := vsprsortedhead.prev
+						check attached vsprsortedhead.prev as vprev then
+							vprev.next := best
+						end
+						vsprsortedhead.prev := best
+					end
+					i := i + 1
+				end
+			end
 		end
 
 feature
@@ -184,5 +254,6 @@ invariant
 	negonearray.lower = 0
 	negonearray.count = {DOOMDEF_H}.SCREENWIDTH
 	across negonearray as i_neg all i_neg.item = -1 end
+	{UTILS [VISSPRITE_T]}.invariant_ref_array (vissprites, MAXVISSPRITES)
 
 end

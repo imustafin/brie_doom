@@ -36,7 +36,8 @@ feature
 				i := i + 1
 			end
 		ensure
+			lower_not_zero_gives_false: ar.lower /= 0 implies Result = False
+			incorrect_count_gives_false: ar.count /= count implies Result = False
 			instance_free: class
 		end
-
 end
