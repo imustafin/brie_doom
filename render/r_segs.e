@@ -561,7 +561,7 @@ feature -- R_RenderSegLoop
 					if maskedtexture then
 							-- save texturecol
 							-- for backdrawing of masked mid texture
-						maskedtexturecol[rw_x] := texturecolumn.to_integer_16
+						maskedtexturecol [rw_x] := texturecolumn.to_integer_16
 					end
 				end
 				rw_scale := rw_scale + rw_scalestep
@@ -569,6 +569,13 @@ feature -- R_RenderSegLoop
 				bottomfrac := bottomfrac + bottomstep
 				rw_x := rw_x + 1
 			end
+		end
+
+feature -- R_RenderMaskedSegRange
+
+	R_RenderMaskedSegRange (ds: DRAWSEG_T; x1, x2: INTEGER)
+		do
+				-- Stub
 		end
 
 end

@@ -21,6 +21,7 @@ feature
 			create spritelights.make_empty
 			create screenheightarray.make_filled (0, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 			create negonearray.make_filled (-1, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
+			create vsprsortedhead
 		end
 
 feature
@@ -52,9 +53,64 @@ feature
 			vissprite_p := 0
 		end
 
-	R_DrawMasked
+feature -- R_SortVisSprites
+
+	vsprsortedhead: VISSPRITE_T
+
+	R_SortVisSprites
 		do
 				-- Stub
+		end
+
+feature
+
+	R_DrawSprite (spr: VISSPRITE_T)
+		do
+				-- Stub
+		end
+
+	R_DrawPlayerSprites
+		do
+				-- Stub
+		end
+
+	R_DrawMasked
+		local
+			spr: VISSPRITE_T
+			ds: INTEGER
+		do
+			R_SortVisSprites
+			if vissprite_p > vissprites.lower then
+					-- draw all vissprites back to front
+				from
+					spr := vsprsortedhead.next
+				until
+					spr = vsprsortedhead
+				loop
+					check attached spr then
+						R_DrawSprite (spr)
+						spr := spr.next
+					end
+				end
+			end
+
+				-- render any remaining masked mid textures
+			from
+				ds := i_main.r_bsp.ds_p - 1
+			until
+				ds < i_main.r_bsp.drawsegs.lower
+			loop
+				if i_main.r_bsp.drawsegs [ds].maskedtexturecol /= Void then
+					i_main.r_segs.R_RenderMaskedSegRange (i_main.r_bsp.drawsegs [ds], i_main.r_bsp.drawsegs [ds].x1, i_main.r_bsp.drawsegs [ds].x2)
+				end
+				ds := ds - 1
+			end
+
+				-- draw the psprites on top of everything
+				-- but does not draw on side views
+			if i_main.r_main.viewangleoffset /= 0 then
+				R_DrawPlayerSprites
+			end
 		end
 
 	R_AddSprites (sec: SECTOR_T)
