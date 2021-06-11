@@ -21,6 +21,9 @@ feature
 
 	precache: BOOLEAN
 
+	modifiedgame: BOOLEAN
+			-- Set if homebrew PWAD stuff has been added.
+
 feature
 
 	make

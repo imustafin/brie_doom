@@ -23,6 +23,8 @@ feature
 			create negonearray.make_filled (-1, 0, {DOOMDEF_H}.SCREENWIDTH - 1)
 			create vsprsortedhead
 			vissprites := {REF_ARRAY_CREATOR [VISSPRITE_T]}.make_ref_array (MAXVISSPRITES)
+			spritename := ""
+			make_sprtemp
 		end
 
 feature
@@ -43,12 +45,210 @@ feature
 
 	screenheightarray: ARRAY [INTEGER_16]
 
-feature
+feature -- R_InitSprites
+
+	sprites: detachable ARRAY [SPRITEDEF_T]
+
+	numsprites: INTEGER
+
+	sprtemp: ARRAY [SPRITEFRAME_T]
+
+	make_sprtemp
+		do
+			sprtemp := {REF_ARRAY_CREATOR [SPRITEFRAME_T]}.make_ref_array (29)
+		end
+
+	maxframe: INTEGER
+
+	spritename: STRING
 
 	R_InitSprites (namelist: ARRAY [STRING])
+			-- Called at program start.
 		do
-				-- Stub
+				-- negonearray created in make
+			R_InitSpriteDefs (namelist)
 		end
+
+	make_sprites (num: INTEGER)
+		do
+			sprites := {REF_ARRAY_CREATOR [SPRITEDEF_T]}.make_ref_array (num)
+		end
+
+	compute_intname (str: STRING): INTEGER
+			-- take first 4 chars and construct an int from them
+		do
+			Result := str [1].code
+			Result := Result |<< 8
+			Result := Result | str [2].code
+			Result := Result |<< 8
+			Result := Result | str [3].code
+			Result := Result |<< 8
+			Result := Result | str [4].code
+		end
+
+	R_InitSpriteDefs (namelist: ARRAY [STRING])
+			-- Pass a null terminated list of sprite names
+			-- (4 chars exactly) to be used.
+			-- Builds the sprite rotation matrixes to account
+			-- for horizontally flipped sprites.
+			-- Will report an error if the lumps are inconsistant.
+			-- Only called at startup.
+			--
+			-- Sprite lump names are 4 characters for the actor,
+			-- a letter for the frame, and a number for the rotation.
+			-- A sprite that is flippable will have an additional
+			-- letter/number appended.
+			-- The rotation can be 0 to signify no rotations.
+		require
+			all_4_long: across namelist as name all name.item.count = 4 end
+		local
+			i: INTEGER
+			l: INTEGER
+			intname: INTEGER
+			frame: INTEGER
+			rotation: INTEGER
+			s: INTEGER
+			e: INTEGER
+			patched: INTEGER
+		do
+			numsprites := namelist.count
+			make_sprites (namelist.count)
+			s := i_main.r_data.firstspritelump - 1
+			e := i_main.r_data.lastspritelump + 1
+
+				-- scan all the lump names for each of the names,
+				-- noting the highest frame letter.
+				-- Just compare 4 characters as ints
+			from
+				i := 0
+			until
+				i >= numsprites
+			loop
+				spritename := namelist [i]
+				make_sprtemp
+				maxframe := -1
+				intname := compute_intname (spritename)
+
+					-- scan the lumps,
+					-- filling in the frames for whatever is found
+				from
+					l := s + 1
+				until
+					l >= e
+				loop
+					if compute_intname (i_main.w_wad.lumpinfo [l].name) = intname then
+						frame := i_main.w_wad.lumpinfo [l].name [5].code - ('A').code
+						rotation := i_main.w_wad.lumpinfo [l].name [6].code - ('0').code
+						if i_main.doomstat_h.modifiedgame then
+							patched := i_main.w_wad.W_GetNumForName (i_main.w_wad.lumpinfo [l].name)
+						else
+							patched := l
+						end
+						R_InstallSpriteLump (patched, frame.to_natural_32, rotation.to_natural_32, False)
+						if i_main.w_wad.lumpinfo [l].name.count >= 7 then
+							frame := i_main.w_wad.lumpinfo [l].name [7].code - ('A').code
+							rotation := i_main.w_wad.lumpinfo [l].name [8].code - ('0').code
+							R_InstallSpriteLump (l, frame.to_natural_32, rotation.to_natural_32, True)
+						end
+					end
+					l := l + 1
+				end
+
+					-- check the frames that were found for completeness
+				if maxframe = -1 then
+					check attached sprites as ss then
+						ss [i].numframes := 0
+					end
+				else
+					maxframe := maxframe + 1
+					from
+						frame := 0
+					until
+						frame >= maxframe
+					loop
+						if not sprtemp [frame].initialized then
+								-- no rotations were found for that frame at all
+							{I_MAIN}.i_error ("R_InitSprites: No patches found for " + namelist [i] + " frame " + ((frame + ('A').code).to_character_8.out))
+						elseif not sprtemp [frame].rotate then
+								-- only the first rotation is needed
+						elseif sprtemp [frame].rotate then
+								-- must have all 8 frames
+							from
+								rotation := 0
+							until
+								rotation >= 8
+							loop
+								if sprtemp [frame].lump [rotation] = -1 then
+									{I_MAIN}.i_error ("R_InitSprites: Sprite " + namelist [l] + " frame " + (frame + ('A').code).to_character_8.out + " is missing rotations")
+								end
+								rotation := rotation + 1
+							end
+						end
+						frame := frame + 1
+					end
+
+						-- allocate space for the frames present and copy sprtemp to it
+					check attached sprites as ss then
+						ss [i].numframes := maxframe
+						ss [i].spriteframes := sprtemp -- assign because we create new sprtemps each iteration
+					end
+				end
+				i := i + 1
+			end
+		end
+
+	R_InstallSpriteLump (lump: INTEGER; frame, a_rotation: NATURAL; flipped: BOOLEAN)
+		local
+			r: INTEGER
+			rotation: NATURAL
+		do
+			rotation := a_rotation
+			if frame >= 29 or rotation > 8 then
+				{I_MAIN}.i_error ("R_InstallSpriteLump: Bad frame characters in lump " + lump.out)
+			end
+			if frame.to_integer_32 > maxframe then
+				maxframe := frame.to_integer_32
+			end
+			if rotation = 0 then
+					-- the lump should be used for all rotations
+				if sprtemp [frame.to_integer_32].initialized and sprtemp [frame.to_integer_32].rotate = False then
+					{I_MAIN}.i_error ("R_InitSprites: Sprite " + spritename + " frame " + (frame.to_integer_32 + ('A').code).to_character_8.out + " has multip rot=0 lump")
+				end
+				if sprtemp [frame.to_integer_32].initialized and sprtemp [frame.to_integer_32].rotate = True then
+					{I_MAIN}.i_error ("R_InitSprites: Sprite " + spritename + " frame " + (frame.to_integer_32 + ('A').code).to_character_8.out + " has rotations and a rot=0 lump")
+				end
+				sprtemp [frame.to_integer_32].rotate := False
+				sprtemp [frame.to_integer_32].initialized := True
+				from
+					r := 0
+				until
+					r >= 8
+				loop
+					sprtemp [frame.to_integer_32].lump [r] := (lump.to_integer_32 - i_main.r_data.firstspritelump).to_integer_16
+					sprtemp [frame.to_integer_32].flip [r] := flipped
+					r := r + 1
+				end
+			else
+					-- the lump is only used for one rotation
+				if sprtemp [frame.to_integer_32].initialized and sprtemp [frame.to_integer_32].rotate = False then
+					{I_MAIN}.i_error ("R_InitSprites: Sprite " + spritename + " frame " + (frame.to_integer_32 + ('A').code).to_character_8.out + " has rotations and a rot=0 lump")
+				end
+				sprtemp [frame.to_integer_32].rotate := True
+				sprtemp [frame.to_integer_32].initialized := True
+
+					-- make 0 based
+				rotation := rotation - 1
+				if sprtemp [frame.to_integer_32].lump [rotation.to_integer_32] /= -1 then
+					{I_MAIN}.i_error ("R_InitSprites: Sprite " + spritename + " : " + (frame.to_integer_32 + ('A').code).to_character_8.out + " : " + (rotation.to_integer_32 + ('1').code).to_character_8.out + "has two lumps mapped to it")
+				end
+				sprtemp [frame.to_integer_32].lump [rotation.to_integer_32] := (lump - i_main.r_data.firstspritelump).to_integer_16
+				sprtemp [frame.to_integer_32].flip [rotation.to_integer_32] := flipped
+			end
+		ensure
+			sprtemp [frame.to_integer_32].initialized
+		end
+
+feature
 
 	R_ClearSprites
 			-- Called at frame start.
@@ -484,6 +684,32 @@ feature -- Sprite rotation
 			pspriteiscale := a_pspriteiscale
 		end
 
+feature -- Contracts
+
+	spriteframes_different: BOOLEAN
+		local
+			i, j: INTEGER
+		do
+			Result := True
+			if attached sprites as ss then
+				from
+					i := ss.lower
+				until
+					not Result or i > ss.upper
+				loop
+					from
+						j := i + 1
+					until
+						not Result or j > ss.upper
+					loop
+						Result := ss [i].spriteframes /= Void and ss [j].spriteframes /= Void implies ss [i].spriteframes /= ss [j].spriteframes
+						j := j + 1
+					end
+					i := i + 1
+				end
+			end
+		end
+
 invariant
 	screenheightarray.lower = 0
 	screenheightarray.count = {DOOMDEF_H}.SCREENWIDTH
@@ -491,5 +717,7 @@ invariant
 	negonearray.count = {DOOMDEF_H}.SCREENWIDTH
 	across negonearray as i_neg all i_neg.item = -1 end
 	{UTILS [VISSPRITE_T]}.invariant_ref_array (vissprites, MAXVISSPRITES)
+	{UTILS [SPRITEFRAME_T]}.invariant_ref_array (sprtemp, 29)
+	spriteframes_different
 
 end
