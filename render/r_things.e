@@ -659,7 +659,7 @@ feature
 			-- Generates a vissprite for a thing
 			-- if it might be visible.
 		do
-				-- Stub
+				{I_MAIN}.i_error ("R_ProjectSprite not implemented")
 		end
 
 feature -- Sprite rotation
