@@ -23,7 +23,6 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create dc_source.make (create {MANAGED_POINTER}.make (1), 0)
 			create ylookup.make_filled (create {PIXEL_T_BUFFER}.make (1), 0, MAXHEIGHT - 1)
 		end
 
@@ -128,7 +127,7 @@ feature -- R_DrawColumn
 			dc_texturemid := a_dc_texturemid
 		end
 
-	dc_source: MANAGED_POINTER_WITH_OFFSET assign set_dc_source
+	dc_source: detachable BYTE_SEQUENCE assign set_dc_source
 			-- first pixel in a column (possibly virtual)
 
 	set_dc_source (a_dc_source: like dc_source)
@@ -181,7 +180,9 @@ feature -- R_DrawColumn
 				loop
 						-- Re-map color indices from wall texture column
 						-- using a lighting/special effects LUT
-					dc_source_val := dc_source.read_byte ((frac |>> {M_FIXED}.FRACBITS) & 127)
+					check attached dc_source as dcs then
+						dc_source_val := dcs [(frac |>> {M_FIXED}.FRACBITS) & 127]
+					end
 					check attached dc_colormap as dc_cmap then
 						val := dc_cmap [dc_source_val]
 					end
@@ -258,10 +259,9 @@ feature -- R_DrawTranslatedColumn
 						-- used with PLAY sprites.
 						-- Thus the "green" ramp of the player 0 sprite
 						-- is mapped to gray, red, black/indigo.
-					check attached dc_colormap as dcc and then attached dc_translation as dct then
-						dest.put (dcc [dct [dc_source [frac |>> {M_FIXED}.FRACBITS]]], 0)
+					check attached dc_colormap as dcc and then attached dc_translation as dct and then attached dc_source as dcs then
+						dest.put (dcc [dct [dcs [frac |>> {M_FIXED}.FRACBITS]]], 0)
 					end
-
 					dest := dest + SCREENWIDTH
 					frac := frac + fracstep
 					count := count - 1
@@ -365,7 +365,7 @@ feature -- R_DrawSpan
 					-- Lookup pixel from flat texture file,
 					-- re-indexing using light/colormap
 				check attached ds_source as src then
-					ds_source_val := src.read_byte (spot)
+					ds_source_val := src [spot]
 				end
 				check attached ds_colormap as dsc then
 					dest.put (dsc [ds_source_val], ofs)

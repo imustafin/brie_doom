@@ -4,6 +4,10 @@ note
 class
 	MANAGED_POINTER_WITH_OFFSET
 
+inherit
+
+	BYTE_SEQUENCE
+
 create
 	make
 
@@ -28,8 +32,8 @@ feature
 			Result := mp.count
 		end
 
-	read_byte alias "[]" (pos: INTEGER): NATURAL_8
-		require
+	get alias "[]" (pos: INTEGER): NATURAL_8
+		require else
 			ofs + pos >= 0
 			ofs + pos + {MANAGED_POINTER}.natural_8_bytes <= count
 		do

@@ -143,8 +143,52 @@ feature -- R_DrawMaskedColumn
 	sprtopscreen: FIXED_T
 
 	R_DrawMaskedColumn (column: COLUMN_T)
+			-- Used for sprites and masked mid textures.
+			-- Masked means: partly transparent, i.e. stored
+			-- in posts/runs of opaque pixels.
+		local
+			topscreen: INTEGER
+			bottomscreen: INTEGER
+			basetexturemid: FIXED_T
+			i: INTEGER
+			post: POST_T
 		do
-				-- Stub
+			basetexturemid := i_main.r_draw.dc_texturemid
+			from
+				i := column.posts.lower
+			until
+				i > column.posts.upper
+			loop
+					-- calculate unclipped screen coordinates
+					-- for post
+				post := column.posts [i]
+				topscreen := sprtopscreen + spryscale * post.topdelta.to_integer_32
+				bottomscreen := topscreen + spryscale * post.length.to_integer_32
+				i_main.r_draw.dc_yl := (topscreen + {M_FIXED}.FRACUNIT - 1) |>> {M_FIXED}.FRACBITS
+				i_main.r_draw.dc_yh := (bottomscreen - 1) |>> {M_FIXED}.FRACBITS
+				check attached mfloorclip as mfc then
+					if i_main.r_draw.dc_yh >= mfc [i_main.r_draw.dc_x] then
+						i_main.r_draw.dc_yh := mfc [i_main.r_draw.dc_x] - 1
+					end
+				end
+				check attached mceilingclip as mcc then
+					if i_main.r_draw.dc_yl <= mcc [i_main.r_draw.dc_x] then
+						i_main.r_draw.dc_yl := mcc [i_main.r_draw.dc_x] + 1
+					end
+				end
+				if i_main.r_draw.dc_yl <= i_main.r_draw.dc_yh then
+					i_main.r_draw.dc_source := create {BYTE_ARRAY}.with_array (post.body)
+					i_main.r_draw.dc_texturemid := basetexturemid - (post.topdelta.to_integer_32 |<< {M_FIXED}.FRACBITS)
+
+						-- Drawn by either R_DrawColumn
+						-- or (SHADOW) R_DrawFuzzColumn
+					check attached i_main.r_main.colfunc as colfunc then
+						colfunc.call
+					end
+				end
+				i := i + 1
+			end
+			i_main.r_draw.dc_texturemid := basetexturemid
 		end
 
 feature -- R_DrawVisSprite
