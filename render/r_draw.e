@@ -52,8 +52,33 @@ feature
 			--  the green color rmap to gray, brown, red.
 			-- Assumes a given structure of the PLAYPAL.
 			-- Could be read from a lump instead.
+		local
+			i: INTEGER
 		do
-				-- Stub
+			create translationtables.make_filled (0, 0, 256 * 3 + 255 - 1)
+				-- skip align
+
+				-- translate just the 16 green colors
+			from
+				i := 0
+			until
+				i >= 256
+			loop
+				check attached translationtables as tt then
+					if i >= 0x70 and i <= 0x7f then
+							-- map green ramp to gray, brown, red
+						tt [i] := (0x60 + (i & 0xf)).to_natural_16
+						tt [i + 256] := (0x40 + (i & 0xf)).to_natural_16
+						tt [i + 512] := (0x20 + (i & 0xf)).to_natural_16
+					else
+							-- Keep all other colors as is
+						tt [i] := i.to_natural_16
+						tt [i + 256] := i.to_natural_16
+						tt [i + 512] := i.to_natural_16
+					end
+				end
+				i := i + 1
+			end
 		end
 
 feature
