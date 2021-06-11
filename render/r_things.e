@@ -138,11 +138,57 @@ feature -- R_DrawMaskedColumn
 
 	mceilingclip: detachable ARRAY [INTEGER_16]
 
+	spryscale: FIXED_T
+
+	sprtopscreen: FIXED_T
+
+	R_DrawMaskedColumn (column: COLUMN_T)
+		do
+				-- Stub
+		end
+
 feature -- R_DrawVisSprite
 
 	R_DrawVisSprite (vis: VISSPRITE_T; x1, x2: INTEGER)
+			-- mfloorclip and mceiling should also be set
+		require
+			mfloorclip /= Void
+			mceilingclip /= Void
+		local
+			texturecolumn: INTEGER
+			frac: FIXED_T
+			patch: PATCH_T
 		do
-				-- Stub
+			patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (vis.patch + i_main.r_data.firstspritelump, {Z_ZONE}.pu_cache))
+			i_main.r_draw.dc_colormap := vis.colormap
+			if i_main.r_draw.dc_colormap = Void then
+					-- NULL colormap = shadow draw
+				i_main.r_main.colfunc := i_main.r_main.fuzzcolfunc
+			elseif vis.mobjflags & {P_MOBJ}.MF_TRANSLATION /= 0 then
+				i_main.r_main.colfunc := agent (i_main.r_draw).R_DrawTranslatedColumn
+				check attached i_main.r_draw.translationtables as ttables then
+					i_main.r_draw.dc_translation := create {INDEX_IN_ARRAY [NATURAL_16]}.make (-256 + ((vis.mobjflags & {P_MOBJ}.MF_TRANSLATION) |>> ({P_MOBJ}.MF_TRANSSHIFT - 8)), ttables)
+				end
+			end
+			i_main.r_draw.dc_iscale := (vis.xiscale).abs |>> i_main.r_main.detailshift
+			i_main.r_draw.dc_texturemid := vis.texturemid
+			frac := vis.startfrac
+			spryscale := vis.scale
+			sprtopscreen := i_main.r_main.centeryfrac - {M_FIXED}.fixedmul (i_main.r_draw.dc_texturemid, spryscale)
+			from
+				i_main.r_draw.dc_x := vis.x1
+			until
+				i_main.r_draw.dc_x > vis.x2
+			loop
+				texturecolumn := frac |>> {M_FIXED}.fracbits
+				check
+					RANGECHECK: texturecolumn >= 0 and texturecolumn < patch.width
+				end
+				R_DrawMaskedColumn (patch.column_by_offset (patch.columnofs [texturecolumn]))
+				i_main.r_draw.dc_x := i_main.r_draw.dc_x + 1
+				frac := frac + vis.xiscale
+			end
+			i_main.r_main.colfunc := i_main.r_main.basecolfunc
 		end
 
 feature

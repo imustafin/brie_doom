@@ -56,6 +56,18 @@ feature
 
 	texturecompositesize: detachable ARRAY [INTEGER]
 
+	firstspritelump: INTEGER
+
+	lastspritelump: INTEGER
+
+	numspritelumps: INTEGER
+
+	spritewidth: detachable ARRAY [FIXED_T]
+
+	spriteoffset: detachable ARRAY [FIXED_T]
+
+	spritetopoffset: detachable ARRAY [FIXED_T]
+
 feature
 
 	R_InitTextures
@@ -281,8 +293,33 @@ feature
 		end
 
 	R_InitSpriteLumps
+			-- Finds the width and hoffset of all sprites in the wad,
+			-- so the sprite does not need to be cached completely
+			-- just for having the header info ready during rendering.
+		local
+			i: INTEGER
+			patch: PATCH_T
 		do
-				-- Stub
+			firstspritelump := i_main.w_wad.w_getnumforname ("S_START") + 1
+			lastspritelump := i_main.w_wad.w_getnumforname ("S_END") - 1
+			numspritelumps := lastspritelump - firstspritelump + 1
+			create spritewidth.make_filled (0, 0, numspritelumps - 1)
+			create spriteoffset.make_filled (0, 0, numspritelumps - 1)
+			create spritetopoffset.make_filled (0, 0, numspritelumps - 1)
+			from
+				i := 0
+			until
+				i >= numspritelumps
+			loop
+					-- skip debug print
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (firstspritelump + i, {Z_ZONE}.pu_cache))
+				check attached spritewidth as sw and then attached spriteoffset as so and then attached spritetopoffset as st then
+					sw [i] := patch.width.to_integer_32 |<< {M_FIXED}.FRACBITS
+					so [i] := patch.leftoffset.to_integer_32 |<< {M_FIXED}.FRACBITS
+					st [i] := patch.topoffset.to_integer_32 |<< {M_FIXED}.FRACBITS
+				end
+				i := i + 1
+			end
 		end
 
 	R_InitColormaps

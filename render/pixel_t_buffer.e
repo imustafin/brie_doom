@@ -40,6 +40,14 @@ feature
 		end
 
 feature
+	plus alias "+" (offset: INTEGER): PIXEL_T_BUFFER
+		require
+			offset >= 0
+		do
+			create Result.share_from_pointer(p.item + offset, p.count - offset)
+		end
+
+feature
 
 	item_dpixel (i: INTEGER): NATURAL_16
 		do

@@ -210,13 +210,63 @@ feature
 				-- Stub
 		end
 
-feature
+feature -- R_DrawTranslatedColumn
+
+	dc_translation: detachable INDEX_IN_ARRAY [NATURAL_16] assign set_dc_translation
+
+	set_dc_translation (a_dc_translation: like dc_translation)
+		do
+			dc_translation := a_dc_translation
+		end
+
+	translationtables: detachable ARRAY [NATURAL_16]
 
 	R_DrawTranslatedColumn
+			-- Used to draw player sprites
+			-- with the green colorramp mapped to others.
+			-- Could be used with different translation
+			-- tables, e.g. the lighter colored version
+			-- of the BaronOfHell, the HellKnight, uses
+			-- identical sprites, kinda brightened up.
 		require
 			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
+		local
+			count: INTEGER
+			dest: PIXEL_T_BUFFER
+			frac: FIXED_T
+			fracstep: FIXED_T
 		do
-				-- Stub
+			count := dc_yh - dc_yl
+			if count >= 0 then
+				check
+					RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
+				end
+				dest := ylookup [dc_yl] + columnofs [dc_x]
+
+					-- Looks familiar.
+				fracstep := dc_iscale
+				frac := dc_texturemid + (dc_yl - i_main.r_main.centery) * fracstep
+
+					-- Here we do an additional index re-mapping.
+				from
+					count := count + 1
+				until
+					count = 0
+				loop
+						-- Translation tables are used
+						-- to map certain colorramps to other ones,
+						-- used with PLAY sprites.
+						-- Thus the "green" ramp of the player 0 sprite
+						-- is mapped to gray, red, black/indigo.
+					check attached dc_colormap as dcc and then attached dc_translation as dct then
+						dest.put (dcc [dct [dc_source [frac |>> {M_FIXED}.FRACBITS]]], 0)
+					end
+
+					dest := dest + SCREENWIDTH
+					frac := frac + fracstep
+					count := count - 1
+				end
+			end
 		end
 
 feature -- R_DrawSpan

@@ -117,7 +117,12 @@ feature
 
 feature
 
-	colfunc: detachable PROCEDURE
+	colfunc: detachable PROCEDURE assign set_colfunc
+
+	set_colfunc (a_colfunc: like colfunc)
+		do
+			colfunc := a_colfunc
+		end
 
 	basecolfunc: detachable PROCEDURE
 

@@ -28,7 +28,7 @@ feature
 			Result := mp.count
 		end
 
-	read_byte (pos: INTEGER): NATURAL_8
+	read_byte alias "[]" (pos: INTEGER): NATURAL_8
 		require
 			ofs + pos >= 0
 			ofs + pos + {MANAGED_POINTER}.natural_8_bytes <= count

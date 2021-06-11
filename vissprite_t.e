@@ -59,7 +59,7 @@ feature
 		-- for color translation and shadow draw,
 		-- maxbright frames as well
 
-	colormap: detachable LIGHTTABLE_T
+	colormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T]
 
 	mobjflags: INTEGER
 
