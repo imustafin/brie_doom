@@ -180,6 +180,59 @@ feature
 			create Result.make_filled ({NATURAL} 0, 0, {DOOMDEF_H}.SCREENWIDTH)
 		end
 
+	R_PointOnSegSide (x, y: FIXED_T; line: SEG_T): INTEGER
+		local
+			lx: FIXED_T
+			ly: FIXED_T
+			ldx: FIXED_T
+			ldy: FIXED_T
+			dx: FIXED_T
+			dy: FIXED_T
+			left: FIXED_T
+			right: FIXED_T
+		do
+			lx := line.v1.x
+			ly := line.v1.y
+			ldx := line.v2.x - lx
+			ldy := line.v2.y - ly
+			if ldx = 0 then
+				if x <= lx then
+					Result := (ldy > 0).to_integer
+				else
+					Result := (ldy < 0).to_integer
+				end
+			elseif ldy = 0 then
+				if y <= ly then
+					Result := (ldx < 0).to_integer
+				else
+					Result := (ldx > 0).to_integer
+				end
+			else
+				dx := (x - lx)
+				dy := (y - ly)
+
+					-- Try to quickly decide by looking at sign bits.
+				if (ldy.bit_xor (ldx).bit_xor (dx).bit_xor (dy).to_integer_64 & 0x80000000) /= 0 then
+					if (ldy.bit_xor (dx)).to_integer_64 & 0x80000000 /= 0 then
+							-- left is negative
+						Result := 1
+					else
+						Result := 0
+					end
+				else
+					left := {M_FIXED}.fixedmul (ldy |>> {M_FIXED}.FRACBITS, dx)
+					right := {M_FIXED}.fixedmul (dy, ldx |>> {M_FIXED}.FRACBITS)
+					if right < left then
+							-- front side
+						Result := 0
+					else
+							-- back side
+						Result := 1
+					end
+				end
+			end
+		end
+
 feature -- R_SetViewSize
 
 	setsizeneeded: BOOLEAN

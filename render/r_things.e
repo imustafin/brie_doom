@@ -132,11 +132,157 @@ feature -- R_SortVisSprites
 			end
 		end
 
+feature -- R_DrawMaskedColumn
+
+	mfloorclip: detachable ARRAY [INTEGER_16]
+
+	mceilingclip: detachable ARRAY [INTEGER_16]
+
+feature -- R_DrawVisSprite
+
+	R_DrawVisSprite (vis: VISSPRITE_T; x1, x2: INTEGER)
+		do
+				-- Stub
+		end
+
 feature
 
 	R_DrawSprite (spr: VISSPRITE_T)
+		local
+			ds: INDEX_IN_ARRAY [DRAWSEG_T]
+			clipbot: ARRAY [INTEGER_16]
+			cliptop: ARRAY [INTEGER_16]
+			x: INTEGER
+			r1: INTEGER
+			r2: INTEGER
+			scale: FIXED_T
+			lowscale: FIXED_T
+			silhouette: INTEGER
 		do
-				-- Stub
+			create clipbot.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
+			create cliptop.make_filled (0, 0, {DOOMDEF_H}.screenwidth - 1)
+			from
+				x := spr.x1
+			until
+				x > spr.x2
+			loop
+				clipbot [x] := -2
+				cliptop [x] := -2
+				x := x + 1
+			end
+
+				-- Scan drawsegs from end to start for obscuring segs.
+				-- The first drawseg that has a greater scale
+				-- is the clip seg.
+			from
+				create ds.make (i_main.r_bsp.ds_p, i_main.r_bsp.drawsegs)
+			until
+				ds.index < i_main.r_bsp.drawsegs.lower
+			loop
+					-- determine if the drawseg obscures the sprite
+				if ds.this.x1 > spr.x2 or ds.this.x2 < spr.x1 or (ds.this.silhouette = 0 and ds.this.maskedtexturecol = Void) then
+						-- does not cover sprite
+						-- continue
+				else
+					r1 := if ds.this.x1 < spr.x1 then spr.x1 else ds.this.x1 end
+					r2 := if ds.this.x2 > spr.x2 then spr.x2 else ds.this.x2 end
+					if ds.this.scale1 > ds.this.scale2 then
+						lowscale := ds.this.scale2
+						scale := ds.this.scale1
+					else
+						lowscale := ds.this.scale1
+						scale := ds.this.scale2
+					end
+					check attached ds.this.curline as ds_curline then
+						if scale < spr.scale or (lowscale < spr.scale and (i_main.r_main.R_PointOnSegSide (spr.gx, spr.gy, ds_curline) = 0)) then
+								-- masked mid texture?
+							if ds.this.maskedtexturecol /= Void then
+								i_main.r_segs.R_RenderMaskedSegRange (ds.this, r1, r2)
+							end
+								-- seg is behind sprite
+								-- continue
+						else
+								-- clip this piece of the sprite
+							silhouette := ds.this.silhouette
+							if spr.gz >= ds.this.bsilheight then
+								silhouette := silhouette & {R_DEFS}.SIL_BOTTOM.bit_not
+							end
+							if spr.gzt <= ds.this.tsilheight then
+								silhouette := silhouette & {R_DEFS}.SIL_TOP.bit_not
+							end
+							if silhouette = 1 then
+									-- bottom sil
+								from
+									x := r1
+								until
+									x > r2
+								loop
+									if clipbot [x] = -2 then
+										check attached ds.this.sprbottomclip as botclip then
+											clipbot [x] := botclip [x]
+										end
+									end
+									x := x + 1
+								end
+							elseif silhouette = 2 then
+									-- top sil
+								from
+									x := r1
+								until
+									x > r2
+								loop
+									if cliptop [x] = -2 then
+										check attached ds.this.sprtopclip as topclip then
+											cliptop [x] := topclip [x]
+										end
+									end
+									x := x + 1
+								end
+							elseif silhouette = 3 then
+									-- both
+								from
+									x := r1
+								until
+									x > r2
+								loop
+									if clipbot [x] = -2 then
+										check attached ds.this.sprbottomclip as botclip then
+											clipbot [x] := botclip [x]
+										end
+									end
+									if cliptop [x] = -2 then
+										check attached ds.this.sprtopclip as topclip then
+											cliptop [x] := topclip [x]
+										end
+									end
+									x := x + 1
+								end
+							end
+						end
+					end
+				end
+				ds := ds - 1
+			end
+
+				-- all clipping has been performed, so draw the sprite
+
+				-- check for unclipped columns
+			from
+				x := spr.x1
+			until
+				x > spr.x2
+			loop
+				if clipbot [x] = -2 then
+					clipbot [x] := {P_LOCAL}.viewheight.to_integer_16
+				end
+				if cliptop [x] = -2 then
+					cliptop [x] := -1
+				end
+				x := x + 1
+			end
+			mfloorclip := clipbot
+			mceilingclip := cliptop
+			R_DrawVisSprite (spr, spr.x1, spr.x2)
 		end
 
 	R_DrawPlayerSprites
