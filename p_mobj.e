@@ -165,8 +165,8 @@ feature -- P_RemoveMobj
 				end
 				if not returned then
 						-- spawn it
-					x := (mthing.x |<< {M_FIXED}.FRACBITS).to_integer_32
-					y := (mthing.y |<< {M_FIXED}.FRACBITS).to_integer_32
+					x := mthing.x.to_integer_32 |<< {M_FIXED}.FRACBITS
+					y := mthing.y.to_integer_32 |<< {M_FIXED}.FRACBITS
 					if {INFO}.mobjinfo [i].flags & MF_SPAWNCEILING /= 0 then
 						z := {P_LOCAL}.ONCEILINGZ
 					else
