@@ -756,7 +756,7 @@ feature
 							end
 							vis.texturemid := vis.gzt - i_main.r_main.viewz
 							vis.x1 := x1.max (0)
-							vis.x2 := x2.max (i_main.r_draw.viewwidth - 1)
+							vis.x2 := x2.min (i_main.r_draw.viewwidth - 1)
 							iscale := {M_FIXED}.fixeddiv ({M_FIXED}.fracunit, xscale)
 							if flip then
 								check attached i_main.r_data.spritewidth as sw then
