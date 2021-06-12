@@ -91,7 +91,7 @@ feature
 				-- link into subsector
 			ss := i_main.r_main.R_PointInSubsector (thing.x, thing.y)
 			thing.subsector := ss
-			if thing.flags & {MOBJFLAG_T}.MF_NOSECTOR /= 0 then
+			if thing.flags & {MOBJFLAG_T}.MF_NOSECTOR = 0 then
 					-- invisible things don't go into the sector links
 				sec := ss.sector
 				check attached sec then
@@ -105,7 +105,7 @@ feature
 			end
 
 				-- link into blockmap
-			if thing.flags & {MOBJFLAG_T}.MF_NOBLOCKMAP /= 0 then
+			if thing.flags & {MOBJFLAG_T}.MF_NOBLOCKMAP = 0 then
 					-- inert things don't need to be in blockmap
 				blockx := ((thing.x - i_main.p_setup.bmaporgx) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
 				blocky := ((thing.y - i_main.p_setup.bmaporgy) |>> {P_LOCAL}.MAPBLOCKSHIFT).to_integer_32
