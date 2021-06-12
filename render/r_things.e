@@ -289,7 +289,9 @@ feature -- R_SortVisSprites
 					ds.index >= vissprite_p
 				loop
 					ds.this.next := (ds + 1).this
-					ds.this.prev := (ds - 1).this
+					if ds.index /= 0 then
+						ds.this.prev := (ds - 1).this
+					end
 					ds := ds + 1
 				end
 				vissprites [0].prev := unsorted
