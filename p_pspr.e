@@ -28,6 +28,10 @@ feature -- psprnum_t
 
 	NUMPSPRITES: INTEGER = 2
 
+	FF_FRAMEMASK: INTEGER = 0x7fff
+
+	FF_FULLBRIGHT: INTEGER = 0x8000 -- flag in thing->frame
+
 feature
 
 	WEAPONBOTTOM: INTEGER

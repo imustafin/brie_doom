@@ -25,9 +25,15 @@ feature
 			vissprites := {REF_ARRAY_CREATOR [VISSPRITE_T]}.make_ref_array (MAXVISSPRITES)
 			spritename := ""
 			make_sprtemp
+			create overflowsprite
 		end
 
 feature
+
+	MINZ: INTEGER
+		once
+			Result := {M_FIXED}.fracunit * 4
+		end
 
 	MAXVISSPRITES: INTEGER = 128
 
@@ -658,8 +664,152 @@ feature
 	R_ProjectSprite (thing: MOBJ_T)
 			-- Generates a vissprite for a thing
 			-- if it might be visible.
+		local
+			tr_x, tr_y: FIXED_T
+			gxt, gyt: FIXED_T
+			tx, tz: FIXED_T
+			xscale: FIXED_T
+			x1, x2: INTEGER
+			sprdef: SPRITEDEF_T
+			sprframe: SPRITEFRAME_T
+			lump: INTEGER
+			rot: INTEGER -- originally unsigned
+			flip: BOOLEAN
+			index: INTEGER
+			vis: VISSPRITE_T
+			ang: ANGLE_T
+			iscale: FIXED_T
 		do
-				{I_MAIN}.i_error ("R_ProjectSprite not implemented")
+				-- transform the origin point
+			tr_x := thing.x - i_main.r_main.viewx
+			tr_y := thing.y - i_main.r_main.viewy
+			gxt := {M_FIXED}.fixedmul (tr_x, i_main.r_main.viewcos)
+			gyt := - {M_FIXED}.fixedmul (tr_y, i_main.r_main.viewsin)
+			tz := gxt - gyt
+
+				-- thing is behind view plane?
+			if tz < MINZ then
+					-- return
+			else
+				xscale := {M_FIXED}.fixeddiv (i_main.r_main.projection, tz)
+				gxt := - {M_FIXED}.fixedmul (tr_x, i_main.r_main.viewsin)
+				gyt := {M_FIXED}.fixedmul (tr_y, i_main.r_main.viewcos)
+				tx := - (gyt + gxt)
+
+					-- too far off the side?
+				if tx.abs > (tz |<< 2) then
+						-- return
+				else
+						-- decide which patch to use for sprite relative to player
+					check
+						RANGECHECK: thing.sprite.to_natural_32 < numsprites.to_natural_32
+					end
+					check attached sprites as ss then
+						sprdef := ss [thing.sprite]
+					end
+					check
+						RANGECHECK: thing.frame.bit_and (i_main.p_pspr.FF_FRAMEMASK) < sprdef.numframes
+					end
+					check attached sprdef.spriteframes as sf then
+						sprframe := sf [thing.frame.bit_and (i_main.p_pspr.FF_FRAMEMASK)]
+					end
+					if sprframe.rotate then
+							-- choose a different rotation based on player view
+						ang := i_main.r_main.R_PointToAngle (thing.x, thing.y)
+						rot := (ang - thing.angle + (i_main.r_main.ANG45 // 2).to_natural_32 * 9) |>> 29
+						lump := sprframe.lump [rot]
+						flip := sprframe.flip [rot]
+					else
+							-- use single rotation for all views
+						lump := sprframe.lump [0]
+						flip := sprframe.flip [0]
+					end
+
+						-- calculate edges of the shape
+					check attached i_main.r_data.spriteoffset as so then
+						tx := tx - so [lump]
+					end
+					x1 := (i_main.r_main.centerxfrac + {M_FIXED}.fixedmul (tx, xscale)) |>> {M_FIXED}.fracbits
+
+						-- off the right side?
+					if x1 > i_main.r_draw.viewwidth then
+							-- return
+					else
+						check attached i_main.r_data.spritewidth as sw then
+							tx := tx + sw [lump]
+						end
+						x2 := ((i_main.r_main.centerxfrac + {M_FIXED}.fixedmul (tx, xscale)) |>> {M_FIXED}.fracbits) - 1
+
+							-- off the left side
+						if x2 < 0 then
+								-- return
+						else
+								-- store information in a vissprite
+							vis := R_NewVisSprite
+							vis.mobjflags := thing.flags
+							vis.scale := xscale |<< i_main.r_main.detailshift
+							vis.gx := thing.x
+							vis.gy := thing.y
+							vis.gz := thing.z
+							check attached i_main.r_data.spriteoffset as so then
+								vis.gzt := thing.z + so [lump]
+							end
+							vis.texturemid := vis.gzt - i_main.r_main.viewz
+							vis.x1 := x1.max (0)
+							vis.x2 := x2.max (i_main.r_draw.viewwidth - 1)
+							iscale := {M_FIXED}.fixeddiv ({M_FIXED}.fracunit, xscale)
+							if flip then
+								check attached i_main.r_data.spritewidth as sw then
+									vis.startfrac := sw [lump] - 1
+								end
+								vis.xiscale := - iscale
+							else
+								vis.startfrac := 0
+								vis.xiscale := iscale
+							end
+							if vis.x1 > x1 then
+								vis.startfrac := vis.startfrac + vis.xiscale * (vis.x1 - x1)
+							end
+							vis.patch := lump
+
+								-- get light level
+							if thing.flags & {P_MOBJ}.MF_SHADOW /= 0 then
+									-- shadow draw
+								vis.colormap := Void
+							elseif i_main.r_main.fixedcolormap /= Void then
+									-- fixed map
+								vis.colormap := i_main.r_main.fixedcolormap
+							elseif thing.frame & {P_PSPR}.FF_FULLBRIGHT /= 0 then
+									-- full bright
+								vis.colormap := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (0, i_main.r_data.colormaps)
+							else
+									-- diminished light
+								index := xscale |>> ({R_MAIN}.LIGHTSCALESHIFT - i_main.r_main.detailshift)
+								if index >= {R_MAIN}.MAXLIGHTSCALE then
+									index := {R_MAIN}.MAXLIGHTSCALE - 1
+								end
+								check attached spritelights as sl then
+									vis.colormap := sl [index]
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+feature -- R_NewVisSprite
+
+	overflowsprite: VISSPRITE_T
+
+	R_NewVisSprite: VISSPRITE_T
+		do
+			if vissprite_p = MAXVISSPRITES then
+				Result := overflowsprite
+			else
+				vissprite_p := vissprite_p + 1
+				Result := vissprites [vissprite_p - 1]
+			end
 		end
 
 feature -- Sprite rotation
