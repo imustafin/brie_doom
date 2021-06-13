@@ -26,7 +26,9 @@ feature
 
 	set_x1 (a_x1: like x1)
 		do
-			x1 := x1
+			x1 := a_x1
+		ensure
+			x1 = a_x1
 		end
 
 	x2: INTEGER assign set_x2
