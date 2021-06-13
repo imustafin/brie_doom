@@ -87,10 +87,12 @@ feature
 			from
 				i := 0
 			until
-				i >= names.names.count - 1
+				i > names.names.upper
 			loop
 				patchlookup [i] := i_main.w_wad.w_checknumforname (names.names [i])
 				i := i + 1
+			variant
+				names.names.upper - i + 1
 			end
 
 				-- Load the map texture definitions from textures.lmp.

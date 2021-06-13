@@ -17,8 +17,6 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			create lumpinfo.make (0)
-			create lumpcache.make (0)
 		end
 
 feature
@@ -29,9 +27,9 @@ feature
 
 feature
 
-	lumpinfo: ARRAYED_LIST [LUMPINFO_T] -- indexed from 1
+	lumpinfo: detachable ARRAY [LUMPINFO_T]
 
-	lumpcache: ARRAYED_LIST [detachable MANAGED_POINTER] -- indexed from 1
+	lumpcache: detachable ARRAY [detachable MANAGED_POINTER]
 
 feature
 
@@ -45,16 +43,17 @@ feature
 			loop
 				W_AddFile (filename.item)
 			end
-			if lumpinfo.is_empty then
-				i_main.i_error ("W_InitFiles: no files found")
+			check attached lumpinfo as li then
+				if li.is_empty then
+					i_main.i_error ("W_InitFiles: no files found")
+				end
+					-- set up caching
+					-- skip int size = numlumps * sizeof(*lumpcache)
+
+					-- lumpcache = malloc(size);
+					-- memset(lumpcache, 0, size);
+				create lumpcache.make_filled (Void, 0, li.count)
 			end
-
-				-- set up caching
-				-- skip int size = numlumps * sizeof(*lumpcache)
-
-				-- lumpcache = malloc(size);
-				-- memset(lumpcache, 0, size);
-			create lumpcache.make_filled (lumpinfo.count)
 		end
 
 	W_AddFile (a_filename: STRING)
@@ -78,7 +77,9 @@ feature
 		do
 			if a_filename.starts_with ("~") then
 				reloadname := a_filename.tail (a_filename.count - 1)
-				reloadlump := lumpinfo.count
+				check attached lumpinfo as li then
+					reloadlump := li.count
+				end
 			end
 			create l_file.make_open_read (a_filename)
 			if not l_file.is_open_read then
@@ -108,12 +109,21 @@ feature
 					end
 				end
 				l_storehandle := if attached reloadname then Void else l_file end
-				across
-					l_fileinfo as fileinfo
+					-- copy l_fileinfo to lumpinfo
+				from
+					i := 1 -- l_fileinfo is 1-indexed
+					create lumpinfo.make_filled (create {LUMPINFO_T}.make ("UNUSED", Void, 0, 0), 0, l_fileinfo.count - 1)
+				until
+					i > l_fileinfo.upper
 				loop
-					lumpinfo.extend (create {LUMPINFO_T}.make (fileinfo.item.name, l_storehandle, fileinfo.item.filepos, fileinfo.item.size))
+					check attached lumpinfo as li then
+						li [i - 1] := create {LUMPINFO_T}.make (l_fileinfo [i].name, l_storehandle, l_fileinfo [i].filepos, l_fileinfo [i].size)
+					end
+					i := i + 1
 				end
 			end
+		ensure
+			attached lumpinfo as li and then {UTILS [LUMPINFO_T]}.all_different (li)
 		end
 
 	ExtractFileBase (a_filename: STRING): STRING
@@ -126,17 +136,18 @@ feature
 	W_CheckNumForName (name: STRING): INTEGER
 			-- Returns -1 if name not found
 		do
-			from
-				Result := lumpinfo.upper
-			until
-				Result <= 0 or else lumpinfo [Result].name.is_case_insensitive_equal (name)
-			loop
-				Result := Result - 1
+			check attached lumpinfo as li then
+				from
+					Result := li.upper
+				until
+					Result < 0 or else li [Result].name.is_case_insensitive_equal (name)
+				loop
+					Result := Result - 1
+				end
 			end
-			Result := Result - 1
 		ensure
-			minus_one_if_not_present: across lumpinfo as l all not l.item.name.is_case_insensitive_equal (name) end implies Result = -1
-			index_if_present: Result > -1 implies lumpinfo [Result + 1].name.is_case_insensitive_equal (name)
+			minus_one_if_not_present: attached lumpinfo as li and then across li as l all not l.item.name.is_case_insensitive_equal (name) end implies Result = -1
+			index_if_present: Result > -1 implies attached lumpinfo as li and then li [Result].name.is_case_insensitive_equal (name)
 		end
 
 	W_CacheLumpName (name: STRING; tag: INTEGER): MANAGED_POINTER
@@ -156,15 +167,19 @@ feature
 
 	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): MANAGED_POINTER
 		do
-			if lump >= lumpinfo.count then
-				i_main.i_error ("W_CacheLumpNum: " + lump.out + " >= numlumps")
+			check attached lumpinfo as li then
+				if lump > li.count then
+					i_main.i_error ("W_CacheLumpNum: " + lump.out + " >= numlumps")
+				end
 			end
-			if attached lumpcache [lump + 1] as l then
+			if attached lumpcache as lc and then attached lc [lump] as l then
 				Result := l
 			else
 					-- skip byte* ptr = Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
 				Result := W_ReadLump (lump)
-				lumpcache [lump + 1] := Result
+				check attached lumpcache as lc then
+					lc [lump] := Result
+				end
 			end
 		ensure
 			Result.count = W_LumpLength (lump)
@@ -172,10 +187,12 @@ feature
 
 	W_LumpLength (lump: INTEGER): INTEGER
 		do
-			if lump >= lumpinfo.count then
-				i_main.i_error ("W_LumpLength: " + lump.out + " >= numlumps")
+			check attached lumpinfo as li then
+				if lump > li.count then
+					i_main.i_error ("W_LumpLength: " + lump.out + " >= numlumps")
+				end
+				Result := li [lump].size
 			end
-			Result := lumpinfo [lump + 1].size
 		end
 
 	W_ReadLump (lump: INTEGER): MANAGED_POINTER
@@ -185,10 +202,12 @@ feature
 			l: LUMPINFO_T
 			handle: RAW_FILE
 		do
-			if lump >= lumpinfo.count then
-				i_main.i_error ("W_ReadLump: " + lump.out + " >= numlumps")
+			check attached lumpinfo as li then
+				if lump > li.upper then
+					i_main.i_error ("W_ReadLump: " + lump.out + " >= numlumps")
+				end
+				l := li [lump]
 			end
-			l := lumpinfo [lump + 1]
 
 				-- ??? I_BeginRead ();
 
