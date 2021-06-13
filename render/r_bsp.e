@@ -28,11 +28,13 @@ feature
 				solidsegs [i] := create {CLIPRANGE_T}
 				i := i + 1
 			end
-			create drawsegs.make_filled (create {DRAWSEG_T}.make, 0, {R_DEFS}.MAXDRAWSEGS - 1)
+			drawsegs := {REF_ARRAY_CREATOR [DRAWSEG_T]}.make_ref_array ({R_DEFS}.maxdrawsegs)
 			create frontsector.make
 			create curline.make
 			create linedef.make
 			create sidedef
+		ensure
+			{UTILS [DRAWSEG_T]}.invariant_ref_array (drawsegs, {R_DEFS}.maxdrawsegs)
 		end
 
 feature
@@ -137,7 +139,7 @@ feature
 			-- Add sprites of things in sector.
 			-- Draw one or more line segments.
 		require
-			-- RANGECHECK
+				-- RANGECHECK
 			i_main.p_setup.subsectors.valid_index (num)
 		local
 			count: INTEGER
@@ -354,8 +356,8 @@ feature
 						solidsegs [next] := solidsegs [next - 1].twin
 						next := next - 1
 					end
-					solidsegs[next].first := first
-					solidsegs[next].last := last
+					solidsegs [next].first := first
+					solidsegs [next].last := last
 					done := True
 				else
 						-- There is a fragment above *start
@@ -393,7 +395,7 @@ feature
 					-- Adjust the clip size.
 				solidsegs [start].last := last
 			end
-			-- crunch:
+				-- crunch:
 			if not done then
 					-- Remove start + 1 to next from the clip list,
 					-- because start now covers their area
@@ -555,6 +557,5 @@ feature -- R_CheckBBox
 
 invariant
 	solidsegs.count = MAXSEGS
-	drawsegs.lower = 0 and drawsegs.count = {R_DEFS}.MAXDRAWSEGS
 
 end

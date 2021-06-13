@@ -86,7 +86,7 @@ feature
 		-- Pointers to lists for sprite clipping
 		-- all three adjusted so [x1] is first value
 
-	sprtopclip: detachable INDEX_IN_ARRAY[INTEGER_16] assign set_sprtopclip
+	sprtopclip: detachable INDEX_IN_ARRAY [INTEGER_16] assign set_sprtopclip
 
 	set_sprtopclip (a_sprtopclip: like sprtopclip)
 		do
@@ -100,7 +100,7 @@ feature
 			sprbottomclip := a_sprbottomclip
 		end
 
-	maskedtexturecol: detachable INDEX_IN_ARRAY[INTEGER_16] assign set_maskedtexturecol
+	maskedtexturecol: detachable INDEX_IN_ARRAY [INTEGER_16] assign set_maskedtexturecol
 
 	set_maskedtexturecol (a_maskedtexturecol: like maskedtexturecol)
 		do

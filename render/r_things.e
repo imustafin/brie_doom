@@ -112,6 +112,7 @@ feature -- R_InitSprites
 			patched: INTEGER
 		do
 			numsprites := namelist.count
+			numsprites := numsprites - 1 -- ??? // -1 added by georg
 			make_sprites (namelist.count)
 			s := i_main.r_data.firstspritelump - 1
 			e := i_main.r_data.lastspritelump + 1
@@ -469,7 +470,7 @@ feature
 				-- The first drawseg that has a greater scale
 				-- is the clip seg.
 			from
-				create ds.make (i_main.r_bsp.ds_p, i_main.r_bsp.drawsegs)
+				create ds.make (i_main.r_bsp.ds_p - 1, i_main.r_bsp.drawsegs)
 			until
 				ds.index < i_main.r_bsp.drawsegs.lower
 			loop
