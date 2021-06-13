@@ -83,13 +83,7 @@ feature -- R_InitSprites
 	compute_intname (str: STRING): INTEGER
 			-- take first 4 chars and construct an int from them
 		do
-			Result := str [1].code
-			Result := Result |<< 8
-			Result := Result | str [2].code
-			Result := Result |<< 8
-			Result := Result | str [3].code
-			Result := Result |<< 8
-			Result := Result | str [4].code
+			Result := (str [1].code) | (str [2].code |<< 8) | (str [3].code |<< 16) | (str [4].code |<< 24)
 		end
 
 	R_InitSpriteDefs (namelist: ARRAY [STRING])
