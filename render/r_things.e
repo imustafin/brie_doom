@@ -747,8 +747,8 @@ feature
 							vis.gx := thing.x
 							vis.gy := thing.y
 							vis.gz := thing.z
-							check attached i_main.r_data.spriteoffset as so then
-								vis.gzt := thing.z + so [lump]
+							check attached i_main.r_data.spritetopoffset as st then
+								vis.gzt := thing.z + st [lump]
 							end
 							vis.texturemid := vis.gzt - i_main.r_main.viewz
 							vis.x1 := x1.max (0)
