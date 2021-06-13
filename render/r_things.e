@@ -136,19 +136,21 @@ feature -- R_InitSprites
 				until
 					l >= e
 				loop
-					if compute_intname (i_main.w_wad.lumpinfo [l].name) = intname then
-						frame := i_main.w_wad.lumpinfo [l].name [5].code - ('A').code
-						rotation := i_main.w_wad.lumpinfo [l].name [6].code - ('0').code
-						if i_main.doomstat_h.modifiedgame then
-							patched := i_main.w_wad.W_GetNumForName (i_main.w_wad.lumpinfo [l].name)
-						else
-							patched := l
-						end
-						R_InstallSpriteLump (patched, frame.to_natural_32, rotation.to_natural_32, False)
-						if i_main.w_wad.lumpinfo [l].name.count >= 7 then
-							frame := i_main.w_wad.lumpinfo [l].name [7].code - ('A').code
-							rotation := i_main.w_wad.lumpinfo [l].name [8].code - ('0').code
-							R_InstallSpriteLump (l, frame.to_natural_32, rotation.to_natural_32, True)
+					check attached i_main.w_wad.lumpinfo as li then
+						if compute_intname (li [l].name) = intname then
+							frame := li [l].name [5].code - ('A').code
+							rotation := li [l].name [6].code - ('0').code
+							if i_main.doomstat_h.modifiedgame then
+								patched := i_main.w_wad.W_GetNumForName (li [l].name)
+							else
+								patched := l
+							end
+							R_InstallSpriteLump (patched, frame.to_natural_32, rotation.to_natural_32, False)
+							if li [l].name.count >= 7 then
+								frame := li [l].name [7].code - ('A').code
+								rotation := li [l].name [8].code - ('0').code
+								R_InstallSpriteLump (l, frame.to_natural_32, rotation.to_natural_32, True)
+							end
 						end
 					end
 					l := l + 1
