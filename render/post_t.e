@@ -29,6 +29,9 @@ feature
 				length := 0
 				create body.make_empty
 			end
+			body.rebase (0)
+		ensure
+			body.lower = 0
 		end
 
 feature

@@ -530,7 +530,7 @@ feature
 					count := cacheheight - position
 				end
 				if count > 0 then
-					cache.put_array (source.subarray (1, count), cache_ofs + position)
+					cache.put_array (source.subarray (0, count - 1), cache_ofs + position)
 				end
 				post_num := post_num + 1
 			end
