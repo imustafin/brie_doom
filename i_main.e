@@ -161,13 +161,9 @@ feature -- Globals
 			end
 		end
 
-	inner_i_video: detachable I_VIDEO
-
 	i_video: I_VIDEO
-		do
-			check attached inner_i_video as x then
-				Result := x
-			end
+		once
+			create Result.make(Current)
 		end
 
 	i_net: detachable I_NET
@@ -295,7 +291,6 @@ feature {NONE} -- Initialization
 			create inner_s_sound.make (Current)
 			create inner_hu_stuff.make (Current)
 			create inner_g_game.make (Current)
-			create inner_i_video.make (Current)
 			create inner_m_menu.make (Current)
 			create inner_w_wad.make (Current)
 			create inner_i_system.make (Current)
