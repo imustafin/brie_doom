@@ -568,7 +568,7 @@ feature
 				x > spr.x2
 			loop
 				if clipbot [x] = -2 then
-					clipbot [x] := {P_LOCAL}.viewheight.to_integer_16
+					clipbot [x] := i_main.r_draw.viewheight.to_integer_16
 				end
 				if cliptop [x] = -2 then
 					cliptop [x] := -1
