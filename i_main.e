@@ -263,6 +263,11 @@ feature -- Globals
 			create Result
 		end
 
+	p_enemy: P_ENEMY
+		once
+			create Result
+		end
+
 feature {NONE} -- Initialization
 
 	make

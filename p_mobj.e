@@ -565,7 +565,7 @@ feature -- P_RemoveMobj
 						-- Modified handling.
 						-- Call action functions when the state is set
 					if attached st.action as action then
-						action.call (mobj)
+						action.call (i_main.p_enemy, mobj)
 					end
 					state := st.nextstate
 				end
