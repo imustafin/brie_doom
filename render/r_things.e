@@ -30,6 +30,8 @@ feature
 
 feature
 
+	BASEYCENTER: INTEGER = 100
+
 	MINZ: INTEGER
 		once
 			Result := {M_FIXED}.fracunit * 4
@@ -580,10 +582,135 @@ feature
 			R_DrawVisSprite (spr, spr.x1, spr.x2)
 		end
 
+feature -- Player Sprites
+
 	R_DrawPlayerSprites
+		local
+			i: INTEGER
+			lightnum: INTEGER
+			psp: PSPDEF_T
 		do
-				-- Stub
+				-- get light level
+			check attached i_main.r_main.viewplayer.mo as mo and then attached mo.subsector as ss and then attached ss.sector as s then
+				lightnum := (s.lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
+			end
+			if lightnum < 0 then
+				spritelights := i_main.r_main.scalelight [0]
+			elseif lightnum >= {R_MAIN}.LIGHTLEVELS then
+				spritelights := i_main.r_main.scalelight [{R_MAIN}.LIGHTLEVELS - 1]
+			else
+				spritelights := i_main.r_main.scalelight [lightnum]
+			end
+
+				-- clip to screen bounds
+			mfloorclip := screenheightarray
+			mceilingclip := negonearray
+
+				-- add all active psprites
+			from
+				i := 0
+			until
+				i >= {P_PSPR}.NUMPSPRITES
+			loop
+				psp := i_main.r_main.viewplayer.psprites [i]
+				if psp.state /= Void then
+					R_DrawPSprite (psp)
+				end
+				i := i + 1
+			end
 		end
+
+	R_DrawPSprite (psp: PSPDEF_T)
+		require
+			RANGECHECK: attached psp.state as s1 and then s1.sprite < numsprites
+			RANGECHECK: attached psp.state as s2 and then attached sprites as sprs and then (s2.frame & {P_PSPR}.FF_FRAMEMASK) < sprs [s2.sprite].numframes
+		local
+			tx: FIXED_T
+			x1, x2: INTEGER
+			sprdef: SPRITEDEF_T
+			sprframe: SPRITEFRAME_T
+			lump: INTEGER
+			flip: BOOLEAN
+			vis: VISSPRITE_T
+			avis: VISSPRITE_T
+		do
+			create avis
+				-- decide which patch to use
+			check attached psp.state as s then
+				check attached sprites as sprs then
+					sprdef := sprs [s.sprite]
+				end
+				check attached sprdef.spriteframes as sfrms then
+					sprframe := sfrms [(s.frame & {P_PSPR}.ff_framemask).to_integer_32]
+				end
+			end
+			lump := sprframe.lump [0]
+			flip := sprframe.flip [0]
+
+				-- calculate edges of the shape
+			tx := psp.sx - 160 * {M_FIXED}.FRACUNIT
+			check attached i_main.r_data.spriteoffset as sof then
+				tx := tx - sof [lump]
+			end
+			x1 := (i_main.r_main.centerxfrac + {M_FIXED}.fixedmul (tx, pspritescale)) |>> {M_FIXED}.FRACBITS
+				-- off the right side
+			if x1 > i_main.r_draw.viewwidth then
+					-- return
+			else
+				check attached i_main.r_data.spritewidth as sw then
+					tx := tx + sw [lump]
+				end
+				x2 := ((i_main.r_main.centerxfrac + {M_FIXED}.fixedmul (tx, pspritescale)) |>> {M_FIXED}.FRACBITS) - 1
+
+					-- off the left side
+				if x2 < 0 then
+						-- return
+				else
+						-- store information in a vissprite
+					vis := avis
+					vis.mobjflags := 0
+					check attached i_main.r_data.spritetopoffset as stopof then
+						vis.texturemid := (BASEYCENTER |<< {M_FIXED}.FRACBITS) + {M_FIXED}.FRACUNIT // 2 - (psp.sy - stopof [lump])
+					end
+					vis.x1 := x1.max (0)
+					vis.x2 := x2.min (i_main.r_draw.viewwidth - 1)
+					vis.scale := pspritescale |<< i_main.r_main.detailshift
+					if flip then
+						vis.xiscale := - pspriteiscale
+						check attached i_main.r_data.spritewidth as sw then
+							vis.startfrac := sw [lump] - 1
+						end
+					else
+						vis.xiscale := pspriteiscale
+						vis.startfrac := 0
+					end
+					if vis.x1 > x1 then
+						vis.startfrac := vis.startfrac + vis.xiscale * (vis.x1 - x1)
+					end
+					vis.patch := lump
+					check attached psp.state as s then
+						if i_main.r_main.viewplayer.powers [{POWERTYPE_T}.pw_invisibility] > 4 * 32 or i_main.r_main.viewplayer.powers [{POWERTYPE_T}.pw_invisibility] & 8 /= 0 then
+								-- shadow draw
+							vis.colormap := Void
+						elseif i_main.r_main.fixedcolormap /= Void then
+								-- fixed color
+							vis.colormap := i_main.r_main.fixedcolormap
+						elseif s.frame & {P_PSPR}.FF_FULLBRIGHT /= 0 then
+								-- full bright
+							vis.colormap := create {INDEX_IN_ARRAY [LIGHTTABLE_T]}.make (0, i_main.r_data.colormaps)
+						else
+								-- local light
+							check attached spritelights as sl then
+								vis.colormap := sl [{R_MAIN}.MAXLIGHTSCALE - 1]
+							end
+						end
+					end
+					R_DrawVisSprite (vis, vis.x1, vis.x2)
+				end
+			end
+		end
+
+feature
 
 	R_DrawMasked
 		local
@@ -619,7 +746,7 @@ feature
 
 				-- draw the psprites on top of everything
 				-- but does not draw on side views
-			if i_main.r_main.viewangleoffset /= 0 then
+			if i_main.r_main.viewangleoffset = 0 then
 				R_DrawPlayerSprites
 			end
 		end
