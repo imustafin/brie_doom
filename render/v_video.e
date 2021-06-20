@@ -70,7 +70,6 @@ feature
 	V_DrawPatch (a_x, a_y: INTEGER; patch: PATCH_T)
 			-- Masks a column based masked pic to the screen.
 		require
-
 		local
 			x, y: INTEGER
 			count: INTEGER
@@ -85,8 +84,8 @@ feature
 		do
 				-- From chocolate doom
 
-			x := a_x - patch.topoffset
-			y := a_y - patch.leftoffset
+			y := a_y - patch.topoffset
+			x := a_x - patch.leftoffset
 
 				-- skip RANGECHECK
 
@@ -157,11 +156,14 @@ feature
 
 	dest_screen: PIXEL_T_BUFFER
 
+	V_UseBuffer (buffer: PIXEL_T_BUFFER)
+		do
+			dest_screen := buffer
+		end
+
 	V_RestoreBuffer
 		do
-			check attached i_main.i_video as iv then
-				dest_screen := iv.i_videobuffer
-			end
+			dest_screen := i_main.i_video.i_videobuffer
 		end
 
 end

@@ -30,6 +30,8 @@ feature
 
 	SBARHEIGHT: INTEGER = 32 -- status bar height at bottom of screen
 
+	background_buffer: detachable PIXEL_T_BUFFER
+
 feature -- ?
 
 	MAXWIDTH: INTEGER = 1120
@@ -225,15 +227,164 @@ feature
 			-- Fills the back screen with a pattern
 			--  for variable screen sizes
 			-- Also draws a beveled edge.
+		local
+			src: PIXEL_T_BUFFER
+			dest: PIXEL_T_BUFFER
+			border_patch: MANAGED_POINTER
+			x, y: INTEGER
+			patch: PATCH_T
+			name1: STRING
+			name2: STRING
+			name: STRING
 		do
-				-- Stub
+				-- DOOM border patch.
+			name1 := "FLOOR7_2"
+				-- DOOM II border patch.
+			name2 := "GRNROCK"
+				-- If we are running full screen, there is no need to do any of this,
+				-- and the background buffer can be freed if it was previously in use.
+			if scaledviewwidth = SCREENWIDTH then
+				if background_buffer /= Void then
+					background_buffer := Void
+				end
+					-- return
+			else
+					-- Allocate the background buffer if necessary
+				if background_buffer = Void then
+					create background_buffer.make (SCREENWIDTH * (SCREENHEIGHT - SBARHEIGHT))
+				end
+				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					name := name2
+				else
+					name := name1
+				end
+				border_patch := i_main.w_wad.w_cachelumpname (name, {Z_ZONE}.pu_cache)
+				create src.share_from_pointer (border_patch.item, border_patch.count)
+				dest := background_buffer
+				check attached dest then
+					from
+						y := 0
+					until
+						y >= SCREENHEIGHT - SBARHEIGHT
+					loop
+						from
+							x := 0
+						until
+							x >= SCREENWIDTH // 64
+						loop
+							dest.copy_from_count (src + ((y & 63) |<< 6), 64)
+							dest := dest + 64
+							x := x + 1
+						end
+						if SCREENWIDTH & 63 /= 0 then
+							dest.copy_from_count (src + ((y & 63) |<< 6), SCREENWIDTH & 63)
+							dest := dest + (SCREENWIDTH & 63)
+						end
+						y := y + 1
+					end
+				end
+
+					-- Draw screen and bezel; this is done to a separate screen buffer.
+
+				check attached background_buffer as bb then
+					i_main.v_video.V_UseBuffer (bb)
+				end
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_t", {Z_ZONE}.pu_cache))
+				from
+					x := 0
+				until
+					x >= scaledviewwidth
+				loop
+					i_main.v_video.V_DrawPatch (viewwindowx + x, viewwindowy - 8, patch)
+					x := x + 8
+				end
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_b", {Z_ZONE}.pu_cache))
+				from
+					x := 0
+				until
+					x >= scaledviewwidth
+				loop
+					i_main.v_video.V_DrawPatch (viewwindowx + x, viewwindowy + viewheight, patch)
+					x := x + 8
+				end
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_l", {Z_ZONE}.pu_cache))
+				from
+					y := 0
+				until
+					y >= viewheight
+				loop
+					i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy + y, patch)
+					y := y + 8
+				end
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_r", {Z_ZONE}.pu_cache))
+				from
+					y := 0
+				until
+					y >= viewheight
+				loop
+					i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy + y, patch)
+					y := y + 8
+				end
+
+					-- Draw beveled edge.
+				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tl", {Z_ZONE}.pu_cache)))
+				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tr", {Z_ZONE}.pu_cache)))
+				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_bl", {Z_ZONE}.pu_cache)))
+				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_br", {Z_ZONE}.pu_cache)))
+				i_main.v_video.V_RestoreBuffer
+			end
+		end
+
+	R_VideoErase (ofs: INTEGER; count: INTEGER)
+			-- Copy a screen buffer
+			--
+			-- ofs was originally unsigned
+		do
+				-- LFB copy.
+				-- This might not be a good idea if memcpy
+				-- is not optiomal, e.g. byte by byte on
+				-- a 32bit CPU, as GNU GCC/Linux libc did
+				-- at one point.
+			if attached background_buffer as bb then
+				(i_main.i_video.I_VideoBuffer + ofs).copy_from_count (bb + ofs, count)
+			end
 		end
 
 	R_DrawViewBorder
 			-- Draws the border around the view
 			--  for different size windows?
+		local
+			top: INTEGER
+			side: INTEGER
+			ofs: INTEGER
+			i: INTEGER
 		do
-				-- Stub
+			if scaledviewwidth = SCREENWIDTH then
+					-- return
+			else
+				top := ((SCREENHEIGHT - SBARHEIGHT) - viewheight) // 2
+				side := (SCREENWIDTH - scaledviewwidth) // 2
+					-- copy top and one line of left side
+				R_VideoErase (0, top * SCREENWIDTH + side)
+					-- copy one line of right side and bottom
+				ofs := (viewheight + top) * SCREENWIDTH - side
+				R_VideoErase (ofs, top * SCREENWIDTH + side)
+					-- copy sides using wraparound
+				ofs := top * SCREENWIDTH + SCREENWIDTH - side
+				side := side |<< 1
+				from
+					i := 1
+				until
+					i >= viewheight
+				loop
+					R_VideoErase (ofs, side)
+					ofs := ofs + SCREENWIDTH
+					i := i + 1
+				end
+
+					-- ?
+				i_main.v_video.V_MarkRect (0, 0, SCREENWIDTH, SCREENHEIGHT - SBARHEIGHT)
+			end
 		end
 
 feature -- R_DrawTranslatedColumn

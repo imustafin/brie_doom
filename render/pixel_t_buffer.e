@@ -36,7 +36,15 @@ feature
 		require
 			p.count = other.p.count
 		do
-			p.item.memory_copy (other.p.item, p.count)
+			copy_from_count(other, p.count)
+		end
+
+	copy_from_count (other: PIXEL_T_BUFFER; count: INTEGER)
+		require
+			p.count >= count
+			other.p.count >= count
+		do
+			p.item.memory_copy (other.p.item, count)
 		end
 
 feature
