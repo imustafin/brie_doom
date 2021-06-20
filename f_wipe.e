@@ -40,17 +40,13 @@ feature
 	wipe_StartScreen (x, y, width, height: INTEGER)
 		do
 			create wipe_scr_start.make ({DOOMDEF_H}.screenwidth * {DOOMDEF_H}.screenheight)
-			check attached i_main.i_video as iv then
-				iv.I_ReadScreen (wipe_scr_start)
-			end
+			i_main.i_video.I_ReadScreen (wipe_scr_start)
 		end
 
 	wipe_EndScreen (x, y, width, height: INTEGER)
 		do
 			create wipe_scr_end.make ({DOOMDEF_H}.screenwidth * {DOOMDEF_H}.screenheight)
-			check attached i_main.i_video as iv then
-				iv.i_readscreen (wipe_scr_end)
-			end
+			i_main.i_video.i_readscreen (wipe_scr_end)
 			i_main.v_video.V_DrawBlock (x, y, width, height, wipe_scr_start) -- restore start scr.
 		end
 
@@ -63,6 +59,7 @@ feature
 
 				-- Initial stuff
 			wipes := {ARRAY [PREDICATE [TUPLE [INTEGER, INTEGER, INTEGER]]]} <<agent wipe_initColorXForm, agent wipe_doColorXForm, agent wipe_exitColorXForm, agent wipe_initMelt, agent wipe_doMelt, agent wipe_exitMelt>>
+			wipes.rebase (0)
 			if not go then
 				go := True
 				wipe_scr := i_main.i_video.I_VideoBuffer
@@ -74,7 +71,7 @@ feature
 			rc := wipes [wipeno * 3 + 1].item (width, height, ticks)
 
 				-- final stuff
-			if not rc then
+			if rc then
 				go := False
 				wipes [wipeno * 3 + 2].call (width, height, ticks)
 			end
@@ -234,6 +231,7 @@ feature -- wipe Melt
 						if melt_y [i] + dy >= height then
 							dy := height - melt_y [i]
 						end
+						-- Draw some wipe_scr_end
 						from
 							s := i * height + melt_y [i]
 							d := melt_y [i] * width + i
@@ -242,11 +240,13 @@ feature -- wipe Melt
 						until
 							j = 0
 						loop
-							wipe_scr.put_dpixel (wipe_scr_start.item_dpixel (s), d + idx)
+							wipe_scr.put_dpixel (wipe_scr_end.item_dpixel (s), d + idx)
 							s := s + 1
 							idx := idx + width
 							j := j - 1
 						end
+						melt_y [i] := melt_y [i] + dy
+						-- Draw some wipe_scr_start
 						from
 							s := i * height
 							d := melt_y [i] * width + i

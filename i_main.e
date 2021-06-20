@@ -163,7 +163,7 @@ feature -- Globals
 
 	i_video: I_VIDEO
 		once
-			create Result.make(Current)
+			create Result.make (Current)
 		end
 
 	i_net: detachable I_NET
@@ -175,7 +175,10 @@ feature -- Globals
 
 	f_finale: F_FINALE
 
-	f_wipe: detachable F_WIPE
+	f_wipe: F_WIPE
+		once
+			create Result.make (Current)
+		end
 
 	hu_lib: HU_LIB
 
@@ -294,7 +297,6 @@ feature {NONE} -- Initialization
 			create inner_m_menu.make (Current)
 			create inner_w_wad.make (Current)
 			create inner_i_system.make (Current)
-			create f_wipe.make (Current)
 			create inner_v_video.make (Current)
 			create i_net.make (Current)
 			create inner_d_net.make (Current)

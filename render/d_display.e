@@ -70,9 +70,7 @@ feature -- D_Display
 					-- save the current screen if about to wipe
 				if i_main.g_game.gamestate /= wipegamestate then
 					wipe := True
-					check attached i_main.f_wipe as w then
-						w.wipe_StartScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
-					end
+					i_main.f_wipe.wipe_StartScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
 				else
 					wipe := False
 				end
@@ -104,9 +102,7 @@ feature -- D_Display
 				end
 
 					-- draw buffered stuff to screen
-				check attached i_main.i_video as iv then
-					iv.I_UpdateNoBlit
-				end
+				i_main.i_video.I_UpdateNoBlit
 
 					-- draw the view directly
 				if i_main.g_game.gamestate = {DOOMDEF_H}.GS_LEVEL and not i_main.am_map.automapactive and i_main.g_game.gametic /= 0 then
@@ -161,14 +157,10 @@ feature -- D_Display
 
 					-- normal update
 				if not wipe then
-					check attached i_main.i_video as iv then
-						iv.I_FinishUpdate -- page flip or blit buffer
-					end
+					i_main.i_video.I_FinishUpdate -- page flip or blit buffer
 				else
 						-- wipe update
-					check attached i_main.f_wipe as w then
-						w.wipe_EndScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
-					end
+					i_main.f_wipe.wipe_EndScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
 					wipestart := i_main.i_system.I_GetTime - 1
 					from
 						done := False
@@ -185,14 +177,10 @@ feature -- D_Display
 							i_main.i_system.i_sleep (1)
 						end
 						wipestart := nowtime
-						check attached i_main.f_wipe as w then
-							done := w.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
-						end
-						check attached i_main.i_video as iv then
-							iv.I_UpdateNoBlit
-							i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
-							iv.I_FinishUpdate -- page flip or blit buffer
-						end
+						done := i_main.f_wipe.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
+						i_main.i_video.I_UpdateNoBlit
+						i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
+						i_main.i_video.I_FinishUpdate -- page flip or blit buffer
 					end
 				end
 			end
