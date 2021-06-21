@@ -166,4 +166,31 @@ feature
 			dest_screen := i_main.i_video.i_videobuffer
 		end
 
+feature
+
+	V_CopyRect(srcx, srcy: INTEGER; source: PIXEL_T_BUFFER; width, a_height, destx, desty: INTEGER)
+		require
+			RANGECHECK: srcx >= 0 and srcx + width <= SCREENWIDTH and srcy >= 0 and srcy + a_height <= SCREENHEIGHT
+			RANGECHECK: destx >= 0 and destx + width <= SCREENWIDTH and desty >= 0 and desty + a_height <= SCREENHEIGHT
+		local
+			src: PIXEL_T_BUFFER
+			dest: PIXEL_T_BUFFER
+			height: INTEGER
+		do
+			V_MarkRect(destx, desty, width, height)
+			src := source + SCREENWIDTH * srcy + srcx
+			dest := dest_screen + SCREENWIDTH * desty + destx
+			from
+				height := a_height
+			until
+				height <= 0
+			loop
+				dest.copy_from_count(src, width)
+				src := src + SCREENWIDTH
+				dest := dest + SCREENWIDTH
+
+				height := height - 1
+			end
+		end
+
 end

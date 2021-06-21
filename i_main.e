@@ -270,6 +270,11 @@ feature -- Globals
 			create Result
 		end
 
+	st_lib: ST_LIB
+		once
+			create Result
+		end
+
 feature {NONE} -- Initialization
 
 	make
