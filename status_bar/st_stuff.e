@@ -208,10 +208,7 @@ feature
 
 	ST_MAXAMMO0Y: INTEGER = 173
 
-	ST_MAXAMMO0WIDTH: INTEGER
-		once
-			Result := ST_MAXAMMO0WIDTH
-		end
+	ST_MAXAMMO0WIDTH: INTEGER = 3
 
 	ST_MAXAMMO1X: INTEGER = 314
 
@@ -476,7 +473,7 @@ feature
 				i >= 6
 			loop
 					-- gray #
-				arms [i] [0] := load_patch ("STGNUM" + i.out)
+				arms [i] [0] := load_patch ("STGNUM" + (i + 2).out)
 					-- yellow #
 				arms [i] [1] := shortnum [i + 2]
 				i := i + 1
@@ -778,7 +775,7 @@ feature
 				until
 					i >= 6
 				loop
-					w_arms [i] := create {ST_MULT_ICON}.make (ST_ARMSX + (i \\ 3) * ST_ARMSXSPACE, ST_ARMSY + (i \\ 3) * ST_ARMSYSPACE, arms [i], (agent  (wep: INTEGER): INTEGER
+					w_arms [i] := create {ST_MULT_ICON}.make (ST_ARMSX + (i \\ 3) * ST_ARMSXSPACE, ST_ARMSY + (i // 3) * ST_ARMSYSPACE, arms [i], (agent  (wep: INTEGER): INTEGER
 						do
 							check attached plyr as agent_p then
 								Result := agent_p.weaponowned [wep + 1].to_integer
