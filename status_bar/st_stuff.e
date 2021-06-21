@@ -303,6 +303,12 @@ feature
 	keyboxes: ARRAY [INTEGER]
 			-- holds key-type for each key box on bar
 
+	st_randomnumber: INTEGER
+			-- a random number per tick
+
+	st_msgcounter: INTEGER
+			-- used for making messages go away
+
 feature -- st_chatstateenum_t
 
 	StartChatState: INTEGER = 0
@@ -844,7 +850,95 @@ feature
 
 	ST_Ticker
 		do
-				-- Stub
+			st_clock := st_clock + 1
+			st_randomnumber := i_main.m_random.m_random
+			ST_updateWidgets
+			check attached plyr as p then
+				st_oldhealth := p.health
+			end
+		end
+
+feature
+
+	largeammo: INTEGER = 1994
+
+	ST_UpdateFaceWidget
+		-- This is a not-very-pretty routine which handles
+		-- the face states and their timing.
+		-- the precedence of expressions is this:
+		-- dead > evil grin > turned head > straight head
+		do
+			-- Stub
+		end
+
+	ST_UpdateWidgets
+		local
+			i: INTEGER
+		do
+				-- must redirect the pointer if the ready weapon has changed.
+			check attached plyr as p then
+				if {D_ITEMS}.weaponinfo [p.readyweapon].ammo = {DOOMDEF_H}.am_noammo then
+					check attached w_ready as wr then
+						wr.num := agent largeammo
+					end
+				else
+					check attached w_ready as wr then
+						wr.num := (agent : INTEGER
+							do
+								check attached plyr as agent_p then
+									Result := agent_p.ammo [{D_ITEMS}.weaponinfo [agent_p.readyweapon].ammo]
+								end
+							end)
+					end
+				end
+				check attached w_ready as wr then
+					wr.data := p.readyweapon
+				end
+
+					-- update keycard multiple widgets
+				from
+					i := 0
+				until
+					i >= 3
+				loop
+					keyboxes [i] := if p.cards [i] then i else -1 end
+					if p.cards [i + 3] then
+						keyboxes [i] := i + 3
+					end
+					i := i + 1
+				end
+
+					-- refresh everything if this is him coming back to life
+				ST_updateFaceWidget
+
+					-- used by w_armsbg widget
+				st_notdeathmatch := not i_main.g_game.deathmatch
+
+					-- used by w_arms[] widgets
+				st_armson := st_statusbaron and not i_main.g_game.deathmatch
+
+					-- used by w_frags widget
+				st_fragson := i_main.g_game.deathmatch and st_statusbaron
+				st_fragscount := 0
+				from
+					i := 0
+				until
+					i >= {DOOMDEF_H}.MAXPLAYERS
+				loop
+					if i /= i_main.g_game.consoleplayer then
+						st_fragscount := st_fragscount + p.frags [i]
+					else
+						st_fragscount := st_fragscount - p.frags [i]
+					end
+					i := i + 1
+				end
+
+					-- get rid of chat window if up because of message
+				st_msgcounter := st_msgcounter - 1
+				if st_msgcounter = 0 then
+					st_chat := st_oldchat
+				end
+			end
 		end
 
 end

@@ -35,8 +35,13 @@ feature
 	oldnum: INTEGER
 			-- last number value
 
-	num: FUNCTION [INTEGER]
+	num: FUNCTION [INTEGER] assign set_num
 			-- pointer to current value
+
+	set_num (a_num: like num)
+		do
+			num := a_num
+		end
 
 	on: PREDICATE
 			-- pointer to boolean stating
