@@ -151,6 +151,9 @@ feature -- Globals
 		end
 
 	st_stuff: ST_STUFF
+		once
+			create Result.make (Current)
+		end
 
 	inner_g_game: detachable G_GAME
 
@@ -279,7 +282,6 @@ feature {NONE} -- Initialization
 			create p_spec.make
 			create info.make
 			create z_zone.make
-			create st_stuff.make
 			create r_sky.make
 			create f_finale.make
 			create m_random.make
