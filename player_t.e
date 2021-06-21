@@ -242,6 +242,9 @@ feature
 
 	armorpoints: INTEGER
 
+	attacker: detachable MOBJ_T
+			-- Who did damage (NULL for floors/ceilings).
+
 feature -- POV
 
 	viewz: FIXED_T assign set_viewz -- Focal origin above r.z

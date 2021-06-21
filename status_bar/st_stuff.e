@@ -13,6 +13,8 @@ inherit
 
 	POWERTYPE_T
 
+	CHEAT_T
+
 create
 	make
 
@@ -47,6 +49,8 @@ feature
 			create w_ammo.make_filled (Void, 0, 3)
 			create w_keyboxes.make_filled (Void, 0, 2)
 			create w_arms.make_filled (Void, 0, 5)
+			lastattackdown := -1
+			oldhealth := -1
 		ensure
 			arms.lower = 0 and arms.count = 6 and across arms as a all a.item.lower = 0 and a.item.count = 2 end
 			faces.lower = 0 and faces.count = ST_NUMFACES
@@ -59,6 +63,8 @@ feature
 			w_ammo.lower = 0 and w_ammo.count = 4
 			w_keyboxes.lower = 0 and w_keyboxes.count = 3
 			w_arms.lower = 0 and w_arms.count = 6
+			lastattackdown = -1
+			oldhealth = -1
 		end
 
 feature
@@ -236,6 +242,65 @@ feature
 
 feature
 
+	ST_DEADFACE: INTEGER
+		once
+			Result := ST_GODFACE + 1
+		end
+
+	ST_GODFACE: INTEGER
+		once
+			Result := ST_NUMPAINFACES * ST_FACESTRIDE
+		end
+
+	ST_RAMPAGEOFFSET: INTEGER
+		once
+			Result := ST_EVILGRINOFFSET + 1
+		end
+
+	ST_EVILGRINOFFSET: INTEGER
+		once
+			Result := ST_OUCHOFFSET + 1
+		end
+
+	ST_OUCHOFFSET: INTEGER
+		once
+			Result := ST_TURNOFFSET + ST_NUMTURNFACES
+		end
+
+	ST_EVILGRINCOUNT: INTEGER
+		once
+			Result := 2 * {DOOMDEF_H}.TICRATE
+		end
+
+	ST_STRAIGHTFACECOUNT: INTEGER
+		once
+			Result := {DOOMDEF_H}.TICRATE // 2
+		end
+
+	ST_TURNCOUNT: INTEGER
+		once
+			Result := {DOOMDEF_H}.TICRATE
+		end
+
+	ST_OUCHCOUNT: INTEGER
+		once
+			Result := {DOOMDEF_H}.TICRATE
+		end
+
+	ST_RAMPAGEDELAY: INTEGER
+		once
+			Result := 2 * {DOOMDEF_H}.TICRATE
+		end
+
+	ST_TURNOFFSET: INTEGER
+		once
+			Result := ST_NUMSTRAIGHTFACES
+		end
+
+	ST_MUCHPAIN: INTEGER = 20
+
+feature
+
 	st_backing_screen: detachable PIXEL_T_BUFFER
 			-- graphics are drawn to a backing screen and blitted to the real screen
 
@@ -332,6 +397,9 @@ feature
 			-- ST_Start() has just been called
 
 	plyr: detachable PLAYER_T
+
+	st_facecount: INTEGER
+			-- count until face changes
 
 feature
 
@@ -862,14 +930,162 @@ feature
 
 	largeammo: INTEGER = 1994
 
+	lastattackdown: INTEGER
+
+	priority: INTEGER
+
 	ST_UpdateFaceWidget
-		-- This is a not-very-pretty routine which handles
-		-- the face states and their timing.
-		-- the precedence of expressions is this:
-		-- dead > evil grin > turned head > straight head
+			-- This is a not-very-pretty routine which handles
+			-- the face states and their timing.
+			-- the precedence of expressions is this:
+			-- dead > evil grin > turned head > straight head
+		local
+			i: INTEGER
+			badguyangle: ANGLE_T
+			diffang: ANGLE_T
+			doevilgrin: BOOLEAN
 		do
-			-- Stub
+			check attached plyr as p then
+				if priority < 10 then
+						-- dead
+					if p.health = 0 then
+						priority := 9
+						st_faceindex := ST_DEADFACE
+						st_facecount := 1
+					end
+				end
+				if priority < 9 then
+					if p.bonuscount /= 0 then
+							-- picking up bonus
+						doevilgrin := False
+						from
+							i := 0
+						until
+							i >= {DOOMDEF_H}.NUMWEAPONS
+						loop
+							if oldweaponsowned [i] /= p.weaponowned [i] then
+								doevilgrin := True
+								oldweaponsowned [i] := p.weaponowned [i]
+							end
+							i := i + 1
+						end
+						if doevilgrin then
+								-- evil grin if just picked up weapon
+							priority := 8
+							st_facecount := ST_EVILGRINCOUNT
+							st_faceindex := ST_calcPainOffset + ST_EVILGRINOFFSET
+						end
+					end
+				end
+				if priority < 8 then
+					if p.damagecount /= 0 and then attached p.attacker as attacker and then attacker /= p.mo then
+							-- being attacked
+						priority := 7
+						if p.health - st_oldhealth > ST_MUCHPAIN then
+							st_facecount := ST_TURNCOUNT
+							st_faceindex := ST_calcPainOffset + ST_OUCHOFFSET
+						else
+							check attached p.mo as mo then
+								badguyangle := i_main.r_main.r_pointtoangle2 (mo.x, mo.y, attacker.x, attacker.y)
+								if badguyangle > mo.angle then
+										-- whether right or left
+									diffang := badguyangle - mo.angle
+									i := (diffang > {R_MAIN}.ANG180).to_integer
+								else
+										-- whether left or right
+									diffang := mo.angle - badguyangle
+									i := (diffang <= {R_MAIN}.ANG180).to_integer
+								end -- confusing, aint it?
+
+								st_facecount := ST_TURNCOUNT
+								st_faceindex := ST_calcPainOffset
+								if diffang < {R_MAIN}.ANG45 then
+										-- head on
+									st_faceindex := st_faceindex + ST_RAMPAGEOFFSET
+								elseif i /= 0 then
+										-- turn face right
+									st_faceindex := st_faceindex + ST_TURNOFFSET
+								else
+										-- turn face left
+
+									st_faceindex := st_faceindex + ST_TURNOFFSET + 1
+								end
+							end
+						end
+					end
+				end
+				if priority < 7 then
+						-- getting hurt because of your own stupidity
+					if p.damagecount /= 0 then
+						if p.health - st_oldhealth > ST_MUCHPAIN then
+							priority := 7
+							st_facecount := ST_TURNCOUNT
+							st_faceindex := ST_calcPainOffset + ST_OUCHOFFSET
+						else
+							priority := 6
+							st_facecount := ST_TURNCOUNT
+							st_faceindex := ST_calcPainOffset + ST_RAMPAGEOFFSET
+						end
+					end
+				end
+				if priority < 6 then
+						-- rapid firing
+					if p.attackdown then
+						if lastattackdown = -1 then
+							lastattackdown := ST_RAMPAGEDELAY
+						else
+							lastattackdown := lastattackdown - 1
+							if lastattackdown = 0 then
+								priority := 5
+								st_faceindex := ST_calcPainOffset + ST_RAMPAGEOFFSET
+								st_facecount := 1
+								lastattackdown := 1
+							end
+						end
+					else
+						lastattackdown := -1
+					end
+				end
+				if priority < 5 then
+						-- invulnerability
+					if p.cheats & CF_GODMODE /= 0 or p.powers [pw_invulnerability] /= 0 then
+						priority := 4
+						st_faceindex := ST_GODFACE
+						st_facecount := 1
+					end
+				end
+
+					-- look left or look right if the facecount has timed out
+				if st_facecount = 0 then
+					st_faceindex := ST_calcPainOffset + (st_randomnumber \\ 3)
+					st_facecount := ST_STRAIGHTFACECOUNT
+					priority := 0
+				end
+				st_facecount := st_facecount - 1
+			end
 		end
+
+feature
+
+	lastcalc: INTEGER
+
+	oldhealth: INTEGER
+
+	ST_calcPainOffset: INTEGER
+		local
+			health: INTEGER
+		do
+			check attached plyr as p then
+				health := if p.health > 100 then 100 else p.health end
+				if health /= oldhealth then
+					lastcalc := ST_FACESTRIDE * (((100 - health) * ST_NUMPAINFACES) // 101)
+					oldhealth := health
+				end
+			end
+			Result := lastcalc
+		end
+
+feature
 
 	ST_UpdateWidgets
 		local
