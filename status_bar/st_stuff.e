@@ -115,6 +115,8 @@ feature
 	ST_Y: INTEGER
 		once
 			Result := {DOOMDEF_H}.SCREENHEIGHT - ST_HEIGHT
+		ensure
+			instance_free: class
 		end
 
 	ST_AMMOX: INTEGER = 44
@@ -549,8 +551,64 @@ feature
 		end
 
 	ST_drawWidgets (refresh: BOOLEAN)
+		local
+			i: INTEGER
 		do
-				-- Stub
+				-- used by w_arms[] widgets
+			st_armson := st_statusbaron and not i_main.g_game.deathmatch
+				-- used by w_frags widget
+			st_fragson := i_main.g_game.deathmatch and st_statusbaron
+			check attached w_ready as wr then
+				wr.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 4
+			loop
+				check attached w_ammo [i] as wai then
+					wai.update (refresh)
+				end
+				check attached w_maxammo [i] as wmai then
+					wmai.update (refresh)
+				end
+				i := i + 1
+			end
+			check attached w_health as wh then
+				wh.update (refresh)
+			end
+			check attached w_armor as wa then
+				wa.update (refresh)
+			end
+			check attached w_armsbg as wabg then
+				wabg.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 6
+			loop
+				check attached w_arms [i] as wi then
+					wi.update (refresh)
+				end
+				i := i + 1
+			end
+			check attached w_faces as wf then
+				wf.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 3
+			loop
+				check attached w_keyboxes [i] as wki then
+					wki.update (refresh)
+				end
+				i := i + 1
+			end
+			check attached w_frags as wf then
+				wf.update (refresh)
+			end
 		end
 
 	ST_refreshBackground
@@ -614,7 +672,12 @@ feature
 		do
 				-- ready weapon info
 			check attached plyr as p then
-				create w_ready.make (ST_AMMOX, ST_AMMOY, tallnum, p.ammo [{D_ITEMS}.weaponinfo [p.readyweapon].ammo], st_statusbaron, ST_AMMOWIDTH)
+				create w_ready.make (ST_AMMOX, ST_AMMOY, tallnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.ammo [{D_ITEMS}.weaponinfo [agent_p.readyweapon].ammo]
+						end
+					end), agent st_statusbaron, ST_AMMOWIDTH, i_main)
 					-- the last weapon type
 				check attached w_ready as wr then
 					wr.data := p.readyweapon
@@ -622,12 +685,17 @@ feature
 
 					-- health percentage
 				check attached tallpercent as tp then
-					create w_health.make (ST_HEALTHX, ST_HEALTHY, tallnum, p.health, st_statusbaron, tp)
+					create w_health.make (ST_HEALTHX, ST_HEALTHY, tallnum, (agent : INTEGER
+						do
+							check attached plyr as agent_p then
+								Result := agent_p.health
+							end
+						end), agent st_statusbaron, tp, i_main)
 				end
 
 					-- arms background
 				check attached armsbg as abg then
-					create w_armsbg.make (ST_ARMSBGX, ST_ARMSBGY, abg, st_notdeathmatch, st_statusbaron)
+					create w_armsbg.make (ST_ARMSBGX, ST_ARMSBGY, abg, agent st_notdeathmatch, agent st_statusbaron, i_main)
 				end
 
 					-- weapons owned
@@ -636,33 +704,92 @@ feature
 				until
 					i >= 6
 				loop
-					w_arms [i] := create {ST_MULT_ICON}.make (ST_ARMSX + (i \\ 3) * ST_ARMSXSPACE, ST_ARMSY + (i \\ 3) * ST_ARMSYSPACE, arms [i], p.weaponowned [i + 1].to_integer, st_armson)
+					w_arms [i] := create {ST_MULT_ICON}.make (ST_ARMSX + (i \\ 3) * ST_ARMSXSPACE, ST_ARMSY + (i \\ 3) * ST_ARMSYSPACE, arms [i], (agent  (wep: INTEGER): INTEGER
+						do
+							check attached plyr as agent_p then
+								Result := agent_p.weaponowned [wep + 1].to_integer
+							end
+						end (i)), agent st_armson, i_main)
 					i := i + 1
 				end
 
 					-- frags sum
-				create w_frags.make (ST_FRAGSX, ST_FRAGSY, tallnum, st_fragscount, st_fragson, ST_FRAGSWIDTH)
+				create w_frags.make (ST_FRAGSX, ST_FRAGSY, tallnum, agent st_fragscount, agent st_fragson, ST_FRAGSWIDTH, i_main)
 					-- faces
-				create w_faces.make (ST_FACESX, ST_FACESY, faces, st_faceindex, st_statusbaron)
+				create w_faces.make (ST_FACESX, ST_FACESY, faces, agent st_faceindex, agent st_statusbaron, i_main)
 					-- armor percentage - should be colored later
 				check attached tallpercent as tp then
-					create w_armor.make (ST_ARMORX, ST_ARMORY, tallnum, p.armorpoints, st_statusbaron, tp)
+					create w_armor.make (ST_ARMORX, ST_ARMORY, tallnum, (agent : INTEGER
+						do
+							check attached plyr as agent_p then
+								Result := agent_p.armorpoints
+							end
+						end), agent st_statusbaron, tp, i_main)
 				end
 
 					-- keyboxes 0-2
-				w_keyboxes [0] := create {ST_MULT_ICON}.make (ST_KEY0X, ST_KEY0Y, keys, keyboxes [0], st_statusbaron)
-				w_keyboxes [1] := create {ST_MULT_ICON}.make (ST_KEY1X, ST_KEY1Y, keys, keyboxes [1], st_statusbaron)
-				w_keyboxes [2] := create {ST_MULT_ICON}.make (ST_KEY2X, ST_KEY2Y, keys, keyboxes [2], st_statusbaron)
+				w_keyboxes [0] := create {ST_MULT_ICON}.make (ST_KEY0X, ST_KEY0Y, keys, (agent : INTEGER
+					do
+						Result := keyboxes [0]
+					end), agent st_statusbaron, i_main)
+				w_keyboxes [1] := create {ST_MULT_ICON}.make (ST_KEY1X, ST_KEY1Y, keys, (agent : INTEGER
+					do
+						Result := keyboxes [1]
+					end), agent st_statusbaron, i_main)
+				w_keyboxes [2] := create {ST_MULT_ICON}.make (ST_KEY2X, ST_KEY2Y, keys, (agent : INTEGER
+					do
+						Result := keyboxes [2]
+					end), agent st_statusbaron, i_main)
 					-- ammo count (all four kinds)
-				w_ammo [0] := create {ST_NUMBER}.make (ST_AMMO0X, ST_AMMO0Y, shortnum, p.ammo [0], st_statusbaron, ST_AMMO0WIDTH)
-				w_ammo [1] := create {ST_NUMBER}.make (ST_AMMO1X, ST_AMMO1Y, shortnum, p.ammo [1], st_statusbaron, ST_AMMO1WIDTH)
-				w_ammo [2] := create {ST_NUMBER}.make (ST_AMMO2X, ST_AMMO2Y, shortnum, p.ammo [2], st_statusbaron, ST_AMMO2WIDTH)
-				w_ammo [3] := create {ST_NUMBER}.make (ST_AMMO3X, ST_AMMO3Y, shortnum, p.ammo [3], st_statusbaron, ST_AMMO3WIDTH)
+				w_ammo [0] := create {ST_NUMBER}.make (ST_AMMO0X, ST_AMMO0Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.ammo [0]
+						end
+					end), agent st_statusbaron, ST_AMMO0WIDTH, i_main)
+				w_ammo [1] := create {ST_NUMBER}.make (ST_AMMO1X, ST_AMMO1Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.ammo [1]
+						end
+					end), agent st_statusbaron, ST_AMMO1WIDTH, i_main)
+				w_ammo [2] := create {ST_NUMBER}.make (ST_AMMO2X, ST_AMMO2Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.ammo [2]
+						end
+					end), agent st_statusbaron, ST_AMMO2WIDTH, i_main)
+				w_ammo [3] := create {ST_NUMBER}.make (ST_AMMO3X, ST_AMMO3Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.ammo [3]
+						end
+					end), agent st_statusbaron, ST_AMMO3WIDTH, i_main)
 					-- max ammo count (all four kinds)
-				w_maxammo [0] := create {ST_NUMBER}.make (ST_MAXAMMO0X, ST_MAXAMMO0Y, shortnum, p.maxammo [0], st_statusbaron, ST_MAXAMMO0WIDTH)
-				w_maxammo [1] := create {ST_NUMBER}.make (ST_MAXAMMO1X, ST_MAXAMMO1Y, shortnum, p.maxammo [1], st_statusbaron, ST_MAXAMMO1WIDTH)
-				w_maxammo [2] := create {ST_NUMBER}.make (ST_MAXAMMO2X, ST_MAXAMMO2Y, shortnum, p.maxammo [2], st_statusbaron, ST_MAXAMMO2WIDTH)
-				w_maxammo [3] := create {ST_NUMBER}.make (ST_MAXAMMO3X, ST_MAXAMMO3Y, shortnum, p.maxammo [3], st_statusbaron, ST_MAXAMMO3WIDTH)
+				w_maxammo [0] := create {ST_NUMBER}.make (ST_MAXAMMO0X, ST_MAXAMMO0Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.maxammo [0]
+						end
+					end), agent st_statusbaron, ST_MAXAMMO0WIDTH, i_main)
+				w_maxammo [1] := create {ST_NUMBER}.make (ST_MAXAMMO1X, ST_MAXAMMO1Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.maxammo [1]
+						end
+					end), agent st_statusbaron, ST_MAXAMMO1WIDTH, i_main)
+				w_maxammo [2] := create {ST_NUMBER}.make (ST_MAXAMMO2X, ST_MAXAMMO2Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.maxammo [2]
+						end
+					end), agent st_statusbaron, ST_MAXAMMO2WIDTH, i_main)
+				w_maxammo [3] := create {ST_NUMBER}.make (ST_MAXAMMO3X, ST_MAXAMMO3Y, shortnum, (agent : INTEGER
+					do
+						check attached plyr as agent_p then
+							Result := agent_p.maxammo [3]
+						end
+					end), agent st_statusbaron, ST_MAXAMMO3WIDTH, i_main)
 			end
 		end
 

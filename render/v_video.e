@@ -168,7 +168,7 @@ feature
 
 feature
 
-	V_CopyRect(srcx, srcy: INTEGER; source: PIXEL_T_BUFFER; width, a_height, destx, desty: INTEGER)
+	V_CopyRect (srcx, srcy: INTEGER; source: PIXEL_T_BUFFER; width, a_height, destx, desty: INTEGER)
 		require
 			RANGECHECK: srcx >= 0 and srcx + width <= SCREENWIDTH and srcy >= 0 and srcy + a_height <= SCREENHEIGHT
 			RANGECHECK: destx >= 0 and destx + width <= SCREENWIDTH and desty >= 0 and desty + a_height <= SCREENHEIGHT
@@ -177,19 +177,20 @@ feature
 			dest: PIXEL_T_BUFFER
 			height: INTEGER
 		do
-			V_MarkRect(destx, desty, width, height)
+			height := a_height
+			V_MarkRect (destx, desty, width, height)
 			src := source + SCREENWIDTH * srcy + srcx
 			dest := dest_screen + SCREENWIDTH * desty + destx
 			from
-				height := a_height
 			until
 				height <= 0
 			loop
-				dest.copy_from_count(src, width)
-				src := src + SCREENWIDTH
-				dest := dest + SCREENWIDTH
-
+				dest.copy_from_count (src, width)
 				height := height - 1
+				if height > 0 then
+					src := src + SCREENWIDTH
+					dest := dest + SCREENWIDTH
+				end
 			end
 		end
 
