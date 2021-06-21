@@ -24,7 +24,7 @@ feature
 			topdelta := p.read_natural_8_le (offset)
 			if not is_after then
 				length := p.read_natural_8_le (offset + 1)
-				body := p.read_array (offset + 2, length)
+				body := p.read_array (offset + 3, length)
 			else
 				length := 0
 				create body.make_empty
