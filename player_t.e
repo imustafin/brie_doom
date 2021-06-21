@@ -240,6 +240,8 @@ feature
 			didsecret := a_didsecret
 		end
 
+	armorpoints: INTEGER
+
 feature -- POV
 
 	viewz: FIXED_T assign set_viewz -- Focal origin above r.z

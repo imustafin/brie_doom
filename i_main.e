@@ -272,7 +272,7 @@ feature -- Globals
 
 	st_lib: ST_LIB
 		once
-			create Result
+			create Result.make (Current)
 		end
 
 feature {NONE} -- Initialization

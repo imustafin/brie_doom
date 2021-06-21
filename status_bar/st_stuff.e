@@ -43,6 +43,10 @@ feature
 			create keys.make_filled (Void, 0, {DOOMDEF_H}.NUMCARDS - 1)
 			create oldweaponsowned.make_filled (False, 0, {DOOMDEF_H}.numweapons - 1)
 			create keyboxes.make_filled (0, 0, 2)
+			create w_maxammo.make_filled (Void, 0, 3)
+			create w_ammo.make_filled (Void, 0, 3)
+			create w_keyboxes.make_filled (Void, 0, 2)
+			create w_arms.make_filled (Void, 0, 5)
 		ensure
 			arms.lower = 0 and arms.count = 6 and across arms as a all a.item.lower = 0 and a.item.count = 2 end
 			faces.lower = 0 and faces.count = ST_NUMFACES
@@ -51,6 +55,10 @@ feature
 			tallnum.lower = 0 and tallnum.count = 10
 			oldweaponsowned.lower = 0 and oldweaponsowned.count = {DOOMDEF_H}.numweapons
 			keyboxes.lower = 0 and keyboxes.count = 3
+			w_maxammo.lower = 0 and w_maxammo.count = 4
+			w_ammo.lower = 0 and w_ammo.count = 4
+			w_keyboxes.lower = 0 and w_keyboxes.count = 3
+			w_arms.lower = 0 and w_arms.count = 6
 		end
 
 feature
@@ -107,6 +115,121 @@ feature
 	ST_Y: INTEGER
 		once
 			Result := {DOOMDEF_H}.SCREENHEIGHT - ST_HEIGHT
+		end
+
+	ST_AMMOX: INTEGER = 44
+
+	ST_AMMOY: INTEGER = 171
+
+	ST_AMMOWIDTH: INTEGER = 3
+
+	ST_HEALTHX: INTEGER = 90
+
+	ST_HEALTHY: INTEGER = 171
+
+	ST_ARMSBGY: INTEGER = 168
+
+	ST_ARMSX: INTEGER = 111
+
+	ST_ARMSY: INTEGER = 172
+
+	ST_ARMSXSPACE: INTEGER = 12
+
+	ST_ARMSYSPACE: INTEGER = 10
+
+	ST_FRAGSX: INTEGER = 138
+
+	ST_FRAGSY: INTEGER = 171
+
+	ST_FRAGSWIDTH: INTEGER = 2
+
+	ST_FACESX: INTEGER = 143
+
+	ST_FACESY: INTEGER = 168
+
+	ST_ARMORX: INTEGER = 221
+
+	ST_ARMORY: INTEGER = 171
+
+	ST_KEY0X: INTEGER = 239
+
+	ST_KEY0Y: INTEGER = 171
+
+	ST_KEY1X: INTEGER = 239
+
+	ST_KEY1Y: INTEGER = 181
+
+	ST_KEY2X: INTEGER = 239
+
+	ST_KEY2Y: INTEGER = 191
+
+	ST_AMMO0X: INTEGER = 288
+
+	ST_AMMO0Y: INTEGER = 173
+
+	ST_AMMO0WIDTH: INTEGER = 3
+
+	ST_AMMO1WIDTH: INTEGER
+		once
+			Result := ST_AMMO0WIDTH
+		end
+
+	ST_AMMO2WIDTH: INTEGER
+		once
+			Result := ST_AMMO0WIDTH
+		end
+
+	ST_AMMO3WIDTH: INTEGER
+		once
+			Result := ST_AMMO0WIDTH
+		end
+
+	ST_AMMO1X: INTEGER = 288
+
+	ST_AMMO1Y: INTEGER = 179
+
+	ST_AMMO2X: INTEGER = 288
+
+	ST_AMMO2Y: INTEGER = 191
+
+	ST_AMMO3X: INTEGER = 288
+
+	ST_AMMO3Y: INTEGER = 185
+
+	ST_MAXAMMO0X: INTEGER = 314
+
+	ST_MAXAMMO0Y: INTEGER = 173
+
+	ST_MAXAMMO0WIDTH: INTEGER
+		once
+			Result := ST_MAXAMMO0WIDTH
+		end
+
+	ST_MAXAMMO1X: INTEGER = 314
+
+	ST_MAXAMMO1Y: INTEGER = 179
+
+	ST_MAXAMMO1WIDTH: INTEGER
+		once
+			Result := ST_MAXAMMO0WIDTH
+		end
+
+	ST_MAXAMMO2X: INTEGER = 314
+
+	ST_MAXAMMO2Y: INTEGER = 191
+
+	ST_MAXAMMO2WIDTH: INTEGER
+		once
+			Result := ST_MAXAMMO0WIDTH
+		end
+
+	ST_MAXAMMO3X: INTEGER = 314
+
+	ST_MAXAMMO3Y: INTEGER = 185
+
+	ST_MAXAMMO3WIDTH: INTEGER
+		once
+			Result := ST_MAXAMMO0WIDTH
 		end
 
 feature
@@ -201,6 +324,38 @@ feature
 			-- ST_Start() has just been called
 
 	plyr: detachable PLAYER_T
+
+feature
+
+	w_ready: detachable ST_NUMBER
+			-- ready-weapon widget
+
+	w_frags: detachable ST_NUMBER
+			-- in deathmatch only, summary of frags stats
+
+	w_health: detachable ST_PERCENT
+			-- health widget
+
+	w_armsbg: detachable ST_BIN_ICON
+			-- arms background
+
+	w_arms: ARRAY [detachable ST_MULT_ICON]
+			-- weapon ownership widgets [6]
+
+	w_faces: detachable ST_MULT_ICON
+			-- face status widget
+
+	w_keyboxes: ARRAY [detachable ST_MULT_ICON]
+			-- keycard widgets [3]
+
+	w_armor: detachable ST_PERCENT
+			-- armor widget
+
+	w_ammo: ARRAY [detachable ST_NUMBER]
+			-- ammo widgets [4]
+
+	w_maxammo: ARRAY [detachable ST_NUMBER]
+			-- max ammo widgets
 
 feature
 
@@ -435,6 +590,14 @@ feature
 
 	st_stopped: BOOLEAN
 
+	st_notdeathmatch: BOOLEAN
+
+	st_armson: BOOLEAN
+
+	st_fragscount: INTEGER
+
+	st_fragson: BOOLEAN
+
 	ST_Start
 		do
 			if not st_stopped then
@@ -446,8 +609,61 @@ feature
 		end
 
 	ST_createWidgets
+		local
+			i: INTEGER
 		do
-				-- Stub
+				-- ready weapon info
+			check attached plyr as p then
+				create w_ready.make (ST_AMMOX, ST_AMMOY, tallnum, p.ammo [{D_ITEMS}.weaponinfo [p.readyweapon].ammo], st_statusbaron, ST_AMMOWIDTH)
+					-- the last weapon type
+				check attached w_ready as wr then
+					wr.data := p.readyweapon
+				end
+
+					-- health percentage
+				check attached tallpercent as tp then
+					create w_health.make (ST_HEALTHX, ST_HEALTHY, tallnum, p.health, st_statusbaron, tp)
+				end
+
+					-- arms background
+				check attached armsbg as abg then
+					create w_armsbg.make (ST_ARMSBGX, ST_ARMSBGY, abg, st_notdeathmatch, st_statusbaron)
+				end
+
+					-- weapons owned
+				from
+					i := 0
+				until
+					i >= 6
+				loop
+					w_arms [i] := create {ST_MULT_ICON}.make (ST_ARMSX + (i \\ 3) * ST_ARMSXSPACE, ST_ARMSY + (i \\ 3) * ST_ARMSYSPACE, arms [i], p.weaponowned [i + 1].to_integer, st_armson)
+					i := i + 1
+				end
+
+					-- frags sum
+				create w_frags.make (ST_FRAGSX, ST_FRAGSY, tallnum, st_fragscount, st_fragson, ST_FRAGSWIDTH)
+					-- faces
+				create w_faces.make (ST_FACESX, ST_FACESY, faces, st_faceindex, st_statusbaron)
+					-- armor percentage - should be colored later
+				check attached tallpercent as tp then
+					create w_armor.make (ST_ARMORX, ST_ARMORY, tallnum, p.armorpoints, st_statusbaron, tp)
+				end
+
+					-- keyboxes 0-2
+				w_keyboxes [0] := create {ST_MULT_ICON}.make (ST_KEY0X, ST_KEY0Y, keys, keyboxes [0], st_statusbaron)
+				w_keyboxes [1] := create {ST_MULT_ICON}.make (ST_KEY1X, ST_KEY1Y, keys, keyboxes [1], st_statusbaron)
+				w_keyboxes [2] := create {ST_MULT_ICON}.make (ST_KEY2X, ST_KEY2Y, keys, keyboxes [2], st_statusbaron)
+					-- ammo count (all four kinds)
+				w_ammo [0] := create {ST_NUMBER}.make (ST_AMMO0X, ST_AMMO0Y, shortnum, p.ammo [0], st_statusbaron, ST_AMMO0WIDTH)
+				w_ammo [1] := create {ST_NUMBER}.make (ST_AMMO1X, ST_AMMO1Y, shortnum, p.ammo [1], st_statusbaron, ST_AMMO1WIDTH)
+				w_ammo [2] := create {ST_NUMBER}.make (ST_AMMO2X, ST_AMMO2Y, shortnum, p.ammo [2], st_statusbaron, ST_AMMO2WIDTH)
+				w_ammo [3] := create {ST_NUMBER}.make (ST_AMMO3X, ST_AMMO3Y, shortnum, p.ammo [3], st_statusbaron, ST_AMMO3WIDTH)
+					-- max ammo count (all four kinds)
+				w_maxammo [0] := create {ST_NUMBER}.make (ST_MAXAMMO0X, ST_MAXAMMO0Y, shortnum, p.maxammo [0], st_statusbaron, ST_MAXAMMO0WIDTH)
+				w_maxammo [1] := create {ST_NUMBER}.make (ST_MAXAMMO1X, ST_MAXAMMO1Y, shortnum, p.maxammo [1], st_statusbaron, ST_MAXAMMO1WIDTH)
+				w_maxammo [2] := create {ST_NUMBER}.make (ST_MAXAMMO2X, ST_MAXAMMO2Y, shortnum, p.maxammo [2], st_statusbaron, ST_MAXAMMO2WIDTH)
+				w_maxammo [3] := create {ST_NUMBER}.make (ST_MAXAMMO3X, ST_MAXAMMO3Y, shortnum, p.maxammo [3], st_statusbaron, ST_MAXAMMO3WIDTH)
+			end
 		end
 
 	ST_Stop
