@@ -9,6 +9,83 @@ note
 class
 	P_ENEMY
 
+create
+	make
+
+feature
+
+	i_main: I_MAIN
+
+	make (a_i_main: I_MAIN)
+		do
+			i_main := a_i_main
+		end
+
+feature
+
+	soundtarget: detachable MOBJ_T
+
+	P_NoiseAlert (target, emitter: MOBJ_T)
+			-- If a monster yells at a player,
+			-- it will alert other monsters to the player.
+		do
+			soundtarget := target
+			i_main.r_main.validcount := i_main.r_main.validcount + 1
+			check attached emitter.subsector as sub and then attached sub.sector as s then
+				P_RecursiveSound (s, 0)
+			end
+		end
+
+	P_RecursiveSound (sec: SECTOR_T; soundblocks: INTEGER)
+			-- Called by P_NoiseAlert
+			-- Recursively traverse adjacent sectors,
+			-- sound blocking lines cut off traversal.
+		local
+			i: INTEGER
+			c: LINE_T
+			other: SECTOR_T
+		do
+				-- wake up all monsters in this sector
+			if sec.validcount = i_main.r_main.validcount and sec.soundtraversed <= soundblocks + 1 then
+					-- return. already flooded
+			else
+				sec.validcount := i_main.r_main.validcount
+				sec.soundtraversed := soundblocks + 1
+				sec.soundtarget := soundtarget
+				from
+					i := sec.lines.lower
+				until
+					i > sec.lines.upper
+				loop
+					c := sec.lines [i]
+					if c.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+							-- continue
+					else
+						i_main.p_maputl.P_LineOpening (c)
+						if i_main.p_maputl.openrange <= 0 then
+								-- continue. closed door
+						else
+							if i_main.p_setup.sides [c.sidenum [0]].sector = sec then
+								other := i_main.p_setup.sides [c.sidenum [1]].sector
+							else
+								other := i_main.p_setup.sides [c.sidenum [0]].sector
+							end
+							if c.flags & {DOOMDATA_H}.ML_SOUNDBLOCK /= 0 then
+								check attached other then
+									if soundblocks = 0 then
+										P_RecursiveSound (other, 1)
+									else
+										P_RecursiveSound (other, soundblocks)
+									end
+								end
+							end
+						end
+					end
+					i := i + 1
+				end
+			end
+		end
+
 feature
 
 	A_OpenShotgun2 (player: PLAYER_T; psp: PSPDEF_T)

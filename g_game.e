@@ -11,6 +11,10 @@ inherit
 
 	DOOMDEF_H
 
+	WEAPONTYPE_T
+
+	AMMOTYPE_T
+
 create
 	make
 
@@ -711,7 +715,7 @@ feature
 				i := 0
 				done := False
 			until
-				done or i >= {DOOMDEF_H}.NUMWEAPONS - 1
+				done or i >= NUMWEAPONS - 1
 			loop
 				if gamekeydown [('1').code + i] then
 					cmd.buttons := cmd.buttons | {D_EVENT}.BT_CHANGE

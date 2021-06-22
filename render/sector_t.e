@@ -47,11 +47,21 @@ feature
 
 	tag: INTEGER_16
 
-	soundtraversed: INTEGER
+	soundtraversed: INTEGER assign set_soundtraversed
 			-- 0 = untraversed, 1,2 = sndlines - 1
 
-	soundtarget: detachable MOBJ_T
+	set_soundtraversed (a_soundtraversed: like soundtraversed)
+		do
+			soundtraversed := a_soundtraversed
+		end
+
+	soundtarget: detachable MOBJ_T assign set_soundtarget
 			-- thing that made a sound (or null)
+
+	set_soundtarget (a_soundtarget: like soundtarget)
+		do
+			soundtarget := a_soundtarget
+		end
 
 	blockbox: ARRAY [INTEGER]
 			-- mapblock bounding box for height changes

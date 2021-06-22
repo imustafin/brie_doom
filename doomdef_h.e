@@ -34,20 +34,6 @@ feature
 
 	TICRATE: INTEGER = 35 -- State updates, number of tics / second.
 
-feature -- ammotype_t
-
-	am_clip: INTEGER = 0 -- Pistol / chaingun ammo
-
-	am_shell: INTEGER = 1 -- Shotgun / double barreled shotgun
-
-	am_cell: INTEGER = 2 -- Plasma rifle, BFG.
-
-	am_misl: INTEGER = 3 -- Missile launcher
-
-	NUMAMMO: INTEGER = 4
-
-	am_noammo: INTEGER = 5 -- Unlimited for chainsaw / fist.
-
 feature -- skill_t
 
 	sk_baby: INTEGER = 0
@@ -73,6 +59,8 @@ feature -- DOOM keyboard definition
 	KEY_RCTRL: INTEGER
 		once
 			Result := 0x80 + 0x1d
+		ensure
+			instance_free: class
 		end
 
 	KEY_RALT: INTEGER
@@ -95,30 +83,6 @@ feature -- DOOM keyboard definition
 	KEY_PAUSE: INTEGER = 0xff
 
 	KEY_ENTER: INTEGER = 13
-
-feature -- weapontype_t
-
-	wp_fist: INTEGER = 0
-
-	wp_pistol: INTEGER = 1
-
-	wp_shotgun: INTEGER = 2
-
-	wp_chaingun: INTEGER = 3
-
-	wp_missile: INTEGER = 4
-
-	wp_plasma: INTEGER = 5
-
-	wp_bfg: INTEGER = 6
-
-	wp_chainsaw: INTEGER = 7
-
-	wp_supershotgun: INTEGER = 8
-
-	NUMWEAPONS: INTEGER = 9
-
-	wp_nochange: INTEGER = 10
 
 feature -- gamestate_t
 

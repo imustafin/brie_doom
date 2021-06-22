@@ -48,13 +48,16 @@ feature -- Other ML_ ????
 			-- lower texture unpegged
 
 	ML_SECRET: INTEGER = 32
-		-- In AutoMap: don't map as two sided: IT'S A SECRET!
+			-- In AutoMap: don't map as two sided: IT'S A SECRET!
 
 	ML_BLOCKING: INTEGER = 1
 			-- Solid, is an obstacle
 
 	ML_BLOCKMONSTERS: INTEGER = 2
 			-- Blocks monsters only
+
+	ML_SOUNDBLOCK: INTEGER = 64
+			-- Sound rendering: don't let sound cross two of these
 
 feature
 

@@ -45,9 +45,9 @@ feature
 			readyweapon := 0
 			pendingweapon := 0
 			viewz := 0
-			create weaponowned.make_filled (False, 0, {DOOMDEF_H}.NUMWEAPONS - 1)
-			create ammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
-			create maxammo.make_filled (0, 0, {DOOMDEF_H}.NUMAMMO - 1)
+			create weaponowned.make_filled (False, 0, {WEAPONTYPE_T}.NUMWEAPONS - 1)
+			create ammo.make_filled (0, 0, {AMMOTYPE_T}.NUMAMMO - 1)
+			create maxammo.make_filled (0, 0, {AMMOTYPE_T}.NUMAMMO - 1)
 			create cmd
 			create powers.make_filled (0, 0, NUMPOWERS - 1)
 		end
@@ -261,11 +261,11 @@ invariant
 	cards.lower = 0
 	cards.count = {DOOMDEF_H}.NUMCARDS
 	weaponowned.lower = 0
-	weaponowned.count = {DOOMDEF_H}.NUMWEAPONS
+	weaponowned.count = {WEAPONTYPE_T}.NUMWEAPONS
 	ammo.lower = 0
-	ammo.count = {DOOMDEF_H}.NUMAMMO
+	ammo.count = {AMMOTYPE_T}.NUMAMMO
 	maxammo.lower = 0
-	maxammo.count = {DOOMDEF_H}.NUMAMMO
+	maxammo.count = {AMMOTYPE_T}.NUMAMMO
 	powers.lower = 0 and powers.count = NUMPOWERS
 
 end

@@ -15,6 +15,8 @@ inherit
 
 	CHEAT_T
 
+	WEAPONTYPE_T
+
 create
 	make
 
@@ -43,7 +45,7 @@ feature
 				-- Make others
 			create faces.make_filled (Void, 0, ST_NUMFACES - 1)
 			create keys.make_filled (Void, 0, {DOOMDEF_H}.NUMCARDS - 1)
-			create oldweaponsowned.make_filled (False, 0, {DOOMDEF_H}.numweapons - 1)
+			create oldweaponsowned.make_filled (False, 0, numweapons - 1)
 			create keyboxes.make_filled (0, 0, 2)
 			create w_maxammo.make_filled (Void, 0, 3)
 			create w_ammo.make_filled (Void, 0, 3)
@@ -57,7 +59,7 @@ feature
 			keys.lower = 0 and keys.count = {DOOMDEF_H}.NUMCARDS
 			shortnum.lower = 0 and shortnum.count = 10
 			tallnum.lower = 0 and tallnum.count = 10
-			oldweaponsowned.lower = 0 and oldweaponsowned.count = {DOOMDEF_H}.numweapons
+			oldweaponsowned.lower = 0 and oldweaponsowned.count = numweapons
 			keyboxes.lower = 0 and keyboxes.count = 3
 			w_maxammo.lower = 0 and w_maxammo.count = 4
 			w_ammo.lower = 0 and w_ammo.count = 4
@@ -893,7 +895,7 @@ feature
 			from
 				i := 0
 			until
-				i >= {DOOMDEF_H}.NUMWEAPONS
+				i >= NUMWEAPONS
 			loop
 				check attached plyr as p then
 					oldweaponsowned [i] := p.weaponowned [i]
@@ -958,7 +960,7 @@ feature
 						from
 							i := 0
 						until
-							i >= {DOOMDEF_H}.NUMWEAPONS
+							i >= {WEAPONTYPE_T}.NUMWEAPONS
 						loop
 							if oldweaponsowned [i] /= p.weaponowned [i] then
 								doevilgrin := True
@@ -1090,7 +1092,7 @@ feature
 		do
 				-- must redirect the pointer if the ready weapon has changed.
 			check attached plyr as p then
-				if {D_ITEMS}.weaponinfo [p.readyweapon].ammo = {DOOMDEF_H}.am_noammo then
+				if {D_ITEMS}.weaponinfo [p.readyweapon].ammo = {AMMOTYPE_T}.am_noammo then
 					check attached w_ready as wr then
 						wr.num := agent largeammo
 					end

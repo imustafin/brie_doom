@@ -8,6 +8,12 @@ note
 class
 	P_PSPR
 
+inherit
+
+	WEAPONTYPE_T
+
+	AMMOTYPE_T
+
 create
 	make
 
@@ -31,6 +37,9 @@ feature -- psprnum_t
 	FF_FRAMEMASK: INTEGER = 0x7fff
 
 	FF_FULLBRIGHT: INTEGER = 0x8000 -- flag in thing->frame
+
+	BFGCELLS: INTEGER = 40
+			-- plasma cells for a bfg attack
 
 feature
 
@@ -86,13 +95,13 @@ feature
 				if mo.state = {INFO}.states [{INFO}.S_PLAY_ATK1] or mo.state = {INFO}.states [{INFO}.S_PLAY_ATK2] then
 					i_main.p_mobj.P_SetMobjState (mo, {INFO}.S_PLAY).do_nothing
 				end
-				if player.readyweapon = {DOOMDEF_H}.wp_chainsaw and psp.state = {INFO}.states [{INFO}.S_SAW] then
+				if player.readyweapon = wp_chainsaw and psp.state = {INFO}.states [{INFO}.S_SAW] then
 					i_main.s_sound.s_startsound (mo, {SFXENUM_T}.sfx_sawidl)
 				end
 
 					-- check for range
 					-- if player is dead, put the weapon away
-				if player.pendingweapon /= {DOOMDEF_H}.wp_nochange or player.health = 0 then
+				if player.pendingweapon /= wp_nochange or player.health = 0 then
 						-- change weapon
 						-- (pending weapon should allready be validated)
 					newstate := {D_ITEMS}.weaponinfo [player.readyweapon].downstate
@@ -103,7 +112,7 @@ feature
 						-- check for fire
 						-- the missile launcher and bfg do not auto fire
 					if player.cmd.buttons & {D_EVENT}.BT_ATTACK /= 0 then
-						if not player.attackdown or (player.readyweapon /= {DOOMDEF_H}.wp_missile and player.readyweapon /= {DOOMDEF_H}.wp_bfg) then
+						if not player.attackdown or (player.readyweapon /= wp_missile and player.readyweapon /= wp_bfg) then
 							player.attackdown := True
 							P_FireWeapon (player)
 							returned := True
@@ -125,8 +134,75 @@ feature
 feature
 
 	P_FireWeapon (player: PLAYER_T)
+		local
+			newstate: INTEGER
 		do
-				-- Stub
+			if not P_CheckAmmo (player) then
+					-- return
+			else
+				check attached player.mo as mo then
+					i_main.p_mobj.P_SetMobjState (mo, {STATENUM_T}.S_PLAY_ATK1).do_nothing
+					newstate := {D_ITEMS}.weaponinfo [player.readyweapon].atkstate
+					P_SetPsprite (player, ps_weapon, newstate)
+					i_main.p_enemy.P_NoiseAlert (mo, mo)
+				end
+			end
+		end
+
+	P_CheckAmmo (player: PLAYER_T): BOOLEAN
+			-- Returns true if there is enough ammo to shoot.
+			-- If not, selects the next weapon to use.
+		local
+			ammo: INTEGER
+			count: INTEGER
+		do
+			ammo := {D_ITEMS}.weaponinfo [player.readyweapon].ammo
+				-- Minimal amount for one shot varies.
+			if player.readyweapon = wp_bfg then
+				count := BFGCELLS
+			elseif player.readyweapon = wp_supershotgun then
+				count := 2 -- Double barrel.
+			else
+				count := 1 -- Regular.
+			end
+
+				-- Some do not need ammunition anyway.
+				-- Return if curren ammunition sufficient.
+			if ammo = am_noammo or player.ammo [ammo] >= count then
+				Result := True
+			else
+					-- Out of ammo, pick a weapon to change to.
+					-- Preferences are set here.
+				from
+					player.pendingweapon := wp_nochange
+				until
+					player.pendingweapon /= wp_nochange
+				loop
+					if player.weaponowned [wp_plasma] and player.ammo [am_cell] /= 0 and i_main.doomstat_h.gamemode /= {GAME_MODE_T}.shareware then
+						player.pendingweapon := wp_plasma
+					elseif player.weaponowned [wp_supershotgun] and player.ammo [am_shell] > 2 and i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+						player.pendingweapon := wp_supershotgun
+					elseif player.weaponowned [wp_chaingun] and player.ammo [am_clip] /= 0 then
+						player.pendingweapon := wp_chaingun
+					elseif player.weaponowned [wp_shotgun] and player.ammo [am_shell] /= 0 then
+						player.pendingweapon := wp_shotgun
+					elseif player.ammo [am_clip] /= 0 then
+						player.pendingweapon := wp_pistol
+					elseif player.weaponowned [wp_chainsaw] then
+						player.pendingweapon := wp_chainsaw
+					elseif player.weaponowned [wp_missile] and player.ammo [am_misl] /= 0 then
+						player.pendingweapon := wp_missile
+					elseif player.weaponowned [wp_bfg] and player.ammo [am_cell] > 40 and (i_main.doomstat_h.gamemode /= {GAME_MODE_T}.shareware) then
+						player.pendingweapon := wp_bfg
+					else
+							-- If everything fails.
+						player.pendingweapon := wp_fist
+					end
+				end
+					-- Now set appropriate weapon overlay.
+				P_SetPsprite (player, ps_weapon, {D_ITEMS}.weaponinfo [player.readyweapon].downstate)
+				Result := False
+			end
 		end
 
 feature
@@ -158,14 +234,14 @@ feature
 		local
 			newstate: INTEGER
 		do
-			if player.pendingweapon = {DOOMDEF_H}.wp_nochange then
+			if player.pendingweapon = wp_nochange then
 				player.pendingweapon := player.readyweapon
 			end
-			if player.pendingweapon = {DOOMDEF_H}.wp_chainsaw then
+			if player.pendingweapon = wp_chainsaw then
 				i_main.s_sound.S_StartSound (player.mo, {SFXENUM_T}.sfx_sawup)
 			end
 			newstate := {D_ITEMS}.weaponinfo [player.pendingweapon].upstate
-			player.pendingweapon := {DOOMDEF_H}.wp_nochange
+			player.pendingweapon := wp_nochange
 			player.psprites [ps_weapon].sy := WEAPONBOTTOM
 			P_SetPsprite (player, ps_weapon, newstate)
 		end
@@ -177,6 +253,7 @@ feature
 			break: BOOLEAN
 			stnum: INTEGER
 			did: BOOLEAN
+			action_target: STRING
 		do
 			stnum := a_stnum
 			psp := player.psprites [position]
@@ -247,6 +324,105 @@ feature
 			end
 			player.psprites [ps_flash].sx := player.psprites [ps_weapon].sx
 			player.psprites [ps_flash].sy := player.psprites [ps_weapon].sy
+		end
+
+feature
+
+	A_Light0 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+			player.extralight := 0
+		ensure
+			instance_free: class
+		end
+
+	A_Lower (player: PLAYER_T; psp: PSPDEF_T)
+			-- Lowers current weapon,
+			-- and changes weapon at bottom.
+		do
+				-- Stub
+		end
+
+	A_Punch (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_Refire (player: PLAYER_T; psp: PSPDEF_T)
+			-- The player can re-fire the weapon
+			-- without lowering it entirely.
+		do
+				-- Stub
+		end
+
+	A_FirePistol (player: PLAYER_T; psp: PSPDEF_T)
+		do
+			{I_MAIN}.i_error ("A_FirePistol not implemented%N")
+		end
+
+	A_Light1 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_Light2 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FireShotgun (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FireShotgun2 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_CheckReload (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FireCGun (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_GunFlash (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FireMissile (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_Saw (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FirePlasma (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_BFGSound (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_FireBFG (player: PLAYER_T; psp: PSPDEF_T)
+		do
+				-- Stub
+		end
+
+	A_BFGSpray (mo: MOBJ_T)
+			-- Spawn a BFG explosion on every monster in view
+		do
+				-- Stub
 		end
 
 end

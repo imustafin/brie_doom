@@ -260,14 +260,9 @@ feature -- Globals
 
 	m_argv: M_ARGV
 
-	p_spr: P_SPR
-		once
-			create Result
-		end
-
 	p_enemy: P_ENEMY
 		once
-			create Result
+			create Result.make (Current)
 		end
 
 	st_lib: ST_LIB

@@ -19,7 +19,7 @@ feature
 			Result [3] := 50
 		ensure
 			Result.lower = 0
-			Result.count = {DOOMDEF_H}.numammo
+			Result.count = {AMMOTYPE_T}.numammo
 			instance_free: class
 		end
 

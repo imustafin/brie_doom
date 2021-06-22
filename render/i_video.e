@@ -227,12 +227,12 @@ feature
 		do
 			if initialized then
 				I_GetEvent
---				if usemouse and not nomouse and window_focused then
---					I_ReadMouse
---				end
---				if joywait < I_GetTime then
---					I_UpdateJoystick
---				end
+					--				if usemouse and not nomouse and window_focused then
+					--					I_ReadMouse
+					--				end
+					--				if joywait < I_GetTime then
+					--					I_UpdateJoystick
+					--				end
 			end
 		end
 
@@ -280,6 +280,8 @@ feature
 				Result := {DOOMDEF_H}.key_uparrow
 			elseif key.sym = {SDL_KEYCODE}.sdlk_down then
 				Result := {DOOMDEF_H}.key_downarrow
+			elseif key.sym = {SDL_KEYCODE}.sdlk_lctrl or key.sym = {SDL_KEYCODE}.sdlk_rctrl then
+				Result := {DOOMDEF_H}.key_rctrl
 			else
 				Result := key.sym
 			end

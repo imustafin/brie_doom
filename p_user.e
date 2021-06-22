@@ -22,6 +22,8 @@ inherit
 
 	POWERTYPE_T
 
+	WEAPONTYPE_T
+
 create
 	make
 
