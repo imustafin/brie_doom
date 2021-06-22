@@ -341,13 +341,33 @@ feature -- R_SortVisSprites
 
 feature -- R_DrawMaskedColumn
 
-	mfloorclip: detachable ARRAY [INTEGER_16]
+	mfloorclip: detachable INDEX_IN_ARRAY [INTEGER_16] assign set_mfloorclip
 
-	mceilingclip: detachable ARRAY [INTEGER_16]
+	set_mfloorclip (a_mfloorclip: like mfloorclip)
+		do
+			mfloorclip := a_mfloorclip
+		end
 
-	spryscale: FIXED_T
+	mceilingclip: detachable INDEX_IN_ARRAY [INTEGER_16] assign set_mceilingclip
 
-	sprtopscreen: FIXED_T
+	set_mceilingclip (a_mceilingclip: like mceilingclip)
+		do
+			mceilingclip := a_mceilingclip
+		end
+
+	spryscale: FIXED_T assign set_spryscale
+
+	set_spryscale (a_spryscale: like spryscale)
+		do
+			spryscale := a_spryscale
+		end
+
+	sprtopscreen: FIXED_T assign set_sprtopscreen
+
+	set_sprtopscreen (a_sprtopscreen: like sprtopscreen)
+		do
+			sprtopscreen := a_sprtopscreen
+		end
 
 	R_DrawMaskedColumn (column: COLUMN_T)
 			-- Used for sprites and masked mid textures.
@@ -577,8 +597,8 @@ feature
 				end
 				x := x + 1
 			end
-			mfloorclip := clipbot
-			mceilingclip := cliptop
+			create mfloorclip.make (0, clipbot)
+			create mceilingclip.make (0, cliptop)
 			R_DrawVisSprite (spr, spr.x1, spr.x2)
 		end
 
@@ -603,8 +623,8 @@ feature -- Player Sprites
 			end
 
 				-- clip to screen bounds
-			mfloorclip := screenheightarray
-			mceilingclip := negonearray
+			create mfloorclip.make (0, screenheightarray)
+			create mceilingclip.make (0, negonearray)
 
 				-- add all active psprites
 			from

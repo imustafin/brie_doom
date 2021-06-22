@@ -574,8 +574,88 @@ feature -- R_RenderSegLoop
 feature -- R_RenderMaskedSegRange
 
 	R_RenderMaskedSegRange (ds: DRAWSEG_T; x1, x2: INTEGER)
+		local
+			index: NATURAL
+			col: MANAGED_POINTER_WITH_OFFSET
+			lightnum: INTEGER
+			texnum: INTEGER
 		do
-				-- Stub
+				-- Calculate light table.
+				-- Use different light tables
+				-- for horizontal / vertical / diagonal. Diagonal?
+				-- OPTIMIZE: get rid of LIGHTSEGSHIFT globally
+			check attached ds.curline as dsc then
+				i_main.r_bsp.curline := dsc
+			end
+			check attached i_main.r_bsp.curline.frontsector as fs then
+				i_main.r_bsp.frontsector := fs
+			end
+			i_main.r_bsp.backsector := i_main.r_bsp.curline.backsector
+			texnum := i_main.r_data.texturetranslation [i_main.r_bsp.curline.sidedef.midtexture]
+			lightnum := (i_main.r_bsp.frontsector.lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
+			if i_main.r_bsp.curline.v1.y = i_main.r_bsp.curline.v2.y then
+				lightnum := lightnum - 1
+			elseif i_main.r_bsp.curline.v1.x = i_main.r_bsp.curline.v2.x then
+				lightnum := lightnum + 1
+			end
+			if lightnum < 0 then
+				walllights := i_main.r_main.scalelight [0]
+			elseif lightnum >= {R_MAIN}.LIGHTLEVELS then
+				walllights := i_main.r_main.scalelight [{R_MAIN}.LIGHTLEVELS - 1]
+			else
+				walllights := i_main.r_main.scalelight [lightnum]
+			end
+			check attached ds.maskedtexturecol as mtc then
+				maskedtexturecol := mtc
+			end
+			rw_scalestep := ds.scalestep
+			i_main.r_things.spryscale := ds.scale1 + (x1 - ds.x1) * rw_scalestep
+			i_main.r_things.mfloorclip := ds.sprbottomclip
+			i_main.r_things.mceilingclip := ds.sprtopclip
+
+				-- find positioning
+			check attached i_main.r_bsp.backsector as bs then
+				if i_main.r_bsp.curline.linedef.flags & {DOOMDATA_H}.ML_DONTPEGBOTTOM /= 0 then
+					i_main.r_draw.dc_texturemid := i_main.r_bsp.frontsector.floorheight.max (bs.floorheight)
+					i_main.r_draw.dc_texturemid := i_main.r_draw.dc_texturemid + i_main.r_data.textureheight [texnum] - i_main.r_main.viewz
+				else
+					i_main.r_draw.dc_texturemid := i_main.r_bsp.frontsector.ceilingheight.min (bs.ceilingheight)
+					i_main.r_draw.dc_texturemid := i_main.r_draw.dc_texturemid - i_main.r_main.viewz
+				end
+			end
+			i_main.r_draw.dc_texturemid := i_main.r_draw.dc_texturemid + i_main.r_bsp.curline.sidedef.rowoffset
+			if i_main.r_main.fixedcolormap /= Void then
+				i_main.r_draw.dc_colormap := i_main.r_main.fixedcolormap
+			end
+
+				-- draw the columns
+			from
+				i_main.r_draw.dc_x := x1
+			until
+				i_main.r_draw.dc_x > x2
+			loop
+					-- calculate lighting
+				if maskedtexturecol [i_main.r_draw.dc_x] /= {DOOMTYPE_H}.MAXSHORT then
+					if i_main.r_main.fixedcolormap = Void then
+						index := i_main.r_things.spryscale |>> {R_MAIN}.LIGHTSCALESHIFT
+						if index >= {R_MAIN}.MAXLIGHTSCALE.to_natural_32 then
+							index := {R_MAIN}.MAXLIGHTSCALE.to_natural_32 - 1
+						end
+						check attached walllights as wl then
+							i_main.r_draw.dc_colormap := wl [index.to_integer_32]
+						end
+					end
+					i_main.r_things.sprtopscreen := i_main.r_main.centeryfrac - {M_FIXED}.fixedmul (i_main.r_draw.dc_texturemid, i_main.r_things.spryscale)
+					i_main.r_draw.dc_iscale := ((0xffffffff).to_natural_32 // i_main.r_things.spryscale.to_natural_32).to_integer_32
+
+						-- draw the texture
+					col := i_main.r_data.R_GetColumn (texnum, maskedtexturecol [i_main.r_draw.dc_x])
+					i_main.r_things.R_DrawMaskedColumn (create {COLUMN_T}.from_pointer(col.mp, col.ofs - 3))
+					maskedtexturecol [i_main.r_draw.dc_x] := {DOOMTYPE_H}.MAXSHORT
+				end
+				i_main.r_things.spryscale := i_main.r_things.spryscale + rw_scalestep
+				i_main.r_draw.dc_x := i_main.r_draw.dc_x + 1
+			end
 		end
 
 end

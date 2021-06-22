@@ -54,9 +54,19 @@ feature
 			ds_p := a_ds_p
 		end
 
-	frontsector: SECTOR_T
+	frontsector: SECTOR_T assign set_frontsector
 
-	backsector: detachable SECTOR_T
+	set_frontsector (a_frontsector: like frontsector)
+		do
+			frontsector := a_frontsector
+		end
+
+	backsector: detachable SECTOR_T assign set_backsector
+
+	set_backsector (a_backsector: like backsector)
+		do
+			backsector := a_backsector
+		end
 
 feature
 

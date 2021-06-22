@@ -190,26 +190,28 @@ feature
 					psp.state := Void
 					break := True
 				end
-				state := {INFO}.states [stnum]
-				psp.state := state
-				psp.tics := state.tics.to_integer_32 -- could be 0
-
-				if state.misc1 /= 0 then
-						-- coordinate set
-					psp.sx := (state.misc1 |<< {M_FIXED}.FRACBITS).to_integer_32
-					psp.sy := (state.misc2 |<< {M_FIXED}.FRACBITS).to_integer_32
-				end
-
-					-- Call action routine.
-					-- Modified handling.
-				if attached state.action as action then
-					action.call (i_main.p_pspr, player, psp)
-					if psp.state = Void then
-						break := True
+				if not break then
+					state := {INFO}.states [stnum]
+					psp.state := state
+					psp.tics := state.tics.to_integer_32 -- could be 0
+					if state.misc1 /= 0 then
+							-- coordinate set
+						psp.sx := (state.misc1 |<< {M_FIXED}.FRACBITS).to_integer_32
+						psp.sy := (state.misc2 |<< {M_FIXED}.FRACBITS).to_integer_32
+					end
+						-- Call action routine.
+						-- Modified handling.
+					if attached state.action as action then
+						action.call (i_main.p_pspr, player, psp)
+						if psp.state = Void then
+							break := True
+						end
 					end
 				end
-				check attached psp.state as s then
-					stnum := s.nextstate
+				if not break then
+					check attached psp.state as s then
+						stnum := s.nextstate
+					end
 				end
 			end
 		end

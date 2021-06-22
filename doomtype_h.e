@@ -14,4 +14,6 @@ feature
 
 	MAXINT: INTEGER = 0x7fffffff
 
+	MAXSHORT: INTEGER_16 = 0x7fff
+
 end

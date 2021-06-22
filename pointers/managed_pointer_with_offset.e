@@ -19,7 +19,7 @@ feature
 			ofs := a_ofs
 		end
 
-feature {NONE}
+feature
 
 	mp: MANAGED_POINTER
 
