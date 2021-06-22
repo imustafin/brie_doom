@@ -14,6 +14,10 @@ inherit
 
 	AMMOTYPE_T
 
+	SFXENUM_T
+
+	STATENUM_T
+
 create
 	make
 
@@ -60,6 +64,11 @@ feature
 			Result := {M_FIXED}.fracunit * 6
 		ensure
 			instance_free: class
+		end
+
+	LOWERSPEED: INTEGER
+		once
+			Result := {M_FIXED}.fracunit * 6
 		end
 
 feature
@@ -339,7 +348,30 @@ feature
 			-- Lowers current weapon,
 			-- and changes weapon at bottom.
 		do
-				-- Stub
+			psp.sy := psp.sy + LOWERSPEED
+
+				-- Is already down
+			if psp.sy < WEAPONBOTTOM then
+					-- return
+			else
+					-- Player is dead
+				if player.playerstate = {D_PLAYER}.PST_DEAD then
+					psp.sy := WEAPONBOTTOM
+						-- don't bring weapon back up
+						-- return
+				else
+						-- The old weapon has been lowered off the screen,
+						-- so change the weapon and start raising it
+					if player.health = 0 then
+							-- Player is dead, so keep the weapon off screen.
+						P_SetPsprite (player, ps_weapon, S_NULL)
+							-- return
+					else
+						player.readyweapon := player.pendingweapon
+						P_BringUpWeapon (player)
+					end
+				end
+			end
 		end
 
 	A_Punch (player: PLAYER_T; psp: PSPDEF_T)
@@ -356,7 +388,28 @@ feature
 
 	A_FirePistol (player: PLAYER_T; psp: PSPDEF_T)
 		do
-			{I_MAIN}.i_error ("A_FirePistol not implemented%N")
+			check attached player.mo as mo then
+				i_main.s_sound.S_StartSound (mo, sfx_pistol)
+				i_main.p_mobj.P_SetMobjState (mo, S_PLAY_ATK2).do_nothing
+				player.ammo [{D_ITEMS}.weaponinfo [player.readyweapon].ammo] := player.ammo [{D_ITEMS}.weaponinfo [player.readyweapon].ammo] - 1
+				P_SetPsprite (player, ps_flash, {D_ITEMS}.weaponinfo [player.readyweapon].flashstate)
+				P_BulletSlope (mo)
+				P_GunShot (mo, not player.refire.to_boolean)
+			end
+		end
+
+	P_BulletSlope (mo: MOBJ_T)
+			-- Sets a slope so a near miss is at aproximately
+			-- the height of the intended target
+		do
+				-- Stub
+			print ("P_BulletSlope is not implemented%N")
+		end
+
+	P_GunShot (mo: MOBJ_T; accurate: BOOLEAN)
+		do
+				-- Stub
+			print ("P_GunShot is not implemented%N")
 		end
 
 	A_Light1 (player: PLAYER_T; psp: PSPDEF_T)
