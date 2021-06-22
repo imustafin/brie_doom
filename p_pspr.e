@@ -230,16 +230,15 @@ feature
 				i >= NUMPSPRITES
 			loop
 					-- a null state means not active
-				if state = player.psprites [psp].state then
+				state := player.psprites [psp].state
+				if state /= Void then
 						-- drop tic count and possibly change state
 
 						-- a -1 tic count never changes
 					if player.psprites [psp].tics /= -1 then
 						player.psprites [psp].tics := player.psprites [psp].tics - 1
 						if player.psprites [psp].tics = 0 then
-							check attached player.psprites [psp].state as psp_state then
-								P_SetPsprite (player, i, psp_state.nextstate)
-							end
+							P_SetPsprite (player, i, state.nextstate)
 						end
 					end
 				end
