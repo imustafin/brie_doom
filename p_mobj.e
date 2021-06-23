@@ -25,6 +25,8 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
+			itemrespawnque := {REF_ARRAY_CREATOR[MAPTHING_T]}.make_ref_array ({P_LOCAL}.itemquesize)
+			create itemrespawntime.make_filled (0, 0, {P_LOCAL}.itemquesize)
 		end
 
 feature -- P_RemoveMobj
@@ -574,9 +576,30 @@ feature -- P_RemoveMobj
 
 feature -- P_RemoveMobj
 
+	itemrespawnque: ARRAY [MAPTHING_T]
+
+	itemrespawntime: ARRAY [INTEGER]
+
 	P_RemoveMobj (mobj: MOBJ_T)
 		do
-			{I_MAIN}.i_error ("P_RemoveMobj is not implemented yet")
+			if mobj.flags & MF_SPECIAL /= 0 and mobj.flags & MF_DROPPED = 0 and mobj.type /= MT_INV and mobj.type /= MT_INS then
+				check attached mobj.spawnpoint as sp then
+					itemrespawnque [iquehead] := sp
+				end
+				itemrespawntime [iquehead] := i_main.p_tick.leveltime
+				iquehead := (iquehead + 1) & ({P_LOCAL}.ITEMQUESIZE - 1)
+
+					-- loose one off the end?
+				if iquehead = iquetail then
+					iquetail := (iquetail + 1) & ({P_LOCAL}.ITEMQUESIZE - 1)
+				end
+			end
+				-- unlink from sector and block lists
+			i_main.p_maputl.P_UnsetThingPosition (mobj)
+				-- stop any playing sound
+			i_main.s_sound.S_StopSound (mobj)
+				-- free block
+			i_main.p_tick.P_RemoveThinker (mobj)
 		end
 
 feature

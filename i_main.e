@@ -202,6 +202,9 @@ feature -- Globals
 		end
 
 	p_mobj: P_MOBJ
+		once
+			create Result.make (Current)
+		end
 
 	inner_r_segs: detachable R_SEGS
 
@@ -291,7 +294,6 @@ feature {NONE} -- Initialization
 			create f_finale.make
 			create m_random.make
 			create i_midipipe
-			create p_mobj.make (Current)
 			create p_pspr.make (Current)
 			create inner_r_plane.make (Current)
 			create inner_r_segs.make (Current)

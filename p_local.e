@@ -115,4 +115,6 @@ feature
 			instance_free: class
 		end
 
+	ITEMQUESIZE: INTEGER = 128
+
 end
