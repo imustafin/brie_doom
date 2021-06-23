@@ -406,12 +406,25 @@ feature
 			end
 		end
 
+	bulletslope: FIXED_T
+
 	P_BulletSlope (mo: MOBJ_T)
 			-- Sets a slope so a near miss is at aproximately
 			-- the height of the intended target
+		local
+			an: ANGLE_T
 		do
-				-- Stub
-			print ("P_BulletSlope is not implemented%N")
+				-- see which target to be aimed at
+			an := mo.angle
+			bulletslope := i_main.p_map.P_AimLineAttack (mo, an, 16 * 64 * {M_FIXED}.fracunit)
+			if i_main.p_map.linetarget = Void then
+				an := an + (1 |<< 26).to_natural_32
+				bulletslope := i_main.p_map.P_AimLineAttack (mo, an, 16 * 64 * {M_FIXED}.fracunit)
+				if i_main.p_map.linetarget = Void then
+					an := an - (2 |<< 26).to_natural_32
+					bulletslope := i_main.p_map.P_AimLineAttack (mo, an, 16 * 64 * {M_FIXED}.fracunit)
+				end
+			end
 		end
 
 	P_GunShot (mo: MOBJ_T; accurate: BOOLEAN)

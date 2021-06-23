@@ -270,6 +270,11 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	p_sight: P_SIGHT
+		once
+			create Result
+		end
+
 feature {NONE} -- Initialization
 
 	make

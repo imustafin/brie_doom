@@ -602,6 +602,129 @@ feature -- SECTOR HEIGHT CHANGING
 			Result := nofit
 		end
 
+feature
+
+	linetarget: detachable MOBJ_T
+			-- who got hit (or NULL)
+
+	shootthing: detachable MOBJ_T
+
+	shootz: FIXED_T
+			-- Height if not aiming up or down
+			-- ???: use slope for monsters?
+
+	attackrange: FIXED_T
+
+	aimslope: FIXED_T
+
+	P_AimLineAttack (t1: MOBJ_T; a_angle: ANGLE_T; distance: FIXED_T): FIXED_T
+		local
+			x2, y2: FIXED_T
+			angle: ANGLE_T
+		do
+			angle := a_angle |>> {R_MAIN}.ANGLETOFINESHIFT
+			shootthing := t1
+			x2 := t1.x + (distance |>> {M_FIXED}.FRACBITS) * i_main.r_main.finecosine [angle]
+			y2 := t1.y + (distance |>> {M_FIXED}.FRACBITS) * i_main.r_main.finesine [angle]
+			shootz := t1.z + (t1.height |>> 1) + 8 * {M_FIXED}.fracunit
+
+				-- can't shoot outside view angles
+			i_main.p_sight.topslope := 100 * {M_FIXED}.FRACUNIT // 160
+			i_main.p_sight.bottomslope := -100 * {M_FIXED}.FRACUNIT // 160
+			attackrange := distance
+			linetarget := Void
+			i_main.p_maputl.P_PathTraverse (t1.x, t1.y, x2, y2, {P_LOCAL}.PT_ADDLINES | {P_LOCAL}.PT_ADDTHINGS, agent PTR_AimTraverse).do_nothing
+			if linetarget /= Void then
+				Result := aimslope
+			else
+				Result := 0
+			end
+		end
+
+	PTR_AimTraverse (in: INTERCEPT_T): BOOLEAN
+			-- Sets linetarget and aimslope when a target is aimed at.
+		local
+			li: LINE_T
+			th: MOBJ_T
+			slope: FIXED_T
+			thingtopslope: FIXED_T
+			thingbottomslope: FIXED_T
+			dist: FIXED_T
+		do
+			if in.isaline then
+				li := in.line
+				check attached li then
+					if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+						Result := False -- stop
+					else
+							-- Crosses a two sided line.
+							-- A two sided line will restrict
+							-- the possible target ranges.
+						i_main.p_maputl.P_LineOpening (li)
+						if i_main.p_maputl.openbottom >= i_main.p_maputl.opentop then
+							Result := False -- stop
+						else
+							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+							check attached li.frontsector as front and then attached li.backsector as back then
+								if front.floorheight /= back.floorheight then
+									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
+									if slope > i_main.p_sight.bottomslope then
+										i_main.p_sight.bottomslope := slope
+									end
+								end
+								if front.ceilingheight /= back.ceilingheight then
+									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
+									if slope < i_main.p_sight.topslope then
+										i_main.p_sight.topslope := slope
+									end
+								end
+							end
+							if i_main.p_sight.topslope <= i_main.p_sight.bottomslope then
+								Result := False -- stop
+							else
+								Result := True -- shot continues
+							end
+						end
+					end
+				end
+			else
+					-- shoot a thing
+				th := in.thing
+				check attached th then
+					if th = shootthing then
+						Result := True -- can't shoot self
+					else
+						if th.flags & MF_SHOOTABLE = 0 then
+							Result := True -- corpse or something
+						else
+								-- check angles to see if the thing can be aimed at
+							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+							thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+							if thingtopslope < i_main.p_sight.bottomslope then
+								Result := True -- shot over the thing
+							else
+								thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+								if thingbottomslope > i_main.p_sight.topslope then
+									Result := True -- shot under the thing
+								else
+										-- this thing can be hit!
+									if thingtopslope > i_main.p_sight.topslope then
+										thingtopslope := i_main.p_sight.topslope
+									end
+									if thingbottomslope < i_main.p_sight.bottomslope then
+										thingbottomslope := i_main.p_sight.bottomslope
+									end
+									aimslope := (thingtopslope + thingbottomslope) // 2
+									linetarget := th
+									Result := False -- don't go any further
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
 invariant
 	spechit.lower = 0 and spechit.count = MAXSPECIALCROSS
 	tmbbox.lower = 0 and tmbbox.count = 4
