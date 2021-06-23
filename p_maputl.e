@@ -116,7 +116,7 @@ feature
 					if attached link then
 						link.bprev := thing
 					end
-					i_main.p_setup.blocklinks [blocky * i_main.p_setup.bmapwidth + blockx] := link
+					i_main.p_setup.blocklinks [blocky * i_main.p_setup.bmapwidth + blockx] := thing
 				else
 						-- thing is off the map
 					thing.bnext := Void
@@ -209,7 +209,10 @@ feature
 			end
 			if not returned then
 				offset := y * i_main.p_setup.bmapwidth + x
-				offset := i_main.p_setup.blockmap [offset]
+				check attached i_main.p_setup.blockmap as bm then
+					offset := bm [offset]
+				end
+
 				from
 					Result := True
 					list := offset

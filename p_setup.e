@@ -30,7 +30,6 @@ feature
 			create segs.make_empty
 			create blocklinks.make_empty
 			create blockmaplump.make_empty
-			create blockmap.make_filled (0, 0, 0)
 			create vertexes.make_empty
 			create sectors.make_empty
 			create sides.make_empty
@@ -101,18 +100,20 @@ feature -- Blockmap
 
 	bmapheight: INTEGER -- size in mapblocks
 
-	blockmap: ARRAY [INTEGER_16] -- int for larger maps
-			-- offsets in blockmap are from here
+	blockmap: detachable INDEX_IN_ARRAY [INTEGER_16] -- int for larger maps
 
 	blockmaplump: ARRAY [INTEGER_16]
-			-- origin of block map
+
+		-- offsets in blockmap are from here
 
 	bmaporgx: FIXED_T
+			-- origin of block map
 
 	bmaporgy: FIXED_T
-			-- for thing chains
+			-- origin of block map
 
 	blocklinks: ARRAY [detachable MOBJ_T]
+			-- for thing chains
 
 feature
 
@@ -212,19 +213,9 @@ feature
 		end
 
 	P_LoadBlockMap (lump: INTEGER)
-		local
-			i: INTEGER
 		do
 			blockmaplump := {WAD_READER}.read_array_integer_16 (i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_level))
-			create blockmap.make_filled (0, 0, blockmaplump.upper - 4)
-			from
-				i := 4
-			until
-				i > blockmaplump.upper
-			loop
-				blockmap [i - 4] := blockmaplump [i]
-				i := i + 1
-			end
+			create blockmap.make (4, blockmaplump)
 			bmaporgx := blockmaplump [0].to_integer_32 |<< {M_FIXED}.FRACBITS
 			bmaporgy := blockmaplump [1].to_integer_32 |<< {M_FIXED}.FRACBITS
 			bmapwidth := blockmaplump [2]
@@ -507,7 +498,6 @@ feature -- P_LoadThings
 		end
 
 invariant
-	blockmap.lower = 0
 	playerstarts.lower = 0
 	playerstarts.count = {DOOMDEF_H}.MAXPLAYERS
 	deathmatchstarts.lower = 0 and deathmatchstarts.count = MAX_DEATHMATCH_STARTS
