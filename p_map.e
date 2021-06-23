@@ -745,123 +745,134 @@ feature
 			i_main.p_maputl.P_PathTraverse (t1.x, t1.y, x2, y2, {P_LOCAL}.PT_ADDLINES | {P_LOCAL}.PT_ADDTHINGS, agent PTR_ShootTraverse).do_nothing
 		end
 
-	PTR_ShootTraverse (in: INTERCEPT_T): BOOLEAN
+feature -- PTR_ShootTraverse
+
+	PTR_ShootTraverse_line_hitline (li: LINE_T; in: INTERCEPT_T): BOOLEAN
 		local
-			x, y, z, frac: FIXED_T
-			li: LINE_T
-			th: MOBJ_T
-			slope, dist, thingtopslope, thingbottomslope: FIXED_T
-			goto_hitline: BOOLEAN
-			returned: BOOLEAN
+			frac: FIXED_T
+			x, y, z: FIXED_T
+			hit_sky: BOOLEAN
 		do
-			if in.isaline then
-				li := in.line
-				check attached li then
-					if li.special /= 0 then
-						check attached shootthing as st then
-							i_main.p_spec.P_ShootSpecialLine (st, li)
-						end
-
+				-- hit line
+				-- position a bit closer
+			frac := in.frac - {M_FIXED}.fixeddiv (4 * {M_FIXED}.fracunit, attackrange)
+			x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
+			y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
+			z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+				-- Check if sky is hit
+			check attached li.frontsector as front then
+				if front.ceilingpic = i_main.r_sky.skyflatnum then
+						-- don't shoot the sky!
+					if z > front.ceilingheight then
+						hit_sky := True
 					end
-					if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
-						goto_hitline := True
-					else
-							-- crosses a two sided line
-						i_main.p_maputl.P_LineOpening (li)
-						dist := {M_FIXED}.fixedmul (attackrange, in.frac)
-						check attached li.frontsector as front and then attached li.backsector as back then
-							if front.floorheight /= back.floorheight then
-								slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
-								if slope > aimslope then
-									goto_hitline := True
-								end
-							end
-							if not goto_hitline then
-								if front.ceilingheight /= back.ceilingheight then
-									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
-									if slope < aimslope then
-										goto_hitline := True
-									end
-								end
-							end
-							if not goto_hitline then
-								Result := True -- shot continues
-							end
-						end
-						if goto_hitline then
-								-- hit line
-								-- position a bit closer
-							frac := in.frac - {M_FIXED}.fixeddiv (4 * {M_FIXED}.fracunit, attackrange)
-							x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
-							y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
-							z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
-							check attached li.frontsector as front then
-								if front.ceilingpic = i_main.r_sky.skyflatnum then
-										-- don't shoot the sky!
-									if z > front.ceilingheight then
-										Result := False
-										returned := True
-									end
-										-- it's a sky hack wall
-									if not returned and then attached li.backsector as back and then back.ceilingpic = i_main.r_sky.skyflatnum then
-										Result := False
-										returned := True
-									end
-								end
-							end
-							if not returned then
-									-- Spawn bullet puffs.
-								i_main.p_mobj.P_SpawnPuff (x, y, z)
+						-- it's a sky hack wall
+					if not hit_sky and then attached li.backsector as back and then back.ceilingpic = i_main.r_sky.skyflatnum then
+						hit_sky := True
+					end
+				end
+			end
+			if not hit_sky then
+					-- Spawn bullet puffs.
+				i_main.p_mobj.P_SpawnPuff (x, y, z)
+			end
+			Result := False -- don't go any farther (in all cases so)
+		end
 
-									-- don't go any farther
-								Result := False
-							end
+	PTR_ShootTraverse_line (li: LINE_T; in: INTERCEPT_T): BOOLEAN
+		local
+			goto_hitline: BOOLEAN
+			dist: FIXED_T
+			slope: FIXED_T
+		do
+			if li.special /= 0 then
+				check attached shootthing as st then
+					i_main.p_spec.P_ShootSpecialLine (st, li)
+				end
+			end
+			if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+				goto_hitline := True
+			else
+					-- crosses a two sided line
+				i_main.p_maputl.P_LineOpening (li)
+				dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+				check attached li.frontsector as front and then attached li.backsector as back then
+					if front.floorheight /= back.floorheight then
+						slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
+						if slope > aimslope then
+							goto_hitline := True
+						end
+					end
+					if front.ceilingheight /= back.ceilingheight then
+						slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
+						if slope < aimslope then
+							goto_hitline := True
 						end
 					end
 				end
+			end
+			if goto_hitline then
+				Result := PTR_ShootTraverse_line_hitline (li, in)
 			else
-					-- shoot a thing
-				th := in.thing
-				check attached th then
-					if th = shootthing then
-						Result := True -- can't shoot self
-					else
-						if th.flags & MF_SHOOTABLE = 0 then
-							Result := True -- corpse or something
-						else
-								-- check angles to see if the thing can be aimed at
-							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
-							thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
-							if thingtopslope < aimslope then
-								Result := True -- shot over the thing
-							else
-								thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
-								if thingbottomslope > aimslope then
-									Result := True -- shot under the thing
-								else
-										-- hit thing
-										-- position a bit closer
-									frac := in.frac - {M_FIXED}.fixeddiv (10 * {M_FIXED}.FRACUNIT, attackrange)
-									x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
-									y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
-									z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+				Result := True -- shot continue
+			end
+		end
 
-										-- Spawn bullet puffs or blod spots,
-										-- depending on target type.
-									if th.flags & MF_NOBLOOD /= 0 then
-										i_main.p_mobj.P_SpawnPuff (x, y, z)
-									else
-										i_main.p_mobj.P_SpawnBlood (x, y, z, la_damage)
-									end
-									if la_damage /= 0 then
-										i_main.p_inter.P_DamageMobj (th, shootthing, shootthing, la_damage)
-									end
-										-- don't go any farther
-									Result := False
-								end
+	PTR_ShootTraverse_thing (th: MOBJ_T; in: INTERCEPT_T): BOOLEAN
+		local
+			x, y, z, frac: FIXED_T
+			dist, thingtopslope, thingbottomslope: FIXED_T
+		do
+			if th = shootthing then
+				Result := True -- can't shoot self
+			else
+				if th.flags & MF_SHOOTABLE = 0 then
+					Result := True -- corpse or something
+				else
+						-- check angles to see if the thing can be aimed at
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+					if thingtopslope < aimslope then
+						Result := True -- shot over the thing
+					else
+						thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+						if thingbottomslope > aimslope then
+							Result := True -- shot under the thing
+						else
+								-- hit thing
+								-- position a bit closer
+							frac := in.frac - {M_FIXED}.fixeddiv (10 * {M_FIXED}.FRACUNIT, attackrange)
+							x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
+							y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
+							z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+
+								-- Spawn bullet puffs or blod spots,
+								-- depending on target type.
+							if th.flags & MF_NOBLOOD /= 0 then
+								i_main.p_mobj.P_SpawnPuff (x, y, z)
+							else
+								i_main.p_mobj.P_SpawnBlood (x, y, z, la_damage)
 							end
+							if la_damage /= 0 then
+								i_main.p_inter.P_DamageMobj (th, shootthing, shootthing, la_damage)
+							end
+								-- don't go any farther
+							Result := False
 						end
 					end
+				end
+			end
+		end
+
+	PTR_ShootTraverse (in: INTERCEPT_T): BOOLEAN
+		do
+			if in.isaline then
+				check attached in.line as line then
+					Result := PTR_ShootTraverse_line (line, in)
+				end
+			else
+				check attached in.thing as thing then
+					Result := PTR_ShootTraverse_thing (thing, in)
 				end
 			end
 		end
