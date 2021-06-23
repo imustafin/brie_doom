@@ -643,86 +643,95 @@ feature
 			end
 		end
 
-	PTR_AimTraverse (in: INTERCEPT_T): BOOLEAN
-			-- Sets linetarget and aimslope when a target is aimed at.
+feature -- PTR_AimTraverse
+
+	PTR_AimTraverse_line (li: LINE_T; in: INTERCEPT_T): BOOLEAN
 		local
-			li: LINE_T
-			th: MOBJ_T
-			slope: FIXED_T
-			thingtopslope: FIXED_T
-			thingbottomslope: FIXED_T
 			dist: FIXED_T
+			slope: FIXED_T
 		do
-			if in.isaline then
-				li := in.line
-				check attached li then
-					if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+			if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+				Result := False -- stop
+			else
+					-- Crosses a two sided line.
+					-- A two sided line will restrict
+					-- the possible target ranges.
+				i_main.p_maputl.P_LineOpening (li)
+				if i_main.p_maputl.openbottom >= i_main.p_maputl.opentop then
+					Result := False -- stop
+				else
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					check attached li.frontsector as front and then attached li.backsector as back then
+						if front.floorheight /= back.floorheight then
+							slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
+							if slope > i_main.p_sight.bottomslope then
+								i_main.p_sight.bottomslope := slope
+							end
+						end
+						if front.ceilingheight /= back.ceilingheight then
+							slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
+							if slope < i_main.p_sight.topslope then
+								i_main.p_sight.topslope := slope
+							end
+						end
+					end
+					if i_main.p_sight.topslope <= i_main.p_sight.bottomslope then
 						Result := False -- stop
 					else
-							-- Crosses a two sided line.
-							-- A two sided line will restrict
-							-- the possible target ranges.
-						i_main.p_maputl.P_LineOpening (li)
-						if i_main.p_maputl.openbottom >= i_main.p_maputl.opentop then
-							Result := False -- stop
+						Result := True -- shot continues
+					end
+				end
+			end
+		end
+
+	PTR_AimTraverse_thing (th: MOBJ_T; in: INTERCEPT_T): BOOLEAN
+		local
+			dist: FIXED_T
+			thingtopslope: FIXED_T
+			thingbottomslope: FIXED_T
+		do
+			if th = shootthing then
+				Result := True -- can't shoot self
+			else
+				if th.flags & MF_SHOOTABLE = 0 then
+					Result := True -- corpse or something
+				else
+						-- check angles to see if the thing can be aimed at
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+					if thingtopslope < i_main.p_sight.bottomslope then
+						Result := True -- shot over the thing
+					else
+						thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+						if thingbottomslope > i_main.p_sight.topslope then
+							Result := True -- shot under the thing
 						else
-							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
-							check attached li.frontsector as front and then attached li.backsector as back then
-								if front.floorheight /= back.floorheight then
-									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
-									if slope > i_main.p_sight.bottomslope then
-										i_main.p_sight.bottomslope := slope
-									end
-								end
-								if front.ceilingheight /= back.ceilingheight then
-									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
-									if slope < i_main.p_sight.topslope then
-										i_main.p_sight.topslope := slope
-									end
-								end
+								-- this thing can be hit!
+							if thingtopslope > i_main.p_sight.topslope then
+								thingtopslope := i_main.p_sight.topslope
 							end
-							if i_main.p_sight.topslope <= i_main.p_sight.bottomslope then
-								Result := False -- stop
-							else
-								Result := True -- shot continues
+							if thingbottomslope < i_main.p_sight.bottomslope then
+								thingbottomslope := i_main.p_sight.bottomslope
 							end
+							aimslope := (thingtopslope + thingbottomslope) // 2
+							linetarget := th
+							Result := False -- don't go any further
 						end
 					end
 				end
+			end
+		end
+
+	PTR_AimTraverse (in: INTERCEPT_T): BOOLEAN
+			-- Sets linetarget and aimslope when a target is aimed at.
+		do
+			if in.isaline then
+				check attached in.line as line then
+					Result := PTR_AimTraverse_line (line, in)
+				end
 			else
-					-- shoot a thing
-				th := in.thing
-				check attached th then
-					if th = shootthing then
-						Result := True -- can't shoot self
-					else
-						if th.flags & MF_SHOOTABLE = 0 then
-							Result := True -- corpse or something
-						else
-								-- check angles to see if the thing can be aimed at
-							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
-							thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
-							if thingtopslope < i_main.p_sight.bottomslope then
-								Result := True -- shot over the thing
-							else
-								thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
-								if thingbottomslope > i_main.p_sight.topslope then
-									Result := True -- shot under the thing
-								else
-										-- this thing can be hit!
-									if thingtopslope > i_main.p_sight.topslope then
-										thingtopslope := i_main.p_sight.topslope
-									end
-									if thingbottomslope < i_main.p_sight.bottomslope then
-										thingbottomslope := i_main.p_sight.bottomslope
-									end
-									aimslope := (thingtopslope + thingbottomslope) // 2
-									linetarget := th
-									Result := False -- don't go any further
-								end
-							end
-						end
-					end
+				check attached in.thing as thing then
+					Result := PTR_AimTraverse_thing (thing, in)
 				end
 			end
 		end
