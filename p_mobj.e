@@ -13,6 +13,8 @@ inherit
 
 	STATENUM_T
 
+	MOBJTYPE_T
+
 create
 	make
 
@@ -221,15 +223,14 @@ feature -- P_RemoveMobj
 
 				-- set subsector and/or block links
 			i_main.p_maputl.P_SetThingPosition (mobj)
-			after_p_set_thing_position(mobj, z)
-
+			after_p_set_thing_position (mobj, z)
 			mobj.thinker.function := agent P_MobjThinker(mobj)
 			i_main.p_tick.P_AddThinker (mobj)
 			Result := mobj
 		end
 
 	after_p_set_thing_position (mobj: MOBJ_T; z: FIXED_T)
-		-- Part of P_SpawnMobj for updating coords from subsector info
+			-- Part of P_SpawnMobj for updating coords from subsector info
 		do
 			check attached mobj.subsector as subsector then
 				check attached subsector.sector as sector then
@@ -246,7 +247,6 @@ feature -- P_RemoveMobj
 			else
 				mobj.z := z
 			end
-
 		end
 
 	P_MobjThinker (mobj: MOBJ_T)
@@ -577,6 +577,45 @@ feature -- P_RemoveMobj
 	P_RemoveMobj (mobj: MOBJ_T)
 		do
 			{I_MAIN}.i_error ("P_RemoveMobj is not implemented yet")
+		end
+
+feature
+
+	P_SpawnPuff (x, y, a_z: FIXED_T)
+		local
+			th: MOBJ_T
+			z: FIXED_T
+		do
+			z := a_z + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 10)
+			th := P_SpawnMobj (x, y, z, MT_PUFF)
+			th.momz := {M_FIXED}.FRACUNIT
+			th.tics := th.tics - (i_main.m_random.p_random & 3)
+			if th.tics < 1 then
+				th.tics := 1
+			end
+				-- don't make punches spark on the wall
+			if i_main.p_map.attackrange = {P_LOCAL}.MELEERANGE then
+				P_SetMobjState (th, S_PUFF3).do_nothing
+			end
+		end
+
+	P_SpawnBlood (x, y, a_z: FIXED_T; damage: INTEGER)
+		local
+			th: MOBJ_T
+			z: FIXED_T
+		do
+			z := a_z + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 10)
+			th := P_SpawnMobj (x, y, z, MT_BLOOD)
+			th.momz := {M_FIXED}.fracunit * 2
+			th.tics := th.tics - (i_main.m_random.p_random & 3)
+			if th.tics < 1 then
+				th.tics := 1
+			end
+			if damage <= 12 and damage >= 9 then
+				P_SetMobjState (th, S_BLOOD2).do_nothing
+			elseif damage < 9 then
+				P_SetMobjState (th, S_BLOOD3).do_nothing
+			end
 		end
 
 end

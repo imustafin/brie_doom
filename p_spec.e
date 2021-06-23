@@ -110,6 +110,14 @@ feature
 			end
 		end
 
+	P_ShootSpecialLine (thing: MOBJ_T; line: LINE_T)
+			-- IMPACT SPECIALS
+			-- Called when a thing shoots a special line.
+		do
+				-- Stub
+			print ("P_ShootSpecialLine not implemented%N")
+		end
+
 feature -- Special Stuff that can not be categorized
 
 	EV_DoDonut (line: LINE_T): BOOLEAN

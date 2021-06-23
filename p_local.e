@@ -101,4 +101,18 @@ feature
 
 	MAXINTERCEPTS: INTEGER = 128
 
+	MISSILERANGE: INTEGER
+		once
+			Result := 32 * 64 * {M_FIXED}.FRACUNIT
+		ensure
+			instance_free: class
+		end
+
+	MELEERANGE: INTEGER
+		once
+			Result := 64 * {M_FIXED}.fracunit
+		ensure
+			instance_free: class
+		end
+
 end

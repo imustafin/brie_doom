@@ -331,7 +331,7 @@ feature
 					if tmt.flags & MF_SKULLFLY /= 0 then
 						check attached tmt.info as info then
 							damage := ((i_main.m_random.p_random \\ 8) + 1) * info.damage
-							{P_INTER}.P_DamageMobj (thing, tmthing, tmthing, damage)
+							i_main.p_inter.P_DamageMobj (thing, tmthing, tmthing, damage)
 							tmt.flags := tmt.flags & MF_SKULLFLY.bit_not
 							tmt.momx := 0
 							tmt.momy := 0
@@ -382,7 +382,7 @@ feature
 								-- damage / explode
 							check attached tmt.info as info then
 								damage := ((i_main.m_random.p_random \\ 8) + 1) * info.damage
-								{P_INTER}.P_DamageMobj (thing, tmthing, tmt.target, damage)
+								i_main.p_inter.P_DamageMobj (thing, tmthing, tmt.target, damage)
 							end
 								-- don't traverse any more
 							Result := False
@@ -613,6 +613,8 @@ feature
 			-- Height if not aiming up or down
 			-- ???: use slope for monsters?
 
+	la_damage: INTEGER
+
 	attackrange: FIXED_T
 
 	aimslope: FIXED_T
@@ -717,6 +719,145 @@ feature
 									aimslope := (thingtopslope + thingbottomslope) // 2
 									linetarget := th
 									Result := False -- don't go any further
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+	P_LineAttack (t1: MOBJ_T; a_angle: ANGLE_T; distance: FIXED_T; slope: FIXED_T; damage: INTEGER)
+			-- If damage == 0, it is just a test trace
+			-- that will leave linetarget set.
+		local
+			x2, y2: FIXED_T
+			angle: ANGLE_T
+		do
+			angle := a_angle |>> {R_MAIN}.ANGLETOFINESHIFT
+			shootthing := t1
+			la_damage := damage
+			x2 := t1.x + (distance |>> {M_FIXED}.FRACBITS) * i_main.r_main.finecosine [angle]
+			y2 := t1.y + (distance |>> {M_FIXED}.FRACBITS) * i_main.r_main.finesine [angle]
+			shootz := t1.z + (t1.height |>> 1) + 8 * {M_FIXED}.FRACUNIT
+			attackrange := distance
+			aimslope := slope
+			i_main.p_maputl.P_PathTraverse (t1.x, t1.y, x2, y2, {P_LOCAL}.PT_ADDLINES | {P_LOCAL}.PT_ADDTHINGS, agent PTR_ShootTraverse).do_nothing
+		end
+
+	PTR_ShootTraverse (in: INTERCEPT_T): BOOLEAN
+		local
+			x, y, z, frac: FIXED_T
+			li: LINE_T
+			th: MOBJ_T
+			slope, dist, thingtopslope, thingbottomslope: FIXED_T
+			goto_hitline: BOOLEAN
+			returned: BOOLEAN
+		do
+			if in.isaline then
+				li := in.line
+				check attached li then
+					if li.special /= 0 then
+						check attached shootthing as st then
+							i_main.p_spec.P_ShootSpecialLine (st, li)
+						end
+
+					end
+					if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+						goto_hitline := True
+					else
+							-- crosses a two sided line
+						i_main.p_maputl.P_LineOpening (li)
+						dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+						check attached li.frontsector as front and then attached li.backsector as back then
+							if front.floorheight /= back.floorheight then
+								slope := {M_FIXED}.fixeddiv (i_main.p_maputl.openbottom - shootz, dist)
+								if slope > aimslope then
+									goto_hitline := True
+								end
+							end
+							if not goto_hitline then
+								if front.ceilingheight /= back.ceilingheight then
+									slope := {M_FIXED}.fixeddiv (i_main.p_maputl.opentop - shootz, dist)
+									if slope < aimslope then
+										goto_hitline := True
+									end
+								end
+							end
+							if not goto_hitline then
+								Result := True -- shot continues
+							end
+						end
+						if goto_hitline then
+								-- hit line
+								-- position a bit closer
+							frac := in.frac - {M_FIXED}.fixeddiv (4 * {M_FIXED}.fracunit, attackrange)
+							x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
+							y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
+							z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+							check attached li.frontsector as front then
+								if front.ceilingpic = i_main.r_sky.skyflatnum then
+										-- don't shoot the sky!
+									if z > front.ceilingheight then
+										Result := False
+										returned := True
+									end
+										-- it's a sky hack wall
+									if not returned and then attached li.backsector as back and then back.ceilingpic = i_main.r_sky.skyflatnum then
+										Result := False
+										returned := True
+									end
+								end
+							end
+							if not returned then
+									-- Spawn bullet puffs.
+								i_main.p_mobj.P_SpawnPuff (x, y, z)
+
+									-- don't go any farther
+								Result := False
+							end
+						end
+					end
+				end
+			else
+					-- shoot a thing
+				th := in.thing
+				check attached th then
+					if th = shootthing then
+						Result := True -- can't shoot self
+					else
+						if th.flags & MF_SHOOTABLE = 0 then
+							Result := True -- corpse or something
+						else
+								-- check angles to see if the thing can be aimed at
+							dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+							thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+							if thingtopslope < aimslope then
+								Result := True -- shot over the thing
+							else
+								thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+								if thingbottomslope > aimslope then
+									Result := True -- shot under the thing
+								else
+										-- hit thing
+										-- position a bit closer
+									frac := in.frac - {M_FIXED}.fixeddiv (10 * {M_FIXED}.FRACUNIT, attackrange)
+									x := i_main.p_maputl.trace.x + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dx, frac)
+									y := i_main.p_maputl.trace.y + {M_FIXED}.fixedmul (i_main.p_maputl.trace.dy, frac)
+									z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+
+										-- Spawn bullet puffs or blod spots,
+										-- depending on target type.
+									if th.flags & MF_NOBLOOD /= 0 then
+										i_main.p_mobj.P_SpawnPuff (x, y, z)
+									else
+										i_main.p_mobj.P_SpawnBlood (x, y, z, la_damage)
+									end
+									if la_damage /= 0 then
+										i_main.p_inter.P_DamageMobj (th, shootthing, shootthing, la_damage)
+									end
+										-- don't go any farther
+									Result := False
 								end
 							end
 						end

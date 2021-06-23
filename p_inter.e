@@ -26,8 +26,7 @@ feature
 	P_DamageMobj (target: MOBJ_T; inflictor, source: detachable MOBJ_T; damage: INTEGER)
 		do
 				-- Stub
-		ensure
-			instane_free: class
+			print ("P_DamageMobj is not implemented%N")
 		end
 
 	P_TouchSpecialThing (special, toucher: MOBJ_T)

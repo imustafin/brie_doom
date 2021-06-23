@@ -428,9 +428,16 @@ feature
 		end
 
 	P_GunShot (mo: MOBJ_T; accurate: BOOLEAN)
+		local
+			angle: ANGLE_T
+			damage: INTEGER
 		do
-				-- Stub
-			print ("P_GunShot is not implemented%N")
+			damage := 5 * (i_main.m_random.p_random \\ 3 + 1)
+			angle := mo.angle
+			if not accurate then
+				angle := (angle + (i_main.m_random.p_random - i_main.m_random.p_random) |<< 18).to_natural_32
+			end
+			i_main.p_map.P_LineAttack (mo, angle, {P_LOCAL}.MISSILERANGE, bulletslope, damage)
 		end
 
 	A_Light1 (player: PLAYER_T; psp: PSPDEF_T)
