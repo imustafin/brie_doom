@@ -383,7 +383,15 @@ feature
 			-- The player can re-fire the weapon
 			-- without lowering it entirely.
 		do
-				-- Stub
+				-- check for refire
+				-- (if a weaponchange is pending, let it go through instead)
+			if player.cmd.buttons & {D_EVENT}.BT_ATTACK /= 0 and player.pendingweapon = wp_nochange and player.health /= 0 then
+				player.refire := player.refire + 1
+				P_FireWeapon (player)
+			else
+				player.refire := 0
+				P_CheckAmmo (player).do_nothing
+			end
 		end
 
 	A_FirePistol (player: PLAYER_T; psp: PSPDEF_T)
