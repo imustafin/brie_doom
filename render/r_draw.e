@@ -181,11 +181,12 @@ feature -- R_DrawColumn
 			fracstep: FIXED_T
 			val: NATURAL_8
 			dc_source_val: INTEGER
+			i: INTEGER
 		do
 			count := dc_yh - dc_yl
 
 				-- Zero length, column does not exceed a pixel
-			if count > 0 then
+			if count >= 0 then
 					-- Framebuffer destination address.
 					-- Use ylookup LUT to avoid multiply with ScreenWidth.
 					-- Use columnofs LUT for subwindows?
@@ -207,8 +208,15 @@ feature -- R_DrawColumn
 				loop
 						-- Re-map color indices from wall texture column
 						-- using a lighting/special effects LUT
+
 					check attached dc_source as dcs then
-						dc_source_val := dcs [(frac |>> {M_FIXED}.FRACBITS) & 127]
+						i := (frac |>> {M_FIXED}.FRACBITS) & 127
+						if dcs.valid_index (i) then
+							dc_source_val := dcs [i]
+						else
+							print ("R_DrawColumn: dc_source read out of bounds [" + i.out + "]%N")
+							dc_source_val := 0
+						end
 					end
 					check attached dc_colormap as dc_cmap then
 						val := dc_cmap [dc_source_val]

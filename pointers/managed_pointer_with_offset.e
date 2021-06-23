@@ -33,11 +33,16 @@ feature
 		end
 
 	get alias "[]" (pos: INTEGER): NATURAL_8
-		require else
-			ofs + pos >= 0
-			ofs + pos + {MANAGED_POINTER}.natural_8_bytes <= count
 		do
 			Result := mp.read_natural_8_le (ofs + pos)
+		end
+
+	valid_index (i: INTEGER): BOOLEAN
+		local
+			pos: INTEGER
+		do
+			pos := ofs + i
+			Result := pos >= 0 and pos < mp.count
 		end
 
 end

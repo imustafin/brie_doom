@@ -27,4 +27,9 @@ feature
 			Result := item [index]
 		end
 
+	valid_index (i: INTEGER): BOOLEAN
+		do
+			Result := item.valid_index (i)
+		end
+
 end

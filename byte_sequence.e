@@ -7,6 +7,12 @@ deferred class
 feature
 
 	get alias "[]" (index: INTEGER): NATURAL_8
+		require
+			valid_index (index)
+		deferred
+		end
+
+	valid_index (i: INTEGER): BOOLEAN
 		deferred
 		end
 
