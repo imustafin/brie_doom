@@ -9,6 +9,12 @@ note
 class
 	P_ENEMY
 
+inherit
+
+	SFXENUM_T
+
+	MOBJTYPE_T
+
 create
 	make
 
@@ -114,14 +120,24 @@ feature
 
 	A_Pain (actor: MOBJ_T)
 		do
-				-- Stub
-			print ("A_Pain is not implemented%N")
+			check attached actor.info as info then
+				if info.painsound /= 0 then
+					i_main.s_sound.s_startsound (actor, info.painsound)
+				end
+			end
 		end
 
 	A_PlayerScream (mo: MOBJ_T)
+		local
+			sound: INTEGER
 		do
-				-- Stub
-			print ("A_PlayerScream is not implemented%N")
+			sound := sfx_pldeth
+			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial and mo.health < -50 then
+					-- IF THE PLAYER DIES
+					-- LESS THAN -50% WITHOUT GIBBING
+				sound := sfx_pdiehi
+			end
+			i_main.s_sound.s_startsound (mo, sound)
 		end
 
 	A_Fall (actor: MOBJ_T)
@@ -132,8 +148,7 @@ feature
 
 	A_XScream (actor: MOBJ_T)
 		do
-				-- Stub
-			print ("A_XScream is not implemented%N")
+			i_main.s_sound.s_startsound (actor, sfx_slop)
 		end
 
 	A_Look (actor: MOBJ_T)
@@ -164,9 +179,29 @@ feature
 		end
 
 	A_Scream (actor: MOBJ_T)
+		local
+			sound: INTEGER
+			returned: BOOLEAN
 		do
-				-- Stub
-			print ("A_Scream is not implemented%N")
+			check attached actor.info as i then
+				if i.deathsound = 0 then
+					returned := True
+				elseif i.deathsound = sfx_podth1 or i.deathsound = sfx_podth2 or i.deathsound = sfx_podth3 then
+					sound := sfx_podth1 + i_main.m_random.p_random \\ 3
+				elseif i.deathsound = sfx_bgdth1 or i.deathsound = sfx_bgdth2 then
+					sound := sfx_bgdth1 + i_main.m_random.p_random \\ 2
+				else
+					sound := i.deathsound
+				end
+			end
+			if not returned then
+					-- Check for bosses
+				if actor.type = MT_SPIDER or actor.type = MT_CYBORG then
+					i_main.s_sound.s_startsound (Void, sound)
+				else
+					i_main.s_sound.s_startsound (actor, sound)
+				end
+			end
 		end
 
 	A_SPosAttack (actor: MOBJ_T)
