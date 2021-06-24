@@ -375,8 +375,26 @@ feature
 		end
 
 	A_Punch (player: PLAYER_T; psp: PSPDEF_T)
+		local
+			angle: ANGLE_T
+			damage: INTEGER
+			slope: INTEGER
 		do
-				-- Stub
+			damage := (i_main.m_random.p_random \\ 10 + 1) |<< 1
+			if player.powers [{POWERTYPE_T}.pw_strength] /= 0 then
+				damage := damage * 10
+			end
+			check attached player.mo as mo then
+				angle := mo.angle
+				angle := angle + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 18).to_natural_32
+				slope := i_main.p_map.P_AimLineAttack (mo, angle, {P_LOCAL}.MELEERANGE)
+				i_main.p_map.P_LineAttack (mo, angle, {P_LOCAL}.MELEERANGE, slope, damage)
+					-- turn to face target
+				if attached i_main.p_map.linetarget as lt then
+					i_main.s_sound.S_StartSound (mo, sfx_punch)
+					mo.angle := i_main.r_main.R_PointToAngle2 (mo.x, mo.y, lt.x, lt.y)
+				end
+			end
 		end
 
 	A_Refire (player: PLAYER_T; psp: PSPDEF_T)
