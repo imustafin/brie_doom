@@ -117,4 +117,7 @@ feature
 
 	ITEMQUESIZE: INTEGER = 128
 
+	BASETHRESHOLD: INTEGER = 100
+			-- follow a player exlusively for 3 seconds
+
 end

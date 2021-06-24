@@ -54,4 +54,9 @@ feature
 			{SDL_TIMER_FUNCTIONS_API}.sdl_delay (ms)
 		end
 
+	I_Tactile (on, off, total: INTEGER)
+		do
+				-- UNUSED.
+		end
+
 end

@@ -240,10 +240,28 @@ feature
 			didsecret := a_didsecret
 		end
 
-	armorpoints: INTEGER
+	armortype: INTEGER assign set_armortype
+			-- Armor type is 0-2
 
-	attacker: detachable MOBJ_T
+	set_armortype (a_armortype: like armortype)
+		do
+			armortype := a_armortype
+		end
+
+	armorpoints: INTEGER assign set_armorpoints
+
+	set_armorpoints (a_armorpoints: like armorpoints)
+		do
+			armorpoints := a_armorpoints
+		end
+
+	attacker: detachable MOBJ_T assign set_attacker
 			-- Who did damage (NULL for floors/ceilings).
+
+	set_attacker (a_attacker: like attacker)
+		do
+			attacker := a_attacker
+		end
 
 feature -- POV
 

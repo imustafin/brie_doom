@@ -33,9 +33,14 @@ feature -- Movement direction, movement generation (zig-zagging)
 
 feature
 
-	target: detachable MOBJ_T
+	target: detachable MOBJ_T assign set_target
 			-- Thing being chased/attacked (or NULL),
 			-- also the originator for missiles.
+
+	set_target (a_target: like target)
+		do
+			target := a_target
+		end
 
 	angle: ANGLE_T assign set_angle -- orientation
 
@@ -226,6 +231,17 @@ feature -- Momentums, used to update position
 	set_momz (a_momz: like momz)
 		do
 			momz := a_momz
+		end
+
+feature
+
+	threshold: INTEGER assign set_threshold
+			-- If >0, the target will be chased
+			-- no matter what (even if shot)
+
+	set_threshold (a_threshold: like threshold)
+		do
+			threshold := a_threshold
 		end
 
 end

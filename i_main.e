@@ -253,7 +253,7 @@ feature -- Globals
 
 	p_inter: P_INTER
 		once
-			create Result
+			create Result.make (Current)
 		end
 
 	p_floor: P_FLOOR
