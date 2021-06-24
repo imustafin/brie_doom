@@ -115,9 +115,7 @@ feature
 			srclen, dstlen: NATURAL_32
 		do
 			srclen := insnd.chunk.alen
-			check attached insnd.chunk.abuf_managed as abuf then
-				create srcbuf.share_from_pointer (abuf.item, srclen.to_integer_32)
-			end
+			srcbuf := insnd.chunk.abuf_managed
 
 				-- determine ratio pitch:NORM_PITCH and apply to srclen, then invert.
 				-- This is an approximation of vanilla behaviour based on measurements
@@ -132,19 +130,23 @@ feature
 			end
 			if attached Result then
 				Result.pitch := pitch
-				check attached Result.chunk.abuf_managed as abuf then
-					create dstbuf.share_from_pointer (abuf.item, dstlen.to_integer_32) -- dstbuf = (Sint16 *)outsnd->chunk.abuf;
-				end
+				dstbuf := Result.chunk.abuf_managed -- dstbuf = (Sint16 *)outsnd->chunk.abuf;
 
-					-- loop over output buffer. find corresponding input cell, copy over
-				from
-					outp := 0
-				until
-					outp >= dstlen.to_integer_32
-				loop
-					inp := (outp // 2) // dstlen.to_integer_32 * srclen.to_integer_32
-					dstbuf.put_integer_16 (srcbuf.read_integer_16 (inp), outp)
-					outp := outp + 2 -- sizeof Sint16
+				check attached dstbuf and then attached srcbuf then
+
+						-- loop over output buffer. find corresponding input cell, copy over
+					from
+						outp := 0
+					until
+						outp >= dstlen.to_integer_32 // 2 -- sizeof Sint16
+					loop
+							-- inp = srcbuf + (int)((float)(outp - dstbuf) / dstlen * srclen);
+							-- (float)(outp - dstbuf) is index, our outp is byte offset so divide by Sint16 len = 2
+							-- then float division
+						inp := (outp.to_real / dstlen * srclen).floor.to_integer_32
+						dstbuf.put_integer_16 (srcbuf.read_integer_16 (inp * 2), outp * 2)
+						outp := outp + 1
+					end
 				end
 			end
 		end
