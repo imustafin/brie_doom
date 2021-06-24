@@ -142,8 +142,10 @@ feature
 
 	A_Fall (actor: MOBJ_T)
 		do
-				-- Stub
-			print ("A_Fall is not implemented%N")
+				-- actor is on ground, it can be walked over
+			actor.flags := actor.flags & {P_MOBJ}.MF_SOLID.bit_not
+				-- So change this if corpse objects
+				-- are meant to be obstacles
 		end
 
 	A_XScream (actor: MOBJ_T)
