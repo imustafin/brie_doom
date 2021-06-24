@@ -506,4 +506,12 @@ feature
 				-- Stub
 		end
 
+feature
+
+	P_DropWeapon (player: PLAYER_T)
+			-- Player died, so put the weapon away
+		do
+			P_SetPsprite (player, ps_weapon, {D_ITEMS}.weaponinfo [player.readyweapon].downstate)
+		end
+
 end

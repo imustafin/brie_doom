@@ -1229,6 +1229,19 @@ feature
 			end
 		end
 
+	player_index (p: PLAYER_T): INTEGER
+		do
+			from
+				Result := players.lower
+			until
+				Result > players.upper or else players [Result] = p
+			loop
+				Result := Result + 1
+			end
+		ensure
+			players [Result] = p
+		end
+
 	playeringame: ARRAY [BOOLEAN]
 		once
 			create Result.make_filled (False, 0, {DOOMDEF_H}.maxplayers - 1)

@@ -12,6 +12,8 @@ inherit
 
 	MOBJFLAG_T
 
+	MOBJTYPE_T
+
 create
 	make
 
@@ -164,9 +166,76 @@ feature -- P_DamageMobj
 		end
 
 	P_KillMobj (source: detachable MOBJ_T; target: MOBJ_T)
+		local
+			item: INTEGER
+			mo: MOBJ_T
+			target_player_index: INTEGER
+			returned: BOOLEAN
 		do
-				-- Stub
-			print ("P_KillMobj is not implemented%N")
+			target.flags := target.flags & (MF_SHOOTABLE | MF_FLOAT | MF_SKULLFLY).bit_not
+			if target.type /= MT_SKULL then
+				target.flags := target.flags & MF_NOGRAVITY.bit_not
+			end
+			target.flags := target.flags | MF_CORPSE | MF_DROPOFF
+			target.height := target.height |>> 2
+			if attached source and then attached source.player as player then
+					-- count for intermission
+				if target.flags & MF_COUNTKILL /= 0 then
+					player.killcount := player.killcount + 1
+				end
+				if attached target.player as target_player then
+					target_player_index := i_main.g_game.player_index (target_player)
+					player.frags [target_player_index] := player.frags [target_player_index] + 1
+				end
+			elseif not i_main.g_game.netgame and target.flags & MF_COUNTKILL /= 0 then
+					-- count all monster kills
+					-- even those caused by other monsters
+				i_main.g_game.players [0].killcount := i_main.g_game.players [0].killcount + 1
+			end
+			if attached target.player as target_player then
+					-- count enviornment kills against you
+				if source = Void then
+					target_player_index := i_main.g_game.player_index (target_player)
+					target_player.frags [target_player_index] := target_player.frags [target_player_index] + 1
+				end
+				target.flags := target.flags & MF_SOLID.bit_not
+				target_player.playerstate := {PLAYER_T}.PST_DEAD
+				i_main.p_pspr.P_DropWeapon (target_player)
+				if target_player = i_main.g_game.players [i_main.g_game.consoleplayer] and i_main.am_map.automapactive then
+						-- don't die in auto map,
+						-- switch view prior to dying
+					i_main.am_map.am_stop
+				end
+			end
+			check attached target.info as tinfo then
+				if target.health < - tinfo.spawnhealth and tinfo.xdeathstate /= 0 then
+					i_main.p_mobj.P_SetMobjState (target, tinfo.xdeathstate).do_nothing
+				else
+					i_main.p_mobj.P_SetMobjState (target, tinfo.deathstate).do_nothing
+				end
+			end
+			target.tics := target.tics - (i_main.m_random.p_random & 3)
+			if target.tics < 1 then
+				target.tics := 1
+			end
+
+				-- Drop stuff.
+				-- This determines the kind of object spawned
+				-- during the death frame of a thing
+			if target.type = MT_WOLFSS or target.type = MT_POSSESSED then
+				item := MT_CLIP
+			elseif target.type = MT_SHOTGUY then
+				item := MT_SHOTGUN
+			elseif target.type = MT_CHAINGUY then
+				item := MT_CHAINGUN
+			else
+					-- return
+				returned := True
+			end
+			if not returned then
+				mo := i_main.p_mobj.P_SpawnMobj (target.x, target.y, {P_LOCAL}.ONFLOORZ, item)
+				mo.flags := mo.flags | MF_DROPPED -- special versions of items
+			end
 		end
 
 	P_TouchSpecialThing (special, toucher: MOBJ_T)
