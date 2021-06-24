@@ -435,7 +435,7 @@ feature
 			damage := 5 * (i_main.m_random.p_random \\ 3 + 1)
 			angle := mo.angle
 			if not accurate then
-				angle := (angle + (i_main.m_random.p_random - i_main.m_random.p_random) |<< 18).to_natural_32
+				angle := angle + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 18).to_natural_32
 			end
 			i_main.p_map.P_LineAttack (mo, angle, {P_LOCAL}.MISSILERANGE, bulletslope, damage)
 		end
