@@ -18,6 +18,7 @@ feature {NONE}
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
+			create channels_playing.make_filled (Void, 0, NUM_CHANNELS - 1)
 		end
 
 feature
@@ -37,19 +38,6 @@ feature
 	NUM_CHANNELS: INTEGER = 16
 
 	channels_playing: ARRAY [detachable ALLOCATED_SOUND_T]
-		local
-			i: INTEGER
-		once
-			create Result.make_filled (Void, 0, NUM_CHANNELS - 1)
-			from
-				i := Result.lower
-			until
-				i > Result.upper
-			loop
-				Result [i] := create {ALLOCATED_SOUND_T}.make
-				i := i + 1
-			end
-		end
 
 feature
 
