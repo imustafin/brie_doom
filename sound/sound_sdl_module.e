@@ -52,11 +52,9 @@ feature
 	release_sound_on_channel (channel: INTEGER)
 		local
 			snd: ALLOCATED_SOUND_T
-			i: INTEGER
 		do
 			snd := channels_playing [channel]
-				-- do nothing with i
-			i := {SDL_MIXER_FUNCTIONS_API}.mix_halt_channel (channel)
+			{SDL_MIXER_FUNCTIONS_API}.mix_halt_channel (channel).do_nothing
 			if attached snd then
 				channels_playing [channel] := Void
 				unlock_allocated_sound (snd)
@@ -441,15 +439,13 @@ feature
 		local
 			left: INTEGER
 			right: INTEGER
-			i: INTEGER
 		do
 			if sound_initialized and handle > 0 and handle < NUM_CHANNELS then
 				left := ((254 - sep) * vol) // 127
 				right := (sep * vol) // 127
 				left := left.max (0).min (255)
 				right := right.max (0).min (255)
-					-- do nothing with i
-				i := {SDL_MIXER_FUNCTIONS_API}.mix_set_panning (handle, left.to_character_8, right.to_character_8)
+				{SDL_MIXER_FUNCTIONS_API}.mix_set_panning (handle, left.to_character_8, right.to_character_8).do_nothing
 			end
 		end
 
@@ -457,7 +453,6 @@ feature
 		local
 			snd: ALLOCATED_SOUND_T
 			newsnd: ALLOCATED_SOUND_T
-			i: INTEGER
 		do
 			if not sound_initialized or channel < 0 or channel >= NUM_CHANNELS then
 				Result := -1
@@ -492,8 +487,7 @@ feature
 					if Result /= -1 then
 							-- play sound
 						check attached snd as attached_snd then
-								-- do nothing with i
-							i := {MIX}.mix_play_channel (channel, attached_snd.chunk, 0)
+							{MIX}.mix_play_channel (channel, attached_snd.chunk, 0).do_nothing
 							channels_playing [channel] := attached_snd
 						end
 
