@@ -366,9 +366,24 @@ feature
 		end
 
 	get_slice_size: INTEGER
+		local
+			limit: INTEGER
 		do
-				-- Stub
-			Result := 1024
+			limit := ({I_SOUND}.snd_samplerate * {I_SOUND}.snd_maxslicetime_ms) // 1000
+
+			-- Try all powers of two, not exceeding the limit.
+			from
+				Result := 0
+			until
+				-- 2^n <= limit < 2^n+1 ?
+				(1 |<< (Result + 1)) > limit
+			loop
+				Result := Result + 1
+			end
+			Result := 1 |<< Result
+		ensure
+			Result <= ({I_SOUND}.snd_samplerate * {I_SOUND}.snd_maxslicetime_ms) // 1000
+			({I_SOUND}.snd_samplerate * {I_SOUND}.snd_maxslicetime_ms) // 1000 < (Result * 2)
 		end
 
 	sound_devices: ARRAY [INTEGER]

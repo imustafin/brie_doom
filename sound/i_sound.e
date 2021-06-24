@@ -59,6 +59,10 @@ feature -- Chocolate doom
 
 	snd_samplerate: INTEGER = 44100 -- Sound sample rate to use for digital output (Hz)
 
+	snd_maxslicetime_ms: INTEGER = 28
+		-- Config variable that controls the sound buffer size.
+		-- We default to 28ms (1000 / 35fps = 1 buffer per tic).
+
 	snd_musicdevice: INTEGER
 
 	snd_sfxdevice: INTEGER
