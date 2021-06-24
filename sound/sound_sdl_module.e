@@ -100,7 +100,7 @@ feature
 			from
 				Result := allocated_sounds_head
 			until
-				Result = Void or else (Result.sfxinfo ~ sfxinfo and Result.pitch = pitch)
+				Result = Void or else (Result.sfxinfo = sfxinfo and Result.pitch = pitch)
 			loop
 				Result := Result.next
 			end
