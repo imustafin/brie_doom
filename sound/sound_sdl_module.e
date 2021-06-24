@@ -457,7 +457,7 @@ feature
 			left: INTEGER
 			right: INTEGER
 		do
-			if sound_initialized and handle > 0 and handle < NUM_CHANNELS then
+			if sound_initialized and handle >= 0 and handle < NUM_CHANNELS then
 				left := ((254 - sep) * vol) // 127
 				right := (sep * vol) // 127
 				left := left.max (0).min (255)
