@@ -109,7 +109,7 @@ feature
 				print ("D_CheckNetGame: Checking network game status.%N")
 				i_main.d_net.D_CheckNetGame
 				print ("S_Init: Setting up sound.%N")
-				i_main.s_sound.S_Init (i_main.s_sound.snd_SfxVolume, i_main.s_sound.snd_MusicVolume)
+				i_main.s_sound.S_Init (i_main.s_sound.snd_SfxVolume * 8, i_main.s_sound.snd_MusicVolume * 8)
 				print ("HU_Init: Setting up heads up display.%N")
 				i_main.hu_stuff.HU_Init
 				print ("ST_Init: Init status bar.%N")
