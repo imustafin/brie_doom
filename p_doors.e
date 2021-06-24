@@ -42,7 +42,7 @@ feature
 			if line.special = 26 or line.special = 32 then
 					-- Blue Lock
 				if attached player then
-					if not player.cards [{DOOMDEF_H}.it_bluecard] and not player.cards [{DOOMDEF_H}.it_blueskull] then
+					if not player.cards [{CARD_T}.it_bluecard] and not player.cards [{CARD_T}.it_blueskull] then
 						player.message := {D_ENGLSH}.PD_BLUEK
 						i_main.s_sound.S_StartSound (Void, {SFXENUM_T}.sfx_oof)
 						returned := True
@@ -54,7 +54,7 @@ feature
 			if not returned and (line.special = 27 or line.special = 34) then
 					-- Yellow Lock
 				if attached player then
-					if not player.cards [{DOOMDEF_H}.it_yellowcard] and not player.cards [{DOOMDEF_H}.it_yellowskull] then
+					if not player.cards [{CARD_T}.it_yellowcard] and not player.cards [{CARD_T}.it_yellowskull] then
 						player.message := {D_ENGLSH}.PD_YELLOWK
 						i_main.s_sound.S_StartSound (Void, {SFXENUM_T}.sfx_oof)
 						returned := True
@@ -65,7 +65,7 @@ feature
 			end
 			if not returned and (line.special = 28 or line.special = 33) then
 				if attached player then
-					if not player.cards [{DOOMDEF_H}.it_redcard] and not player.cards [{DOOMDEF_H}.it_redskull] then
+					if not player.cards [{CARD_T}.it_redcard] and not player.cards [{CARD_T}.it_redskull] then
 						player.message := {D_ENGLSH}.PD_REDK
 						i_main.s_sound.S_StartSound (Void, {SFXENUM_T}.sfx_oof)
 						returned := True

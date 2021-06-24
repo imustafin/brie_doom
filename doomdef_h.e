@@ -8,22 +8,6 @@ note
 class
 	DOOMDEF_H
 
-feature -- card_t
-
-	it_bluecard: INTEGER = 0
-
-	it_yellowcard: INTEGER = 1
-
-	it_redcard: INTEGER = 2
-
-	it_blueskull: INTEGER = 3
-
-	it_yellowskull: INTEGER = 4
-
-	it_redskull: INTEGER = 5
-
-	NUMCARDS: INTEGER = 6
-
 feature
 
 	SCREENWIDTH: INTEGER = 320
@@ -108,5 +92,38 @@ feature
 	german: INTEGER = 2
 
 	unknown: INTEGER = 3
+
+feature -- powerduration_t
+	-- Power up durations,
+	-- how many seconds till expiration,
+	-- assuming TICRATE is 35 ticks/second
+
+	INVULNTICS: INTEGER
+		once
+			Result := 30 * TICRATE
+		ensure
+			instance_free: class
+		end
+
+	INVISTICS: INTEGER
+		once
+			Result := 60 * TICRATE
+		ensure
+			instance_free: class
+		end
+
+	INFRATICS: INTEGER
+		once
+			Result := 120 * TICRATE
+		ensure
+			instance_free: class
+		end
+
+	IRONTICS: INTEGER
+		once
+			Result := 60 * TICRATE
+		ensure
+			instance_free: class
+		end
 
 end

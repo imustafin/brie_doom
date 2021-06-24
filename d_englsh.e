@@ -51,4 +51,80 @@ feature -- P_Doors.C
 
 	PD_YELLOWK: STRING = "You need a yellow key to open this door"
 
+feature
+
+	GOTARMOR: STRING = "Picked up the armor."
+
+	GOTMEGA: STRING = "Picked up the MegaArmor!"
+
+	GOTHTHBONUS: STRING = "Picked up a health bonus."
+
+	GOTARMBONUS: STRING = "Picked up an armor bonus."
+
+	GOTSTIM: STRING = "Picked up a stimpack."
+
+	GOTMEDINEED: STRING = "Picked up a medikit that you REALLY need!"
+
+	GOTMEDIKIT: STRING = "Picked up a medikit."
+
+	GOTSUPER: STRING = "Supercharge!"
+
+	GOTBLUECARD: STRING = "Picked up a blue keycard."
+
+	GOTYELWCARD: STRING = "Picked up a yellow keycard."
+
+	GOTREDCARD: STRING = "Picked up a red keycard."
+
+	GOTBLUESKUL: STRING = "Picked up a blue skull key."
+
+	GOTYELWSKUL: STRING = "Picked up a yellow skull key."
+
+	GOTREDSKULL: STRING = "Picked up a red skull key."
+
+	GOTINVUL: STRING = "Invulnerability!"
+
+	GOTBERSERK: STRING = "Berserk!"
+
+	GOTINVIS: STRING = "Partial Invisibility"
+
+	GOTSUIT: STRING = "Radiation Shielding Suit"
+
+	GOTMAP: STRING = "Computer Area Map"
+
+	GOTVISOR: STRING = "Light Amplification Visor"
+
+	GOTMSPHERE: STRING = "MegaSphere!"
+
+	GOTCLIP: STRING = "Picked up a clip."
+
+	GOTCLIPBOX: STRING = "Picked up a box of bullets."
+
+	GOTROCKET: STRING = "Picked up a rocket."
+
+	GOTROCKBOX: STRING = "Picked up a box of rockets."
+
+	GOTCELL: STRING = "Picked up an energy cell."
+
+	GOTCELLBOX: STRING = "Picked up an energy cell pack."
+
+	GOTSHELLS: STRING = "Picked up 4 shotgun shells."
+
+	GOTSHELLBOX: STRING = "Picked up a box of shotgun shells."
+
+	GOTBACKPACK: STRING = "Picked up a backpack full of ammo!"
+
+	GOTBFG9000: STRING = "You got the BFG9000!  Oh, yes."
+
+	GOTCHAINGUN: STRING = "You got the chaingun!"
+
+	GOTCHAINSAW: STRING = "A chainsaw!  Find some meat!"
+
+	GOTLAUNCHER: STRING = "You got the rocket launcher!"
+
+	GOTPLASMA: STRING = "You got the plasma gun!"
+
+	GOTSHOTGUN: STRING = "You got the shotgun!"
+
+	GOTSHOTGUN2: STRING = "You got the super shotgun!"
+
 end

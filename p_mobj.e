@@ -93,7 +93,7 @@ feature -- P_RemoveMobj
 					from
 						i := 0
 					until
-						i >= {DOOMDEF_H}.NUMCARDS
+						i >= {CARD_T}.NUMCARDS
 					loop
 						p.cards [i] := True
 						i := i + 1
@@ -161,10 +161,8 @@ feature -- P_RemoveMobj
 				end
 				if not returned then
 						-- don't spawn any monsters if -nomonsters
-					check attached i_main.d_doom_main as main then
-						if main.nomonsters and (i = {INFO}.MT_SKULL or {INFO}.mobjinfo [i].flags & MF_COUNTKILL /= 0) then
-							returned := True
-						end
+					if i_main.d_doom_main.nomonsters and (i = {INFO}.MT_SKULL or {INFO}.mobjinfo [i].flags & MF_COUNTKILL /= 0) then
+						returned := True
 					end
 				end
 				if not returned then
@@ -194,6 +192,8 @@ feature -- P_RemoveMobj
 				end
 			end
 		end
+
+feature -- P_SpawnMobj
 
 	P_SpawnMobj (x, y, z: FIXED_T; type: INTEGER): MOBJ_T
 		local
@@ -250,6 +250,8 @@ feature -- P_RemoveMobj
 				mobj.z := z
 			end
 		end
+
+feature
 
 	P_MobjThinker (mobj: MOBJ_T)
 		local

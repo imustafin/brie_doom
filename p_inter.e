@@ -14,6 +14,20 @@ inherit
 
 	MOBJTYPE_T
 
+	SFXENUM_T
+
+	SPRITENUM_T
+
+	D_ENGLSH
+
+	CARD_T
+
+	POWERTYPE_T
+
+	WEAPONTYPE_T
+
+	AMMOTYPE_T
+
 create
 	make
 
@@ -25,6 +39,10 @@ feature
 		do
 			i_main := a_i_main
 		end
+
+feature
+
+	BONUSADD: INTEGER = 6
 
 feature
 
@@ -239,11 +257,513 @@ feature -- P_DamageMobj
 		end
 
 	P_TouchSpecialThing (special, toucher: MOBJ_T)
+		local
+			player: PLAYER_T
+			i: INTEGER
+			delta: FIXED_T
+			sound: INTEGER
+			returned: BOOLEAN
 		do
-				-- Stub
+			delta := special.z - toucher.z
+			if delta > toucher.height or delta < -8 * {M_FIXED}.fracunit then
+					-- out of reach
+				returned := True
+			end
+			if not returned then
+				sound := sfx_itemup
+				player := toucher.player
 
-		ensure
-			instance_free: class
+					-- Dead thing touching.
+					-- Can happen with a sliding player corpse
+				if toucher.health <= 0 then
+					returned := True
+				end
+			end
+			if not returned then
+					-- Identify by sprite
+				check attached player and then attached player.mo as mo then
+					if special.sprite = SPR_ARM1 then -- armor
+						if not P_GiveArmor (player, 1) then
+							returned := True
+						else
+							player.message := GOTARMOR
+						end
+					elseif special.sprite = SPR_ARM2 then
+						if not P_GiveArmor (player, 2) then
+							returned := True
+						else
+							player.message := GOTMEGA
+						end
+					elseif special.sprite = SPR_BON1 then -- bonus items
+						player.health := player.health + 1 -- can go over 100%
+						if player.health > 200 then
+							player.health := 200
+						end
+						mo.health := player.health
+						player.message := GOTHTHBONUS
+					elseif special.sprite = SPR_BON2 then
+						player.armorpoints := player.armorpoints + 1 -- can go over 100%
+						if player.armorpoints > 200 then
+							player.armorpoints := 200
+						end
+						if player.armortype = 0 then
+							player.armortype := 1
+						end
+						player.message := GOTARMBONUS
+					elseif special.sprite = SPR_SOUL then
+						player.health := player.health + 100
+						if player.health > 200 then
+							player.health := 200
+						end
+						mo.health := player.health
+						player.message := GOTSUPER
+						sound := sfx_getpow
+					elseif special.sprite = SPR_MEGA then
+						if i_main.doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+							returned := True
+						else
+							player.health := 200
+							mo.health := player.health
+							P_GiveArmor (player, 2).do_nothing
+							player.message := GOTMSPHERE
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_BKEY then -- cards. leave cards for everyone
+						if not player.cards [it_bluecard] then
+							player.message := GOTBLUECARD
+						end
+						P_GiveCard (player, it_bluecard)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_YKEY then
+						if not player.cards [it_yellowcard] then
+							player.message := GOTYELWCARD
+						end
+						P_GiveCard (player, it_yellowcard)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_RKEY then
+						if not player.cards [it_redcard] then
+							player.message := GOTREDCARD
+						end
+						P_GiveCard (player, it_redcard)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_BSKU then
+						if not player.cards [it_blueskull] then
+							player.message := GOTBLUESKUL
+						end
+						P_GiveCard (player, it_blueskull)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_YSKU then
+						if not player.cards [it_yellowskull] then
+							player.message := GOTYELWSKUL
+						end
+						P_GiveCard (player, it_yellowskull)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_RSKU then
+						if not player.cards [it_redskull] then
+							player.message := GOTREDSKULL
+						end
+						P_GiveCard (player, it_redskull)
+						if i_main.g_game.netgame then
+							returned := True
+						end
+					elseif special.sprite = SPR_STIM then -- medikits, heals
+						if not P_GiveBody (player, 10) then
+							returned := True
+						else
+							player.message := GOTSTIM
+						end
+					elseif special.sprite = SPR_MEDI then
+						if not P_GiveBody (player, 25) then
+							returned := True
+						else
+							if player.health < 25 then
+								player.message := GOTMEDINEED
+							else
+								player.message := GOTMEDIKIT
+							end
+						end
+					elseif special.sprite = SPR_PINV then -- power ups
+						if not P_GivePower (player, pw_invulnerability) then
+							returned := True
+						else
+							player.message := GOTINVUL
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_PSTR then
+						if not P_GivePower (player, pw_strength) then
+							returned := True
+						else
+							player.message := GOTBERSERK
+							if player.readyweapon /= wp_fist then
+								player.pendingweapon := wp_fist
+							end
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_PINS then
+						if not P_GivePower (player, pw_invisibility) then
+							returned := True
+						else
+							player.message := GOTINVIS
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_SUIT then
+						if not P_GivePower (player, pw_ironfeet) then
+							returned := True
+						else
+							player.message := GOTSUIT
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_PMAP then
+						if not P_GivePower (player, pw_allmap) then
+							returned := True
+						else
+							player.message := GOTMAP
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_PVIS then
+						if not P_GivePower (player, pw_infrared) then
+							returned := True
+						else
+							player.message := GOTVISOR
+							sound := sfx_getpow
+						end
+					elseif special.sprite = SPR_CLIP then -- ammo
+						if special.flags & MF_DROPPED /= 0 then
+							if not P_GiveAmmo (player, am_clip, 0) then
+								returned := True
+							end
+						else
+							if not P_GiveAmmo (player, am_clip, 1) then
+								returned := True
+							end
+						end
+						if not returned then
+							player.message := GOTCLIP
+						end
+					elseif special.sprite = SPR_AMMO then
+						if not P_GiveAmmo (player, am_clip, 5) then
+							returned := True
+						else
+							player.message := GOTCLIPBOX
+						end
+					elseif special.sprite = SPR_ROCK then
+						if not P_GiveAmmo (player, am_misl, 1) then
+							returned := True
+						else
+							player.message := GOTROCKET
+						end
+					elseif special.sprite = SPR_BROK then
+						if not P_GiveAmmo (player, am_misl, 5) then
+							returned := True
+						else
+							player.message := GOTROCKBOX
+						end
+					elseif special.sprite = SPR_CELL then
+						if not P_GiveAmmo (player, am_cell, 1) then
+							returned := True
+						else
+							player.message := GOTCELL
+						end
+					elseif special.sprite = SPR_CELP then
+						if not P_GiveAmmo (player, am_cell, 5) then
+							returned := True
+						else
+							player.message := GOTCELLBOX
+						end
+					elseif special.sprite = SPR_SHEL then
+						if not P_GiveAmmo (player, am_shell, 1) then
+							returned := True
+						else
+							player.message := GOTSHELLS
+						end
+					elseif special.sprite = SPR_SBOX then
+						if not P_GiveAmmo (player, am_shell, 5) then
+							returned := True
+						else
+							player.message := GOTSHELLBOX
+						end
+					elseif special.sprite = SPR_BPAK then
+						if not player.backpack then
+							from
+								i := 0
+							until
+								i >= NUMAMMO
+							loop
+								player.maxammo [i] := player.maxammo [i] * 2
+								i := i + 1
+							end
+							player.backpack := True
+						end
+						from
+							i := 0
+						until
+							i >= NUMAMMO
+						loop
+							P_GiveAmmo (player, i, 1).do_nothing
+							i := i + 1
+						end
+						player.message := GOTBACKPACK
+					elseif special.sprite = SPR_BFUG then -- weapons
+						if not P_GiveWeapon (player, wp_bfg, False) then
+							returned := True
+						else
+							player.message := GOTBFG9000
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_MGUN then
+						if not P_GiveWeapon (player, wp_chaingun, special.flags & MF_DROPPED /= 0) then
+							returned := True
+						else
+							player.message := GOTCHAINGUN
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_CSAW then
+						if not P_GiveWeapon (player, wp_chainsaw, False) then
+							returned := True
+						else
+							player.message := GOTCHAINSAW
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_LAUN then
+						if not P_GiveWeapon (player, wp_missile, False) then
+							returned := True
+						else
+							player.message := GOTLAUNCHER
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_PLAS then
+						if not P_GiveWeapon (player, wp_plasma, False) then
+							returned := True
+						else
+							player.message := GOTPLASMA
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_SHOT then
+						if not P_GiveWeapon (player, wp_shotgun, special.flags & MF_DROPPED /= 0) then
+							returned := True
+						else
+							player.message := GOTSHOTGUN
+							sound := sfx_wpnup
+						end
+					elseif special.sprite = SPR_SGN2 then
+						if not P_GiveWeapon (player, wp_supershotgun, special.flags & MF_DROPPED /= 0) then
+							returned := True
+						else
+							player.message := GOTSHOTGUN2
+							sound := sfx_wpnup
+						end
+					else
+						{I_MAIN}.i_error ("P_SpecialThing: Unknown gettable thing%N")
+					end
+				end
+			end
+			if not returned then
+				check attached player then
+					if special.flags & MF_COUNTITEM /= 0 then
+						player.itemcount := player.itemcount + 1
+					end
+					i_main.p_mobj.P_RemoveMobj (special)
+					player.bonuscount := player.bonuscount + BONUSADD
+					if player = i_main.g_game.players [i_main.g_game.consoleplayer] then
+						i_main.s_sound.s_startsound (Void, sound)
+					end
+				end
+			end
+		end
+
+	P_GiveArmor (player: PLAYER_T; armortype: INTEGER): BOOLEAN
+			-- Returns false if the armor is worse
+			-- than the current armor
+		local
+			hits: INTEGER
+		do
+			hits := armortype * 100
+			if player.armorpoints >= hits then
+				Result := False -- don't pick up
+			else
+				player.armortype := armortype
+				player.armorpoints := hits
+				Result := True
+			end
+		end
+
+	P_GiveCard (player: PLAYER_T; card: INTEGER)
+		do
+			if player.cards [card] then
+					-- return
+			else
+				player.bonuscount := BONUSADD
+				player.cards [card] := True
+			end
+		end
+
+	P_GiveBody (player: PLAYER_T; num: INTEGER): BOOLEAN
+			-- Returns false if the body isn't needed at all
+		do
+			if player.health >= {P_LOCAL}.MAXHEALTH then
+				Result := False
+			else
+				player.health := player.health + num
+				if player.health > {P_LOCAL}.MAXHEALTH then
+					player.health := {P_LOCAL}.MAXHEALTH
+				end
+				check attached player.mo as mo then
+					mo.health := player.health
+				end
+				Result := True
+			end
+		end
+
+	P_GivePower (player: PLAYER_T; power: INTEGER): BOOLEAN
+		do
+			check attached player.mo as mo then
+				if power = pw_invulnerability then
+					player.powers [power] := {DOOMDEF_H}.INVULNTICS
+					Result := True
+				elseif power = pw_invisibility then
+					player.powers [power] := {DOOMDEF_H}.INVISTICS
+					mo.flags := mo.flags | MF_SHADOW
+					Result := True
+				elseif power = pw_infrared then
+					player.powers [power] := {DOOMDEF_H}.INFRATICS
+					Result := True
+				elseif power = pw_ironfeet then
+					player.powers [power] := {DOOMDEF_H}.IRONTICS
+					Result := True
+				elseif power = pw_strength then
+					P_GiveBody (player, 100).do_nothing
+					player.powers [power] := 1
+					Result := True
+				else
+					if player.powers [power] /= 0 then
+						Result := False -- already got it
+					else
+						player.powers [power] := 1
+						Result := True
+					end
+				end
+			end
+		end
+
+feature -- P_GiveAmmo
+
+	clipammo: ARRAY [INTEGER]
+		once
+			Result := <<10, 4, 20, 1>>
+			Result.rebase (0)
+		end
+
+	P_GiveAmmo (player: PLAYER_T; ammo: INTEGER; a_num: INTEGER): BOOLEAN
+			-- Num is the number of clip loads,
+			-- not the individual count (0= 1/2 clip).
+			-- Returns false if the ammo can't be picked up at all.
+		require
+			ammo >= 0 and ammo < NUMAMMO
+		local
+			oldammo: INTEGER
+			num: INTEGER
+		do
+			num := a_num
+			if ammo = am_noammo then
+				Result := False
+			elseif player.ammo [ammo] = player.maxammo [ammo] then
+				Result := False
+			else
+				if num /= 0 then
+					num := num * clipammo [ammo]
+				else
+					num := clipammo [ammo] // 2
+				end
+				if i_main.g_game.gameskill = {DOOMDEF_H}.sk_baby or i_main.g_game.gameskill = {DOOMDEF_H}.sk_nightmare then
+						-- give double ammo in trainer mode,
+						-- you'll need in nightmare
+					num := num |<< 1
+				end
+				oldammo := player.ammo [ammo]
+				player.ammo [ammo] := player.ammo [ammo] + num
+				if player.ammo [ammo] > player.maxammo [ammo] then
+					player.ammo [ammo] := player.maxammo [ammo]
+				end
+
+					-- If non zero ammo,
+					-- don't change up weapons,
+					-- player was lower on purpose.
+				if oldammo /= 0 then
+					Result := True
+				else
+						-- We were down to zero,
+						-- so select a new weapon.
+						-- Preferences are not user selectable.
+					if ammo = am_clip then
+						if player.readyweapon = wp_fist then
+							if player.weaponowned [wp_chaingun] then
+								player.pendingweapon := wp_chaingun
+							else
+								player.pendingweapon := wp_pistol
+							end
+						end
+					elseif ammo = am_shell then
+						if player.readyweapon = wp_fist or player.readyweapon = wp_pistol then
+							if player.weaponowned [wp_shotgun] then
+								player.pendingweapon := wp_shotgun
+							end
+						end
+					elseif ammo = am_cell then
+						if player.readyweapon = wp_fist or player.readyweapon = wp_pistol then
+							if player.weaponowned [wp_plasma] then
+								player.pendingweapon := wp_plasma
+							end
+						end
+					elseif ammo = am_misl then
+						if player.readyweapon = wp_fist then
+							if player.weaponowned [wp_missile] then
+								player.pendingweapon := wp_missile
+							end
+						end
+					end
+					Result := True
+				end
+			end
+		end
+
+	P_GiveWeapon (player: PLAYER_T; weapon: INTEGER; dropped: BOOLEAN): BOOLEAN
+			-- The weapon name may have a MF_DROPPED flag ored in.
+		local
+			gaveammo, gaveweapon: BOOLEAN
+		do
+			if i_main.g_game.netgame then
+					-- skip strange deathmatch!=2 condition above
+				{I_MAIN}.i_error ("P_GiveWeapon not implemented for netgame")
+			end
+			if {D_ITEMS}.weaponinfo [weapon].ammo /= am_noammo then
+					-- give one clip with a dropped weapon,
+					-- two clips with a found weapon
+				if dropped then
+					gaveammo := P_GiveAmmo (player, {D_ITEMS}.weaponinfo [weapon].ammo, 1)
+				else
+					gaveammo := P_GiveAmmo (player, {D_ITEMS}.weaponinfo [weapon].ammo, 2)
+				end
+			else
+				gaveammo := False
+			end
+			if player.weaponowned [weapon] then
+				gaveweapon := False
+			else
+				gaveweapon := True
+				player.weaponowned [weapon] := True
+				player.pendingweapon := weapon
+			end
+			Result := gaveweapon or gaveammo
 		end
 
 end

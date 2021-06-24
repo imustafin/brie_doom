@@ -54,7 +54,9 @@ feature
 
 	set_spawnpoint (a_spawnpoint: like spawnpoint)
 		do
-			spawnpoint := spawnpoint
+			spawnpoint := a_spawnpoint
+		ensure
+			spawnpoint = a_spawnpoint
 		end
 
 	tics: INTEGER assign set_tics -- state tic counter

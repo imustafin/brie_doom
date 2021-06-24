@@ -398,7 +398,7 @@ feature
 					if tmflags & MF_PICKUP /= 0 then
 							-- can remove thing
 						check attached tmthing as tmt then
-							{P_INTER}.P_TouchSpecialThing (thing, tmt)
+							i_main.p_inter.P_TouchSpecialThing (thing, tmt)
 						end
 					end
 					Result := not solid

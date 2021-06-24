@@ -27,7 +27,7 @@ feature
 				i := i + 1
 			end
 			psprites.compare_objects
-			create cards.make_filled (False, 0, {DOOMDEF_H}.numcards - 1)
+			create cards.make_filled (False, 0, {CARD_T}.numcards - 1)
 			mo := Void
 			playerstate := 0
 			extralight := 0
@@ -68,6 +68,13 @@ feature -- playerstate_t
 	PST_REBORN: INTEGER = 2 -- Ready to restart/respawn???
 
 feature
+
+	backpack: BOOLEAN assign set_backpack
+
+	set_backpack (a_backpack: like backpack)
+		do
+			backpack := a_backpack
+		end
 
 	powers: ARRAY [INTEGER]
 
@@ -277,7 +284,7 @@ invariant
 	psprites.count = {P_PSPR}.NUMPSPRITES
 	psprites.object_comparison
 	cards.lower = 0
-	cards.count = {DOOMDEF_H}.NUMCARDS
+	cards.count = {CARD_T}.NUMCARDS
 	weaponowned.lower = 0
 	weaponowned.count = {WEAPONTYPE_T}.NUMWEAPONS
 	ammo.lower = 0

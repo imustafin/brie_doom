@@ -44,7 +44,7 @@ feature
 			create tallnum.make_filled (Void, 0, 9)
 				-- Make others
 			create faces.make_filled (Void, 0, ST_NUMFACES - 1)
-			create keys.make_filled (Void, 0, {DOOMDEF_H}.NUMCARDS - 1)
+			create keys.make_filled (Void, 0, {CARD_T}.NUMCARDS - 1)
 			create oldweaponsowned.make_filled (False, 0, numweapons - 1)
 			create keyboxes.make_filled (0, 0, 2)
 			create w_maxammo.make_filled (Void, 0, 3)
@@ -56,7 +56,7 @@ feature
 		ensure
 			arms.lower = 0 and arms.count = 6 and across arms as a all a.item.lower = 0 and a.item.count = 2 end
 			faces.lower = 0 and faces.count = ST_NUMFACES
-			keys.lower = 0 and keys.count = {DOOMDEF_H}.NUMCARDS
+			keys.lower = 0 and keys.count = {CARD_T}.NUMCARDS
 			shortnum.lower = 0 and shortnum.count = 10
 			tallnum.lower = 0 and tallnum.count = 10
 			oldweaponsowned.lower = 0 and oldweaponsowned.count = numweapons
@@ -459,7 +459,7 @@ feature
 			from
 				i := 0
 			until
-				i >= {DOOMDEF_H}.NUMCARDS
+				i >= {CARD_T}.NUMCARDS
 			loop
 				keys [i] := load_patch ("STKEYS" + i.out)
 				i := i + 1
