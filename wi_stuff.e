@@ -600,7 +600,7 @@ feature -- Drawing
 					-- draw the new number
 				from
 				until
-					digits > 0
+					digits = 0
 				loop
 					digits := digits - 1
 					x := x - fontwidth
@@ -775,7 +775,7 @@ feature
 						cnt_par := l_wbs.partime // TICRATE
 						if cnt_time >= pme.stime // TICRATE then
 							i_main.s_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
-							sp_state := sp_state
+							sp_state := sp_state + 1
 						end
 					end
 				elseif sp_state = 10 then
