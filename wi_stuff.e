@@ -930,9 +930,6 @@ feature
 				end
 					-- background
 				bg := create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (name, {Z_ZONE}.pu_cache))
-				check attached bg as l_bg then
-					i_main.v_video.v_drawpatch (0, 0, l_bg)
-				end
 				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
 					NUMCMAPS := 32
 					create lnames.make_filled (Void, 0, 32 - 1)
