@@ -181,17 +181,39 @@ feature -- D_DoomLoop
 			until
 				False
 			loop
+				D_RunFrame
+			end
+		end
+
+	wipestart: INTEGER
+
+	wipe: BOOLEAN
+
+	D_RunFrame
+		local
+			nowtime: INTEGER
+			tics: INTEGER
+		do
+			if wipe then
+				from
+					tics := 0 -- set zero to run loop at least once (do {} while(tics <= 0) from chocolate doom D_RunFrame
+				until
+					tics > 0
+				loop
+					nowtime := i_main.i_system.I_GetTime
+					tics := nowtime - wipestart
+					i_main.i_system.i_sleep (1)
+				end
+				wipestart := nowtime
+				wipe := not i_main.f_wipe.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
+				i_main.i_video.I_UpdateNoBlit
+				i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
+				i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+			else
 				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
-				if i_main.g_game.gamestate = {DOOMDEF_H}.gs_level then
-					print ("in game")
-				end
-				check attached i_main.i_video as iv then
-					iv.I_StartFrame
-				end
+				i_main.i_video.I_StartFrame
 				if singletics then
-					check attached i_main.i_video as iv then
-						iv.I_StartTic
-					end
+					i_main.i_video.i_starttic
 					D_ProcessEvents
 					i_main.g_game.G_BuildTiccmd (i_main.d_net.netcmds [i_main.g_game.consoleplayer] [i_main.d_net.maketic \\ {D_NET}.BACKUPTICS])
 					if advancedemo then
@@ -205,7 +227,16 @@ feature -- D_DoomLoop
 					i_main.d_net.TryRunTics
 				end
 				i_main.s_sound.S_UpdateSounds (i_main.g_game.players [i_main.g_game.consoleplayer].mo) -- move positional sounds
-				i_main.d_display.D_Display
+				if i_main.i_video.screenvisible and not i_main.g_game.nodrawers then
+					wipe := i_main.d_display.D_Display
+					if wipe then
+							-- start wipe on this frame
+						i_main.f_wipe.wipe_EndScreen (0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT)
+						wipestart := i_main.i_system.I_GetTime - 1
+					else
+						i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+					end
+				end
 			end
 		end
 

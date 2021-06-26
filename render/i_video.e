@@ -78,6 +78,8 @@ feature
 
 	initialized: BOOLEAN
 
+	screenvisible: BOOLEAN = True
+
 feature
 
 	I_VideoBuffer: PIXEL_T_BUFFER

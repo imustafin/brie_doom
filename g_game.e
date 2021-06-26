@@ -598,23 +598,24 @@ feature
 
 	debug_b
 		do
-			if attached players [consoleplayer] as p and then attached p.mo as mo then
-				mo.x := 79471682
-				mo.y := -231677363
-				mo.z := 0
-				mo.angle := (1098907648).to_natural_32
-					--				i_main.p_maputl.P_SetThingPosition (mo)
-					--				i_main.p_mobj.after_p_set_thing_position (mo, {P_LOCAL}.onfloorz)
-				mo.momx := 116642
-				mo.momy := 414988
-				mo.momz := 0
-				p.bob := 863093
-				p.deltaviewheight := 0
-				p.viewheight := 2686976
-				p.viewz := 2891133
-			else
-				print ("DEBUG_B: player.mo is Void%N")
-			end
+				--			if attached players [consoleplayer] as p and then attached p.mo as mo then
+				--				mo.x := 79471682
+				--				mo.y := -231677363
+				--				mo.z := 0
+				--				mo.angle := (1098907648).to_natural_32
+				--					--				i_main.p_maputl.P_SetThingPosition (mo)
+				--					--				i_main.p_mobj.after_p_set_thing_position (mo, {P_LOCAL}.onfloorz)
+				--				mo.momx := 116642
+				--				mo.momy := 414988
+				--				mo.momz := 0
+				--				p.bob := 863093
+				--				p.deltaviewheight := 0
+				--				p.viewheight := 2686976
+				--				p.viewz := 2891133
+				--			else
+				--				print ("DEBUG_B: player.mo is Void%N")
+				--			end
+			G_ExitLevel
 		end
 
 	G_BuildTiccmd (cmd: TICCMD_T)
@@ -1231,7 +1232,7 @@ feature
 
 	player_index (p: PLAYER_T): INTEGER
 		do
-			Result := {UTILS[PLAYER_T]}.first_index (players, p)
+			Result := {UTILS [PLAYER_T]}.first_index (players, p)
 		ensure
 			players [Result] = p
 		end
