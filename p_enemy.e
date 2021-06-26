@@ -213,7 +213,6 @@ feature
 			c: INTEGER
 			stop: INTEGER
 			player: PLAYER_T
-
 			an: ANGLE_T
 			dist: FIXED_T
 			returned: BOOLEAN
@@ -275,9 +274,179 @@ feature
 	A_Chase (actor: MOBJ_T)
 			-- Actor has a melee attack,
 			-- so it tries to close as fast as possible
+		local
+			delta: INTEGER_64
+			returned: BOOLEAN
+		do
+			check attached actor.info as ainfo then
+				if actor.reactiontime /= 0 then
+					actor.reactiontime := actor.reactiontime - 1
+				end
+					-- modify target threshold
+				if actor.threshold /= 0 then
+					if actor.target = Void or (attached actor.target as t and then t.health <= 0) then
+						actor.threshold := 0
+					else
+						actor.threshold := actor.threshold - 1
+					end
+				end
+					-- turn towards movement direction if not there yet
+				if actor.movedir < 8 then
+					actor.angle := actor.angle & ((7).to_natural_32 |<< 29)
+					delta := (actor.angle.to_natural_64 - (actor.movedir |<< 29).to_natural_64).to_integer_64
+					if delta > 0 then
+						actor.angle := actor.angle - {R_MAIN}.ANG90 // (2).to_natural_32
+					elseif delta < 0 then
+						actor.angle := actor.angle + {R_MAIN}.ANG90 // (2).to_natural_32
+					end
+				end
+				if actor.target = Void or else (attached actor.target as t and then t.flags & MF_SHOOTABLE = 0) then
+						-- look for a new target
+					if P_LookForPlayers (actor, True) then
+							-- got a new target
+					else
+						i_main.p_mobj.p_setmobjstate (actor, ainfo.spawnstate).do_nothing
+					end
+				else
+						-- do not attack twice in a row
+					if actor.flags & MF_JUSTATTACKED /= 0 then
+						actor.flags := actor.flags & MF_JUSTATTACKED.bit_not
+						if i_main.g_game.gameskill /= {DOOMDEF_H}.sk_nightmare and not i_main.d_doom_main.fastparm then
+							P_NewChaseDir (actor)
+						end
+					else
+							-- check for melee attack
+						if ainfo.meleestate /= 0 and P_CheckMeleeRange (actor) then
+							if ainfo.attacksound /= 0 then
+								i_main.s_sound.s_startsound (actor, ainfo.attacksound)
+							end
+							i_main.p_mobj.p_setmobjstate (actor, ainfo.meleestate).do_nothing
+						else
+								-- check for missile attack
+							if ainfo.missilestate /= 0 then
+								if i_main.g_game.gameskill < {DOOMDEF_H}.sk_nightmare and not i_main.d_doom_main.fastparm and actor.movecount /= 0 then
+										-- goto nomissile
+								elseif not P_CheckMissileRange (actor) then
+										-- goto nomissile
+								else
+									i_main.p_mobj.p_setmobjstate (actor, ainfo.missilestate).do_nothing
+									actor.flags := actor.flags | MF_JUSTATTACKED
+									returned := True
+								end
+								if not returned then
+										-- nomissile
+										-- possibly choose another target
+									check attached actor.target as t then
+										if i_main.g_game.netgame and actor.threshold = 0 and not i_main.p_sight.P_CheckSight (actor, t) then
+											if P_LookForPlayers (actor, True) then
+												returned := True -- got a new target
+											end
+										end
+									end
+								end
+								if not returned then
+										-- chase towards player
+									actor.movecount := actor.movecount - 1
+									if actor.movecount < 0 or not P_Move (actor) then
+										P_NewChaseDir (actor)
+									end
+										-- make active sound
+									if ainfo.activesound /= 0 and i_main.m_random.p_random < 3 then
+										i_main.s_sound.s_startsound (actor, ainfo.activesound)
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+	P_NewChaseDir (actor: MOBJ_T)
 		do
 				-- Stub
-			print ("A_Chase is not implemented%N")
+			print ("P_NewChaseDir not implemented%N")
+		end
+
+	P_CheckMeleeRange (actor: MOBJ_T): BOOLEAN
+		local
+			dist: FIXED_T
+		do
+			if attached actor.target as pl then
+				dist := i_main.p_maputl.P_AproxDistance (pl.x - actor.x, pl.y - actor.y)
+				check attached pl.info as i then
+					if dist >= {P_LOCAL}.MELEERANGE - 20 * {M_FIXED}.fracunit + i.radius then
+						Result := False
+					else
+						if not i_main.p_sight.P_CheckSight (actor, pl) then
+							Result := False
+						else
+							Result := True
+						end
+					end
+				end
+			else
+				Result := False
+			end
+		end
+
+	P_CheckMissileRange (actor: MOBJ_T): BOOLEAN
+		local
+			dist: FIXED_T
+			returned: BOOLEAN
+		do
+			check attached actor.target as t and then attached actor.info as i then
+				if not i_main.p_sight.P_CheckSight (actor, t) then
+					Result := False
+				elseif actor.flags & MF_JUSTHIT /= 0 then
+						-- the target just hit the enemy,
+						-- so fight back!
+					actor.flags := actor.flags & MF_JUSTHIT.bit_not
+					Result := True
+				elseif actor.reactiontime /= 0 then
+					Result := False -- do not attack yet
+				else
+						-- OPTIMIZE: get this from a global checksight
+					dist := i_main.p_maputl.p_aproxdistance (actor.x - t.x, actor.y - t.y) - 64 * {M_FIXED}.fracunit
+					if i.meleestate = 0 then
+						dist := dist - 128 * {M_FIXED}.fracunit -- no melee attack, so fire more
+					end
+					dist := dist |>> 16
+					if actor.type = MT_VILE then
+						if dist > 14 * 64 then
+							Result := False -- too far away
+							returned := True
+						end
+					elseif actor.type = MT_UNDEAD then
+						if dist < 196 then
+							Result := False -- close for fist attack
+						else
+							dist := dist |>> 1
+						end
+					elseif actor.type = MT_CYBORG or actor.type = MT_SPIDER or actor.type = MT_SKULL then
+						dist := dist |>> 1
+					end
+					if not returned then
+						if dist > 200 then
+							dist := 200
+						end
+						if actor.type = MT_CYBORG and dist > 160 then
+							dist := 160
+						end
+						if i_main.m_random.p_random < dist then
+							Result := False
+						else
+							Result := True
+						end
+					end
+				end
+			end
+		end
+
+	P_Move(actor: MOBJ_T): BOOLEAN
+		do
+			-- Stub
+			print("P_Move is not implemented%N")
 		end
 
 	A_FaceTarget (actor: MOBJ_T)
