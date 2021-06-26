@@ -55,7 +55,12 @@ feature
 
 	tmdropoffz: FIXED_T
 
-	numspechit: INTEGER
+	numspechit: INTEGER assign set_numspechit
+
+	set_numspechit(a_numspechit: like numspechit)
+		do
+			numspechit := a_numspechit
+		end
 
 	spechit: ARRAY [detachable LINE_T]
 

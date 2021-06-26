@@ -29,6 +29,40 @@ feature
 			i_main := a_i_main
 		end
 
+feature -- dirtype_t
+
+	DI_EAST: INTEGER = 0
+
+	DI_NORTHEAST: INTEGER = 1
+
+	DI_NORTH: INTEGER = 2
+
+	DI_NORTHWEST: INTEGER = 3
+
+	DI_WEST: INTEGER = 4
+
+	DI_SOUTHWEST: INTEGER = 5
+
+	DI_SOUTH: INTEGER = 6
+
+	DI_SOUTHEAST: INTEGER = 7
+
+	DI_NODIR: INTEGER = 8
+
+	NUMDIRS: INTEGER = 9
+
+	opposite: ARRAY [INTEGER]
+		once
+			Result := <<DI_WEST, DI_SOUTHWEST, DI_SOUTH, DI_SOUTHEAST, DI_EAST, DI_NORTHEAST, DI_NORTH, DI_NORTHWEST, DI_NODIR>>
+			Result.rebase (0)
+		end
+
+	diags: ARRAY [INTEGER]
+		once
+			Result := <<DI_NORTHWEST, DI_NORTHEAST, DI_SOUTHWEST, DI_SOUTHEAST>>
+			Result.rebase (0)
+		end
+
 feature
 
 	soundtarget: detachable MOBJ_T
@@ -363,9 +397,145 @@ feature
 		end
 
 	P_NewChaseDir (actor: MOBJ_T)
+		require
+			attached actor.target
+		local
+			deltax, deltay: FIXED_T
+			d: ARRAY [INTEGER]
+			tdir: INTEGER
+			olddir: INTEGER
+			turnaround: INTEGER
+			returned: BOOLEAN
 		do
-				-- Stub
-			print ("P_NewChaseDir not implemented%N")
+			create d.make_filled (0, 0, 2)
+			check attached actor.target as t then
+				olddir := actor.movedir
+				turnaround := opposite [olddir]
+				deltax := t.x - actor.x
+				deltay := t.y - actor.y
+				if deltax > 10 * {M_FIXED}.fracunit then
+					d [1] := DI_EAST
+				elseif deltax < -10 * {M_FIXED}.fracunit then
+					d [1] := DI_WEST
+				else
+					d [1] := DI_NODIR
+				end
+				if deltay < -10 * {M_FIXED}.fracunit then
+					d [2] := DI_SOUTH
+				elseif deltay > 10 * {M_FIXED}.fracunit then
+					d [2] := DI_NORTH
+				else
+					d [2] := DI_NODIR
+				end
+
+					-- try direct route
+				if d [1] /= DI_NODIR and d [2] /= DI_NODIR then
+					actor.movedir := diags [((deltay < 0).to_integer |<< 1) + (deltax > 0).to_integer]
+					if actor.movedir /= turnaround and P_TryWalk (actor) then
+						returned := True
+					end
+				end
+				if not returned then
+						-- try other directions
+					if i_main.m_random.p_random > 200 or deltay.abs > deltax.abs then
+						tdir := d [1]
+						d [1] := d [2]
+						d [2] := tdir
+					end
+					if d [1] = turnaround then
+						d [1] := DI_NODIR
+					end
+					if d [2] = turnaround then
+						d [1] := DI_NODIR
+					end
+					if d [1] /= DI_NODIR then
+						actor.movedir := d [1]
+						if P_TryWalk (actor) then
+								-- either moved forward or attacked
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					if d [2] /= DI_NODIR then
+						actor.movedir := d [2]
+						if P_TryWalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+						-- there is no direct path to the player,
+						-- so pick another direction
+					if olddir /= DI_NODIR then
+						actor.movedir := olddir
+						if P_TryWalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+						-- randomly determine direction of search
+					if (i_main.m_random.p_random & 1) /= 0 then
+						from
+							tdir := DI_EAST
+						until
+							returned or tdir > DI_SOUTHEAST
+						loop
+							if tdir /= turnaround then
+								actor.movedir := tdir
+								if P_TryWalk (actor) then
+									returned := True
+								end
+							end
+							tdir := tdir + 1
+						end
+					else
+						from
+							tdir := DI_SOUTHEAST
+						until
+							returned or tdir <= DI_EAST - 1
+						loop
+							if tdir /= turnaround then
+								actor.movedir := tdir
+								if P_TryWalk (actor) then
+									returned := True
+								end
+							end
+							tdir := tdir - 1
+						end
+					end
+				end
+				if not returned then
+					if turnaround /= DI_NODIR then
+						actor.movedir := turnaround
+						if P_TryWalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					actor.movedir := DI_NODIR -- can not move
+				end
+			end
+		end
+
+	P_TryWalk (actor: MOBJ_T): BOOLEAN
+			-- Attempts to move actor on
+			-- in its current (ob->moveangle) direction.
+			-- If blocked by either a wall or an actor
+			-- returns FALSE
+			-- If move is either clear or blocked only by a door,
+			-- returns TRUE and sets...
+			-- If a door is in the way,
+			-- an OpenDoor call is made to start it opening
+		do
+			if not P_Move (actor) then
+				Result := False
+			else
+				actor.movecount := i_main.m_random.p_random & 15
+				Result := True
+			end
 		end
 
 	P_CheckMeleeRange (actor: MOBJ_T): BOOLEAN
@@ -443,11 +613,92 @@ feature
 			end
 		end
 
-	P_Move(actor: MOBJ_T): BOOLEAN
-		do
-			-- Stub
-			print("P_Move is not implemented%N")
+feature -- P_Move
+
+	xspeed: ARRAY [FIXED_T]
+		once
+			Result := {ARRAY [FIXED_T]} <<{M_FIXED}.FRACUNIT, 47000, 0, -47000, - {M_FIXED}.FRACUNIT, -47000, 0, 47000>>
+			Result.rebase (0)
 		end
+
+	yspeed: ARRAY [FIXED_T]
+		once
+			Result := {ARRAY [FIXED_T]} <<0, 47000, {M_FIXED}.FRACUNIT, 47000, 0, -47000, - {M_FIXED}.FRACUNIT, -47000>>
+			Result.rebase (0)
+		end
+
+	P_Move (actor: MOBJ_T): BOOLEAN
+			--
+		require
+			actor.movedir < 8
+		local
+			tryx, tryy: FIXED_T
+			ld: LINE_T
+			try_ok: BOOLEAN
+			good: BOOLEAN
+			returned: BOOLEAN
+		do
+			if actor.movedir = DI_NODIR then
+				Result := False
+			else
+				check attached actor.info as i then
+					tryx := actor.x + i.speed * xspeed [actor.movedir]
+					tryy := actor.y + i.speed * yspeed [actor.movedir]
+					try_ok := i_main.p_map.P_TryMove (actor, tryx, tryy)
+					if not try_ok then
+							-- open any specials
+						if actor.flags & MF_FLOAT /= 0 and i_main.p_map.floatok then
+								-- must adjust height
+							if actor.z < i_main.p_map.tmfloorz then
+								actor.z := actor.z + {P_LOCAL}.FLOATSPEED
+							else
+								actor.z := actor.z - {P_LOCAL}.FLOATSPEED
+							end
+							actor.flags := actor.flags | MF_INFLOAT
+							Result := True
+							returned := True
+						end
+						if not returned then
+							if i_main.p_map.numspechit = 0 then
+								Result := False
+								returned := True
+							end
+						end
+						if not returned then
+							actor.movedir := DI_NODIR
+							good := False
+							from
+							until
+								i_main.p_map.numspechit = 0
+							loop
+								i_main.p_map.numspechit := i_main.p_map.numspechit - 1
+								ld := i_main.p_map.spechit [i_main.p_map.numspechit]
+									-- if the special is not a door
+									-- that can be opened,
+									-- return false
+								check attached ld then
+									if i_main.p_switch.P_UseSpecialLine (actor, ld, 0) then
+										good := True
+									end
+								end
+							end
+							Result := good
+							returned := True
+						end
+					else
+						actor.flags := actor.flags & MF_INFLOAT.bit_not
+					end
+					if not returned then
+						if actor.flags & MF_FLOAT = 0 then
+							actor.z := actor.floorz
+						end
+						Result := True
+					end
+				end
+			end
+		end
+
+feature
 
 	A_FaceTarget (actor: MOBJ_T)
 		do

@@ -22,7 +22,13 @@ feature
 
 feature -- Movement direction, movement generation (zig-zagging)
 
-	movedir: INTEGER -- 0-7
+	movedir: INTEGER assign set_movedir
+			-- 0-7
+
+	set_movedir (a_movedir: like movedir)
+		do
+			movedir := a_movedir
+		end
 
 	movecount: INTEGER assign set_movecount -- when 0, select a new dir
 
