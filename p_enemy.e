@@ -702,8 +702,13 @@ feature
 
 	A_FaceTarget (actor: MOBJ_T)
 		do
-				-- Stub
-			print ("A_FaceTarget is not implemented%N")
+			if attached actor.target as t then
+				actor.flags := actor.flags & MF_AMBUSH.bit_not
+				actor.angle := i_main.r_main.R_PointToAngle2(actor.x, actor.y, t.x, t.y)
+				if t.flags & MF_SHADOW /= 0 then
+					actor.angle := actor.angle + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 21).to_natural_32
+				end
+			end
 		end
 
 	A_PosAttack (actor: MOBJ_T)
