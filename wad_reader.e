@@ -16,7 +16,7 @@ feature
 			from
 				i := 0
 			until
-				i >= Result.upper
+				i > Result.upper
 			loop
 				Result [i] := m.read_integer_16_le (i * 2)
 				i := i + 1
