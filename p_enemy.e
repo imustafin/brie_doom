@@ -704,7 +704,7 @@ feature
 		do
 			if attached actor.target as t then
 				actor.flags := actor.flags & MF_AMBUSH.bit_not
-				actor.angle := i_main.r_main.R_PointToAngle2(actor.x, actor.y, t.x, t.y)
+				actor.angle := i_main.r_main.R_PointToAngle2 (actor.x, actor.y, t.x, t.y)
 				if t.flags & MF_SHADOW /= 0 then
 					actor.angle := actor.angle + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 21).to_natural_32
 				end
@@ -712,9 +712,20 @@ feature
 		end
 
 	A_PosAttack (actor: MOBJ_T)
+		local
+			angle: ANGLE_T
+			damage: INTEGER
+			slope: INTEGER
 		do
-				-- Stub
-			print ("A_PosAttack is not implemented%N")
+			if attached actor.target as t then
+				A_FaceTarget (actor)
+				angle := actor.angle
+				slope := i_main.p_map.P_AimLineAttack (actor, angle, {P_LOCAL}.MISSILERANGE)
+				i_main.s_sound.S_StartSound (actor, sfx_pistol)
+				angle := angle + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 20).to_natural_32
+				damage := ((i_main.m_random.p_random \\ 5) + 1) * 3
+				i_main.p_map.P_LineAttack (actor, angle, {P_LOCAL}.MISSILERANGE, slope, damage)
+			end
 		end
 
 	A_Scream (actor: MOBJ_T)
@@ -863,9 +874,20 @@ feature
 		end
 
 	A_TroopAttack (actor: MOBJ_T)
+		local
+			damage: INTEGER
 		do
-				-- Stub
-			print ("A_TroopAttack is not implemented%N")
+			if attached actor.target as t then
+				A_FaceTarget (actor)
+				if P_CheckMeleeRange (actor) then
+					i_main.s_sound.s_startsound (actor, sfx_claw)
+					damage := (i_main.m_random.p_random \\ 8 + 1) * 3
+					i_main.p_inter.P_DamageMobj (t, actor, actor, damage)
+				else
+						-- launch a missile
+					i_main.p_mobj.P_SpawnMissile (actor, t, MT_TROOPSHOT).do_nothing
+				end
+			end
 		end
 
 	A_SargAttack (actor: MOBJ_T)

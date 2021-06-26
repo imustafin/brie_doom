@@ -25,7 +25,7 @@ feature
 	make (a_i_main: like i_main)
 		do
 			i_main := a_i_main
-			itemrespawnque := {REF_ARRAY_CREATOR[MAPTHING_T]}.make_ref_array ({P_LOCAL}.itemquesize)
+			itemrespawnque := {REF_ARRAY_CREATOR [MAPTHING_T]}.make_ref_array ({P_LOCAL}.itemquesize)
 			create itemrespawntime.make_filled (0, 0, {P_LOCAL}.itemquesize)
 		end
 
@@ -450,7 +450,20 @@ feature
 
 	P_ExplodeMissile (mo: MOBJ_T)
 		do
-				-- Stub
+			mo.momx := 0
+			mo.momy := 0
+			mo.momz := 0
+			P_SetMobjState (mo, {INFO}.mobjinfo [mo.type].deathstate).do_nothing
+			mo.tics := mo.tics - (i_main.m_random.p_random & 3)
+			if mo.tics < 1 then
+				mo.tics := 1
+			end
+			mo.flags := mo.flags & MF_MISSILE.bit_not
+			check attached mo.info as i then
+				if i.deathsound /= 0 then
+					i_main.s_sound.s_startsound (mo, i.deathsound)
+				end
+			end
 		end
 
 	P_ZMovement (mo: MOBJ_T)
@@ -640,6 +653,57 @@ feature
 				P_SetMobjState (th, S_BLOOD2).do_nothing
 			elseif damage < 9 then
 				P_SetMobjState (th, S_BLOOD3).do_nothing
+			end
+		end
+
+	P_SpawnMissile (source, dest: MOBJ_T; type: INTEGER): MOBJ_T
+		local
+			th: MOBJ_T
+			an: ANGLE_T
+			dist: INTEGER
+		do
+			th := P_SpawnMobj (source.x, source.y, source.z + 4 * 8 * {M_FIXED}.fracunit, type)
+			check attached th.info as thinfo then
+				i_main.s_sound.s_startsound (th, thinfo.seesound)
+			end
+			th.target := source -- where it came from
+			an := i_main.r_main.R_PointToAngle2 (source.x, source.y, dest.x, dest.y)
+				-- fuzzy player
+			if dest.flags & MF_SHADOW /= 0 then
+				an := an + ((i_main.m_random.p_random - i_main.m_random.p_random) |<< 20).to_natural_32
+			end
+			th.angle := an
+			an := an |>> {R_MAIN}.ANGLETOFINESHIFT
+			check attached th.info as i then
+				th.momx := {M_FIXED}.fixedmul (i.speed, i_main.r_main.finecosine [an])
+				th.momy := {M_FIXED}.fixedmul (i.speed, i_main.r_main.finesine [an])
+				dist := i_main.p_maputl.P_AproxDistance (dest.x - source.x, dest.y - source.y)
+				dist := dist // i.speed
+			end
+			if dist < 1 then
+				dist := 1
+			end
+			th.momz := (dest.z - source.z) // dist
+			P_CheckMissileSpawn (th)
+			Result := th
+		end
+
+	P_CheckMissileSpawn (th: MOBJ_T)
+			-- Moves the missile forward a bit
+			-- and possibly explodes it right there
+		do
+			th.tics := th.tics - (i_main.m_random.p_random & 3)
+			if th.tics < 1 then
+				th.tics := 1
+			end
+
+				-- move a little forward so an angle can
+				-- be computed if it immediately explodes
+			th.x := th.x + (th.momx |>> 1)
+			th.y := th.y + (th.momy |>> 1)
+			th.z := th.z + (th.momz |>> 1)
+			if not i_main.p_map.P_TryMove (th, th.x, th.y) then
+				P_ExplodeMissile (th)
 			end
 		end
 
