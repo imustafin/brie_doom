@@ -247,7 +247,7 @@ feature
 					p2 := p2.bit_xor (1)
 				end
 			elseif ld.slopetype = {R_DEFS}.ST_VERTICAL then
-				p1 := (tmbox [{M_BBOX}.BOXTOP] < ld.v1.x).to_integer
+				p1 := (tmbox [{M_BBOX}.BOXRIGHT] < ld.v1.x).to_integer
 				p2 := (tmbox [{M_BBOX}.BOXLEFT] < ld.v1.x).to_integer
 				if ld.dy < 0 then
 					p1 := p1.bit_xor (1)
