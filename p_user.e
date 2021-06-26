@@ -191,8 +191,46 @@ feature
 		end
 
 	P_DeathThink (player: PLAYER_T)
+			-- Fall on your face when dying.
+			-- Decrease POV height to floor height.
+		local
+			angle: ANGLE_T
+			delta: ANGLE_T
 		do
-			{I_MAIN}.i_error ("P_DeathThink is not implemented")
+			i_main.p_pspr.P_MovePsprites (player)
+				-- fall to the ground
+			if player.viewheight > 6 * {M_FIXED}.fracunit then
+				player.viewheight := player.viewheight - {M_FIXED}.FRACUNIT
+			end
+			if player.viewheight < 6 * {M_FIXED}.fracunit then
+				player.viewheight := 6 * {M_FIXED}.fracunit
+			end
+			player.deltaviewheight := 0
+			check attached player.mo as mo then
+				onground := (mo.z <= mo.floorz)
+				P_CalcHeight (player)
+				if attached player.attacker as attacker and then attacker /= mo then
+					angle := i_main.r_main.R_PointToAngle2 (mo.x, mo.y, attacker.x, attacker.y)
+					delta := angle - mo.angle
+					if delta < {R_MAIN}.ANG45 or delta > - {R_MAIN}.ANG45 then
+							-- Looking at killer.
+							-- so fade damage flash down
+						mo.angle := angle
+						if player.damagecount /= 0 then
+							player.damagecount := player.damagecount - 1
+						end
+					elseif delta < {R_MAIN}.ANG180 then
+						mo.angle := mo.angle + {R_MAIN}.ANG45
+					else
+						mo.angle := mo.angle - {R_MAIN}.ANG45
+					end
+				elseif player.damagecount /= 0 then
+					player.damagecount := player.damagecount - 1
+				end
+				if player.cmd.buttons & {D_EVENT}.BT_USE /= 0 then
+					player.playerstate := {D_PLAYER}.PST_REBORN
+				end
+			end
 		end
 
 	P_MovePlayer (player: PLAYER_T)
