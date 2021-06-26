@@ -7,16 +7,17 @@ class
 feature
 
 	first_index (ar: ARRAY [G]; v: G): INTEGER
+		-- First index of item `i = v` in `ar` or `ar.upper + 1` if not found
 		do
 			from
 				Result := ar.lower
 			until
-				Result = ar.upper or else ar [Result] = v
+				Result > ar.upper or else ar [Result] = v
 			loop
 				Result := Result + 1
 			end
 		ensure
-			Result = ar.upper implies across ar as ari all ari.item /= v end
+			Result > ar.upper implies across ar as ari all ari.item /= v end
 			Result /= ar.upper implies ar [Result] = v and across ar.subarray (ar.lower, Result - 1) as ari2 all ari2.item /= v end
 			instance_free: class
 		end

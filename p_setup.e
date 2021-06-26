@@ -47,7 +47,7 @@ feature
 
 feature
 
-	rejectmatrix: detachable MANAGED_POINTER
+	rejectmatrix: detachable ARRAY [NATURAL_8]
 
 	MAX_DEATHMATCH_STARTS: INTEGER = 10
 
@@ -129,6 +129,7 @@ feature
 			i: INTEGER
 			lumpname: STRING
 			lumpnum: INTEGER
+			reject_mp: MANAGED_POINTER
 		do
 			i_main.g_game.totalkills := 0
 			i_main.g_game.totalitems := 0
@@ -180,7 +181,12 @@ feature
 			P_LoadSubsectors (lumpnum + ML_SSECTORS)
 			P_LoadNodes (lumpnum + ML_NODES)
 			P_LoadSegs (lumpnum + ML_SEGS)
-			rejectmatrix := i_main.w_wad.W_CacheLumpNum (lumpnum + ML_REJECT, {Z_ZONE}.PU_LEVEL)
+				-- read rejectmatrix
+			reject_mp := i_main.w_wad.W_CacheLumpNum (lumpnum + ML_REJECT, {Z_ZONE}.PU_LEVEL)
+			rejectmatrix := reject_mp.read_array (0, reject_mp.count)
+			check attached rejectmatrix as rm then
+				rm.rebase (0)
+			end
 			P_GroupLines
 			i_main.g_game.bodyqueslot := 0
 			deathmatch_p := deathmatchstarts.lower

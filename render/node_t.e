@@ -8,6 +8,9 @@ note
 class
 	NODE_T
 
+inherit
+	DIVLINE_T
+
 create
 	make, from_pointer
 
@@ -22,15 +25,6 @@ feature
 		end
 
 feature
-	-- Partition line
-
-	x: FIXED_T
-
-	y: FIXED_T
-
-	dx: FIXED_T
-
-	dy: FIXED_T
 
 	bbox: ARRAY [ARRAY [FIXED_T]] -- [2][4]
 			-- Bounding box for each child.

@@ -275,7 +275,7 @@ feature -- Globals
 
 	p_sight: P_SIGHT
 		once
-			create Result
+			create Result.make (Current)
 		end
 
 feature {NONE} -- Initialization

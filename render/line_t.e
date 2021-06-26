@@ -58,8 +58,13 @@ feature
 
 	backsector: detachable SECTOR_T
 
-	validcount: INTEGER
+	validcount: INTEGER assign set_validcount
 			-- if == validcount, already checked
+
+	set_validcount (a_validcount: like validcount)
+		do
+			validcount := a_validcount
+		end
 
 	specialdata: detachable ANY
 			-- thinker_t for reversable actions

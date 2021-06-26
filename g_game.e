@@ -1231,13 +1231,7 @@ feature
 
 	player_index (p: PLAYER_T): INTEGER
 		do
-			from
-				Result := players.lower
-			until
-				Result > players.upper or else players [Result] = p
-			loop
-				Result := Result + 1
-			end
+			Result := {UTILS[PLAYER_T]}.first_index (players, p)
 		ensure
 			players [Result] = p
 		end

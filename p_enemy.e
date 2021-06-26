@@ -15,6 +15,8 @@ inherit
 
 	MOBJTYPE_T
 
+	MOBJFLAG_T
+
 create
 	make
 
@@ -155,9 +157,119 @@ feature
 
 	A_Look (actor: MOBJ_T)
 			-- Stay in state until a player is sighted
+		local
+			targ: MOBJ_T
+			seeyou: BOOLEAN
+			returned: BOOLEAN
+			sound: INTEGER
 		do
-				-- Stub
-			print ("A_Look is not implemented%N")
+			actor.threshold := 0 -- any shot will wake up
+			check attached actor.subsector as sub and then attached sub.sector as sec then
+				targ := sec.soundtarget
+			end
+			if attached targ and then targ.flags & MF_SHOOTABLE /= 0 then
+				actor.target := targ
+				if actor.flags & MF_AMBUSH /= 0 then
+					if i_main.p_sight.P_CheckSight (actor, targ) then
+						seeyou := True
+					end
+				else
+					seeyou := True
+				end
+			end
+			if not seeyou then
+				if not P_LookForPlayers (actor, False) then
+						-- return
+					returned := True
+				end
+			end
+			if not returned then
+					-- go into chase state
+				check attached actor.info as i then
+					if i.seesound /= 0 then
+						if i.seesound = sfx_posit1 or i.seesound = sfx_posit2 or i.seesound = sfx_posit3 then
+							sound := sfx_posit1 + i_main.m_random.P_Random \\ 3
+						elseif i.seesound = sfx_bgsit1 or i.seesound = sfx_bgsit2 then
+							sound := sfx_bgsit1 + i_main.m_random.P_Random \\ 2
+						else
+							sound := i.seesound
+						end
+						if actor.type = MT_SPIDER or actor.type = MT_CYBORG then
+								-- full volume
+							i_main.s_sound.s_startsound (Void, sound)
+						else
+							i_main.s_sound.s_startsound (actor, sound)
+						end
+					end
+					i_main.p_mobj.P_SetMobjState (actor, i.seestate).do_nothing
+				end
+			end
+		end
+
+	P_LookForPlayers (actor: MOBJ_T; allaround: BOOLEAN): BOOLEAN
+			-- If allaround is false, only look 180 degrees in front.
+			-- Returns true if a player is targeted.
+		local
+			c: INTEGER
+			stop: INTEGER
+			player: PLAYER_T
+
+			an: ANGLE_T
+			dist: FIXED_T
+			returned: BOOLEAN
+			continue: BOOLEAN
+		do
+			c := 0
+			stop := (actor.lastlook - 1) & 3
+			from
+			until
+				returned
+			loop
+				continue := False
+				if not i_main.g_game.playeringame [actor.lastlook] then
+						-- continue
+				else
+					c := c + 1
+					if c = 3 or actor.lastlook = stop then
+							-- done looking
+						Result := False
+						returned := True
+					else
+						player := i_main.g_game.players [actor.lastlook]
+						if player.health <= 0 then
+								-- continue (dead)
+						else
+							check attached player.mo as mo then
+								if not i_main.p_sight.P_CheckSight (actor, mo) then
+										-- continue (out of sight)
+								else
+									if not allaround then
+										an := i_main.r_main.R_PointToAngle2 (actor.x, actor.y, mo.x, mo.y) - actor.angle
+										if an > {R_MAIN}.ANG90 and an < {R_MAIN}.ANG270 then
+											dist := i_main.p_maputl.P_AproxDistance (mo.x - actor.x, mo.y - actor.y)
+												-- if real close, react anyway
+											if dist > {P_LOCAL}.MELEERANGE then
+												continue := True -- behind back
+											end
+										end
+									end
+									if not continue then
+										actor.target := player.mo
+										Result := True
+										returned := True
+									end
+								end
+							end
+						end
+					end
+				end
+				if not returned then
+					actor.lastlook := (actor.lastlook + 1) & 3
+				end
+			end
+			if not returned then
+				Result := False
+			end
 		end
 
 	A_Chase (actor: MOBJ_T)
