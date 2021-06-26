@@ -327,7 +327,7 @@ feature
 					-- turn towards movement direction if not there yet
 				if actor.movedir < 8 then
 					actor.angle := actor.angle & ((7).to_natural_32 |<< 29)
-					delta := (actor.angle.to_natural_64 - (actor.movedir |<< 29).to_natural_64).to_integer_64
+					delta := actor.angle - (actor.movedir |<< 29)
 					if delta > 0 then
 						actor.angle := actor.angle - {R_MAIN}.ANG90 // (2).to_natural_32
 					elseif delta < 0 then
@@ -381,7 +381,7 @@ feature
 								if not returned then
 										-- chase towards player
 									actor.movecount := actor.movecount - 1
-									if actor.movecount < 0 or not P_Move (actor) then
+									if actor.movecount < 0 or else not P_Move (actor) then
 										P_NewChaseDir (actor)
 									end
 										-- make active sound
@@ -431,7 +431,7 @@ feature
 					-- try direct route
 				if d [1] /= DI_NODIR and d [2] /= DI_NODIR then
 					actor.movedir := diags [((deltay < 0).to_integer |<< 1) + (deltax > 0).to_integer]
-					if actor.movedir /= turnaround and P_TryWalk (actor) then
+					if actor.movedir /= turnaround and then P_TryWalk (actor) then
 						returned := True
 					end
 				end
@@ -446,7 +446,7 @@ feature
 						d [1] := DI_NODIR
 					end
 					if d [2] = turnaround then
-						d [1] := DI_NODIR
+						d [2] := DI_NODIR
 					end
 					if d [1] /= DI_NODIR then
 						actor.movedir := d [1]
