@@ -141,7 +141,7 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	d_doom_main: D_DOOM_MAIN
+	d_main: D_MAIN
 		once
 			create Result.make (Current)
 		end
@@ -264,7 +264,7 @@ feature {NONE} -- Initialization
 			-- Run application.
 		do
 			create m_argv.make (argument_array)
-			d_doom_main.D_DoomMain
+			d_main.D_DoomMain
 		end
 
 feature -- i_system.c

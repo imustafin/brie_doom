@@ -466,7 +466,7 @@ feature -- G_InitNew
 				map := 9
 			end
 			i_main.m_random.m_clearrandom
-			check attached i_main.d_doom_main as main then
+			check attached i_main.d_main as main then
 				if skill = sk_nightmare or main.respawnparm then
 					respawnmonsters := True
 				else
@@ -933,7 +933,7 @@ feature
 			elseif gamestate = GS_FINALE then
 				i_main.f_finale.F_Ticker
 			elseif gamestate = GS_DEMOSCREEN then
-				check attached i_main.d_doom_main as d_doom_main then
+				check attached i_main.d_main as d_doom_main then
 					d_doom_main.D_PageTicker
 				end
 			end
@@ -1035,7 +1035,7 @@ feature -- G_DoLoadLevel
 			playeringame [1] := False
 			playeringame [2] := False
 			playeringame [3] := False
-			check attached i_main.d_doom_main as main then
+			check attached i_main.d_main as main then
 				main.respawnparm := False
 				main.fastparm := False
 				main.nomonsters := False

@@ -161,7 +161,7 @@ feature -- P_RemoveMobj
 				end
 				if not returned then
 						-- don't spawn any monsters if -nomonsters
-					if i_main.d_doom_main.nomonsters and (i = {INFO}.MT_SKULL or {INFO}.mobjinfo [i].flags & MF_COUNTKILL /= 0) then
+					if i_main.d_main.nomonsters and (i = {INFO}.MT_SKULL or {INFO}.mobjinfo [i].flags & MF_COUNTKILL /= 0) then
 						returned := True
 					end
 				end

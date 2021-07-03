@@ -8,7 +8,7 @@ note
 	]"
 
 class
-	D_DOOM_MAIN
+	D_MAIN
 
 create
 	make

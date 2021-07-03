@@ -253,13 +253,13 @@ feature
 				if sdl_event.type = {SDL_CONSTANT_API}.sdl_keydown then
 					event.type := {EVENT_T}.ev_keydown
 					event.data1 := xlatekey (sdl_event.key.keysym)
-					check attached i_main.d_doom_main as d then
+					check attached i_main.d_main as d then
 						d.D_PostEvent (event)
 					end
 				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_keyup then
 					event.type := {EVENT_T}.ev_keyup
 					event.data1 := xlatekey (sdl_event.key.keysym)
-					check attached i_main.d_doom_main as d then
+					check attached i_main.d_main as d then
 						d.D_PostEvent (event)
 					end
 				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_quit then

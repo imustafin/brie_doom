@@ -115,7 +115,7 @@ feature
 			if i_main.g_game.netgame then
 				D_ArbitrateNetStart
 			end
-			check attached i_main.d_doom_main as d then
+			check attached i_main.d_main as d then
 				print ("startskill " + d.startskill.out + " deathmatch: " + i_main.g_game.deathmatch.out + " startmap: " + d.startmap.out + " startepisode: " + d.startepisode.out + "%N")
 			end
 			ticdup := doomcom.ticdup
@@ -238,7 +238,7 @@ feature -- TryRunTics
 				counts := 1
 			end
 			frameon := frameon + 1
-			if i_main.d_doom_main.debugfile /= Void then
+			if i_main.d_main.debugfile /= Void then
 				{I_MAIN}.i_error ("debug file writing not implemented")
 			end
 			if not i_main.g_game.demoplayback then
@@ -306,8 +306,8 @@ feature -- TryRunTics
 					if i_main.g_game.gametic // ticdup > lowtic then
 						{I_MAIN}.i_error ("gametic > lowtic")
 					end
-					if i_main.d_doom_main.advancedemo then
-						i_main.d_doom_main.D_DoAdvanceDemo
+					if i_main.d_main.advancedemo then
+						i_main.d_main.D_DoAdvanceDemo
 					end
 					i_main.m_menu.M_Ticker
 					i_main.g_game.G_Ticker
@@ -379,7 +379,7 @@ feature -- NetUpdate
 					break or i >= newtics
 				loop
 					i_main.i_video.I_StartTic
-					check attached i_main.d_doom_main as main then
+					check attached i_main.d_main as main then
 						main.d_processevents
 					end
 					if maketic - gameticdiv >= BACKUPTICS // 2 - 1 then
@@ -390,7 +390,7 @@ feature -- NetUpdate
 						i := i + 1
 					end
 				end
-				check attached i_main.d_doom_main as main then
+				check attached i_main.d_main as main then
 					if main.singletics then
 							-- Return
 					else
@@ -398,7 +398,7 @@ feature -- NetUpdate
 					end
 				end
 			else
-				check attached i_main.d_doom_main as main then
+				check attached i_main.d_main as main then
 					if not main.singletics then
 							-- if singletics, would have returned beforee
 						

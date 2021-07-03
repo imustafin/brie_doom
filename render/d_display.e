@@ -25,7 +25,7 @@ feature
 
 	D_PageDrawer
 		do
-			check attached i_main.d_doom_main as d_doom_main then
+			check attached i_main.d_main as d_doom_main then
 				i_main.v_video.V_DrawPatch (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (d_doom_main.pagename, {Z_ZONE}.PU_CACHE)))
 			end
 		end

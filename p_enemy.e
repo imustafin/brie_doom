@@ -345,7 +345,7 @@ feature
 						-- do not attack twice in a row
 					if actor.flags & MF_JUSTATTACKED /= 0 then
 						actor.flags := actor.flags & MF_JUSTATTACKED.bit_not
-						if i_main.g_game.gameskill /= {DOOMDEF_H}.sk_nightmare and not i_main.d_doom_main.fastparm then
+						if i_main.g_game.gameskill /= {DOOMDEF_H}.sk_nightmare and not i_main.d_main.fastparm then
 							P_NewChaseDir (actor)
 						end
 					else
@@ -358,7 +358,7 @@ feature
 						else
 								-- check for missile attack
 							if ainfo.missilestate /= 0 then
-								if i_main.g_game.gameskill < {DOOMDEF_H}.sk_nightmare and not i_main.d_doom_main.fastparm and actor.movecount /= 0 then
+								if i_main.g_game.gameskill < {DOOMDEF_H}.sk_nightmare and not i_main.d_main.fastparm and actor.movecount /= 0 then
 										-- goto nomissile
 								elseif not P_CheckMissileRange (actor) then
 										-- goto nomissile
