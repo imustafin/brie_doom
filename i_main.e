@@ -17,43 +17,33 @@ create
 feature -- Globals
 
 	doomstat_h: DOOMSTAT_H
-
-	inner_v_video: detachable V_VIDEO
-
-	v_video: V_VIDEO
-		do
-			check attached inner_v_video as x then
-				Result := x
-			end
+		once
+			create Result.make
 		end
 
-	inner_m_misc: detachable M_MISC
+	v_video: V_VIDEO
+		once
+			create Result.make (Current)
+		end
 
 	m_misc: M_MISC
-		do
-			check attached inner_m_misc as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	z_zone: Z_ZONE
-
-	inner_w_wad: detachable W_WAD
-
-	w_wad: W_WAD
-		do
-			check attached inner_w_wad as x then
-				Result := x
-			end
+		once
+			create Result.make
 		end
 
-	inner_m_menu: detachable M_MENU
+	w_wad: W_WAD
+		once
+			create Result.make (Current)
+		end
 
 	m_menu: M_MENU
-		do
-			check attached inner_m_menu as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	r_main: R_MAIN
@@ -61,25 +51,20 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	inner_r_data: detachable R_DATA
-
 	r_data: R_DATA
-		do
-			check attached inner_r_data as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
-	inner_r_plane: detachable R_PLANE
-
 	r_plane: R_PLANE
-		do
-			check attached inner_r_plane as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	r_sky: R_SKY
+		once
+			create Result.make
+		end
 
 	r_draw: R_DRAW
 		once
@@ -97,6 +82,9 @@ feature -- Globals
 		end
 
 	p_spec: P_SPEC
+		once
+			create Result.make
+		end
 
 	r_things: R_THINGS
 		once
@@ -104,50 +92,33 @@ feature -- Globals
 		end
 
 	info: INFO
-
-	inner_i_system: detachable I_SYSTEM
+		once
+			create Result.make
+		end
 
 	i_system: I_SYSTEM
-		do
-			check attached inner_i_system as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
-
-	inner_i_sound: detachable I_SOUND
 
 	i_sound: I_SOUND
-		do
-			check attached inner_i_sound as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
-
-	inner_d_net: detachable D_NET
 
 	d_net: D_NET
-		do
-			check attached inner_d_net as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
-
-	inner_s_sound: detachable S_SOUND
 
 	s_sound: S_SOUND
-		do
-			check attached inner_s_sound as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
-	inner_hu_stuff: detachable HU_STUFF
-
 	hu_stuff: HU_STUFF
-		do
-			check attached inner_hu_stuff as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	st_stuff: ST_STUFF
@@ -155,13 +126,9 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	inner_g_game: detachable G_GAME
-
 	g_game: G_GAME
-		do
-			check attached inner_g_game as g then
-				Result := g
-			end
+		once
+			create Result.make (Current)
 		end
 
 	i_video: I_VIDEO
@@ -169,7 +136,10 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	i_net: detachable I_NET
+	i_net: I_NET
+		once
+			create Result.make (Current)
+		end
 
 	d_doom_main: D_DOOM_MAIN
 		once
@@ -177,6 +147,9 @@ feature -- Globals
 		end
 
 	f_finale: F_FINALE
+		once
+			create Result.make
+		end
 
 	f_wipe: F_WIPE
 		once
@@ -184,8 +157,14 @@ feature -- Globals
 		end
 
 	hu_lib: HU_LIB
+		once
+			create Result.make
+		end
 
 	am_map: AM_MAP
+		once
+			create Result.make
+		end
 
 	wi_stuff: WI_STUFF
 		once
@@ -193,8 +172,14 @@ feature -- Globals
 		end
 
 	m_random: M_RANDOM
+		once
+			create Result.make
+		end
 
 	i_midipipe: I_MIDIPIPE
+		once
+			create Result
+		end
 
 	p_tick: P_TICK
 		once
@@ -206,25 +191,20 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	inner_r_segs: detachable R_SEGS
-
 	r_segs: R_SEGS
-		do
-			check attached inner_r_segs as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
-	inner_r_bsp: detachable R_BSP
-
 	r_bsp: R_BSP
-		do
-			check attached inner_r_bsp as x then
-				Result := x
-			end
+		once
+			create Result.make (Current)
 		end
 
 	p_pspr: P_PSPR
+		once
+			create Result.make (Current)
+		end
 
 	p_maputl: P_MAPUTL
 		once
@@ -284,32 +264,6 @@ feature {NONE} -- Initialization
 			-- Run application.
 		do
 			create m_argv.make (argument_array)
-			create doomstat_h.make
-			create hu_lib.make
-			create am_map.make
-			create p_spec.make
-			create info.make
-			create z_zone.make
-			create r_sky.make
-			create f_finale.make
-			create m_random.make
-			create i_midipipe
-			create p_pspr.make (Current)
-			create inner_r_plane.make (Current)
-			create inner_r_segs.make (Current)
-			create inner_r_bsp.make (Current)
-			create inner_r_data.make (Current)
-			create inner_i_sound.make (Current)
-			create inner_s_sound.make (Current)
-			create inner_hu_stuff.make (Current)
-			create inner_g_game.make (Current)
-			create inner_m_menu.make (Current)
-			create inner_w_wad.make (Current)
-			create inner_i_system.make (Current)
-			create inner_v_video.make (Current)
-			create i_net.make (Current)
-			create inner_d_net.make (Current)
-			create inner_m_misc.make (Current)
 			d_doom_main.D_DoomMain
 		end
 
