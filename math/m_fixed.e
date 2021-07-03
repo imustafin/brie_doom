@@ -48,9 +48,9 @@ feature
 
 	FixedDiv2 (a, b: FIXED_T): FIXED_T
 		local
-			c: REAL
+			c: REAL_64
 		do
-			c := (a.to_real / b.to_real) * FRACUNIT
+			c := (a.to_double / b.to_double) * FRACUNIT
 			if c >= 2147483648.0 or c < -2147483648.0 then
 				{I_MAIN}.i_error ("FixedDiv: divide by zero")
 			end
