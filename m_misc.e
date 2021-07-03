@@ -48,7 +48,7 @@ feature
 			create Result.make (0)
 			Result.extend (["mouse_sensitivity", agent (i_main.m_menu).set_mouseSensitivity, 5])
 			Result.extend (["sfx_volume", agent (i_main.s_sound).set_snd_SfxVolume, 8])
-			Result.extend (["music_volume", agent (i_main.s_sound).set_snd_MusicVolume, 8])
+			Result.extend (["music_volume", agent (i_main.s_sound).set_snd_MusicVolume, 2])
 			Result.extend (["show_messages", agent (i_main.m_menu).set_showMessages, 1])
 			Result.extend (["key_right", agent (i_main.g_game).set_key_right, KEY_RIGHTARROW])
 			Result.extend (["key_left", agent (i_main.g_game).set_key_left, KEY_LEFTARROW])

@@ -32,6 +32,8 @@ feature
 		end
 
 	S_SetSfxVolume (volume: INTEGER)
+		require
+			volume >= 0 and volume <= 127
 		do
 			if volume < 0 or volume > 127 then
 				i_main.i_error ("Attempt to set sfx volume at " + volume.out)
@@ -47,6 +49,8 @@ feature
 		end
 
 	S_SetMusicVolume (volume: INTEGER)
+		require
+			volume >= 0 and volume <= 127
 		do
 			if volume < 0 or volume > 127 then
 				i_main.i_error ("Attempt to set music volume at " + volume.out + "%N")
