@@ -12,7 +12,7 @@ inherit
 	ARGUMENTS_32
 
 create
-	make
+	main
 
 feature -- Globals
 
@@ -260,7 +260,7 @@ feature -- Globals
 
 feature {NONE} -- Initialization
 
-	make
+	main
 			-- Run application.
 		do
 			create m_argv.make (argument_array)
