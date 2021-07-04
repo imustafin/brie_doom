@@ -309,7 +309,7 @@ feature
 			-- Actor has a melee attack,
 			-- so it tries to close as fast as possible
 		local
-			delta: INTEGER_64
+			delta: INTEGER
 			returned: BOOLEAN
 		do
 			check attached actor.info as ainfo then

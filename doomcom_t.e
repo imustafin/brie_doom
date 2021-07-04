@@ -16,7 +16,7 @@ feature
 
 feature
 
-	id: INTEGER_64 assign set_id -- supposed to be DOOMCOM_ID?
+	id: INTEGER assign set_id -- supposed to be DOOMCOM_ID?
 
 	set_id (a_id: like id)
 		do

@@ -158,7 +158,7 @@ feature
 
 	doomcom: DOOMCOM_T assign set_doomcom
 
-	DOOMCOM_ID: INTEGER_64 = 0x12345678
+	DOOMCOM_ID: INTEGER = 0x12345678
 
 	netbuffer: DOOMDATA_T
 
@@ -401,7 +401,7 @@ feature -- NetUpdate
 				check attached i_main.d_main as main then
 					if not main.singletics then
 							-- if singletics, would have returned beforee
-						
+
 							-- :listen
 						GetPackets
 					end

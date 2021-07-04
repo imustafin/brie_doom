@@ -24,9 +24,9 @@ feature
 
 	sprite: INTEGER -- statenum_t
 
-	frame: INTEGER_64
+	frame: INTEGER_32
 
-	tics: INTEGER_64 assign set_tics
+	tics: INTEGER_32 assign set_tics
 
 	set_tics (a_tics: like tics)
 		do
@@ -37,9 +37,9 @@ feature
 
 	nextstate: INTEGER -- statenum_t
 
-	misc1: INTEGER_64
+	misc1: INTEGER_32
 
-	misc2: INTEGER_64
+	misc2: INTEGER_32
 
 feature
 

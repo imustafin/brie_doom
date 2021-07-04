@@ -217,8 +217,8 @@ feature
 				dy := (y - ly)
 
 					-- Try to quickly decide by looking at sign bits.
-				if (ldy.bit_xor (ldx).bit_xor (dx).bit_xor (dy).to_integer_64 & 0x80000000) /= 0 then
-					if (ldy.bit_xor (dx)).to_integer_64 & 0x80000000 /= 0 then
+				if (ldy.bit_xor (ldx).bit_xor (dx).bit_xor (dy) & (0x80000000).to_integer_32) /= 0 then
+					if (ldy.bit_xor (dx)) & (0x80000000).to_integer_32 /= 0 then
 							-- left is negative
 						Result := 1
 					else
