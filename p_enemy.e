@@ -327,7 +327,7 @@ feature
 					-- turn towards movement direction if not there yet
 				if actor.movedir < 8 then
 					actor.angle := actor.angle & ((7).to_natural_32 |<< 29)
-					delta := actor.angle - (actor.movedir |<< 29)
+					delta := actor.angle.as_integer_32 - (actor.movedir |<< 29)
 					if delta > 0 then
 						actor.angle := actor.angle - {R_MAIN}.ANG90 // (2).to_natural_32
 					elseif delta < 0 then
