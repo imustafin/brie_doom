@@ -490,7 +490,6 @@ feature -- Drawing
 	WI_drawAnimatedBack
 		do
 				-- Stub
-			print ("WI_drawAnimatedBack is not implemented")
 		end
 
 	WI_drawLF
@@ -865,7 +864,6 @@ feature
 	WI_updateAnimatedBack
 		do
 				-- Stub
-			print ("WI_updateAnimatedBack not implemented")
 		end
 
 	WI_initVariables (wbstartstruct: WBSTARTSTRUCT_T)
@@ -1123,7 +1121,6 @@ feature
 	WI_unloadData
 		do
 				-- Stub
-			print ("WI_unloadData not implemented")
 		end
 
 	WI_Start (wbstartstruct: WBSTARTSTRUCT_T)
