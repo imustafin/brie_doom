@@ -275,8 +275,8 @@ feature
 			-- rw_distance must be calculated first
 		local
 			scale: FIXED_T
-			anglea: INTEGER
-			angleb: INTEGER
+			anglea: ANGLE_T
+			angleb: ANGLE_T
 			sinea: INTEGER
 			sineb: INTEGER
 			num: FIXED_T

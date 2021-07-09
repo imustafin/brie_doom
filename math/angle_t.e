@@ -13,7 +13,7 @@ create
 
 convert
 	from_natural ({NATURAL}),
-	to_integer_32: {INTEGER_32}
+	as_integer_32: {INTEGER_32}
 
 feature
 
