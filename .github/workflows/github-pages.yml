@@ -26,6 +26,54 @@ jobs:
       - name: Install JS deps
         run: yarn install
 
+
+      - name: Install Eiffel Studio and SDL2
+        run: |
+          sudo add-apt-repository ppa:eiffelstudio-team/ppa
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            eiffelstudio19.05 \
+            libsdl2-dev libsdl2-2.0-0 \
+            \
+            libjpeg-dev libwebp-dev libtiff5-dev \
+            libsdl2-image-dev libsdl2-image-2.0-0 \
+            \
+            libmikmod-dev libfishsound1-dev libsmpeg-dev \
+            liboggz2-dev libflac-dev libfluidsynth-dev \
+            libsdl2-mixer-dev libsdl2-mixer-2.0-0
+
+      - name: Install wrap_sdl_my
+        env:
+          WRAP_C: /home/runner/work/brie_doom/WrapC
+        run: |
+          git clone https://github.com/imustafin/wrap_sdl
+          git clone https://github.com/eiffel-wrap-c/WrapC
+
+          WRAP_C=$(pwd)/WrapC
+          echo $WRAP_C
+          PATH=$PATH:$WRAP_C/bin
+          echo $PATH
+
+          cd $WRAP_C/src/ewg
+          ec -config system.ecf -target wrap_c -finalize -c_compile -project_path .
+
+          cp EIFGENs/wrap_c/F_code/wrap_c $WRAP_C/bin
+
+          cd $WRAP_C
+          cd ..
+
+          cd wrap_sdl
+
+          ./install.sh
+
+          cd ..
+
+      - name: Patch wrap_sdl path
+        run: |
+          sed -i "s/...wrap_sdl_my/wrap_sdl/g" brie_doom/brie_doom.ecf
+          sed -i "/precompile/d" brie_doom/brie_doom.ecf
+          cat brie_doom/brie_doom.ecf
+
       - name: Build site
         uses: limjh16/jekyll-action-ts@v2
         env:
@@ -35,9 +83,26 @@ jobs:
           enable_cache: true
           format_output: true
 
+      - name: Print _site
+        run: ls _site
+
+      - name: Inject Eiffel documentation
+        run: |
+          cd brie_doom
+          ec \
+            -filter html-stylesheet \
+            -all \
+            -config brie_doom.ecf \
+            -batch \
+            -verbose
+
+          cp -r Documentation ../_site/documentation
+
+          cd ..
+
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _site
-          enable_jekyll: false
