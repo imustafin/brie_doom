@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="w_wad.c Handles WAD file header, directory, lump I/O."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>w_wad Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="w_wad_chart.html">Chart</a>
+<a class="nav class" href="w_wad_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="w_wad"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">w_wad.c</span>
+		<span class="estring">Handles WAD file header, directory, lump I/O.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/w_wad.html">W_WAD</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/w_wad.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/w_wad.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_reloadname"></a><a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+
+	<a name="f_reloadlump"></a><a class="efeature" href="../brie_doom/w_wad.html#f_reloadlump">reloadlump</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_lumpinfo"></a><a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/lumpinfo_t.html">LUMPINFO_T</a><span class="esymbol">]</span>
+
+	<a name="f_lumpcache"></a><a class="efeature" href="../brie_doom/w_wad.html#f_lumpcache">lumpcache</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_w_initmultiplefiles"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_initmultiplefiles">w_initmultiplefiles</a> <span class="esymbol">(</span><span class="elocal">a_filenames</span><span class="esymbol">:</span> <a class="eclass" href="../base/list.html">LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">across</span>
+				<span class="elocal">a_filenames</span> <span class="ekeyword">as</span> filename
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../brie_doom/w_wad.html#f_w_addfile">w_addfile</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">filename</span><span class="edot">.</span><a class="efeature" href="../base/iteration_cursor.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_InitFiles: no files found&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpcache">lumpcache</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_addfile"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_addfile">w_addfile</a> <span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment">	// W_AddFile</span>
+			<span class="ecomment">--</span><span class="ecomment">// All files are optional, but at least one file must be</span>
+			<span class="ecomment">--</span><span class="ecomment">// &nbsp;found (PWAD, if all required lumps are present).</span>
+			<span class="ecomment">--</span><span class="ecomment">// Files with a .wad extension are wadlink files</span>
+			<span class="ecomment">--</span><span class="ecomment">// &nbsp;with multiple lumps.</span>
+			<span class="ecomment">--</span><span class="ecomment">// Other files are single lumps with the base filename</span>
+			<span class="ecomment">--</span><span class="ecomment">// &nbsp;for the lump name.</span>
+			<span class="ecomment">--</span><span class="ecomment">//</span>
+			<span class="ecomment">--</span><span class="ecomment">// If filename starts with a tilde, the file is handled</span>
+			<span class="ecomment">--</span><span class="ecomment">// &nbsp;specially to allow map reloads.</span>
+			<span class="ecomment">--</span><span class="ecomment">// But: the reload feature is a fragile hack...</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_file</span><span class="esymbol">:</span> <a class="eclass" href="../base/raw_file.html">RAW_FILE</a>
+			<span class="elocal">l_fileinfo</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/filelump_t.html">FILELUMP_T</a><span class="esymbol">]</span>
+			<span class="elocal">l_header</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/wadinfo_t.html">WADINFO_T</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_storehandle</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/raw_file.html">RAW_FILE</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_filename</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_starts_with">starts_with</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;~&quot;<span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a> <span class="esymbol">:=</span> <span class="elocal">a_filename</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_tail">tail</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_filename</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+				<span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/w_wad.html#f_reloadlump">reloadlump</a> <span class="esymbol">:=</span> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_file</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_make_open_read">make_open_read</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_file</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_is_open_read">is_open_read</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot; could not open &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_filename</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot; adding &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_filename</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_filename</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_ends_with">ends_with</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;WAD&quot;<span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">create</span> <span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+					<span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/filelump_t.html">FILELUMP_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/filelump_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">l_file</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_file_info">file_info</a><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_size">size</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/w_wad.html#f_extractfilebase">extractfilebase</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">create</span> <span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_read_bytes">read_bytes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_file</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_identification">identification</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_starts_with">starts_with</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;IWAD&quot;<span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_identification">identification</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_starts_with">starts_with</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;PWAD&quot;<span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="esymbol">{</span><a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Wad file &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_filename</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; doesn't have IWAD or PWAD id%N&quot;<span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_file</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_go">go</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_infotableofs">infotableofs</a><span class="esymbol">)</span>
+					<span class="ekeyword">from</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+						<span class="ekeyword">create</span> <span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_numlumps">numlumps</a><span class="esymbol">)</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">l_header</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wadinfo_t.html#f_numlumps">numlumps</a>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/filelump_t.html">FILELUMP_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/filelump_t.html#f_read_bytes">read_bytes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_file</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_storehandle</span> <span class="esymbol">:=</span> <span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Void</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_file</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/lumpinfo_t.html">LUMPINFO_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;UNUSED&quot;<span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_fileinfo</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_upper">upper</a>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+					<span class="ekeyword">then</span>
+						<span class="elocal">li</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/lumpinfo_t.html">LUMPINFO_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_fileinfo</span> <a class="esymbol" href="../base/arrayed_list.html#f_i_th">[</a><span class="elocal">i</span><a class="esymbol" href="../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a><span class="esymbol">,</span> <span class="elocal">l_storehandle</span><span class="esymbol">,</span> <span class="elocal">l_fileinfo</span> <a class="esymbol" href="../base/arrayed_list.html#f_i_th">[</a><span class="elocal">i</span><a class="esymbol" href="../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/filelump_t.html#f_filepos">filepos</a><span class="esymbol">,</span> <span class="elocal">l_fileinfo</span> <a class="esymbol" href="../base/arrayed_list.html#f_i_th">[</a><span class="elocal">i</span><a class="esymbol" href="../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/filelump_t.html#f_size">size</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/utils.html">UTILS</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/lumpinfo_t.html">LUMPINFO_T</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/utils.html#f_all_different">all_different</a> <span class="esymbol">(</span><span class="elocal">li</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_extractfilebase"></a><a class="efeature" href="../brie_doom/w_wad.html#f_extractfilebase">extractfilebase</a> <span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Should return filename base with &lt;= 8 chars</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_filename</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_checknumforname"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns -1 if name not found</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a>
+				<span class="ekeyword">until</span>
+					<span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">li</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_is_case_insensitive_equal">is_case_insensitive_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">minus_one_if_not_present</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">across</span>
+					<span class="elocal">li</span> <span class="ekeyword">as</span> l
+				<span class="ekeyword">all</span>
+					<a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_is_case_insensitive_equal">is_case_insensitive_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">-1</span>
+			<span class="etag">index_if_present</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">-1</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">li</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_is_case_insensitive_equal">is_case_insensitive_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_cachelumpname"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">tag</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">tag</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_getnumforname"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_GetNumForName: &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; not found!&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_cachelumpnum"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">tag</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">lump</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_CacheLumpNum: &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">lump</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; &gt;= numlumps&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpcache">lumpcache</a> <span class="ekeyword">as</span> lc <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">lc</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">lump</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="ekeyword">as</span> l <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_readlump">w_readlump</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpcache">lumpcache</a> <span class="ekeyword">as</span> lc
+				<span class="ekeyword">then</span>
+					<span class="elocal">lc</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">lump</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">Result</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_lumplength"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">lump</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_LumpLength: &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">lump</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; &gt;= numlumps&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">li</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">lump</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_size">size</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_readlump"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_readlump">w_readlump</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Loads the lump and returns it</span>
+			<span class="ecomment">--</span><span class="ecomment"> (originally wrote to a given buffer which must be &gt;= W_LumpLength)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/lumpinfo_t.html">LUMPINFO_T</a>
+			<span class="elocal">handle</span><span class="esymbol">:</span> <a class="eclass" href="../base/raw_file.html">RAW_FILE</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a> <span class="ekeyword">as</span> li
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">lump</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">li</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_ReadLump: &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">lump</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; &gt;= numlumps&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l</span> <span class="esymbol">:=</span> <span class="elocal">li</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">lump</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_handle">handle</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a> <span class="ekeyword">as</span> rn
+				<span class="ekeyword">then</span>
+					<span class="ekeyword">create</span> <span class="elocal">handle</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_make_open_read">make_open_read</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">rn</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">handle</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_is_open_read">is_open_read</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;W_ReadLump: couldn't open &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">rn</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">handle</span> <span class="esymbol">:=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_handle">handle</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="elocal">handle</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">then</span>
+				<span class="elocal">handle</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_go">go</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_position">position</a><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_size">size</a><span class="esymbol">)</span>
+				<span class="elocal">handle</span><span class="edot">.</span><a class="efeature" href="../base/raw_file.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_size">size</a><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../brie_doom/lumpinfo_t.html#f_handle">handle</a> <span class="ekeyword">then</span>
+					<span class="elocal">handle</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_close">close</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_releaselumpnum"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_releaselumpnum">w_releaselumpnum</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_w_reload"></a><a class="efeature" href="../brie_doom/w_wad.html#f_w_reload">w_reload</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;W_Reload not implemented&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/w_wad.html">W_WAD</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="w_wad_chart.html">Chart</a>
+<a class="nav class" href="w_wad_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="w_wad"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

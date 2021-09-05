@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Garbage collector statistics. This class may be used as ancestor by classes needing its facilities. Time accounting is relevant only if `enable_time_accounting'  (from MEMORY) has been called."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>gc_info Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="gc_info_chart.html">Chart</a>
+<a class="nav class" href="gc_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="gc_info"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Garbage collector statistics.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+		<span class="estring">Time accounting is relevant only if </span><span class="estring">enable_time_accounting</span><span class="estring"> </span>
+		<span class="estring">(from MEMORY) has been called.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-12-26 18:35:31 +0000 (Tue, 26 Dec 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101217 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/gc_info.html">GC_INFO</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/memory_structure.html">MEMORY_STRUCTURE</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/memory_structure.html#f_make">make</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <a class="efeature" href="../base/memory_structure.html#f_make_by_pointer">make_by_pointer</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_shared">shared</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/mem_const.html">MEM_CONST</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/gc_info.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/gc_info.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill in statistics for </span><span class="equoted">memory</span><span class="ecomment"> type</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">memory_valid</span><span class="esymbol">:</span> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_incremental_collector">Incremental_collector</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_full_collector">Full_collector</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a>
+			<a class="efeature" href="../base/gc_info.html#f_update">update</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">type_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/gc_info.html#f_type">type</a> <span class="esymbol">=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update"></a><a class="efeature" href="../base/gc_info.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill in statistics for </span><span class="equoted">memory</span><span class="ecomment"> type</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">memory_valid</span><span class="esymbol">:</span> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_incremental_collector">Incremental_collector</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_full_collector">Full_collector</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/gc_info.html#f_gc_stat">gc_stat</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">memory</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/gc_info.html#f_type">type</a> <span class="esymbol">:=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">type_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/gc_info.html#f_type">type</a> <span class="esymbol">=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_type"></a><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Collector type (Full, Collect),</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+
+	<a name="f_cycle_count"></a><a class="efeature" href="../base/gc_info.html#f_cycle_count">cycle_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of collection cycles for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_count">c_count</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_used"></a><a class="efeature" href="../base/gc_info.html#f_memory_used">memory_used</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Total number of bytes used (counting overhead)</span>
+			<span class="ecomment">--</span><span class="ecomment"> after last cycle for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last</span>
+			<span class="ecomment">--</span><span class="ecomment"> call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_mem_used">c_mem_used</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collected"></a><a class="efeature" href="../base/gc_info.html#f_collected">collected</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes collected by the last cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_mem_collect">c_mem_collect</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collected_average"></a><a class="efeature" href="../base/gc_info.html#f_collected_average">collected_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average number of bytes collected by a cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_mem_avg">c_mem_avg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_time"></a><a class="efeature" href="../base/gc_info.html#f_real_time">real_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Real time in centi-seconds used by last cycle</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment">, before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a><span class="ecomment">;</span>
+			<span class="ecomment">--</span><span class="ecomment"> this may not be accurate on systems which do not</span>
+			<span class="ecomment">--</span><span class="ecomment"> provide a sub-second accuracy clock (typically</span>
+			<span class="ecomment">--</span><span class="ecomment"> provided on BSD).</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_real_time">c_real_time</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_time_average"></a><a class="efeature" href="../base/gc_info.html#f_real_time_average">real_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average amount of real time, in centi-seconds,</span>
+			<span class="ecomment">--</span><span class="ecomment"> spent in collection cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_real_avg">c_real_avg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_interval_time"></a><a class="efeature" href="../base/gc_info.html#f_real_interval_time">real_interval_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Real interval time (as opposed to CPU time) between</span>
+			<span class="ecomment">--</span><span class="ecomment"> two automatically raised cycles, in centi-seconds,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_real_itime">c_real_itime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_interval_time_average"></a><a class="efeature" href="../base/gc_info.html#f_real_interval_time_average">real_interval_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average real interval time between two automatic</span>
+			<span class="ecomment">--</span><span class="ecomment"> cycles, in centi-seconds,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_real_iavg">c_real_iavg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cpu_total_time"></a><a class="efeature" href="../base/gc_info.html#f_cpu_total_time">cpu_total_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of application CPU time, in seconds, for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_cpu_total_time">c_cpu_total_time</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cpu_time"></a><a class="efeature" href="../base/gc_info.html#f_cpu_time">cpu_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of CPU time, in seconds, spent in cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_cpu_time">c_cpu_time</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cpu_time_average"></a><a class="efeature" href="../base/gc_info.html#f_cpu_time_average">cpu_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average amount of CPU time spent in cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> in seconds, for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_cpu_avg">c_cpu_avg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cpu_interval_time"></a><a class="efeature" href="../base/gc_info.html#f_cpu_interval_time">cpu_interval_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of CPU time elapsed since between last</span>
+			<span class="ecomment">--</span><span class="ecomment"> and penultimate cycles for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before</span>
+			<span class="ecomment">--</span><span class="ecomment"> last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_cpu_itime">c_cpu_itime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cpu_interval_time_average"></a><a class="efeature" href="../base/gc_info.html#f_cpu_interval_time_average">cpu_interval_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average amount of CPU time between two cycles,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_cpu_iavg">c_cpu_iavg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sys_total_time"></a><a class="efeature" href="../base/gc_info.html#f_sys_total_time">sys_total_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of application kernel time, in seconds, for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sys_total_time">c_sys_total_time</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sys_time"></a><a class="efeature" href="../base/gc_info.html#f_sys_time">sys_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of kernel time, in seconds, spent in cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sys_time">c_sys_time</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sys_time_average"></a><a class="efeature" href="../base/gc_info.html#f_sys_time_average">sys_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average amount of kernel time spent in cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sys_avg">c_sys_avg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sys_interval_time"></a><a class="efeature" href="../base/gc_info.html#f_sys_interval_time">sys_interval_time</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Amount of kernel time elapsed since between</span>
+			<span class="ecomment">--</span><span class="ecomment"> the last and the penultimate cycle,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sys_itime">c_sys_itime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sys_interval_time_average"></a><a class="efeature" href="../base/gc_info.html#f_sys_interval_time_average">sys_interval_time_average</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Average amount of kernel time between two cycles,</span>
+			<span class="ecomment">--</span><span class="ecomment"> for </span><a class="efeature" href="../base/gc_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/gc_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sys_iavg">c_sys_iavg</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_gc_stat"></a><a class="efeature" href="../base/gc_info.html#f_gc_stat">gc_stat</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">mem</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize `a_ptr used by GC_INFO to retrieve the</span>
+			<span class="ecomment">--</span><span class="ecomment"> statistics frozen at the time of this call.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_gc_stat&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_structure_size"></a><a class="efeature" href="../base/gc_info.html#f_structure_size">structure_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of underlying C structure.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/gc_info.html#f_c_sizeof_gacstat">c_sizeof_gacstat</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> C externals</span>
+
+	<a name="f_c_sizeof_gacstat"></a><a class="efeature" href="../base/gc_info.html#f_c_sizeof_gacstat">c_sizeof_gacstat</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of struct </span><span class="equoted">gacstat</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return sizeof(struct gacstat);&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_class</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_count"></a><a class="efeature" href="../base/gc_info.html#f_c_count">c_count</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">count</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;count;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_mem_used"></a><a class="efeature" href="../base/gc_info.html#f_c_mem_used">c_mem_used</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">mem_used</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;mem_used;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_mem_collect"></a><a class="efeature" href="../base/gc_info.html#f_c_mem_collect">c_mem_collect</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">mem_collect</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;mem_collect;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_mem_avg"></a><a class="efeature" href="../base/gc_info.html#f_c_mem_avg">c_mem_avg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">mem_avg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;mem_avg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_real_time"></a><a class="efeature" href="../base/gc_info.html#f_c_real_time">c_real_time</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><a class="efeature" href="../base/gc_info.html#f_real_time">real_time</a><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;real_time;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_real_avg"></a><a class="efeature" href="../base/gc_info.html#f_c_real_avg">c_real_avg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">real_avg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;real_avg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_real_itime"></a><a class="efeature" href="../base/gc_info.html#f_c_real_itime">c_real_itime</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">real_itime</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;real_itime;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_real_iavg"></a><a class="efeature" href="../base/gc_info.html#f_c_real_iavg">c_real_iavg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">real_iavg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct gacstat *) $a_ptr)-&gt;real_iavg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_cpu_total_time"></a><a class="efeature" href="../base/gc_info.html#f_c_cpu_total_time">c_cpu_total_time</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><a class="efeature" href="../base/gc_info.html#f_cpu_total_time">cpu_total_time</a><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;cpu_total_time;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_cpu_time"></a><a class="efeature" href="../base/gc_info.html#f_c_cpu_time">c_cpu_time</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><a class="efeature" href="../base/gc_info.html#f_cpu_time">cpu_time</a><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;cpu_time;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_cpu_avg"></a><a class="efeature" href="../base/gc_info.html#f_c_cpu_avg">c_cpu_avg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">cpu_avg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;cpu_avg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_cpu_itime"></a><a class="efeature" href="../base/gc_info.html#f_c_cpu_itime">c_cpu_itime</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">cpu_itime</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;cpu_itime;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_cpu_iavg"></a><a class="efeature" href="../base/gc_info.html#f_c_cpu_iavg">c_cpu_iavg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">cpu_iavg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;cpu_iavg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sys_total_time"></a><a class="efeature" href="../base/gc_info.html#f_c_sys_total_time">c_sys_total_time</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><a class="efeature" href="../base/gc_info.html#f_sys_total_time">sys_total_time</a><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;sys_total_time;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sys_time"></a><a class="efeature" href="../base/gc_info.html#f_c_sys_time">c_sys_time</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><a class="efeature" href="../base/gc_info.html#f_sys_time">sys_time</a><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;sys_time;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sys_avg"></a><a class="efeature" href="../base/gc_info.html#f_c_sys_avg">c_sys_avg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">sys_avg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;sys_avg;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sys_itime"></a><a class="efeature" href="../base/gc_info.html#f_c_sys_itime">c_sys_itime</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">sys_itime</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;sys_itime;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sys_iavg"></a><a class="efeature" href="../base/gc_info.html#f_c_sys_iavg">c_sys_iavg</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">sys_iavg</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return ((struct gacstat *) $a_ptr)-&gt;sys_iavg;&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/gc_info.html">GC_INFO</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="gc_info_chart.html">Chart</a>
+<a class="nav class" href="gc_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="gc_info"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

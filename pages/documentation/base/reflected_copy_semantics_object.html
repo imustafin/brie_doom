@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Accessor to an object with copy semantics. Useful to manipulate fields of an object, or an expanded field of an object without causing any copying."/>
+<meta name="implementation_details" content="The GC might be moving objects, some of the routines are actually builtin."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2019, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>reflected_copy_semantics_object Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="reflected_copy_semantics_object_chart.html">Chart</a>
+<a class="nav class" href="reflected_copy_semantics_object_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="reflected_copy_semantics_object"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Accessor to an object with copy semantics. Useful to manipulate fields of an object, or</span>
+		<span class="estring">an expanded field of an object without causing any copying.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">implementation_details</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">The GC might be moving objects, some of the routines are actually builtin.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2019-05-02 12:35:24 +0000 (Thu, 02 May 2019) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 103123 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a>
+
+	<a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a>
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_special">make_special</a>
+
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_recursive">make_recursive</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_enclosing_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Setup a proxy to copy semantics field located at the </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">a_enclosing_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_th_field_is_expanded</span><span class="esymbol">:</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_copy_semantics_field">is_copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_offset">field_offset</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_dynamic_type_at_offset">dynamic_type_at_offset</a> <span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">enclosing_object_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">=</span> <span class="elocal">a_enclosing_object</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_special"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_special">make_special</a> <span class="esymbol">(</span><span class="elocal">a_enclosing_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Setup a proxy to copy semantics item located at the </span><span class="equoted">i</span><span class="ecomment">-th position of special represented by </span><span class="equoted">a_enclosing_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_enclosing_object_is_special</span><span class="esymbol">:</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special">is_special</a>
+			<span class="etag">a_enclosing_object_is_special_reference</span><span class="esymbol">:</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_of_reference">is_special_of_reference</a>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/abstract_special.html">ABSTRACT_SPECIAL</a><span class="esymbol">}</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_object">object</a> <span class="ekeyword">as</span> l_spec <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/abstract_special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="etag">i_th_field_is_expanded</span><span class="esymbol">:</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_copy_semantics_item">is_special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_pointer_bytes">pointer_bytes</a>
+			<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_dynamic_type_at_offset">dynamic_type_at_offset</a> <span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">enclosing_object_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">=</span> <span class="elocal">a_enclosing_object</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_recursive"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_recursive">make_recursive</a> <span class="esymbol">(</span><span class="elocal">a_enclosing_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Setup a proxy to copy semantics field located at the </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">a_enclosing_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_th_field_is_expanded</span><span class="esymbol">:</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_copy_semantics_field">is_copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_field_statically_expanded">is_field_statically_expanded</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_field_statically_expanded">is_field_statically_expanded</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_offset">field_offset</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_dynamic_type_at_offset">dynamic_type_at_offset</a> <span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a> <span class="esymbol">:=</span> <span class="elocal">a_enclosing_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_offset">field_offset</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_dynamic_type_at_offset">dynamic_type_at_offset</a> <span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_object"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated object for Current.</span>
+			<span class="ecomment">--</span><span class="ecomment"> It might be a copy if Current is expanded.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_from_address">object_from_address</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_physical_offset"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Actual offset of </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a><span class="ecomment"> in </span><span class="equoted">referring_object + referring_physical_offset</span><span class="ecomment">.</span>
+
+	<a name="f_copy_semantics_field"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_copy_semantics_field">copy_semantics_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object attached to the </span><span class="equoted">i</span><span class="ecomment">-th field of </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a>
+			<span class="ecomment">--</span><span class="ecomment"> (directly or through a reference)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_recursive">make_recursive</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_expanded_field"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_expanded_field">expanded_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object representation of the </span><span class="equoted">i</span><span class="ecomment">-th field of </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a>
+			<span class="ecomment">--</span><span class="ecomment"> which is expanded. We provide a wrapper that enables</span>
+			<span class="ecomment">--</span><span class="ecomment"> direct editing of the field without duplicating</span>
+			<span class="ecomment">--</span><span class="ecomment"> the expanded object.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_make_recursive">make_recursive</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_object_address"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_address">object_address</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Unprotected reference to </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_dereference">dereference</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_object_address">object_address</a><span class="esymbol">,</span> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a><span class="esymbol">)</span> <a class="esymbol" href="../base/pointer.html#f_plus">+</a> <a class="efeature" href="../base/reflected_copy_semantics_object.html#f_physical_offset">physical_offset</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_referring_object"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enclosing object containing </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a><span class="ecomment"> or a reference to `object.</span>
+
+	<a name="f_referring_physical_offset"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_physical_offset">referring_physical_offset</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Actual offset in bytes of </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object">object</a><span class="ecomment"> in </span><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_referring_object">referring_object</a><span class="ecomment">.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_dereference"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_dereference">dereference</a> <span class="esymbol">(</span><span class="elocal">ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_object_from_address"></a><a class="efeature" href="../base/reflected_copy_semantics_object.html#f_object_from_address">object_from_address</a> <span class="esymbol">(</span><span class="elocal">ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2019, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="reflected_copy_semantics_object_chart.html">Chart</a>
+<a class="nav class" href="reflected_copy_semantics_object_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="reflected_copy_semantics_object"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

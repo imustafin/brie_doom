@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="TTTConverter from/to UTF-8, UTF-16 and UTF-32 encodings.  TTTHandling of invalid encodings TTT=============================  TTTWhenever a UTF-8 or UTF-16 sequence is decoded, the decoding routines also check TTTthat the sequence is valid. If it is not, it will replace the invalid unit (e.g. a byte TTTfor UTF-8 and a 2-byte for UTF-16 by the replacement character U+FFFD as described by TTTvariant #3 of the recommended practice for replacement character in Unicode (see TTThttp://www.unicode.org/review/pr-121.html for more details).  TTTHowever it means that you cannot roundtrip incorrectly encoded sequence back and forth TTTbetween the encoded version and the decoded STRING_32 version. To allow roundtrip, an TTTescaped representation of a bad encoded sequence has been introduced. It is adding a TTTa fourth variant (which is a slight modification of variant #3) to the recommended TTTpractice where the replacement character is followed by the printed hexadecimal value TTTof the invalid byte or the invalid 2-byte sequence. TTT TTTTo provide an example (assuming that the Unicode character U+FFFD is represented as TTT? textually): TTT1 - on UNIX, any invalid UTF-8 byte sequence such as 0x8F 0x8F is encoded as the TTTfollowing Unicode sequence: U+FFFD U+0038 U+0046 U+FFFF U+0038 U+0046, and textually TTTit looks like ?8F?8F. TTT2 - on Windows, any invalid UTF-16 2-byte sequence such as 0xD800 0x0054 is encoded as the TTTfollowing Unicode sequence: U+FFFD U+0075 U+0044 U+0038 U+0030 U+0030 U+FFFD U+0035 U+0033, TTTand textually it looks like ?uD800?54. The rule is that if the 2-byte sequence does not fit TTTinto 1 byte, it uses the letter `u' followed by the hexadecimal value of the 2-byte sequence, TTTotherwise it simply uses the 1-byte hexadecimal representation."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>utf_converter Relations</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="utf_converter_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="utf_converter.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="utf_converter"></span>
+</div></form><pre><span class="ekeyword">expanded</span> <span class="ekeyword">class</span>
+	<a class="eclass" href="../base/utf_converter_links.html">UTF_CONVERTER</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/any_links.html">ANY</a>
+
+<span class="ekeyword">Clients</span>
+	<a class="eclass" href="../testing/eqa_file_system_links.html">EQA_FILE_SYSTEM</a>
+	<a class="eclass" href="../base/exception_links.html">EXCEPTION</a>
+	<a class="eclass" href="../base/file_info_links.html">FILE_INFO</a>
+	<a class="eclass" href="../base/native_string_links.html">NATIVE_STRING</a>
+	<a class="eclass" href="../base/path_links.html">PATH</a>
+	<a class="eclass" href="../base/sed_reader_writer_links.html">SED_READER_WRITER</a><span class="echar">*</span>
+	<a class="eclass" href="../base/utf_converter_links.html">UTF_CONVERTER</a>
+
+<span class="ekeyword">Suppliers</span>
+	<a class="eclass" href="../base/boolean_links.html">BOOLEAN</a>
+	<a class="eclass" href="../base/cell_links.html">CELL</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/character_32_links.html">CHARACTER_32</a>
+	<a class="eclass" href="../base/character_8_links.html">CHARACTER_8</a>
+	<a class="eclass" href="../base/hexadecimal_string_to_integer_converter_links.html">HEXADECIMAL_STRING_TO_INTEGER_CONVERTER</a>
+	<a class="eclass" href="../base/integer_32_links.html">INTEGER_32</a>
+	<a class="eclass" href="../base/iteration_cursor_links.html">ITERATION_CURSOR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/managed_pointer_links.html">MANAGED_POINTER</a>
+	<a class="eclass" href="../base/natural_16_links.html">NATURAL_16</a>
+	<a class="eclass" href="../base/natural_32_links.html">NATURAL_32</a>
+	<a class="eclass" href="../base/natural_8_links.html">NATURAL_8</a>
+	<a class="eclass" href="../base/numeric_information_links.html">NUMERIC_INFORMATION</a>
+	<a class="eclass" href="../base/readable_indexable_iteration_cursor_links.html">READABLE_INDEXABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/readable_string_32_links.html">READABLE_STRING_32</a><span class="echar">*</span>
+	<a class="eclass" href="../base/readable_string_8_links.html">READABLE_STRING_8</a><span class="echar">*</span>
+	<a class="eclass" href="../base/readable_string_general_links.html">READABLE_STRING_GENERAL</a><span class="echar">*</span>
+	<a class="eclass" href="../base/refactoring_helper_links.html">REFACTORING_HELPER</a>
+	<a class="eclass" href="../base/special_links.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/special_iteration_cursor_links.html">SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/string_32_links.html">STRING_32</a>
+	<a class="eclass" href="../base/string_8_links.html">STRING_8</a>
+	<a class="eclass" href="../base/string_8_iteration_cursor_links.html">STRING_8_ITERATION_CURSOR</a>
+	<a class="eclass" href="../base/utf_converter_links.html">UTF_CONVERTER</a>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="utf_converter_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="utf_converter.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="utf_converter"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

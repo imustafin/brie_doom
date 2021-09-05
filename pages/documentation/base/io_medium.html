@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Any medium that can perform input and/or output"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>io_medium Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="io_medium_chart.html">Chart</a>
+<a class="nav class" href="io_medium_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="io_medium"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Any medium that can perform input and/or output&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2016-12-05 17:39:47 +0000 (Mon, 05 Dec 2016) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 99631 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/disposable.html">DISPOSABLE</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/string_handler.html">STRING_HANDLER</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_name"></a><a class="efeature" href="../base/io_medium.html#f_name">name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Medium name</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_retrieved"></a><a class="efeature" href="../base/io_medium.html#f_retrieved">retrieved</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieved object structure</span>
+			<span class="ecomment">--</span><span class="ecomment"> To access resulting object under correct type,</span>
+			<span class="ecomment">--</span><span class="ecomment"> use assignment attempt.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Will raise an exception (code </span><span class="equoted">Retrieve_exception</span><span class="ecomment">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> if content is not a stored Eiffel structure.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+			<span class="etag">support_storable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_basic_store"></a><a class="efeature" href="../base/io_medium.html#f_basic_store">basic_store</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Produce an external representation of the</span>
+			<span class="ecomment">--</span><span class="ecomment"> entire object structure reachable from </span><span class="equoted">object</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Retrievable within current system only.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_not_void</span><span class="esymbol">:</span> <span class="elocal">object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+			<span class="etag">support_storable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_general_store"></a><a class="efeature" href="../base/io_medium.html#f_general_store">general_store</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Produce an external representation of the</span>
+			<span class="ecomment">--</span><span class="ecomment"> entire object structure reachable from </span><span class="equoted">object</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Retrievable from other systems for same platform</span>
+			<span class="ecomment">--</span><span class="ecomment"> (machine architecture).</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_not_void</span><span class="esymbol">:</span> <span class="elocal">object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+			<span class="etag">support_storable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_independent_store"></a><a class="efeature" href="../base/io_medium.html#f_independent_store">independent_store</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Produce an external representation of the</span>
+			<span class="ecomment">--</span><span class="ecomment"> entire object structure reachable from </span><span class="equoted">object</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Retrievable from other systems for the same or other</span>
+			<span class="ecomment">--</span><span class="ecomment"> platform (machine architecture).</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_not_void</span><span class="esymbol">:</span> <span class="elocal">object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+			<span class="etag">support_storable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_handle"></a><a class="efeature" href="../base/io_medium.html#f_handle">handle</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Handle to medium</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_handle</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_handle_available">handle_available</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_handle_available"></a><a class="efeature" href="../base/io_medium.html#f_handle_available">handle_available</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the handle available after class has been</span>
+			<span class="ecomment">--</span><span class="ecomment"> created?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_plain_text"></a><a class="efeature" href="../base/io_medium.html#f_is_plain_text">is_plain_text</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file reserved for text (character sequences)?</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last_character"></a><a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last character read by </span><a class="efeature" href="../base/io_medium.html#f_read_character">read_character</a>
+
+	<a name="f_last_string"></a><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last string read</span>
+
+	<a name="f_last_integer"></a><a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last integer read by </span><a class="efeature" href="../base/io_medium.html#f_read_integer">read_integer</a>
+
+	<a name="f_last_integer_32"></a><a class="efeature" href="../base/io_medium.html#f_last_integer_32">last_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Synonymy of </span><a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last_integer_64"></a><a class="efeature" href="../base/io_medium.html#f_last_integer_64">last_integer_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 64-bit integer read by </span><a class="efeature" href="../base/io_medium.html#f_read_integer_64">read_integer_64</a>
+
+	<a name="f_last_integer_16"></a><a class="efeature" href="../base/io_medium.html#f_last_integer_16">last_integer_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 16-bit integer read by </span><a class="efeature" href="../base/io_medium.html#f_read_integer_16">read_integer_16</a>
+
+	<a name="f_last_integer_8"></a><a class="efeature" href="../base/io_medium.html#f_last_integer_8">last_integer_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 8-bit integer read by </span><a class="efeature" href="../base/io_medium.html#f_read_integer_8">read_integer_8</a>
+
+	<a name="f_last_natural_64"></a><a class="efeature" href="../base/io_medium.html#f_last_natural_64">last_natural_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 64-bit natural read by </span><a class="efeature" href="../base/io_medium.html#f_read_natural_64">read_natural_64</a>
+
+	<a name="f_last_natural"></a><a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 32-bit natural read by </span><a class="efeature" href="../base/io_medium.html#f_read_natural">read_natural</a>
+
+	<a name="f_last_natural_32"></a><a class="efeature" href="../base/io_medium.html#f_last_natural_32">last_natural_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Synonymy of </span><a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last_natural_16"></a><a class="efeature" href="../base/io_medium.html#f_last_natural_16">last_natural_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 16-bit natural read by </span><a class="efeature" href="../base/io_medium.html#f_read_natural_16">read_natural_16</a>
+
+	<a name="f_last_natural_8"></a><a class="efeature" href="../base/io_medium.html#f_last_natural_8">last_natural_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last 8-bit natural read by </span><a class="efeature" href="../base/io_medium.html#f_read_natural_8">read_natural_8</a>
+
+	<a name="f_last_real"></a><a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last real read by </span><a class="efeature" href="../base/io_medium.html#f_read_real">read_real</a>
+
+	<a name="f_last_double"></a><a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last double read by </span><a class="efeature" href="../base/io_medium.html#f_read_double">read_double</a>
+
+	<a name="f_bytes_read"></a><a class="efeature" href="../base/io_medium.html#f_bytes_read">bytes_read</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last number of bytes read by </span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="ecomment">.</span>
+
+	<a name="f_exists"></a><a class="efeature" href="../base/io_medium.html#f_exists">exists</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does medium exist?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_open_read"></a><a class="efeature" href="../base/io_medium.html#f_is_open_read">is_open_read</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is this medium opened for input</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_open_write"></a><a class="efeature" href="../base/io_medium.html#f_is_open_write">is_open_write</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is this medium opened for output</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_readable"></a><a class="efeature" href="../base/io_medium.html#f_is_readable">is_readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is medium readable?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">handle_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_exists">exists</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_executable"></a><a class="efeature" href="../base/io_medium.html#f_is_executable">is_executable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is medium executable?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">handle_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_exists">exists</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_writable"></a><a class="efeature" href="../base/io_medium.html#f_is_writable">is_writable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is medium writable?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">handle_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_exists">exists</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readable"></a><a class="efeature" href="../base/io_medium.html#f_readable">readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there a current item that may be read?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">handle_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_exists">exists</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_extendible"></a><a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May new items be added?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_closed"></a><a class="efeature" href="../base/io_medium.html#f_is_closed">is_closed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the I/O medium open</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_support_storable"></a><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Can medium be used to store an Eiffel object?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_close"></a><a class="efeature" href="../base/io_medium.html#f_close">close</a>
+			<span class="ecomment">--</span><span class="ecomment"> Close medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">medium_is_open</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/io_medium.html#f_is_closed">is_closed</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_dispose"></a><a class="efeature" href="../base/io_medium.html#f_dispose">dispose</a>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure this medium is closed when garbage collected.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/io_medium.html#f_is_closed">is_closed</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/io_medium.html#f_close">close</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_put_new_line"></a><a class="efeature" href="../base/io_medium.html#f_put_new_line">put_new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write a new line character to medium</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_new_line">new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_line"></a><a class="efeature" href="../base/io_medium.html#f_new_line">new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write a new line character to medium</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_new_line">put_new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_string"></a><a class="efeature" href="../base/io_medium.html#f_put_string">put_string</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">s</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putstring">putstring</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+			<span class="etag">non_void</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putstring"></a><a class="efeature" href="../base/io_medium.html#f_putstring">putstring</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">s</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_string">put_string</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+			<span class="etag">non_void</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_character"></a><a class="efeature" href="../base/io_medium.html#f_put_character">put_character</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">c</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putchar">putchar</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putchar"></a><a class="efeature" href="../base/io_medium.html#f_putchar">putchar</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">c</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_character">put_character</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_real"></a><a class="efeature" href="../base/io_medium.html#f_put_real">put_real</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">r</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putreal">putreal</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putreal"></a><a class="efeature" href="../base/io_medium.html#f_putreal">putreal</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">r</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_real">put_real</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_integer"></a><a class="efeature" href="../base/io_medium.html#f_put_integer">put_integer</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putint">putint</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_put_integer_32">put_integer_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putint"></a><a class="efeature" href="../base/io_medium.html#f_putint">putint</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_integer">put_integer</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_put_integer_32">put_integer_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_integer_32"></a><a class="efeature" href="../base/io_medium.html#f_put_integer_32">put_integer_32</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_integer">put_integer</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_putint">putint</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_integer_8"></a><a class="efeature" href="../base/io_medium.html#f_put_integer_8">put_integer_8</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_integer_16"></a><a class="efeature" href="../base/io_medium.html#f_put_integer_16">put_integer_16</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_integer_64"></a><a class="efeature" href="../base/io_medium.html#f_put_integer_64">put_integer_64</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_natural_8"></a><a class="efeature" href="../base/io_medium.html#f_put_natural_8">put_natural_8</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_natural_16"></a><a class="efeature" href="../base/io_medium.html#f_put_natural_16">put_natural_16</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_natural"></a><a class="efeature" href="../base/io_medium.html#f_put_natural">put_natural</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_natural_32">put_natural_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_natural_32"></a><a class="efeature" href="../base/io_medium.html#f_put_natural_32">put_natural_32</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_natural">put_natural</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_natural_64"></a><a class="efeature" href="../base/io_medium.html#f_put_natural_64">put_natural_64</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">i</span><span class="ecomment"> to medium.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_boolean"></a><a class="efeature" href="../base/io_medium.html#f_put_boolean">put_boolean</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">b</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putbool">putbool</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putbool"></a><a class="efeature" href="../base/io_medium.html#f_putbool">putbool</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">b</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_boolean">put_boolean</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_double"></a><a class="efeature" href="../base/io_medium.html#f_put_double">put_double</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">d</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_putdouble">putdouble</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putdouble"></a><a class="efeature" href="../base/io_medium.html#f_putdouble">putdouble</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">d</span><span class="ecomment"> to medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_put_double">put_double</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_managed_pointer"></a><a class="efeature" href="../base/io_medium.html#f_put_managed_pointer">put_managed_pointer</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">nb_bytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Put data of length </span><span class="equoted">nb_bytes</span><span class="ecomment"> pointed by </span><span class="equoted">start_pos</span><span class="ecomment"> index in </span><span class="equoted">p</span><span class="ecomment"> at</span>
+			<span class="ecomment">--</span><span class="ecomment"> current position.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">p_not_void</span><span class="esymbol">:</span> <span class="elocal">p</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">p_large_enough</span><span class="esymbol">:</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb_bytes</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">start_pos</span>
+			<span class="etag">nb_bytes_non_negative</span><span class="esymbol">:</span> <span class="elocal">nb_bytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">extendible</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_extendible">extendible</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Input</span>
+
+	<a name="f_read_real"></a><a class="efeature" href="../base/io_medium.html#f_read_real">read_real</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new real.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readreal">readreal</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readreal"></a><a class="efeature" href="../base/io_medium.html#f_readreal">readreal</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new real.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_real">read_real</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_double"></a><a class="efeature" href="../base/io_medium.html#f_read_double">read_double</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new double.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readdouble">readdouble</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readdouble"></a><a class="efeature" href="../base/io_medium.html#f_readdouble">readdouble</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new double.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_double">read_double</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_character"></a><a class="efeature" href="../base/io_medium.html#f_read_character">read_character</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new character.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readchar">readchar</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readchar"></a><a class="efeature" href="../base/io_medium.html#f_readchar">readchar</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new character.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_character">read_character</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer"></a><a class="efeature" href="../base/io_medium.html#f_read_integer">read_integer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 32-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readint">readint</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_read_integer_32">read_integer_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readint"></a><a class="efeature" href="../base/io_medium.html#f_readint">readint</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 32-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_integer">read_integer</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_read_integer_32">read_integer_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_32"></a><a class="efeature" href="../base/io_medium.html#f_read_integer_32">read_integer_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 32-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_integer">read_integer</a><span class="ecomment"> and </span><a class="efeature" href="../base/io_medium.html#f_readint">readint</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_8"></a><a class="efeature" href="../base/io_medium.html#f_read_integer_8">read_integer_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 8-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer_8">last_integer_8</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_16"></a><a class="efeature" href="../base/io_medium.html#f_read_integer_16">read_integer_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 16-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer_16">last_integer_16</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_64"></a><a class="efeature" href="../base/io_medium.html#f_read_integer_64">read_integer_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 64-bit integer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_integer_64">last_integer_64</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_8"></a><a class="efeature" href="../base/io_medium.html#f_read_natural_8">read_natural_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 8-bit natural.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_natural_8">last_natural_8</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_16"></a><a class="efeature" href="../base/io_medium.html#f_read_natural_16">read_natural_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 16-bit natural.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_natural_16">last_natural_16</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural"></a><a class="efeature" href="../base/io_medium.html#f_read_natural">read_natural</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 32-bit natural.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_natural_32">read_natural_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_32"></a><a class="efeature" href="../base/io_medium.html#f_read_natural_32">read_natural_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 32-bit natural.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_natural">read_natural</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_64"></a><a class="efeature" href="../base/io_medium.html#f_read_natural_64">read_natural_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new 64-bit natural.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_natural_64">last_natural_64</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_stream"></a><a class="efeature" href="../base/io_medium.html#f_read_stream">read_stream</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> or until end of medium is encountered.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readstream">readstream</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readstream"></a><a class="efeature" href="../base/io_medium.html#f_readstream">readstream</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> or until end of medium is encountered.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_stream">read_stream</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_stream_thread_aware"></a><a class="efeature" href="../base/io_medium.html#f_read_stream_thread_aware">read_stream_thread_aware</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> or until end of medium is encountered.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Functionally identical to </span><a class="efeature" href="../base/io_medium.html#f_read_stream">read_stream</a><span class="ecomment"> but</span>
+			<span class="ecomment">--</span><span class="ecomment"> won't prevent garbage collection from occurring</span>
+			<span class="ecomment">--</span><span class="ecomment"> while blocked waiting for data, though data must</span>
+			<span class="ecomment">--</span><span class="ecomment"> be copied an extra time.			</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_read_stream">read_stream</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_line"></a><a class="efeature" href="../base/io_medium.html#f_read_line">read_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read characters until a new line or</span>
+			<span class="ecomment">--</span><span class="ecomment"> end of medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_readline">readline</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readline"></a><a class="efeature" href="../base/io_medium.html#f_readline">readline</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read characters until a new line or</span>
+			<span class="ecomment">--</span><span class="ecomment"> end of medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/io_medium.html#f_read_line">read_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_line_thread_aware"></a><a class="efeature" href="../base/io_medium.html#f_read_line_thread_aware">read_line_thread_aware</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read characters until a new line or</span>
+			<span class="ecomment">--</span><span class="ecomment"> end of medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Functionally identical to </span><a class="efeature" href="../base/io_medium.html#f_read_line">read_line</a><span class="ecomment"> but</span>
+			<span class="ecomment">--</span><span class="ecomment"> won't prevent garbage collection from occurring</span>
+			<span class="ecomment">--</span><span class="ecomment"> while blocked waiting for data, though data must</span>
+			<span class="ecomment">--</span><span class="ecomment"> be copied an extra time.			</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_read_line">read_line</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_string_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_to_managed_pointer"></a><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">nb_bytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read at most </span><span class="equoted">nb_bytes</span><span class="ecomment"> bound bytes and make result</span>
+			<span class="ecomment">--</span><span class="ecomment"> available in </span><span class="equoted">p</span><span class="ecomment"> at position </span><span class="equoted">start_pos</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">p_not_void</span><span class="esymbol">:</span> <span class="elocal">p</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">p_large_enough</span><span class="esymbol">:</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb_bytes</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">start_pos</span>
+			<span class="etag">nb_bytes_non_negative</span><span class="esymbol">:</span> <span class="elocal">nb_bytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bytes_read_non_negative</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_bytes_read">bytes_read</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">bytes_read_not_too_big</span><span class="esymbol">:</span> <a class="efeature" href="../base/io_medium.html#f_bytes_read">bytes_read</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">nb_bytes</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Obsolete</span>
+
+	<a name="f_lastchar"></a><a class="efeature" href="../base/io_medium.html#f_lastchar">lastchar</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last character read by </span><a class="efeature" href="../base/io_medium.html#f_read_character">read_character</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_laststring"></a><a class="efeature" href="../base/io_medium.html#f_laststring">laststring</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last string read</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lastint"></a><a class="efeature" href="../base/io_medium.html#f_lastint">lastint</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last integer read by </span><a class="efeature" href="../base/io_medium.html#f_read_integer">read_integer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lastreal"></a><a class="efeature" href="../base/io_medium.html#f_lastreal">lastreal</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last real read by </span><a class="efeature" href="../base/io_medium.html#f_read_real">read_real</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lastdouble"></a><a class="efeature" href="../base/io_medium.html#f_lastdouble">lastdouble</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last double read by </span><a class="efeature" href="../base/io_medium.html#f_read_double">read_double</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="io_medium_chart.html">Chart</a>
+<a class="nav class" href="io_medium_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="io_medium"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

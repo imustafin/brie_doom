@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Infinite sequences, indexed by integers"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="countable_sequence, infinite_sequence"/>
+<meta name="access" content="cursor, membership"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>countable_sequence Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="countable_sequence_chart.html">Chart</a>
+<a class="nav class" href="countable_sequence_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="countable_sequence"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Infinite sequences, indexed by integers&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> countable_sequence<span class="esymbol">,</span> infinite_sequence
+	<span class="eitag">access</span><span class="esymbol">:</span> cursor<span class="esymbol">,</span> membership
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2012-05-24 04:13:10 +0000 (Thu, 24 May 2012) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 91981 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/countable_sequence.html">COUNTABLE_SEQUENCE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/countable.html">COUNTABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/countable.html#f_item">item</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/countable.html#f_item">i_th</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/active.html">ACTIVE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <a class="efeature" href="../base/collection.html#f_fill">fill</a><span class="esymbol">,</span> <a class="efeature" href="../base/collection.html#f_prune_all">prune_all</a><span class="esymbol">,</span> <a class="efeature" href="../base/countable_sequence.html#f_put">put</a><span class="esymbol">,</span> <a class="efeature" href="../base/countable_sequence.html#f_prune">prune</a><span class="esymbol">,</span> <a class="efeature" href="../base/countable_sequence.html#f_wipe_out">wipe_out</a><span class="esymbol">,</span> <a class="efeature" href="../base/countable_sequence.html#f_replace">replace</a><span class="esymbol">,</span> <a class="efeature" href="../base/countable_sequence.html#f_remove">remove</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/countable_sequence.html#f_replaceable">Replaceable</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/linear.html">LINEAR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/countable_sequence.html#f_linear_representation">linear_representation</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_index"></a><a class="efeature" href="../base/countable_sequence.html#f_index">index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of current position</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/countable_sequence.html#f_item">item</a><span class="esymbol">:</span> <span class="egeneric">G</span>
+			<span class="ecomment">--</span><span class="ecomment"> Item at current position</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/countable.html#f_item">i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/countable_sequence.html#f_index">index</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_after"></a><a class="efeature" href="../base/countable_sequence.html#f_after">After</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Is current position past last item? (Answer: no.)</span>
+
+	<a name="f_extendible"></a><a class="efeature" href="../base/countable_sequence.html#f_extendible">Extendible</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> May items be added? (Answer: no.)</span>
+
+	<a name="f_prunable"></a><a class="efeature" href="../base/countable_sequence.html#f_prunable">Prunable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> May items be removed? (Answer: no.)</span>
+
+	<a name="f_readable"></a><a class="efeature" href="../base/countable_sequence.html#f_readable">Readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">True</span>
+			<span class="ecomment">--</span><span class="ecomment"> Is there a current item that may be read?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Answer: yes.)</span>
+
+	<a name="f_writable"></a><a class="efeature" href="../base/countable_sequence.html#f_writable">Writable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Is there a current item that may be written?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Answer: no.)</span>
+
+	<a name="f_replaceable"></a><a class="efeature" href="../base/countable_sequence.html#f_replaceable">Replaceable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Can current item be replaced?</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_forth"></a><a class="efeature" href="../base/countable_sequence.html#f_forth">forth</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next position.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/countable_sequence.html#f_index">index</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/countable_sequence.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_start"></a><a class="efeature" href="../base/countable_sequence.html#f_start">start</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to first position.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/countable_sequence.html#f_index">index</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Inapplicable</span>
+
+	<a name="f_extend"></a><a class="efeature" href="../base/countable_sequence.html#f_extend">extend</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> at end.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_finish"></a><a class="efeature" href="../base/countable_sequence.html#f_finish">finish</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to last position.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">failure</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_linear_representation"></a><a class="efeature" href="../base/countable_sequence.html#f_linear_representation">linear_representation</a><span class="esymbol">:</span> <a class="eclass" href="../base/linear.html">LINEAR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Representation as a linear structure</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/linked_list.html">LINKED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_make">make</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_prune"></a><a class="efeature" href="../base/countable_sequence.html#f_prune">prune</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Remove first occurrence of </span><span class="equoted">v</span><span class="ecomment">, if any.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/countable_sequence.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> to the right of current position.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_remove"></a><a class="efeature" href="../base/countable_sequence.html#f_remove">remove</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove item to the right of current position.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_replace"></a><a class="efeature" href="../base/countable_sequence.html#f_replace">replace</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace by </span><span class="equoted">v</span><span class="ecomment"> item at current position.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/countable_sequence.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all items.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/countable_sequence.html">COUNTABLE_SEQUENCE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="countable_sequence_chart.html">Chart</a>
+<a class="nav class" href="countable_sequence_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="countable_sequence"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

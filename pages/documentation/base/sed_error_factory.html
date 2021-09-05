@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Objects that provide instances of {SED_ERROR}."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="author" content="Julian Rogers"/>
+<meta name="last_editor" content="$Author: alexk $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_error_factory Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_error_factory_chart.html">Chart</a>
+<a class="nav class" href="sed_error_factory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_error_factory"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Objects that provide instances of </span><span class="esymbol">{</span><a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Julian Rogers&quot;</span>
+	<span class="eitag">last_editor</span><span class="esymbol">:</span> <span class="estring">&quot;$Author: alexk $&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-04-12 13:15:47 +0000 (Wed, 12 Apr 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100150 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_new_internal_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_internal_error">new_internal_error</a> <span class="esymbol">(</span><span class="elocal">a_msg</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Generic error message when something fails internally</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_msg_not_void</span><span class="esymbol">:</span> <span class="elocal">a_msg</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_msg</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_exception_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_exception_error">new_exception_error</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Generic error message when something fails internally</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_not_void</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_msg</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;An exception of type {&quot;<span class="esymbol">)</span>
+			<span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_name_32">name_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_description">description</a> <span class="ekeyword">as</span> l_message <span class="ekeyword">then</span>
+				<span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;} with message %&quot;&quot;<span class="esymbol">)</span>
+				<span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_message</span><span class="esymbol">)</span>
+				<span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%&quot; occurred.&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;} occurred.&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_msg</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_unknown_storable_type"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_unknown_storable_type">new_unknown_storable_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Storable format could be read but is unknown.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Unknown storable type.&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_obsolete_storable_type"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_obsolete_storable_type">new_obsolete_storable_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Obsolete storable format is used.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Obsolete storable type, it might be possible to retrieve the data with the obsolete deserializer.&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_invalid_object_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_invalid_object_error">new_invalid_object_error</a> <span class="esymbol">(</span><span class="elocal">a_obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object </span><span class="equoted">a_obj</span><span class="ecomment"> was retrieved but is not valid.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">}</span>&quot;Invalid retrieved object of type &quot; <a class="esymbol" href="../base/string_32.html#f_plus">+</a> <span class="elocal">a_obj</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_name_32">name_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_object_mismatch_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_object_mismatch_error">new_object_mismatch_error</a> <span class="esymbol">(</span><span class="elocal">a_obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object </span><span class="equoted">a_obj</span><span class="ecomment"> was retrieved but its content is still mismatched.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">}</span>&quot;Unfixable object of type &quot; <a class="esymbol" href="../base/string_32.html#f_plus">+</a> <span class="elocal">a_obj</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_name_32">name_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_format_mismatch"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_format_mismatch">new_format_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_old_version</span><span class="esymbol">,</span> <span class="elocal">a_new_version</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an error when the format is different from what we expected upon retrieval</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Storable format mismatch, got &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_old_version</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; but expected &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_new_version</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;.&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_format_mismatch_66"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_format_mismatch_66">new_format_mismatch_66</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an error when the format is not using </span><span class="equoted">is_for_fast_retrieval</span><span class="ecomment"> setting.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Storable created with 6.6 or earlier not using `is_for_fast_retrieval' cannot be retrieved anymore. Contact EiffelSoftware if you need this functionality.&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_missing_type_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_missing_type_error">new_missing_type_error</a> <span class="esymbol">(</span><span class="elocal">a_stored_type</span><span class="esymbol">,</span> <span class="elocal">a_adapted_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return a error representing a missing type </span><span class="equoted">a_stored_type</span><span class="ecomment"> possibly adapted to </span><span class="equoted">a_adapted_type</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_stored_type_not_void</span><span class="esymbol">:</span> <span class="elocal">a_stored_type</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_adapted_type_not_void</span><span class="esymbol">:</span> <span class="elocal">a_adapted_type</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_stored_type</span> <span class="esymbol">~</span> <span class="elocal">a_adapted_type</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Unknown class type &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_stored_type</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Unknown class type &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_stored_type</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; and unknown adapted class type &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_adapted_type</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_missing_attribute_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_missing_attribute_error">new_missing_attribute_error</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_attribute_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return a error representing a missing attribute named </span><span class="equoted">a_attribute_name</span><span class="ecomment"> in type </span><span class="equoted">a_type</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_attribute_name_not_void</span><span class="esymbol">:</span> <span class="elocal">a_attribute_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_type</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;No attribute named '&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_attribute_name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;' in type &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_type</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_unknown_attribute_type_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_unknown_attribute_type_error">new_unknown_attribute_type_error</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_attribute_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return a error representing an attribute whose type is unknown.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_attribute_name_not_void</span><span class="esymbol">:</span> <span class="elocal">a_attribute_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_type</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Attribute named '&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_attribute_name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;' in type &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_type</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; has an unknown type&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_storable_version_mismatch_error"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_storable_version_mismatch_error">new_storable_version_mismatch_error</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_old_version_str</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an error representing a mismatch in the storable_version attribute in type </span><span class="equoted">a_type</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type</span><span class="esymbol">,</span> <span class="elocal">l_error_msg</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="elocal">l_new_version</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_type</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="elocal">l_new_version</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_storable_version_of_type">storable_version_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">256</span><span class="esymbol">)</span>
+			<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Different version in class &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_type</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;.%N&quot;<span class="esymbol">)</span>
+			<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Old version: &quot;<span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_old_version_str</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;None&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_old_version_str</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;New version: &quot;<span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_new_version</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;None&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_error_msg</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_version</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_error_msg</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_attribute_count_mismatch"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_attribute_count_mismatch">new_attribute_count_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_received_attribute_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an error representing an attribute count mismatch for type </span><span class="equoted">a_type</span><span class="ecomment"> with a received attribute count of </span><span class="equoted">a_received_attribute_count</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_type</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Attribute count mismatch in class &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_type</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; Expected &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_persistent_field_count_of_type">persistent_field_count_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;, Received &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_received_attribute_count</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_attribute_mismatch"></a><a class="efeature" href="../base/sed_error_factory.html#f_new_attribute_mismatch">new_attribute_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_attribute_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">a_attribute_type_id</span><span class="esymbol">,</span> <span class="elocal">a_received_attribute_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an error representing an attribute mismatch for attribute </span><span class="equoted">a_attribute_name</span><span class="ecomment"> of type </span><span class="equoted">a_type</span><span class="ecomment"> with</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_attribute_name_not_void</span><span class="esymbol">:</span> <span class="elocal">a_attribute_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_attribute_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_attribute_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_received_attribute_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_received_attribute_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Attribute mismatch in class &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; for attribute '&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_attribute_name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'. Expected &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_attribute_type_id</span><span class="esymbol">)</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;, Received &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_class_name_of_type">class_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_received_attribute_type_id</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_internal"></a><a class="efeature" href="../base/sed_error_factory.html#f_internal">Internal</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflector.html">REFLECTOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Once access to internal.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_error_factory_chart.html">Chart</a>
+<a class="nav class" href="sed_error_factory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_error_factory"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Abstract equivalent of HASH_TABLE [NATURAL_32, ANY], since this type cannot be written as ANY does not inherit from HASHABLE"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2006, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 356 Storke Road, Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_abstract_objects_table Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_abstract_objects_table_chart.html">Chart</a>
+<a class="nav class" href="sed_abstract_objects_table_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_abstract_objects_table"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Abstract equivalent of HASH_TABLE [NATURAL_32, ANY], since this type cannot be written</span>
+		<span class="estring">as ANY does not inherit from HASHABLE</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-03-27 07:34:50 +0000 (Wed, 27 Mar 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92359 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_abstract_objects_table.html">SED_ABSTRACT_OBJECTS_TABLE</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_abstract_objects_table.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current instance</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_not_too_large</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">last_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_index"></a><a class="efeature" href="../base/sed_abstract_objects_table.html#f_index">index</a> <span class="esymbol">(</span><span class="elocal">an_obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of </span><span class="equoted">an_obj</span><span class="ecomment"> in Current</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_obj_not_void</span><span class="esymbol">:</span> <span class="elocal">an_obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_capacity"></a><a class="efeature" href="../base/sed_abstract_objects_table.html#f_capacity">capacity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Default capacity of current.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">capacity_non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/sed_abstract_objects_table.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all items.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_last_index"></a><a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last index of inserted items.</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2006, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">356 Storke Road, Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_abstract_objects_table.html">SED_ABSTRACT_OBJECTS_TABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_abstract_objects_table_chart.html">Chart</a>
+<a class="nav class" href="sed_abstract_objects_table_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_abstract_objects_table"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

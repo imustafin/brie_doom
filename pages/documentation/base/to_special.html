@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to special objects, for direct access to arrays and strings"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>to_special Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="to_special_chart.html">Chart</a>
+<a class="nav class" href="to_special_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="to_special"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;References to special objects, for direct access to arrays and strings&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/to_special.html">TO_SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/to_special.html#f_make_empty_area">make_empty_area</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/to_special.html#f_make_filled_area">make_filled_area</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_empty_area"></a><a class="efeature" href="../base/to_special.html#f_make_empty_area">make_empty_area</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Creates a special object for </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">area_allocated</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">capacity_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_filled_area"></a><a class="efeature" href="../base/to_special.html#f_make_filled_area">make_filled_area</a> <span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Creates a special object for </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">area_allocated</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">capacity_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">area_filled</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_area"></a><a class="efeature" href="../base/to_special.html#f_area">area</a><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Special data zone.</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/to_special.html#f_item">item</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/to_special.html#f_item">[]</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="egeneric">T</span> <span class="ekeyword">assign</span> <a class="efeature" href="../base/to_special.html#f_put">put</a>
+			<span class="ecomment">--</span><span class="ecomment"> Entry at index </span><span class="equoted">i</span><span class="ecomment">, if in index interval.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/to_special.html">TO_SPECIAL</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/to_special.html#f_at">at</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_at"></a><a class="efeature" href="../base/to_special.html#f_at">at</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/to_special.html#f_at">@</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="egeneric">T</span> <span class="ekeyword">assign</span> <a class="efeature" href="../base/to_special.html#f_put">put</a>
+			<span class="ecomment">--</span><span class="ecomment"> Entry at index </span><span class="equoted">i</span><span class="ecomment">, if in index interval.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/to_special.html">TO_SPECIAL</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/to_special.html#f_item">item</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_valid_index"></a><a class="efeature" href="../base/to_special.html#f_valid_index">valid_index</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i</span><span class="ecomment"> within the bounds of Current?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/to_special.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace </span><span class="equoted">i</span><span class="ecomment">-th entry, if in index interval, by </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/to_special.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">inserted</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_area"></a><a class="efeature" href="../base/to_special.html#f_set_area">set_area</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/to_special.html#f_area">area</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">other</span><span class="ecomment"> the new </span><a class="efeature" href="../base/to_special.html#f_area">area</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/to_special.html#f_area">area</a> <span class="esymbol">:=</span> <span class="elocal">other</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">area_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">area</a> <span class="esymbol">=</span> <span class="elocal">other</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/to_special.html">TO_SPECIAL</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="to_special_chart.html">Chart</a>
+<a class="nav class" href="to_special_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="to_special"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

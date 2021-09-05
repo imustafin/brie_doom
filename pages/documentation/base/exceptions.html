@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Facilities for adapting the exception handling mechanism. This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>exceptions Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="exceptions_chart.html">Chart</a>
+<a class="nav class" href="exceptions_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="exceptions"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Facilities for adapting the exception handling mechanism.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-05-23 15:41:54 +0000 (Wed, 23 May 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101779 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/exceptions.html">EXCEPTIONS</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/excep_const.html">EXCEP_CONST</a>
+
+	<a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_meaning"></a><a class="efeature" href="../base/exceptions.html#f_meaning">meaning</a> <span class="esymbol">(</span><span class="elocal">except</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> A message in English describing what </span><span class="equoted">except</span><span class="ecomment"> is</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_exception_from_code">exception_from_code</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">except</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_tag">Tag</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_assertion_violation"></a><a class="efeature" href="../base/exceptions.html#f_assertion_violation">assertion_violation</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is last exception originally due to a violated</span>
+			<span class="ecomment">--</span><span class="ecomment"> assertion or non-decreasing variant?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/assertion_violation.html">ASSERTION_VIOLATION</a><span class="esymbol">}</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_developer_exception"></a><a class="efeature" href="../base/exceptions.html#f_is_developer_exception">is_developer_exception</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the last exception originally due to</span>
+			<span class="ecomment">--</span><span class="ecomment"> a developer exception?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/developer_exception.html">DEVELOPER_EXCEPTION</a><span class="esymbol">}</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_developer_exception_of_name"></a><a class="efeature" href="../base/exceptions.html#f_is_developer_exception_of_name">is_developer_exception_of_name</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the last exception originally due to a developer</span>
+			<span class="ecomment">--</span><span class="ecomment"> exception of name </span><span class="equoted">name</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/exceptions.html#f_is_developer_exception">is_developer_exception</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/exceptions.html#f_developer_exception_name">developer_exception_name</a> <span class="esymbol">~</span> <span class="elocal">name</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_developer_exception_name"></a><a class="efeature" href="../base/exceptions.html#f_developer_exception_name">developer_exception_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of last developer-raised exception</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">applicable</span><span class="esymbol">:</span> <a class="efeature" href="../base/exceptions.html#f_is_developer_exception">is_developer_exception</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_description">description</a> <span class="ekeyword">as</span> l_des <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_des</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_signal"></a><a class="efeature" href="../base/exceptions.html#f_is_signal">is_signal</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is last exception originally due to an external</span>
+			<span class="ecomment">--</span><span class="ecomment"> event (operating system signal)?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/operating_system_signal_failure.html">OPERATING_SYSTEM_SIGNAL_FAILURE</a><span class="esymbol">}</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_system_exception"></a><a class="efeature" href="../base/exceptions.html#f_is_system_exception">is_system_exception</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is last exception originally due to an</span>
+			<span class="ecomment">--</span><span class="ecomment"> external event (operating system error)?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_exception_from_code">exception_from_code</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/excep_const.html#f_external_exception">External_exception</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_external <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_external</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/operating_system_failure.html">OPERATING_SYSTEM_FAILURE</a><span class="esymbol">}</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_tag_name"></a><a class="efeature" href="../base/exceptions.html#f_tag_name">tag_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Tag of last violated assertion clause</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_description">description</a> <span class="ekeyword">as</span> l_des <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_des</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_recipient_name"></a><a class="efeature" href="../base/exceptions.html#f_recipient_name">recipient_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the routine whose execution was</span>
+			<span class="ecomment">--</span><span class="ecomment"> interrupted by last exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_recipient_name">recipient_name</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_class_name"></a><a class="efeature" href="../base/exceptions.html#f_class_name">class_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the class that includes the recipient</span>
+			<span class="ecomment">--</span><span class="ecomment"> of original form of last exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_type_name">type_name</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exception"></a><a class="efeature" href="../base/exceptions.html#f_exception">exception</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Code of last exception that occurred</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_code">code</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exception_trace"></a><a class="efeature" href="../base/exceptions.html#f_exception_trace">exception_trace</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> String representation of the exception trace</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_trace">trace</a> <span class="ekeyword">as</span> l_trace <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_original_tag_name"></a><a class="efeature" href="../base/exceptions.html#f_original_tag_name">original_tag_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Assertion tag for original form of last</span>
+			<span class="ecomment">--</span><span class="ecomment"> assertion violation.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_cause">cause</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_description">description</a> <span class="ekeyword">as</span> l_des <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_des</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_original_exception"></a><a class="efeature" href="../base/exceptions.html#f_original_exception">original_exception</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Original code of last exception that triggered</span>
+			<span class="ecomment">--</span><span class="ecomment"> current exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_cause">cause</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_code">code</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_original_recipient_name"></a><a class="efeature" href="../base/exceptions.html#f_original_recipient_name">original_recipient_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the routine whose execution was</span>
+			<span class="ecomment">--</span><span class="ecomment"> interrupted by original form of last exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_cause">cause</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_recipient_name">recipient_name</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_original_class_name"></a><a class="efeature" href="../base/exceptions.html#f_original_class_name">original_class_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the class that includes the recipient</span>
+			<span class="ecomment">--</span><span class="ecomment"> of original form of last exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_cause">cause</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_original">original</a><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_type_name">type_name</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_catch"></a><a class="efeature" href="../base/exceptions.html#f_catch">catch</a> <span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make sure that any exception of code </span><span class="equoted">code</span><span class="ecomment"> will be</span>
+			<span class="ecomment">--</span><span class="ecomment"> caught. This is the default.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_type_of_code">type_of_code</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_type <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_catch">catch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_type</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ignore"></a><a class="efeature" href="../base/exceptions.html#f_ignore">ignore</a> <span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make sure that any exception of code </span><span class="equoted">code</span><span class="ecomment"> will be</span>
+			<span class="ecomment">--</span><span class="ecomment"> ignored. This is not the default.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_type_of_code">type_of_code</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_type <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_ignore">ignore</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_type</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_raise"></a><a class="efeature" href="../base/exceptions.html#f_raise">raise</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Raise a developer exception of name </span><span class="equoted">name</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/developer_exception.html">DEVELOPER_EXCEPTION</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_exception</span>
+			<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+			<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_raise_retrieval_exception"></a><a class="efeature" href="../base/exceptions.html#f_raise_retrieval_exception">raise_retrieval_exception</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Raise a retrieval exception of name </span><span class="equoted">name</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_exception_from_code">exception_from_code</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/excep_const.html#f_serialization_exception">Serialization_exception</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+				<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_die"></a><a class="efeature" href="../base/exceptions.html#f_die">die</a> <span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Terminate execution with exit status </span><span class="equoted">code</span><span class="ecomment">,</span>
+			<span class="ecomment">--</span><span class="ecomment"> without triggering an exception.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_except.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;esdie&quot;
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_die"></a><a class="efeature" href="../base/exceptions.html#f_new_die">new_die</a> <span class="esymbol">(</span><span class="elocal">code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use `die'. [2017-05-31]&quot;
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_except.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;esdie&quot;
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_message_on_failure"></a><a class="efeature" href="../base/exceptions.html#f_message_on_failure">message_on_failure</a>
+			<span class="ecomment">--</span><span class="ecomment"> Print an exception history table</span>
+			<span class="ecomment">--</span><span class="ecomment"> in case of failure.</span>
+			<span class="ecomment">--</span><span class="ecomment"> This is the default.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/exceptions.html#f_c_trace_exception">c_trace_exception</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_no_message_on_failure"></a><a class="efeature" href="../base/exceptions.html#f_no_message_on_failure">no_message_on_failure</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do not print an exception history table</span>
+			<span class="ecomment">--</span><span class="ecomment"> in case of failure.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/exceptions.html#f_c_trace_exception">c_trace_exception</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_c_trace_exception"></a><a class="efeature" href="../base/exceptions.html#f_c_trace_exception">c_trace_exception</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_except.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eetrace&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/exceptions.html">EXCEPTIONS</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="exceptions_chart.html">Chart</a>
+<a class="nav class" href="exceptions_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="exceptions"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

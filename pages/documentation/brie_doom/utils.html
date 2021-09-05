@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Just utils"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>utils Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="utils_chart.html">Chart</a>
+<a class="nav class" href="utils_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="utils"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Just utils&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/utils.html">UTILS</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_first_index"></a><a class="efeature" href="../brie_doom/utils.html#f_first_index">first_index</a> <span class="esymbol">(</span><span class="elocal">ar</span><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> First index of item </span><span class="equoted">i = v</span><span class="ecomment"> in </span><span class="equoted">ar</span><span class="ecomment"> or </span><span class="equoted">ar.upper + 1</span><span class="ecomment"> if not found</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a>
+			<span class="ekeyword">until</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">ar</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">across</span>
+					<span class="elocal">ar</span> <span class="ekeyword">as</span> ari
+				<span class="ekeyword">all</span>
+					<span class="elocal">ari</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a> <span class="esymbol">/=</span> <span class="elocal">v</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">ar</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="elocal">v</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">across</span>
+					<span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_subarray">subarray</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a><span class="esymbol">,</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span> <span class="ekeyword">as</span> ari2
+				<span class="ekeyword">all</span>
+					<span class="elocal">ari2</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a> <span class="esymbol">/=</span> <span class="elocal">v</span>
+				<span class="ekeyword">end</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_all_different"></a><a class="efeature" href="../brie_doom/utils.html#f_all_different">all_different</a> <span class="esymbol">(</span><span class="elocal">ar</span><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a>
+			<span class="ekeyword">until</span>
+				<a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">across</span>
+					<span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_subarray">subarray</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a><span class="esymbol">)</span> <span class="ekeyword">as</span> it
+				<span class="ekeyword">all</span>
+					<span class="elocal">it</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">it</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a> <span class="esymbol">/=</span> <span class="elocal">ar</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">true_for_empty</span><span class="esymbol">:</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_invariant_ref_array"></a><a class="efeature" href="../brie_doom/utils.html#f_invariant_ref_array">invariant_ref_array</a> <span class="esymbol">(</span><span class="elocal">ar</span><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Lower is 0, count is correct, all references are different</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">count</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../brie_doom/utils.html#f_all_different">all_different</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ar</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">lower_not_zero_gives_false</span><span class="esymbol">:</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="etag">incorrect_count_gives_false</span><span class="esymbol">:</span> <span class="elocal">ar</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="esymbol">/=</span> <span class="elocal">count</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="etag">not_all_different_gives_false</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/utils.html#f_all_different">all_different</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ar</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/utils.html">UTILS</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="utils_chart.html">Chart</a>
+<a class="nav class" href="utils_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="utils"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

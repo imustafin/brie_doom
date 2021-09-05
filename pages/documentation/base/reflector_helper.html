@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Helper for routines in INTERNAL class."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>reflector_helper Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="reflector_helper_chart.html">Chart</a>
+<a class="nav class" href="reflector_helper_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="reflector_helper"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Helper for routines in INTERNAL class.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:47:11 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101695 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/reflector_helper.html">REFLECTOR_HELPER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_pre_ecma_mapping_disabled"></a><a class="efeature" href="../base/reflector_helper.html#f_is_pre_ecma_mapping_disabled">is_pre_ecma_mapping_disabled</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are we mapping old names to new ECMA names?</span>
+			<span class="ecomment">--</span><span class="ecomment"> False means mapping STRING to STRING_8, INTEGER to INTEGER_32,...</span>
+			<span class="ecomment">--</span><span class="ecomment"> Redefine in descendants of REFLECTOR to modify the behavior of inspection queries of REFLECTOR.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_valid_type_string"></a><a class="efeature" href="../base/reflector_helper.html#f_is_valid_type_string">is_valid_type_string</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">s</span><span class="ecomment"> a valid string representation for a TYPE.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="elocal">l_start_pos</span><span class="esymbol">,</span> <span class="elocal">l_end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_class_type_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="elocal">l_parameters</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/reflector_helper.html#f_parameters_decomposition">parameters_decomposition</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span>
+				<span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_general.html#f_adjust">adjust</a>
+				<span class="elocal">l_start_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_index_of">index_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'['</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_end_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+					<span class="ekeyword">if</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_end_pos</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="echar">']'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_end_pos</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_end_pos</span> <span class="esymbol">=</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">l_end_pos</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_occurrences">occurrences</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'['</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_occurrences">occurrences</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">']'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_type_name</span> <span class="esymbol">:=</span> <span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+						<span class="elocal">l_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_general.html#f_adjust">adjust</a>
+						<span class="ekeyword">if</span> <a class="efeature" href="../base/reflector_helper.html#f_is_valid_identifier">is_valid_identifier</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_type_name</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_parameters</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_parameters_decomposition">parameters_decomposition</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_class_type_name</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+							<span class="ekeyword">if</span> <span class="elocal">l_parameters</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+								<span class="ekeyword">from</span>
+									<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+									<span class="elocal">l_parameters</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_start">start</a>
+								<span class="ekeyword">until</span>
+									<span class="elocal">l_parameters</span><span class="edot">.</span><a class="efeature" href="../base/list.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span>
+								<span class="ekeyword">loop</span>
+									<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_is_valid_type_string">is_valid_type_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_parameters</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_item">item</a><span class="esymbol">)</span>
+									<span class="elocal">l_parameters</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_forth">forth</a>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_is_valid_identifier">is_valid_identifier</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_class_type_name</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mapped_type"></a><a class="efeature" href="../base/reflector_helper.html#f_mapped_type">mapped_type</a> <span class="esymbol">(</span><span class="elocal">a_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><a class="efeature" href="../base/reflector_helper.html#f_is_pre_ecma_mapping_disabled">is_pre_ecma_mapping_disabled</a><span class="ecomment"> </span><span class="equoted">a_type</span><span class="ecomment">, otherwise</span>
+			<span class="ecomment">--</span><span class="ecomment"> the mapped typed.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_not_void</span><span class="esymbol">:</span> <span class="elocal">a_type</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_table</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/reflector_helper.html#f_pre_ecma_type_mapping">Pre_ecma_type_mapping</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/reflector_helper.html#f_is_pre_ecma_mapping_disabled">is_pre_ecma_mapping_disabled</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_table</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_pre_ecma_type_mapping">Pre_ecma_type_mapping</a>
+				<span class="elocal">l_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_search">search</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found">found</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found_item">found_item</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_type</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">mapped_type_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: status report</span>
+
+	<a name="f_is_valid_identifier"></a><a class="efeature" href="../base/reflector_helper.html#f_is_valid_identifier">is_valid_identifier</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">s</span><span class="ecomment"> a valid Eiffel identifier?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">name_not_void</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">cc</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="elocal">cc</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">if</span> <span class="elocal">cc</span> <span class="esymbol">=</span> <a class="efeature" href="../base/reflector_helper.html#f_attached_mark">Attached_mark</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">cc</span> <span class="esymbol">=</span> <a class="efeature" href="../base/reflector_helper.html#f_detachable_mark">Detachable_mark</a> <span class="ekeyword">then</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">2</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_substring_index">substring_index</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/reflector_helper.html#f_attached_keyword">Attached_keyword</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_attached_keyword">Attached_keyword</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_substring_index">substring_index</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/reflector_helper.html#f_detachable_keyword">Detachable_keyword</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_detachable_keyword">Detachable_keyword</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_substring_index">substring_index</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/reflector_helper.html#f_expanded_keyword">Expanded_keyword</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector_helper.html#f_expanded_keyword">Expanded_keyword</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">from</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_space">is_space</a>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_alpha">is_alpha</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">from</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">cc</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><span class="elocal">cc</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_alpha">is_alpha</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">cc</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_digit">is_digit</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">cc</span> <span class="esymbol">=</span> <span class="echar">'_'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+							<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Decompose string type</span>
+
+	<a name="f_parameters_decomposition"></a><a class="efeature" href="../base/reflector_helper.html#f_parameters_decomposition">parameters_decomposition</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decompose </span><span class="equoted">a_str</span><span class="ecomment"> which should be of the form &quot;A, B, D </span><span class="ecomment">[G]</span><span class="ecomment">, H [E ,F]&quot;</span>
+			<span class="ecomment">--</span><span class="ecomment"> into a list of strings &quot;A&quot;, &quot;B&quot;, &quot;D </span><span class="ecomment">[G]</span><span class="ecomment">&quot;, &quot;H [E, F]&quot;</span>
+			<span class="ecomment">--</span><span class="ecomment"> If decomposition is not possible, Void.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_str_not_void</span><span class="esymbol">:</span> <span class="elocal">a_str</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_invalid</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_first_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_nesting</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">5</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">l_first_pos</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_invalid</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">inspect</span> <span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="echar">','</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_nesting</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_first_pos</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="elocal">l_first_pos</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">when</span> <span class="echar">'['</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_nesting</span> <span class="esymbol">:=</span> <span class="elocal">l_nesting</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">when</span> <span class="echar">']'</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_nesting</span> <span class="esymbol">:=</span> <span class="elocal">l_nesting</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="elocal">l_invalid</span> <span class="esymbol">:=</span> <span class="elocal">l_nesting</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span>
+				<span class="ekeyword">else</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_invalid</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_nesting</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_first_pos</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> ECMA mapping helper</span>
+
+	<a name="f_pre_ecma_type_mapping"></a><a class="efeature" href="../base/reflector_helper.html#f_pre_ecma_type_mapping">Pre_ecma_type_mapping</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_table.html">STRING_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mapping between pre-ECMA type naming and new names.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">12</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;STRING_8&quot;<span class="esymbol">,</span> &quot;STRING&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;INTEGER_32&quot;<span class="esymbol">,</span> &quot;INTEGER&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;INTEGER_32_REF&quot;<span class="esymbol">,</span> &quot;INTEGER_REF&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;CHARACTER_8&quot;<span class="esymbol">,</span> &quot;CHARACTER&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;CHARACTER_8_REF&quot;<span class="esymbol">,</span> &quot;CHARACTER_REF&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;CHARACTER_32&quot;<span class="esymbol">,</span> &quot;WIDE_CHARACTER&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;CHARACTER_32_REF&quot;<span class="esymbol">,</span> &quot;WIDE_CHARACTER_REF&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;REAL_32&quot;<span class="esymbol">,</span> &quot;REAL&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;REAL_32_REF&quot;<span class="esymbol">,</span> &quot;REAL_REF&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;REAL_64&quot;<span class="esymbol">,</span> &quot;DOUBLE&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;REAL_64_REF&quot;<span class="esymbol">,</span> &quot;DOUBLE_REF&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">pre_ecma_type_mapping_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_attached_mark"></a><a class="efeature" href="../base/reflector_helper.html#f_attached_mark">Attached_mark</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a> <span class="esymbol">=</span> <span class="echar">'!'</span>
+
+	<a name="f_detachable_mark"></a><a class="efeature" href="../base/reflector_helper.html#f_detachable_mark">Detachable_mark</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a> <span class="esymbol">=</span> <span class="echar">'?'</span>
+
+	<a name="f_attached_keyword"></a><a class="efeature" href="../base/reflector_helper.html#f_attached_keyword">Attached_keyword</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;attached&quot;
+
+	<a name="f_detachable_keyword"></a><a class="efeature" href="../base/reflector_helper.html#f_detachable_keyword">Detachable_keyword</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;detachable&quot;
+
+	<a name="f_expanded_keyword"></a><a class="efeature" href="../base/reflector_helper.html#f_expanded_keyword">Expanded_keyword</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;expanded&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Symbols use for attachment marks.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Type creation</span>
+
+	<a name="f_type_keyword"></a><a class="efeature" href="../base/reflector_helper.html#f_type_keyword">Type_keyword</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;TYPE&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Used for creating type objects.</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/reflector_helper.html">REFLECTOR_HELPER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="reflector_helper_chart.html">Chart</a>
+<a class="nav class" href="reflector_helper_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="reflector_helper"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

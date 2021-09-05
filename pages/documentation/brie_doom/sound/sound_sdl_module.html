@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom i_sdlsound.c"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sound_sdl_module Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sound_sdl_module_chart.html">Chart</a>
+<a class="nav class" href="sound_sdl_module_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sound_sdl_module"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;chocolate doom i_sdlsound.c&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/sound/sound_sdl_module.html">SOUND_SDL_MODULE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../brie_doom/sound/sound_module_t.html">SOUND_MODULE_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_sound_initialized"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_use_libsamplerate"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_libsamplerate">Use_libsamplerate</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+
+	<a name="f_use_sfx_prefix"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_sfx_prefix">use_sfx_prefix</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_mixer_freq"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_mixer_format"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_format">mixer_format</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+
+	<a name="f_mixer_channels"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_channels">mixer_channels</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_num_channels"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_channels_playing"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_allocated_sounds_head"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_head">allocated_sounds_head</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+
+	<a name="f_allocated_sounds_tail"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_tail">allocated_sounds_tail</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+
+	<a name="f_allocated_sounds_size"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_size">allocated_sounds_size</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_release_sound_on_channel"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_release_sound_on_channel">release_sound_on_channel</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">snd</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">channel</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_halt_channel">mix_halt_channel</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">snd</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">channel</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_unlock_allocated_sound">unlock_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_pitch">pitch</a> <span class="esymbol">/=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_free_allocated_sound">free_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_free_allocated_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_free_allocated_sound">free_allocated_sound</a> <span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_unlink">allocated_sound_unlink</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_size">allocated_sounds_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_size">allocated_sounds_size</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_alen">alen</a><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lock_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_sound">lock_sound</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_allocated_sound_by_sfx_info_and_pitch">get_allocated_sound_by_sfx_info_and_pitch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sfx">cache_sfx</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_allocated_sound_by_sfx_info_and_pitch">get_allocated_sound_by_sfx_info_and_pitch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a><span class="esymbol">)</span> <span class="ekeyword">as</span> snd
+				<span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_allocated_sound">lock_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_allocated_sound_by_sfx_info_and_pitch"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_allocated_sound_by_sfx_info_and_pitch">get_allocated_sound_by_sfx_info_and_pitch</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">pitch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_head">allocated_sounds_head</a>
+			<span class="ekeyword">until</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_sfxinfo">sfxinfo</a> <span class="esymbol">=</span> <span class="elocal">sfxinfo</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_pitch">pitch</a> <span class="esymbol">=</span> <span class="elocal">pitch</span><span class="esymbol">)</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pitch_shift"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_pitch_shift">pitch_shift</a> <span class="esymbol">(</span><span class="elocal">insnd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">;</span> <span class="elocal">pitch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">inp</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">outp</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">srcbuf</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="elocal">dstbuf</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="elocal">srclen</span><span class="esymbol">,</span> <span class="elocal">dstlen</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">srclen</span> <span class="esymbol">:=</span> <span class="elocal">insnd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_alen">alen</a>
+			<span class="elocal">srcbuf</span> <span class="esymbol">:=</span> <span class="elocal">insnd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mix_chunk.html#f_abuf_managed">abuf_managed</a>
+			<span class="elocal">dstlen</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../../base/real_64.html#f_plus">+</a> <span class="esymbol">(</span><span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../../base/real_64.html#f_minus">-</a> <span class="elocal">pitch</span> <a class="esymbol" href="../../base/integer_32.html#f_quotient">/</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/real_64.html#f_product">*</a> <span class="elocal">srclen</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32.html#f_to_real_64">to_real_64</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/real_64_ref.html#f_floor">floor</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">if</span> <span class="elocal">dstlen</span> <a class="esymbol" href="../../base/natural_32.html#f_integer_remainder">\\</a> <span class="enumber">2</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">dstlen</span> <span class="esymbol">:=</span> <span class="elocal">dstlen</span> <a class="esymbol" href="../../base/natural_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <span class="elocal">insnd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_sfxinfo">sfxinfo</a> <span class="ekeyword">as</span> insnd_sfxinfo
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocate_sound">allocate_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">insnd_sfxinfo</span><span class="esymbol">,</span> <span class="elocal">dstlen</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="ekeyword">Result</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_pitch">pitch</a> <span class="esymbol">:=</span> <span class="elocal">pitch</span>
+				<span class="elocal">dstbuf</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mix_chunk.html#f_abuf_managed">abuf_managed</a>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">dstbuf</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">srcbuf</span>
+				<span class="ekeyword">then</span>
+					<span class="ekeyword">from</span>
+						<span class="elocal">outp</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">outp</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">dstlen</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">inp</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">outp</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_real">to_real</a> <a class="esymbol" href="../../base/real_32.html#f_quotient">/</a> <span class="elocal">dstlen</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32.html#f_to_real_32">to_real_32</a> <a class="esymbol" href="../../base/real_32.html#f_product">*</a> <span class="elocal">srclen</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32.html#f_to_real_32">to_real_32</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/real_32_ref.html#f_floor">floor</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_integer_32">to_integer_32</a>
+						<span class="elocal">dstbuf</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_integer_16">put_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">srcbuf</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16">read_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">inp</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">outp</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span>
+						<span class="elocal">outp</span> <span class="esymbol">:=</span> <span class="elocal">outp</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lock_allocated_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_allocated_sound">lock_allocated_sound</a> <span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Lock a sound, to indicate that it may not be freed.</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_unlink">allocated_sound_unlink</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_link">allocated_sound_link</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocated_sound_unlink"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_unlink">allocated_sound_unlink</a> <span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unlink a sound from the linked list</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_head">allocated_sounds_head</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a> <span class="ekeyword">as</span> prev
+				<span class="ekeyword">then</span>
+					<span class="elocal">prev</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_tail">allocated_sounds_tail</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a> <span class="ekeyword">as</span> next
+				<span class="ekeyword">then</span>
+					<span class="elocal">next</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unlock_allocated_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_unlock_allocated_sound">unlock_allocated_sound</a> <span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unlock a sound to indicate that it may now be freed.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Sound effect released more times than it was locked...&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_init"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_init">init</a> <span class="esymbol">(</span><span class="elocal">a_use_sfx_prefix</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialise sound module</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns True if successfully initialised</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_sfx_prefix">use_sfx_prefix</a> <span class="esymbol">:=</span> <span class="elocal">a_use_sfx_prefix</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_functions_api.html">SDL_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_functions_api.html#f_sdl_init">sdl_init</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_init_audio">sdl_init_audio</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Unable to set up sound&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_error.html">SDL_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_error.html#f_sdl_get_error">sdl_get_error</a><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_open_audio_device">mix_open_audio_device</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_samplerate">snd_samplerate</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio.html">SDL_AUDIO</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio.html#f_audio_s16sys">audio_s16sys</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_slice_size">get_slice_size</a><span class="esymbol">,</span> <a class="efeature" href="../../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_audio_allow_frequency_change">sdl_audio_allow_frequency_change</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Error initialising SDL_mixer: &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data_sdl_mode">expand_sound_data_sdl_mode</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_query_spec">mix_query_spec</a> <span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a><span class="esymbol">,</span> <span class="esymbol">$</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_format">mixer_format</a><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="esymbol">$</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_channels">mixer_channels</a><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Error Mix_QuerySpec&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_libsamplerate">Use_libsamplerate</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;use_libsamplerate=&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_libsamplerate">Use_libsamplerate</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_out">out</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot; but libsamplerate not supported&quot;<span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_allocate_channels">mix_allocate_channels</a> <span class="esymbol">(</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a><span class="esymbol">)</span> <span class="esymbol">/=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <span class="ekeyword">then</span>
+						<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Should not happen! Mix_AllocateChannels(&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot;) returned other value&quot;<span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio_functions_api.html">SDL_AUDIO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_functions_api.html#f_sdl_pause_audio">sdl_pause_audio</a> <span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_expand_sound_data_sdl_mode"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data_sdl_mode">expand_sound_data_sdl_mode</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Use ExpandSoudData_SDL? If not, then ExpandSoundData_SRC</span>
+
+	<a name="f_expand_sound_data"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data">expand_sound_data</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">data</span><span class="esymbol">:</span> <a class="eclass" href="../../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">samplerate</span><span class="esymbol">,</span> <span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data_sdl_mode">expand_sound_data_sdl_mode</a>
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data_sdl">expand_sound_data_sdl</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="elocal">data</span><span class="esymbol">,</span> <span class="elocal">samplerate</span><span class="esymbol">,</span> <span class="elocal">length</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_expand_sound_data_sdl"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data_sdl">expand_sound_data_sdl</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">data</span><span class="esymbol">:</span> <a class="eclass" href="../../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">samplerate</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Generic sound expansion function for any sample rate.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns number of clipped samples (always 0).</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">convertor</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sdl_audio_cvt.html">SDL_AUDIO_CVT</a>
+			<span class="elocal">snd_detachable</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+			<span class="elocal">chunk</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/mix_chunk.html">MIX_CHUNK</a>
+			<span class="elocal">expanded_length</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../base/memory_structure.html#f_make">make</a>
+			<span class="elocal">expanded_length</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">length</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_64">to_natural_64</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/natural_64.html#f_product">*</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_64">to_natural_64</a> <a class="esymbol" href="../../base/natural_64.html#f_integer_quotient">//</a> <span class="elocal">samplerate</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_64">to_natural_64</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_64_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="elocal">expanded_length</span> <span class="esymbol">:=</span> <span class="elocal">expanded_length</span> <a class="esymbol" href="../../base/natural_32.html#f_product">*</a> <span class="enumber">4</span>
+			<span class="elocal">snd_detachable</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocate_sound">allocate_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="elocal">expanded_length</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">snd_detachable</span> <span class="ekeyword">as</span> snd <span class="ekeyword">then</span>
+				<span class="elocal">chunk</span> <span class="esymbol">:=</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a>
+				<span class="ekeyword">if</span> <span class="elocal">samplerate</span> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_convertible_ratio">convertible_ratio</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">samplerate</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a><span class="esymbol">)</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio_functions_api.html">SDL_AUDIO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_functions_api.html#f_sdl_build_audio_cvt">sdl_build_audio_cvt</a> <span class="esymbol">(</span><span class="elocal">convertor</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio.html">SDL_AUDIO</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio.html#f_audio_u8">audio_u8</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_character_8">to_character_8</a><span class="esymbol">,</span> <span class="elocal">samplerate</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_format">mixer_format</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_channels">mixer_channels</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_character_8">to_character_8</a><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_mixer_freq">mixer_freq</a><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_cvt_struct_api.html#f_set_len">set_len</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">length</span><span class="esymbol">)</span>
+					<span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sdl_audio_cvt.html#f_allocate_buf">allocate_buf</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_cvt_struct_api.html#f_len">len</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_cvt_struct_api.html#f_len_mult">len_mult</a><span class="esymbol">)</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">convertor</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sdl_audio_cvt.html#f_buf_managed">buf_managed</a> <span class="ekeyword">as</span> buf
+					<span class="ekeyword">then</span>
+						<span class="elocal">buf</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_memory_copy">memory_copy</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">length</span><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio_functions_api.html">SDL_AUDIO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_functions_api.html#f_sdl_convert_audio">sdl_convert_audio</a> <span class="esymbol">(</span><span class="elocal">convertor</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+							<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Couldn't convert audio &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_error.html">SDL_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_error.html#f_sdl_get_error">sdl_get_error</a><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">attached</span> <span class="elocal">chunk</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mix_chunk.html#f_abuf_managed">abuf_managed</a> <span class="ekeyword">as</span> abuf
+						<span class="ekeyword">then</span>
+							<span class="elocal">abuf</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_memory_copy">memory_copy</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">buf</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">chunk</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_alen">alen</a><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Couldn't convert with SDL&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_convertible_ratio"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_convertible_ratio">convertible_ratio</a> <span class="esymbol">(</span><span class="elocal">freq1</span><span class="esymbol">,</span> <span class="elocal">freq2</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">ratio</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">freq1</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">freq2</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_convertible_ratio">convertible_ratio</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">freq2</span><span class="esymbol">,</span> <span class="elocal">freq1</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">freq2</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_remainder">\\</a> <span class="elocal">freq1</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">ratio</span> <span class="esymbol">:=</span> <span class="elocal">freq2</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="elocal">freq1</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">ratio</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_bit_and">bit_and</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">ratio</span> <span class="esymbol">:=</span> <span class="elocal">ratio</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">ratio</span> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_reserve_cache_space"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_reserve_cache_space">reserve_cache_space</a> <span class="esymbol">(</span><span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Enforce SFX cache size limit. We are just about to allocate &quot;len&quot;</span>
+			<span class="ecomment">--</span><span class="ecomment"> bytes on the heap for a new sound effect, so free up some space</span>
+			<span class="ecomment">--</span><span class="ecomment"> so that we keep allocated_sounds_size &lt; snd_cachesize</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocate_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocate_sound">allocate_sound</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_reserve_cache_space">reserve_cache_space</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">len</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_make">make</a>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mix_chunk.html#f_allocate_abuf">allocate_abuf</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">len</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_set_alen">set_alen</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">len</span><span class="esymbol">)</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_set_allocated">set_allocated</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_chunk_struct_api.html#f_set_volume">set_volume</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix.html#f_mix_max_volume">mix_max_volume</a><span class="edot">.</span><a class="efeature" href="../../base/integer_64.html#f_to_character_8">to_character_8</a><span class="esymbol">)</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_pitch">pitch</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_use_count">use_count</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_sfxinfo">sfxinfo</a> <span class="esymbol">:=</span> <span class="elocal">sfxinfo</span>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_size">allocated_sounds_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_size">allocated_sounds_size</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">len</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_link">allocated_sound_link</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">snd</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocated_sound_link"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sound_link">allocated_sound_link</a> <span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Hook a sound into the linked list at the head</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_head">allocated_sounds_head</a>
+			<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_head">allocated_sounds_head</a> <span class="esymbol">:=</span> <span class="elocal">snd</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_tail">allocated_sounds_tail</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_allocated_sounds_tail">allocated_sounds_tail</a> <span class="esymbol">:=</span> <span class="elocal">snd</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_next">next</a> <span class="ekeyword">as</span> next
+				<span class="ekeyword">then</span>
+					<span class="elocal">next</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_prev">prev</a> <span class="esymbol">:=</span> <span class="elocal">snd</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_slice_size"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_slice_size">get_slice_size</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">limit</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">limit</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_samplerate">snd_samplerate</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_maxslicetime_ms">snd_maxslicetime_ms</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">1000</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="esymbol">(</span><span class="enumber">1</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">limit</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_samplerate">snd_samplerate</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_maxslicetime_ms">snd_maxslicetime_ms</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">1000</span>
+				<span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_samplerate">snd_samplerate</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_maxslicetime_ms">snd_maxslicetime_ms</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">1000</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sound_devices"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_devices">Sound_devices</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List of sound devices that this sound module is used for.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_sb">snddevice_sb</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_pas">snddevice_pas</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_gus">snddevice_gus</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_waveblaster">snddevice_waveblaster</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_soundcanvas">snddevice_soundcanvas</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_awe32">snddevice_awe32</a><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_shutdown"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_shutdown">shutdown</a>
+			<span class="ecomment">--</span><span class="ecomment"> Shutdown sound module</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_close_audio">mix_close_audio</a>
+				<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_functions_api.html">SDL_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_functions_api.html#f_sdl_quit_sub_system">sdl_quit_sub_system</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_init_audio">sdl_init_audio</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_sfx_lump_name"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_sfx_lump_name">get_sfx_lump_name</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">sfx</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">sfxinfo</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_link">link</a> <span class="ekeyword">as</span> link <span class="ekeyword">then</span>
+				<span class="elocal">sfx</span> <span class="esymbol">:=</span> <span class="elocal">link</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">sfx</span> <span class="esymbol">:=</span> <span class="elocal">sfxinfo</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <span class="elocal">sfx</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_name">name</a> <span class="ekeyword">as</span> name
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_sfx_prefix">use_sfx_prefix</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;ds&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">name</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">name</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_sfx_lump_num"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_sfx_lump_num">get_sfx_lump_num</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns the lump index of the given sound.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_sfx_lump_name">get_sfx_lump_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_update">update</a>
+			<span class="ecomment">--</span><span class="ecomment"> Called periodically to update the subsystem.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_is_playing">sound_is_playing</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_release_sound_on_channel">release_sound_on_channel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sound_is_playing"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_is_playing">sound_is_playing</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Query if a sound is playing on the given channel</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_playing">mix_playing</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update_sound_params"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_update_sound_params">update_sound_params</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">,</span> <span class="elocal">vol</span><span class="esymbol">,</span> <span class="elocal">sep</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update the sound settings on the given channel.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">left</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">right</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <span class="ekeyword">then</span>
+				<span class="elocal">left</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="enumber">254</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">sep</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="elocal">vol</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">127</span>
+				<span class="elocal">right</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">sep</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="elocal">vol</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">127</span>
+				<span class="elocal">left</span> <span class="esymbol">:=</span> <span class="elocal">left</span><span class="edot">.</span><a class="efeature" href="../../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">255</span><span class="esymbol">)</span>
+				<span class="elocal">right</span> <span class="esymbol">:=</span> <span class="elocal">right</span><span class="edot">.</span><a class="efeature" href="../../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">255</span><span class="esymbol">)</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_set_panning">mix_set_panning</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">,</span> <span class="elocal">left</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_character_8">to_character_8</a><span class="esymbol">,</span> <span class="elocal">right</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_character_8">to_character_8</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_start_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_start_sound">start_sound</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">vol</span><span class="esymbol">,</span> <span class="elocal">sep</span><span class="esymbol">,</span> <span class="elocal">pitch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Start a sound on a given channel. Returns the channel id</span>
+			<span class="ecomment">--</span><span class="ecomment"> or -1 on failure.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">snd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+			<span class="elocal">newsnd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/allocated_sound_t.html">ALLOCATED_SOUND_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">channel</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">channel</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_release_sound_on_channel">release_sound_on_channel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_sound">lock_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">snd</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_allocated_sound_by_sfx_info_and_pitch">get_allocated_sound_by_sfx_info_and_pitch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="elocal">pitch</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <span class="elocal">snd</span> <span class="ekeyword">then</span>
+						<span class="elocal">snd</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_allocated_sound_by_sfx_info_and_pitch">get_allocated_sound_by_sfx_info_and_pitch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_norm_pitch">norm_pitch</a><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <span class="elocal">snd</span> <span class="ekeyword">then</span>
+							<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+						<span class="ekeyword">else</span>
+							<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_pitchshift">snd_pitchshift</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+								<span class="elocal">newsnd</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_pitch_shift">pitch_shift</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">,</span> <span class="elocal">pitch</span><span class="esymbol">)</span>
+								<span class="ekeyword">if</span> <span class="elocal">newsnd</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+									<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_allocated_sound">lock_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">newsnd</span><span class="esymbol">)</span>
+									<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_unlock_allocated_sound">unlock_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+									<span class="elocal">snd</span> <span class="esymbol">:=</span> <span class="elocal">newsnd</span>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_lock_allocated_sound">lock_allocated_sound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">snd</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">attached</span> <span class="elocal">snd</span> <span class="ekeyword">as</span> attached_snd
+						<span class="ekeyword">then</span>
+							<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix.html#f_mix_play_channel">mix_play_channel</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">attached_snd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/allocated_sound_t.html#f_chunk">chunk</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+							<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_channels_playing">channels_playing</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">channel</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">attached_snd</span>
+						<span class="ekeyword">end</span>
+						<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_update_sound_params">update_sound_params</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">vol</span><span class="esymbol">,</span> <span class="elocal">sep</span><span class="esymbol">)</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">channel</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_stop_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_stop_sound">stop_sound</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Stop the sound playing on the given channel</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_initialized">sound_initialized</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">handle</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_num_channels">Num_channels</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_release_sound_on_channel">release_sound_on_channel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cache_sounds"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sounds">cache_sounds</a> <span class="esymbol">(</span><span class="elocal">sounds</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Called on startup to precache sound effects (if necessary)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_use_libsamplerate">Use_libsamplerate</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sounds_inner">cache_sounds_inner</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sounds</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cache_sounds_inner"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sounds_inner">cache_sounds_inner</a> <span class="esymbol">(</span><span class="elocal">sounds</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">]</span><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Precaching all sound effects...&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">sounds</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">sounds</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_remainder">\\</a> <span class="enumber">6</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;.&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">name</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_get_sfx_lump_name">get_sfx_lump_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sounds</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+				<span class="elocal">sounds</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">sounds</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sfx">cache_sfx</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sounds</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Could not cache sound &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cache_sfx"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_cache_sfx">cache_sfx</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">lumpnum</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">lumplen</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">samplerate</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">data</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">lumpnum</span> <span class="esymbol">:=</span> <span class="elocal">sfxinfo</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a>
+			<span class="elocal">data</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lumpnum</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_static">pu_static</a><span class="esymbol">)</span>
+			<span class="elocal">lumplen</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lumpnum</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">if</span> <span class="elocal">lumplen</span> <a class="esymbol" href="../../base/natural_32.html#f_is_less">&lt;</a> <span class="enumber">8</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8_le">read_natural_8_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">3</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8_le">read_natural_8_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">samplerate</span> <span class="esymbol">:=</span> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="elocal">length</span> <span class="esymbol">:=</span> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_32_le">read_natural_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">length</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">lumplen</span> <a class="esymbol" href="../../base/natural_32.html#f_minus">-</a> <span class="enumber">8</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">length</span> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">48</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">length</span> <span class="esymbol">:=</span> <span class="elocal">length</span> <a class="esymbol" href="../../base/natural_32.html#f_minus">-</a> <span class="enumber">32</span>
+					<span class="ekeyword">create</span> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_share_from_pointer">share_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a> <a class="esymbol" href="../../base/pointer.html#f_plus">+</a> <span class="enumber">16</span><span class="esymbol">,</span> <span class="elocal">length</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_expand_sound_data">expand_sound_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">,</span> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a> <a class="esymbol" href="../../base/pointer.html#f_plus">+</a> <span class="enumber">8</span><span class="esymbol">,</span> <span class="elocal">samplerate</span><span class="esymbol">,</span> <span class="elocal">length</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_releaselumpnum">w_releaselumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lumpnum</span><span class="esymbol">)</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_sound_sdl_module"></a><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_sound_sdl_module">Sound_sdl_module</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_i_main">i_main</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sound_sdl_module.html">SOUND_SDL_MODULE</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/sound_sdl_module.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/sound/sound_sdl_module.html">SOUND_SDL_MODULE</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sound_sdl_module_chart.html">Chart</a>
+<a class="nav class" href="sound_sdl_module_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sound_sdl_module"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

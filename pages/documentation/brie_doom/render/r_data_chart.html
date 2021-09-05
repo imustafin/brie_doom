@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="r_data.c Preparation for data rendering, generation of lookups, caching, retrieval by name."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>r_data Chart</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="r_data_links.html">Relations</a>
+<a class="nav class" href="r_data.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="r_data"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../../brie_doom/render/r_data_chart.html">R_DATA</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../../brie_doom/render/index.html">render</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;r_data.c</span>
+		<span class="estring">Preparation for data rendering,</span>
+		<span class="estring">generation of lookups, caching, retrieval by name.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`colormaps' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/render/lighttable_t_chart.html">LIGHTTABLE_T</a><span class="esymbol">]</span></span>
+	<span title="`firstflat' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_firstflat">firstflat</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`firstspritelump' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_firstspritelump">firstspritelump</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`flattranslation' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_flattranslation">flattranslation</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`lastflat' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_lastflat">lastflat</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`lastspritelump' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_lastspritelump">lastspritelump</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`numflats' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_numflats">numflats</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`numspritelumps' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`numtextures' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`r_checktexturenumforname' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_checktexturenumforname">r_checktexturenumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`r_flatnumforname' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_flatnumforname">r_flatnumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`r_getcolumn' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_getcolumn">r_getcolumn</a> <span class="esymbol">(</span><span class="elocal">tex</span><span class="esymbol">,</span> <span class="elocal">a_col</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/pointers/managed_pointer_with_offset_chart.html">MANAGED_POINTER_WITH_OFFSET</a></span>
+	<span title="`r_texturenumforname' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_texturenumforname">r_texturenumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`spriteoffset' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_spriteoffset">spriteoffset</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`spritetopoffset' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_spritetopoffset">spritetopoffset</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`spritewidth' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_spritewidth">spritewidth</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`texturecolumnlump' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">]</span></span>
+	<span title="`texturecolumnofs' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_16_chart.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">]</span></span>
+	<span title="`texturecomposite' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/managed_pointer_chart.html">MANAGED_POINTER</a><span class="esymbol">]</span></span>
+	<span title="`texturecompositesize' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`textureheight' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_textureheight">textureheight</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`textures' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/texture_t_chart.html">TEXTURE_T</a><span class="esymbol">]</span></span>
+	<span title="`texturetranslation' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`texturewidthmask' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="esymbol">]</span> <a class="eclass" href="../../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`r_drawcolumnincache' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_drawcolumnincache">r_drawcolumnincache</a> <span class="esymbol">(</span><span class="elocal">real_patch</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/patch_t_chart.html">PATCH_T</a><span class="esymbol">;</span> <span class="elocal">col_num</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">cache</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer_chart.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">cache_ofs</span><span class="esymbol">,</span> <span class="elocal">originy</span><span class="esymbol">,</span> <span class="elocal">cacheheight</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`r_generatecomposite' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatecomposite">r_generatecomposite</a> <span class="esymbol">(</span><span class="elocal">texnum</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`r_generatelookup' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatelookup">r_generatelookup</a> <span class="esymbol">(</span><span class="elocal">texnum</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`r_initcolormaps' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initcolormaps">r_initcolormaps</a></span>
+	<span title="`r_initdata' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initdata">r_initdata</a></span>
+	<span title="`r_initflats' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initflats">r_initflats</a></span>
+	<span title="`r_initspritelumps' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initspritelumps">r_initspritelumps</a></span>
+	<span title="`r_inittextures' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_inittextures">r_inittextures</a></span>
+	<span title="`r_precachelevel' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_precachelevel">r_precachelevel</a></span>
+
+</pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="r_data_links.html">Relations</a>
+<a class="nav class" href="r_data.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="r_data"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

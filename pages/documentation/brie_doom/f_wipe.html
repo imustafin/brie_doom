@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="f_wipe.c Mission begin melt/wipe screen special effect."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>f_wipe Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="f_wipe_chart.html">Chart</a>
+<a class="nav class" href="f_wipe_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="f_wipe"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">f_wipe.c</span>
+		<span class="estring">Mission begin melt/wipe screen special effect.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/f_wipe.html">F_WIPE</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/f_wipe.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_wipe_scr_start"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/pixel_t_buffer.html">PIXEL_T_BUFFER</a>
+
+	<a name="f_wipe_scr_end"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/pixel_t_buffer.html">PIXEL_T_BUFFER</a>
+
+	<a name="f_wipe_scr"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/pixel_t_buffer.html">PIXEL_T_BUFFER</a>
+
+	<a name="f_sizeof_wipe_scr"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_sizeof_wipe_scr">Sizeof_wipe_scr</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> sizeof(*wipe_scr)</span>
+
+	<a name="f_go"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_go">go</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_wipe_startscreen"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_startscreen">wipe_startscreen</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">,</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_screenheight">screenheight</a><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_video">I_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/i_video.html#f_i_readscreen">i_readscreen</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_endscreen"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_endscreen">wipe_endscreen</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">,</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_screenheight">screenheight</a><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_video">I_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/i_video.html#f_i_readscreen">i_readscreen</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawblock">v_drawblock</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">,</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_screenwipe"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_screenwipe">wipe_screenwipe</a> <span class="esymbol">(</span><span class="elocal">wipeno</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">rc</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">wipes</span><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/predicate.html">PREDICATE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">wipes</span> <span class="esymbol">:=</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/predicate.html">PREDICATE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">]</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_initcolorxform">wipe_initcolorxform</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_docolorxform">wipe_docolorxform</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_exitcolorxform">wipe_exitcolorxform</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_initmelt">wipe_initmelt</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_domelt">wipe_domelt</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_exitmelt">wipe_exitmelt</a><span class="esymbol">&gt;&gt;</span>
+			<span class="elocal">wipes</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_rebase">rebase</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_go">go</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/f_wipe.html#f_go">go</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_video">I_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/i_video.html#f_i_videobuffer">i_videobuffer</a><span class="esymbol">;</span>
+				<span class="elocal">wipes</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">wipeno</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">3</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/function.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_markrect">v_markrect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">)</span>
+			<span class="elocal">rc</span> <span class="esymbol">:=</span> <span class="elocal">wipes</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">wipeno</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">3</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/function.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">rc</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/f_wipe.html#f_go">go</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span><span class="esymbol">;</span>
+				<span class="elocal">wipes</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">wipeno</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">3</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/function.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_go">go</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> wipe ColorXForm</span>
+
+	<a name="f_wipe_initcolorxform"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_initcolorxform">wipe_initcolorxform</a> <span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_copy_from">copy_from</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_docolorxform"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_docolorxform">wipe_docolorxform</a> <span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">changed</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">w</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">e</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">newval</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">changed</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">w</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">e</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">invariant</span>
+					<span class="elocal">w</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">w</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_p">p</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+					<span class="elocal">e</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">e</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_p">p</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">w</span> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_p">p</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">w</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">w</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="elocal">newval</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">w</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">ticks</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a>
+						<span class="ekeyword">if</span> <span class="elocal">newval</span> <a class="esymbol" href="../base/natural_8.html#f_is_less">&lt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">w</span><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">newval</span><span class="esymbol">,</span> <span class="elocal">w</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">changed</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">w</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_is_less">&lt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="elocal">newval</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">w</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">ticks</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a>
+						<span class="ekeyword">if</span> <span class="elocal">newval</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">e</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">w</span><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">newval</span><span class="esymbol">,</span> <span class="elocal">w</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">changed</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">w</span> <span class="esymbol">:=</span> <span class="elocal">w</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">e</span> <span class="esymbol">:=</span> <span class="elocal">e</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">variant</span>
+					<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_p">p</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">w</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">changed</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_exitcolorxform"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_exitcolorxform">wipe_exitcolorxform</a> <span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> wipe Melt</span>
+
+	<a name="f_melt_y"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_wipe_shittycolmajorxform"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_shittycolmajorxform">wipe_shittycolmajorxform</a> <span class="esymbol">(</span><span class="elocal">array</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/pixel_t_buffer.html">PIXEL_T_BUFFER</a><span class="esymbol">;</span> <span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">dest</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/pixel_t_buffer.html">PIXEL_T_BUFFER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">dest</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">height</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">y</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">y</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">height</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">x</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">width</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">dest</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put_dpixel">put_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">array</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item_dpixel">item_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">y</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">x</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">x</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">height</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">y</span><span class="esymbol">)</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">y</span> <span class="esymbol">:=</span> <span class="elocal">y</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">array</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_copy_from">copy_from</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dest</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_initmelt"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_initmelt">wipe_initmelt</a> <span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_copy_from">copy_from</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_shittycolmajorxform">wipe_shittycolmajorxform</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="esymbol">,</span> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_shittycolmajorxform">wipe_shittycolmajorxform</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="esymbol">,</span> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="esymbol" href="../base/integer_32.html#f_opposite">-</a> <span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_random">M_random</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_random.html#f_m_random">m_random</a> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <span class="enumber">16</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">width</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">r</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_random">M_random</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_random.html#f_m_random">m_random</a> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <span class="enumber">3</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">r</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="enumber">-16</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">-15</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_domelt"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_domelt">wipe_domelt</a> <span class="esymbol">(</span><span class="elocal">a_width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">a_ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">j</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">dy</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">idx</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">width</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="elocal">width</span> <span class="esymbol">:=</span> <span class="elocal">a_width</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span>
+			<span class="elocal">ticks</span> <span class="esymbol">:=</span> <span class="elocal">a_ticks</span>
+			<span class="ekeyword">from</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">ticks</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">width</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">height</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">16</span> <span class="ekeyword">then</span>
+							<span class="elocal">dy</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">else</span>
+							<span class="elocal">dy</span> <span class="esymbol">:=</span> <span class="enumber">8</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">dy</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">height</span> <span class="ekeyword">then</span>
+							<span class="elocal">dy</span> <span class="esymbol">:=</span> <span class="elocal">height</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">from</span>
+							<span class="elocal">s</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">height</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+							<span class="elocal">d</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span>
+							<span class="elocal">idx</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+							<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">dy</span>
+						<span class="ekeyword">until</span>
+							<span class="elocal">j</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+						<span class="ekeyword">loop</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put_dpixel">put_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_end">wipe_scr_end</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item_dpixel">item_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">d</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">idx</span><span class="esymbol">)</span>
+							<span class="elocal">s</span> <span class="esymbol">:=</span> <span class="elocal">s</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+							<span class="elocal">idx</span> <span class="esymbol">:=</span> <span class="elocal">idx</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">width</span>
+							<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">dy</span>
+						<span class="ekeyword">from</span>
+							<span class="elocal">s</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">height</span>
+							<span class="elocal">d</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="elocal">width</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span>
+							<span class="elocal">idx</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+							<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">height</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../brie_doom/f_wipe.html#f_melt_y">melt_y</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+						<span class="ekeyword">until</span>
+							<span class="elocal">j</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+						<span class="ekeyword">loop</span>
+							<a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr">wipe_scr</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_put_dpixel">put_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_scr_start">wipe_scr_start</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/pixel_t_buffer.html#f_item_dpixel">item_dpixel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">d</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">idx</span><span class="esymbol">)</span>
+							<span class="elocal">s</span> <span class="esymbol">:=</span> <span class="elocal">s</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+							<span class="elocal">idx</span> <span class="esymbol">:=</span> <span class="elocal">idx</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">width</span>
+							<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">ticks</span> <span class="esymbol">:=</span> <span class="elocal">ticks</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_exitmelt"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_exitmelt">wipe_exitmelt</a> <span class="esymbol">(</span><span class="elocal">width</span><span class="esymbol">,</span> <span class="elocal">height</span><span class="esymbol">,</span> <span class="elocal">ticks</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> wipenos</span>
+
+	<a name="f_wipe_colorxform"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_colorxform">Wipe_colorxform</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_wipe_melt"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_melt">Wipe_melt</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_wipe_numwipes"></a><a class="efeature" href="../brie_doom/f_wipe.html#f_wipe_numwipes">Wipe_numwipes</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/f_wipe.html">F_WIPE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="f_wipe_chart.html">Chart</a>
+<a class="nav class" href="f_wipe_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="f_wipe"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

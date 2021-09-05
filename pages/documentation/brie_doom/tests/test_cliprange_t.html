@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Summary description for {TEST_CLIPRANGE_T}."/>
+<meta name="author" content=""/>
+<meta name="testing" content="type/manual"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>test_cliprange_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_cliprange_t_chart.html">Chart</a>
+<a class="nav class" href="test_cliprange_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_cliprange_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/tests/test_cliprange_t.html">TEST_CLIPRANGE_T</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">testing</span><span class="esymbol">:</span> <span class="estring">&quot;type/manual&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/tests/test_cliprange_t.html">TEST_CLIPRANGE_T</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../testing/eqa_test_set.html">EQA_TEST_SET</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../testing/eqa_test_set.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_test_is_equal"></a><a class="efeature" href="../../brie_doom/tests/test_cliprange_t.html#f_test_is_equal">test_is_equal</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+			<span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+			<span class="elocal">aa</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="enumber">2</span>
+			<span class="ekeyword">create</span> <span class="elocal">aa</span>
+			<span class="elocal">aa</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="elocal">aa</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="enumber">2</span>
+			<span class="ekeyword">create</span> <span class="elocal">b</span>
+			<span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="enumber">123</span>
+			<span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="enumber">456</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;a ~ aa&quot;<span class="esymbol">,</span> <span class="elocal">a</span> <span class="esymbol">~</span> <span class="elocal">aa</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;a.is_equal(aa)&quot;<span class="esymbol">,</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_is_equal">is_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">aa</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;a /~ b&quot;<span class="esymbol">,</span> <span class="elocal">a</span> <span class="esymbol">/~</span> <span class="elocal">b</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;not a.is_equal(b)&quot;<span class="esymbol">,</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_is_equal">is_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_test_twin"></a><a class="efeature" href="../../brie_doom/tests/test_cliprange_t.html#f_test_twin">test_twin</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+			<span class="elocal">aa</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+			<span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="enumber">2</span>
+			<span class="elocal">aa</span> <span class="esymbol">:=</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_twin">twin</a>
+			<span class="ekeyword">create</span> <span class="elocal">b</span>
+			<span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="enumber">123</span>
+			<span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="enumber">456</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;a ~ aa&quot;<span class="esymbol">,</span> <span class="elocal">a</span> <span class="esymbol">~</span> <span class="elocal">aa</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;a /~ b&quot;<span class="esymbol">,</span> <span class="elocal">a</span> <span class="esymbol">/~</span> <span class="elocal">b</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;aa /~ b&quot;<span class="esymbol">,</span> <span class="elocal">aa</span> <span class="esymbol">/~</span> <span class="elocal">b</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/tests/test_cliprange_t.html">TEST_CLIPRANGE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_cliprange_t_chart.html">Chart</a>
+<a class="nav class" href="test_cliprange_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_cliprange_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

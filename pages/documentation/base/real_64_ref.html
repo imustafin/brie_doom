@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to objects containing a double-precision real number"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>real_64_ref Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="real_64_ref_chart.html">Chart</a>
+<a class="nav class" href="real_64_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="real_64_ref"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;References to objects containing a double-precision real number&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-12-25 09:53:13 +0000 (Mon, 25 Dec 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101206 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/numeric.html">NUMERIC</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/comparable.html">COMPARABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_is_hashable">is_hashable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Numeric double value</span>
+
+
+	<a name="f_hash_code"></a><a class="efeature" href="../base/real_64_ref.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_truncated_to_integer">truncated_to_integer</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_hash_code">hash_code</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sign"></a><a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Sign value (0, -1 or 1)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0.0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <span class="enumber">0.0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">three_way</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/comparable.html#f_three_way_comparison">three_way_comparison</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_zero">zero</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_one"></a><a class="efeature" href="../base/real_64_ref.html#f_one">one</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neutral element for &quot;*&quot; and &quot;/&quot;</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1.0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_zero"></a><a class="efeature" href="../base/real_64_ref.html#f_zero">zero</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neutral element for &quot;+&quot; and &quot;-&quot;</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0.0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_nan"></a><a class="efeature" href="../base/real_64_ref.html#f_nan">nan</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Representation of not a number (NaN)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_class</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_negative_infinity"></a><a class="efeature" href="../base/real_64_ref.html#f_negative_infinity">negative_infinity</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Representation of negative infinity</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_class</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_positive_infinity"></a><a class="efeature" href="../base/real_64_ref.html#f_positive_infinity">positive_infinity</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Representation of positive infinity</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_class</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_min_value"></a><a class="efeature" href="../base/real_64_ref.html#f_min_value">Min_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a> <span class="esymbol">=</span> <span class="enumber">-1.7976931348623157081452e+308</span>
+
+	<a name="f_max_value"></a><a class="efeature" href="../base/real_64_ref.html#f_max_value">Max_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a> <span class="esymbol">=</span> <span class="enumber">1.7976931348623157081452e+308</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum and Maximum value hold in </span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="ecomment">.</span>
+
+	<a name="f_machine_epsilon"></a><a class="efeature" href="../base/real_64_ref.html#f_machine_epsilon">Machine_epsilon</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a> <span class="esymbol">=</span> <span class="enumber">2.2204460492503130808473e-016</span>
+			<span class="ecomment">--</span><span class="ecomment"> The difference between 1 and the least value greater than</span>
+			<span class="ecomment">--</span><span class="ecomment"> 1 that is representable in the given floating point type.</span>
+
+	<a name="f_epsilon"></a><a class="efeature" href="../base/real_64_ref.html#f_epsilon">Epsilon</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a> <span class="esymbol">=</span> <span class="enumber">2.2250738585072013830903e-308</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum normalized positive floating-point number.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_less"></a><a class="efeature" href="../base/real_64_ref.html#f_is_less">is_less</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_is_less">&lt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> greater than current double?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/real_64_ref.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object of the same type</span>
+			<span class="ecomment">--</span><span class="ecomment"> as current object and identical to it?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_item"></a><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">d</span><span class="ecomment"> the </span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">:=</span> <span class="elocal">d</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_divisible"></a><a class="efeature" href="../base/real_64_ref.html#f_divisible">divisible</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be divided by </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">not_exact_zero</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exponentiable"></a><a class="efeature" href="../base/real_64_ref.html#f_exponentiable">exponentiable</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/numeric.html">NUMERIC</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be elevated to the power </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32_ref.html">INTEGER_32_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> integer_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">integer_value</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/real_32_ref.html">REAL_32_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> real_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">real_value</span><span class="edot">.</span><a class="efeature" href="../base/real_32_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0.0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> double_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">double_value</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0.0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">safe_values</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0.0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0.0</span><span class="esymbol">)</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_hashable"></a><a class="efeature" href="../base/real_64_ref.html#f_is_hashable">is_hashable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be hashed?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (True if it is not its type's default.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0.0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_nan"></a><a class="efeature" href="../base/real_64_ref.html#f_is_nan">is_nan</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current the representation of </span><a class="efeature" href="../base/real_64_ref.html#f_nan">nan</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_is_nan">is_nan</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_negative_infinity"></a><a class="efeature" href="../base/real_64_ref.html#f_is_negative_infinity">is_negative_infinity</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current the representation of </span><a class="efeature" href="../base/real_64_ref.html#f_negative_infinity">negative_infinity</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_is_negative_infinity">is_negative_infinity</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_positive_infinity"></a><a class="efeature" href="../base/real_64_ref.html#f_is_positive_infinity">is_positive_infinity</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current the representation of </span><a class="efeature" href="../base/real_64_ref.html#f_positive_infinity">positive_infinity</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_is_positive_infinity">is_positive_infinity</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_make_from_reference"></a><a class="efeature" href="../base/real_64_ref.html#f_make_from_reference">make_from_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with </span><span class="equoted">v.item</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_reference"></a><a class="efeature" href="../base/real_64_ref.html#f_to_reference">to_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated reference of Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_reference_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_truncated_to_integer"></a><a class="efeature" href="../base/real_64_ref.html#f_truncated_to_integer">truncated_to_integer</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer part (Same sign, largest absolute</span>
+			<span class="ecomment">--</span><span class="ecomment"> value no greater than current object's)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_integer">truncated_to_integer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_truncated_to_integer_64"></a><a class="efeature" href="../base/real_64_ref.html#f_truncated_to_integer_64">truncated_to_integer_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer part (Same sign, largest absolute</span>
+			<span class="ecomment">--</span><span class="ecomment"> value no greater than current object's)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_integer_64">truncated_to_integer_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_truncated_to_real"></a><a class="efeature" href="../base/real_64_ref.html#f_truncated_to_real">truncated_to_real</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Real part (Same sign, largest absolute</span>
+			<span class="ecomment">--</span><span class="ecomment"> value no greater than current object's)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_real">truncated_to_real</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ceiling"></a><a class="efeature" href="../base/real_64_ref.html#f_ceiling">ceiling</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Smallest integral value no smaller than current object</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_ceiling_real_64">ceiling_real_64</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_integer">truncated_to_integer</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_no_smaller</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+			<span class="etag">close_enough</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_one">one</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_floor"></a><a class="efeature" href="../base/real_64_ref.html#f_floor">floor</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Greatest integral value no greater than current object</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_floor_real_64">floor_real_64</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_integer">truncated_to_integer</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_no_greater</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+			<span class="etag">close_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_one">one</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_rounded"></a><a class="efeature" href="../base/real_64_ref.html#f_rounded">rounded</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Rounded integral value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="enumber">0.5</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_floor">floor</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="enumber">0.5</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_floor">floor</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ceiling_real_64"></a><a class="efeature" href="../base/real_64_ref.html#f_ceiling_real_64">ceiling_real_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Smallest integral value no smaller than current object</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_ceiling_real_64">ceiling_real_64</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_no_smaller</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+			<span class="etag">close_enough</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_one">one</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_floor_real_64"></a><a class="efeature" href="../base/real_64_ref.html#f_floor_real_64">floor_real_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Greatest integral value no greater than current object</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_floor_real_64">floor_real_64</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_no_greater</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+			<span class="etag">close_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/real_64.html#f_is_less">&lt;</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_one">one</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_rounded_real_64"></a><a class="efeature" href="../base/real_64_ref.html#f_rounded_real_64">rounded_real_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Rounded integral value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="enumber">0.5</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_floor_real_64">floor_real_64</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="enumber">0.5</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_floor_real_64">floor_real_64</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_abs"></a><a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Absolute value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_abs_ref">abs_ref</a><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0.0</span>
+			<span class="etag">same_absolute_value</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="esymbol" href="../base/real_64.html#f_opposite">-</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_plus"></a><a class="efeature" href="../base/real_64_ref.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Sum with </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_minus"></a><a class="efeature" href="../base/real_64_ref.html#f_minus">minus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_minus">-</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Result of subtracting </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_product"></a><a class="efeature" href="../base/real_64_ref.html#f_product">product</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_product">*</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Product with </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_quotient"></a><a class="efeature" href="../base/real_64_ref.html#f_quotient">quotient</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_quotient">/</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Division by </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_quotient">/</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_power"></a><a class="efeature" href="../base/real_64_ref.html#f_power">power</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_power">^</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Current double to the power </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/real_64.html#f_power">^</a> <span class="elocal">other</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_identity"></a><a class="efeature" href="../base/real_64_ref.html#f_identity">identity</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_identity">+</a><span class="esymbol">&quot;</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unary plus</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="esymbol" href="../base/real_64.html#f_identity">+</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_opposite"></a><a class="efeature" href="../base/real_64_ref.html#f_opposite">opposite</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/real_64_ref.html#f_opposite">-</a><span class="esymbol">&quot;</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unary minus</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="esymbol" href="../base/real_64.html#f_opposite">-</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_out"></a><a class="efeature" href="../base/real_64_ref.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Printable representation of double value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_out">out</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_abs_ref"></a><a class="efeature" href="../base/real_64_ref.html#f_abs_ref">abs_ref</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Absolute value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="enumber">0.0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/real_64_ref.html#f_zero">zero</a>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0.0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Current</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="esymbol" href="../base/real_64_ref.html#f_opposite">-</a> <span class="ekeyword">Current</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_exists</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">same_absolute_value</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">Result</span> <span class="esymbol">~</span> <span class="ekeyword">Current</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <span class="esymbol">~</span> <a class="esymbol" href="../base/real_64_ref.html#f_opposite">-</a> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">sign_times_abs</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_is_nan">is_nan</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/real_64_ref.html#f_sign">sign</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <a class="efeature" href="../base/real_64_ref.html#f_abs">abs</a> <span class="esymbol">=</span> <a class="efeature" href="../base/real_64_ref.html#f_item">item</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="real_64_ref_chart.html">Chart</a>
+<a class="nav class" href="real_64_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="real_64_ref"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

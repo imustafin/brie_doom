@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Commonly used console input and output mechanisms.  This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>console Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="console_chart.html">Chart</a>
+<a class="nav class" href="console_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="console"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Commonly used console input and output mechanisms. </span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-10-03 14:39:27 +0000 (Wed, 03 Oct 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102265 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/console.html">CONSOLE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/plain_text_file.html">PLAIN_TEXT_FILE</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/file.html#f_make_open_read">make_open_read</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/console.html#f_make_open_stdin">make_open_stdin</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/file.html#f_make_open_write">make_open_write</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/console.html#f_make_open_stdout">make_open_stdout</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="esymbol">}</span> <a class="efeature" href="../base/file.html#f_open_read">open_read</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_close">close</a>
+			<span class="esymbol">{</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">}</span> <a class="efeature" href="../base/file.html#f_separator">separator</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_append">append</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_integer">last_integer</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_integer_32">last_integer_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_integer_8">last_integer_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_integer_16">last_integer_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_integer_64">last_integer_64</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_natural_8">last_natural_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_natural_16">last_natural_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_natural">last_natural</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_natural_32">last_natural_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_natural_64">last_natural_64</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_file_readable">file_readable</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_lastchar">lastchar</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_lastint">lastint</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_lastreal">lastreal</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_laststring">laststring</a><span class="esymbol">,</span> <a class="efeature" href="../base/io_medium.html#f_lastdouble">lastdouble</a><span class="esymbol">,</span> <a class="efeature" href="../base/sequence.html#f_readable">readable</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_is_closed">is_closed</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_extendible">extendible</a><span class="esymbol">,</span> <a class="efeature" href="../base/file.html#f_is_open_write">is_open_write</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_putint">putint</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_integer">put_integer</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_integer_8">put_integer_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_integer_16">put_integer_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_integer_32">put_integer_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_integer_64">put_integer_64</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_readint">readint</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_integer">read_integer</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_integer_8">read_integer_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_integer_16">read_integer_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_integer_32">read_integer_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_integer_64">read_integer_64</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_natural">put_natural</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_natural_8">put_natural_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_natural_16">put_natural_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_natural_32">put_natural_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_put_natural_64">put_natural_64</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_natural">read_natural</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_natural_8">read_natural_8</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_natural_16">read_natural_16</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_natural_32">read_natural_32</a><span class="esymbol">,</span> <a class="efeature" href="../base/plain_text_file.html#f_read_natural_64">read_natural_64</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/console.html#f_make_open_stdin">make_open_stdin</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_make_open_stdout">make_open_stdout</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_count">Count</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_is_empty">Is_empty</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_exists">exists</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_real">read_real</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_double">read_double</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_character">read_character</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_line">read_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_stream">read_stream</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_word">read_word</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_next_line">next_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_boolean">put_boolean</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_real">put_real</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_double">put_double</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_character">put_character</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_put_new_line">put_new_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_new_line">new_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_end_of_file">end_of_file</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_file_close">file_close</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readreal">readreal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readdouble">readdouble</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readchar">readchar</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readline">readline</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readstream">readstream</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_readword">readword</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_putbool">putbool</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_putreal">putreal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_putdouble">putdouble</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_putstring">putstring</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_putchar">putchar</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_dispose">dispose</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_to_string">read_to_string</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_back">back</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_line_thread_aware">read_line_thread_aware</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_stream_thread_aware">read_stream_thread_aware</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_word_thread_aware">read_word_thread_aware</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_read_integer_with_no_type">read_integer_with_no_type</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_ctoi_convertor">Ctoi_convertor</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/console.html#f_new_cursor">new_cursor</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/any.html">ANY</a>
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/std_files.html">STD_FILES</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/console.html#f_make_open_stdin">make_open_stdin</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/console.html#f_make_open_stdout">make_open_stdout</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/console.html#f_make_open_stderr">make_open_stderr</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_open_stdin"></a><a class="efeature" href="../base/console.html#f_make_open_stdin">make_open_stdin</a> <span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a standard input file.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file.html#f_make_with_name">make_with_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_def">console_def</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_set_read_mode">set_read_mode</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_open_stdout"></a><a class="efeature" href="../base/console.html#f_make_open_stdout">make_open_stdout</a> <span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a standard output file.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file.html#f_make_with_name">make_with_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_def">console_def</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_set_write_mode">set_write_mode</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_open_stderr"></a><a class="efeature" href="../base/console.html#f_make_open_stderr">make_open_stderr</a> <span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a standard error file.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file.html#f_make_with_name">make_with_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">fn</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_def">console_def</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_set_write_mode">set_write_mode</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_end_of_file"></a><a class="efeature" href="../base/console.html#f_end_of_file">end_of_file</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Have we reached the end of file?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_eof">console_eof</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exists"></a><a class="efeature" href="../base/console.html#f_exists">exists</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does file exist?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_count"></a><a class="efeature" href="../base/console.html#f_count">Count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Useless for CONSOLE class.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_dispose"></a><a class="efeature" href="../base/console.html#f_dispose">dispose</a>
+			<span class="ecomment">--</span><span class="ecomment"> This is closed by the operating system at completion.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_back"></a><a class="efeature" href="../base/console.html#f_back">back</a>
+			<span class="ecomment">--</span><span class="ecomment"> Not supported on console</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Iteration</span>
+
+	<a name="f_new_cursor"></a><a class="efeature" href="../base/console.html#f_new_cursor">new_cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/file_iteration_cursor.html">FILE_ITERATION_CURSOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Fresh cursor associated with current structure</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/file.html#f_is_open_read">is_open_read</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/file_iteration_cursor.html#f_make_open_stdin">make_open_stdin</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/file_iteration_cursor.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Input</span>
+
+	<a name="f_read_real"></a><a class="efeature" href="../base/console.html#f_read_real">read_real</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new real from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readreal">readreal</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readreal">console_readreal</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readreal"></a><a class="efeature" href="../base/console.html#f_readreal">readreal</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new real from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_real">read_real</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_real">last_real</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readreal">console_readreal</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_double"></a><a class="efeature" href="../base/console.html#f_read_double">read_double</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new double from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readdouble">readdouble</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readdouble">console_readdouble</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readdouble"></a><a class="efeature" href="../base/console.html#f_readdouble">readdouble</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new double from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_double">read_double</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_double">last_double</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readdouble">console_readdouble</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_line"></a><a class="efeature" href="../base/console.html#f_read_line">read_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string until new line or end of file.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> New line will be consumed but not part of </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readline">readline</a><span class="ecomment">.</span>
+		<span class="ekeyword">require else</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/file.html#f_file_readable">file_readable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_line_thread_aware">read_line_thread_aware</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readline"></a><a class="efeature" href="../base/console.html#f_readline">readline</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string until new line or end of file.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> New line will be consumed but not part of </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_line">read_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">require else</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/file.html#f_file_readable">file_readable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_line_thread_aware">read_line_thread_aware</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_line_thread_aware"></a><a class="efeature" href="../base/console.html#f_read_line_thread_aware">read_line_thread_aware</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read characters until a new line or</span>
+			<span class="ecomment">--</span><span class="ecomment"> end of medium.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Functionally identical to </span><a class="efeature" href="../base/console.html#f_read_line">read_line</a><span class="ecomment"> but</span>
+			<span class="ecomment">--</span><span class="ecomment"> won't prevent garbage collection from occurring</span>
+			<span class="ecomment">--</span><span class="ecomment"> while blocked waiting for data, though data must</span>
+			<span class="ecomment">--</span><span class="ecomment"> be copied an extra time.			</span>
+		<span class="ekeyword">require else</span>
+			<span class="etag">is_readable</span><span class="esymbol">:</span> <a class="efeature" href="../base/file.html#f_file_readable">file_readable</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">str_cap</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">read</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="elocal">l_old_count</span><span class="esymbol">,</span> <span class="elocal">l_new_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_buffer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="elocal">l_buffer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_wipe_out">wipe_out</a>
+				<span class="elocal">str_cap</span> <span class="esymbol">:=</span> <span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_capacity">capacity</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">done</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">read</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readline">console_readline</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">str_cap</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+				<span class="elocal">l_old_count</span> <span class="esymbol">:=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+				<span class="elocal">l_new_count</span> <span class="esymbol">:=</span> <span class="elocal">l_old_count</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">read</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">str_cap</span><span class="esymbol">)</span>
+				<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="elocal">read</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">str_cap</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_grow">grow</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_count</span><span class="esymbol">)</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_copy_to_string">copy_to_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_old_count</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">read</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">str_cap</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_stream"></a><a class="efeature" href="../base/console.html#f_read_stream">read_stream</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readstream">readstream</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_stream_thread_aware">read_stream_thread_aware</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readstream"></a><a class="efeature" href="../base/console.html#f_readstream">readstream</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_stream">read_stream</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_stream_thread_aware">read_stream_thread_aware</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_stream_thread_aware"></a><a class="efeature" href="../base/console.html#f_read_stream_thread_aware">read_stream_thread_aware</a> <span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string of at most </span><span class="equoted">nb_char</span><span class="ecomment"> bound characters</span>
+			<span class="ecomment">--</span><span class="ecomment"> or until end of medium is encountered.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Functionally identical to </span><a class="efeature" href="../base/console.html#f_read_stream">read_stream</a><span class="ecomment"> but</span>
+			<span class="ecomment">--</span><span class="ecomment"> won't prevent garbage collection from occurring</span>
+			<span class="ecomment">--</span><span class="ecomment"> while blocked waiting for data, though data must</span>
+			<span class="ecomment">--</span><span class="ecomment"> be copied an extra time.			</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">new_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_buffer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+			<span class="elocal">l_str</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_str</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="elocal">l_buffer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb_char</span><span class="esymbol">)</span>
+			<span class="elocal">new_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readstream">console_readstream</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">nb_char</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">new_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_str</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_grow">grow</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">new_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_str</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">new_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_read_string_into">read_string_into</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_str</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_word"></a><a class="efeature" href="../base/console.html#f_read_word">read_word</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new word from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readword">readword</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_word_thread_aware">read_word_thread_aware</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readword"></a><a class="efeature" href="../base/console.html#f_readword">readword</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new word from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_word">read_word</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_read_word_thread_aware">read_word_thread_aware</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_word_thread_aware"></a><a class="efeature" href="../base/console.html#f_read_word_thread_aware">read_word_thread_aware</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string, excluding white space and stripping</span>
+			<span class="ecomment">--</span><span class="ecomment"> leading white space.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> White space characters are: blank, new_line, tab,</span>
+			<span class="ecomment">--</span><span class="ecomment"> vertical tab, formfeed, end of file.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">str_cap</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">read</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="elocal">l_old_count</span><span class="esymbol">,</span> <span class="elocal">l_new_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_buffer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a>
+			<span class="elocal">l_buffer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file.html#f_read_data_buffer">Read_data_buffer</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_wipe_out">wipe_out</a>
+				<span class="elocal">str_cap</span> <span class="esymbol">:=</span> <span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_capacity">capacity</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">done</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">read</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readword">console_readword</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">str_cap</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+				<span class="elocal">l_old_count</span> <span class="esymbol">:=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+				<span class="elocal">l_new_count</span> <span class="esymbol">:=</span> <span class="elocal">l_old_count</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">read</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">str_cap</span><span class="esymbol">)</span>
+				<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="elocal">read</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">str_cap</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_grow">grow</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_count</span><span class="esymbol">)</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_copy_to_string">copy_to_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_old_count</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">read</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">str_cap</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/file.html#f_separator">separator</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_separator">console_separator</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_character"></a><a class="efeature" href="../base/console.html#f_read_character">read_character</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new character from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_readchar">readchar</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readchar">console_readchar</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readchar"></a><a class="efeature" href="../base/console.html#f_readchar">readchar</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a new character from standard input.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make result available in </span><a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_read_character">read_character</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/console.html#f_console_readchar">console_readchar</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_next_line"></a><a class="efeature" href="../base/console.html#f_next_line">next_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next input line on standard input.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_next_line">console_next_line</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_put_character"></a><a class="efeature" href="../base/console.html#f_put_character">put_character</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">c</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_putchar">putchar</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pc">console_pc</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">c</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putchar"></a><a class="efeature" href="../base/console.html#f_putchar">putchar</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">c</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_character">put_character</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pc">console_pc</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">c</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_string"></a><a class="efeature" href="../base/console.html#f_put_string">put_string</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">s</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_putstring">putstring</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">external_s</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">external_s</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_area">area</a>
+				<a class="efeature" href="../base/console.html#f_console_ps">console_ps</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">external_s</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putstring"></a><a class="efeature" href="../base/console.html#f_putstring">putstring</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">s</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">external_s</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">external_s</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_area">area</a>
+				<a class="efeature" href="../base/console.html#f_console_ps">console_ps</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">external_s</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_real"></a><a class="efeature" href="../base/console.html#f_put_real">put_real</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">r</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_putreal">putreal</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pr">console_pr</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">r</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putreal"></a><a class="efeature" href="../base/console.html#f_putreal">putreal</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">r</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_real">put_real</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pr">console_pr</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">r</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_double"></a><a class="efeature" href="../base/console.html#f_put_double">put_double</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">d</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_putdouble">putdouble</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pd">console_pd</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">d</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putdouble"></a><a class="efeature" href="../base/console.html#f_putdouble">putdouble</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">d</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_double">put_double</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_pd">console_pd</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">d</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_boolean"></a><a class="efeature" href="../base/console.html#f_put_boolean">put_boolean</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">b</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_putbool">putbool</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">b</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;True&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;False&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putbool"></a><a class="efeature" href="../base/console.html#f_putbool">putbool</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">b</span><span class="ecomment"> at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_boolean">put_boolean</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">b</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;True&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/console.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;False&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_new_line"></a><a class="efeature" href="../base/console.html#f_put_new_line">put_new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write line feed at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_new_line">new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_tnwl">console_tnwl</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_line"></a><a class="efeature" href="../base/console.html#f_new_line">new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write line feed at end of default output.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/console.html#f_put_new_line">put_new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/console.html#f_console_tnwl">console_tnwl</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Inapplicable</span>
+
+	<a name="f_is_empty"></a><a class="efeature" href="../base/console.html#f_is_empty">Is_empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Useless for CONSOLE class.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/file_iteration_cursor.html">FILE_ITERATION_CURSOR</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Iteration</span>
+
+	<a name="f_console_def"></a><a class="efeature" href="../base/console.html#f_console_def">console_def</a> <span class="esymbol">(</span><span class="elocal">number</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convert </span><span class="equoted">number</span><span class="ecomment"> to the corresponding</span>
+			<span class="ecomment">--</span><span class="ecomment"> file descriptor.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_ctoi_convertor"></a><a class="efeature" href="../base/console.html#f_ctoi_convertor">Ctoi_convertor</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_to_integer_convertor.html">STRING_TO_INTEGER_CONVERTOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convertor used to parse string to integer or natural</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_to_integer_convertor.html#f_make">make</a>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_to_numeric_convertor.html#f_set_leading_separators">set_leading_separators</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/plain_text_file.html#f_internal_leading_separators">Internal_leading_separators</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_to_numeric_convertor.html#f_set_leading_separators_acceptable">set_leading_separators_acceptable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_to_numeric_convertor.html#f_set_trailing_separators_acceptable">set_trailing_separators_acceptable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_with_no_type"></a><a class="efeature" href="../base/console.html#f_read_integer_with_no_type">read_integer_with_no_type</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a ASCII representation of number of </span><span class="equoted">type</span>
+			<span class="ecomment">--</span><span class="ecomment"> at current position.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/plain_text_file.html#f_read_number_sequence">read_number_sequence</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/console.html#f_ctoi_convertor">Ctoi_convertor</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/numeric_information.html">NUMERIC_INFORMATION</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/numeric_information.html#f_type_no_limitation">type_no_limitation</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/console.html#f_consume_characters">consume_characters</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_consume_characters"></a><a class="efeature" href="../base/console.html#f_consume_characters">consume_characters</a>
+			<span class="ecomment">--</span><span class="ecomment"> Consume all characters from current position</span>
+			<span class="ecomment">--</span><span class="ecomment"> until we meet a new-line character.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+			<span class="ekeyword">until</span>
+				<a class="efeature" href="../base/console.html#f_end_of_file">end_of_file</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/io_medium.html#f_last_character">last_character</a> <span class="esymbol">=</span> <span class="echar">'%N'</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/console.html#f_read_character">read_character</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_to_string"></a><a class="efeature" href="../base/console.html#f_read_to_string">read_to_string</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">pos</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Fill </span><span class="equoted">a_string</span><span class="ecomment">, starting at position </span><span class="equoted">pos</span><span class="ecomment"> with at</span>
+			<span class="ecomment">--</span><span class="ecomment"> most </span><span class="equoted">nb</span><span class="ecomment"> characters read from current file.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Return the number of characters actually read.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file.html#f_file_gss">file_gss</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file.html#f_file_pointer">file_pointer</a><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item_address">item_address</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_general.html#f_reset_hash_codes">reset_hash_codes</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_eof"></a><a class="efeature" href="../base/console.html#f_console_eof">console_eof</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *): EIF_BOOLEAN use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_separator"></a><a class="efeature" href="../base/console.html#f_console_separator">console_separator</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> ASCII code of character following last word read</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *): EIF_CHARACTER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_ps"></a><a class="efeature" href="../base/console.html#f_console_ps">console_ps</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write string </span><span class="equoted">s</span><span class="ecomment"> at end of </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *, char *, EIF_INTEGER) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_pr"></a><a class="efeature" href="../base/console.html#f_console_pr">console_pr</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write real </span><span class="equoted">r</span><span class="ecomment"> at end of </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *, EIF_REAL) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_pc"></a><a class="efeature" href="../base/console.html#f_console_pc">console_pc</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write character </span><span class="equoted">c</span><span class="ecomment"> at end of </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *, EIF_CHARACTER) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_pd"></a><a class="efeature" href="../base/console.html#f_console_pd">console_pd</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write double </span><span class="equoted">d</span><span class="ecomment"> at end of </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *, EIF_DOUBLE) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_pi"></a><a class="efeature" href="../base/console.html#f_console_pi">console_pi</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write integer </span><span class="equoted">i</span><span class="ecomment"> at end of </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *, EIF_INTEGER) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_tnwl"></a><a class="efeature" href="../base/console.html#f_console_tnwl">console_tnwl</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a new_line to </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readreal"></a><a class="efeature" href="../base/console.html#f_console_readreal">console_readreal</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a real number from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *): EIF_REAL use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readchar"></a><a class="efeature" href="../base/console.html#f_console_readchar">console_readchar</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a character from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *): EIF_CHARACTER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readint"></a><a class="efeature" href="../base/console.html#f_console_readint">console_readint</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read an integer from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *): EIF_INTEGER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readdouble"></a><a class="efeature" href="../base/console.html#f_console_readdouble">console_readdouble</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a double from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *): EIF_DOUBLE use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readword"></a><a class="efeature" href="../base/console.html#f_console_readword">console_readword</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">length</span><span class="esymbol">,</span> <span class="elocal">begin</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a string excluding white space and stripping</span>
+			<span class="ecomment">--</span><span class="ecomment"> leading white space from </span><span class="equoted">file</span><span class="ecomment"> into </span><span class="equoted">a_string</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> White space characters are: blank, new_line,</span>
+			<span class="ecomment">--</span><span class="ecomment"> tab, vertical tab, formfeed or end of file.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If it does not fit, result is </span><span class="equoted">length</span><span class="ecomment"> - </span><span class="equoted">begin</span><span class="ecomment"> + 1,</span>
+			<span class="ecomment">--</span><span class="ecomment"> otherwise result is number of characters read.</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *, char *, EIF_INTEGER, EIF_INTEGER): EIF_INTEGER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readline"></a><a class="efeature" href="../base/console.html#f_console_readline">console_readline</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">length</span><span class="esymbol">,</span> <span class="elocal">begin</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a stream from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *, char *, EIF_INTEGER, EIF_INTEGER): EIF_INTEGER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_next_line"></a><a class="efeature" href="../base/console.html#f_console_next_line">console_next_line</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next input line on standard input.</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_console_readstream"></a><a class="efeature" href="../base/console.html#f_console_readstream">console_readstream</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a stream from the console</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking signature (FILE *, char *, EIF_INTEGER): EIF_INTEGER use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_close"></a><a class="efeature" href="../base/console.html#f_file_close">file_close</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Close </span><span class="equoted">file</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (FILE *) use %&quot;eif_console.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;console_file_close&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/console.html">CONSOLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="console_chart.html">Chart</a>
+<a class="nav class" href="console_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="console"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

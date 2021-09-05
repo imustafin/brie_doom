@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="w_wad.c"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>filelump_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="filelump_t_chart.html">Chart</a>
+<a class="nav class" href="filelump_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="filelump_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;w_wad.c&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/filelump_t.html">FILELUMP_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/filelump_t.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../brie_doom/filelump_t.html#f_read_bytes">read_bytes</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_filepos"></a><a class="efeature" href="../brie_doom/filelump_t.html#f_filepos">filepos</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_size"></a><a class="efeature" href="../brie_doom/filelump_t.html#f_size">size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_name"></a><a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/filelump_t.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_filepos</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/filelump_t.html#f_filepos">filepos</a><span class="esymbol">;</span> <span class="elocal">a_size</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/filelump_t.html#f_size">size</a><span class="esymbol">;</span> <span class="elocal">a_name</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/filelump_t.html#f_filepos">filepos</a> <span class="esymbol">:=</span> <span class="elocal">a_filepos</span>
+			<a class="efeature" href="../brie_doom/filelump_t.html#f_size">size</a> <span class="esymbol">:=</span> <span class="elocal">a_size</span>
+			<a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a> <span class="esymbol">:=</span> <span class="elocal">a_name</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_bytes"></a><a class="efeature" href="../brie_doom/filelump_t.html#f_read_bytes">read_bytes</a> <span class="esymbol">(</span><span class="elocal">a_file</span><span class="esymbol">:</span> <a class="eclass" href="../base/raw_file.html">RAW_FILE</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">16</span><span class="esymbol">)</span>
+			<span class="elocal">a_file</span><span class="edot">.</span><a class="efeature" href="../base/raw_file.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">16</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/filelump_t.html#f_filepos">filepos</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/filelump_t.html#f_size">size</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a> <span class="esymbol">:=</span> &quot;&quot;
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">8</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">16</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">c</span> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_character">read_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span> <span class="esymbol">/~</span> <span class="echar">'%U'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/filelump_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_character">read_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">17</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/filelump_t.html">FILELUMP_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="filelump_t_chart.html">Chart</a>
+<a class="nav class" href="filelump_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="filelump_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

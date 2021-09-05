@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="cliprange_t from r_bsp.c  ClipWallSegment Clips the given range of columns and includes it in the new clip list."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>cliprange_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="cliprange_t_chart.html">Chart</a>
+<a class="nav class" href="cliprange_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="cliprange_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">cliprange_t from r_bsp.c</span>
+		
+		<span class="estring">ClipWallSegment</span>
+		<span class="estring">Clips the given range of columns</span>
+		<span class="estring">and includes it in the new clip list.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/cliprange_t.html">CLIPRANGE_T</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../brie_doom/cliprange_t.html#f_out">out</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_first"></a><a class="efeature" href="../brie_doom/cliprange_t.html#f_first">first</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/cliprange_t.html#f_set_first">set_first</a>
+
+	<a name="f_set_first"></a><a class="efeature" href="../brie_doom/cliprange_t.html#f_set_first">set_first</a> <span class="esymbol">(</span><span class="elocal">a_first</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/cliprange_t.html#f_first">first</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/cliprange_t.html#f_first">first</a> <span class="esymbol">:=</span> <span class="elocal">a_first</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last"></a><a class="efeature" href="../brie_doom/cliprange_t.html#f_last">last</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/cliprange_t.html#f_set_last">set_last</a>
+
+	<a name="f_set_last"></a><a class="efeature" href="../brie_doom/cliprange_t.html#f_set_last">set_last</a> <span class="esymbol">(</span><span class="elocal">a_last</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/cliprange_t.html#f_last">last</a> <span class="esymbol">:=</span> <span class="elocal">a_last</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_out"></a><a class="efeature" href="../brie_doom/cliprange_t.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> New string containing terse printable representation</span>
+			<span class="ecomment">--</span><span class="ecomment"> of current object</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;(&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../brie_doom/cliprange_t.html#f_first">first</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;, &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../brie_doom/cliprange_t.html#f_last">last</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;)&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/cliprange_t.html">CLIPRANGE_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="cliprange_t_chart.html">Chart</a>
+<a class="nav class" href="cliprange_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="cliprange_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

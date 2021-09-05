@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Object store for interpreter"/>
+<meta name="author" content="Andreas Leitner"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2010, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>itp_store Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_store_chart.html">Chart</a>
+<a class="nav class" href="itp_store_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_store"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Object store for interpreter</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Andreas Leitner&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-05-20 23:15:17 +0000 (Mon, 20 May 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92557 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/itp_store.html">ITP_STORE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/refactoring_helper.html">REFACTORING_HELPER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/itp_store.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/itp_store.html#f_make">make</a>
+			<span class="ecomment">--</span><span class="ecomment"> Create new store</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_store.html#f_default_capacity">Default_capacity</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_store.html#f_default_capacity">Default_capacity</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_variable_defined"></a><a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a> <span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the slot at position </span><span class="equoted">a_index</span><span class="ecomment"> used for store some (possibly Void) variable?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_index_positive</span><span class="esymbol">:</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">good_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_expression_defined"></a><a class="efeature" href="../testing/itp_store.html#f_is_expression_defined">is_expression_defined</a> <span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">:</span> <a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is expression defined in the context of this store? An</span>
+			<span class="ecomment">--</span><span class="ecomment"> expression is defined iff it is a constant or a variable</span>
+			<span class="ecomment">--</span><span class="ecomment"> which is defined in this store.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_expression_not_void</span><span class="esymbol">:</span> <span class="elocal">an_expression</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../testing/itp_variable.html">ITP_VARIABLE</a><span class="esymbol">}</span> <span class="elocal">an_expression</span> <span class="ekeyword">as</span> l_variable <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_variable</span><span class="edot">.</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_variable_value"></a><a class="efeature" href="../testing/itp_store.html#f_variable_value">variable_value</a> <span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Value of variable at index </span><span class="equoted">a_index</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_index_large_enough</span><span class="esymbol">:</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+			<span class="etag">a_index_valid</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">good_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_expression_value"></a><a class="efeature" href="../testing/itp_store.html#f_expression_value">expression_value</a> <span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">:</span> <a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Value of expression </span><span class="equoted">an_expression</span><span class="ecomment"> in the context of this store.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_expression_not_void</span><span class="esymbol">:</span> <span class="elocal">an_expression</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_expression_defined</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_is_expression_defined">is_expression_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../testing/itp_variable.html">ITP_VARIABLE</a><span class="esymbol">}</span> <span class="elocal">an_expression</span> <span class="ekeyword">as</span> l_variable <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_store.html#f_variable_value">variable_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_variable</span><span class="edot">.</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../testing/itp_constant.html">ITP_CONSTANT</a><span class="esymbol">}</span> <span class="elocal">an_expression</span> <span class="ekeyword">as</span> l_constant <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_constant</span><span class="edot">.</span><a class="efeature" href="../testing/itp_constant.html#f_value">value</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">type_not_supported</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic routines</span>
+
+	<a name="f_assign_value"></a><a class="efeature" href="../testing/itp_store.html#f_assign_value">assign_value</a> <span class="esymbol">(</span><span class="elocal">a_value</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Assign the value </span><span class="equoted">a_value</span><span class="ecomment"> to variable named </span><span class="equoted">a_name</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_index_large_enough</span><span class="esymbol">:</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_value</span><span class="esymbol">,</span> <span class="elocal">a_index</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">,</span> <span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">a_value_assigned</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">a_value</span>
+			<span class="etag">variable_defined</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_assign_expression"></a><a class="efeature" href="../testing/itp_store.html#f_assign_expression">assign_expression</a> <span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">:</span> <a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a><span class="esymbol">;</span> <span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Assign the value of expression </span><span class="equoted">an_expression</span><span class="ecomment"> to variable at index </span><span class="equoted">a_index</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_expression_not_void</span><span class="esymbol">:</span> <span class="elocal">an_expression</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_expression_defined</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_is_expression_defined">is_expression_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">)</span>
+			<span class="etag">a_index_large_enough</span><span class="esymbol">:</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_store.html#f_assign_value">assign_value</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_store.html#f_expression_value">expression_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_expression</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">variable_defined</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_arguments"></a><a class="efeature" href="../testing/itp_store.html#f_arguments">arguments</a> <span class="esymbol">(</span><span class="elocal">an_expression_list</span><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Arguments with the values from </span><span class="equoted">an_expression_list</span>
+			<span class="ecomment">--</span><span class="ecomment"> using </span><span class="equoted">variables</span><span class="ecomment"> to lookup variable values or </span><span class="equoted">Void</span>
+			<span class="ecomment">--</span><span class="ecomment"> in case of an error</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_expression_list_not_void</span><span class="esymbol">:</span> <span class="elocal">an_expression_list</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">expression</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">count</span> <span class="esymbol">:=</span> <span class="elocal">an_expression_list</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">count</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">count</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">expression</span> <span class="esymbol">:=</span> <span class="elocal">an_expression_list</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">expression</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/itp_store.html#f_is_expression_defined">is_expression_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">expression</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_store.html#f_expression_value">expression_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">expression</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_storage"></a><a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Variables and their attached values</span>
+
+	<a name="f_storage_flag"></a><a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Flag to decide if an object at index is defined.</span>
+
+	<a name="f_default_capacity"></a><a class="efeature" href="../testing/itp_store.html#f_default_capacity">Default_capacity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1000</span>
+			<span class="ecomment">--</span><span class="ecomment"> Default capacity for </span><a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="ecomment"> and </span><a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="ecomment">.</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">storage_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">storage_flag_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">storage_count_same_as_storage_flag_count</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_store.html#f_storage">storage</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_store.html#f_storage_flag">storage_flag</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2010, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/itp_store.html">ITP_STORE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_store_chart.html">Chart</a>
+<a class="nav class" href="itp_store_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_store"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

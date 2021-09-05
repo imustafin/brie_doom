@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Objects that redirect file output into a buffer. If the output exceeds the size of the buffer, only the first and the last part of the output are kept in the buffer."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>eqa_test_output_buffer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_test_output_buffer_chart.html">Chart</a>
+<a class="nav class" href="eqa_test_output_buffer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_test_output_buffer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Objects that redirect file output into a buffer. If the output exceeds the size of the buffer,</span>
+		<span class="estring">only the first and the last part of the output are kept in the buffer.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-05-20 23:15:17 +0000 (Mon, 20 May 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92557 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/plain_text_file.html">PLAIN_TEXT_FILE</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/file.html#f_make">make</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/file.html#f_make">make_file</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/file.html#f_wipe_out">wipe_out</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/file.html#f_wipe_out">wipe_out_file</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_count">count</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_exists">Exists</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_readable">readable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_boolean">put_boolean</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_real">put_real</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_double">put_double</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_character">put_character</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_new_line">put_new_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_new_line">new_line</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_end_of_file">end_of_file</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_file_close">file_close</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putbool">putbool</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putreal">putreal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putdouble">putdouble</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putstring">putstring</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putchar">putchar</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_dispose">dispose</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_back">back</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_flush">flush</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_size</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_size</span><span class="ecomment">: Buffer size limiting amount of text which will be buffered</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_size_greater_one</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">3</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <span class="elocal">a_size</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file.html#f_mode">mode</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/file.html#f_write_file">Write_file</a>
+			<a class="efeature" href="../base/file.html#f_set_name">set_name</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;test_output_buffer&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/io_medium.html#f_last_string">last_string</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_buffer_size"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Buffer size limiting amount of text which will be buffered</span>
+
+	<a name="f_count"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_count">count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size in bytes (0 if no associated physical file)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_content"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_content">content</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Not truncated content printed to buffer</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_truncated</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_leading_content"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_leading_content">leading_content</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a>
+			<span class="ecomment">--</span><span class="ecomment"> First part of buffer (before truncated section)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">truncated</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_pos</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_closing_content"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_closing_content">closing_content</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Second part of buffer (after truncated section)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">truncated</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_pos</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_pos</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_formatted_content"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_formatted_content">formatted_content</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Buffered content formatted in a printable way</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">100</span><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_leading_content">leading_content</a><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_m_truncated">M_truncated</a><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_closing_content">closing_content</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_content">content</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_buffer"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Buffer containing first part of output</span>
+
+	<a name="f_split_position"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Position where content is truncated</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_truncated_start_position"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Position in </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_closing_content">closing_content</a><span class="ecomment"> representing beginning of actual content</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_truncated"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Has middle part of content been truncated?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exists"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_exists">Exists</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Does physical file exist?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Uses effective UID.)</span>
+
+	<a name="f_readable"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_readable">readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there a current item that may be read?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sequence.html#f_writable">writable</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Empty buffer</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_wipe_out">wipe_out</a>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_put_string"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Append string to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_string</span><span class="ecomment">: String to be appended to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putstring">putstring</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_split</span><span class="esymbol">,</span> <span class="elocal">l_capacity</span><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">l_new_tsp</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ccount1</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_chunk1</span><span class="esymbol">,</span> <span class="elocal">l_chunk2</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_split</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_capacity</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_split</span>
+				<span class="ekeyword">if</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_capacity</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_start</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_capacity</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_capacity</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_start</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_ccount1</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">l_new_tsp</span> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_ccount1</span>
+					<span class="elocal">l_chunk1</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">l_start</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_ccount1</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_chunk1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+					<span class="elocal">l_chunk2</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_ccount1</span><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_chunk2</span><span class="esymbol">,</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_new_tsp</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_new_tsp</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_string">append_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putstring"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putstring">putstring</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Append string to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_string</span><span class="ecomment">: String to be appended to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_split</span><span class="esymbol">,</span> <span class="elocal">l_capacity</span><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">l_new_tsp</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ccount1</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_chunk1</span><span class="esymbol">,</span> <span class="elocal">l_chunk2</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_split</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_capacity</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_split</span>
+				<span class="ekeyword">if</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_capacity</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_start</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_capacity</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_capacity</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_start</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_ccount1</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">l_new_tsp</span> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_ccount1</span>
+					<span class="elocal">l_chunk1</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">l_start</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_ccount1</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_chunk1</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+					<span class="elocal">l_chunk2</span> <span class="esymbol">:=</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_ccount1</span><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_chunk2</span><span class="esymbol">,</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_new_tsp</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_new_tsp</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring">replace_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_string">append_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_character"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_character">put_character</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Append character to buffer.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">c</span><span class="ecomment">: Character to be appended to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putchar">putchar</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_split</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_split</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putchar"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putchar">putchar</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Append character to buffer.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">c</span><span class="ecomment">: Character to be appended to </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_character">put_character</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_split</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_split</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <span class="elocal">l_split</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_boolean"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_boolean">put_boolean</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value of </span><span class="equoted">b</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putbool">putbool</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putbool"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putbool">putbool</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value of </span><span class="equoted">b</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_boolean">put_boolean</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_new_line"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_new_line">put_new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write a new line character at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_new_line">new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_character">put_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_line"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_new_line">new_line</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write a new line character at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_new_line">put_new_line</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_character">put_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_double"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_double">put_double</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value </span><span class="equoted">d</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putdouble">putdouble</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">d</span><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putdouble"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putdouble">putdouble</a> <span class="esymbol">(</span><span class="elocal">d</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value </span><span class="equoted">d</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_double">put_double</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">d</span><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_real"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_real">put_real</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value of </span><span class="equoted">r</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putreal">putreal</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">r</span><span class="edot">.</span><a class="efeature" href="../base/real_32.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_putreal"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_putreal">putreal</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write ASCII value of </span><span class="equoted">r</span><span class="ecomment"> at current position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_real">put_real</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_output_buffer.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">r</span><span class="edot">.</span><a class="efeature" href="../base/real_32.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_flush"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_flush">flush</a>
+			<span class="ecomment">--</span><span class="ecomment"> Flush buffered data to disk.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note that there is no guarantee that the operating</span>
+			<span class="ecomment">--</span><span class="ecomment"> system will physically write the data to the disk.</span>
+			<span class="ecomment">--</span><span class="ecomment"> At least it will end up in the buffer cache,</span>
+			<span class="ecomment">--</span><span class="ecomment"> making the data visible to other processes.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic functionality: file</span>
+
+	<a name="f_dispose"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_dispose">dispose</a>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure this medium is closed when garbage collected.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_back"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_back">back</a>
+			<span class="ecomment">--</span><span class="ecomment"> Go back one position.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_end_of_file"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_end_of_file">end_of_file</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Has an EOF been detected?</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_close"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_file_close">file_close</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Close </span><span class="equoted">file</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Constants</span>
+
+	<a name="f_m_truncated"></a><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_m_truncated">M_truncated</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;%N%N---------------------------%NTruncated section%N---------------------------%N%N&quot;
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">buffer_capacity_at_least_buffer_size</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_capacity">capacity</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a>
+	<span class="etag">buffer_count_not_greater_buffer_size</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a>
+	<span class="etag">valid_truncated_start_position</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_truncated_start_position">truncated_start_position</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_split_position">split_position</a><span class="esymbol">)</span>
+	<span class="etag">truncated_implies_buffer_full</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_is_truncated">is_truncated</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/eqa_test_output_buffer.html#f_buffer_size">buffer_size</a><span class="esymbol">)</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/eqa_test_output_buffer.html">EQA_TEST_OUTPUT_BUFFER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_test_output_buffer_chart.html">Chart</a>
+<a class="nav class" href="eqa_test_output_buffer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_test_output_buffer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

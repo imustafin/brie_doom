@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom i_sdlmusic.c System interface for music."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>music_sdl_module Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="music_sdl_module_chart.html">Chart</a>
+<a class="nav class" href="music_sdl_module_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="music_sdl_module"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">chocolate doom i_sdlmusic.c</span>
+		<span class="estring">System interface for music.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/sound/music_sdl_module.html">MUSIC_SDL_MODULE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../brie_doom/sound/music_module_t.html">MUSIC_MODULE_T</a>
+
+	<a class="eclass" href="../../base/execution_environment.html">EXECUTION_ENVIRONMENT</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_music_initialized"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_sdl_was_initialized"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_was_initialized">sdl_was_initialized</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_musicpaused"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_musicpaused">musicpaused</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_current_music_volume"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_current_music_volume">current_music_volume</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_maxmidlength"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_maxmidlength">Maxmidlength</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">96</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">1024</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_music_sdl_module"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_sdl_module">Music_sdl_module</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/music_sdl_module.html">MUSIC_SDL_MODULE</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sound_devices"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sound_devices">Sound_devices</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List of sound devices that the music module is used for.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_pas">snddevice_pas</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_gus">snddevice_gus</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_waveblaster">snddevice_waveblaster</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_soundcanvas">snddevice_soundcanvas</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_genmidi">snddevice_genmidi</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snddevice_awe32">snddevice_awe32</a><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_poll"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_poll">poll</a>
+			<span class="ecomment">--</span><span class="ecomment"> Invoked periodically to poll.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_is_initialized"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_is_initialized">sdl_is_initialized</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">freq</span><span class="esymbol">,</span> <span class="elocal">channels</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">format</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_16.html">NATURAL_16</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_query_spec">mix_query_spec</a> <span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">freq</span><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">format</span><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">channels</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_init"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_init">init</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize music subsystem</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_is_initialized">sdl_is_initialized</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_functions_api.html">SDL_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_functions_api.html#f_sdl_init">sdl_init</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_init_audio">sdl_init_audio</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Unable to set up sound.%N&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">elseif</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_open_audio_device">mix_open_audio_device</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/sound/i_sound.html">I_SOUND</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_samplerate">snd_samplerate</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio.html">SDL_AUDIO</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio.html#f_audio_s16sys">audio_s16sys</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">,</span> <span class="enumber">1024</span><span class="esymbol">,</span> <a class="efeature" href="../../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_audio_allow_frequency_change">sdl_audio_allow_frequency_change</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Error initializing SDL_mixer: &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_functions_api.html">SDL_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_functions_api.html#f_sdl_quit_sub_system">sdl_quit_sub_system</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_init_audio">sdl_init_audio</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_audio_functions_api.html">SDL_AUDIO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_audio_functions_api.html#f_sdl_pause_audio">sdl_pause_audio</a> <span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+					<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_was_initialized">sdl_was_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_init">mix_init</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_init_flags_enum_api.html">MIX_INIT_FLAGS_ENUM_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_init_flags_enum_api.html#f_mix_init_mid">mix_init_mid</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_sound">I_sound</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_musiccmd">Snd_musiccmd</a><span class="edot">.</span><a class="efeature" href="../../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_set_music_cmd">mix_set_music_cmd</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/c_string.html">C_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/c_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_sound">I_sound</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_musiccmd">Snd_musiccmd</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/c_string.html#f_item">item</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Could not Mix_SetMusicCMD &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_playsong"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_playsong">playsong</a> <span class="esymbol">(</span><span class="elocal">a_handle</span><span class="esymbol">:</span> <a class="eclass" href="../../sdl2_mixer/mix_music_struct_api.html">MIX_MUSIC_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">looping</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Start playing a mid</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">loops</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_handle</span> <span class="ekeyword">as</span> handle <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_midipipe">I_midipipe</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_midipipe.html#f_midi_server_registered">midi_server_registered</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">looping</span> <span class="ekeyword">then</span>
+						<span class="elocal">loops</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">loops</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_play_music">mix_play_music</a> <span class="esymbol">(</span><span class="elocal">a_handle</span><span class="esymbol">,</span> <span class="elocal">loops</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Could not Mix_PlayMusic &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_mid"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_is_mid">is_mid</a> <span class="esymbol">(</span><span class="elocal">mem</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Determine whether memory block is a .mid file</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">mem</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">4</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">mem</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../../base/pointer_ref.html#f_memory_compare">memory_compare</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/c_string.html">C_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/c_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;MThd&quot;<span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="enumber">4</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_registersong"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_registersong">registersong</a> <span class="esymbol">(</span><span class="elocal">data</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../sdl2_mixer/mix_music_struct_api.html">MIX_MUSIC_STRUCT_API</a>
+			<span class="ecomment">--</span><span class="ecomment"> Register a song handle from data</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns a handle that can be used to play the song</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">filename</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="elocal">filename</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_m_misc">M_misc</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_misc.html#f_m_tempfile">m_tempfile</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;doom.mid&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_is_mid">is_mid</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">data</span><span class="esymbol">)</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">data</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_maxmidlength">Maxmidlength</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_m_misc">M_misc</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_misc.html#f_m_writefile_managed_pointer">m_writefile_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">filename</span><span class="esymbol">,</span> <span class="elocal">data</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Could not write temp file%N&quot;<span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_convertmus">convertmus</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">data</span><span class="esymbol">,</span> <span class="elocal">len</span><span class="esymbol">,</span> <span class="elocal">filename</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix.html#f_mix_load_mus">mix_load_mus</a> <span class="esymbol">(</span><span class="elocal">filename</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Error loading midi: &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix_error.html">MIX_ERROR</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix_error.html#f_get_error">get_error</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_sound">I_sound</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/i_sound.html#f_snd_musiccmd">Snd_musiccmd</a><span class="edot">.</span><a class="efeature" href="../../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_convertmus"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_convertmus">convertmus</a> <span class="esymbol">(</span><span class="elocal">musdata</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">filename</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">mus2mid</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/mus2mid/mus2mid.html">MUS2MID</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">mus2mid</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mus2mid/mus2mid.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">musdata</span><span class="esymbol">)</span>
+			<span class="elocal">mus2mid</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mus2mid/mus2mid.html#f_fill_output">fill_output</a>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_m_misc">M_misc</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_misc.html#f_m_writefile_list">m_writefile_list</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">filename</span><span class="esymbol">,</span> <span class="elocal">mus2mid</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Error writing midi file &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">filename</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_stopsong"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_stopsong">stopsong</a>
+			<span class="ecomment">--</span><span class="ecomment"> Stop playing the current song.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_halt_music">mix_halt_music</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Could not Mix_HaltMusic&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_resumemusic"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_resumemusic">resumemusic</a>
+			<span class="ecomment">--</span><span class="ecomment"> Un-pause music</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_musicpaused">musicpaused</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_updatemusicvolume">updatemusicvolume</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_updatemusicvolume"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_updatemusicvolume">updatemusicvolume</a>
+			<span class="ecomment">--</span><span class="ecomment"> SDL_mixer's native MIDI music playing does not pause properly.</span>
+			<span class="ecomment">--</span><span class="ecomment"> As a workaround, set the volume to 0 when paused</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">vol</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_musicpaused">musicpaused</a> <span class="ekeyword">then</span>
+				<span class="elocal">vol</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">vol</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_current_music_volume">current_music_volume</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_integer_64">to_integer_64</a> <a class="esymbol" href="../../base/integer_64.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix.html#f_mix_max_volume">mix_max_volume</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_64.html#f_integer_quotient">//</a> <span class="enumber">127</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_64_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">end</span>
+			<span class="elocal">vol</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_volume_music">mix_volume_music</a> <span class="esymbol">(</span><span class="elocal">vol</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unregistersong"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_unregistersong">unregistersong</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../sdl2_mixer/mix_music_struct_api.html">MIX_MUSIC_STRUCT_API</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Un-register (free) song data</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">handle</span> <span class="ekeyword">as</span> h <span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_free_music">mix_free_music</a> <span class="esymbol">(</span><span class="elocal">h</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_shutdown"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_shutdown">shutdown</a>
+			<span class="ecomment">--</span><span class="ecomment"> Shutdown the music subsystem</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_halt_music">mix_halt_music</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Could not Mix_HaltMusic&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_was_initialized">sdl_was_initialized</a> <span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_close_audio">mix_close_audio</a>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_functions_api.html">SDL_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_functions_api.html#f_sdl_quit_sub_system">sdl_quit_sub_system</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_constant_api.html#f_sdl_init_audio">sdl_init_audio</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+					<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_sdl_was_initialized">sdl_was_initialized</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_music_volume"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_set_music_volume">set_music_volume</a> <span class="esymbol">(</span><span class="elocal">vol</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set music volume - range 0-127</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_current_music_volume">current_music_volume</a> <span class="esymbol">:=</span> <span class="elocal">vol</span>
+			<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_updatemusicvolume">updatemusicvolume</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pause_music"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_pause_music">pause_music</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pause music</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_musicpaused">musicpaused</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_updatemusicvolume">updatemusicvolume</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_music_is_playing"></a><a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_is_playing">music_is_playing</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Query if music is playing.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/sound/music_sdl_module.html#f_music_initialized">music_initialized</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../sdl2_mixer/mix.html#f_mix_playing_music">mix_playing_music</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/sound/music_sdl_module.html">MUSIC_SDL_MODULE</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="music_sdl_module_chart.html">Chart</a>
+<a class="nav class" href="music_sdl_module_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="music_sdl_module"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

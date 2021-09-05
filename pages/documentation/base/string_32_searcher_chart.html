@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Helper to perform efficient search of a string in another one. Note: The algorithm used is the one described in Communications of the ACM, Tvolume 33, number 8, August 1990, by Daniel M. Sunday. The fuzzy Tversion was presented by Peter R. Sibbald in Communications of the TACM, volume 35, number 4, April 1992 (Technical Correspondance)."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>string_32_searcher Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="string_32_searcher_links.html">Relations</a>
+<a class="nav class" href="string_32_searcher.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="string_32_searcher"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../base/string_32_searcher_chart.html">STRING_32_SEARCHER</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">elks</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;Helper to perform efficient search of a string in another one.</span>
+		<span class="estring">Note: The algorithm used is the one described in Communications of the ACM,</span>
+		<span class="estring">volume 33, number 8, August 1990, by Daniel M. Sunday. The fuzzy</span>
+		<span class="estring">version was presented by Peter R. Sibbald in Communications of the</span>
+		<span class="estring">ACM, volume 35, number 4, April 1992 (Technical Correspondance).&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_searcher.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/string_searcher_chart.html">STRING_SEARCHER</a><span class="echar">*</span>
+
+<span class="ekeyword">Queries</span>
+	<span title="`fuzzy_index' is declared in `Current'"><a class="efeature" href="../base/string_32_searcher.html#f_fuzzy_index">fuzzy_index</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/string_32_searcher.html#f_string_type">string_type</a><span class="esymbol">]</span> <a class="eclass" href="../base/readable_string_32_chart.html">READABLE_STRING_32</a><span class="esymbol">;</span> <span class="elocal">a_pattern</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">,</span> <span class="elocal">fuzzy</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`max_code_point_value' is declared in `Current'"><a class="efeature" href="../base/string_32_searcher.html#f_max_code_point_value">Max_code_point_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`string_type' is declared in `Current'"><a class="efeature" href="../base/string_32_searcher.html#f_string_type">string_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32_chart.html">READABLE_STRING_32</a></span>
+	<span title="`substring_index' was declared in STRING_SEARCHER"><a class="efeature" href="../base/string_searcher.html#f_substring_index">substring_index</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/string_32_searcher.html#f_string_type">string_type</a><span class="esymbol">]</span> <a class="eclass" href="../base/readable_string_32_chart.html">READABLE_STRING_32</a><span class="esymbol">;</span> <span class="elocal">a_pattern</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`substring_index_list_with_deltas' was declared in STRING_SEARCHER"><a class="efeature" href="../base/string_searcher.html#f_substring_index_list_with_deltas">substring_index_list_with_deltas</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/string_32_searcher.html#f_string_type">string_type</a><span class="esymbol">]</span> <a class="eclass" href="../base/readable_string_32_chart.html">READABLE_STRING_32</a><span class="esymbol">;</span> <span class="elocal">a_pattern</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list_chart.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`substring_index_with_deltas' is declared in `Current'"><a class="efeature" href="../base/string_32_searcher.html#f_substring_index_with_deltas">substring_index_with_deltas</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/string_32_searcher.html#f_string_type">string_type</a><span class="esymbol">]</span> <a class="eclass" href="../base/readable_string_32_chart.html">READABLE_STRING_32</a><span class="esymbol">;</span> <span class="elocal">a_pattern</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`initialize_deltas' was declared in STRING_SEARCHER"><a class="efeature" href="../base/string_searcher.html#f_initialize_deltas">initialize_deltas</a> <span class="esymbol">(</span><span class="elocal">a_pattern</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="string_32_searcher_links.html">Relations</a>
+<a class="nav class" href="string_32_searcher.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="string_32_searcher"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

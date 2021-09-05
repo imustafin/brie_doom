@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Encoding of arbitrary objects graphs between different version of programs containing types that might have changed and for which the retrieving system may know how to fix the mismatches."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2013, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_recoverable_serializer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_recoverable_serializer_chart.html">Chart</a>
+<a class="nav class" href="sed_recoverable_serializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_recoverable_serializer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Encoding of arbitrary objects graphs between different version of</span>
+		<span class="estring">programs containing types that might have changed and for which the</span>
+		<span class="estring">retrieving system may know how to fix the mismatches.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-06-27 12:21:14 +0000 (Thu, 27 Jun 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92746 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/sed_basic_serializer.html">SED_BASIC_SERIALIZER</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/sed_recoverable_serializer.html#f_write_header">write_header</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_write_header"></a><a class="efeature" href="../base/sed_recoverable_serializer.html#f_write_header">write_header</a> <span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_type_table</span><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write header of storable.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_attr_dtype_table</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_recoverable_serializer.html#f_attributes_dynamic_types">attributes_dynamic_types</a>
+			<span class="elocal">l_dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_reflector</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="elocal">l_is_independent_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_reflector</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_write_settings">write_settings</a>
+			<span class="elocal">l_is_independent_serializer</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/sed_session_serializer.html#f_is_store_settings_enabled">is_store_settings_enabled</a>
+			<span class="elocal">l_attr_dtype_table</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_recoverable_serializer.html#f_attributes_dynamic_types">attributes_dynamic_types</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_table</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_start">start</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_after">after</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item_for_iteration">item_for_iteration</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_type_name_of_type">type_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_forth">forth</a>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_is_independent_serializer</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_6_6">version_6_6</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_storable_version_of_type">storable_version_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_version <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_version</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_8.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_version</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_attr_dtype_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">l_attr_dtype_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_start">start</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_attr_dtype_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_after">after</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_attr_dtype_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item_for_iteration">item_for_iteration</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_type_name_of_type">type_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">l_attr_dtype_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_forth">forth</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_start">start</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_after">after</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item_for_iteration">item_for_iteration</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_recoverable_serializer.html#f_write_attributes">write_attributes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_forth">forth</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_write_object_table">write_object_table</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_attributes_dynamic_types"></a><a class="efeature" href="../base/sed_recoverable_serializer.html#f_attributes_dynamic_types">attributes_dynamic_types</a> <span class="esymbol">(</span><span class="elocal">a_type_table</span><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Table of dynamic types of attributes appearing in </span><span class="equoted">a_type_table</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If encountering an expanded type inside one of the type of </span><span class="equoted">a_type_table</span><span class="ecomment">,</span>
+			<span class="ecomment">--</span><span class="ecomment"> we add it to </span><span class="equoted">a_type_table</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_table_not_void</span><span class="esymbol">:</span> <span class="elocal">a_type_table</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_reflector</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_obj_dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_reflector</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_start">start</a>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">500</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_after">after</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">l_obj_dtype</span> <span class="esymbol">:=</span> <span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item_for_iteration">item_for_iteration</a>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_count_of_type">field_count_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj_dtype</span><span class="esymbol">)</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_is_field_transient_of_type">is_field_transient_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">l_obj_dtype</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_static_type_of_type">field_static_type_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">l_obj_dtype</span><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="ekeyword">if</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_is_field_expanded_of_type">is_field_expanded_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">l_obj_dtype</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+								<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_dtype</span><span class="esymbol">)</span>
+							<span class="ekeyword">else</span>
+								<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_dtype</span><span class="esymbol">)</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">a_type_table</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_forth">forth</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">attributes_dynamic_types_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_attributes"></a><a class="efeature" href="../base/sed_recoverable_serializer.html#f_write_attributes">write_attributes</a> <span class="esymbol">(</span><span class="elocal">a_dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write attribute description for type whose dynamic type id is </span><span class="equoted">a_dtype</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_dtype_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_dtype</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_reflector</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_reflector</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_persistent_field_count_of_type">persistent_field_count_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_dtype</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_count_of_type">field_count_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_dtype</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_is_field_transient_of_type">is_field_transient_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">a_dtype</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_static_type_of_type">field_static_type_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">a_dtype</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_name_of_type">field_name_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">a_dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2013, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_recoverable_serializer_chart.html">Chart</a>
+<a class="nav class" href="sed_recoverable_serializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_recoverable_serializer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

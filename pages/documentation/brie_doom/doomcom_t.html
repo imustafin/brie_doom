@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="d_net.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>doomcom_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="doomcom_t_chart.html">Chart</a>
+<a class="nav class" href="doomcom_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="doomcom_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;d_net.h&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/doomcom_t.html">DOOMCOM_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/doomcom_t.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_make">make</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_data">data</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdata_t.html#f_make">make</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_id"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_id">id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_id">set_id</a>
+			<span class="ecomment">--</span><span class="ecomment"> supposed to be DOOMCOM_ID?</span>
+
+	<a name="f_set_id"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_id">set_id</a> <span class="esymbol">(</span><span class="elocal">a_id</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_id">id</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_id">id</a> <span class="esymbol">:=</span> <span class="elocal">a_id</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Info common to all nodes.</span>
+
+	<a name="f_numnodes"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_numnodes">numnodes</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_numnodes">set_numnodes</a>
+			<span class="ecomment">--</span><span class="ecomment"> Console is allways node 0.</span>
+
+	<a name="f_ticdup"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_ticdup">ticdup</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_ticdup">set_ticdup</a>
+			<span class="ecomment">--</span><span class="ecomment"> Flag: 1 = no duplication, 2-5 = dup for slow nets.</span>
+
+	<a name="f_extratics"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_extratics">extratics</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_extratics">set_extratics</a>
+			<span class="ecomment">--</span><span class="ecomment"> Flag: 1 = send backup tic in every packet.</span>
+
+	<a name="f_deathmatch"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_deathmatch">deathmatch</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_deathmatch">set_deathmatch</a>
+			<span class="ecomment">--</span><span class="ecomment"> Flag: 1 = deathmatch</span>
+
+	<a name="f_set_deathmatch"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_deathmatch">set_deathmatch</a> <span class="esymbol">(</span><span class="elocal">a_deathmatch</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_deathmatch">deathmatch</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_deathmatch">deathmatch</a> <span class="esymbol">:=</span> <span class="elocal">a_deathmatch</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_numnodes"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_numnodes">set_numnodes</a> <span class="esymbol">(</span><span class="elocal">a_numnodes</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_numnodes">numnodes</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_numnodes">numnodes</a> <span class="esymbol">:=</span> <span class="elocal">a_numnodes</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_ticdup"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_ticdup">set_ticdup</a> <span class="esymbol">(</span><span class="elocal">a_ticdup</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_ticdup">ticdup</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_ticdup">ticdup</a> <span class="esymbol">:=</span> <span class="elocal">a_ticdup</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_extratics"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_extratics">set_extratics</a> <span class="esymbol">(</span><span class="elocal">a_extratics</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_extratics">extratics</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_extratics">extratics</a> <span class="esymbol">:=</span> <span class="elocal">a_extratics</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Info specific to this node.</span>
+
+	<a name="f_numplayers"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_numplayers">numplayers</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_numplayers">set_numplayers</a>
+
+	<a name="f_set_numplayers"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_numplayers">set_numplayers</a> <span class="esymbol">(</span><span class="elocal">a_numplayers</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_numplayers">numplayers</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_numplayers">numplayers</a> <span class="esymbol">:=</span> <span class="elocal">a_numplayers</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_consoleplayer"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_consoleplayer">consoleplayer</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_set_consoleplayer">set_consoleplayer</a>
+
+	<a name="f_set_consoleplayer"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_set_consoleplayer">set_consoleplayer</a> <span class="esymbol">(</span><span class="elocal">a_consoleplayer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/doomcom_t.html#f_consoleplayer">consoleplayer</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/doomcom_t.html#f_consoleplayer">consoleplayer</a> <span class="esymbol">:=</span> <span class="elocal">a_consoleplayer</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_data"></a><a class="efeature" href="../brie_doom/doomcom_t.html#f_data">data</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/doomdata_t.html">DOOMDATA_T</a>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/doomcom_t.html">DOOMCOM_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="doomcom_t_chart.html">Chart</a>
+<a class="nav class" href="doomcom_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="doomcom_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

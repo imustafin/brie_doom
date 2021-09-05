@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Finite structures whose item count is subject to change"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="storage"/>
+<meta name="size" content="resizable"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>resizable Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="resizable_chart.html">Chart</a>
+<a class="nav class" href="resizable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="resizable"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Finite structures whose item count is subject to change&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> storage
+	<span class="eitag">size</span><span class="esymbol">:</span> resizable
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2012-07-23 21:02:19 +0000 (Mon, 23 Jul 2012) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 91989 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/resizable.html">RESIZABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/bounded.html">BOUNDED</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_growth_percentage"></a><a class="efeature" href="../base/resizable.html#f_growth_percentage">Growth_percentage</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">50</span>
+			<span class="ecomment">--</span><span class="ecomment"> Percentage by which structure will grow automatically</span>
+
+	<a name="f_minimal_increase"></a><a class="efeature" href="../base/resizable.html#f_minimal_increase">Minimal_increase</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">5</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimal number of additional items</span>
+
+	<a name="f_additional_space"></a><a class="efeature" href="../base/resizable.html#f_additional_space">additional_space</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Proposed number of additional items</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/resizable.html#f_minimal_increase">Minimal_increase</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">at_least_one</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_resizable"></a><a class="efeature" href="../base/resizable.html#f_resizable">resizable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May </span><a class="efeature" href="../base/bounded.html#f_capacity">capacity</a><span class="ecomment"> be changed? (Answer: yes.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Resizing</span>
+
+	<a name="f_automatic_grow"></a><a class="efeature" href="../base/resizable.html#f_automatic_grow">automatic_grow</a>
+			<span class="ecomment">--</span><span class="ecomment"> Change the capacity to accommodate at least</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/resizable.html#f_growth_percentage">Growth_percentage</a><span class="ecomment"> more items.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">resizable</span><span class="esymbol">:</span> <a class="efeature" href="../base/resizable.html#f_resizable">resizable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/resizable.html#f_grow">grow</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/resizable.html#f_additional_space">additional_space</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">increased_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/resizable.html#f_additional_space">additional_space</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_grow"></a><a class="efeature" href="../base/resizable.html#f_grow">grow</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure that capacity is at least </span><span class="equoted">i</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">resizable</span><span class="esymbol">:</span> <a class="efeature" href="../base/resizable.html#f_resizable">resizable</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">new_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">i</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_trim"></a><a class="efeature" href="../base/resizable.html#f_trim">trim</a>
+			<span class="ecomment">--</span><span class="ecomment"> Decrease </span><a class="efeature" href="../base/bounded.html#f_capacity">capacity</a><span class="ecomment"> to the minimum value.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply to reduce allocated storage.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_count</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/finite.html#f_count">count</a>
+			<span class="etag">minimal_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/bounded.html#f_capacity">capacity</a> <span class="esymbol">=</span> <a class="efeature" href="../base/finite.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">increase_by_at_least_one</span><span class="esymbol">:</span> <a class="efeature" href="../base/resizable.html#f_minimal_increase">Minimal_increase</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/resizable.html">RESIZABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="resizable_chart.html">Chart</a>
+<a class="nav class" href="resizable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="resizable"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

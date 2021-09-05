@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="st_number_t with it's functions from st_lib.c"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>st_number Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="st_number_chart.html">Chart</a>
+<a class="nav class" href="st_number_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="st_number"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;st_number_t with it's functions from st_lib.c&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/status_bar/st_number.html">ST_NUMBER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_x</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a><span class="esymbol">;</span> <span class="elocal">a_y</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">;</span> <span class="elocal">a_p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a><span class="esymbol">;</span> <span class="elocal">a_num</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a><span class="esymbol">;</span> <span class="elocal">a_on</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_on">on</a><span class="esymbol">;</span> <span class="elocal">a_width</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_width">width</a><span class="esymbol">;</span> <span class="elocal">a_i_main</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a> <span class="esymbol">:=</span> <span class="elocal">a_x</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a> <span class="esymbol">:=</span> <span class="elocal">a_y</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_oldnum">oldnum</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_width">width</a> <span class="esymbol">:=</span> <span class="elocal">a_width</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a> <span class="esymbol">:=</span> <span class="elocal">a_num</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_on">on</a> <span class="esymbol">:=</span> <span class="elocal">a_on</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a> <span class="esymbol">:=</span> <span class="elocal">a_p</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_x"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> upper right-hand corner</span>
+			<span class="ecomment">--</span><span class="ecomment"> of the number (right-justified)</span>
+
+	<a name="f_y"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> upper right-hand corner</span>
+			<span class="ecomment">--</span><span class="ecomment"> of the number (right-justified)</span>
+
+	<a name="f_width"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_width">width</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> max # of digits in number</span>
+
+	<a name="f_oldnum"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_oldnum">oldnum</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> last number value</span>
+
+	<a name="f_num"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a><span class="esymbol">:</span> <a class="eclass" href="../../base/function.html">FUNCTION</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_set_num">set_num</a>
+			<span class="ecomment">--</span><span class="ecomment"> pointer to current value</span>
+
+	<a name="f_set_num"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_set_num">set_num</a> <span class="esymbol">(</span><span class="elocal">a_num</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a> <span class="esymbol">:=</span> <span class="elocal">a_num</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_on"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_on">on</a><span class="esymbol">:</span> <a class="eclass" href="../../base/predicate.html">PREDICATE</a>
+			<span class="ecomment">--</span><span class="ecomment"> pointer to boolean stating</span>
+			<span class="ecomment">--</span><span class="ecomment"> whether to update number</span>
+
+	<a name="f_p"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> list of patches for 0-9</span>
+
+	<a name="f_data"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_data">data</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_set_data">set_data</a>
+			<span class="ecomment">--</span><span class="ecomment"> user data</span>
+
+	<a name="f_set_data"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_set_data">set_data</a> <span class="esymbol">(</span><span class="elocal">a_data</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_data">data</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_data">data</a> <span class="esymbol">:=</span> <span class="elocal">a_data</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_update"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">refresh</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_on">on</a><span class="edot">.</span><a class="efeature" href="../../base/function.html#f_item">item</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_draw">draw</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">refresh</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_draw"></a><a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_draw">draw</a> <span class="esymbol">(</span><span class="elocal">refreh</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> A fairly efficient way to draw a number</span>
+			<span class="ecomment">--</span><span class="ecomment"> based on differences from the old number.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: worth the trouble?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">numdigits</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_num</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">w</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">h</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_x</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">neg</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">numdigits</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_width">width</a>
+			<span class="elocal">l_num</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a><span class="edot">.</span><a class="efeature" href="../../base/function.html#f_item">item</a>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> p0
+			<span class="ekeyword">then</span>
+				<span class="elocal">w</span> <span class="esymbol">:=</span> <span class="elocal">p0</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="elocal">h</span> <span class="esymbol">:=</span> <span class="elocal">p0</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_height">height</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_x</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a>
+			<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_oldnum">oldnum</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_num">num</a><span class="edot">.</span><a class="efeature" href="../../base/function.html#f_item">item</a>
+			<span class="elocal">neg</span> <span class="esymbol">:=</span> <span class="elocal">l_num</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span>
+			<span class="ekeyword">if</span> <span class="elocal">neg</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">numdigits</span> <span class="esymbol">=</span> <span class="enumber">2</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_num</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">-9</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_num</span> <span class="esymbol">:=</span> <span class="enumber">-9</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">numdigits</span> <span class="esymbol">=</span> <span class="enumber">3</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_num</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">-99</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_num</span> <span class="esymbol">:=</span> <span class="enumber">-99</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_x</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">numdigits</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="elocal">w</span>
+			<span class="ekeyword">check</span>
+					<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/status_bar/st_stuff.html">ST_STUFF</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/status_bar/st_stuff.html#f_st_y">st_y</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_st_stuff">St_stuff</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/status_bar/st_stuff.html#f_st_backing_screen">st_backing_screen</a> <span class="ekeyword">as</span> sb
+			<span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/v_video.html#f_v_copyrect">v_copyrect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_x</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/status_bar/st_stuff.html">ST_STUFF</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/status_bar/st_stuff.html#f_st_y">st_y</a><span class="esymbol">,</span> <span class="elocal">sb</span><span class="esymbol">,</span> <span class="elocal">w</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="elocal">numdigits</span><span class="esymbol">,</span> <span class="elocal">h</span><span class="esymbol">,</span> <span class="elocal">l_x</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_num</span> <span class="esymbol">=</span> <span class="enumber">1994</span> <span class="ekeyword">then</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_x</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_item">item</a>
+				<span class="ekeyword">if</span> <span class="elocal">l_num</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> p0
+					<span class="ekeyword">then</span>
+						<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/v_video.html#f_v_drawpatch">v_drawpatch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_x</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">w</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">,</span> <span class="elocal">p0</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">l_num</span> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">numdigits</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_x</span> <span class="esymbol">:=</span> <span class="elocal">l_x</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">w</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_p">p</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">l_num</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_remainder">\\</a> <span class="enumber">10</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> pnum
+					<span class="ekeyword">then</span>
+						<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/v_video.html#f_v_drawpatch">v_drawpatch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_x</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">,</span> <span class="elocal">pnum</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_num</span> <span class="esymbol">:=</span> <span class="elocal">l_num</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">10</span>
+					<span class="elocal">numdigits</span> <span class="esymbol">:=</span> <span class="elocal">numdigits</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">neg</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_st_lib">St_lib</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_sttminus">sttminus</a> <span class="ekeyword">as</span> sm <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/v_video.html#f_v_drawpatch">v_drawpatch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_x</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">8</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a><span class="esymbol">,</span> <span class="elocal">sm</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">x_not_changed</span><span class="esymbol">:</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_x">x</a>
+			<span class="etag">y_not_changed</span><span class="esymbol">:</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../../brie_doom/status_bar/st_number.html#f_y">y</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/status_bar/st_number.html">ST_NUMBER</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="st_number_chart.html">Chart</a>
+<a class="nav class" href="st_number_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="st_number"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

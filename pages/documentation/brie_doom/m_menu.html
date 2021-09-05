@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="m_menu.c DOOM selection menu, options, episodes etc. Sliders and icons. Kinda widget stuff."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>m_menu Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_menu_chart.html">Chart</a>
+<a class="nav class" href="m_menu_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_menu"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">m_menu.c</span>
+		<span class="estring">DOOM selection menu, options, episodes etc.</span>
+		<span class="estring">Sliders and icons. Kinda widget stuff.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/m_menu.html">M_MENU</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/m_menu.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/m_menu.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagestring">messagestring</a> <span class="esymbol">:=</span> &quot;&quot;
+			<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> defaulted values</span>
+
+	<a name="f_mousesensitivity"></a><a class="efeature" href="../brie_doom/m_menu.html#f_mousesensitivity">mousesensitivity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/m_menu.html#f_set_mousesensitivity">set_mousesensitivity</a>
+			<span class="ecomment">--</span><span class="ecomment"> has default</span>
+
+	<a name="f_set_mousesensitivity"></a><a class="efeature" href="../brie_doom/m_menu.html#f_set_mousesensitivity">set_mousesensitivity</a> <span class="esymbol">(</span><span class="elocal">a_mousesensitivity</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_mousesensitivity">mousesensitivity</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_mousesensitivity">mousesensitivity</a> <span class="esymbol">:=</span> <span class="elocal">a_mousesensitivity</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_showmessages"></a><a class="efeature" href="../brie_doom/m_menu.html#f_showmessages">showmessages</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/m_menu.html#f_set_showmessages">set_showmessages</a>
+			<span class="ecomment">--</span><span class="ecomment"> Show messages has default, 0 = off, 1 = on</span>
+
+	<a name="f_set_showmessages"></a><a class="efeature" href="../brie_doom/m_menu.html#f_set_showmessages">set_showmessages</a> <span class="esymbol">(</span><span class="elocal">a_showmessages</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_showmessages">showmessages</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_showmessages">showmessages</a> <span class="esymbol">:=</span> <span class="elocal">a_showmessages</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_detaillevel"></a><a class="efeature" href="../brie_doom/m_menu.html#f_detaillevel">detaillevel</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/m_menu.html#f_set_screenblocks">set_screenblocks</a>
+			<span class="ecomment">--</span><span class="ecomment"> Blocky mode, has default, 0 = high, 1 = normal</span>
+
+	<a name="f_set_detaillevel"></a><a class="efeature" href="../brie_doom/m_menu.html#f_set_detaillevel">set_detaillevel</a> <span class="esymbol">(</span><span class="elocal">a_detaillevel</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_detaillevel">detaillevel</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_detaillevel">detaillevel</a> <span class="esymbol">:=</span> <span class="elocal">a_detaillevel</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_screenblocks"></a><a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/m_menu.html#f_set_screenblocks">set_screenblocks</a>
+
+	<a name="f_set_screenblocks"></a><a class="efeature" href="../brie_doom/m_menu.html#f_set_screenblocks">set_screenblocks</a> <span class="esymbol">(</span><span class="elocal">a_screenblocks</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a> <span class="esymbol">:=</span> <span class="elocal">a_screenblocks</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_lineheight"></a><a class="efeature" href="../brie_doom/m_menu.html#f_lineheight">Lineheight</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_skullxoff"></a><a class="efeature" href="../brie_doom/m_menu.html#f_skullxoff">Skullxoff</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">-32</span>
+
+	<a name="f_skullname"></a><a class="efeature" href="../brie_doom/m_menu.html#f_skullname">Skullname</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&quot;<span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> &quot;M_SKULL1&quot;
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> &quot;M_SKULL2&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> main_e</span>
+
+	<a name="f_newgame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_newgame">Newgame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_options"></a><a class="efeature" href="../brie_doom/m_menu.html#f_options">Options</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_loadgame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_loadgame">Loadgame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_savegame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_savegame">Savegame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+
+	<a name="f_readthis"></a><a class="efeature" href="../brie_doom/m_menu.html#f_readthis">Readthis</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+
+	<a name="f_quitdoom"></a><a class="efeature" href="../brie_doom/m_menu.html#f_quitdoom">Quitdoom</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">5</span>
+
+	<a name="f_main_end"></a><a class="efeature" href="../brie_doom/m_menu.html#f_main_end">Main_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">6</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> newgame_e</span>
+
+	<a name="f_killthings"></a><a class="efeature" href="../brie_doom/m_menu.html#f_killthings">Killthings</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_toorough"></a><a class="efeature" href="../brie_doom/m_menu.html#f_toorough">Toorough</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_hurtme"></a><a class="efeature" href="../brie_doom/m_menu.html#f_hurtme">Hurtme</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_violence"></a><a class="efeature" href="../brie_doom/m_menu.html#f_violence">Violence</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+
+	<a name="f_nightmare"></a><a class="efeature" href="../brie_doom/m_menu.html#f_nightmare">Nightmare</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+
+	<a name="f_newg_end"></a><a class="efeature" href="../brie_doom/m_menu.html#f_newg_end">Newg_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">5</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_currentmenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+
+	<a name="f_maindef"></a><a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_main_end">Main_end</a><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_mainmenu">Mainmenu</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawmainmenu">m_drawmainmenu</a><span class="esymbol">,</span> <span class="enumber">97</span><span class="esymbol">,</span> <span class="enumber">64</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_newgamemenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_newgamemenu">Newgamemenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_JKILL&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a><span class="esymbol">,</span> <span class="echar">'i'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_ROUGH&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a><span class="esymbol">,</span> <span class="echar">'h'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_HURT&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a><span class="esymbol">,</span> <span class="echar">'h'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_ULTRA&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a><span class="esymbol">,</span> <span class="echar">'u'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_NMARE&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a><span class="esymbol">,</span> <span class="echar">'n'</span><span class="esymbol">)</span><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_newdef"></a><a class="efeature" href="../brie_doom/m_menu.html#f_newdef">Newdef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_newg_end">Newg_end</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_newgamemenu">Newgamemenu</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawnewgame">m_drawnewgame</a><span class="esymbol">,</span> <span class="enumber">48</span><span class="esymbol">,</span> <span class="enumber">63</span><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_hurtme">Hurtme</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mainmenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_mainmenu">Mainmenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_NGAME&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_newgame">m_newgame</a><span class="esymbol">,</span> <span class="echar">'n'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_OPTION&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_options">m_options</a><span class="esymbol">,</span> <span class="echar">'o'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_LOADG&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_loadgame">m_loadgame</a><span class="esymbol">,</span> <span class="echar">'l'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_SAVEG&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_savegame">m_savegame</a><span class="esymbol">,</span> <span class="echar">'s'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_RDTHIS&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis">m_readthis</a><span class="esymbol">,</span> <span class="echar">'r'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_QUITG&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_quitdoom">m_quitdoom</a><span class="esymbol">,</span> <span class="echar">'q'</span><span class="esymbol">)</span><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_inhelpscreens"></a><a class="efeature" href="../brie_doom/m_menu.html#f_inhelpscreens">inhelpscreens</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_menuactive"></a><a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_itemon"></a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> menu item skull is on</span>
+
+	<a name="f_whichskull"></a><a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> which skull to draw</span>
+
+	<a name="f_skullanimcounter"></a><a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> skull animation counter</span>
+
+	<a name="f_screensize"></a><a class="efeature" href="../brie_doom/m_menu.html#f_screensize">screensize</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> temp for screenblocks (0-9)</span>
+
+	<a name="f_messagetoprint"></a><a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> (was int) 1 = message to be printed</span>
+
+	<a name="f_messagestring"></a><a class="efeature" href="../brie_doom/m_menu.html#f_messagestring">messagestring</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> ...and here is the message string!</span>
+
+	<a name="f_messagelastmenuactive"></a><a class="efeature" href="../brie_doom/m_menu.html#f_messagelastmenuactive">messagelastmenuactive</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> (was int)</span>
+
+	<a name="f_messageroutine"></a><a class="efeature" href="../brie_doom/m_menu.html#f_messageroutine">messageroutine</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_messageneedsinput"></a><a class="efeature" href="../brie_doom/m_menu.html#f_messageneedsinput">messageneedsinput</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> timed message = no input from user</span>
+
+	<a name="f_quicksaveslot"></a><a class="efeature" href="../brie_doom/m_menu.html#f_quicksaveslot">quicksaveslot</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> -1 = no quicksave slot picked!</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Read This! MENU 1 &#38; 2</span>
+
+	<a name="f_rdthssempty1"></a><a class="efeature" href="../brie_doom/m_menu.html#f_rdthssempty1">Rdthssempty1</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_read1_end"></a><a class="efeature" href="../brie_doom/m_menu.html#f_read1_end">Read1_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_readmenu1"></a><a class="efeature" href="../brie_doom/m_menu.html#f_readmenu1">Readmenu1</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis2">m_readthis2</a><span class="esymbol">,</span> <span class="echar">'0'</span><span class="esymbol">)</span><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readdef1"></a><a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_read1_end">Read1_end</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_readmenu1">Readmenu1</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis1">m_drawreadthis1</a><span class="esymbol">,</span> <span class="enumber">280</span><span class="esymbol">,</span> <span class="enumber">185</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_rdthsempty2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_rdthsempty2">Rdthsempty2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_read2_end"></a><a class="efeature" href="../brie_doom/m_menu.html#f_read2_end">Read2_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_readmenu2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_readmenu2">Readmenu2</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_finishreadthis">m_finishreadthis</a><span class="esymbol">,</span> <span class="echar">'0'</span><span class="esymbol">)</span><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_readdef2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_readdef2">Readdef2</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_read2_end">Read2_end</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_readmenu2">Readmenu2</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis2">m_drawreadthis2</a><span class="esymbol">,</span> <span class="enumber">330</span><span class="esymbol">,</span> <span class="enumber">175</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Read This Menus (Had a &quot;quick hack to fix romero bug&quot;)</span>
+
+	<a name="f_m_drawreadthis1"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis1">m_drawreadthis1</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">gamemode</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_inhelpscreens">inhelpscreens</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="elocal">gamemode</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a>
+			<span class="ekeyword">if</span> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_commercial">commercial</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;HELP&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_shareware">shareware</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_registered">registered</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_retail">retail</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;HELP1&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_drawreadthis2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis2">m_drawreadthis2</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">gamemode</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_inhelpscreens">inhelpscreens</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="elocal">gamemode</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a>
+			<span class="ekeyword">if</span> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_retail">retail</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_commercial">commercial</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;CREDIT&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_shareware">shareware</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">gamemode</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_registered">registered</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;HELP2&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_finishreadthis"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_finishreadthis">m_finishreadthis</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_drawepisode"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawepisode">m_drawepisode</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">54</span><span class="esymbol">,</span> <span class="enumber">38</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;M_EPISOD&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_readthis2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis2">m_readthis2</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_newgame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_newgame">m_newgame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_g_game">G_game</a><span class="edot">.</span><a class="efeature" href="../brie_doom/g_game.html#f_netgame">netgame</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_g_game">G_game</a><span class="edot">.</span><a class="efeature" href="../brie_doom/g_game.html#f_demoplayback">demoplayback</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_startmessage">m_startmessage</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/d_englsh.html">D_ENGLSH</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/d_englsh.html#f_newgame">newgame</a><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_commercial">commercial</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_newdef">Newdef</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_options"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_options">m_options</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_loadgame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_loadgame">m_loadgame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_savegame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_savegame">m_savegame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_readthis"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis">m_readthis</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_quitdoom"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_quitdoom">m_quitdoom</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_drawnewgame"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawnewgame">m_drawnewgame</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">96</span><span class="esymbol">,</span> <span class="enumber">14</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;M_NEWG&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">54</span><span class="esymbol">,</span> <span class="enumber">38</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;M_SKILL&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_chooseskill"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a> <span class="esymbol">(</span><span class="elocal">a_choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">choice</span> <span class="esymbol">:=</span> <span class="elocal">a_choice</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">if</span> <span class="elocal">choice</span> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_nightmare">Nightmare</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_startmessage">m_startmessage</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/d_englsh.html">D_ENGLSH</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/d_englsh.html#f_nightmare">nightmare</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_verifynightmare">m_verifynightmare</a><span class="esymbol">,</span> <span class="ekeyword">True</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_g_game">G_game</a><span class="edot">.</span><a class="efeature" href="../brie_doom/g_game.html#f_g_deferedinitnew">g_deferedinitnew</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_epi">epi</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_clearmenus">m_clearmenus</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_verifynightmare"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_verifynightmare">m_verifynightmare</a> <span class="esymbol">(</span><span class="elocal">ch</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">ch</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="echar">'y'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_g_game">G_game</a><span class="edot">.</span><a class="efeature" href="../brie_doom/g_game.html#f_g_deferedinitnew">g_deferedinitnew</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_nightmare">Nightmare</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_epi">epi</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_clearmenus">m_clearmenus</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_m_drawmainmenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawmainmenu">m_drawmainmenu</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">94</span><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;M_DOOM&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_clearmenus"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_clearmenus">m_clearmenus</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_startmessage"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_startmessage">m_startmessage</a> <span class="esymbol">(</span><span class="elocal">string</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">routine</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_messageroutine">messageroutine</a><span class="esymbol">;</span> <span class="elocal">input</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagelastmenuactive">messagelastmenuactive</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagestring">messagestring</a> <span class="esymbol">:=</span> <span class="elocal">string</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messageroutine">messageroutine</a> <span class="esymbol">:=</span> <span class="elocal">routine</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messageneedsinput">messageneedsinput</a> <span class="esymbol">:=</span> <span class="elocal">input</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_setupnextmenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a> <span class="esymbol">(</span><span class="elocal">menudef</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="esymbol">:=</span> <span class="elocal">menudef</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="elocal">menudef</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_laston">laston</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> EPISODE SELECT</span>
+
+	<a name="f_ep1"></a><a class="efeature" href="../brie_doom/m_menu.html#f_ep1">Ep1</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_ep2"></a><a class="efeature" href="../brie_doom/m_menu.html#f_ep2">Ep2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_ep3"></a><a class="efeature" href="../brie_doom/m_menu.html#f_ep3">Ep3</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_ep4"></a><a class="efeature" href="../brie_doom/m_menu.html#f_ep4">Ep4</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+
+	<a name="f_ep_end"></a><a class="efeature" href="../brie_doom/m_menu.html#f_ep_end">Ep_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+
+	<a name="f_episodemenu"></a><a class="efeature" href="../brie_doom/m_menu.html#f_episodemenu">Episodemenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">&lt;&lt;</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_EPI1&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a><span class="esymbol">,</span> <span class="echar">'k'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_EPI2&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a><span class="esymbol">,</span> <span class="echar">'t'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_EPI3&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a><span class="esymbol">,</span> <span class="echar">'i'</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/menuitem_t.html">MENUITEM_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> &quot;M_EPI4&quot;<span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a><span class="esymbol">,</span> <span class="echar">'t'</span><span class="esymbol">)</span><span class="esymbol">&gt;&gt;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_epidef"></a><a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t.html">MENU_T</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_ep_end">Ep_end</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_episodemenu">Episodemenu</a><span class="esymbol">,</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawepisode">m_drawepisode</a><span class="esymbol">,</span> <span class="enumber">48</span><span class="esymbol">,</span> <span class="enumber">63</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> M_Episode</span>
+
+	<a name="f_epi"></a><a class="efeature" href="../brie_doom/m_menu.html#f_epi">epi</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_m_episode"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a> <span class="esymbol">(</span><span class="elocal">a_choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">choice</span> <span class="esymbol">:=</span> <span class="elocal">a_choice</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_shareware">shareware</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">choice</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_startmessage">m_startmessage</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/d_englsh.html">D_ENGLSH</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/d_englsh.html#f_swstring">swstring</a><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_registered">registered</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">choice</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">2</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;M_Episode: 4th episode requires UltimateDOOM%N&quot;<span class="esymbol">)</span>
+					<span class="elocal">choice</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_epi">epi</a> <span class="esymbol">:=</span> <span class="elocal">choice</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_newdef">Newdef</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_savestringenter"></a><a class="efeature" href="../brie_doom/m_menu.html#f_savestringenter">savestringenter</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> we are going to be entering a savegame string</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> CONTROL PANEL</span>
+
+	<a name="f_m_responder"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_responder">m_responder</a> <span class="esymbol">(</span><span class="elocal">ev</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">ch</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">ch</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="ekeyword">if</span> <span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">=</span> <span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_keydown">Ev_keydown</a> <span class="ekeyword">then</span>
+				<span class="elocal">ch</span> <span class="esymbol">:=</span> <span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">ch</span> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_savestringenter">savestringenter</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">elseif</span> <span class="ekeyword">False</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">elseif</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">elseif</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="ekeyword">as</span> currentmenuattached <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <span class="elocal">ch</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_key_downarrow">key_downarrow</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">from</span>
+								<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <span class="ekeyword">then</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+								<span class="ekeyword">else</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+								<span class="ekeyword">end</span>
+								<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_pstop">sfx_pstop</a><span class="esymbol">)</span>
+							<span class="ekeyword">until</span>
+								<span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_status">status</a> <span class="esymbol">/=</span> <span class="enumber">-1</span>
+							<span class="ekeyword">loop</span>
+								<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+								<span class="ekeyword">else</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+								<span class="ekeyword">end</span>
+								<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_pstop">sfx_pstop</a><span class="esymbol">)</span>
+							<span class="ekeyword">end</span>
+							<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="ekeyword">elseif</span> <span class="elocal">ch</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_key_uparrow">key_uparrow</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">from</span>
+								<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a>
+								<span class="ekeyword">else</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+								<span class="ekeyword">end</span>
+								<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_pstop">sfx_pstop</a><span class="esymbol">)</span>
+							<span class="ekeyword">until</span>
+								<span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_status">status</a> <span class="esymbol">/=</span> <span class="enumber">-1</span>
+							<span class="ekeyword">loop</span>
+								<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+								<span class="ekeyword">else</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+								<span class="ekeyword">end</span>
+								<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_pstop">sfx_pstop</a><span class="esymbol">)</span>
+							<span class="ekeyword">end</span>
+							<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="ekeyword">elseif</span> <span class="elocal">ch</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_key_enter">key_enter</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">if</span> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_status">status</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+								<span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_laston">laston</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a>
+								<span class="ekeyword">if</span> <span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_status">status</a> <span class="esymbol">=</span> <span class="enumber">2</span> <span class="ekeyword">then</span>
+									<span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_routine">routine</a><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_stnmov">sfx_stnmov</a><span class="esymbol">)</span>
+								<span class="ekeyword">else</span>
+									<span class="elocal">currentmenuattached</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_routine">routine</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><span class="esymbol">)</span>
+									<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_s_sound">S_sound</a><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/s_sound.html#f_s_startsound">s_startsound</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/sound/sounds_h.html">SOUNDS_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/sound/sfxenum_t.html#f_sfx_pistol">sfx_pistol</a><span class="esymbol">)</span>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_init"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_init">m_init</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="ekeyword">as</span> c <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_laston">laston</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a> <span class="esymbol">:=</span> <span class="enumber">10</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_screensize">screensize</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">3</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_messagelastmenuactive">messagelastmenuactive</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_quicksaveslot">quicksaveslot</a> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_commercial">commercial</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_mainmenu">Mainmenu</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_readthis">Readthis</a><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_mainmenu">Mainmenu</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_quitdoom">Quitdoom</a><a class="esymbol" href="../base/array.html#f_item">]</a>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_y">y</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_y">y</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">8</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_newdef">Newdef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_prevmenu">prevmenu</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_routine">routine</a> <span class="esymbol">:=</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis1">m_drawreadthis1</a>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_x">x</a> <span class="esymbol">:=</span> <span class="enumber">330</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_y">y</a> <span class="esymbol">:=</span> <span class="enumber">165</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_readmenu1">Readmenu1</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_routine">routine</a> <span class="esymbol">:=</span> <span class="ekeyword">agent</span> <a class="efeature" href="../brie_doom/m_menu.html#f_m_finishreadthis">m_finishreadthis</a>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_shareware">shareware</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_doomstat_h">Doomstat_h</a><span class="edot">.</span><a class="efeature" href="../brie_doom/doomstat_h.html#f_gamemode">gamemode</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/game_mode_t.html">GAME_MODE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/game_mode_t.html#f_registered">registered</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_ticker"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_ticker">m_ticker</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_bit_xor">bit_xor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a> <span class="esymbol">:=</span> <span class="enumber">8</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> M_Drawer</span>
+
+	<a name="f_x"></a><a class="efeature" href="../brie_doom/m_menu.html#f_x">x</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_y"></a><a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_m_drawer"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawer">m_drawer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Called after the view has been rendered,</span>
+			<span class="ecomment">--</span><span class="ecomment"> but before it has been blitted.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">max</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_menu.html#f_inhelpscreens">inhelpscreens</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="ekeyword">as</span> cm <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_routine">routine</a> <span class="ekeyword">as</span> r <span class="ekeyword">then</span>
+						<span class="elocal">r</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../brie_doom/m_menu.html#f_x">x</a> <span class="esymbol">:=</span> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_x">x</a>
+					<a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a> <span class="esymbol">:=</span> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_y">y</a>
+					<span class="elocal">max</span> <span class="esymbol">:=</span> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a>
+					<span class="ekeyword">from</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a>
+					<span class="ekeyword">loop</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+							<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_x">x</a><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_menuitems">menuitems</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menuitem_t.html#f_name">name</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../brie_doom/m_menu.html#f_lineheight">Lineheight</a>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_v_video">V_video</a><span class="edot">.</span><a class="efeature" href="../brie_doom/render/v_video.html#f_v_drawpatchdirect">v_drawpatchdirect</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_x">x</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../brie_doom/m_menu.html#f_skullxoff">Skullxoff</a><span class="esymbol">,</span> <span class="elocal">cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_y">y</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">5</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <a class="efeature" href="../brie_doom/m_menu.html#f_lineheight">Lineheight</a><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/m_menu.html#f_skullname">Skullname</a> <a class="esymbol" href="../base/array.html#f_item">[</a><a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a><a class="esymbol" href="../base/array.html#f_item">]</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_m_startcontrolpanel"></a><a class="efeature" href="../brie_doom/m_menu.html#f_m_startcontrolpanel">m_startcontrolpanel</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a>
+				<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_laston">laston</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+		<a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+		<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a> <span class="ekeyword">as</span> i_cm <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">i_cm</span><span class="edot">.</span><a class="efeature" href="../brie_doom/menu_t.html#f_numitems">numitems</a>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/m_menu.html">M_MENU</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_menu_chart.html">Chart</a>
+<a class="nav class" href="m_menu_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_menu"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

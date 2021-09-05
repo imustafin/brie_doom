@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="tables.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>angle_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="angle_t_chart.html">Chart</a>
+<a class="nav class" href="angle_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="angle_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;tables.h&quot;</span>
+
+<span class="ekeyword">expanded</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../base/natural_32_ref.html">NATURAL_32_REF</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../base/any.html#f_default_create">default_create</a><span class="esymbol">,</span>
+	<a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a>
+
+<span class="ekeyword">convert</span>
+	<a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="esymbol">,</span>
+	<a class="efeature" href="../../base/natural_32_ref.html#f_as_integer_32">as_integer_32</a><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_from_natural"></a><a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a> <span class="esymbol">(</span><span class="elocal">a_natural</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../base/natural_32_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_natural</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_flip_sign"></a><a class="efeature" href="../../brie_doom/math/angle_t.html#f_flip_sign">flip_sign</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../../brie_doom/math/angle_t.html#f_flip_sign">-</a><span class="esymbol">&quot;</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><span class="ekeyword">attached</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">0</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/natural_32_ref.html#f_minus">-</a> <span class="ekeyword">Current</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_abs"></a><a class="efeature" href="../../brie_doom/math/angle_t.html#f_abs">abs</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">min_one</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../base/natural_32_ref.html#f_bit_test">bit_test</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">31</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="esymbol" href="../../brie_doom/math/angle_t.html#f_flip_sign">-</a> <span class="ekeyword">Current</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Current</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="angle_t_chart.html">Chart</a>
+<a class="nav class" href="angle_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="angle_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

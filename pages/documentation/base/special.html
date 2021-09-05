@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Special objects: homogeneous sequences of values, used to represent arrays and strings"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>special Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="special_chart.html">Chart</a>
+<a class="nav class" href="special_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="special"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Special objects: homogeneous sequences of values,</span>
+		<span class="estring">used to represent arrays and strings</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-04-15 12:05:54 +0000 (Sat, 15 Apr 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100207 $&quot;</span>
+
+<span class="ekeyword">frozen</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/abstract_special.html">ABSTRACT_SPECIAL</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/special.html#f_debug_output">debug_output</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/readable_indexable.html">READABLE_INDEXABLE</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/special.html#f_new_cursor">new_cursor</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/special.html#f_make_filled">make_filled</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/special.html#f_make_from_native_array">make_from_native_array</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_empty"></a><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a special object for </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">capacity_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_filled"></a><a class="efeature" href="../base/special.html#f_make_filled">make_filled</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a special object for </span><span class="equoted">n</span><span class="ecomment"> entries initialized with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">capacity_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">filled</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_native_array"></a><a class="efeature" href="../base/special.html#f_make_from_native_array">make_from_native_array</a> <span class="esymbol">(</span><span class="elocal">an_array</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/special.html#f_native_array">native_array</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a special object from </span><span class="equoted">an_array</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">an_array_not_void</span><span class="esymbol">:</span> <span class="elocal">an_array</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/special.html#f_item">item</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/special.html#f_item">[]</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="egeneric">T</span> <span class="ekeyword">assign</span> <a class="efeature" href="../base/special.html#f_put">put</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at </span><span class="equoted">i</span><span class="ecomment">-th position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (indices begin at 0)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">r</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="egeneric">T</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <span class="elocal">r</span>
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">r</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_at"></a><a class="efeature" href="../base/special.html#f_at">at</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/special.html#f_at">@</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="egeneric">T</span>
+			<span class="ecomment">--</span><span class="ecomment"> Item at </span><span class="equoted">i</span><span class="ecomment">-th position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (indices begin at 0)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_index_of"></a><a class="efeature" href="../base/special.html#f_index_of">index_of</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">start_position</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of first occurrence of item identical to </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> -1 if none.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Use object equality for comparison.)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_start_position</span><span class="esymbol">:</span> <span class="elocal">start_position</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">start_position</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">)</span> <span class="esymbol">~</span> <span class="elocal">v</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">found_or_not_found</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item_address"></a><a class="efeature" href="../base/special.html#f_item_address">item_address</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Address of element at position </span><span class="equoted">i</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Use only when interfacing with C externals when Current is guaranteed to not move in memory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_dotnet</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">index_large_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">index_small_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_base_address">base_address</a> <a class="esymbol" href="../base/pointer.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <a class="efeature" href="../base/special.html#f_element_size">element_size</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">element_address_not_null</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_base_address"></a><a class="efeature" href="../base/special.html#f_base_address">base_address</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Address of element at position </span><span class="equoted">0</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Use only when interfacing with C externals when Current is guaranteed to not move in memory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_dotnet</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">base_address_not_null</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_native_array"></a><a class="efeature" href="../base/special.html#f_native_array">native_array</a><span class="esymbol">:</span> <a class="eclass" href="../base/native_array.html">NATIVE_ARRAY</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Only for compatibility with .NET.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_array"></a><a class="efeature" href="../base/special.html#f_to_array">to_array</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Build an array representation of Current from </span><span class="equoted">1</span><span class="ecomment"> to </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_from_special">make_from_special</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_array_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">to_array_lower_set</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="etag">to_array_upper_set</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <span class="esymbol">=</span> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_cursor"></a><a class="efeature" href="../base/special.html#f_new_cursor">new_cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_iteration_cursor.html">SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fresh cursor associated with current structure</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special_iteration_cursor.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_lower"></a><a class="efeature" href="../base/special.html#f_lower">Lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum index of Current.</span>
+
+	<a name="f_upper"></a><a class="efeature" href="../base/special.html#f_upper">upper</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Maximum index of Current.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_count"></a><a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Count of special area.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_capacity"></a><a class="efeature" href="../base/special.html#f_capacity">capacity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Capacity of special area.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_filled_with"></a><a class="efeature" href="../base/special.html#f_filled_with">filled_with</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are all items between index </span><span class="equoted">start_index</span><span class="ecomment"> and </span><span class="equoted">end_index</span>
+			<span class="ecomment">--</span><span class="ecomment"> set to </span><span class="equoted">v</span><span class="ecomment">?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Use reference equality for comparison.)			</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">start_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">start_index_not_too_big</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">end_index_valid</span><span class="esymbol">:</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">end_index</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">v</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_same_items"></a><a class="efeature" href="../base/special.html#f_same_items">same_items</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">;</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are the </span><span class="equoted">n</span><span class="ecomment"> elements of </span><span class="equoted">other</span><span class="ecomment"> from </span><span class="equoted">source_index</span><span class="ecomment"> position the same as</span>
+			<span class="ecomment">--</span><span class="ecomment"> the </span><span class="equoted">n</span><span class="ecomment"> elements of </span><span class="equoted">Current</span><span class="ecomment"> from </span><span class="equoted">destination_index</span><span class="ecomment">?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Use reference equality for comparison.)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_not_void</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">destination_index</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">j</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_on_empty_area</span><span class="esymbol">:</span> <span class="elocal">n</span> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_valid_index"></a><a class="efeature" href="../base/special.html#f_valid_index">valid_index</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i</span><span class="ecomment"> within the bounds of Current?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">i</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/special.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace </span><span class="equoted">i</span><span class="ecomment">-th item by </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Indices begin at 0.)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">index_large_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">index_small_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">inserted</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">v</span>
+			<span class="etag">same_count</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_force"></a><a class="efeature" href="../base/special.html#f_force">force</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><span class="equoted">i</span><span class="ecomment"> is equal to </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment"> increase </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment"> by one and insert </span><span class="equoted">v</span><span class="ecomment"> at index </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment">,</span>
+			<span class="ecomment">--</span><span class="ecomment"> otherwise replace </span><span class="equoted">i</span><span class="ecomment">-th item by </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Indices begin at 0.)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">index_large_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">index_small_enough</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">not_full</span><span class="esymbol">:</span> <span class="elocal">i</span> <span class="esymbol">=</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">inserted</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_extend"></a><a class="efeature" href="../base/special.html#f_extend">extend</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> at index </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">count_small_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_increased</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">inserted</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_extend_filled"></a><a class="efeature" href="../base/special.html#f_extend_filled">extend_filled</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set items between </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment"> and </span><span class="equoted">capacity - 1</span><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">count_increased</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">filled</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fill_with"></a><a class="efeature" href="../base/special.html#f_fill_with">fill_with</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set items between </span><span class="equoted">start_index</span><span class="ecomment"> and </span><span class="equoted">end_index</span><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">start_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">start_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">start_index_not_too_big</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">end_index_valid</span><span class="esymbol">:</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_count</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_count</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">l_count</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">count_definition</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="etag">filled</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fill_with_default"></a><a class="efeature" href="../base/special.html#f_fill_with_default">fill_with_default</a> <span class="esymbol">(</span><span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Clear items between </span><span class="equoted">start_index</span><span class="ecomment"> and </span><span class="equoted">end_index</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_self_initializing</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="esymbol">{</span><span class="egeneric">T</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_has_default">has_default</a>
+			<span class="etag">start_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">start_index_not_too_big</span><span class="esymbol">:</span> <span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">end_index_valid</span><span class="esymbol">:</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">{</span><span class="egeneric">T</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_default">default</a><span class="esymbol">,</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">filled</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">{</span><span class="egeneric">T</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_default">default</a><span class="esymbol">,</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_insert_data"></a><a class="efeature" href="../base/special.html#f_insert_data">insert_data</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Insert </span><span class="equoted">n</span><span class="ecomment"> elements of </span><span class="equoted">other</span><span class="ecomment"> from </span><span class="equoted">source_index</span><span class="ecomment"> position to Current at</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">destination_index</span><span class="ecomment"> and shift elements between </span><span class="equoted">destination_index</span><span class="ecomment"> and </span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="ecomment">--</span><span class="ecomment"> to the right. Other elements of Current remain unchanged.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_not_void</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">same_type</span><span class="esymbol">:</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_remaining_items</span><span class="esymbol">,</span> <span class="elocal">l_offset</span><span class="esymbol">,</span> <span class="elocal">l_nb_items_left</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_source_index</span><span class="esymbol">,</span> <span class="elocal">l_end_index</span><span class="esymbol">,</span> <span class="elocal">l_destination_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_remaining_items</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">destination_index</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_remaining_items</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_remaining_items</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/special.html#f_move_data">move_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span><span class="esymbol">,</span> <span class="elocal">l_remaining_items</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">l_source_index</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span>
+					<span class="elocal">l_destination_index</span> <span class="esymbol">:=</span> <span class="elocal">destination_index</span>
+					<span class="elocal">l_end_index</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+					<span class="elocal">l_nb_items_left</span> <span class="esymbol">:=</span> <span class="elocal">n</span>
+					<span class="elocal">l_offset</span> <span class="esymbol">:=</span> <span class="elocal">l_remaining_items</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">l_source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">l_end_index</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/special.html#f_move_data">move_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_destination_index</span><span class="esymbol">,</span> <span class="elocal">l_destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_offset</span><span class="esymbol">,</span> <span class="elocal">l_remaining_items</span><span class="esymbol">)</span>
+					<a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">l_source_index</span><span class="esymbol">,</span> <span class="elocal">l_destination_index</span><span class="esymbol">,</span> <span class="elocal">l_offset</span><span class="esymbol">)</span>
+					<span class="elocal">l_destination_index</span> <span class="esymbol">:=</span> <span class="elocal">l_destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_offset</span>
+					<span class="elocal">l_source_index</span> <span class="esymbol">:=</span> <span class="elocal">l_source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_offset</span>
+					<span class="elocal">l_nb_items_left</span> <span class="esymbol">:=</span> <span class="elocal">l_nb_items_left</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_remaining_items</span>
+					<span class="elocal">l_offset</span> <span class="esymbol">:=</span> <span class="elocal">l_offset</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_nb_items_left</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">copied</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_copy_data"></a><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Copy </span><span class="equoted">n</span><span class="ecomment"> elements of </span><span class="equoted">other</span><span class="ecomment"> from </span><span class="equoted">source_index</span><span class="ecomment"> position to Current at</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">destination_index</span><span class="ecomment">. Other elements of Current remain unchanged.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_not_void</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">same_type</span><span class="esymbol">:</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/special.html#f_move_data">move_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">destination_index</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">copied</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_move_data"></a><a class="efeature" href="../base/special.html#f_move_data">move_data</a> <span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move </span><span class="equoted">n</span><span class="ecomment"> elements of Current from </span><span class="equoted">source_start</span><span class="ecomment"> position to </span><span class="equoted">destination_index</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Other elements remain unchanged.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">source_index</span> <span class="esymbol">=</span> <span class="elocal">destination_index</span> <span class="ekeyword">then</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">destination_index</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">source_index</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/special.html#f_non_overlapping_move">non_overlapping_move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/special.html#f_overlapping_move">overlapping_move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">destination_index</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/special.html#f_non_overlapping_move">non_overlapping_move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/special.html#f_overlapping_move">overlapping_move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">moved</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_overlapping_move"></a><a class="efeature" href="../base/special.html#f_overlapping_move">overlapping_move</a> <span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move </span><span class="equoted">n</span><span class="ecomment"> elements of Current from </span><span class="equoted">source_start</span><span class="ecomment"> position to </span><span class="equoted">destination_index</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Other elements remain unchanged.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">different_source_and_target</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <span class="esymbol">/=</span> <span class="elocal">destination_index</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">destination_index</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="elocal">l_offset</span> <span class="esymbol">:=</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">source_index</span>
+					<span class="ekeyword">if</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">)</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">,</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_offset_positive</span><span class="esymbol">:</span> <span class="elocal">l_offset</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_offset</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+					<span class="elocal">l_offset</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">destination_index</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_offset_positive</span><span class="esymbol">:</span> <span class="elocal">l_offset</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_offset</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">moved</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_non_overlapping_move"></a><a class="efeature" href="../base/special.html#f_non_overlapping_move">non_overlapping_move</a> <span class="esymbol">(</span><span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move </span><span class="equoted">n</span><span class="ecomment"> elements of Current from </span><span class="equoted">source_start</span><span class="ecomment"> position to </span><span class="equoted">destination_index</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Other elements remain unchanged.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">source_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_non_negative</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">destination_index_in_bound</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">different_source_and_target</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <span class="esymbol">/=</span> <span class="elocal">destination_index</span>
+			<span class="etag">non_overlapping</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">destination_index</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">destination_index</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">source_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">destination_index</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">source_index</span><span class="esymbol">)</span>
+			<span class="etag">n_is_small_enough_for_source</span><span class="esymbol">:</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="etag">n_is_small_enough_for_destination</span><span class="esymbol">:</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">source_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span>
+				<span class="elocal">l_offset</span> <span class="esymbol">:=</span> <span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">source_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_offset</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">moved</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="elocal">source_index</span><span class="esymbol">,</span> <span class="elocal">destination_index</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">destination_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Resizing</span>
+
+	<a name="f_keep_head"></a><a class="efeature" href="../base/special.html#f_keep_head">keep_head</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Keep the first </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">less_than_count</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">kept</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_keep_tail"></a><a class="efeature" href="../base/special.html#f_keep_tail">keep_tail</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Keep the last </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">less_than_count</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_overlapping_move">overlapping_move</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">n</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/special.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">kept</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_remove_head"></a><a class="efeature" href="../base/special.html#f_remove_head">remove_head</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Remove the first </span><span class="equoted">n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">less_than_count</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_keep_tail">keep_tail</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">n</span>
+			<span class="etag">kept</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_remove_tail"></a><a class="efeature" href="../base/special.html#f_remove_tail">remove_tail</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Keep the first &nbsp;</span><span class="equoted">count - n</span><span class="ecomment"> entries.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_argument</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">less_than_count</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_keep_head">keep_head</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_updated</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">n</span>
+			<span class="etag">kept</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_resized_area"></a><a class="efeature" href="../base/special.html#f_resized_area">resized_area</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> A copy of Current with a count of </span><span class="equoted">n</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">result_different_from_current</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span>
+			<span class="etag">new_count</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">new_capacity</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">preserved</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_resized_area_with_default"></a><a class="efeature" href="../base/special.html#f_resized_area_with_default">resized_area_with_default</a> <span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a copy of Current with a count of </span><span class="equoted">n</span><span class="ecomment"> where not yet initialized</span>
+			<span class="ecomment">--</span><span class="ecomment"> entries are set to </span><span class="equoted">a_default_value</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">,</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">result_different_from_current</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span>
+			<span class="etag">new_count</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">new_capacity</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">preserved</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_aliased_resized_area"></a><a class="efeature" href="../base/special.html#f_aliased_resized_area">aliased_resized_area</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Try to resize </span><span class="equoted">Current</span><span class="ecomment"> with a count of </span><span class="equoted">n</span><span class="ecomment">, if not</span>
+			<span class="ecomment">--</span><span class="ecomment"> possible a new copy.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">new_count</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">new_capacity</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">preserved</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_aliased_resized_area_with_default"></a><a class="efeature" href="../base/special.html#f_aliased_resized_area_with_default">aliased_resized_area_with_default</a> <span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">;</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Try to resize </span><span class="equoted">Current</span><span class="ecomment"> with a count of </span><span class="equoted">n</span><span class="ecomment">, if not</span>
+			<span class="ecomment">--</span><span class="ecomment"> possible a new copy. Non yet initialized entries are set to </span><span class="equoted">a_default_value</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_aliased_resized_area">aliased_resized_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_default_value</span><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">,</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">new_count</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">new_capacity</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">preserved</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_same_items">same_items</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_replace_all"></a><a class="efeature" href="../base/special.html#f_replace_all">replace_all</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">T</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace all items with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">cleared</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_filled_with">filled_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_upper">upper</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/special.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Reset count to zero.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_set_count">set_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">count_reset</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_clear_all"></a><a class="efeature" href="../base/special.html#f_clear_all">clear_all</a>
+		<span class="ekeyword">obsolete</span> &quot;Because of the new precondition, it is recommended to use `fill_with' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Reset all items to default values.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">has_default</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="esymbol">{</span><span class="egeneric">T</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_has_default">has_default</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/special.html#f_fill_with_default">fill_with_default</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/special.html#f_upper">upper</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_capacity</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+			<span class="etag">count_reset</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Iteration</span>
+
+	<a name="f_do_all_in_bounds"></a><a class="efeature" href="../base/special.html#f_do_all_in_bounds">do_all_in_bounds</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item, from first to last.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_not_void</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_do_if_in_bounds"></a><a class="efeature" href="../base/special.html#f_do_if_in_bounds">do_if_in_bounds</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item that satisfies </span><span class="equoted">test</span><span class="ecomment">, from first to last.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> or </span><span class="equoted">test</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_not_void</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">test_not_void</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="elocal">test</span><span class="edot">.</span><a class="efeature" href="../base/function.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">]</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_there_exists_in_bounds"></a><a class="efeature" href="../base/special.html#f_there_exists_in_bounds">there_exists_in_bounds</a> <span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">test</span><span class="ecomment"> true for at least one item?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">test_not_void</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="ekeyword">Result</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">test</span><span class="edot">.</span><a class="efeature" href="../base/function.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_for_all_in_bounds"></a><a class="efeature" href="../base/special.html#f_for_all_in_bounds">for_all_in_bounds</a> <span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">test</span><span class="ecomment"> true for all items?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">test_not_void</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">test</span><span class="edot">.</span><a class="efeature" href="../base/function.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_do_all_with_index_in_bounds"></a><a class="efeature" href="../base/special.html#f_do_all_with_index_in_bounds">do_all_with_index_in_bounds</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item, from first to last.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">action</span><span class="ecomment"> receives item and its index.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_not_void</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_lower">Lower</a>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_do_if_with_index_in_bounds"></a><a class="efeature" href="../base/special.html#f_do_if_with_index_in_bounds">do_if_with_index_in_bounds</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item that satisfies </span><span class="equoted">test</span><span class="ecomment">, from first to last.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">action</span><span class="ecomment"> and </span><span class="equoted">test</span><span class="ecomment"> receive the item and its index.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> or </span><span class="equoted">test</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_not_void</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">test_not_void</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">start_index</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/special.html#f_lower">Lower</a>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="elocal">test</span><span class="edot">.</span><a class="efeature" href="../base/function.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">]</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">]</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_debug_output"></a><a class="efeature" href="../base/special.html#f_debug_output">debug_output</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> String that should be displayed in debugger to represent </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/abstract_special.html#f_debug_output">Precursor</a>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_string">append_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;, capacity=&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_integer">append_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_element_size"></a><a class="efeature" href="../base/special.html#f_element_size">element_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of elements.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">element_size_non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_count"></a><a class="efeature" href="../base/special.html#f_set_count">set_count</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/special.html#f_count">count</a><span class="ecomment"> with </span><span class="equoted">n</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">valid_new_count</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+			<span class="etag">capacity_preserved</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/special.html#f_capacity">capacity</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">consistent_count</span><span class="esymbol">:</span> <a class="efeature" href="../base/special.html#f_count">count</a> <span class="esymbol">=</span> <a class="efeature" href="../base/special.html#f_upper">upper</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/special.html#f_lower">Lower</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/special.html">SPECIAL</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="special_chart.html">Chart</a>
+<a class="nav class" href="special_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="special"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

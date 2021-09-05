@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="m_argv.c"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>m_argv Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_argv_chart.html">Chart</a>
+<a class="nav class" href="m_argv_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_argv"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">m_argv.c</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/m_argv.html">M_ARGV</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/m_argv.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/m_argv.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_myargv</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a> <span class="esymbol">:=</span> <span class="elocal">a_myargv</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_myargv"></a><a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">]</span>
+
+	<a name="f_m_checkparm"></a><a class="efeature" href="../brie_doom/m_argv.html#f_m_checkparm">m_checkparm</a> <span class="esymbol">(</span><span class="elocal">ch</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Checks for the given parameter</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the program's command line arguments.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns the argument number (1 to argc - 1)</span>
+			<span class="ecomment">--</span><span class="ecomment"> or 0 if not present</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_as_upper">as_upper</a> <span class="esymbol">~</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ch</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="esymbol">)</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">across</span>
+					<a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_subarray">subarray</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a><span class="esymbol">)</span> <span class="ekeyword">as</span> mi
+				<span class="ekeyword">all</span>
+					<span class="elocal">mi</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_as_upper">as_upper</a> <span class="esymbol">/~</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ch</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_as_upper">as_upper</a> <span class="esymbol">~</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ch</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+		<a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/m_argv.html">M_ARGV</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_argv_chart.html">Chart</a>
+<a class="nav class" href="m_argv_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_argv"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

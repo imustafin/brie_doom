@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Properties of the memory management mechanism. This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>mem_info Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mem_info_chart.html">Chart</a>
+<a class="nav class" href="mem_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mem_info"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Properties of the memory management mechanism.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-12-26 18:35:31 +0000 (Tue, 26 Dec 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101217 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/mem_info.html">MEM_INFO</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/memory_structure.html">MEMORY_STRUCTURE</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/memory_structure.html#f_make">make</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <a class="efeature" href="../base/memory_structure.html#f_make_by_pointer">make_by_pointer</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <a class="efeature" href="../base/memory_structure.html#f_shared">shared</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/mem_const.html">MEM_CONST</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/mem_info.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/mem_info.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update Current for </span><span class="equoted">memory</span><span class="ecomment"> type.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">memory_valid</span><span class="esymbol">:</span> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_total_memory">Total_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_eiffel_memory">Eiffel_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_c_memory">C_memory</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/memory_structure.html#f_make">structure_make</a>
+			<a class="efeature" href="../base/mem_info.html#f_update">update</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">type_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/mem_info.html#f_type">type</a> <span class="esymbol">=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update"></a><a class="efeature" href="../base/mem_info.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">memory</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update Current for </span><span class="equoted">memory</span><span class="ecomment"> type.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">memory_valid</span><span class="esymbol">:</span> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_total_memory">Total_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_eiffel_memory">Eiffel_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_c_memory">C_memory</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/mem_info.html#f_mem_stat">mem_stat</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">memory</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/mem_info.html#f_type">type</a> <span class="esymbol">:=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">type_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/mem_info.html#f_type">type</a> <span class="esymbol">=</span> <span class="elocal">memory</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_type"></a><a class="efeature" href="../base/mem_info.html#f_type">type</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Memory type (Total, Eiffel, C)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_total"></a><a class="efeature" href="../base/mem_info.html#f_total">total</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Total number of bytes allocated for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_total">c_ml_total</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_64.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_used"></a><a class="efeature" href="../base/mem_info.html#f_used">used</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes used for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_used">c_ml_used</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_64.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_free"></a><a class="efeature" href="../base/mem_info.html#f_free">free</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes still free for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_total">total</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_used">used</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_overhead">overhead</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">computed</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_info.html#f_total">total</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_used">used</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_overhead">overhead</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_overhead"></a><a class="efeature" href="../base/mem_info.html#f_overhead">overhead</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes used by memory management</span>
+			<span class="ecomment">--</span><span class="ecomment"> scheme for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_over">c_ml_over</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_64.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_chunk"></a><a class="efeature" href="../base/mem_info.html#f_chunk">chunk</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of allocated memory chunks</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_chunk">c_ml_chunk</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Extended measurement</span>
+
+	<a name="f_total64"></a><a class="efeature" href="../base/mem_info.html#f_total64">total64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Total number of bytes allocated for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_total">c_ml_total</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_used64"></a><a class="efeature" href="../base/mem_info.html#f_used64">used64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes used for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_used">c_ml_used</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_free64"></a><a class="efeature" href="../base/mem_info.html#f_free64">free64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes still free for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a>
+			<span class="ecomment">--</span><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_total64">total64</a> <a class="esymbol" href="../base/natural_64.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_used64">used64</a> <a class="esymbol" href="../base/natural_64.html#f_minus">-</a> <a class="efeature" href="../base/mem_info.html#f_overhead64">overhead64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_overhead64"></a><a class="efeature" href="../base/mem_info.html#f_overhead64">overhead64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes used by memory management</span>
+			<span class="ecomment">--</span><span class="ecomment"> scheme for </span><a class="efeature" href="../base/mem_info.html#f_type">type</a><span class="ecomment"> before last call to </span><a class="efeature" href="../base/mem_info.html#f_update">update</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_ml_over">c_ml_over</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_mem_stat"></a><a class="efeature" href="../base/mem_info.html#f_mem_stat">mem_stat</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">mem</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">a_ptr</span><span class="ecomment"> used by MEM_INFO to retrieve the</span>
+			<span class="ecomment">--</span><span class="ecomment"> statistics frozen at the time of this call.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_stat&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_structure_size"></a><a class="efeature" href="../base/mem_info.html#f_structure_size">structure_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of underlying C structure.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/mem_info.html#f_c_sizeof_emallinfo">c_sizeof_emallinfo</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> C externals</span>
+
+	<a name="f_c_ml_total"></a><a class="efeature" href="../base/mem_info.html#f_c_ml_total">c_ml_total</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">ml_total</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_NATURAL_64) ((struct emallinfo *) $a_ptr)-&gt;ml_total;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_ml_used"></a><a class="efeature" href="../base/mem_info.html#f_c_ml_used">c_ml_used</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">ml_used</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_NATURAL_64) ((struct emallinfo *) $a_ptr)-&gt;ml_used;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_ml_over"></a><a class="efeature" href="../base/mem_info.html#f_c_ml_over">c_ml_over</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">ml_over</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_NATURAL_64) ((struct emallinfo *) $a_ptr)-&gt;ml_over;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_ml_chunk"></a><a class="efeature" href="../base/mem_info.html#f_c_ml_chunk">c_ml_chunk</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access </span><span class="equoted">ml_chunk</span><span class="ecomment"> data member of </span><span class="equoted">a_ptr</span><span class="ecomment"> struct.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER) ((struct emallinfo *) $a_ptr)-&gt;ml_chunk;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sizeof_emallinfo"></a><a class="efeature" href="../base/mem_info.html#f_c_sizeof_emallinfo">c_sizeof_emallinfo</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of struct </span><span class="equoted">emallinfo</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return sizeof(struct emallinfo);&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_class</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">consistent_memory</span><span class="esymbol">:</span> <a class="efeature" href="../base/mem_info.html#f_total64">total64</a> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_info.html#f_free64">free64</a> <a class="esymbol" href="../base/natural_64.html#f_plus">+</a> <a class="efeature" href="../base/mem_info.html#f_used64">used64</a> <a class="esymbol" href="../base/natural_64.html#f_plus">+</a> <a class="efeature" href="../base/mem_info.html#f_overhead64">overhead64</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/mem_info.html">MEM_INFO</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mem_info_chart.html">Chart</a>
+<a class="nav class" href="mem_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mem_info"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

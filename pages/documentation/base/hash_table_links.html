@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Hash tables, used to store items identified by hashable keys"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="instructions" content="See instructions at the end of the class."/>
+<meta name="warning" content="Modifying an object used as a key by an item present in a table will cause incorrect behavior. If you will be modifying key objects, pass a clone, not the object itself, as key argument to `put' and `replace_key'."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="instruction" content="TTSeveral procedures are provided for inserting an item TTwith a given key.  TTHere is how to choose between them:  TTT- Use `put' if you want to do an insertion only if TTT  there was no item with the given key, doing nothing TTT  otherwise. (You can find out on return if there was one, TTT  and what it was.)  TTT- Use `force' if you always want to insert the item; TTT  if there was one for the given key it will be removed, TTT  (and you can find out on return what it was).  TTT- Use `extend' if you are sure there is no item with TTT  the given key, enabling faster insertion (but TTT  unpredictable behavior if this assumption is not true).  TTT- Use `replace' if you want to replace an already present TTT  item with the given key, and do nothing if there is none.  TTIn addition you can use `replace_key' to change the key of an TTalready present item, identified by its previous key, or TTdo nothing if there is nothing for that previous key. TTYou can find out on return.  TTTo find out whether a key appears in the table, use `has'. TTTo find out the item, if any, associated with a certain key, TTuse `item'.  TTBoth of these routines perform a search. If you need TTboth pieces of information (does a key appear? And, if so, TTwhat is the associated item?), you can avoid performing TTtwo redundant traversals by using instead the combination TTof `search', `found' and `found_item' as follows:  TTTyour_table.search (your_key) TTTif your_table.found then TTTTwhat_you_where_looking_for := your_table.found_item TTTT... Do whatever is needed to `what_you_were_looking_for' ... TTTelse TTTT... No item was present for `your_key' ... TTTend"/>
+<meta name="copyright" content="Copyright (c) 1984-2019, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>hash_table Relations</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_table_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="hash_table.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="hash_table"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../base/hash_table_links.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/mismatch_corrector_links.html">MISMATCH_CORRECTOR</a>
+	<a class="eclass" href="../base/readable_indexable_links.html">READABLE_INDEXABLE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/table_links.html">TABLE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">H</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/table_iterable_links.html">TABLE_ITERABLE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/unbounded_links.html">UNBOUNDED</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">Descendants</span>
+	<a class="eclass" href="../base/mismatch_information_links.html">MISMATCH_INFORMATION</a>
+	<a class="eclass" href="../base/sed_objects_table_links.html">SED_OBJECTS_TABLE</a>
+	<a class="eclass" href="../base/string_table_links.html">STRING_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">Clients</span>
+	<span class="neclass">DATE_TIME_CODE_STRING</span>
+	<span class="neclass">DATE_TIME_PARSER</span>
+	<a class="eclass" href="../base/execution_environment_links.html">EXECUTION_ENVIRONMENT</a>
+	<a class="eclass" href="../base/hash_table_links.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/hash_table_iteration_cursor_links.html">HASH_TABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/ise_exception_manager_links.html">ISE_EXCEPTION_MANAGER</a>
+	<a class="eclass" href="../base/memory_links.html">MEMORY</a>
+	<a class="eclass" href="../base/object_graph_traversable_links.html">OBJECT_GRAPH_TRAVERSABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/reflector_links.html">REFLECTOR</a>
+	<a class="eclass" href="../base/sed_basic_serializer_links.html">SED_BASIC_SERIALIZER</a>
+	<a class="eclass" href="../base/sed_recoverable_deserializer_links.html">SED_RECOVERABLE_DESERIALIZER</a>
+	<a class="eclass" href="../base/sed_recoverable_serializer_links.html">SED_RECOVERABLE_SERIALIZER</a>
+	<a class="eclass" href="../base/sed_type_mismatch_links.html">SED_TYPE_MISMATCH</a>
+	<a class="eclass" href="../base/sed_utilities_links.html">SED_UTILITIES</a>
+
+<span class="ekeyword">Suppliers</span>
+	<a class="eclass" href="../base/array_links.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/arrayed_list_links.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/boolean_links.html">BOOLEAN</a>
+	<a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/hash_table_links.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/hash_table_cursor_links.html">HASH_TABLE_CURSOR</a>
+	<a class="eclass" href="../base/hash_table_iteration_cursor_links.html">HASH_TABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/integer_32_links.html">INTEGER_32</a>
+	<a class="eclass" href="../base/iteration_cursor_links.html">ITERATION_CURSOR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/mismatch_information_links.html">MISMATCH_INFORMATION</a>
+	<a class="eclass" href="../base/primes_links.html">PRIMES</a>
+	<a class="eclass" href="../base/special_links.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/type_links.html">TYPE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_table_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="hash_table.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="hash_table"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Simple representation of a SED error"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="author" content="Julian Rogers"/>
+<meta name="last_editor" content="$Author: alexk $"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_error Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_error_chart.html">Chart</a>
+<a class="nav class" href="sed_error_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_error"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Simple representation of a SED error&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Julian Rogers&quot;</span>
+	<span class="eitag">last_editor</span><span class="esymbol">:</span> <span class="estring">&quot;$Author: alexk $&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_with_string"></a><a class="efeature" href="../base/sed_error.html#f_make_with_string">make_with_string</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create </span><span class="equoted">Current</span><span class="ecomment"> and set </span><a class="efeature" href="../base/sed_error.html#f_error">error</a><span class="ecomment"> to </span><span class="equoted">a_string</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_error.html#f_message">message</a><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">error_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_error.html#f_message">message</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_error"></a><a class="efeature" href="../base/sed_error.html#f_error">error</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `message' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Error</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_error.html#f_message">message</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_message"></a><a class="efeature" href="../base/sed_error.html#f_message">message</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Message of the error.</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_error.html">SED_ERROR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_error_chart.html">Chart</a>
+<a class="nav class" href="sed_error_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_error"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

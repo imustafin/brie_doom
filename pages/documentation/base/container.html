@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Data structures of the most general kind, used to hold zero or more items."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="access"/>
+<meta name="access" content="membership"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>container Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="container_chart.html">Chart</a>
+<a class="nav class" href="container_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="container"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Data structures of the most general kind,</span>
+		<span class="estring">used to hold zero or more items.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> access
+	<span class="eitag">access</span><span class="esymbol">:</span> membership
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-13 12:58:34 +0000 (Tue, 13 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102449 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/container.html">CONTAINER</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/iterable.html">ITERABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_has"></a><a class="efeature" href="../base/container.html#f_has">has</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does structure include </span><span class="equoted">v</span><span class="ecomment">?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Reference or object equality,</span>
+			<span class="ecomment">--</span><span class="ecomment"> based on </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment">.)</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">not_found_in_empty</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/container.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_empty"></a><a class="efeature" href="../base/container.html#f_is_empty">is_empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no element?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_empty"></a><a class="efeature" href="../base/container.html#f_empty">empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">obsolete</span> &quot;ELKS 2000: Use `is_empty' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Is there no element?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/container.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_object_comparison"></a><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Must search operations use </span><a class="efeature" href="../base/any.html#f_equal">equal</a><span class="ecomment"> rather than </span><span class="equoted">=</span>
+			<span class="ecomment">--</span><span class="ecomment"> for comparing references? (Default: no, use </span><span class="equoted">=</span><span class="ecomment">.)</span>
+
+	<a name="f_changeable_comparison_criterion"></a><a class="efeature" href="../base/container.html#f_changeable_comparison_criterion">changeable_comparison_criterion</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment"> be changed?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Answer: yes by default.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_compare_objects"></a><a class="efeature" href="../base/container.html#f_compare_objects">compare_objects</a>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure that future search operations will use </span><a class="efeature" href="../base/any.html#f_equal">equal</a>
+			<span class="ecomment">--</span><span class="ecomment"> rather than </span><span class="equoted">=</span><span class="ecomment"> for comparing references.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">changeable_comparison_criterion</span><span class="esymbol">:</span> <a class="efeature" href="../base/container.html#f_changeable_comparison_criterion">changeable_comparison_criterion</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+				<a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_compare_references"></a><a class="efeature" href="../base/container.html#f_compare_references">compare_references</a>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure that future search operations will use </span><span class="equoted">=</span>
+			<span class="ecomment">--</span><span class="ecomment"> rather than </span><a class="efeature" href="../base/any.html#f_equal">equal</a><span class="ecomment"> for comparing references.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">changeable_comparison_criterion</span><span class="esymbol">:</span> <a class="efeature" href="../base/container.html#f_changeable_comparison_criterion">changeable_comparison_criterion</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">reference_comparison</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_linear_representation"></a><a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a><span class="esymbol">:</span> <a class="eclass" href="../base/linear.html">LINEAR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Representation as a linear structure</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_estimated_count_of"></a><a class="efeature" href="../base/container.html#f_estimated_count_of">estimated_count_of</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/iterable.html">ITERABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Estimated number of elements in </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/finite.html">FINITE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> f <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">f</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_count">count</a>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_indexable.html">READABLE_INDEXABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> r <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">r</span><span class="edot">.</span><a class="efeature" href="../base/readable_indexable.html#f_upper">upper</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">r</span><span class="edot">.</span><a class="efeature" href="../base/readable_indexable.html#f_lower">lower</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">non_negative_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/container.html">CONTAINER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="container_chart.html">Chart</a>
+<a class="nav class" href="container_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="container"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

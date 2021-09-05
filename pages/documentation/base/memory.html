@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Facilities for tuning up the garbage collection mechanism. This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>memory Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="memory_chart.html">Chart</a>
+<a class="nav class" href="memory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="memory"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Facilities for tuning up the garbage collection mechanism.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:47:46 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101696 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/memory.html">MEMORY</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/disposable.html">DISPOSABLE</a>
+
+	<a class="eclass" href="../base/mem_const.html">MEM_CONST</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_memory_statistics"></a><a class="efeature" href="../base/memory.html#f_memory_statistics">memory_statistics</a> <span class="esymbol">(</span><span class="elocal">memory_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/mem_info.html">MEM_INFO</a>
+			<span class="ecomment">--</span><span class="ecomment"> Memory usage information for </span><span class="equoted">memory_type</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">type_ok</span><span class="esymbol">:</span> <span class="elocal">memory_type</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_total_memory">Total_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory_type</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_eiffel_memory">Eiffel_memory</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">memory_type</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_c_memory">C_memory</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/mem_info.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">memory_type</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_gc_statistics"></a><a class="efeature" href="../base/memory.html#f_gc_statistics">gc_statistics</a> <span class="esymbol">(</span><span class="elocal">collector_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/gc_info.html">GC_INFO</a>
+			<span class="ecomment">--</span><span class="ecomment"> Garbage collection information for </span><span class="equoted">collector_type</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">type_ok</span><span class="esymbol">:</span> <span class="elocal">collector_type</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_full_collector">Full_collector</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">collector_type</span> <span class="esymbol">=</span> <a class="efeature" href="../base/mem_const.html#f_incremental_collector">Incremental_collector</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/gc_info.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">collector_type</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_memory_threshold"></a><a class="efeature" href="../base/memory.html#f_memory_threshold">memory_threshold</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum amount of bytes to be allocated before</span>
+			<span class="ecomment">--</span><span class="ecomment"> starting an automatic garbage collection.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_tget&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collection_period"></a><a class="efeature" href="../base/memory.html#f_collection_period">collection_period</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Period of full collection.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_FULL_COLLECTION_PERIOD</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If null, no full collection is launched.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_pget&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_coalesce_period"></a><a class="efeature" href="../base/memory.html#f_coalesce_period">coalesce_period</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Period of full coalesce (in number of collections)</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_FULL_COALESCE_PERIOD</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If null, no full coalescing is launched.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_coalesce_period&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collecting"></a><a class="efeature" href="../base/memory.html#f_collecting">collecting</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is garbage collection enabled?</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_gc_ison&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_largest_coalesced_block"></a><a class="efeature" href="../base/memory.html#f_largest_coalesced_block">largest_coalesced_block</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of largest coalesced block since last call to</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">largest_coalesced</span><span class="ecomment">; 0 if none.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_largest&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_max_mem"></a><a class="efeature" href="../base/memory.html#f_max_mem">max_mem</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Maximum amount of bytes the run-time can allocate.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_get_max_mem&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_chunk_size"></a><a class="efeature" href="../base/memory.html#f_chunk_size">chunk_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Minimal size of a memory chunk. The run-time always</span>
+			<span class="ecomment">--</span><span class="ecomment"> allocates a multiple of this size.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_MEMORY_CHUNK</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_get_chunk_size&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_tenure"></a><a class="efeature" href="../base/memory.html#f_tenure">tenure</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Maximum age of object before being considered</span>
+			<span class="ecomment">--</span><span class="ecomment"> as old (old objects are not scanned during</span>
+			<span class="ecomment">--</span><span class="ecomment"> partial collection).</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_TENURE_MAX</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_tenure&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_generation_object_limit"></a><a class="efeature" href="../base/memory.html#f_generation_object_limit">generation_object_limit</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Maximum size of object in generational scavenge zone.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_GS_LIMIT</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_generation_object_limit&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_scavenge_zone_size"></a><a class="efeature" href="../base/memory.html#f_scavenge_zone_size">scavenge_zone_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of generational scavenge zone.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If the environment variable EIF_MEMORY_SCAVENGE</span>
+			<span class="ecomment">--</span><span class="ecomment"> is defined, it is set to the closest reasonable</span>
+			<span class="ecomment">--</span><span class="ecomment"> value from it.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_scavenge_zone_size&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_referers"></a><a class="efeature" href="../base/memory.html#f_referers">referers</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Objects that refer to </span><span class="equoted">an_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_find_referers">find_referers</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">,</span> <a class="efeature" href="../base/memory.html#f_special_any_dynamic_type">Special_any_dynamic_type</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_objects_instance_of"></a><a class="efeature" href="../base/memory.html#f_objects_instance_of">objects_instance_of</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Objects that have same dynamic type as </span><span class="equoted">an_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_objects_instance_of_type">objects_instance_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_objects_instance_of_type"></a><a class="efeature" href="../base/memory.html#f_objects_instance_of_type">objects_instance_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Objects that have same dynamic type as </span><span class="equoted">an_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_find_instance_of">find_instance_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">,</span> <a class="efeature" href="../base/memory.html#f_special_any_dynamic_type">Special_any_dynamic_type</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_map"></a><a class="efeature" href="../base/memory.html#f_memory_map">memory_map</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieves all object in system as a table indexed by dynamic type</span>
+			<span class="ecomment">--</span><span class="ecomment"> where elements are all instances of a given data type.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="elocal">l_item</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">l_list</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="elocal">l_memory_count_map</span><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_spec</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_find_all_instances">find_all_instances</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory.html#f_special_any_dynamic_type">Special_any_dynamic_type</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_memory_count_map</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">100</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_item</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_item</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_item</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a>
+					<span class="elocal">l_memory_count_map</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_memory_count_map</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dtype</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">100</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_item</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_item</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_item</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_search">search</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found">found</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found_item">found_item</a> <span class="ekeyword">as</span> l_found_item <span class="ekeyword">then</span>
+						<span class="elocal">l_list</span> <span class="esymbol">:=</span> <span class="elocal">l_found_item</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">create</span> <span class="elocal">l_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_memory_count_map</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_list</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_item</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_count_map"></a><a class="efeature" href="../base/memory.html#f_memory_count_map">memory_count_map</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Number of instances per dynamic type present in system.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Same as </span><a class="efeature" href="../base/memory.html#f_memory_map">memory_map</a><span class="ecomment"> except that no references on the objects themselves</span>
+			<span class="ecomment">--</span><span class="ecomment"> is kept.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="elocal">l_item</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_spec</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_find_all_instances">find_all_instances</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/memory.html#f_special_any_dynamic_type">Special_any_dynamic_type</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">100</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_item</span> <span class="esymbol">:=</span> <span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_item</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_item</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_search">search</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found">found</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found_item">found_item</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_execute_without_collection"></a><a class="efeature" href="../base/memory.html#f_execute_without_collection">execute_without_collection</a> <span class="esymbol">(</span><span class="elocal">a_action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Execute </span><span class="equoted">a_action</span><span class="ecomment"> with the garbage collector disabled.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><span class="equoted">a_action</span><span class="ecomment"> modifies the status of </span><a class="efeature" href="../base/memory.html#f_collecting">collecting</a><span class="ecomment">, we restore</span>
+			<span class="ecomment">--</span><span class="ecomment"> it no matter what at the end.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_action_not_void</span><span class="esymbol">:</span> <span class="elocal">a_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_is_collecting</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+			<span class="elocal">retried</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">retried</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_is_collecting</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+				<span class="ekeyword">if</span> <span class="elocal">l_is_collecting</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+					<span class="elocal">a_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">)</span>
+					<a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+				<span class="ekeyword">else</span>
+					<span class="elocal">a_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">)</span>
+					<a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_is_collecting</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">collection_status_preserved</span><span class="esymbol">:</span> <a class="efeature" href="../base/memory.html#f_collecting">collecting</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">retried</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">retry</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collection_off"></a><a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+			<span class="ecomment">--</span><span class="ecomment"> Disable garbage collection.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_gc_stop&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collection_on"></a><a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enable garbage collection.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_gc_run&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocate_fast"></a><a class="efeature" href="../base/memory.html#f_allocate_fast">allocate_fast</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enter </span><span class="equoted">speed</span><span class="ecomment"> mode: will optimize speed of memory</span>
+			<span class="ecomment">--</span><span class="ecomment"> allocation rather than memory usage.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_speed&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocate_compact"></a><a class="efeature" href="../base/memory.html#f_allocate_compact">allocate_compact</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enter </span><span class="equoted">memory</span><span class="ecomment"> mode: will try to compact memory</span>
+			<span class="ecomment">--</span><span class="ecomment"> before requesting more from the operating system.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_slow&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_allocate_tiny"></a><a class="efeature" href="../base/memory.html#f_allocate_tiny">allocate_tiny</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enter </span><span class="equoted">tiny</span><span class="ecomment"> mode: will enter </span><span class="equoted">memory</span><span class="ecomment"> mode</span>
+			<span class="ecomment">--</span><span class="ecomment"> after having freed as much memory as possible.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_tiny&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_enable_time_accounting"></a><a class="efeature" href="../base/memory.html#f_enable_time_accounting">enable_time_accounting</a>
+			<span class="ecomment">--</span><span class="ecomment"> Enable GC time accouting, accessible in </span><a class="efeature" href="../base/memory.html#f_gc_statistics">gc_statistics</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/memory.html#f_gc_monitoring">gc_monitoring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_disable_time_accounting"></a><a class="efeature" href="../base/memory.html#f_disable_time_accounting">disable_time_accounting</a>
+			<span class="ecomment">--</span><span class="ecomment"> Disable GC time accounting (default).</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/memory.html#f_gc_monitoring">gc_monitoring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_memory_threshold"></a><a class="efeature" href="../base/memory.html#f_set_memory_threshold">set_memory_threshold</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set a new </span><a class="efeature" href="../base/memory.html#f_memory_threshold">memory_threshold</a><span class="ecomment"> in bytes. Whenever the memory</span>
+			<span class="ecomment">--</span><span class="ecomment"> allocated for Eiffel reaches this value, an automatic</span>
+			<span class="ecomment">--</span><span class="ecomment"> collection is performed.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">positive_value</span><span class="esymbol">:</span> <span class="elocal">value</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_tset&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_collection_period"></a><a class="efeature" href="../base/memory.html#f_set_collection_period">set_collection_period</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/memory.html#f_collection_period">collection_period</a><span class="ecomment">. Every </span><span class="equoted">value</span><span class="ecomment"> collection,</span>
+			<span class="ecomment">--</span><span class="ecomment"> the Garbage collector will perform a collection</span>
+			<span class="ecomment">--</span><span class="ecomment"> on the whole memory (full collection), otherwise</span>
+			<span class="ecomment">--</span><span class="ecomment"> a simple partial collection is done.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">positive_value</span><span class="esymbol">:</span> <span class="elocal">value</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_pset&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_coalesce_period"></a><a class="efeature" href="../base/memory.html#f_set_coalesce_period">set_coalesce_period</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/memory.html#f_coalesce_period">coalesce_period</a><span class="ecomment">. Every </span><span class="equoted">value</span><span class="ecomment"> collection,</span>
+			<span class="ecomment">--</span><span class="ecomment"> the Garbage Collector will coalesce</span>
+			<span class="ecomment">--</span><span class="ecomment"> the whole memory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">positive_value</span><span class="esymbol">:</span> <span class="elocal">value</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_set_coalesce_period&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_max_mem"></a><a class="efeature" href="../base/memory.html#f_set_max_mem">set_max_mem</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set the maximum amount of memory the run-time can allocate.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">positive_value</span><span class="esymbol">:</span> <span class="elocal">value</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_set_max_mem&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_dispose"></a><a class="efeature" href="../base/memory.html#f_dispose">dispose</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action to be executed just before garbage collection</span>
+			<span class="ecomment">--</span><span class="ecomment"> reclaims an object.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Default version does nothing; redefine in descendants</span>
+			<span class="ecomment">--</span><span class="ecomment"> to perform specific dispose actions. Those actions</span>
+			<span class="ecomment">--</span><span class="ecomment"> should only take care of freeing external resources;</span>
+			<span class="ecomment">--</span><span class="ecomment"> they should not perform remote calls on other objects</span>
+			<span class="ecomment">--</span><span class="ecomment"> since these may also be dead and reclaimed.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_free"></a><a class="efeature" href="../base/memory.html#f_free">free</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Free </span><span class="equoted">object</span><span class="ecomment">, by-passing garbage collection.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Erratic behavior will result if the object is still</span>
+			<span class="ecomment">--</span><span class="ecomment"> referenced.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_full_coalesce"></a><a class="efeature" href="../base/memory.html#f_full_coalesce">full_coalesce</a>
+			<span class="ecomment">--</span><span class="ecomment"> Coalesce the whole memory: merge adjacent free</span>
+			<span class="ecomment">--</span><span class="ecomment"> blocks to reduce fragmentation. Useful, when</span>
+			<span class="ecomment">--</span><span class="ecomment"> a lot of memory is allocated with garbage collector off.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_mem_coalesc&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_collect"></a><a class="efeature" href="../base/memory.html#f_collect">collect</a>
+			<span class="ecomment">--</span><span class="ecomment"> Force a partial collection cycle if garbage</span>
+			<span class="ecomment">--</span><span class="ecomment"> collection is enabled; do nothing otherwise.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_full_collect"></a><a class="efeature" href="../base/memory.html#f_full_collect">full_collect</a>
+			<span class="ecomment">--</span><span class="ecomment"> Force a full collection cycle if garbage</span>
+			<span class="ecomment">--</span><span class="ecomment"> collection is enabled; do nothing otherwise.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;plsc&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_gc_monitoring"></a><a class="efeature" href="../base/memory.html#f_gc_monitoring">gc_monitoring</a> <span class="esymbol">(</span><span class="elocal">flag</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set up GC monitoring according to </span><span class="equoted">flag</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_memory.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_gc_mon&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_find_referers"></a><a class="efeature" href="../base/memory.html#f_find_referers">find_referers</a> <span class="esymbol">(</span><span class="elocal">target</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">result_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_find_instance_of"></a><a class="efeature" href="../base/memory.html#f_find_instance_of">find_instance_of</a> <span class="esymbol">(</span><span class="elocal">dtype</span><span class="esymbol">,</span> <span class="elocal">result_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_INTEGER, EIF_INTEGER): EIF_REFERENCE use %&quot;eif_traverse.h%&quot;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_find_all_instances"></a><a class="efeature" href="../base/memory.html#f_find_all_instances">find_all_instances</a> <span class="esymbol">(</span><span class="elocal">result_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_INTEGER): EIF_REFERENCE use %&quot;eif_traverse.h%&quot;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_special_any_dynamic_type"></a><a class="efeature" href="../base/memory.html#f_special_any_dynamic_type">Special_any_dynamic_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Dynamic type ID of an instance of </span><span class="equoted">SPECIAL [ANY]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/memory.html">MEMORY</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="memory_chart.html">Chart</a>
+<a class="nav class" href="memory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="memory"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

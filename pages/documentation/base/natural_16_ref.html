@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to objects containing an unsigned integer value coded on 16 bits."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>natural_16_ref Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="natural_16_ref_chart.html">Chart</a>
+<a class="nav class" href="natural_16_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="natural_16_ref"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;References to objects containing an unsigned integer value coded on 16 bits.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-14 14:40:16 +0000 (Wed, 14 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102456 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/natural_16_ref.html">NATURAL_16_REF</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/numeric.html">NUMERIC</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/numeric.html#f_quotient">quotient</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/natural_16_ref.html#f_integer_quotient">integer_quotient</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_integer_quotient">//</a><span class="esymbol">&quot;</span><span class="esymbol">,</span>
+			<a class="efeature" href="../base/numeric.html#f_opposite">opposite</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/natural_16_ref.html#f_unapplicable_opposite">unapplicable_opposite</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/comparable.html">COMPARABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_is_hashable">is_hashable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Value.</span>
+
+
+	<a name="f_hash_code"></a><a class="efeature" href="../base/natural_16_ref.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sign"></a><a class="efeature" href="../base/natural_16_ref.html#f_sign">sign</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Sign value (0 or 1).</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">three_way</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/comparable.html#f_three_way_comparison">three_way_comparison</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_zero">zero</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_one"></a><a class="efeature" href="../base/natural_16_ref.html#f_one">one</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neutral element for &quot;*&quot; and &quot;/&quot;.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_zero"></a><a class="efeature" href="../base/natural_16_ref.html#f_zero">zero</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neutral element for &quot;+&quot; and &quot;-&quot;.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ascii_char"></a><a class="efeature" href="../base/natural_16_ref.html#f_ascii_char">ascii_char</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `to_character_8' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> ASCII character corresponding to </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character_code</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_min_value"></a><a class="efeature" href="../base/natural_16_ref.html#f_min_value">Min_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_max_value"></a><a class="efeature" href="../base/natural_16_ref.html#f_max_value">Max_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a> <span class="esymbol">=</span> <span class="enumber">65535</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum and Maximum value hold in </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment">.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_less"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_less">is_less</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_is_less">&lt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current integer less than </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_is_less">&lt;</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object of the same type</span>
+			<span class="ecomment">--</span><span class="ecomment"> as current object and identical to it?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_item"></a><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">i</span><span class="ecomment"> the </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">:=</span> <span class="elocal">i</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">i</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_divisible"></a><a class="efeature" href="../base/natural_16_ref.html#f_divisible">divisible</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be divided by </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">value</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exponentiable"></a><a class="efeature" href="../base/natural_16_ref.html#f_exponentiable">exponentiable</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/numeric.html">NUMERIC</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be elevated to the power </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32_ref.html">INTEGER_32_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> integer_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">integer_value</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/real_32_ref.html">REAL_32_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> real_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">real_value</span><span class="edot">.</span><a class="efeature" href="../base/real_32_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0.0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/real_64_ref.html">REAL_64_REF</a><span class="esymbol">}</span> <span class="elocal">other</span> <span class="ekeyword">as</span> double_value <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">double_value</span><span class="edot">.</span><a class="efeature" href="../base/real_64_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0.0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">safe_values</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_conforms_to">conforms_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0.0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_hashable"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_hashable">is_hashable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be hashed?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (True if it is not its type's default.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_valid_character_code"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_code">is_valid_character_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `is_valid_character_8_code' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Does current object represent a </span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_valid_character_8_code"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does current object represent a </span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_max_value">max_value</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">in_bounds</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_min_value">min_value</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_max_value">max_value</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_valid_character_32_code"></a><a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_32_code">is_valid_character_32_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does current object represent a </span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">in_bounds</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_natural_32">to_natural_32</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_min_value">min_value</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_natural_32">to_natural_32</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_max_value">max_value</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_plus"></a><a class="efeature" href="../base/natural_16_ref.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Sum with </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_plus">+</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_minus"></a><a class="efeature" href="../base/natural_16_ref.html#f_minus">minus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_minus">-</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Result of subtracting </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_minus">-</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_product"></a><a class="efeature" href="../base/natural_16_ref.html#f_product">product</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_product">*</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Product by </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_product">*</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_quotient"></a><a class="efeature" href="../base/natural_16_ref.html#f_quotient">quotient</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_quotient">/</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Division by </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">good_divisor</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_divisible">divisible</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_quotient">/</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_identity"></a><a class="efeature" href="../base/natural_16_ref.html#f_identity">identity</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_identity">+</a><span class="esymbol">&quot;</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unary plus.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="esymbol" href="../base/natural_16.html#f_identity">+</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unapplicable_opposite"></a><a class="efeature" href="../base/natural_16_ref.html#f_unapplicable_opposite">unapplicable_opposite</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unary minus.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">not_applicable</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_quotient"></a><a class="efeature" href="../base/natural_16_ref.html#f_integer_quotient">integer_quotient</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_integer_quotient">//</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Integer division of </span><span class="equoted">Current</span><span class="ecomment"> by </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_integer_quotient">//</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_remainder"></a><a class="efeature" href="../base/natural_16_ref.html#f_integer_remainder">integer_remainder</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_integer_remainder">\\</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Remainder of the integer division of </span><span class="equoted">Current</span><span class="ecomment"> by </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">good_divisor</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_divisible">divisible</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_integer_remainder">\\</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_exists</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_power"></a><a class="efeature" href="../base/natural_16_ref.html#f_power">power</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_power">^</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer power of </span><span class="equoted">Current</span><span class="ecomment"> by </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_power">^</a> <span class="elocal">other</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_interval"></a><a class="efeature" href="../base/natural_16_ref.html#f_interval">interval</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_interval">|..|</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_interval.html">INTEGER_INTERVAL</a>
+			<span class="ecomment">--</span><span class="ecomment"> Interval from current element to </span><span class="equoted">other</span>
+			<span class="ecomment">--</span><span class="ecomment"> (empty if </span><span class="equoted">other</span><span class="ecomment"> less than current integer)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/integer_interval.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">,</span> <span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_make_from_reference"></a><a class="efeature" href="../base/natural_16_ref.html#f_make_from_reference">make_from_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16_ref.html">NATURAL_16_REF</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with </span><span class="equoted">v.item</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_reference"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_reference">to_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16_ref.html">NATURAL_16_REF</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated reference of </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_reference_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_boolean"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_boolean">to_boolean</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> True if not </span><a class="efeature" href="../base/natural_16_ref.html#f_zero">zero</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_natural_8"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_natural_8">as_natural_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_natural_8">as_natural_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_natural_16"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_natural_16">as_natural_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_natural_16">as_natural_16</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_natural_32"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_natural_32">as_natural_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_natural_32">as_natural_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_natural_64"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_natural_64">as_natural_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_natural_64">as_natural_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_integer_8"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_integer_8">as_integer_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_integer_8">as_integer_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_integer_16"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_integer_16">as_integer_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_integer_16">as_integer_16</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_integer_32"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_integer_32">as_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_integer_64"></a><a class="efeature" href="../base/natural_16_ref.html#f_as_integer_64">as_integer_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_as_integer_64">as_integer_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_natural_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_too_big</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_16">to_natural_16</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_natural_8">as_natural_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_natural_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_natural_16">to_natural_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_natural_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_natural_32">as_natural_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_natural_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_natural_64">to_natural_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_natural_64">as_natural_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_integer_8">to_integer_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_too_big</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_8_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_8_ref.html#f_to_natural_16">to_natural_16</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_integer_8">as_integer_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_integer_16">to_integer_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_too_big</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_16_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_16_ref.html#f_to_natural_16">to_natural_16</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_integer_16">as_integer_16</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_to_integer_64">to_integer_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into an </span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_as_integer_64">as_integer_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_real_32"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_real_32">to_real_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_real_32">to_real_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_real_64"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_real_64">to_real_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a </span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_real_64">to_real_64</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_hex_string"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_hex_string">to_hex_string</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a hexadecimal string.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">val</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_natural_16_bits">natural_16_bits</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">4</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'0'</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">val</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">val</span> <a class="esymbol" href="../base/integer_32.html#f_bit_and">&#38;</a> <span class="enumber">15</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_hex_character">to_hex_character</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">val</span> <span class="esymbol">:=</span> <span class="elocal">val</span> <a class="esymbol" href="../base/integer_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">4</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">result_valid_count</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_16_bits">integer_16_bits</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">4</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_hex_character"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_hex_character">to_hex_character</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> converted into a hexadecimal character.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">in_bounds</span><span class="esymbol">:</span> <span class="enumber">0</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">15</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">9</span> <span class="ekeyword">then</span>
+				<span class="echar">'0'</span>
+			<span class="ekeyword">else</span>
+				<span class="echar">'A'</span> <a class="esymbol" href="../base/character_8_ref.html#f_minus">-</a> <span class="enumber">10</span>
+			<span class="ekeyword">end</span> <a class="esymbol" href="../base/character_8_ref.html#f_plus">+</a> <span class="elocal">i</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <span class="esymbol">(</span>&quot;0123456789ABCDEF&quot;<span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_character"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_character">to_character</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `to_character_8' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> ASCII character corresponding to </span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_character_8"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_character_8">to_character_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated character in 8 bit version.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_character_32"></a><a class="efeature" href="../base/natural_16_ref.html#f_to_character_32">to_character_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated character in 32 bit version.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <a class="efeature" href="../base/natural_16_ref.html#f_is_valid_character_32_code">is_valid_character_32_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_to_character_32">to_character_32</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Bit operations</span>
+
+	<a name="f_bit_and"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_and">bit_and</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_bit_and">&#38;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Bitwise &quot;and&quot; between </span><span class="equoted">Current</span><span class="ecomment"> and </span><span class="equoted">i</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_not_void</span><span class="esymbol">:</span> <span class="elocal">i</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_and">bit_and</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bitwise_and_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_or"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_or">bit_or</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_bit_or">|</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Bitwise &quot;or&quot; between </span><span class="equoted">Current</span><span class="ecomment"> and </span><span class="equoted">i</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_not_void</span><span class="esymbol">:</span> <span class="elocal">i</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_or">bit_or</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bitwise_or_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_xor"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_xor">bit_xor</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Bitwise &quot;xor&quot; between </span><span class="equoted">Current</span><span class="ecomment"> and </span><span class="equoted">i</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_not_void</span><span class="esymbol">:</span> <span class="elocal">i</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_xor">bit_xor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bitwise_xor_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_not"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_not">bit_not</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> One's complement of </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_not">bit_not</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bit_not_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_shift"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_bit_shift">bit_shift</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Current</span><span class="ecomment"> shifted from </span><span class="equoted">n</span><span class="ecomment"> position to right if </span><span class="equoted">n</span><span class="ecomment"> positive,</span>
+			<span class="ecomment">--</span><span class="ecomment"> to left otherwise.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_less_or_equal_to_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">16</span>
+			<span class="etag">n_greater_or_equal_to_minus_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">-16</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_bit_shift_right">bit_shift_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_bit_shift_left">bit_shift_left</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="esymbol" href="../base/integer_32.html#f_opposite">-</a> <span class="elocal">n</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_shift_left"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_shift_left">bit_shift_left</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_bit_shift_left">|&lt;&lt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Current</span><span class="ecomment"> shifted from </span><span class="equoted">n</span><span class="ecomment"> position to left.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_nonnegative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_less_or_equal_to_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">16</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_shift_left">bit_shift_left</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bit_shift_left_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_shift_right"></a><a class="efeature" href="../base/natural_16_ref.html#f_bit_shift_right">bit_shift_right</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/natural_16_ref.html#f_bit_shift_right">|&gt;&gt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Current</span><span class="ecomment"> shifted from </span><span class="equoted">n</span><span class="ecomment"> position to right.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_nonnegative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_less_or_equal_to_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">16</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/natural_16_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_shift_right">bit_shift_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bit_shift_right_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bit_test"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_bit_test">bit_test</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Test </span><span class="equoted">n</span><span class="ecomment">-th position of </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_nonnegative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_less_than_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">16</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_16">to_natural_16</a> <a class="esymbol" href="../base/natural_16.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">n</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_bit"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_set_bit">set_bit</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">;</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Copy of current with </span><span class="equoted">n</span><span class="ecomment">-th position</span>
+			<span class="ecomment">--</span><span class="ecomment"> set to 1 if </span><span class="equoted">b</span><span class="ecomment">, 0 otherwise.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">n_nonnegative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_less_than_16</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">16</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">b</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_bit_or">|</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_16">to_natural_16</a> <a class="esymbol" href="../base/natural_16.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">n</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_16">to_natural_16</a> <a class="esymbol" href="../base/natural_16.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">n</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_not">bit_not</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_bit_with_mask"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/natural_16_ref.html#f_set_bit_with_mask">set_bit_with_mask</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">;</span> <span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Copy of current with all 1 bits of </span><span class="equoted">m</span><span class="ecomment"> set to 1</span>
+			<span class="ecomment">--</span><span class="ecomment"> if </span><span class="equoted">b</span><span class="ecomment">, 0 otherwise.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">b</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_bit_or">|</a> <span class="elocal">m</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/natural_16_ref.html#f_item">item</a> <a class="esymbol" href="../base/natural_16.html#f_bit_and">&#38;</a> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../base/natural_16.html#f_bit_not">bit_not</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_out"></a><a class="efeature" href="../base/natural_16_ref.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Printable representation of value.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">5</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_natural_16">append_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/natural_16_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/natural_16_ref.html">NATURAL_16_REF</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="natural_16_ref_chart.html">Chart</a>
+<a class="nav class" href="natural_16_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="natural_16_ref"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

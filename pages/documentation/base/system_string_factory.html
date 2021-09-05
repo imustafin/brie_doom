@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Factory for creating SYSTEM_STRING instances."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>system_string_factory Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="system_string_factory_chart.html">Chart</a>
+<a class="nav class" href="system_string_factory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="system_string_factory"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Factory for creating SYSTEM_STRING instances.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2012-11-29 23:31:24 +0000 (Thu, 29 Nov 2012) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92050 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/system_string_factory.html">SYSTEM_STRING_FACTORY</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_from_string_to_system_string"></a><a class="efeature" href="../base/system_string_factory.html#f_from_string_to_system_string">from_string_to_system_string</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convert </span><span class="equoted">a_str</span><span class="ecomment"> to an instance of SYSTEM_STRING.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">a_str_not_void</span><span class="esymbol">:</span> <span class="elocal">a_str</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">from_string_to_system_string_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_system_string_into"></a><a class="efeature" href="../base/system_string_factory.html#f_read_system_string_into">read_system_string_into</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">;</span> <span class="elocal">a_result</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_general.html">STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill </span><span class="equoted">a_result</span><span class="ecomment"> with </span><span class="equoted">a_str</span><span class="ecomment"> content.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">a_str_not_void</span><span class="esymbol">:</span> <span class="elocal">a_str</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_result_not_void</span><span class="esymbol">:</span> <span class="elocal">a_result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_result_valid</span><span class="esymbol">:</span> <span class="elocal">a_result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/system_string.html#f_length">length</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_system_string_into_area_8"></a><a class="efeature" href="../base/system_string_factory.html#f_read_system_string_into_area_8">read_system_string_into_area_8</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">;</span> <span class="elocal">a_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill </span><span class="equoted">a_result</span><span class="ecomment"> with </span><span class="equoted">a_str</span><span class="ecomment"> content.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">a_str_not_void</span><span class="esymbol">:</span> <span class="elocal">a_str</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_area_not_void</span><span class="esymbol">:</span> <span class="elocal">a_area</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_area_valid</span><span class="esymbol">:</span> <span class="elocal">a_area</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/system_string.html#f_length">length</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_system_string_into_area_32"></a><a class="efeature" href="../base/system_string_factory.html#f_read_system_string_into_area_32">read_system_string_into_area_32</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">;</span> <span class="elocal">a_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill </span><span class="equoted">a_area</span><span class="ecomment"> with </span><span class="equoted">a_str</span><span class="ecomment"> content.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+			<span class="etag">a_str_not_void</span><span class="esymbol">:</span> <span class="elocal">a_str</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_area_not_void</span><span class="esymbol">:</span> <span class="elocal">a_area</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_area_valid</span><span class="esymbol">:</span> <span class="elocal">a_area</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">a_str</span><span class="edot">.</span><a class="efeature" href="../base/system_string.html#f_length">length</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_escape_count"></a><a class="efeature" href="../base/system_string_factory.html#f_escape_count">escape_count</a> <span class="esymbol">(</span><span class="elocal">a_str</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of </span><span class="equoted">escape_character</span><span class="ecomment"> in </span><span class="equoted">a_str</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_dotnet</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/system_string_factory.html">SYSTEM_STRING_FACTORY</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="system_string_factory_chart.html">Chart</a>
+<a class="nav class" href="system_string_factory_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="system_string_factory"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

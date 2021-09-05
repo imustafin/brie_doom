@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Basic mathematical operations, double-precision. This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>double_math Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="double_math_chart.html">Chart</a>
+<a class="nav class" href="double_math_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="double_math"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Basic mathematical operations, double-precision.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:47:11 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101695 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/double_math.html">DOUBLE_MATH</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/math_const.html">MATH_CONST</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_log_2"></a><a class="efeature" href="../base/double_math.html#f_log_2">log_2</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Base 2 logarithm of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/double_math.html#f_log">log</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="esymbol" href="../base/real_64.html#f_quotient">/</a> <a class="efeature" href="../base/double_math.html#f_log">log</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">}</span> <span class="enumber">2.0</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cosine"></a><a class="efeature" href="../base/double_math.html#f_cosine">cosine</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric cosine of radian </span><span class="equoted">v</span><span class="ecomment"> approximated</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the range [-pi/4, +pi/4].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;cos&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_arc_cosine"></a><a class="efeature" href="../base/double_math.html#f_arc_cosine">arc_cosine</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric arccosine of radian </span><span class="equoted">v</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the range [0, pi].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;acos&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sine"></a><a class="efeature" href="../base/double_math.html#f_sine">sine</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric sine of radian </span><span class="equoted">v</span><span class="ecomment"> approximated</span>
+			<span class="ecomment">--</span><span class="ecomment"> in range [-pi/4, +pi/4].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;sin&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_arc_sine"></a><a class="efeature" href="../base/double_math.html#f_arc_sine">arc_sine</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric arcsine of radian </span><span class="equoted">v</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the range [-pi/2, +pi/2].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;asin&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_tangent"></a><a class="efeature" href="../base/double_math.html#f_tangent">tangent</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric tangent of radian </span><span class="equoted">v</span><span class="ecomment"> approximated</span>
+			<span class="ecomment">--</span><span class="ecomment"> in range [-pi/4, +pi/4].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;tan&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_arc_tangent"></a><a class="efeature" href="../base/double_math.html#f_arc_tangent">arc_tangent</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Trigonometric arctangent of radian </span><span class="equoted">v</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the range [-pi/2, +pi/2].</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;atan&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sqrt"></a><a class="efeature" href="../base/double_math.html#f_sqrt">sqrt</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Square root of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exp"></a><a class="efeature" href="../base/double_math.html#f_exp">exp</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Exponential of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_log"></a><a class="efeature" href="../base/double_math.html#f_log">log</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Natural logarithm of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_log10"></a><a class="efeature" href="../base/double_math.html#f_log10">log10</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Base 10 logarithm of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_floor"></a><a class="efeature" href="../base/double_math.html#f_floor">floor</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Greatest integral less than or equal to </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ceiling"></a><a class="efeature" href="../base/double_math.html#f_ceiling">ceiling</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Least integral greater than or equal to </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;ceil&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_dabs"></a><a class="efeature" href="../base/double_math.html#f_dabs">dabs</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Absolute of </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (double): double use &lt;math.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;fabs&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/double_math.html">DOUBLE_MATH</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="double_math_chart.html">Chart</a>
+<a class="nav class" href="double_math_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="double_math"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

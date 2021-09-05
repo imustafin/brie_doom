@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Objects that provide settings for executing an {EQA_TEST_SET}. A settings conists of an key-value pair of type {STRING}. The settings are once per thread, meaning that any {EQA_ENVIRONMENT} instances will have the same state if they are accessed in the same thread."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>eqa_environment Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_environment_chart.html">Chart</a>
+<a class="nav class" href="eqa_environment_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_environment"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Objects that provide settings for executing an </span><a class="eclass" href="../testing/eqa_test_set.html">EQA_TEST_SET</a><span class="estring">. A settings conists of an</span>
+		<span class="estring">key-value pair of type </span><span class="estring">{</span><span class="estring">STRING</span><span class="estring">}</span><span class="estring">.</span>
+		<span class="estring">The settings are once per thread, meaning that any </span><a class="eclass" href="../testing/eqa_environment.html">EQA_ENVIRONMENT</a><span class="estring"> instances will have</span>
+		<span class="estring">the same state if they are accessed in the same thread.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-05-03 14:51:35 +0000 (Wed, 03 May 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100315 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/eqa_environment.html">EQA_ENVIRONMENT</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../testing/eqa_environment.html#f_item">item</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Value associated with </span><span class="equoted">a_key</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_search">search</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found">found</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found_item">found_item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item_attached"></a><a class="efeature" href="../testing/eqa_environment.html#f_item_attached">item_attached</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">an_asserter</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_assertions.html">EQA_ASSERTIONS</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key or rise exception if no value for given key has been defined.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">an_asserter</span><span class="ecomment">: Asserter in which exceptions are raised if value could not be retrieved.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Value associated with </span><span class="equoted">a_key</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_asserter_attached</span><span class="esymbol">:</span> <span class="elocal">an_asserter</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_v <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_v</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">an_asserter</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_assertions.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span> <a class="esymbol" href="../base/readable_string_general.html#f_plus">+</a> &quot; not defined&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item_not_empty"></a><a class="efeature" href="../testing/eqa_environment.html#f_item_not_empty">item_not_empty</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">an_asserter</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_assertions.html">EQA_ASSERTIONS</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key or rise exception if no value for given key has been defined</span>
+			<span class="ecomment">--</span><span class="ecomment"> or the value defined is empty.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">an_asserter</span><span class="ecomment">: Asserter in which exceptions are raised if value could not be retrieved.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Non-empty value associated with </span><span class="equoted">a_key</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_asserter_attached</span><span class="esymbol">:</span> <span class="elocal">an_asserter</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_environment.html#f_item_attached">item_attached</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">,</span> <span class="elocal">an_asserter</span><span class="esymbol">)</span>
+			<span class="elocal">an_asserter</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_assertions.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span> <a class="esymbol" href="../base/readable_string_general.html#f_plus">+</a> &quot; is empty&quot;<span class="esymbol">,</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_is_empty">is_empty</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access: obsolete</span>
+
+	<a name="f_get"></a><a class="efeature" href="../testing/eqa_environment.html#f_get">get</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `item` [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Value associated with </span><span class="equoted">a_key</span><span class="ecomment">..</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">)</span> <span class="ekeyword">as</span> v <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_attached"></a><a class="efeature" href="../testing/eqa_environment.html#f_get_attached">get_attached</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">an_asserter</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_assertions.html">EQA_ASSERTIONS</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `item_attached` [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key or rise exception if no value for given key has been defined.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">an_asserter</span><span class="ecomment">: Asserter in which exceptions are raised if value could not be retrieved.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Value associated with </span><span class="equoted">a_key</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_asserter_attached</span><span class="esymbol">:</span> <span class="elocal">an_asserter</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_environment.html#f_item_attached">item_attached</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">,</span> <span class="elocal">an_asserter</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_not_empty"></a><a class="efeature" href="../testing/eqa_environment.html#f_get_not_empty">get_not_empty</a> <span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">an_asserter</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_assertions.html">EQA_ASSERTIONS</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `item_not_empty` [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve setting for given key or rise exception if no value for given key has been defined</span>
+			<span class="ecomment">--</span><span class="ecomment"> or the value defined is empty.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for which setting should be returned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">an_asserter</span><span class="ecomment">: Asserter in which exceptions are raised if value could not be retrieved.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Non-empty value associated with </span><span class="equoted">a_key</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_asserter_attached</span><span class="esymbol">:</span> <span class="elocal">an_asserter</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_environment.html#f_item_not_empty">item_not_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">,</span> <span class="elocal">an_asserter</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_table"></a><a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_table.html">STRING_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Table in which settings are stored.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_environment.html#f_default_table_size">Default_table_size</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_put"></a><a class="efeature" href="../testing/eqa_environment.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">a_value</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">a_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set the value for a given key.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_value</span><span class="ecomment">: Value for new setting.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_key</span><span class="ecomment">: Key for new setting.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_value_attached</span><span class="esymbol">:</span> <span class="elocal">a_value</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_key_attached</span><span class="esymbol">:</span> <span class="elocal">a_key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_ivalue</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">a_value</span> <span class="ekeyword">as</span> l_v <span class="ekeyword">then</span>
+				<span class="elocal">l_ivalue</span> <span class="esymbol">:=</span> <span class="elocal">l_v</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_ivalue</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_value</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ivalue</span><span class="esymbol">,</span> <span class="elocal">a_key</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">set</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_key</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_value <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">a_value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_value</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../testing/eqa_evaluator.html">EQA_EVALUATOR</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_reset"></a><a class="efeature" href="../testing/eqa_environment.html#f_reset">reset</a>
+			<span class="ecomment">--</span><span class="ecomment"> Reset all settings.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_wipe_out">wipe_out</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Query</span>
+
+	<a name="f_is_identifier_char"></a><a class="efeature" href="../testing/eqa_environment.html#f_is_identifier_char">is_identifier_char</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">c</span><span class="ecomment"> an identifier character?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="echar">'A'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="echar">'Z'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="echar">'a'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="echar">'z'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="echar">'0'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="echar">'9'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'_'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_substitute_recursive"></a><a class="efeature" href="../testing/eqa_environment.html#f_substitute_recursive">substitute_recursive</a> <span class="esymbol">(</span><span class="elocal">a_line</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Call </span><a class="efeature" href="../testing/eqa_environment.html#f_substitute">substitute</a><span class="ecomment"> recursively util no '$' found anymore</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_void</span><span class="esymbol">:</span> <span class="elocal">a_line</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_temp</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="elocal">l_stop</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_line</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'$'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_stop</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_temp</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_environment.html#f_substitute">substitute</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_temp</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_same_string">same_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_stop</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_stop</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_temp</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_substitute"></a><a class="efeature" href="../testing/eqa_environment.html#f_substitute">substitute</a> <span class="esymbol">(</span><span class="elocal">a_line</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">line</span><span class="ecomment"> with all environment variables replaced</span>
+			<span class="ecomment">--</span><span class="ecomment"> by their values (or left alone if not in</span>
+			<span class="ecomment">--</span><span class="ecomment"> environment)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">line_not_void</span><span class="esymbol">:</span> <span class="elocal">a_line</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">k</span><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_start</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="elocal">l_word</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a>
+			<span class="elocal">l_subst_started</span><span class="esymbol">,</span> <span class="elocal">l_in_group</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_line</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">a_line</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a>
+				<span class="elocal">k</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">k</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">c</span> <span class="esymbol">:=</span> <span class="elocal">a_line</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">k</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/eqa_environment.html#f_substitute_char">Substitute_char</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_subst_started</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_subst_started</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">l_subst_started</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_subst_started</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">c</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/eqa_environment.html#f_left_group_char">Left_group_char</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_in_group</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">from</span>
+							<span class="elocal">l_start</span> <span class="esymbol">:=</span> <span class="elocal">k</span>
+						<span class="ekeyword">until</span>
+							<span class="elocal">k</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_environment.html#f_is_identifier_char">is_identifier_char</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_line</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">k</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">loop</span>
+							<span class="elocal">k</span> <span class="esymbol">:=</span> <span class="elocal">k</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">k</span> <span class="esymbol">:=</span> <span class="elocal">k</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+						<span class="elocal">l_word</span> <span class="esymbol">:=</span> <span class="elocal">a_line</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_start</span><span class="esymbol">,</span> <span class="elocal">k</span><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_word</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_replacement <span class="ekeyword">then</span>
+							<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_replacement</span><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_environment.html#f_substitute_char">Substitute_char</a><span class="esymbol">)</span>
+							<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_word</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_in_group</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_in_group</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+							<span class="elocal">k</span> <span class="esymbol">:=</span> <span class="elocal">k</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">l_subst_started</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">k</span> <span class="esymbol">:=</span> <span class="elocal">k</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_subst_started</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Constants</span>
+
+	<a name="f_default_table_size"></a><a class="efeature" href="../testing/eqa_environment.html#f_default_table_size">Default_table_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">10</span>
+			<span class="ecomment">--</span><span class="ecomment"> Default number of settings stored in </span><a class="efeature" href="../testing/eqa_environment.html#f_table">Table</a>
+
+	<a name="f_substitute_char"></a><a class="efeature" href="../testing/eqa_environment.html#f_substitute_char">Substitute_char</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a> <span class="esymbol">=</span> <span class="echar">'$'</span>
+			<span class="ecomment">--</span><span class="ecomment"> Character which triggers environment variable</span>
+			<span class="ecomment">--</span><span class="ecomment"> substitution</span>
+
+	<a name="f_left_group_char"></a><a class="efeature" href="../testing/eqa_environment.html#f_left_group_char">Left_group_char</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a> <span class="esymbol">=</span> <span class="echar">'('</span>
+
+	<a name="f_right_group_char"></a><a class="efeature" href="../testing/eqa_environment.html#f_right_group_char">Right_group_char</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a> <span class="esymbol">=</span> <span class="echar">')'</span>
+			<span class="ecomment">--</span><span class="ecomment"> Characters which are used for setting environment</span>
+			<span class="ecomment">--</span><span class="ecomment"> variable name off from surrounding text</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/eqa_environment.html">EQA_ENVIRONMENT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_environment_chart.html">Chart</a>
+<a class="nav class" href="eqa_environment_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_environment"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

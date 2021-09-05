@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Collection, where each element must be unique."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="set"/>
+<meta name="access" content="membership"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>set Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="set_chart.html">Chart</a>
+<a class="nav class" href="set_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="set"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Collection, where each element must be unique.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> set
+	<span class="eitag">access</span><span class="esymbol">:</span> membership
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2012-07-23 21:02:19 +0000 (Mon, 23 Jul 2012) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 91989 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/set.html">SET</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/collection.html">COLLECTION</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/set.html#f_changeable_comparison_criterion">changeable_comparison_criterion</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_count"></a><a class="efeature" href="../base/set.html#f_count">count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of items</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_extend"></a><a class="efeature" href="../base/set.html#f_extend">extend</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure that set includes </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/set.html">SET</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/set.html#f_put">put</a><span class="ecomment">.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">in_set_already</span><span class="esymbol">:</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">added_to_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/set.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Ensure that set includes </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/set.html">SET</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/set.html#f_extend">extend</a><span class="ecomment">.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">in_set_already</span><span class="esymbol">:</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">added_to_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_prune"></a><a class="efeature" href="../base/set.html#f_prune">prune</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Remove </span><span class="equoted">v</span><span class="ecomment"> if present.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">removed_count_change</span><span class="esymbol">:</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="etag">not_removed_no_count_change</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/set.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/set.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">item_deleted</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/container.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_changeable_comparison_criterion"></a><a class="efeature" href="../base/set.html#f_changeable_comparison_criterion">changeable_comparison_criterion</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment"> be changed?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Answer: only if set empty; otherwise insertions might</span>
+			<span class="ecomment">--</span><span class="ecomment"> introduce duplicates, destroying the set property.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/container.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">only_on_empty</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/container.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/set.html">SET</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="set_chart.html">Chart</a>
+<a class="nav class" href="set_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="set"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

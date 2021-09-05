@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="External forward one-step iteration cursor for {SPECIAL}."/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2016, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>special_iteration_cursor Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="special_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="special_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="special_iteration_cursor"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;External forward one-step iteration cursor for </span><span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2016-04-13 13:29:38 +0000 (Wed, 13 Apr 2016) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 98619 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/special_iteration_cursor.html">SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/general_special_iteration_cursor.html">GENERAL_SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">area</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">target</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a><span class="esymbol">,</span> <a class="eclass" href="../base/special_iteration_cursor.html">SPECIAL_ITERATION_CURSOR</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/special_iteration_cursor.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Creation</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/special_iteration_cursor.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">t</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">target</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize cursor for target </span><span class="equoted">t</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">t_attached</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="elocal">t</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">target</a> <span class="esymbol">:=</span> <span class="elocal">t</span>
+			<a class="efeature" href="../base/general_special_iteration_cursor.html#f_area_last_index">area_last_index</a> <span class="esymbol">:=</span> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_upper">upper</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">target_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">target</a> <span class="esymbol">=</span> <span class="elocal">t</span>
+			<span class="etag">is_valid</span><span class="esymbol">:</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_is_valid">is_valid</a>
+			<span class="etag">default_step</span><span class="esymbol">:</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_step">Step</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="etag">ascending_traversal</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_is_reversed">Is_reversed</a>
+			<span class="etag">first_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/special_iteration_cursor.html#f_first_index">First_index</a> <span class="esymbol">=</span> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_lower">Lower</a>
+			<span class="etag">last_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/general_special_iteration_cursor.html#f_last_index">last_index</a> <span class="esymbol">=</span> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_upper">upper</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_first_index"></a><a class="efeature" href="../base/special_iteration_cursor.html#f_first_index">First_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ecomment">--</span><span class="ecomment"> First valid index of target structure for current iteration.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note that if </span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_is_reversed">Is_reversed</a><span class="ecomment">, </span><a class="efeature" href="../base/special_iteration_cursor.html#f_first_index">First_index</a><span class="ecomment"> might be greater than </span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_last_index">last_index</a><span class="ecomment">.</span>
+
+	<a name="f_new_cursor"></a><a class="efeature" href="../base/special_iteration_cursor.html#f_new_cursor">new_cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/special_iteration_cursor.html">SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Restarted cursor of the iteration.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special_iteration_cursor.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_area">target</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_area_first_index"></a><a class="efeature" href="../base/special_iteration_cursor.html#f_area_first_index">Area_first_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ecomment">--</span><span class="ecomment"> First valid index of </span><span class="equoted">area</span><span class="ecomment">.</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2016, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/special_iteration_cursor.html">SPECIAL_ITERATION_CURSOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="special_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="special_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="special_iteration_cursor"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom i_sound.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>music_module_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="music_module_t_chart.html">Chart</a>
+<a class="nav class" href="music_module_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="music_module_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;chocolate doom i_sound.h&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/sound/music_module_t.html">MUSIC_MODULE_T</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_sound_devices"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_sound_devices">sound_devices</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List of sound devices that the music module is used for.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_init"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_init">init</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialise the music subsystem</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_shutdown"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_shutdown">shutdown</a>
+			<span class="ecomment">--</span><span class="ecomment"> Shutdown the music subsystem</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_music_volume"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_set_music_volume">set_music_volume</a> <span class="esymbol">(</span><span class="elocal">volume</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set music volume - range 0-127</span>
+		<span class="ekeyword">require</span>
+				<span class="elocal">volume</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+				<span class="elocal">volume</span> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">127</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pause_music"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_pause_music">pause_music</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pause music</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_resumemusic"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_resumemusic">resumemusic</a>
+			<span class="ecomment">--</span><span class="ecomment"> Un-pause music</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_registersong"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_registersong">registersong</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Register a song handle from data</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns a handle that can be used to play the song</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unregistersong"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_unregistersong">unregistersong</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Un-register (free) song data</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_playsong"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_playsong">playsong</a> <span class="esymbol">(</span><span class="elocal">handle</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">looping</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Play the song</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_stopsong"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_stopsong">stopsong</a>
+			<span class="ecomment">--</span><span class="ecomment"> Stop playing the current song.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_music_is_playing"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_music_is_playing">music_is_playing</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Query if music is playing.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_poll"></a><a class="efeature" href="../../brie_doom/sound/music_module_t.html#f_poll">poll</a>
+			<span class="ecomment">--</span><span class="ecomment"> Invoked periodically to poll.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/sound/music_module_t.html">MUSIC_MODULE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="music_module_t_chart.html">Chart</a>
+<a class="nav class" href="music_module_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="music_module_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

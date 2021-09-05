@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Objects representing delayed calls to a procedure. with some operands possibly still open.  Note: Features are the same as those of ROUTINE, Twith `apply' made effective, and no further Tredefinition of `is_equal' and `copy'."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2014, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>procedure Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="procedure_links.html">Relations</a>
+<a class="nav class" href="procedure.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="procedure"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a> <span class="ekeyword">create</span> <a class="efeature" href="../base/any.html#f_default_create">default_create</a> <span class="ekeyword">end</span><span class="esymbol">]</span>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">elks</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;Objects representing delayed calls to a procedure.</span>
+		<span class="estring">with some operands possibly still open.</span>
+		
+		<span class="estring">Note: Features are the same as those of ROUTINE,</span>
+		<span class="estring">with </span><span class="estring">apply</span><span class="estring"> made effective, and no further</span>
+		<span class="estring">redefinition of </span><a class="efeature" href="../base/any.html#f_is_equal">is_equal</a><span class="estring"> and </span><a class="efeature" href="../base/any.html#f_copy">copy</a><span class="estring">.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../base/routine.html#f_set_rout_disp">set_rout_disp</a><span class="esymbol">,</span> <a class="efeature" href="../base/routine.html#f_set_rout_disp_final">set_rout_disp_final</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/routine_chart.html">ROUTINE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a> <span class="ekeyword">create</span> <a class="efeature" href="../base/any.html#f_default_create">default_create</a> <span class="ekeyword">end</span><span class="esymbol">]</span>
+
+<span class="ekeyword">Queries</span>
+	<span title="`callable' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_callable">Callable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`hash_code' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`is_equal' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_hashable' was declared in HASHABLE"><a class="efeature" href="../base/hashable.html#f_is_hashable">is_hashable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_target_closed' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_is_target_closed">is_target_closed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`mismatch_information' was declared in MISMATCH_CORRECTOR"><a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="esymbol">:</span> <a class="eclass" href="../base/mismatch_information_chart.html">MISMATCH_INFORMATION</a></span>
+	<span title="`open_count' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_open_count">open_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`operands' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_operands">operands</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="egeneric">OPEN_ARGS</span></span>
+	<span title="`postcondition' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_postcondition">postcondition</a> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/routine.html#f_operands">operands</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <span class="egeneric">OPEN_ARGS</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`precondition' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_precondition">precondition</a> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/routine.html#f_operands">operands</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <span class="egeneric">OPEN_ARGS</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`target' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_target">target</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any_chart.html">ANY</a></span>
+	<span title="`valid_operands' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_valid_operands">valid_operands</a> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`valid_target' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_valid_target">valid_target</a> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`adapt' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_adapt">adapt</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span><span class="esymbol">]</span><span class="esymbol">)</span></span>
+	<span title="`apply' is declared in `Current'"><a class="efeature" href="../base/procedure.html#f_apply">apply</a></span>
+	<span title="`call' is declared in `Current'"><a class="efeature" href="../base/procedure.html#f_call">call</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/procedure.html#f_call">()</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">separate</span> <span class="egeneric">OPEN_ARGS</span><span class="esymbol">)</span></span>
+	<span title="`copy' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_copy">copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span><span class="esymbol">]</span><span class="esymbol">)</span></span>
+	<span title="`correct_mismatch' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_correct_mismatch">correct_mismatch</a></span>
+	<span title="`flexible_call' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_flexible_call">flexible_call</a> <span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/tuple_chart.html">TUPLE</a><span class="esymbol">)</span></span>
+	<span title="`set_operands' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_set_operands">set_operands</a> <span class="esymbol">(</span><span class="elocal">args</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="egeneric">OPEN_ARGS</span><span class="esymbol">)</span></span>
+	<span title="`set_target' was declared in ROUTINE"><a class="efeature" href="../base/routine.html#f_set_target">set_target</a> <span class="esymbol">(</span><span class="elocal">a_target</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/routine.html#f_target">target</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="procedure_links.html">Relations</a>
+<a class="nav class" href="procedure.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="procedure"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

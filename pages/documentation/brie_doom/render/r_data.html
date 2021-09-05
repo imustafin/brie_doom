@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="r_data.c Preparation for data rendering, generation of lookups, caching, retrieval by name."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>r_data Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="r_data_chart.html">Chart</a>
+<a class="nav class" href="r_data_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="r_data"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">r_data.c</span>
+		<span class="estring">Preparation for data rendering,</span>
+		<span class="estring">generation of lookups, caching, retrieval by name.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/render/r_data.html">R_DATA</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/render/r_data.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_flattranslation">flattranslation</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textureheight">textureheight</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_colormaps"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/render/lighttable_t.html">LIGHTTABLE_T</a><span class="esymbol">]</span>
+
+	<a name="f_numtextures"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_textures"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a><span class="esymbol">]</span>
+
+	<a name="f_firstflat"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_firstflat">firstflat</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_lastflat"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_lastflat">lastflat</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_numflats"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_numflats">numflats</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_flattranslation"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_flattranslation">flattranslation</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_texturetranslation"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_textureheight"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_textureheight">textureheight</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_texturewidthmask"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_texturecolumnlump"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">]</span>
+
+	<a name="f_texturecolumnofs"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">]</span>
+
+	<a name="f_texturecomposite"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">]</span>
+
+	<a name="f_texturecompositesize"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+
+	<a name="f_firstspritelump"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_firstspritelump">firstspritelump</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_lastspritelump"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_lastspritelump">lastspritelump</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_numspritelumps"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_spritewidth"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_spritewidth">spritewidth</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">]</span>
+
+	<a name="f_spriteoffset"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_spriteoffset">spriteoffset</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">]</span>
+
+	<a name="f_spritetopoffset"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_spritetopoffset">spritetopoffset</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_r_inittextures"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_inittextures">r_inittextures</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initializes the texture list</span>
+			<span class="ecomment">--</span><span class="ecomment"> with the textures from the world map.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">j</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">maptex1</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/texturex.html">TEXTUREX</a>
+			<span class="elocal">maptex2</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/texturex.html">TEXTUREX</a>
+			<span class="elocal">names</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/pnames.html">PNAMES</a>
+			<span class="elocal">patchlookup</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">names</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pnames.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;PNAMES&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_static">pu_static</a><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">patchlookup</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">names</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pnames.html#f_names">names</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">names</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pnames.html#f_names">names</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">patchlookup</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">names</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pnames.html#f_names">names</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">variant</span>
+					<span class="elocal">names</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pnames.html#f_names">names</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="elocal">maptex1</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;TEXTURE1&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_static">pu_static</a><span class="esymbol">)</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <span class="esymbol">:=</span> <span class="elocal">maptex1</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;TEXTURE2&quot;<span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">maptex2</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;TEXTURE2&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_static">pu_static</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">maptex2</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_make">make</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textureheight">textureheight</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Void</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">maptex1</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_make_from_maptexture_t">make_from_maptexture_t</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">maptex1</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">,</span> <span class="elocal">patchlookup</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">maptex2</span> <span class="ekeyword">as</span> m2 <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">j</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">m2</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_make_from_maptexture_t">make_from_maptexture_t</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">m2</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">j</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">,</span> <span class="elocal">patchlookup</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a> <span class="ekeyword">as</span> tcl
+				<span class="ekeyword">then</span>
+					<span class="elocal">tcl</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a> <a class="esymbol" href="../../base/integer_16.html#f_minus">-</a> <span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a> <span class="ekeyword">as</span> tco
+				<span class="ekeyword">then</span>
+					<span class="elocal">tco</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a> <a class="esymbol" href="../../base/integer_16.html#f_minus">-</a> <span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">j</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">2</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_textureheight">textureheight</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_height">height</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatelookup">r_generatelookup</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">i</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturetranslation">texturetranslation</a><span class="edot">.</span><a class="efeature" href="../../base/finite.html#f_is_empty">is_empty</a>
+				<a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a><span class="edot">.</span><a class="efeature" href="../../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_generatelookup"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatelookup">r_generatelookup</a> <span class="esymbol">(</span><span class="elocal">texnum</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">texture</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a>
+			<span class="elocal">patchcount</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="elocal">patch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">realpatch</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a>
+			<span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">x1</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">x2</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">collump</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span>
+			<span class="elocal">colofs</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">texture</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a> <span class="ekeyword">as</span> tc
+			<span class="ekeyword">then</span>
+				<span class="elocal">tc</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a> <span class="ekeyword">as</span> tcs
+			<span class="ekeyword">then</span>
+				<span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a> <span class="ekeyword">as</span> tcl
+			<span class="ekeyword">then</span>
+				<span class="elocal">collump</span> <span class="esymbol">:=</span> <span class="elocal">tcl</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a> <span class="ekeyword">as</span> tcofs
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">tcofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tcofs_texnum
+				<span class="ekeyword">then</span>
+					<span class="elocal">colofs</span> <span class="esymbol">:=</span> <span class="elocal">tcofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="elocal">patchcount</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a> <a class="esymbol" href="../../base/integer_16.html#f_minus">-</a> <span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">patch</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">realpatch</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_patch">patch</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">x1</span> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_originx">originx</a>
+				<span class="elocal">x2</span> <span class="esymbol">:=</span> <span class="elocal">x1</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">realpatch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">if</span> <span class="elocal">x1</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">x2</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <span class="ekeyword">then</span>
+					<span class="elocal">x2</span> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">x</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">x2</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">patchcount</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">patchcount</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">collump</span> <span class="ekeyword">as</span> cl
+					<span class="ekeyword">then</span>
+						<span class="elocal">collump</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_patch">patch</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_integer_16">to_integer_16</a>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">colofs</span>
+					<span class="ekeyword">then</span>
+						<span class="elocal">colofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">realpatch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">x1</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">3</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_16">to_natural_16</a>
+					<span class="ekeyword">end</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">patch</span> <span class="esymbol">:=</span> <span class="elocal">patch</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">x</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="elocal">patchcount</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;R_GenerateLookup: column without a patch (&quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_name">name</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot;)%N&quot;<span class="esymbol">)</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">elseif</span> <span class="elocal">patchcount</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">collump</span> <span class="ekeyword">as</span> cl
+					<span class="ekeyword">then</span>
+						<span class="elocal">cl</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a> <span class="ekeyword">as</span> tcs
+					<span class="ekeyword">then</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">attached</span> <span class="elocal">colofs</span>
+						<span class="ekeyword">then</span>
+							<span class="elocal">colofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_16">to_natural_16</a>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">if</span> <span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">65536</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_height">height</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <span class="ekeyword">then</span>
+							<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;R_GenerateLookup: texture &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">texnum</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot; is &gt; 64k&quot;<span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_height">height</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_initflats"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initflats">r_initflats</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_firstflat">firstflat</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;F_START&quot;<span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_lastflat">lastflat</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;F_END&quot;<span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_numflats">numflats</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_lastflat">lastflat</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_firstflat">firstflat</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_flattranslation">flattranslation</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numflats">numflats</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numflats">numflats</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_flattranslation">flattranslation</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">i</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_initspritelumps"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initspritelumps">r_initspritelumps</a>
+			<span class="ecomment">--</span><span class="ecomment"> Finds the width and hoffset of all sprites in the wad,</span>
+			<span class="ecomment">--</span><span class="ecomment"> so the sprite does not need to be cached completely</span>
+			<span class="ecomment">--</span><span class="ecomment"> just for having the header info ready during rendering.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">patch</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_firstspritelump">firstspritelump</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;S_START&quot;<span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_lastspritelump">lastspritelump</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;S_END&quot;<span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_lastspritelump">lastspritelump</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_firstspritelump">firstspritelump</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spritewidth">spritewidth</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spriteoffset">spriteoffset</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spritetopoffset">spritetopoffset</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numspritelumps">numspritelumps</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">patch</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_firstspritelump">firstspritelump</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spritewidth">spritewidth</a> <span class="ekeyword">as</span> sw <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spriteoffset">spriteoffset</a> <span class="ekeyword">as</span> so <a class="ekeyword" href="../../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_spritetopoffset">spritetopoffset</a> <span class="ekeyword">as</span> st
+				<span class="ekeyword">then</span>
+					<span class="elocal">sw</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">patch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a><span class="esymbol">)</span>
+					<span class="elocal">so</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">patch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_leftoffset">leftoffset</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a><span class="esymbol">)</span>
+					<span class="elocal">st</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">patch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_topoffset">topoffset</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_initcolormaps"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initcolormaps">r_initcolormaps</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">lump</span><span class="esymbol">,</span> <span class="elocal">length</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">lump</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;COLORMAP&quot;<span class="esymbol">)</span>
+			<span class="elocal">length</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/lighttable_t.html">LIGHTTABLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/lighttable_t.html#f_from_natural_8">from_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_8.html">NATURAL_8</a><span class="esymbol">}</span> <span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">length</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_readlump">w_readlump</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/r_data.html#f_colormaps">colormaps</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/lighttable_t.html">LIGHTTABLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/lighttable_t.html#f_from_natural_8">from_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8_le">read_natural_8_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_initdata"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initdata">r_initdata</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_inittextures">r_inittextures</a>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%NInitTextures&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initflats">r_initflats</a>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%NInitFlats&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initspritelumps">r_initspritelumps</a>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%NInitSprites&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_initcolormaps">r_initcolormaps</a>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%NInitColormaps&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_texturenumforname"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_texturenumforname">r_texturenumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Calls R_CheckTextureForName,</span>
+			<span class="ecomment">--</span><span class="ecomment"> aborts with error message</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_r_checktexturenumforname">r_checktexturenumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;R_TextureNumForName: &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">name</span> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot; not found%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_checktexturenumforname"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_checktexturenumforname">r_checktexturenumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Check whether texture is available.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Filter out NoTexture indicator.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">name</span><span class="edot">.</span><a class="efeature" href="../../base/readable_string_8.html#f_starts_with">starts_with</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;-&quot;<span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">until</span>
+					<span class="ekeyword">Result</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="ekeyword">Result</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_name">name</a><span class="edot">.</span><a class="efeature" href="../../base/string_8.html#f_as_upper">as_upper</a> <span class="esymbol">~</span> <span class="elocal">name</span><span class="edot">.</span><a class="efeature" href="../../base/string_8.html#f_as_upper">as_upper</a>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_numtextures">numtextures</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_flatnumforname"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_flatnumforname">r_flatnumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieval, get a flat number for a flat name.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;R_FlatNumForName: &quot; <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> <span class="elocal">name</span> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot; not found%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_firstflat">firstflat</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_precachelevel"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_precachelevel">r_precachelevel</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_getcolumn"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_getcolumn">r_getcolumn</a> <span class="esymbol">(</span><span class="elocal">tex</span><span class="esymbol">,</span> <span class="elocal">a_col</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/pointers/managed_pointer_with_offset.html">MANAGED_POINTER_WITH_OFFSET</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ofs</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">col</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">col</span> <span class="esymbol">:=</span> <span class="elocal">a_col</span>
+			<span class="elocal">col</span> <span class="esymbol">:=</span> <span class="elocal">col</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_and">&#38;</a> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturewidthmask">texturewidthmask</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">tex</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a> <span class="ekeyword">as</span> tcl
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">tcl</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">tex</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tcl_tex
+				<span class="ekeyword">then</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">tcl_tex</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">col</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tcl_tex_col
+					<span class="ekeyword">then</span>
+						<span class="elocal">lump</span> <span class="esymbol">:=</span> <span class="elocal">tcl_tex_col</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a> <span class="ekeyword">as</span> tcofs
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">tcofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">tex</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tcofs_tex
+				<span class="ekeyword">then</span>
+					<span class="elocal">ofs</span> <span class="esymbol">:=</span> <span class="elocal">tcofs_tex</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">col</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">lump</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">ofs</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a> <span class="ekeyword">as</span> tc_ar
+				<span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">tc_ar</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">tex</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatecomposite">r_generatecomposite</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">tex</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">tc_ar</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">tex</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tc
+					<span class="ekeyword">then</span>
+						<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">tc</span><span class="esymbol">,</span> <span class="elocal">ofs</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_generatecomposite"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_generatecomposite">r_generatecomposite</a> <span class="esymbol">(</span><span class="elocal">texnum</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Using the texture definition,</span>
+			<span class="ecomment">--</span><span class="ecomment"> the composite texture is created from the patches,</span>
+			<span class="ecomment">--</span><span class="ecomment"> and each column is cached</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">block</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="elocal">texture</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/texture_t.html">TEXTURE_T</a>
+			<span class="elocal">patch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">realpatch</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a>
+			<span class="elocal">x</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">x1</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">x2</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">collump</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span>
+			<span class="elocal">colofs</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">texture</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecompositesize">texturecompositesize</a> <span class="ekeyword">as</span> tcs
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecomposite">texturecomposite</a> <span class="ekeyword">as</span> tc
+				<span class="ekeyword">then</span>
+					<span class="elocal">block</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">tcs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+					<span class="elocal">tc</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">block</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnlump">texturecolumnlump</a> <span class="ekeyword">as</span> tcl
+			<span class="ekeyword">then</span>
+				<span class="elocal">collump</span> <span class="esymbol">:=</span> <span class="elocal">tcl</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/r_data.html#f_texturecolumnofs">texturecolumnofs</a> <span class="ekeyword">as</span> tcofs
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <span class="elocal">tcofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">texnum</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="ekeyword">as</span> tcofs_texnum
+				<span class="ekeyword">then</span>
+					<span class="elocal">colofs</span> <span class="esymbol">:=</span> <span class="elocal">tcofs_texnum</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">patch</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">realpatch</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/r_data.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_patch">patch</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">x1</span> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_originx">originx</a>
+				<span class="elocal">x2</span> <span class="esymbol">:=</span> <span class="elocal">x1</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">realpatch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">if</span> <span class="elocal">x1</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">x2</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a> <span class="ekeyword">then</span>
+					<span class="elocal">x2</span> <span class="esymbol">:=</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">x</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">x2</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">attached</span> <span class="elocal">collump</span>
+					<span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <span class="elocal">collump</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">else</span>
+							<a class="efeature" href="../../brie_doom/render/r_data.html#f_r_drawcolumnincache">r_drawcolumnincache</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">realpatch</span><span class="esymbol">,</span> <span class="elocal">x</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">x1</span><span class="esymbol">,</span> <span class="elocal">block</span><span class="esymbol">,</span> <span class="elocal">colofs</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">x</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">,</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_patches">patches</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">patch</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/texpatch_t.html#f_originy">originy</a><span class="esymbol">,</span> <span class="elocal">texture</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/texture_t.html#f_height">height</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">x</span> <span class="esymbol">:=</span> <span class="elocal">x</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">patch</span> <span class="esymbol">:=</span> <span class="elocal">patch</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_r_drawcolumnincache"></a><a class="efeature" href="../../brie_doom/render/r_data.html#f_r_drawcolumnincache">r_drawcolumnincache</a> <span class="esymbol">(</span><span class="elocal">real_patch</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">;</span> <span class="elocal">col_num</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">cache</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">cache_ofs</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">originy</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">cacheheight</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">position</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">source</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+			<span class="elocal">column</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/column_t.html">COLUMN_T</a>
+			<span class="elocal">post_num</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">column</span> <span class="esymbol">:=</span> <span class="elocal">real_patch</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_columns">columns</a> <a class="esymbol" href="../../base/arrayed_list.html#f_i_th">[</a><span class="elocal">col_num</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><a class="esymbol" href="../../base/arrayed_list.html#f_i_th">]</a>
+				<span class="elocal">post_num</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">post_num</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">column</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/column_t.html#f_posts">posts</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">source</span> <span class="esymbol">:=</span> <span class="elocal">column</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/column_t.html#f_posts">posts</a> <a class="esymbol" href="../../base/arrayed_list.html#f_i_th">[</a><span class="elocal">post_num</span><a class="esymbol" href="../../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/post_t.html#f_body">body</a>
+				<span class="elocal">count</span> <span class="esymbol">:=</span> <span class="elocal">column</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/column_t.html#f_posts">posts</a> <a class="esymbol" href="../../base/arrayed_list.html#f_i_th">[</a><span class="elocal">post_num</span><a class="esymbol" href="../../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/post_t.html#f_length">length</a><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="elocal">position</span> <span class="esymbol">:=</span> <span class="elocal">originy</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">column</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/column_t.html#f_posts">posts</a> <a class="esymbol" href="../../base/arrayed_list.html#f_i_th">[</a><span class="elocal">post_num</span><a class="esymbol" href="../../base/arrayed_list.html#f_i_th">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/post_t.html#f_topdelta">topdelta</a><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">if</span> <span class="elocal">position</span> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">count</span> <span class="esymbol">:=</span> <span class="elocal">count</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">position</span>
+					<span class="elocal">position</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">position</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">count</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">cacheheight</span> <span class="ekeyword">then</span>
+					<span class="elocal">count</span> <span class="esymbol">:=</span> <span class="elocal">cacheheight</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="elocal">position</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">count</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">cache</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_array">put_array</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">source</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_subarray">subarray</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">count</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">cache_ofs</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">position</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">post_num</span> <span class="esymbol">:=</span> <span class="elocal">post_num</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/render/r_data.html">R_DATA</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="r_data_chart.html">Chart</a>
+<a class="nav class" href="r_data_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="r_data"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

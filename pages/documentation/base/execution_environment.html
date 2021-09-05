@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="The objects available from the environment at time of execution"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2019, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>execution_environment Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="execution_environment_chart.html">Chart</a>
+<a class="nav class" href="execution_environment_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="execution_environment"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;The objects available from the environment at time of execution&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2019-02-18 11:07:51 +0000 (Mon, 18 Feb 2019) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102848 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/execution_environment.html">EXECUTION_ENVIRONMENT</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/native_string_handler.html">NATIVE_STRING_HANDLER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_arguments"></a><a class="efeature" href="../base/execution_environment.html#f_arguments">Arguments</a><span class="esymbol">:</span> <a class="eclass" href="../base/arguments_32.html">ARGUMENTS_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Arguments that were used to start current execution.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_command_line"></a><a class="efeature" href="../base/execution_environment.html#f_command_line">Command_line</a><span class="esymbol">:</span> <a class="eclass" href="../base/arguments.html">ARGUMENTS</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `arguments' instead for handling Unicode command lines. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Command line that was used to start current execution</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_current_working_path"></a><a class="efeature" href="../base/execution_environment.html#f_current_working_path">current_working_path</a><span class="esymbol">:</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Directory of current execution.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_dir_current">eif_dir_current</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;.&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+					<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+					<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_dir_current">eif_dir_current</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;.&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_current_working_directory"></a><a class="efeature" href="../base/execution_environment.html#f_current_working_directory">current_working_directory</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `current_working_path' instead to support Unicode path. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Directory of current execution.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Execution of this query on concurrent threads will result in</span>
+			<span class="ecomment">--</span><span class="ecomment"> an unspecified behavior.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_dir_current">eif_dir_current</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;.&quot;
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+					<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+					<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_dir_current">eif_dir_current</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_file_info">File_info</a><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_pointer_to_file_name_8">pointer_to_file_name_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;.&quot;
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_default_shell"></a><a class="efeature" href="../base/execution_environment.html#f_default_shell">Default_shell</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Default shell</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;SHELL&quot;<span class="esymbol">)</span> <span class="ekeyword">as</span> l_shell <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_shell</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get"></a><a class="efeature" href="../base/execution_environment.html#f_get">get</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `item' instead to retrieve Unicode environment variables. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Value of </span><span class="equoted">s</span><span class="ecomment"> if it is an environment variable and has been set;</span>
+			<span class="ecomment">--</span><span class="ecomment"> void otherwise.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_exists</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">not_has_null_character</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_val <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_val</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/execution_environment.html#f_item">item</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Value of </span><span class="equoted">s</span><span class="ecomment"> if it is an environment variable and has been set;</span>
+			<span class="ecomment">--</span><span class="ecomment"> void otherwise.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_exists</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">not_has_null_character</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+			<span class="elocal">c_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_key</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span>
+			<span class="elocal">c_string</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_getenv">eif_getenv</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_key</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">c_string</span><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_is_default_pointer">is_default_pointer</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/native_string.html">NATIVE_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c_string</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_string">string</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_home_directory_path"></a><a class="efeature" href="../base/execution_environment.html#f_home_directory_path">Home_directory_path</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the home directory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">home_directory_supported</span><span class="esymbol">:</span> <a class="efeature" href="../base/any.html#f_operating_environment">Operating_environment</a><span class="edot">.</span><a class="efeature" href="../base/operating_environment.html#f_home_directory_supported">home_directory_supported</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">once</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_home_directory_name_ptr">eif_home_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+				<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_home_directory_name_ptr">eif_home_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_user_directory_path"></a><a class="efeature" href="../base/execution_environment.html#f_user_directory_path">User_directory_path</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the user directory</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Windows: C:\Users\manus\Documents</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Unix &#38; Mac: $HOME</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">once</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">50</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_user_directory_name_ptr">eif_user_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+				<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_user_directory_name_ptr">eif_user_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/any.html#f_operating_environment">Operating_environment</a><span class="edot">.</span><a class="efeature" href="../base/operating_environment.html#f_home_directory_supported">home_directory_supported</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_home_directory_path">Home_directory_path</a> <span class="ekeyword">as</span> l_home <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_home</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_temporary_directory_path"></a><a class="efeature" href="../base/execution_environment.html#f_temporary_directory_path">Temporary_directory_path</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Temporary directory name.</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Windows: &nbsp;%SystemDrive%\Users\%USERNAME%\AppData\Local\Temp (%USERPROFILE%\AppData\Local\Temp).</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Unix: /tmp and /var/tmp.</span>
+			<span class="ecomment">--</span><span class="ecomment"> On VMS: /sys$scratch	</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise Void	</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ns</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">once</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">10</span>
+			<span class="ekeyword">create</span> <span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_temporary_directory_name_ptr">eif_temporary_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+				<span class="ekeyword">create</span> <span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_temporary_directory_name_ptr">eif_temporary_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_home_directory_name"></a><a class="efeature" href="../base/execution_environment.html#f_home_directory_name">Home_directory_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `home_directory_path' instead to support Unicode path. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the home directory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">home_directory_supported</span><span class="esymbol">:</span> <a class="efeature" href="../base/any.html#f_operating_environment">Operating_environment</a><span class="edot">.</span><a class="efeature" href="../base/operating_environment.html#f_home_directory_supported">home_directory_supported</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">once</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_home_directory_name_ptr">eif_home_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+				<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_home_directory_name_ptr">eif_home_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_file_info">File_info</a><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_pointer_to_file_name_8">pointer_to_file_name_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_user_directory_name"></a><a class="efeature" href="../base/execution_environment.html#f_user_directory_name">User_directory_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `user_directory_path' instead to support Unicode paths. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the user directory</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Windows: C:\Users\manus\Documents</span>
+			<span class="ecomment">--</span><span class="ecomment"> On Unix &#38; Mac: $HOME</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_nbytes</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">once</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="enumber">50</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">50</span><span class="esymbol">)</span>
+			<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_user_directory_name_ptr">eif_user_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">l_nbytes</span>
+				<span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_nbytes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_user_directory_name_ptr">eif_user_directory_name_ptr</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nbytes</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">l_count</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_file_info">File_info</a><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_pointer_to_file_name_8">pointer_to_file_name_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/any.html#f_operating_environment">Operating_environment</a><span class="edot">.</span><a class="efeature" href="../base/operating_environment.html#f_home_directory_supported">home_directory_supported</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_home_directory_name">Home_directory_name</a> <span class="ekeyword">as</span> l_home <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_home</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_root_directory_name"></a><a class="efeature" href="../base/execution_environment.html#f_root_directory_name">Root_directory_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the root directory.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">root_directory_supported</span><span class="esymbol">:</span> <a class="efeature" href="../base/any.html#f_operating_environment">Operating_environment</a><span class="edot">.</span><a class="efeature" href="../base/operating_environment.html#f_root_directory_supported">root_directory_supported</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;\&quot;
+			<span class="ekeyword">elseif</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_vms">is_vms</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;[000000]&quot;
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;/&quot;
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_starting_environment_variables"></a><a class="efeature" href="../base/execution_environment.html#f_starting_environment_variables">starting_environment_variables</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">,</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span>
+		<span class="ekeyword">obsolete</span> &quot;Use starting_environment which support unicode. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Table of environment variables when current process starts,</span>
+			<span class="ecomment">--</span><span class="ecomment"> indexed by variable name</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ns</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">40</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_i_th_environ">i_th_environ</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_is_default_pointer">is_default_pointer</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_set_shared_from_pointer">set_shared_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_separated_variables">separated_variables</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_curr_var <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_curr_var</span><span class="edot">.</span><span class="elocal">value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a><span class="esymbol">,</span> <span class="elocal">l_curr_var</span><span class="edot">.</span><span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_i_th_environ">i_th_environ</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_starting_environment"></a><a class="efeature" href="../base/execution_environment.html#f_starting_environment">starting_environment</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Table of environment variables when current process starts,</span>
+			<span class="ecomment">--</span><span class="ecomment"> indexed by variable name</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ns</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">40</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_i_th_environ">i_th_environ</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_is_default_pointer">is_default_pointer</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_set_shared_from_pointer">set_shared_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_separated_variables">separated_variables</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ns</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_curr_var <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_curr_var</span><span class="edot">.</span><span class="elocal">value</span><span class="esymbol">,</span> <span class="elocal">l_curr_var</span><span class="edot">.</span><span class="elocal">key</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_i_th_environ">i_th_environ</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_available_cpu_count"></a><a class="efeature" href="../base/execution_environment.html#f_available_cpu_count">available_cpu_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of available CPUs.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;eif_system.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				#ifdef EIF_WINDOWS
+					SYSTEM_INFO SysInfo;
+					ZeroMemory (&#38;SysInfo, sizeof (SYSTEM_INFO));
+					GetSystemInfo (&#38;SysInfo);
+					return (EIF_NATURAL_32) SysInfo.dwNumberOfProcessors;
+				#elif defined(EIF_MACOSX)
+						/* MacOS X &lt; 10.4 */
+					int nm [2];
+					size_t len = 4;
+					uint32_t count;
+					nm [0] = CTL_HW; nm [1] = HW_AVAILCPU;
+					sysctl (nm, 2, &#38;count, &#38;len, NULL, 0);
+					if(count &lt; 1) {
+						nm[1] = HW_NCPU;
+						sysctl(nm, 2, &#38;count, &#38;len, NULL, 0);
+						if (count &lt; 1) {count = 1;}
+					}
+					return (EIF_NATURAL_32) count;
+				#else
+						/* Linux, Solaris, AIX, Mac OS X &gt;=10.4 (i.e. Tiger onwards), ... */
+					return (EIF_NATURAL_32) sysconf(_SC_NPROCESSORS_ONLN);
+				#endif
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status</span>
+
+	<a name="f_return_code"></a><a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Status code set by last call to </span><a class="efeature" href="../base/execution_environment.html#f_system">system</a><span class="ecomment"> or </span><a class="efeature" href="../base/execution_environment.html#f_put">put</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_change_working_directory"></a><a class="efeature" href="../base/execution_environment.html#f_change_working_directory">change_working_directory</a> <span class="esymbol">(</span><span class="elocal">path</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use `change_working_path' instead to support Unicode path. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Set the current directory to </span><span class="equoted">path</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_file_info">File_info</a><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_file_name_to_pointer">file_name_to_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">path</span><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_chdir">eif_chdir</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_change_working_path"></a><a class="efeature" href="../base/execution_environment.html#f_change_working_path">change_working_path</a> <span class="esymbol">(</span><span class="elocal">path</span><span class="esymbol">:</span> <a class="eclass" href="../base/path.html">PATH</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set the current directory to </span><span class="equoted">path</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_ptr</span> <span class="esymbol">:=</span> <span class="elocal">path</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_to_pointer">to_pointer</a>
+			<a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_chdir">eif_chdir</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/execution_environment.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set the environment variable </span><span class="equoted">key</span><span class="ecomment"> to </span><span class="equoted">value</span><span class="ecomment"> treating both</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">value</span><span class="ecomment"> and </span><span class="equoted">key</span><span class="ecomment"> as Unicode characters.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">key_exists</span><span class="esymbol">:</span> <span class="elocal">key</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">key_meaningful</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+			<span class="etag">not_key_has_null_character</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+			<span class="etag">value_exists</span><span class="esymbol">:</span> <span class="elocal">value</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">not_value_has_null_character</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_env</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="elocal">l_c_env</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_env</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">l_env</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">)</span>
+			<span class="elocal">l_env</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'='</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+			<span class="elocal">l_env</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_append_string_general">append_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_c_env</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_env</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/execution_environment.html#f_environ">Environ</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c_env</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_eif_putenv">eif_putenv</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c_env</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">variable_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/execution_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">value</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/execution_environment.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">)</span> <span class="ekeyword">as</span> k <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">k</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_system"></a><a class="efeature" href="../base/execution_environment.html#f_system">system</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Pass to the operating system a request to execute </span><span class="equoted">s</span><span class="ecomment"> interpreted as a Unicode string.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><span class="equoted">s</span><span class="ecomment"> is empty, use the default shell as command.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_exists</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_cstr</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/execution_environment.html#f_default_shell">Default_shell</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/execution_environment.html#f_return_code">return_code</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_system_call">system_call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_launch"></a><a class="efeature" href="../base/execution_environment.html#f_launch">launch</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Pass to the operating system an asynchronous request to</span>
+			<span class="ecomment">--</span><span class="ecomment"> execute </span><span class="equoted">s</span><span class="ecomment"> interpreted as a Unicode string.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><span class="equoted">s</span><span class="ecomment"> is empty, use the default shell as command.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_not_void</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_cstr</span><span class="esymbol">:</span> <a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/execution_environment.html#f_default_shell">Default_shell</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/execution_environment.html#f_asynchronous_system_call">asynchronous_system_call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sleep"></a><a class="efeature" href="../base/execution_environment.html#f_sleep">sleep</a> <span class="esymbol">(</span><span class="elocal">nanoseconds</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Suspend thread execution for interval specified in</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">nanoseconds</span><span class="ecomment"> (1 nanosecond = 10^(-9) second).</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_nanoseconds</span><span class="esymbol">:</span> <span class="elocal">nanoseconds</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/execution_environment.html#f_eif_sleep">eif_sleep</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nanoseconds</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_environ"></a><a class="efeature" href="../base/execution_environment.html#f_environ">Environ</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/native_string.html">NATIVE_STRING</a><span class="esymbol">,</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Environment variable memory set by current execution,</span>
+			<span class="ecomment">--</span><span class="ecomment"> indexed by environment variable name. Needed otherwise</span>
+			<span class="ecomment">--</span><span class="ecomment"> we would corrupt memory after freeing memory used by</span>
+			<span class="ecomment">--</span><span class="ecomment"> NATIVE_STRING instance since not referenced anywhere else.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">10</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_i_th_environ"></a><a class="efeature" href="../base/execution_environment.html#f_i_th_environ">i_th_environ</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Environment variable at </span><span class="equoted">i</span><span class="ecomment">-th position of </span><span class="equoted">eif_environ</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">i_valid</span><span class="esymbol">:</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;string.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				if (eif_environ) {
+					#ifdef EIF_WINDOWS
+						EIF_NATIVE_CHAR *vars = (EIF_NATIVE_CHAR *) eif_environ;
+						int cnt = 0;
+						for (; *vars; vars++) {
+						   if ($i==cnt) return vars;
+						   while (*vars) { vars++; }
+						   cnt++;
+						}
+						return NULL;
+					#else
+						return ((EIF_NATIVE_CHAR **)eif_environ)[$i];
+					#endif
+				} else {
+					return NULL;
+				}
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_separated_variables"></a><a class="efeature" href="../base/execution_environment.html#f_separated_variables">separated_variables</a> <span class="esymbol">(</span><span class="elocal">a_var</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple.html">TUPLE</a> <span class="esymbol">[</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">;</span> <span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Given an environment variable </span><span class="equoted">a_var</span><span class="ecomment"> in form of &quot;key=value&quot;,</span>
+			<span class="ecomment">--</span><span class="ecomment"> return separated key and value.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Return Void if </span><span class="equoted">a_var</span><span class="ecomment"> is in incorrect format.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_var_attached</span><span class="esymbol">:</span> <span class="elocal">a_var</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">a_var</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">j</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">done</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="elocal">a_var</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="echar">'='</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <span class="ekeyword">then</span>
+					<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">1</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">j</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">[</span><span class="elocal">a_var</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="elocal">a_var</span><span class="edot">.</span><a class="efeature" href="../base/string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">]</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_info"></a><a class="efeature" href="../base/execution_environment.html#f_file_info">File_info</a><span class="esymbol">:</span> <a class="eclass" href="../base/file_info.html">FILE_INFO</a>
+		<span class="ekeyword">obsolete</span> &quot;Remove when all obsolete routines using it will be removed.  [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Platform specific helper of filenames.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_make">make</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> External</span>
+
+	<a name="f_eif_dir_current"></a><a class="efeature" href="../base/execution_environment.html#f_eif_dir_current">eif_dir_current</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Store platform specific path of current working directory in </span><span class="equoted">a_ptr</span><span class="ecomment"> with </span><span class="equoted">a_count</span><span class="ecomment"> bytes. If</span>
+			<span class="ecomment">--</span><span class="ecomment"> there is a need for more bytes than </span><span class="equoted">a_count</span><span class="ecomment">, or if </span><span class="equoted">a_ptr</span><span class="ecomment"> is the default_pointer, nothing is done with </span><span class="equoted">a_ptr</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> We always return the number of bytes required including the null-terminating character, or -1 on error.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, EIF_INTEGER): EIF_INTEGER use %&quot;eif_dir.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_getenv"></a><a class="efeature" href="../base/execution_environment.html#f_eif_getenv">eif_getenv</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Value of environment variable </span><span class="equoted">s</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				#ifdef EIF_WINDOWS
+					return _wgetenv ((EIF_NATIVE_CHAR *) $s);
+				#else
+					return getenv ((EIF_NATIVE_CHAR *) $s);
+				#endif
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_putenv"></a><a class="efeature" href="../base/execution_environment.html#f_eif_putenv">eif_putenv</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><span class="equoted">v</span><span class="ecomment"> in environment.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				#ifdef EIF_WINDOWS
+					return _wputenv ((EIF_NATIVE_CHAR *) $v);
+				#else
+					return putenv ((EIF_NATIVE_CHAR *) $v);
+				#endif
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_chdir"></a><a class="efeature" href="../base/execution_environment.html#f_eif_chdir">eif_chdir</a> <span class="esymbol">(</span><span class="elocal">path</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Set the current directory to </span><span class="equoted">path</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME): EIF_INTEGER use %&quot;eif_dir.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_system_call"></a><a class="efeature" href="../base/execution_environment.html#f_system_call">system_call</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pass to the operating system a request to execute </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking use %&quot;eif_misc.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_system&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_asynchronous_system_call"></a><a class="efeature" href="../base/execution_environment.html#f_asynchronous_system_call">asynchronous_system_call</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Pass to the operating system an asynchronous request to execute </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking use %&quot;eif_misc.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_system_asynchronous&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_home_directory_name_ptr"></a><a class="efeature" href="../base/execution_environment.html#f_eif_home_directory_name_ptr">eif_home_directory_name_ptr</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Stored directory name corresponding to the home directory in </span><span class="equoted">a_ptr</span><span class="ecomment"> with </span><span class="equoted">a_count</span><span class="ecomment"> bytes. If</span>
+			<span class="ecomment">--</span><span class="ecomment"> there is a need for more bytes than </span><span class="equoted">a_count</span><span class="ecomment">, or if </span><span class="equoted">a_ptr</span><span class="ecomment"> is the default_pointer, nothing is done with </span><span class="equoted">a_ptr</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> We always return the number of bytes required including the null-terminating character.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, EIF_INTEGER): EIF_INTEGER use %&quot;eif_path_name.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_user_directory_name_ptr"></a><a class="efeature" href="../base/execution_environment.html#f_eif_user_directory_name_ptr">eif_user_directory_name_ptr</a> <span class="esymbol">(</span><span class="elocal">a_buffer</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Directory name corresponding to the user directory that will be stored in buffer </span><span class="equoted">a_buffer</span>
+			<span class="ecomment">--</span><span class="ecomment"> of size </span><span class="equoted">a_count</span><span class="ecomment"> bytes. Returns the number of bytes necessary in </span><span class="equoted">a_buffer</span><span class="ecomment"> to get the full copy.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, EIF_INTEGER): EIF_INTEGER use %&quot;eif_path_name.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_temporary_directory_name_ptr"></a><a class="efeature" href="../base/execution_environment.html#f_eif_temporary_directory_name_ptr">eif_temporary_directory_name_ptr</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Stored directory name corresponding to the temporary directory in </span><span class="equoted">a_ptr</span><span class="ecomment"> with </span><span class="equoted">a_count</span><span class="ecomment"> bytes.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If there is a need for more bytes than </span><span class="equoted">a_count</span><span class="ecomment">, or if </span><span class="equoted">a_ptr</span><span class="ecomment"> is the default_pointer,</span>
+			<span class="ecomment">--</span><span class="ecomment"> nothing is done with </span><span class="equoted">a_ptr</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> We always return the number of bytes required including the null-terminating character.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, EIF_INTEGER): EIF_INTEGER use %&quot;eif_path_name.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_sleep"></a><a class="efeature" href="../base/execution_environment.html#f_eif_sleep">eif_sleep</a> <span class="esymbol">(</span><span class="elocal">nanoseconds</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Suspend thread execution for interval specified in</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">nanoseconds</span><span class="ecomment"> (1 nanosecond = 10^(-9) second).</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_negative_nanoseconds</span><span class="esymbol">:</span> <span class="elocal">nanoseconds</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking use %&quot;eif_misc.h%&quot;&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2019, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/execution_environment.html">EXECUTION_ENVIRONMENT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="execution_environment_chart.html">Chart</a>
+<a class="nav class" href="execution_environment_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="execution_environment"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="External iteration cursor on {READABLE_STRING_GENERAL} based on {CHARACTER_32} item."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2016, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>string_iteration_cursor Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="string_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="string_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="string_iteration_cursor"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;External iteration cursor on </span><a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="estring"> based on </span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="estring"> item.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2016-04-16 10:44:12 +0000 (Sat, 16 Apr 2016) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 98623 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/string_iteration_cursor.html">STRING_ITERATION_CURSOR</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/iteration_cursor.html">ITERATION_CURSOR</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span>
+
+	<a class="eclass" href="../base/iterable.html">ITERABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/string_iteration_cursor.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/string_iteration_cursor.html#f_make_from_substring">make_from_substring</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">t</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize cursor for target </span><span class="equoted">t</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">t_attached</span><span class="esymbol">:</span> <span class="elocal">t</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_make_from_substring">make_from_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">t</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_substring"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_make_from_substring">make_from_substring</a> <span class="esymbol">(</span><span class="elocal">t</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize cursor for target </span><span class="equoted">t</span><span class="ecomment">, with a substring containing all characters at indices</span>
+			<span class="ecomment">--</span><span class="ecomment"> between </span><span class="equoted">start_pos</span><span class="ecomment"> and </span><span class="equoted">end_pos</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">t_attached</span><span class="esymbol">:</span> <span class="elocal">t</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">start_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+			<span class="etag">end_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a> <span class="esymbol">:=</span> <span class="elocal">t</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a> <span class="esymbol">:=</span> <span class="elocal">start_pos</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_end_index">end_index</a> <span class="esymbol">:=</span> <span class="elocal">end_pos</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">target_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a> <span class="esymbol">=</span> <span class="elocal">t</span>
+			<span class="etag">starting_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a> <span class="esymbol">=</span> <span class="elocal">start_pos</span>
+			<span class="etag">target_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a>
+			<span class="etag">end_index_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_end_index">end_index</a> <span class="esymbol">=</span> <span class="elocal">end_pos</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at current cursor position.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a> <a class="esymbol" href="../base/readable_string_general.html#f_item">[</a><a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a><a class="esymbol" href="../base/readable_string_general.html#f_item">]</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_target_index"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index position of </span><a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a><span class="ecomment"> for current iteration.</span>
+
+	<a name="f_new_cursor"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_new_cursor">new_cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_iteration_cursor.html">STRING_ITERATION_CURSOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Restarted copy of Current.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/any.html#f_twin">twin</a>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_iteration_cursor.html#f_start">start</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status Report</span>
+
+	<a name="f_after"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_after">after</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are there no more items to iterate over?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/string_iteration_cursor.html#f_end_index">end_index</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_start"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_start">start</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to first position.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">target_index_set_to_one</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_forth"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_forth">forth</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next position.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">target_index_advanced</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/iterable.html">ITERABLE</a><span class="esymbol">,</span> <a class="eclass" href="../base/iteration_cursor.html">ITERATION_CURSOR</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_target"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated structure used for iteration.</span>
+
+	<a name="f_start_index"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> First position.</span>
+
+	<a name="f_end_index"></a><a class="efeature" href="../base/string_iteration_cursor.html#f_end_index">end_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last position.</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">target_attached</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target">target</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">target_index_big_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/string_iteration_cursor.html#f_start_index">start_index</a>
+	<span class="etag">target_index_small_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_iteration_cursor.html#f_target_index">target_index</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/string_iteration_cursor.html#f_end_index">end_index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2016, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/string_iteration_cursor.html">STRING_ITERATION_CURSOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="string_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="string_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="string_iteration_cursor"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

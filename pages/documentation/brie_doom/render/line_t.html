@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="line_t from r_defs.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>line_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="line_t_chart.html">Chart</a>
+<a class="nav class" href="line_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="line_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;line_t from r_defs.h&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/render/line_t.html">LINE_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/render/line_t.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../../brie_doom/render/line_t.html#f_from_pointer">from_pointer</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_make">make</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_default_create">default_create</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_default_create">default_create</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_sidenum">sidenum</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_v1"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/vertex_t.html">VERTEX_T</a>
+			<span class="ecomment">--</span><span class="ecomment"> from v1</span>
+
+	<a name="f_v2"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/vertex_t.html">VERTEX_T</a>
+			<span class="ecomment">--</span><span class="ecomment"> to v2</span>
+
+	<a name="f_dx"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_dx">dx</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a>
+			<span class="ecomment">--</span><span class="ecomment"> precalculated v2 - v1 for side checking</span>
+
+	<a name="f_dy"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_dy">dy</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a>
+			<span class="ecomment">--</span><span class="ecomment"> precalculated v2 - v1 for side checking</span>
+
+	<a name="f_flags"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_flags">flags</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_set_flags">set_flags</a>
+			<span class="ecomment">--</span><span class="ecomment"> Animation related</span>
+
+	<a name="f_set_flags"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_set_flags">set_flags</a> <span class="esymbol">(</span><span class="elocal">a_flags</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_flags">flags</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_flags">flags</a> <span class="esymbol">:=</span> <span class="elocal">a_flags</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_special"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_special">special</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_set_special">set_special</a>
+			<span class="ecomment">--</span><span class="ecomment"> Animation related</span>
+
+	<a name="f_set_special"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_set_special">set_special</a> <span class="esymbol">(</span><span class="elocal">a_special</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_special">special</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_special">special</a> <span class="esymbol">:=</span> <span class="elocal">a_special</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_tag"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_tag">tag</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Animation related</span>
+
+	<a name="f_sidenum"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_sidenum">sidenum</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Visual appearance: SideDefs.</span>
+			<span class="ecomment">--</span><span class="ecomment"> sidenum</span><span class="ecomment">[1]</span><span class="ecomment"> will be -1 if one sided</span>
+
+	<a name="f_bbox"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neat. Another bounding box, for the extent</span>
+			<span class="ecomment">--</span><span class="ecomment"> of the LineDef</span>
+
+	<a name="f_slopetype"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_slopetype">slopetype</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> (slopetype_t) To aid move clipping.</span>
+
+	<a name="f_frontsector"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_frontsector">frontsector</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/sector_t.html">SECTOR_T</a>
+
+	<a name="f_backsector"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_backsector">backsector</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/sector_t.html">SECTOR_T</a>
+
+	<a name="f_validcount"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_validcount">validcount</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_set_validcount">set_validcount</a>
+			<span class="ecomment">--</span><span class="ecomment"> if == validcount, already checked</span>
+
+	<a name="f_set_validcount"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_set_validcount">set_validcount</a> <span class="esymbol">(</span><span class="elocal">a_validcount</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_validcount">validcount</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_validcount">validcount</a> <span class="esymbol">:=</span> <span class="elocal">a_validcount</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_specialdata"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_specialdata">specialdata</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> thinker_t for reversable actions</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_from_pointer"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_from_pointer">from_pointer</a> <span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">i_main</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">sn</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a> <span class="esymbol">:=</span> <span class="elocal">i_main</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_p_setup">P_setup</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/p_setup.html#f_vertexes">vertexes</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a> <span class="esymbol">:=</span> <span class="elocal">i_main</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_p_setup">P_setup</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/p_setup.html#f_vertexes">vertexes</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../base/array.html#f_item">]</a>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_dx">dx</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a> <a class="esymbol" href="../../base/integer_32_ref.html#f_minus">-</a> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_dy">dy</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a> <a class="esymbol" href="../../base/integer_32_ref.html#f_minus">-</a> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_dx">dx</a> <span class="esymbol">=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_slopetype">slopetype</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/r_defs.html">R_DEFS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/r_defs.html#f_st_vertical">st_vertical</a>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_dy">dy</a> <span class="esymbol">=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_slopetype">slopetype</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/r_defs.html">R_DEFS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/r_defs.html#f_st_horizontal">st_horizontal</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fixeddiv">fixeddiv</a> <span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/line_t.html#f_dy">dy</a><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_dx">dx</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/render/line_t.html#f_slopetype">slopetype</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/r_defs.html">R_DEFS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/r_defs.html#f_st_positive">st_positive</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../../brie_doom/render/line_t.html#f_slopetype">slopetype</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/r_defs.html">R_DEFS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/r_defs.html#f_st_negative">st_negative</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a> <a class="esymbol" href="../../base/integer_32_ref.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxleft">boxleft</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxright">boxright</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxleft">boxleft</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxright">boxright</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_x">x</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a> <a class="esymbol" href="../../base/integer_32_ref.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxbottom">boxbottom</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxtop">boxtop</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxbottom">boxbottom</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v2">v2</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/m_bbox.html">M_BBOX</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/m_bbox.html#f_boxtop">boxtop</a><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/line_t.html#f_v1">v1</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/vertex_t.html#f_y">y</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_flags">flags</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">4</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_special">special</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">6</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_tag">tag</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">8</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">sn</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">10</span><span class="esymbol">)</span>
+			<span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">12</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/line_t.html#f_sidenum">sidenum</a> <span class="esymbol">:=</span> <span class="elocal">sn</span>
+			<span class="ekeyword">if</span> <span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_frontsector">frontsector</a> <span class="esymbol">:=</span> <span class="elocal">i_main</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_p_setup">P_setup</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/p_setup.html#f_sides">sides</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/side_t.html#f_sector">sector</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_frontsector">frontsector</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">/=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_backsector">backsector</a> <span class="esymbol">:=</span> <span class="elocal">i_main</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_p_setup">P_setup</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/p_setup.html#f_sides">sides</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">sn</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/side_t.html#f_sector">sector</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/render/line_t.html#f_backsector">backsector</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_structure_size"></a><a class="efeature" href="../../brie_doom/render/line_t.html#f_structure_size">Structure_size</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">14</span>
+	
+<span class="ekeyword">invariant</span>
+		<a class="efeature" href="../../brie_doom/render/line_t.html#f_sidenum">sidenum</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+		<a class="efeature" href="../../brie_doom/render/line_t.html#f_sidenum">sidenum</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+		<a class="efeature" href="../../brie_doom/render/line_t.html#f_bbox">bbox</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/render/line_t.html">LINE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="line_t_chart.html">Chart</a>
+<a class="nav class" href="line_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="line_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

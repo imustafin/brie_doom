@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="TTTObjects representing a path, i.e. a way to identify a file or a directory for the TTTcurrent underlying platform. A path is made of two components: TTT1 - an optional root which can either be: TTTTa - a drive letter followed by colon on Windows, i.e. C: or C:\ TTTTb - / for UNIX root directory. TTTTc - \ for Windows root directory. TTTTd - \\server\share or \\server\share\ for Microsoft UNC path. TTT2 - a sequence of zero or more names. TTT TTTA path is absolute if it has a root, and on windows if the root is a drive, then it should TTTbe followed by \. Otherwise a path is relative.   TTTValidity TTT======== TTT TTTThe current class will not check the validity of filenames. Check your file TTTsystem for your operating system manual for the list of invalid characters.   TTTWindows consideration TTT===================== TTT TTTWhen the root of a Windows path is a drive, be aware of the following behavior: TTT1 - C:filename.txt refers to the file name filename.txt in the current directory  TTT    on drive C:. TTT2 - C:sub\filename.txt refers to the file name filename.txt in a subdirectory sub TTT    of the current directory on drive C:. TTT3 - C:\sub\filename.txt refers to the file name filename.txt in a subdirectory sub TTT    located at the root of the drive C:. TTT TTTBoth forward and backslashes are accepted, but forward slashes are internally converted TTTto backward slashes whenever they are used to construct a path. TTT TTTOn Windows, there is a limit of 259 characters for a path. If you need to create a larger TTTpath, you can do so by using the following conventions which will let you have paths of TTTabout 32,767 characters: TTT1 - Use \\?\ for non-UNC path and let the rest unchanged. TTT2 - Use \\?\UNC\server\share for UNC path and let the rest unchanged. TTTThe above path cannot be used to specify a relative path. TTT TTTTo know more about Windows paths, read the Naming Files, Paths, and Namespaces TTTdocument located at: TTT  http://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx   TTTUnicode consideration TTT===================== TTT TTTThe PATH class treats strings as sequence of Unicode characters, i.e. an instance of  TTTa READABLE_STRING_8 or descendant will be treated as if characters in the range TTT128 .. 255 were Unicode code points. TTTThis contrasts to the FILE/DIRECTORY classes where to preserve backward compatibility, those TTTcharacters are treated as is. TTT TTT TTTMixed-encoding consideration TTT============================ TTT TTTMost operating systems have conventions for paths that are incompatible with Unicode. TTTOn UNIX, in a sequence of names, each name is just a null-terminated byte sequence, it TTTdoes not follow any specific encoding. Usually the locale setting enables you to see TTTthe filename the way you expect. TTTOn Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows TTTdoes not guarantee that the sequence is actually a valid UTF-16 sequence. TTT TTTIn other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding TTTon Windows, the filename is not directly representable as a Unicode string. To make it possible TTTto create and store paths in a textually representable form, the query `name' will create TTTan encoded representation that can be then later used in `make_from_string' to create a PATH TTTequivalent to the original path. The encoding is described in UTF_CONVERTER's note clause TTTand is a fourth variant of the recommended practice for replacement characters in Unicode TTT(see http://www.unicode.org/review/pr-121.html).  TTTTTT TTTImmutability TTT============ TTT TTTInstances of the current class are immutable."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>path Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="path_links.html">Relations</a>
+<a class="nav class" href="path.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="path"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../base/path_chart.html">PATH</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">elks</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;Objects representing a path, i.e. a way to identify a file or a directory for the</span>
+		<span class="estring">current underlying platform. A path is made of two components:</span>
+		<span class="estring">1 - an optional root which can either be:</span>
+		<span class="estring">a - a drive letter followed by colon on Windows, i.e. %&quot;C:%&quot; or %&quot;C:\%&quot;</span>
+		<span class="estring">b - %&quot;/%&quot; for UNIX root directory.</span>
+		<span class="estring">c - %&quot;\%&quot; for Windows root directory.</span>
+		<span class="estring">d - %&quot;\\server\share%&quot; or %&quot;\\server\share\%&quot; for Microsoft UNC path.</span>
+		<span class="estring">2 - a sequence of zero or more names.</span>
+		
+		<span class="estring">A path is absolute if it has a root, and on windows if the root is a drive, then it should</span>
+		<span class="estring">be followed by %&quot;\%&quot;. Otherwise a path is relative.</span>
+		
+		
+		<span class="estring">Validity</span>
+		<span class="estring">========</span>
+		
+		<span class="estring">The current class will not check the validity of filenames. Check your file</span>
+		<span class="estring">system for your operating system manual for the list of invalid characters.</span>
+		
+		
+		<span class="estring">Windows consideration</span>
+		<span class="estring">=====================</span>
+		
+		<span class="estring">When the root of a Windows path is a drive, be aware of the following behavior:</span>
+		<span class="estring">1 - %&quot;C:filename.txt%&quot; refers to the file name %&quot;filename.txt%&quot; in the current directory </span>
+		<span class="estring"> &nbsp;&nbsp;&nbsp;on drive %&quot;C:%&quot;.</span>
+		<span class="estring">2 - %&quot;C:sub\filename.txt%&quot; refers to the file name %&quot;filename.txt%&quot; in a subdirectory %&quot;sub%&quot;</span>
+		<span class="estring"> &nbsp;&nbsp;&nbsp;of the current directory on drive %&quot;C:%&quot;.</span>
+		<span class="estring">3 - %&quot;C:\sub\filename.txt%&quot; refers to the file name %&quot;filename.txt%&quot; in a subdirectory %&quot;sub%&quot;</span>
+		<span class="estring"> &nbsp;&nbsp;&nbsp;located at the root of the drive %&quot;C:%&quot;.</span>
+		
+		<span class="estring">Both forward and backslashes are accepted, but forward slashes are internally converted</span>
+		<span class="estring">to backward slashes whenever they are used to construct a path.</span>
+		
+		<span class="estring">On Windows, there is a limit of 259 characters for a path. If you need to create a larger</span>
+		<span class="estring">path, you can do so by using the following conventions which will let you have paths of</span>
+		<span class="estring">about 32,767 characters:</span>
+		<span class="estring">1 - Use \\?\ for non-UNC path and let the rest unchanged.</span>
+		<span class="estring">2 - Use \\?\UNC\server\share for UNC path and let the rest unchanged.</span>
+		<span class="estring">The above path cannot be used to specify a relative path.</span>
+		
+		<span class="estring">To know more about Windows paths, read the %&quot;Naming Files, Paths, and Namespaces%&quot;</span>
+		<span class="estring">document located at:</span>
+		<span class="estring"> &nbsp;</span><a class="estring" href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa365247">http://msdn.microsoft.com/en-us/library/windows/desktop/aa365247</a><span class="estring">(v=vs.85).aspx</span>
+		
+		
+		<span class="estring">Unicode consideration</span>
+		<span class="estring">=====================</span>
+		
+		<span class="estring">The PATH class treats strings as sequence of Unicode characters, i.e. an instance of </span>
+		<span class="estring">a READABLE_STRING_8 or descendant will be treated as if characters in the range</span>
+		<span class="estring">128 .. 255 were Unicode code points.</span>
+		<span class="estring">This contrasts to the FILE/DIRECTORY classes where to preserve backward compatibility, those</span>
+		<span class="estring">characters are treated as is.</span>
+		
+		
+		<span class="estring">Mixed-encoding consideration</span>
+		<span class="estring">============================</span>
+		
+		<span class="estring">Most operating systems have conventions for paths that are incompatible with Unicode.</span>
+		<span class="estring">On UNIX, in a sequence of names, each name is just a null-terminated byte sequence, it</span>
+		<span class="estring">does not follow any specific encoding. Usually the locale setting enables you to see</span>
+		<span class="estring">the filename the way you expect.</span>
+		<span class="estring">On Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows</span>
+		<span class="estring">does not guarantee that the sequence is actually a valid UTF-16 sequence.</span>
+		
+		<span class="estring">In other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding</span>
+		<span class="estring">on Windows, the filename is not directly representable as a Unicode string. To make it possible</span>
+		<span class="estring">to create and store paths in a textually representable form, the query </span><span class="estring">name</span><span class="estring"> will create</span>
+		<span class="estring">an encoded representation that can be then later used in </span><span class="estring">make_from_string</span><span class="estring"> to create a PATH</span>
+		<span class="estring">equivalent to the original path. The encoding is described in UTF_CONVERTER's note clause</span>
+		<span class="estring">and is a fourth variant of the recommended practice for replacement characters in Unicode</span>
+		<span class="estring">(see </span><a class="estring" href="http://www.unicode.org/review/pr-121.html">http://www.unicode.org/review/pr-121.html</a><span class="estring">).</span>
+		
+		
+		<span class="estring">Immutability</span>
+		<span class="estring">============</span>
+		
+		<span class="estring">Instances of the current class are immutable.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../base/path.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_from_storage">make_from_storage</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_from_normalized_storage">make_from_normalized_storage</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_empty">make_empty</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_current">make_current</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_from_string">make_from_string</a><span class="esymbol">,</span> <a class="efeature" href="../base/path.html#f_make_from_separate">make_from_separate</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/comparable_chart.html">COMPARABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/debug_output_chart.html">DEBUG_OUTPUT</a><span class="echar">*</span>
+	<a class="eclass" href="../base/hashable_chart.html">HASHABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/native_string_handler_chart.html">NATIVE_STRING_HANDLER</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`absolute_path' is declared in `Current'"><a class="efeature" href="../base/path.html#f_absolute_path">absolute_path</a><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`absolute_path_in' is declared in `Current'"><a class="efeature" href="../base/path.html#f_absolute_path_in">absolute_path_in</a> <span class="esymbol">(</span><span class="elocal">a_current_directory</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`appended' is declared in `Current'"><a class="efeature" href="../base/path.html#f_appended">appended</a> <span class="esymbol">(</span><span class="elocal">a_extra</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`appended_with_extension' is declared in `Current'"><a class="efeature" href="../base/path.html#f_appended_with_extension">appended_with_extension</a> <span class="esymbol">(</span><span class="elocal">a_ext</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`canonical_path' is declared in `Current'"><a class="efeature" href="../base/path.html#f_canonical_path">canonical_path</a><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`components' is declared in `Current'"><a class="efeature" href="../base/path.html#f_components">components</a><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list_chart.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">]</span></span>
+	<span title="`directory_separator' is declared in `Current'"><a class="efeature" href="../base/path.html#f_directory_separator">directory_separator</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_chart.html">CHARACTER_8</a></span>
+	<span title="`entry' is declared in `Current'"><a class="efeature" href="../base/path.html#f_entry">entry</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`extended' is declared in `Current'"><a class="efeature" href="../base/path.html#f_extended">extended</a> <span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`extended_path' is declared in `Current'"><a class="efeature" href="../base/path.html#f_extended_path">extended_path</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/path.html#f_extended_path">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">a_path</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`extension' is declared in `Current'"><a class="efeature" href="../base/path.html#f_extension">extension</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_32_chart.html">IMMUTABLE_STRING_32</a></span>
+	<span title="`has_extension' is declared in `Current'"><a class="efeature" href="../base/path.html#f_has_extension">has_extension</a> <span class="esymbol">(</span><span class="elocal">a_ext</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general_chart.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`has_root' is declared in `Current'"><a class="efeature" href="../base/path.html#f_has_root">has_root</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`hash_code' is declared in `Current'"><a class="efeature" href="../base/path.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`is_absolute' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_absolute">is_absolute</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_case_insensitive_equal' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_case_insensitive_equal">is_case_insensitive_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_case_sensitive_equal' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_case_sensitive_equal">is_case_sensitive_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_current_symbol' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_current_symbol">is_current_symbol</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_empty' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_empty">is_empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_equal' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_greater' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_is_greater">is_greater</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_greater_equal' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_is_greater_equal">is_greater_equal</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_hashable' was declared in HASHABLE"><a class="efeature" href="../base/hashable.html#f_is_hashable">is_hashable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_less' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_less">is_less</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/path.html#f_is_less">&lt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_less_equal' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_is_less_equal">is_less_equal</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_parent_symbol' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_parent_symbol">is_parent_symbol</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_relative' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_relative">is_relative</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_same_file_as' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_same_file_as">is_same_file_as</a> <span class="esymbol">(</span><span class="elocal">a_path</span><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`is_simple' is declared in `Current'"><a class="efeature" href="../base/path.html#f_is_simple">is_simple</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`max' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_max">max</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`min' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_min">min</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`name' is declared in `Current'"><a class="efeature" href="../base/path.html#f_name">name</a><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32_chart.html">IMMUTABLE_STRING_32</a></span>
+	<span title="`native_string' is declared in `Current'"><a class="efeature" href="../base/path.html#f_native_string">native_string</a><span class="esymbol">:</span> <a class="eclass" href="../base/native_string_chart.html">NATIVE_STRING</a></span>
+	<span title="`out' is declared in `Current'"><a class="efeature" href="../base/path.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`parent' is declared in `Current'"><a class="efeature" href="../base/path.html#f_parent">parent</a><span class="esymbol">:</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`root' is declared in `Current'"><a class="efeature" href="../base/path.html#f_root">root</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path_chart.html">PATH</a></span>
+	<span title="`same_as' is declared in `Current'"><a class="efeature" href="../base/path.html#f_same_as">same_as</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`three_way_comparison' was declared in COMPARABLE"><a class="efeature" href="../base/comparable.html#f_three_way_comparison">three_way_comparison</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`unix_separator' is declared in `Current'"><a class="efeature" href="../base/path.html#f_unix_separator">Unix_separator</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_chart.html">CHARACTER_8</a></span>
+	<span title="`utf_8_name' is declared in `Current'"><a class="efeature" href="../base/path.html#f_utf_8_name">utf_8_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`windows_separator' is declared in `Current'"><a class="efeature" href="../base/path.html#f_windows_separator">Windows_separator</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_chart.html">CHARACTER_8</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`copy' is declared in `Current'"><a class="efeature" href="../base/path.html#f_copy">copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">]</span> <a class="eclass" href="../base/path_chart.html">PATH</a><span class="esymbol">)</span></span>
+
+<span class="ekeyword">Constraints</span>
+	<span class="etag">little endian windows</span>
+	<span class="etag">even count on windows</span>
+	<span class="etag">no forward slash on windows</span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="path_links.html">Relations</a>
+<a class="nav class" href="path.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="path"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

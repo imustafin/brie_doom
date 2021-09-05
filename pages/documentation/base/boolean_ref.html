@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to objects containing a boolean value"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="ca_ignore" content="CA015, CA015: double negation"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>boolean_ref Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="boolean_ref_chart.html">Chart</a>
+<a class="nav class" href="boolean_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="boolean_ref"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;References to objects containing a boolean value&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-14 14:41:36 +0000 (Wed, 14 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102457 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/boolean_ref.html">BOOLEAN_REF</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/boolean_ref.html#f_out">out</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/boolean_ref.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean value</span>
+
+
+	<a name="f_hash_code"></a><a class="efeature" href="../base/boolean_ref.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_from_reference"></a><a class="efeature" href="../base/boolean_ref.html#f_make_from_reference">make_from_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_ref.html">BOOLEAN_REF</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with </span><span class="equoted">v.item</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/boolean_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_reference"></a><a class="efeature" href="../base/boolean_ref.html#f_to_reference">to_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_ref.html">BOOLEAN_REF</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated reference of Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_reference_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">same_item</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer"></a><a class="efeature" href="../base/boolean_ref.html#f_to_integer">to_integer</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> 1 if </span><span class="equoted">True</span>
+			<span class="ecomment">--</span><span class="ecomment"> 0 if </span><span class="equoted">False</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">not_item_implies_zero</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="etag">item_implies_one</span><span class="esymbol">:</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_item"></a><a class="efeature" href="../base/boolean_ref.html#f_set_item">set_item</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">b</span><span class="ecomment"> the </span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="esymbol">:=</span> <span class="elocal">b</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_conjuncted"></a><a class="efeature" href="../base/boolean_ref.html#f_conjuncted">conjuncted</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_conjuncted">and</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean conjunction with </span><span class="equoted">other</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">de_morgan</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="elocal">other</span><span class="esymbol">)</span>
+			<span class="etag">commutative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="elocal">other</span> <a class="ekeyword" href="../base/boolean_ref.html#f_conjuncted">and</a> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="etag">consistent_with_semi_strict</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean_ref.html#f_conjuncted_semistrict">and then</a> <span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_conjuncted_semistrict"></a><a class="efeature" href="../base/boolean_ref.html#f_conjuncted_semistrict">conjuncted_semistrict</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_conjuncted_semistrict">and then</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean semi-strict conjunction with </span><span class="equoted">other</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">de_morgan</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_implication"></a><a class="efeature" href="../base/boolean_ref.html#f_implication">implication</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_implication">implies</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean implication of </span><span class="equoted">other</span>
+			<span class="ecomment">--</span><span class="ecomment"> (semi-strict)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_make_from_reference">make_from_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_negated"></a><a class="efeature" href="../base/boolean_ref.html#f_negated">negated</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a><span class="esymbol">&quot;</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Negation</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_disjuncted"></a><a class="efeature" href="../base/boolean_ref.html#f_disjuncted">disjuncted</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted">or</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean disjunction with </span><span class="equoted">other</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">de_morgan</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="elocal">other</span><span class="esymbol">)</span>
+			<span class="etag">commutative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="elocal">other</span> <a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted">or</a> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="etag">consistent_with_semi_strict</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted_semistrict">or else</a> <span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_disjuncted_semistrict"></a><a class="efeature" href="../base/boolean_ref.html#f_disjuncted_semistrict">disjuncted_semistrict</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted_semistrict">or else</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean semi-strict disjunction with </span><span class="equoted">other</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">de_morgan</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="elocal">other</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_disjuncted_exclusive"></a><a class="efeature" href="../base/boolean_ref.html#f_disjuncted_exclusive">disjuncted_exclusive</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted_exclusive">xor</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean exclusive or with </span><span class="equoted">other</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">other_exists</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_exclusive">xor</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean_ref.html#f_disjuncted">or</a> <span class="elocal">other</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean_ref.html#f_conjuncted">and</a> <span class="elocal">other</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_out"></a><a class="efeature" href="../base/boolean_ref.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Printable representation of boolean</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;False&quot;
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> &quot;True&quot;
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">involutive_negation</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/boolean_ref.html#f_item">item</a>
+	<span class="etag">non_contradiction</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_make_from_reference">make_from_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">)</span>
+	<span class="etag">completeness</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean_ref.html#f_negated">not</a> <span class="ekeyword">Current</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_make_from_reference">make_from_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">ca_ignore</span><span class="esymbol">:</span> <span class="estring">&quot;CA015&quot;</span><span class="esymbol">,</span> <span class="estring">&quot;CA015: double negation&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/boolean_ref.html">BOOLEAN_REF</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="boolean_ref_chart.html">Chart</a>
+<a class="nav class" href="boolean_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="boolean_ref"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Decoding of arbitrary objects graphs within a session of a same program."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_session_deserializer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_session_deserializer_chart.html">Chart</a>
+<a class="nav class" href="sed_session_deserializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_session_deserializer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Decoding of arbitrary objects graphs within a session of a same program.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_session_deserializer.html">SED_SESSION_DESERIALIZER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/sed_utilities.html">SED_UTILITIES</a>
+
+	<a class="eclass" href="../base/exception_manager.html">EXCEPTION_MANAGER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_session_deserializer.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_deserializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current instance</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_deserializer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_deserializer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_deserializer_ready</span><span class="esymbol">:</span> <span class="elocal">a_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflected_object">reflected_object</a><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a> <span class="esymbol">:=</span> <span class="elocal">a_deserializer</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">deserializer_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a> <span class="esymbol">=</span> <span class="elocal">a_deserializer</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_deserializer"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Serializer used to decode data</span>
+
+	<a name="f_last_decoded_object"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object decoded during last call to </span><a class="efeature" href="../base/sed_session_deserializer.html#f_decode">decode</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_error"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_error">error</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `errors' directly to find out errors encountered during retrieval. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Last error encountered during retrieval</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="ekeyword">as</span> l_errors <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_last">last</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_errors"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">]</span>
+
+	<a name="f_has_error"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_has_error">has_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Did we encounter an error during retrieval?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="ekeyword">as</span> l_errors <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Settings</span>
+
+	<a name="f_set_deserializer"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_set_deserializer">set_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_deserializer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="ecomment"> with </span><span class="equoted">a_deserializer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_deserializer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_deserializer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_deserializer_ready</span><span class="esymbol">:</span> <span class="elocal">a_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a> <span class="esymbol">:=</span> <span class="elocal">a_deserializer</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">deserializer_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a> <span class="esymbol">=</span> <span class="elocal">a_deserializer</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_decode"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode">decode</a> <span class="esymbol">(</span><span class="elocal">a_is_gc_enabled</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode object graph stored in </span><a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">l_mem</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_memory">Memory</a>
+			<span class="elocal">l_is_collecting</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">retried</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">retried</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_reset_errors">reset_errors</a>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_is_gc_enabled</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_mem</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_memory">Memory</a>
+					<span class="elocal">l_is_collecting</span> <span class="esymbol">:=</span> <span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+					<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a>
+				<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_read_header">read_header</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/sed_session_deserializer.html#f_has_error">has_error</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_objects">decode_objects</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_add_error">add_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_exception_error">new_exception_error</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exception</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_add_error">add_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_internal_error">new_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;An Unknown exception occurred in `decode'.&quot;<span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_is_collecting</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_mem</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_clear_internal_data">clear_internal_data</a>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">retried</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">retry</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: Access</span>
+
+	<a name="f_reflector"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflector.html">REFLECTOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Facilities to inspect.</span>
+
+	<a name="f_reflected_object"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_reflected_object">reflected_object</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Facilities to inspect objects.</span>
+
+	<a name="f_object_references"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mapping between reference ID and the associated object.</span>
+
+	<a name="f_is_transient_retrieval_required"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_is_transient_retrieval_required">is_transient_retrieval_required</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we need to retrieve transient attribute with their default value?</span>
+			<span class="ecomment">--</span><span class="ecomment"> This is necessary for Session/Basic storing where we expect the same</span>
+			<span class="ecomment">--</span><span class="ecomment"> object layout.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_store_settings_enabled"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_is_store_settings_enabled">is_store_settings_enabled</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are settings stored?</span>
+			<span class="ecomment">--</span><span class="ecomment"> By default not for SED_INDEPENDENT_DESERIALIZER.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_has_reference_with_copy_semantics"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does retrieved data contain references with copy semantics?</span>
+
+	<a name="f_error_factory"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Once access to the error factory.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_version"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_version">version</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Internal version of the storable being retrieved (See SED_VERSIONS for possible values).</span>
+
+	<a name="f_dynamic_type_table"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_dynamic_type_table">dynamic_type_table</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mapping between old dynamic types and new ones.</span>
+
+	<a name="f_new_dynamic_type_id"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_dynamic_type_id">new_dynamic_type_id</a> <span class="esymbol">(</span><span class="elocal">a_old_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given </span><span class="equoted">a_old_type_id</span><span class="ecomment">, dynamic type id in stored system, retrieve dynamic</span>
+			<span class="ecomment">--</span><span class="ecomment"> type id in current system. Return -1 if not found.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_old_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_old_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_dynamic_type_table">dynamic_type_table</a> <span class="ekeyword">as</span> t <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">a_old_type_id</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">t</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_old_type_id</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_old_type_id</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">minus_one_of_non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">-1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: Settings</span>
+
+	<a name="f_set_error"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_set_error">set_error</a> <span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use `add_error' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Assign </span><span class="equoted">a_error</span><span class="ecomment"> to </span><a class="efeature" href="../base/sed_session_deserializer.html#f_error">error</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_add_error">add_error</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">error_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_error">error</a> <span class="esymbol">=</span> <span class="elocal">a_error</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_error"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_add_error">add_error</a> <span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Assign </span><span class="equoted">a_error</span><span class="ecomment"> to </span><a class="efeature" href="../base/sed_session_deserializer.html#f_error">error</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_new_errors</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="ekeyword">as</span> l_errors <span class="ekeyword">then</span>
+				<span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_new_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">10</span><span class="esymbol">)</span>
+				<span class="elocal">l_new_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="esymbol">:=</span> <span class="elocal">l_new_errors</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">error_set</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="ekeyword">as</span> l_errors <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_raise_fatal_error"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_raise_fatal_error">raise_fatal_error</a> <span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">a_error</span><span class="ecomment"> to </span><a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a><span class="ecomment"> and raise an exception to terminate retrieval</span>
+			<span class="ecomment">--</span><span class="ecomment"> because the error is beyond recovery.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_failure</span><span class="esymbol">:</span> <a class="eclass" href="../base/serialization_failure.html">SERIALIZATION_FAILURE</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_add_error">add_error</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_failure</span>
+			<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="edot">.</span><a class="efeature" href="../base/sed_error.html#f_message">message</a><span class="esymbol">)</span>
+			<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">error_set</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="ekeyword">as</span> l_errors <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_error</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_reset_errors"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_reset_errors">reset_errors</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all errors for a new retrieval</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">errors_reset</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Cleaning</span>
+
+	<a name="f_clear_internal_data"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_clear_internal_data">clear_internal_data</a>
+			<span class="ecomment">--</span><span class="ecomment"> Clear all allocated data</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_cleanup">cleanup</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_dynamic_type_table">dynamic_type_table</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_read_header"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_read_header">read_header</a> <span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read header of serialized data which has </span><span class="equoted">a_count</span><span class="ecomment"> objects.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_read_settings">read_settings</a>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_read_object_table">read_object_table</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_settings"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_settings">read_settings</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read various settings of serialized data.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_is_store_settings_enabled">is_store_settings_enabled</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_version">version</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_version">version</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_7_3">version_7_3</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_version">version</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_5_6">version_5_6</a>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_object_table"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_object_table">read_object_table</a> <span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read object table if any, which has </span><span class="equoted">a_count</span><span class="ecomment"> objects.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_objs</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">l_reflector</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a>
+			<span class="elocal">l_mem</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_memory">Memory</a>
+			<span class="elocal">l_is_collecting</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_nat32</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_old_dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_mem</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_memory">Memory</a>
+				<span class="elocal">l_is_collecting</span> <span class="esymbol">:=</span> <span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+				<span class="elocal">l_reflector</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a>
+				<span class="elocal">l_objs</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a>
+				<span class="elocal">l_objs</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_count</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_is_collecting</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <span class="enumber">2000</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_old_dtype</span> <span class="esymbol">:=</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+					<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_dynamic_type_id">new_dynamic_type_id</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_old_dtype</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_dtype</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_nat32</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a>
+						<span class="ekeyword">check</span>
+							<span class="etag">l_nat32_valid</span><span class="esymbol">:</span> <span class="elocal">l_nat32</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">l_nat32</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_as_natural_32">as_natural_32</a>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">check</span>
+							<span class="etag">valid_id</span><span class="esymbol">:</span> <span class="elocal">l_nat32</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a> <span class="esymbol">=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_utilities.html#f_is_special_flag">Is_special_flag</a> <span class="ekeyword">then</span>
+							<span class="elocal">l_obj</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_special_instance">new_special_instance</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<span class="elocal">l_obj</span> <span class="esymbol">:=</span> <span class="elocal">l_reflector</span><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_new_instance_of">new_instance_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">l_objs</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../base/sed_session_deserializer.html#f_raise_fatal_error">raise_fatal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_internal_error">new_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Cannot read object type. Corrupted data!&quot;<span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_is_collecting</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_raise_fatal_error">raise_fatal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_format_mismatch_66">new_format_mismatch_66</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_default_value"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_default_value">read_default_value</a> <span class="esymbol">(</span><span class="elocal">a_abstract_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Read from the stream the default value that corresponds to </span><span class="equoted">a_abstract_type</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">inspect</span> <span class="elocal">a_abstract_type</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_32">read_character_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_16">read_natural_16</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_64">read_natural_64</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_8">read_integer_8</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_16">read_integer_16</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_32">read_integer_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_64">read_integer_64</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_32">read_real_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_64">read_real_64</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_pointer">read_pointer</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_expanded_type">expanded_type</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_reference"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read reference from the stream.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_nat32</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_nat32</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a>
+			<span class="ekeyword">if</span> <span class="elocal">l_nat32</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">l_nat32_valid</span><span class="esymbol">:</span> <span class="elocal">l_nat32</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_as_natural_32">as_natural_32</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_nat32</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_persistent_field_count"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_read_persistent_field_count">read_persistent_field_count</a> <span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of fields we are going to read from </span><span class="equoted">a_reflected_object</span><span class="ecomment"> in the the retrieved system.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_count">field_count</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_attribute_offset"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_new_attribute_offset">new_attribute_offset</a> <span class="esymbol">(</span><span class="elocal">a_new_type_id</span><span class="esymbol">,</span> <span class="elocal">a_old_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given attribute offset </span><span class="equoted">a_old_offset</span><span class="ecomment"> in the stored object whose dynamic type id</span>
+			<span class="ecomment">--</span><span class="ecomment"> is now </span><span class="equoted">a_new_type_id</span><span class="ecomment">, retrieve new offset in </span><span class="equoted">a_new_type_id</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If not found 0 in which case it is an error.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_new_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_new_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_old_offset_positive</span><span class="esymbol">:</span> <span class="elocal">a_old_offset</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_old_offset</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">new_attribute_offset_non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_objects"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_decode_objects">decode_objects</a> <span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode </span><span class="equoted">a_count</span><span class="ecomment"> object from </span><a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="ecomment"> and store root object in </span><a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_count_positive</span><span class="esymbol">:</span> <span class="elocal">a_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_object">decode_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_object">decode_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/natural_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_object"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_object">decode_object</a> <span class="esymbol">(</span><span class="elocal">is_root</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode one object and store it in </span><a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a><span class="ecomment"> if </span><span class="equoted">is_root</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">l_reflected_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_obj</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">l_nat32</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_nat32</span> <span class="esymbol">:=</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a>
+			<span class="ekeyword">check</span>
+				<span class="etag">l_nat32_valid</span><span class="esymbol">:</span> <span class="elocal">l_nat32</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_max_value">max_value</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_as_natural_32">as_natural_32</a>
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_obj</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_nat32</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special">is_special</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special">decode_special</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_utilities.html#f_abstract_type">abstract_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_generic_dynamic_type">generic_dynamic_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_tuple">is_tuple</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_tuple">decode_tuple</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_normal_object">decode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">is_root</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a> <span class="esymbol">:=</span> <span class="elocal">l_obj</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_normal_object"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_decode_normal_object">decode_normal_object</a> <span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode an object represented by </span><span class="equoted">a_reflected_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_obj_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reflected_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">l_exp_dtype</span><span class="esymbol">,</span> <span class="elocal">l_new_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_exp</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">l_dtype</span> <span class="esymbol">:=</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_persistent_field_count">read_persistent_field_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_new_offset</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_attribute_offset">new_attribute_offset</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_dtype</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">l_new_offset_positive</span><span class="esymbol">:</span> <span class="elocal">l_new_offset</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_field_transient">is_field_transient</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">inspect</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_type">field_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_boolean_field">set_boolean_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_character_8_field">set_character_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_character_32_field">set_character_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_32">read_character_32</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_natural_8_field">set_natural_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_natural_16_field">set_natural_16_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_16">read_natural_16</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_natural_32_field">set_natural_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_natural_64_field">set_natural_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_64">read_natural_64</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_integer_8_field">set_integer_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_8">read_integer_8</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_integer_16_field">set_integer_16_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_16">read_integer_16</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_integer_32_field">set_integer_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_32">read_integer_32</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_integer_64_field">set_integer_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_64">read_integer_64</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_real_32_field">set_real_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_32">read_real_32</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_real_64_field">set_real_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_64">read_real_64</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_pointer_field">set_pointer_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_pointer">read_pointer</a><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">if</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a> <span class="ekeyword">then</span>
+								<span class="elocal">l_exp_dtype</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_dynamic_type_id">new_dynamic_type_id</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="esymbol">)</span>
+								<span class="ekeyword">if</span> <span class="elocal">l_exp_dtype</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+									<a class="efeature" href="../base/sed_session_deserializer.html#f_raise_fatal_error">raise_fatal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_internal_error">new_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Cannot read object type. Corrupted data!&quot;<span class="esymbol">)</span><span class="esymbol">)</span>
+								<span class="ekeyword">else</span>
+									<span class="ekeyword">create</span> <span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_new_instance_of">new_instance_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp_dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+									<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_normal_object">decode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="esymbol">)</span>
+									<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_reference_field">set_reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_object">object</a><span class="esymbol">)</span>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">else</span>
+								<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_reference_field">set_reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">)</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">else</span>
+							<span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_set_reference_field">set_reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_expanded_type">expanded_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+						<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_normal_object">decode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_expanded_field">expanded_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_offset</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_tuple"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_tuple">decode_tuple</a> <span class="esymbol">(</span><span class="elocal">an_obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode TUPLE object.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_obj_not_void</span><span class="esymbol">:</span> <span class="elocal">an_obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_obj_is_tuple</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span> <span class="elocal">an_obj</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_tuple <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">inspect</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_boolean_code">boolean_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_boolean">put_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_8_code">character_8_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_character_8">put_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_32_code">character_32_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_character_32">put_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_32">read_character_32</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_8_code">natural_8_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_16_code">natural_16_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_natural_16">put_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_16">read_natural_16</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_32_code">natural_32_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_natural_32">put_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_64_code">natural_64_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_natural_64">put_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_64">read_natural_64</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_8_code">integer_8_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_integer_8">put_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_8">read_integer_8</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_16_code">integer_16_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_integer_16">put_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_16">read_integer_16</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_32_code">integer_32_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_integer_32">put_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_32">read_integer_32</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_64_code">integer_64_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_integer_64">put_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_64">read_integer_64</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_32_code">real_32_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_real_32">put_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_32">read_real_32</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_64_code">real_64_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_real_64">put_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_64">read_real_64</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_pointer_code">pointer_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_pointer">put_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_pointer">read_pointer</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_reference_code">reference_code</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_put_reference">put_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_special_instance"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_special_instance">new_special_instance</a> <span class="esymbol">(</span><span class="elocal">a_dtype</span><span class="esymbol">,</span> <span class="elocal">a_item_type</span><span class="esymbol">,</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create new special instance of a special object whose dynamic</span>
+			<span class="ecomment">--</span><span class="ecomment"> type is </span><span class="equoted">a_dtype</span><span class="ecomment">, whose element abstract type is </span><span class="equoted">a_item_type</span>
+			<span class="ecomment">--</span><span class="ecomment"> and of count </span><span class="equoted">a_count</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_dtype_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_dtype</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_item_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_item_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_count_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">inspect</span> <span class="elocal">a_item_type</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_new_special_any_instance">new_special_any_instance</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_dtype</span><span class="esymbol">,</span> <span class="elocal">a_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">new_special_instance_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special">decode_special</a> <span class="esymbol">(</span><span class="elocal">an_obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">an_item_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL object of element type </span><span class="equoted">an_item_type</span><span class="ecomment"> in </span><span class="equoted">an_obj</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_obj_not_void</span><span class="esymbol">:</span> <span class="elocal">an_obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_obj_is_special</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">nb</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a>
+			<span class="ekeyword">inspect</span> <span class="elocal">an_item_type</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_boolean <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_boolean">decode_special_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_boolean</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_boolean_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_character_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_character_8">decode_special_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_character_8</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_character_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_character_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_character_32">decode_special_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_character_32</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_character_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_natural_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_8">decode_special_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_8</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_natural_16 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_16">decode_special_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_16</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_16_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_natural_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_32">decode_special_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_32</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_natural_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_64">decode_special_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_64</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_integer_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_8">decode_special_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_8</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_integer_16 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_16">decode_special_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_16</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_16_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_integer_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_32">decode_special_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_32</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_integer_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_64">decode_special_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_64</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_real_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_real_32">decode_special_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_real_32</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_real_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_real_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_real_64">decode_special_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_real_64</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_real_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_pointer <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_pointer">decode_special_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_pointer</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_pointer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">an_item_type_valid</span><span class="esymbol">:</span> <span class="elocal">an_item_type</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_obj</span> <span class="ekeyword">as</span> l_spec_any <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_reference">decode_special_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_any</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_any_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_boolean"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_boolean">decode_special_boolean</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[BOOLEAN]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_character_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_character_8">decode_special_character_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[CHARACTER_8]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_character_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_character_32">decode_special_character_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[CHARACTER_32]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_32">read_character_32</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_natural_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_8">decode_special_natural_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[NATURAL_8]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_natural_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_16">decode_special_natural_16</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[NATURAL_16]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_16">read_natural_16</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_natural_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_32">decode_special_natural_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[NATURAL_32]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_natural_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_natural_64">decode_special_natural_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[NATURAL_64]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_64">read_natural_64</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_integer_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_8">decode_special_integer_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[INTEGER_8]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_8">read_integer_8</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_integer_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_16">decode_special_integer_16</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[INTEGER_16]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_16">read_integer_16</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_integer_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_32">decode_special_integer_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[INTEGER]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_32">read_integer_32</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_integer_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_integer_64">decode_special_integer_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[INTEGER_64]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_64">read_integer_64</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_real_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_real_32">decode_special_real_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[REAL_32]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_32">read_real_32</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_real_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_real_64">decode_special_real_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[REAL_64]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_64">read_real_64</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_pointer"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_pointer">decode_special_pointer</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL </span><span class="ecomment">[POINTER]</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_pointer">read_pointer</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_decode_special_reference"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_decode_special_reference">decode_special_reference</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Decode SPECIAL of reference.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_has_copy_semantics_item</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_deser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="elocal">l_exp_dtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_exp</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_deser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_version">version</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_7_3">version_7_3</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_has_copy_semantics_item</span> <span class="esymbol">:=</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_has_copy_semantics_item</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">a_count</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_exp_dtype</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_new_dynamic_type_id">new_dynamic_type_id</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_deser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_exp_dtype</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+							<a class="efeature" href="../base/sed_session_deserializer.html#f_raise_fatal_error">raise_fatal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_error_factory">Error_factory</a><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_internal_error">new_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Cannot read object type. Corrupted data!&quot;<span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<span class="ekeyword">create</span> <span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_new_instance_of">new_instance_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp_dtype</span><span class="esymbol">)</span><span class="esymbol">)</span>
+							<a class="efeature" href="../base/sed_session_deserializer.html#f_decode_normal_object">decode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="esymbol">)</span>
+							<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_object">object</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_deserializer.html#f_read_reference">read_reference</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory"></a><a class="efeature" href="../base/sed_session_deserializer.html#f_memory">Memory</a><span class="esymbol">:</span> <a class="eclass" href="../base/memory.html">MEMORY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access to MEMORY features without having to create a new instance each time.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">memory_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">reflector_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflector">reflector</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">reflected_object_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_reflected_object">reflected_object</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">deserializer_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_deserializer">deserializer</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">object_references_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_deserializer.html#f_object_references">object_references</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_session_deserializer.html">SED_SESSION_DESERIALIZER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_session_deserializer_chart.html">Chart</a>
+<a class="nav class" href="sed_session_deserializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_session_deserializer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

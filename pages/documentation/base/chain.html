@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Possibly circular sequences of items, without commitment to a particular representation"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="chain, sequence"/>
+<meta name="access" content="index, cursor, membership"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>chain Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="chain_chart.html">Chart</a>
+<a class="nav class" href="chain_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="chain"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Possibly circular sequences of items,</span>
+		<span class="estring">without commitment to a particular representation</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> chain<span class="esymbol">,</span> sequence
+	<span class="eitag">access</span><span class="esymbol">:</span> index<span class="esymbol">,</span> cursor<span class="esymbol">,</span> membership
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-13 12:58:34 +0000 (Tue, 13 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102449 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/chain.html">CHAIN</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/cursor_structure.html">CURSOR_STRUCTURE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/collection.html#f_put">put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/sequence.html#f_prune_all">prune_all</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/chain.html#f_fill">fill</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/indexable.html">INDEXABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/table.html#f_bag_put">bag_put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/table.html#f_item">item</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/chain.html#f_i_th">i_th</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/chain.html#f_i_th">[]</a><span class="esymbol">&quot;</span><span class="esymbol">,</span>
+			<a class="efeature" href="../base/table.html#f_put">put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/chain.html#f_put_i_th">put_i_th</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_indexable.html#f_upper">upper</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/finite.html#f_count">count</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/sequence.html#f_prune_all">prune_all</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sequence.html#f_put">sequence_put</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/chain.html#f_fill">fill</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/sequence.html">SEQUENCE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/sequence.html#f_put">put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/chain.html#f_index_of">index_of</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_has">has</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_off">off</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_occurrences">occurrences</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_fill">fill</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_append">append</a>
+		<span class="ekeyword">select</span>
+			<a class="efeature" href="../base/chain.html#f_index_of">index_of</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_has">has</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_occurrences">occurrences</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/sequence.html">SEQUENCE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/sequence.html#f_put">put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linear.html#f_index_of">index_of</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/linear.html#f_index_of">sequential_index_of</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linear.html#f_has">has</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/linear.html#f_has">sequential_has</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linear.html#f_occurrences">occurrences</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/linear.html#f_occurrences">sequential_occurrences</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <a class="efeature" href="../base/linear.html#f_index_of">sequential_index_of</a><span class="esymbol">,</span> <a class="efeature" href="../base/linear.html#f_has">sequential_has</a><span class="esymbol">,</span> <a class="efeature" href="../base/sequence.html#f_put">sequence_put</a><span class="esymbol">,</span> <a class="efeature" href="../base/linear.html#f_occurrences">sequential_occurrences</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/chain.html#f_off">off</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_fill">fill</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/chain.html#f_append">append</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_first"></a><a class="efeature" href="../base/chain.html#f_first">first</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at first position</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<a class="efeature" href="../base/chain.html#f_start">start</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last"></a><a class="efeature" href="../base/chain.html#f_last">last</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at last position</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<a class="efeature" href="../base/chain.html#f_finish">finish</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_has"></a><a class="efeature" href="../base/chain.html#f_has">has</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does chain include </span><span class="equoted">v</span><span class="ecomment">?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Reference or object equality,</span>
+			<span class="ecomment">--</span><span class="ecomment"> based on </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment">.)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linear.html#f_has">sequential_has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_index_of"></a><a class="efeature" href="../base/chain.html#f_index_of">index_of</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of </span><span class="equoted">i</span><span class="ecomment">-th occurrence of item identical to </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Reference or object equality,</span>
+			<span class="ecomment">--</span><span class="ecomment"> based on </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment">.)</span>
+			<span class="ecomment">--</span><span class="ecomment"> 0 if none.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linear.html#f_index_of">sequential_index_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_i_th"></a><a class="efeature" href="../base/chain.html#f_i_th">i_th</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/chain.html#f_i_th">[]</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a> <span class="ekeyword">assign</span> <a class="efeature" href="../base/chain.html#f_put_i_th">put_i_th</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at </span><span class="equoted">i</span><span class="ecomment">-th position</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/chain.html">CHAIN</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/chain.html#f_at">at</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_at"></a><a class="efeature" href="../base/chain.html#f_at">at</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/chain.html#f_at">@</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a> <span class="ekeyword">assign</span> <a class="efeature" href="../base/chain.html#f_put_i_th">put_i_th</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at </span><span class="equoted">i</span><span class="ecomment">-th position</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/chain.html">CHAIN</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/chain.html#f_i_th">i_th</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_occurrences"></a><a class="efeature" href="../base/chain.html#f_occurrences">occurrences</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of times </span><span class="equoted">v</span><span class="ecomment"> appears.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Reference or object equality,</span>
+			<span class="ecomment">--</span><span class="ecomment"> based on </span><a class="efeature" href="../base/container.html#f_object_comparison">object_comparison</a><span class="ecomment">.)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linear.html#f_occurrences">sequential_occurrences</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lower"></a><a class="efeature" href="../base/chain.html#f_lower">Lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Minimum index.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_start"></a><a class="efeature" href="../base/chain.html#f_start">start</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to first position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (No effect if empty)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">at_first</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/chain.html#f_isfirst">isfirst</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_finish"></a><a class="efeature" href="../base/chain.html#f_finish">finish</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to last position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (No effect if empty)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">at_last</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/chain.html#f_islast">islast</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_move"></a><a class="efeature" href="../base/chain.html#f_move">move</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor </span><span class="equoted">i</span><span class="ecomment"> positions. The cursor</span>
+			<span class="ecomment">--</span><span class="ecomment"> may end up </span><a class="efeature" href="../base/chain.html#f_off">off</a><span class="ecomment"> if the absolute value of </span><span class="equoted">i</span>
+			<span class="ecomment">--</span><span class="ecomment"> is too big.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">counter</span><span class="esymbol">,</span> <span class="elocal">pos</span><span class="esymbol">,</span> <span class="elocal">final</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="esymbol">(</span><span class="elocal">counter</span> <span class="esymbol">=</span> <span class="elocal">i</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="efeature" href="../base/linear.html#f_after">after</a>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/linear.html#f_forth">forth</a>
+					<span class="elocal">counter</span> <span class="esymbol">:=</span> <span class="elocal">counter</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">final</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span>
+				<span class="ekeyword">if</span> <span class="elocal">final</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/chain.html#f_start">start</a>
+					<a class="efeature" href="../base/bilinear.html#f_back">back</a>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">from</span>
+						<a class="efeature" href="../base/chain.html#f_start">start</a>
+						<span class="elocal">pos</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">pos</span> <span class="esymbol">=</span> <span class="elocal">final</span>
+					<span class="ekeyword">loop</span>
+						<a class="efeature" href="../base/linear.html#f_forth">forth</a>
+						<span class="elocal">pos</span> <span class="esymbol">:=</span> <span class="elocal">pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">too_far_right</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linear.html#f_exhausted">exhausted</a>
+			<span class="etag">too_far_left</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linear.html#f_exhausted">exhausted</a>
+			<span class="etag">expected_index</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linear.html#f_exhausted">exhausted</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_go_i_th"></a><a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to </span><span class="equoted">i</span><span class="ecomment">-th position.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_cursor_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_valid_cursor_index">valid_cursor_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/chain.html#f_move">move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/linear.html#f_index">index</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">position_expected</span><span class="esymbol">:</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="elocal">i</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_valid_index"></a><a class="efeature" href="../base/chain.html#f_valid_index">valid_index</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i</span><span class="ecomment"> within allowable bounds?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">valid_index_definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_isfirst"></a><a class="efeature" href="../base/chain.html#f_isfirst">isfirst</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is cursor at first position?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_position</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_islast"></a><a class="efeature" href="../base/chain.html#f_islast">islast</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is cursor at last position?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_position</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_off"></a><a class="efeature" href="../base/chain.html#f_off">off</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no current item?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/finite.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_valid_cursor_index"></a><a class="efeature" href="../base/chain.html#f_valid_cursor_index">valid_cursor_index</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i</span><span class="ecomment"> correctly bounded for cursor movement?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/finite.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_cursor_index_definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/finite.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/chain.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace current item by </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Synonym for </span><a class="efeature" href="../base/active.html#f_replace">replace</a><span class="ecomment">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">writeable</span><span class="esymbol">:</span> <a class="efeature" href="../base/sequence.html#f_writable">writable</a>
+			<span class="etag">replaceable</span><span class="esymbol">:</span> <a class="efeature" href="../base/active.html#f_replaceable">replaceable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/active.html#f_replace">replace</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">same_count</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_count">count</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/finite.html#f_count">count</a>
+			<span class="etag">is_inserted</span><span class="esymbol">:</span> <a class="efeature" href="../base/collection.html#f_is_inserted">is_inserted</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_i_th"></a><a class="efeature" href="../base/chain.html#f_put_i_th">put_i_th</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Put </span><span class="equoted">v</span><span class="ecomment"> at </span><span class="equoted">i</span><span class="ecomment">-th position.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/active.html#f_replace">replace</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_append"></a><a class="efeature" href="../base/chain.html#f_append">append</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/sequence.html">SEQUENCE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Append a copy of </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l</span><span class="esymbol">:</span> <a class="eclass" href="../base/sequence.html">SEQUENCE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="elocal">l_cursor</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l</span> <span class="esymbol">:=</span> <span class="elocal">s</span>
+			<span class="ekeyword">if</span> <span class="elocal">s</span> <span class="esymbol">=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<span class="elocal">l</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/any.html#f_twin">twin</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_cursor</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/traversable.html#f_start">start</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_exhausted">exhausted</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/bag.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/active.html#f_item">item</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/chain.html#f_finish">finish</a>
+				<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_forth">forth</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_cursor</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fill"></a><a class="efeature" href="../base/chain.html#f_fill">fill</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/container.html">CONTAINER</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill with as many items of </span><span class="equoted">other</span><span class="ecomment"> as possible.</span>
+			<span class="ecomment">--</span><span class="ecomment"> The representations of </span><span class="equoted">other</span><span class="ecomment"> and current structure</span>
+			<span class="ecomment">--</span><span class="ecomment"> need not be the same.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">lin_rep</span><span class="esymbol">:</span> <a class="eclass" href="../base/linear.html">LINEAR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="elocal">l_cursor</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">lin_rep</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_cursor</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+				<span class="elocal">lin_rep</span><span class="edot">.</span><a class="efeature" href="../base/traversable.html#f_start">start</a>
+			<span class="ekeyword">until</span>
+				<a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/collection.html#f_extendible">extendible</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">lin_rep</span><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_off">off</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/bag.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">lin_rep</span><span class="edot">.</span><a class="efeature" href="../base/traversable.html#f_item">item</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/chain.html#f_finish">finish</a>
+				<span class="elocal">lin_rep</span><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_forth">forth</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_cursor</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Transformation</span>
+
+	<a name="f_swap"></a><a class="efeature" href="../base/chain.html#f_swap">swap</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Exchange item at </span><span class="equoted">i</span><span class="ecomment">-th position with item</span>
+			<span class="ecomment">--</span><span class="ecomment"> at cursor position.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_off</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/chain.html#f_off">off</a>
+			<span class="etag">valid_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_valid_index">valid_index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">old_item</span><span class="esymbol">,</span> <span class="elocal">new_item</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/cursor_structure.html#f_cursor">cursor</a>
+			<span class="elocal">old_item</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/chain.html#f_go_i_th">go_i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="elocal">new_item</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+			<a class="efeature" href="../base/active.html#f_replace">replace</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">old_item</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/cursor_structure.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">pos</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/active.html#f_replace">replace</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">new_item</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">swapped_to_item</span><span class="esymbol">:</span> <a class="efeature" href="../base/active.html#f_item">item</a> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/chain.html#f_i_th">i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="etag">swapped_from_item</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_i_th">i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/active.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Duplication</span>
+
+	<a name="f_duplicate"></a><a class="efeature" href="../base/chain.html#f_duplicate">duplicate</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">obsolete</span> &quot;[
+			Create a new container explicitly using `make_from_iterable` if available.
+			Otherwise, replace a call to the feature with code that creates and initializes container.
+			[2018-11-30]
+		]<span class="estring">&quot;</span>
+			<span class="ecomment">--</span><span class="ecomment"> Copy of sub-chain beginning at current position</span>
+			<span class="ecomment">--</span><span class="ecomment"> and having min (</span><span class="equoted">n</span><span class="ecomment">, </span><span class="equoted">from_here</span><span class="ecomment">) items,</span>
+			<span class="ecomment">--</span><span class="ecomment"> where </span><span class="equoted">from_here</span><span class="ecomment"> is the number of items</span>
+			<span class="ecomment">--</span><span class="ecomment"> at or to the right of current position.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_off_unless_after</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_off">off</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linear.html#f_after">after</a>
+			<span class="etag">valid_subchain</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Inapplicable</span>
+
+	<a name="f_remove"></a><a class="efeature" href="../base/chain.html#f_remove">remove</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove current item.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">non_negative_index</span><span class="esymbol">:</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+	<span class="etag">index_small_enough</span><span class="esymbol">:</span> <a class="efeature" href="../base/linear.html#f_index">index</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/finite.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+	<span class="etag">off_definition</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_off">off</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="enumber">0</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/finite.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+	<span class="etag">isfirst_definition</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_isfirst">isfirst</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span>
+	<span class="etag">islast_definition</span><span class="esymbol">:</span> <a class="efeature" href="../base/chain.html#f_islast">islast</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a> <span class="esymbol">=</span> <a class="efeature" href="../base/finite.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span>
+	<span class="etag">item_corresponds_to_index</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/chain.html#f_off">off</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/active.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/chain.html#f_i_th">i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linear.html#f_index">index</a><span class="esymbol">)</span><span class="esymbol">)</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/chain.html">CHAIN</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="chain_chart.html">Chart</a>
+<a class="nav class" href="chain_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="chain"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

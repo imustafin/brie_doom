@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Encoding of arbitrary objects graphs within a session of a same program.  Some routines are explicitely frozen, not because we do not want them to be redefined but if they are frozen, it saves us having to look at all possible descendants whenever we do a change."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_session_serializer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_session_serializer_chart.html">Chart</a>
+<a class="nav class" href="sed_session_serializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_session_serializer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Encoding of arbitrary objects graphs within a session of a same program.</span>
+		
+		<span class="estring">Some routines are explicitely frozen, not because we do not want them to be redefined</span>
+		<span class="estring">but if they are frozen, it saves us having to look at all possible descendants whenever</span>
+		<span class="estring">we do a change.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-28 12:36:24 +0000 (Tue, 28 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100064 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_session_serializer.html">SED_SESSION_SERIALIZER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/sed_utilities.html">SED_UTILITIES</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current instance</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_serializer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_serializer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_serializer_ready</span><span class="esymbol">:</span> <span class="elocal">a_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_breadth_first_traversable">Breadth_first_traversable</a>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a> <span class="esymbol">:=</span> <span class="elocal">a_serializer</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_set_version">set_version</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_7_3">version_7_3</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">serializer_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a> <span class="esymbol">=</span> <span class="elocal">a_serializer</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_root_object"></a><a class="efeature" href="../base/sed_session_serializer.html#f_root_object">root_object</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Root object of object graph</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_serializer"></a><a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Serializer used to encode data</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_traversing_mode_set"></a><a class="efeature" href="../base/sed_session_serializer.html#f_is_traversing_mode_set">is_traversing_mode_set</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is traversing mode set?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_root_object_set"></a><a class="efeature" href="../base/sed_session_serializer.html#f_is_root_object_set">is_root_object_set</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is root object of object graph set?</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_breadth_first_traversing_mode"></a><a class="efeature" href="../base/sed_session_serializer.html#f_set_breadth_first_traversing_mode">set_breadth_first_traversing_mode</a>
+			<span class="ecomment">--</span><span class="ecomment"> Change graph traversing to breadth first.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_breadth_first_traversable">Breadth_first_traversable</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">traversing_mode_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_traversing_mode_set">is_traversing_mode_set</a>
+			<span class="etag">breadth_first_mode</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/object_graph_breadth_first_traversable.html">OBJECT_GRAPH_BREADTH_FIRST_TRAVERSABLE</a><span class="esymbol">}</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_depth_first_traversing_mode"></a><a class="efeature" href="../base/sed_session_serializer.html#f_set_depth_first_traversing_mode">set_depth_first_traversing_mode</a>
+			<span class="ecomment">--</span><span class="ecomment"> Change graph traversing to depth first.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_depth_first_traversable">Depth_first_traversable</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">traversing_mode_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_traversing_mode_set">is_traversing_mode_set</a>
+			<span class="etag">depth_first_mode</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/object_graph_depth_first_traversable.html">OBJECT_GRAPH_DEPTH_FIRST_TRAVERSABLE</a><span class="esymbol">}</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_root_object"></a><a class="efeature" href="../base/sed_session_serializer.html#f_set_root_object">set_root_object</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_root_object">root_object</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make 'an_object' the root_object.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">traversing_mode_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_traversing_mode_set">is_traversing_mode_set</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_set_root_object">set_root_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_is_root_object_set">is_root_object_set</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">root_object_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_root_object">root_object</a> <span class="esymbol">=</span> <span class="elocal">an_object</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/sed_session_serializer.html#f_is_root_object_set">is_root_object_set</a>
+			<span class="etag">root_object_identity</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_root_object">root_object</a> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_serializer"></a><a class="efeature" href="../base/sed_session_serializer.html#f_set_serializer">set_serializer</a> <span class="esymbol">(</span><span class="elocal">a_serializer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="ecomment"> with </span><span class="equoted">a_serializer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_serializer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_serializer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_serializer_ready</span><span class="esymbol">:</span> <span class="elocal">a_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a> <span class="esymbol">:=</span> <span class="elocal">a_serializer</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">serializer_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a> <span class="esymbol">=</span> <span class="elocal">a_serializer</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_encode"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode">encode</a>
+			<span class="ecomment">--</span><span class="ecomment"> Encode object graph starting with the root object.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">traversing_mode_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_traversing_mode_set">is_traversing_mode_set</a>
+			<span class="etag">root_object_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_root_object_set">is_root_object_set</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_mem</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/memory.html">MEMORY</a>
+			<span class="elocal">l_is_collecting</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_list_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_mem</span>
+				<span class="elocal">l_is_collecting</span> <span class="esymbol">:=</span> <span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collecting">collecting</a>
+				<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_skip_transient">set_is_skip_transient</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_skip_copy_semantics_reference">set_is_skip_copy_semantics_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_traverse">traverse</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a> <span class="ekeyword">as</span> l_list <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a> <span class="ekeyword">as</span> l_type_table <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a>
+				<span class="elocal">l_list_count</span> <span class="esymbol">:=</span> <span class="elocal">l_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+				<span class="ekeyword">if</span> <span class="elocal">l_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_count">capacity</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_list_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_list_count</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_write_header">write_header</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_list</span><span class="esymbol">,</span> <span class="elocal">l_type_table</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_encode_objects">encode_objects</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_list</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="edot">.</span><a class="efeature" href="../base/object_graph_traversable.html#f_wipe_out">wipe_out</a>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_wipe_out">wipe_out</a>
+			<span class="ekeyword">if</span> <span class="elocal">l_mem</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_is_collecting</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_mem</span><span class="edot">.</span><a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: Access</span>
+
+	<a name="f_reflector"></a><a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflector.html">REFLECTOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> Facilities to inspect.</span>
+
+	<a name="f_reflected_object"></a><a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Facility to inspect object.</span>
+
+	<a name="f_traversable"></a><a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a><span class="esymbol">:</span> <a class="eclass" href="../base/object_graph_traversable.html">OBJECT_GRAPH_TRAVERSABLE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object used for traversing object graph</span>
+
+	<a name="f_object_indexes"></a><a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="esymbol">:</span> <a class="eclass" href="../base/sed_objects_table.html">SED_OBJECTS_TABLE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Mapping between object and their associated index.</span>
+
+	<a name="f_breadth_first_traversable"></a><a class="efeature" href="../base/sed_session_serializer.html#f_breadth_first_traversable">Breadth_first_traversable</a><span class="esymbol">:</span> <a class="eclass" href="../base/object_graph_breadth_first_traversable.html">OBJECT_GRAPH_BREADTH_FIRST_TRAVERSABLE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an instance of OBJECT_GRAPH_BREADTH_FIRST_TRAVERSABLE.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/object_graph_breadth_first_traversable.html">OBJECT_GRAPH_BREADTH_FIRST_TRAVERSABLE</a><span class="esymbol">}</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_depth_first_traversable"></a><a class="efeature" href="../base/sed_session_serializer.html#f_depth_first_traversable">Depth_first_traversable</a><span class="esymbol">:</span> <a class="eclass" href="../base/object_graph_depth_first_traversable.html">OBJECT_GRAPH_DEPTH_FIRST_TRAVERSABLE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Return an instance of OBJECT_GRAPH_DEPTH_FIRST_TRAVERSABLE.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/object_graph_depth_first_traversable.html">OBJECT_GRAPH_DEPTH_FIRST_TRAVERSABLE</a><span class="esymbol">}</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_version"></a><a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Internal version of the format (See SED_VERSIONS for possible values).</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: Setting</span>
+
+	<a name="f_set_version"></a><a class="efeature" href="../base/sed_session_serializer.html#f_set_version">set_version</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_store_settings_enabled"></a><a class="efeature" href="../base/sed_session_serializer.html#f_is_store_settings_enabled">is_store_settings_enabled</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are settings stored?</span>
+			<span class="ecomment">--</span><span class="ecomment"> By default not for SED_INDEPENDENT_SERIALIZER.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_has_reference_with_copy_semantics"></a><a class="efeature" href="../base/sed_session_serializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does serialized data have some reference with copy semantics?</span>
+			<span class="ecomment">--</span><span class="ecomment"> If none, we optimize the serialization of references by not emitting</span>
+			<span class="ecomment">--</span><span class="ecomment"> a boolean switch each time we refer to an object.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_write_header"></a><a class="efeature" href="../base/sed_session_serializer.html#f_write_header">write_header</a> <span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_type_table</span><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Operation performed before </span><span class="equoted">encoding_objects</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_list_not_void</span><span class="esymbol">:</span> <span class="elocal">a_list</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_list_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_write_settings">write_settings</a>
+			<a class="efeature" href="../base/sed_session_serializer.html#f_write_object_table">write_object_table</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_settings"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_write_settings">write_settings</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_serializer.html#f_is_store_settings_enabled">is_store_settings_enabled</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_serializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_object_table"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_write_object_table">write_object_table</a> <span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write mapping between object's reference ID in </span><span class="equoted">a_list</span><span class="ecomment"> with</span>
+			<span class="ecomment">--</span><span class="ecomment"> all the necessary information necessary to recreate it at a</span>
+			<span class="ecomment">--</span><span class="ecomment"> later time.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_list_not_void</span><span class="esymbol">:</span> <span class="elocal">a_list</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_list_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_reflected_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_object_indexes</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">l_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+			<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_object_indexes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_area</span> <span class="esymbol">:=</span> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_area">area</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_obj</span> <span class="esymbol">:=</span> <span class="elocal">l_area</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_object_indexes</span><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_index">index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special">is_special</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_utilities.html#f_is_special_flag">Is_special_flag</a><span class="esymbol">)</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_utilities.html#f_abstract_type">abstract_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_generic_dynamic_type">generic_dynamic_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/abstract_special.html">ABSTRACT_SPECIAL</a><span class="esymbol">}</span> <span class="elocal">l_obj</span> <span class="ekeyword">as</span> l_abstract_spec <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_abstract_spec</span><span class="edot">.</span><a class="efeature" href="../base/abstract_special.html#f_capacity">capacity</a><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">check</span>
+							<span class="etag">l_abstract_spec_attached</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_tuple">is_tuple</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_utilities.html#f_is_tuple_flag">Is_tuple_flag</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_objects"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_objects">encode_objects</a> <span class="esymbol">(</span><span class="elocal">a_list</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode all objects referenced in </span><span class="equoted">a_list</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_list_not_void</span><span class="esymbol">:</span> <span class="elocal">a_list</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_list_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_reflected_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_object_indexes</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a>
+			<span class="elocal">l_obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="elocal">l_obj_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_object_indexes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_area</span> <span class="esymbol">:=</span> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_area">area</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_list</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_obj</span> <span class="esymbol">:=</span> <span class="elocal">l_area</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">l_obj_index</span> <span class="esymbol">:=</span> <span class="elocal">l_object_indexes</span><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_index">index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">)</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj_index</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="elocal">l_obj_index</span> <span class="esymbol">=</span> <span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_as_natural_32">as_natural_32</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special">is_special</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special">encode_special</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_obj</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_utilities.html#f_abstract_type">abstract_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_generic_dynamic_type">generic_dynamic_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_tuple">is_tuple</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span> <span class="elocal">l_obj</span> <span class="ekeyword">as</span> l_tuple <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/sed_session_serializer.html#f_encode_tuple_object">encode_tuple_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_tuple</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">check</span>
+							<span class="etag">l_tuple_attached</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_normal_object">encode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_reference"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode reference to </span><span class="equoted">an_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a><span class="edot">.</span><a class="efeature" href="../base/sed_objects_table.html#f_index">index</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_normal_object"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_normal_object">encode_normal_object</a> <span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode normal object </span><span class="equoted">a_reflected_object</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_exp</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_count">field_count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_field_transient">is_field_transient</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">inspect</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_type">field_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_boolean_field">boolean_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_8">write_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_character_8_field">character_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_32">write_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_character_32_field">character_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_natural_8_field">natural_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_16">write_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_natural_16_field">natural_16_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_natural_32_field">natural_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_64">write_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_natural_64_field">natural_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_8">write_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_integer_8_field">integer_8_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_16">write_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_integer_16_field">integer_16_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_32">write_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_integer_32_field">integer_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_64">write_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_integer_64_field">integer_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_32">write_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_real_32_field">real_32_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_64">write_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_real_64_field">real_64_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_pointer">write_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_pointer_field">pointer_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_serializer.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">if</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_copy_semantics_field">is_copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+								<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+								<span class="elocal">l_exp</span> <span class="esymbol">:=</span> <span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_copy_semantics_field">copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+								<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="esymbol">)</span>
+								<a class="efeature" href="../base/sed_session_serializer.html#f_encode_normal_object">encode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="esymbol">)</span>
+							<span class="ekeyword">else</span>
+								<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+								<a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_reference_field">reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">else</span>
+							<a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_reference_field">reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_expanded_type">expanded_type</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="esymbol">)</span>
+						<a class="efeature" href="../base/sed_session_serializer.html#f_encode_normal_object">encode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_expanded_field">expanded_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">check</span>
+								<span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_tuple_object"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_tuple_object">encode_tuple_object</a> <span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="esymbol">:</span> <a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode a TUPLE object.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_tuple_not_void</span><span class="esymbol">:</span> <span class="elocal">a_tuple</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_code</span> <span class="esymbol">:=</span> <span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_item_code">item_code</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_code</span><span class="esymbol">)</span>
+				<span class="ekeyword">inspect</span> <span class="elocal">l_code</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_boolean_code">boolean_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_boolean_item">boolean_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_8_code">character_8_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_8">write_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_8_item">character_8_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_32_code">character_32_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_32">write_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_character_32_item">character_32_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_8_code">natural_8_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_8_item">natural_8_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_16_code">natural_16_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_16">write_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_16_item">natural_16_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_32_code">natural_32_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_32_item">natural_32_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_64_code">natural_64_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_64">write_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_natural_64_item">natural_64_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_8_code">integer_8_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_8">write_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_8_item">integer_8_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_16_code">integer_16_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_16">write_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_16_item">integer_16_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_32_code">integer_32_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_32">write_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_32_item">integer_32_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_64_code">integer_64_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_64">write_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_integer_64_item">integer_64_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_32_code">real_32_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_32">write_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_32_item">real_32_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_64_code">real_64_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_64">write_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_real_64_item">real_64_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_pointer_code">pointer_code</a> <span class="ekeyword">then</span>
+					<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_pointer">write_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_pointer_item">pointer_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_reference_code">reference_code</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_tuple</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_reference_item">reference_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+							<span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special">encode_special</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_item_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode an object which is a special object.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_object_is_special</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span>
+			<span class="etag">a_item_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_item_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">inspect</span> <span class="elocal">a_item_type</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_boolean <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_boolean">encode_special_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_boolean</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_boolean_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_character_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_character_8">encode_special_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_character_8</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_character_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_character_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_character_32">encode_special_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_character_32</span><span class="esymbol">)</span>
+				<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_natural_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_32">encode_special_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_32</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_natural_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_8">encode_special_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_8</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_natural_16 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_16">encode_special_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_16</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_16_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_natural_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_64">encode_special_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_natural_64</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_natural_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_integer_8 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_8">encode_special_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_8</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_integer_16 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_16">encode_special_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_16</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_16_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_integer_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_32">encode_special_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_32</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_integer_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_64">encode_special_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_integer_64</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_integer_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_real_32 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_real_32">encode_special_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_real_32</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_real_32_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_real_64 <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_real_64">encode_special_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_real_64</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_real_64_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_pointer <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_pointer">encode_special_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_pointer</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_pointer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">a_item_type_valid</span><span class="esymbol">:</span> <span class="elocal">a_item_type</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">an_object</span> <span class="ekeyword">as</span> l_spec_any <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_reference">encode_special_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec_any</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">l_spec_any_not_void</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_boolean"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_boolean">encode_special_boolean</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_character_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_character_8">encode_special_character_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_8">write_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_character_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_character_32">encode_special_character_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_32">write_character_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_natural_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_8">encode_special_natural_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_natural_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_16">encode_special_natural_16</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_16">write_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_natural_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_32">encode_special_natural_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_natural_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_natural_64">encode_special_natural_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_64">write_natural_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_integer_8"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_8">encode_special_integer_8</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_8">write_integer_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_integer_16"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_16">encode_special_integer_16</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_16">write_integer_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_integer_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_32">encode_special_integer_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_32">write_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_integer_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_integer_64">encode_special_integer_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_64">write_integer_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_real_32"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_real_32">encode_special_real_32</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_32">write_real_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_real_64"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_real_64">encode_special_real_64</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_64">write_real_64</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_pointer"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_pointer">encode_special_pointer</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_pointer">write_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_encode_special_reference"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/sed_session_serializer.html#f_encode_special_reference">encode_special_reference</a> <span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Encode </span><span class="equoted">a_spec</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_spec_not_void</span><span class="esymbol">:</span> <span class="elocal">a_spec</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_reflected_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+			<span class="elocal">l_exp</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+			<span class="elocal">l_ser</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">l_has_copy_semantics</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_ser</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a>
+			<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+			<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_session_serializer.html#f_version">version</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../base/sed_versions.html">SED_VERSIONS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_versions.html#f_version_7_3">version_7_3</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a>
+					<span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="esymbol">)</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_copy_semantics_item">is_special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_has_copy_semantics</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_has_copy_semantics</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_has_copy_semantics</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">from</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+					<span class="ekeyword">loop</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_copy_semantics_item">is_special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+							<span class="elocal">l_exp</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_special_copy_semantics_item">special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+							<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="esymbol">)</span>
+							<a class="efeature" href="../base/sed_session_serializer.html#f_encode_normal_object">encode_normal_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exp</span><span class="esymbol">)</span>
+						<span class="ekeyword">else</span>
+							<span class="elocal">l_ser</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+							<a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_has_copy_semantics</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/sed_session_serializer.html#f_encode_reference">encode_reference</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">reflector_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflector">reflector</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">reflected_object_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_reflected_object">reflected_object</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">traversable_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_traversable">traversable</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">serializer_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_serializer">serializer</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">object_indexes_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_session_serializer.html#f_object_indexes">object_indexes</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_session_serializer.html">SED_SESSION_SERIALIZER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_session_serializer_chart.html">Chart</a>
+<a class="nav class" href="sed_session_serializer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_session_serializer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="thinker_t from d_think.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>thinker_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="thinker_t_chart.html">Chart</a>
+<a class="nav class" href="thinker_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="thinker_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;thinker_t from d_think.h&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/thinker_t.html">THINKER_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/thinker_t.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_make">make</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/thinker_t.html#f_prev">prev</a> <span class="esymbol">:=</span> <span class="ekeyword">Current</span>
+			<a class="efeature" href="../brie_doom/thinker_t.html#f_next">next</a> <span class="esymbol">:=</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_prev"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_prev">prev</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/thinker_t.html">THINKER_T</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_set_prev">set_prev</a>
+
+	<a name="f_set_prev"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_set_prev">set_prev</a> <span class="esymbol">(</span><span class="elocal">a_prev</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_prev">prev</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/thinker_t.html#f_prev">prev</a> <span class="esymbol">:=</span> <span class="elocal">a_prev</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_next"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_next">next</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/thinker_t.html">THINKER_T</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_set_next">set_next</a>
+
+	<a name="f_set_next"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_set_next">set_next</a> <span class="esymbol">(</span><span class="elocal">a_next</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_next">next</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/thinker_t.html#f_next">next</a> <span class="esymbol">:=</span> <span class="elocal">a_next</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_function"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_function">function</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_set_function">set_function</a>
+
+	<a name="f_set_function"></a><a class="efeature" href="../brie_doom/thinker_t.html#f_set_function">set_function</a> <span class="esymbol">(</span><span class="elocal">a_function</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_function">function</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/thinker_t.html#f_function">function</a> <span class="esymbol">:=</span> <span class="elocal">a_function</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+		<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/thinker_t.html#f_function">function</a> <span class="ekeyword">as</span> i_f <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">i_f</span><span class="edot">.</span><a class="efeature" href="../base/routine.html#f_open_count">open_count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/thinker_t.html">THINKER_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="thinker_t_chart.html">Chart</a>
+<a class="nav class" href="thinker_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="thinker_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

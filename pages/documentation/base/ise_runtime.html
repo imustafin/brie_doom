@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Set of features to access ISE runtime functionality. To be used at your own risk. Interface may changed without notice."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2019, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>ise_runtime Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ise_runtime_chart.html">Chart</a>
+<a class="nav class" href="ise_runtime_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="ise_runtime"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Set of features to access ISE runtime functionality.</span>
+		<span class="estring">To be used at your own risk.</span>
+		<span class="estring">Interface may changed without notice.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2019-05-09 08:38:36 +0000 (Thu, 09 May 2019) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 103143 $&quot;</span>
+
+<span class="ekeyword">frozen</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Feature specific to ISE runtime.</span>
+
+	<a name="f_generator_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_generator_of_type">generator_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the generating class of current object</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_out.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return c_generator_of_type(eif_decoded_type($a_type_id));&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_check_assert"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_check_assert">check_assert</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_copy.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;c_check_assert&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_generating_type_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_generating_type_of_type">generating_type_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_in_assertion"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_in_assertion">in_assertion</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are we currently checking some assertions?</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_eiffel.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				GTCX;	/* Needed in multithreaded mode as `in_assertion' is a per-thread data. */
+				return EIF_TEST(in_assertion!=0);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_once_objects"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_once_objects">once_objects</a> <span class="esymbol">(</span><span class="elocal">a_result_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Once objects initialized in current system.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_result_type_id</span><span class="ecomment"> is the dynamic type of </span><span class="equoted">SPECIAL [ANY]</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_memory_analyzer.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return eif_once_objects_of_result_type(eif_decoded_type($a_result_type_id));&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Internal C routines</span>
+
+	<a name="f_type_conforms_to"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_type_conforms_to">type_conforms_to</a> <span class="esymbol">(</span><span class="elocal">a_type_id_1</span><span class="esymbol">,</span> <span class="elocal">a_type_id_2</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does </span><span class="equoted">a_type_id_1</span><span class="ecomment"> conform to </span><span class="equoted">a_type_id_2</span><span class="ecomment">?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_type_id_from_name"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_type_id_from_name">type_id_from_name</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Dynamic type whose name is represented by </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (char *): EIF_INTEGER use %&quot;eif_cecil.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_type_id&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_dynamic_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_dynamic_type">dynamic_type</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Dynamic type of </span><span class="equoted">object</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pre_ecma_mapping_status"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_pre_ecma_mapping_status">pre_ecma_mapping_status</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we map old name to new name by default?</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_cecil.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return eif_pre_ecma_mapping();&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_pre_ecma_mapping"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_pre_ecma_mapping">set_pre_ecma_mapping</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/ise_runtime.html#f_pre_ecma_mapping_status">pre_ecma_mapping_status</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_cecil.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_set_pre_ecma_mapping($v)&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_attached_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_attached_type">is_attached_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">a_type_id</span><span class="ecomment"> an attached type?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_detachable_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_detachable_type">detachable_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Detachable version of </span><span class="equoted">a_type_id</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_attached_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_attached_type">attached_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Attached version of </span><span class="equoted">a_type_id</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_field_transient_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_field_transient_of_type">is_field_transient_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i-th</span><span class="ecomment"> field a transient field?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_field_expanded_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_field_expanded_of_type">is_field_expanded_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object</span><span class="ecomment"> a user-defined expanded attribute?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_persistent_field_count_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_persistent_field_count_of_type">persistent_field_count_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of logical fields in dynamic type </span><span class="equoted">type_id</span><span class="ecomment"> that are not transient.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_storable_version_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_storable_version_of_type">storable_version_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_eiffel.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				const char *l_version = System(To_dtype(eif_decoded_type($a_type_id).id)).cn_version;
+				if (l_version &#38;&#38; (l_version[0] != (char) 0)) {
+					return RTMS(l_version);
+				} else {
+					return NULL;
+				}
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_compiler_version"></a><a class="efeature" href="../base/ise_runtime.html#f_compiler_version">compiler_version</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">external</span>
+			&quot;C macro use %&quot;eif_project.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;egc_compiler_tag&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Internal support</span>
+
+	<a name="f_reference_field_at_offset"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_reference_field_at_offset">reference_field_at_offset</a> <span class="esymbol">(</span><span class="elocal">a_enclosing</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Reference field of </span><span class="equoted">a_enclosing</span><span class="ecomment"> located at </span><span class="equoted">a_physical_offset</span><span class="ecomment"> bytes.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_raw_reference_field_at_offset"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_raw_reference_field_at_offset">raw_reference_field_at_offset</a> <span class="esymbol">(</span><span class="elocal">a_enclosing</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Unprotected reference field of </span><span class="equoted">a_enclosing</span><span class="ecomment"> located at </span><span class="equoted">a_physical_offset</span><span class="ecomment"> bytes.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_dynamic_type_at_offset"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_dynamic_type_at_offset">dynamic_type_at_offset</a> <span class="esymbol">(</span><span class="elocal">a_enclosing</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Dynamic type of the field at </span><span class="equoted">a_physical_offset</span><span class="ecomment"> bytes from </span><span class="equoted">a_enclosing</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_copy_semantics_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_copy_semantics_field">is_copy_semantics_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment"> denote a reference with copy semantics?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_special_copy_semantics_item"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_special_copy_semantics_item">is_special_copy_semantics_item</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does </span><span class="equoted">i</span><span class="ecomment">-th item of special </span><span class="equoted">a_object</span><span class="ecomment"> denote a reference with copy semantics?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_field_count_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_field_count_of_type">field_count_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of logical fields in dynamic type </span><span class="equoted">a_type_id</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_field_offset_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_field_offset_of_type">field_offset_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Physical offset of the </span><span class="equoted">i</span><span class="ecomment">-th field for an object of dynamic type </span><span class="equoted">a_type_id</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_object_size"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_object_size">object_size</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Physical size of </span><span class="equoted">a_object</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_field_name_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_field_name_of_type">field_name_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> C pointer to name of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_field_type_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_field_type_of_type">field_type_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Abstract type of </span><span class="equoted">i</span><span class="ecomment">-th field of dynamic type </span><span class="equoted">a_type_id</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_field_static_type_of_type"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_field_static_type_of_type">field_static_type_of_type</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Static type of </span><span class="equoted">i</span><span class="ecomment">-th field of dynamic type </span><span class="equoted">a_type_id</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_reference_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_reference_field">reference_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Reference value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_character_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_character_8_field">character_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_character_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_character_32_field">character_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_boolean_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_boolean_field">boolean_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_8_field">natural_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_8 value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_16_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_16_field">natural_16_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_16 value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_32_field">natural_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_32 value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_64_field">natural_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_64 value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_8_field">integer_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_16_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_16_field">integer_16_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_32_field">integer_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_64_field">integer_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_real_32_field">real_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Real value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pointer_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_pointer_field">pointer_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pointer value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_real_64_field">real_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Double precision value of </span><span class="equoted">i</span><span class="ecomment">-th field of </span><span class="equoted">object + a_physical_offset</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_reference_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_reference_field_at">reference_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Reference value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_character_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_character_8_field_at">character_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_character_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_character_32_field_at">character_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_boolean_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_boolean_field_at">boolean_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Boolean value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_8_field_at">natural_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_8 value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_16_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_16_field_at">natural_16_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_16 value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_32_field_at">natural_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_32 value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_natural_64_field_at">natural_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> NATURAL_64 value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_8_field_at">integer_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_16_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_16_field_at">integer_16_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_32_field_at">integer_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_integer_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_integer_64_field_at">integer_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Integer value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_real_32_field_at">real_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Real value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pointer_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_pointer_field_at">pointer_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pointer value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_real_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_real_64_field_at">real_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Double precision value of the field at </span><span class="equoted">field_offset</span><span class="ecomment"> in object </span><span class="equoted">a_object + a_physical_offset</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_special"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_special">is_special</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">object</span><span class="ecomment"> a special object?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_special_of_expanded"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_special_of_expanded">is_special_of_expanded</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is type represented by </span><span class="equoted">type_id</span><span class="ecomment"> represent</span>
+			<span class="ecomment">--</span><span class="ecomment"> a SPECIAL </span><span class="ecomment">[XX]</span><span class="ecomment"> where XX is a user defined expanded type.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_special_of_reference"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_special_of_reference">is_special_of_reference</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is type represented by </span><span class="equoted">type_id</span><span class="ecomment"> represent</span>
+			<span class="ecomment">--</span><span class="ecomment"> a SPECIAL </span><span class="ecomment">[XX]</span><span class="ecomment"> where XX is a reference type.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_expanded"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_expanded">is_expanded</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">a_object</span><span class="ecomment"> an instance of an expanded type?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_tuple"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_tuple">is_tuple</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">object</span><span class="ecomment"> a TUPLE object?</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_reference_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_reference_field">set_reference_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_real_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_real_64_field">set_real_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_character_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_character_8_field">set_character_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_character_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_character_32_field">set_character_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_boolean_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_boolean_field">set_boolean_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_8_field">set_natural_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_16_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_16_field">set_natural_16_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_32_field">set_natural_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_64_field">set_natural_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_8_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_8_field">set_integer_8_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_16_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_16_field">set_integer_16_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_32_field">set_integer_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_64_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_64_field">set_integer_64_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_real_32_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_real_32_field">set_real_32_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_pointer_field"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_pointer_field">set_pointer_field</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_reference_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_reference_field_at">set_reference_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_real_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_real_64_field_at">set_real_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_character_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_character_8_field_at">set_character_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_character_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_character_32_field_at">set_character_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_boolean_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_boolean_field_at">set_boolean_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_8_field_at">set_natural_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_16_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_16_field_at">set_natural_16_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_32_field_at">set_natural_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_natural_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_natural_64_field_at">set_natural_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_8_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_8_field_at">set_integer_8_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_16_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_16_field_at">set_integer_16_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_32_field_at">set_integer_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_integer_64_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_integer_64_field_at">set_integer_64_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_real_32_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_real_32_field_at">set_real_32_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_pointer_field_at"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_set_pointer_field_at">set_pointer_field_at</a> <span class="esymbol">(</span><span class="elocal">field_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_physical_offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_generic_parameter_count"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_generic_parameter_count">generic_parameter_count</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of generic parameters for object of dynamic type </span><span class="equoted">a_type_id</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_gen_param_id"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_eif_gen_param_id">eif_gen_param_id</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Type of </span><span class="equoted">i</span><span class="ecomment">-th generic parameter for object of dynamic type </span><span class="equoted">a_type_id</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Object marking</span>
+
+	<a name="f_lock_marking"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_lock_marking">lock_marking</a>
+			<span class="ecomment">--</span><span class="ecomment"> Get a lock on </span><span class="equoted">mark</span><span class="ecomment"> and </span><span class="equoted">unmark</span><span class="ecomment"> routine so that 2 threads cannot </span><span class="equoted">mark</span><span class="ecomment"> and</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">unmark</span><span class="ecomment"> at the same time.</span>
+		<span class="ekeyword">external</span>
+			&quot;C blocking use %&quot;eif_traverse.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_lock_marking&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unlock_marking"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_unlock_marking">unlock_marking</a>
+			<span class="ecomment">--</span><span class="ecomment"> Release a lock on </span><span class="equoted">mark</span><span class="ecomment"> and </span><span class="equoted">unmark</span><span class="ecomment">, so that another thread can</span>
+			<span class="ecomment">--</span><span class="ecomment"> use </span><span class="equoted">mark</span><span class="ecomment"> and </span><span class="equoted">unmark</span><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_traverse.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_unlock_marking&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_object_marked"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_is_object_marked">is_object_marked</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unmark_object"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_unmark_object">unmark_object</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mark_object"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/ise_runtime.html#f_mark_object">mark_object</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;built_in static&quot;
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2019, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ise_runtime_chart.html">Chart</a>
+<a class="nav class" href="ise_runtime_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="ise_runtime"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

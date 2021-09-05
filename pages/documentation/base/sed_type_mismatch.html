@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Store all information about a mismatch in a type."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2014, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_type_mismatch Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_type_mismatch_chart.html">Chart</a>
+<a class="nav class" href="sed_type_mismatch_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_type_mismatch"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Store all information about a mismatch in a type.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2014-05-16 22:45:00 +0000 (Fri, 16 May 2014) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 95094 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_type_mismatch.html">SED_TYPE_MISMATCH</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_type_mismatch.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch for dynamic type </span><span class="equoted">a_type_id</span><span class="ecomment"> in retrieving system.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_attribute_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_type_id">type_id</a> <span class="esymbol">:=</span> <span class="elocal">a_type_id</span>
+			<span class="elocal">l_attribute_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_internal">Internal</a><span class="edot">.</span><a class="efeature" href="../base/reflector.html#f_field_count_of_type">field_count_of_type</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_type_mismatch.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_name">mismatches_by_name</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_attribute_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_stored_position">mismatches_by_stored_position</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_attribute_count</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">type_id_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_type_id">type_id</a> <span class="esymbol">=</span> <span class="elocal">a_type_id</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_add_new_attribute_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_new_attribute_mismatch">add_new_attribute_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_added_attribute_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch when new attributes have been added</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_added_attribute_count_positive</span><span class="esymbol">:</span> <span class="elocal">a_added_attribute_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_has_new_attribute">has_new_attribute</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_attribute_count_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_attribute_count_mismatch">add_attribute_count_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_old_count</span><span class="esymbol">,</span> <span class="elocal">a_new_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch where there is </span><span class="equoted">a_old_count</span><span class="ecomment"> attributes in the original system</span>
+			<span class="ecomment">--</span><span class="ecomment"> and </span><span class="equoted">a_new_count</span><span class="ecomment"> attributes in the retrieving system.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">old_count_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_old_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">new_count_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_new_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_old_count">old_count</a> <span class="esymbol">:=</span> <span class="elocal">a_old_count</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_new_count">new_count</a> <span class="esymbol">:=</span> <span class="elocal">a_new_count</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">old_count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_old_count">old_count</a> <span class="esymbol">=</span> <span class="elocal">a_old_count</span>
+			<span class="etag">new_count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_new_count">new_count</a> <span class="esymbol">=</span> <span class="elocal">a_new_count</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_version_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_version_mismatch">add_version_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_old_version</span><span class="esymbol">,</span> <span class="elocal">a_new_version</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch where the original system as a version </span><span class="equoted">a_old_version</span><span class="ecomment"> which differs</span>
+			<span class="ecomment">--</span><span class="ecomment"> from the version </span><span class="equoted">a_new_version</span><span class="ecomment"> in the retrieving system.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">different_version</span><span class="esymbol">:</span> <span class="elocal">a_old_version</span> <span class="esymbol">/~</span> <span class="elocal">a_new_version</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_old_version">old_version</a> <span class="esymbol">:=</span> <span class="elocal">a_old_version</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_new_version">new_version</a> <span class="esymbol">:=</span> <span class="elocal">a_new_version</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_has_version_mismatch">has_version_mismatch</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">old_version_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_old_version">old_version</a> <span class="esymbol">=</span> <span class="elocal">a_old_version</span>
+			<span class="etag">new_version_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_new_version">new_version</a> <span class="esymbol">=</span> <span class="elocal">a_new_version</span>
+			<span class="etag">version_mismatched</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_has_version_mismatch">has_version_mismatch</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_attribute_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_attribute_mismatch">add_attribute_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_old_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_new_attr_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">a_old_pos</span><span class="esymbol">,</span> <span class="elocal">a_new_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch for </span><span class="equoted">a_old_name</span><span class="ecomment"> where the new name is </span><span class="equoted">a_new_name</span><span class="ecomment">, the new type</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_new_attr_type</span><span class="ecomment"> is different from </span><span class="equoted">a_old_attr_type</span><span class="ecomment"> stored at position</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_old_pos</span><span class="ecomment"> in the stored system for a </span><span class="equoted">a_new_pos</span><span class="ecomment"> in the retrieving system.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_old_attr_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_old_attr_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_new_attr_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_new_attr_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_old_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_old_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_new_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_new_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_old_pos_positive</span><span class="esymbol">:</span> <span class="elocal">a_old_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+			<span class="etag">a_new_pos_positive</span><span class="esymbol">:</span> <span class="elocal">a_new_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_info</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_info</span> <span class="esymbol">:=</span> <span class="esymbol">[</span><span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">,</span> <span class="elocal">a_old_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_new_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">,</span> <span class="elocal">a_new_pos</span><span class="esymbol">,</span> <span class="ekeyword">True</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">]</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_name">mismatches_by_name</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_stored_position">mismatches_by_stored_position</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_void_safe_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_void_safe_mismatch">add_void_safe_mismatch</a> <span class="esymbol">(</span><span class="elocal">a_old_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_new_attr_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">a_old_pos</span><span class="esymbol">,</span> <span class="elocal">a_new_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mismatch for </span><span class="equoted">a_old_name</span><span class="ecomment"> where the new name is </span><span class="equoted">a_new_name</span><span class="ecomment">, the new type</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_new_attr_type</span><span class="ecomment"> is attached and </span><span class="equoted">a_old_attr_type</span><span class="ecomment"> is detachable stored at position</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_old_pos</span><span class="ecomment"> in the stored system for a </span><span class="equoted">a_new_pos</span><span class="ecomment"> in the retrieving system.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_old_attr_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_old_attr_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_new_attr_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_new_attr_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_old_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_old_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_new_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_new_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_old_pos_positive</span><span class="esymbol">:</span> <span class="elocal">a_old_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+			<span class="etag">a_new_pos_positive</span><span class="esymbol">:</span> <span class="elocal">a_new_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_info</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_info</span> <span class="esymbol">:=</span> <span class="esymbol">[</span><span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">,</span> <span class="elocal">a_old_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_new_attr_type</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">,</span> <span class="elocal">a_new_pos</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">True</span><span class="esymbol">]</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_name">mismatches_by_name</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_stored_position">mismatches_by_stored_position</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_removed_attribute"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_add_removed_attribute">add_removed_attribute</a> <span class="esymbol">(</span><span class="elocal">a_old_attr_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">a_old_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Attribute </span><span class="equoted">a_name</span><span class="ecomment"> of type </span><span class="equoted">a_old_attr_type</span><span class="ecomment"> at position </span><span class="equoted">a_old_pos</span><span class="ecomment"> in</span>
+			<span class="ecomment">--</span><span class="ecomment"> the stored system is now missing from Current.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_old_attr_type_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_old_attr_type</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_old_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_old_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_new_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_new_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_old_pos_positive</span><span class="esymbol">:</span> <span class="elocal">a_old_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_info</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_info</span> <span class="esymbol">:=</span> <span class="esymbol">[</span><span class="elocal">a_old_name</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">,</span> <span class="elocal">a_old_attr_type</span><span class="esymbol">,</span> <span class="enumber">-1</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">,</span> <span class="enumber">-1</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">True</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">]</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_name">mismatches_by_name</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_new_name</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_stored_position">mismatches_by_stored_position</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_info</span><span class="esymbol">,</span> <span class="elocal">a_old_pos</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_has_version_mismatch"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_has_version_mismatch">has_version_mismatch</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we have a mismatch in versioning?</span>
+
+	<a name="f_has_new_attribute"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_has_new_attribute">has_new_attribute</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we have new attributes that did not exist in the stored system?</span>
+
+	<a name="f_has_new_attached_attribute"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_has_new_attached_attribute">has_new_attached_attribute</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we have new attached attributes that did not exist in the stored system?</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_type_id"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_type_id">type_id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Type ID for type having the mismatch</span>
+
+	<a name="f_old_count"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_old_count">old_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of attributes in original system and retrieving system.</span>
+
+	<a name="f_new_count"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_new_count">new_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of attributes in original system and retrieving system.</span>
+
+	<a name="f_old_version"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_old_version">old_version</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Version in stored system and retrieving system.</span>
+
+	<a name="f_new_version"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_new_version">new_version</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Version in stored system and retrieving system.</span>
+
+	<a name="f_mismatches_by_name"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_name">mismatches_by_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a><span class="esymbol">,</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Store information about mismatch based on the attribute name.</span>
+
+	<a name="f_mismatches_by_stored_position"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_mismatches_by_stored_position">mismatches_by_stored_position</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Store information about mismatch based on the store position.</span>
+
+	<a name="f_attribute_info"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_attribute_info">attribute_info</a><span class="esymbol">:</span> <a class="eclass" href="../base/tuple.html">TUPLE</a> <span class="esymbol">[</span><span class="elocal">old_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">new_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">old_attribute_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">new_attribute_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">old_position</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">new_position</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">is_changed</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">;</span> <span class="elocal">is_removed</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">;</span> <span class="elocal">is_attachment_check_required</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> For typing purposes.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">callable</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">False</span>
+			<span class="ekeyword">then</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_internal"></a><a class="efeature" href="../base/sed_type_mismatch.html#f_internal">Internal</a><span class="esymbol">:</span> <a class="eclass" href="../base/reflector.html">REFLECTOR</a>
+			<span class="ecomment">--</span><span class="ecomment"> To query type properties.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">type_id_non_negative</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_type_id">type_id</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+	<span class="etag">counts_non_negative</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_type_mismatch.html#f_old_count">old_count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/sed_type_mismatch.html#f_new_count">new_count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2014, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_type_mismatch.html">SED_TYPE_MISMATCH</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_type_mismatch_chart.html">Chart</a>
+<a class="nav class" href="sed_type_mismatch_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_type_mismatch"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

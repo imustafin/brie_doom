@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="m_menu.c DOOM selection menu, options, episodes etc. Sliders and icons. Kinda widget stuff."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>m_menu Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="m_menu_links.html">Relations</a>
+<a class="nav class" href="m_menu.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="m_menu"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../brie_doom/m_menu_chart.html">M_MENU</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../brie_doom/index.html">brie_doom</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;m_menu.c</span>
+		<span class="estring">DOOM selection menu, options, episodes etc.</span>
+		<span class="estring">Sliders and icons. Kinda widget stuff.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../brie_doom/m_menu.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`currentmenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_currentmenu">currentmenu</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`detaillevel' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_detaillevel">detaillevel</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`ep1' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_ep1">Ep1</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`ep2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_ep2">Ep2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`ep3' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_ep3">Ep3</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`ep4' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_ep4">Ep4</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`ep_end' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_ep_end">Ep_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`epi' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_epi">epi</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`epidef' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_epidef">Epidef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`episodemenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_episodemenu">Episodemenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t_chart.html">MENUITEM_T</a><span class="esymbol">]</span></span>
+	<span title="`hurtme' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_hurtme">Hurtme</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`inhelpscreens' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_inhelpscreens">inhelpscreens</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`itemon' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_itemon">itemon</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`killthings' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_killthings">Killthings</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`lineheight' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_lineheight">Lineheight</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`loadgame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_loadgame">Loadgame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`m_responder' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_responder">m_responder</a> <span class="esymbol">(</span><span class="elocal">ev</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t_chart.html">EVENT_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`main_end' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_main_end">Main_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`maindef' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_maindef">Maindef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`mainmenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_mainmenu">Mainmenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t_chart.html">MENUITEM_T</a><span class="esymbol">]</span></span>
+	<span title="`menuactive' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_menuactive">menuactive</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`messagelastmenuactive' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_messagelastmenuactive">messagelastmenuactive</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`messageneedsinput' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_messageneedsinput">messageneedsinput</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`messageroutine' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_messageroutine">messageroutine</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`messagestring' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_messagestring">messagestring</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`messagetoprint' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_messagetoprint">messagetoprint</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`mousesensitivity' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_mousesensitivity">mousesensitivity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`newdef' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_newdef">Newdef</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`newg_end' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_newg_end">Newg_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`newgame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_newgame">Newgame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`newgamemenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_newgamemenu">Newgamemenu</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t_chart.html">MENUITEM_T</a><span class="esymbol">]</span></span>
+	<span title="`nightmare' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_nightmare">Nightmare</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`options' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_options">Options</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`quicksaveslot' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_quicksaveslot">quicksaveslot</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`quitdoom' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_quitdoom">Quitdoom</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`rdthsempty2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_rdthsempty2">Rdthsempty2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`rdthssempty1' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_rdthssempty1">Rdthssempty1</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`read1_end' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_read1_end">Read1_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`read2_end' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_read2_end">Read2_end</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`readdef1' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_readdef1">Readdef1</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`readdef2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_readdef2">Readdef2</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a></span>
+	<span title="`readmenu1' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_readmenu1">Readmenu1</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t_chart.html">MENUITEM_T</a><span class="esymbol">]</span></span>
+	<span title="`readmenu2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_readmenu2">Readmenu2</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/menuitem_t_chart.html">MENUITEM_T</a><span class="esymbol">]</span></span>
+	<span title="`readthis' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_readthis">Readthis</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`savegame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_savegame">Savegame</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`savestringenter' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_savestringenter">savestringenter</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`screenblocks' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`screensize' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_screensize">screensize</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`showmessages' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_showmessages">showmessages</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`skullanimcounter' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_skullanimcounter">skullanimcounter</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`skullname' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_skullname">Skullname</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">]</span></span>
+	<span title="`skullxoff' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_skullxoff">Skullxoff</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`toorough' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_toorough">Toorough</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`violence' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_violence">Violence</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`whichskull' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_whichskull">whichskull</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`x' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_x">x</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`y' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_y">y</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`m_chooseskill' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_chooseskill">m_chooseskill</a> <span class="esymbol">(</span><span class="elocal">a_choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_clearmenus' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_clearmenus">m_clearmenus</a></span>
+	<span title="`m_drawepisode' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawepisode">m_drawepisode</a></span>
+	<span title="`m_drawer' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawer">m_drawer</a></span>
+	<span title="`m_drawmainmenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawmainmenu">m_drawmainmenu</a></span>
+	<span title="`m_drawnewgame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawnewgame">m_drawnewgame</a></span>
+	<span title="`m_drawreadthis1' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis1">m_drawreadthis1</a></span>
+	<span title="`m_drawreadthis2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_drawreadthis2">m_drawreadthis2</a></span>
+	<span title="`m_episode' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_episode">m_episode</a> <span class="esymbol">(</span><span class="elocal">a_choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_finishreadthis' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_finishreadthis">m_finishreadthis</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_init' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_init">m_init</a></span>
+	<span title="`m_loadgame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_loadgame">m_loadgame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_newgame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_newgame">m_newgame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_options' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_options">m_options</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_quitdoom' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_quitdoom">m_quitdoom</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_readthis' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis">m_readthis</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_readthis2' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_readthis2">m_readthis2</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_savegame' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_savegame">m_savegame</a> <span class="esymbol">(</span><span class="elocal">choice</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`m_setupnextmenu' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_setupnextmenu">m_setupnextmenu</a> <span class="esymbol">(</span><span class="elocal">menudef</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/menu_t_chart.html">MENU_T</a><span class="esymbol">)</span></span>
+	<span title="`m_startcontrolpanel' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_startcontrolpanel">m_startcontrolpanel</a></span>
+	<span title="`m_startmessage' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_startmessage">m_startmessage</a> <span class="esymbol">(</span><span class="elocal">string</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">routine</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_messageroutine">messageroutine</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">input</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">)</span></span>
+	<span title="`m_ticker' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_ticker">m_ticker</a></span>
+	<span title="`m_verifynightmare' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_m_verifynightmare">m_verifynightmare</a> <span class="esymbol">(</span><span class="elocal">ch</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_i_main">i_main</a><span class="esymbol">]</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`set_detaillevel' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_set_detaillevel">set_detaillevel</a> <span class="esymbol">(</span><span class="elocal">a_detaillevel</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_detaillevel">detaillevel</a><span class="esymbol">]</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_mousesensitivity' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_set_mousesensitivity">set_mousesensitivity</a> <span class="esymbol">(</span><span class="elocal">a_mousesensitivity</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_mousesensitivity">mousesensitivity</a><span class="esymbol">]</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_screenblocks' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_set_screenblocks">set_screenblocks</a> <span class="esymbol">(</span><span class="elocal">a_screenblocks</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_screenblocks">screenblocks</a><span class="esymbol">]</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_showmessages' is declared in `Current'"><a class="efeature" href="../brie_doom/m_menu.html#f_set_showmessages">set_showmessages</a> <span class="esymbol">(</span><span class="elocal">a_showmessages</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/m_menu.html#f_showmessages">showmessages</a><span class="esymbol">]</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+
+<span class="ekeyword">Constraints</span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="m_menu_links.html">Relations</a>
+<a class="nav class" href="m_menu.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="m_menu"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

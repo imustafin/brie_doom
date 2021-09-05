@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Serialize and deserialize objects to and from SED_READER_WRITER instances."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_storable_facilities Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_storable_facilities_chart.html">Chart</a>
+<a class="nav class" href="sed_storable_facilities_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_storable_facilities"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Serialize and deserialize objects to and from SED_READER_WRITER instances.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-09-25 15:53:33 +0000 (Mon, 25 Sep 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100789 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_storable_facilities.html">SED_STORABLE_FACILITIES</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Serialization routines</span>
+
+	<a name="f_session_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_session_store">session_store</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">;</span> <span class="elocal">a_optimized_for_retrieval</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Serialization of </span><span class="equoted">an_object</span><span class="ecomment"> using </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Object stored can only be retrieved during current program execution.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_session_serializer.html">SED_SESSION_SERIALIZER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_serializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_session_serializer">session_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_header">write_header</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_session_store">Eiffel_session_store</a><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_root_object">set_root_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_encode">encode</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_footer">write_footer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_basic_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_basic_store">basic_store</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">;</span> <span class="elocal">a_optimized_for_retrieval</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Serialization of </span><span class="equoted">an_object</span><span class="ecomment"> using </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Object stored can only be retrieved by execution of same program executable.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_basic_serializer.html">SED_BASIC_SERIALIZER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_serializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_basic_serializer">basic_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_header">write_header</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_basic_store">Eiffel_basic_store</a><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_root_object">set_root_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_encode">encode</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_footer">write_footer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_independent_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_independent_store">independent_store</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">;</span> <span class="elocal">a_optimized_for_retrieval</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use `store' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Serialization of </span><span class="equoted">an_object</span><span class="ecomment"> using </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Object stored can only be retrieved by programs having the same set of types.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_serializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_recoverable_serializer">recoverable_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_header">write_header</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_recoverable_store">Eiffel_recoverable_store</a><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_root_object">set_root_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_encode">encode</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_footer">write_footer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_store">store</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Serialization of </span><span class="equoted">an_object</span><span class="ecomment"> using </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Object stored can only be retrieved by programs having the same set of types.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_serializer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_serializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_recoverable_serializer">recoverable_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_header">write_header</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_recoverable_store">Eiffel_recoverable_store</a><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_root_object">set_root_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">)</span>
+			<span class="elocal">l_serializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_encode">encode</a>
+			<span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_write_footer">write_footer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_store_in_medium"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_store_in_medium">store_in_medium</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Serialization of </span><span class="equoted">an_object</span><span class="ecomment"> in </span><span class="equoted">a_medium</span>
+			<span class="ecomment">--</span><span class="ecomment"> Object stored can only be retrieved by programs having the same set of types.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_writable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_write">is_open_write</a>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_storable_facilities.html#f_store">store</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/sed_medium_reader_writer.html">SED_MEDIUM_READER_WRITER</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_writing">make_for_writing</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_retrieved"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved">retrieved</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">;</span> <span class="elocal">a_is_gc_enabled</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Deserialization of object from </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Garbage collection will be enabled if </span><span class="equoted">a_is_gc_enabled</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_deserializer</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/sed_session_deserializer.html">SED_SESSION_DESERIALIZER</a>
+			<span class="elocal">l_retrieved_errors</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_header">read_header</a>
+			<span class="ekeyword">inspect</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a>
+			<span class="ekeyword">when</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_session_store">Eiffel_session_store</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deserializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_session_deserializer">session_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_basic_store">Eiffel_basic_store</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deserializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_basic_deserializer">basic_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_recoverable_store">Eiffel_recoverable_store</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_deserializer</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_recoverable_deserializer">recoverable_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">when</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_independent_store">Eiffel_independent_store</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_retrieved_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">l_retrieved_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_obsolete_storable_type">new_obsolete_storable_type</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a> <span class="esymbol">:=</span> <span class="elocal">l_retrieved_errors</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_retrieved_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">l_retrieved_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/sed_error_factory.html">SED_ERROR_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/sed_error_factory.html#f_new_unknown_storable_type">new_unknown_storable_type</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a> <span class="esymbol">:=</span> <span class="elocal">l_retrieved_errors</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_deserializer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_decode">decode</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_is_gc_enabled</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a> <span class="esymbol">:=</span> <span class="elocal">l_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_errors">errors</a>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_has_error">has_error</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_deserializer</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_last_decoded_object">last_decoded_object</a>
+					<span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_footer">read_footer</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_retrieved_from_medium"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_from_medium">retrieved_from_medium</a> <span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Deserialization of object from </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_open_for_reading</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_read">is_open_read</a>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved">retrieved</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/sed_medium_reader_writer.html">SED_MEDIUM_READER_WRITER</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_reading">make_for_reading</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_retrieved_error"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_error">retrieved_error</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/sed_error.html">SED_ERROR</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `retrieved_errors' directly. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Error set from last call to </span><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved">retrieved</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a> <span class="ekeyword">as</span> l_errors <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_errors</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_last">last</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_retrieved_errors"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_errors">retrieved_errors</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/sed_error.html">SED_ERROR</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Errors set from last call to </span><a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved">retrieved</a><span class="ecomment">.		</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Storable type</span>
+
+	<a name="f_eiffel_session_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_session_store">Eiffel_session_store</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_eiffel_basic_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_basic_store">Eiffel_basic_store</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_eiffel_independent_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_independent_store">Eiffel_independent_store</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+
+	<a name="f_eiffel_recoverable_store"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_eiffel_recoverable_store">Eiffel_recoverable_store</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+			<span class="ecomment">--</span><span class="ecomment"> Various type of storable mechanism.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_session_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_session_deserializer">session_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_session_deserializer.html">SED_SESSION_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_session_deserializer">Internal_session_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_set_deserializer">set_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">session_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_basic_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_basic_deserializer">basic_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_basic_deserializer.html">SED_BASIC_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_basic_deserializer">Internal_basic_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_set_deserializer">set_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">basic_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_recoverable_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_recoverable_deserializer">recoverable_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_deserializer.html">SED_RECOVERABLE_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_recoverable_deserializer">Internal_recoverable_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_set_deserializer">set_deserializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">recoverable_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_session_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_session_serializer">session_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_session_serializer.html">SED_SESSION_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_session_serializer">Internal_session_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_serializer">set_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">session_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_basic_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_basic_serializer">basic_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_basic_serializer.html">SED_BASIC_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_basic_serializer">Internal_basic_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_serializer">set_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">basic_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_recoverable_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_recoverable_serializer">recoverable_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_internal_recoverable_serializer">Internal_recoverable_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_set_serializer">set_serializer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">independent_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Data</span>
+
+	<a name="f_internal_session_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_session_deserializer">Internal_session_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_session_deserializer.html">SED_SESSION_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">session_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_basic_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_basic_deserializer">Internal_basic_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_basic_deserializer.html">SED_BASIC_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_deserializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">basic_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_recoverable_deserializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_recoverable_deserializer">Internal_recoverable_deserializer</a> <span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_deserializer.html">SED_RECOVERABLE_DESERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_reader</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reader_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reader</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reader_ready</span><span class="esymbol">:</span> <span class="elocal">a_reader</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_recoverable_deserializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reader</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">recoverable_deserializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_session_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_session_serializer">Internal_session_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_session_serializer.html">SED_SESSION_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">session_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_basic_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_basic_serializer">Internal_basic_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_basic_serializer.html">SED_BASIC_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">basic_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_recoverable_serializer"></a><a class="efeature" href="../base/sed_storable_facilities.html#f_internal_recoverable_serializer">Internal_recoverable_serializer</a> <span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/sed_recoverable_serializer.html">SED_RECOVERABLE_SERIALIZER</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of </span><span class="equoted">session</span><span class="ecomment"> based on </span><span class="equoted">a_writer</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_writer_not_void</span><span class="esymbol">:</span> <span class="elocal">a_writer</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_writer_ready</span><span class="esymbol">:</span> <span class="elocal">a_writer</span><span class="edot">.</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/sed_session_serializer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_writer</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">internal_recoverable_serializer_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_storable_facilities.html">SED_STORABLE_FACILITIES</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_storable_facilities_chart.html">Chart</a>
+<a class="nav class" href="sed_storable_facilities_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_storable_facilities"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

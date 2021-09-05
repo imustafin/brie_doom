@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Equivalent of HASH_TABLE [NATURAL_32, ANY], since this type cannot be written as ANY does not inherit from HASHABLE"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_objects_table Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_objects_table_chart.html">Chart</a>
+<a class="nav class" href="sed_objects_table_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_objects_table"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Equivalent of HASH_TABLE [NATURAL_32, ANY], since this type cannot be written</span>
+		<span class="estring">as ANY does not inherit from HASHABLE</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-01-22 11:21:50 +0000 (Mon, 22 Jan 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101254 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_objects_table.html">SED_OBJECTS_TABLE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/sed_abstract_objects_table.html">SED_ABSTRACT_OBJECTS_TABLE</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/hash_table.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/hash_table.html#f_make">make</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/hash_table.html#f_make">table_make</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table.html#f_capacity">capacity</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/hash_table.html#f_capacity">table_capacity</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table.html#f_count">count</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/hash_table.html#f_count">capacity</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table.html#f_wipe_out">wipe_out</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/hash_table.html#f_wipe_out">table_wipe_out</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/sed_objects_table.html">SED_OBJECTS_TABLE</a><span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/sed_objects_table.html#f_hash_code_of">hash_code_of</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_objects_table.html#f_make">make</a>
+
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/sed_objects_table.html">SED_OBJECTS_TABLE</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/hash_table.html#f_make">table_make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_objects_table.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current instance</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/hash_table.html#f_make">table_make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_index"></a><a class="efeature" href="../base/sed_objects_table.html#f_index">index</a> <span class="esymbol">(</span><span class="elocal">an_obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of </span><span class="equoted">an_obj</span><span class="ecomment"> in Current</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">hash_value</span><span class="esymbol">,</span> <span class="elocal">increment</span><span class="esymbol">,</span> <span class="elocal">l_pos</span><span class="esymbol">,</span> <span class="elocal">l_new_pos</span><span class="esymbol">,</span> <span class="elocal">l_item_pos</span><span class="esymbol">,</span> <span class="elocal">l_capacity</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">stop</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_keys</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/hash_table.html#f_keys">keys</a>
+			<span class="elocal">l_indexes</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/hash_table.html#f_indexes_map">indexes_map</a>
+			<span class="elocal">l_key</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">l_key</span> <span class="esymbol">:=</span> <span class="esymbol">$</span><span class="elocal">an_obj</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a>
+				<span class="elocal">l_keys</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table.html#f_keys">keys</a>
+				<span class="elocal">l_indexes</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table.html#f_indexes_map">indexes_map</a>
+				<span class="elocal">l_capacity</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table.html#f_capacity">table_capacity</a>
+				<span class="elocal">stop</span> <span class="esymbol">:=</span> <span class="elocal">l_capacity</span>
+				<span class="elocal">hash_value</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_objects_table.html#f_hash_code_of">hash_code_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_key</span><span class="esymbol">)</span>
+				<span class="elocal">increment</span> <span class="esymbol">:=</span> <span class="enumber">1</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">hash_value</span> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <span class="esymbol">(</span><span class="elocal">l_capacity</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">l_item_pos</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">hash_value</span> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <span class="elocal">l_capacity</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">increment</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">stop</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_item_pos</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">l_item_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">increment</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <span class="elocal">l_capacity</span>
+				<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_indexes</span> <a class="esymbol" href="../base/special.html#f_item">[</a><span class="elocal">l_item_pos</span><a class="esymbol" href="../base/special.html#f_item">]</a>
+				<span class="ekeyword">if</span> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_keys</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">l_key</span> <span class="ekeyword">then</span>
+					<span class="elocal">stop</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table.html#f_content">content</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span><span class="esymbol">)</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_pos</span> <span class="esymbol">=</span> <a class="efeature" href="../base/hash_table.html#f_ht_impossible_position">Ht_impossible_position</a> <span class="ekeyword">then</span>
+					<span class="elocal">stop</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a> <a class="esymbol" href="../base/natural_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a> <span class="esymbol">:=</span> <span class="ekeyword">Result</span>
+					<span class="elocal">l_new_pos</span> <span class="esymbol">:=</span> <span class="elocal">l_keys</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+					<span class="ekeyword">if</span> <span class="elocal">l_new_pos</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">l_keys</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_capacity">capacity</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_indexes</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_new_pos</span><span class="esymbol">,</span> <span class="elocal">l_item_pos</span><span class="esymbol">)</span>
+						<a class="efeature" href="../base/hash_table.html#f_content">content</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">,</span> <span class="elocal">l_new_pos</span><span class="esymbol">)</span>
+						<span class="elocal">l_keys</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_force">force</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">an_obj</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="elocal">l_new_pos</span><span class="esymbol">)</span>
+						<a class="efeature" href="../base/hash_table.html#f_count">capacity</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table.html#f_count">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="esymbol">,</span> <span class="elocal">l_key</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">stop</span> <span class="esymbol">:=</span> <span class="elocal">stop</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/sed_objects_table.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all items.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_abstract_objects_table.html#f_last_index">last_index</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/hash_table.html#f_wipe_out">table_wipe_out</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_hash_code_of"></a><a class="efeature" href="../base/sed_objects_table.html#f_hash_code_of">hash_code_of</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Efficient implementation of </span><span class="esymbol">{</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_hash_code">hash_code</a><span class="ecomment"> where we assume that POINTER</span>
+			<span class="ecomment">--</span><span class="ecomment"> values are aligned to the size of the POINTER, this will reduce the number</span>
+			<span class="ecomment">--</span><span class="ecomment"> of conflicts.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_objects_table.html#f_c_hash_code_of">c_hash_code_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_hash_code_of"></a><a class="efeature" href="../base/sed_objects_table.html#f_c_hash_code_of">c_hash_code_of</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> C implementation of </span><a class="efeature" href="../base/sed_objects_table.html#f_hash_code_of">hash_code_of</a><span class="ecomment">.</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline&quot;
+		<span class="ekeyword">alias</span>
+			&quot;return (EIF_INTEGER_32) (0x7FFFFFF &#38; (((rt_uint_ptr) $p) / sizeof(rt_uint_ptr)));&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">not_is_dotnet</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_dotnet">is_dotnet</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_objects_table.html">SED_OBJECTS_TABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_objects_table_chart.html">Chart</a>
+<a class="nav class" href="sed_objects_table_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_objects_table"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

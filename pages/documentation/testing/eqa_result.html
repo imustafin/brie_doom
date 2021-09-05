@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Responce produced from executing an Eiffel test  TEST_OUTCOME holds information about the tree stages each test execution consists of: setup, test and teardown. Based on that information it tries to determine whether the implementation passes or fails the test. If an unexpected error occurred during execution, it will blame the test by setting `is_maintenance_required' to True. Somethimes the error prevents to determine wheter the implementaion has passed or failed the test. In that case a outcome is said to be unresolved."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>eqa_result Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_result_chart.html">Chart</a>
+<a class="nav class" href="eqa_result_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_result"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Responce produced from executing an Eiffel test</span>
+		
+		<span class="estring">TEST_OUTCOME holds information about the tree stages each test execution consists of: setup, test</span>
+		<span class="estring">and teardown. Based on that information it tries to determine whether the implementation passes</span>
+		<span class="estring">or fails the test. If an unexpected error occurred during execution, it will blame the test by</span>
+		<span class="estring">setting </span><a class="efeature" href="../testing/eqa_result.html#f_is_maintenance_required">is_maintenance_required</a><span class="estring"> to True. Somethimes the error prevents to determine wheter the</span>
+		<span class="estring">implementaion has passed or failed the test. In that case a outcome is said to be unresolved.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-05-03 14:51:35 +0000 (Wed, 03 May 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100315 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/eqa_result.html">EQA_RESULT</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../testing/eqa_partial_result.html">EQA_PARTIAL_RESULT</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../testing/eqa_partial_result.html#f_make">make</a> <span class="ekeyword">as</span> <a class="efeature" href="../testing/eqa_partial_result.html#f_make">make_result</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_is_pass">is_pass</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_is_fail">is_fail</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_is_maintenance_required">is_maintenance_required</a><span class="esymbol">,</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_tag">tag</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/eqa_result.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/eqa_result.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_start_date</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_partial_result.html#f_start_date">start_date</a><span class="esymbol">;</span> <span class="elocal">a_setup_response</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_partial_result.html#f_setup_response">setup_response</a><span class="esymbol">;</span> <span class="elocal">a_test_response</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="esymbol">;</span> <span class="elocal">a_teardown_response</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_result.html#f_teardown_response">teardown_response</a><span class="esymbol">;</span> <span class="elocal">an_output</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with responses for all three stages.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_setup_response_attached</span><span class="esymbol">:</span> <span class="elocal">a_setup_response</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_test_response_attached</span><span class="esymbol">:</span> <span class="elocal">a_test_response</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_teardown_response_attached</span><span class="esymbol">:</span> <span class="elocal">a_teardown_response</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">an_output_attached</span><span class="esymbol">:</span> <span class="elocal">an_output</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_setup_response_clean</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_setup_response</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_partial_result.html#f_make">make_result</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_start_date</span><span class="esymbol">,</span> <span class="elocal">a_setup_response</span><span class="esymbol">,</span> <span class="elocal">an_output</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/eqa_partial_result.html#f_setup_response">setup_response</a> <span class="esymbol">:=</span> <span class="elocal">a_setup_response</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a> <span class="esymbol">:=</span> <span class="elocal">a_test_response</span>
+			<a class="efeature" href="../testing/eqa_result.html#f_teardown_response">teardown_response</a> <span class="esymbol">:=</span> <span class="elocal">a_teardown_response</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">setup_response_set</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_partial_result.html#f_setup_response">setup_response</a> <span class="esymbol">=</span> <span class="elocal">a_setup_response</span>
+			<span class="etag">test_response_set</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a> <span class="esymbol">=</span> <span class="elocal">a_test_response</span>
+			<span class="etag">teardown_response_set</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_result.html#f_teardown_response">teardown_response</a> <span class="esymbol">=</span> <span class="elocal">a_teardown_response</span>
+			<span class="etag">output_set</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_partial_result.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_same_string">same_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_output</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_test_response"></a><a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_test_invocation_response.html">EQA_TEST_INVOCATION_RESPONSE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Response from test stage</span>
+
+	<a name="f_teardown_response"></a><a class="efeature" href="../testing/eqa_result.html#f_teardown_response">teardown_response</a><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_test_invocation_response.html">EQA_TEST_INVOCATION_RESPONSE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Response from teardown stage</span>
+
+	<a name="f_tag"></a><a class="efeature" href="../testing/eqa_result.html#f_tag">tag</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> If available, short tag describing stats of </span><span class="equoted">Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_exception">exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_result.html#f_teardown_response">teardown_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_exception">exception</a> <span class="ekeyword">as</span> l_exception <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../testing/eqa_partial_result.html#f_tag">Precursor</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_pass"></a><a class="efeature" href="../testing/eqa_result.html#f_is_pass">is_pass</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Did test pass?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">result_implies_clean_test_response</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_fail"></a><a class="efeature" href="../testing/eqa_result.html#f_is_fail">is_fail</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Did test fail?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_result.html#f_is_test_response_valid">is_test_response_valid</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">result_implies_valid_test_response</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../testing/eqa_result.html#f_is_test_response_valid">is_test_response_valid</a>
+			<span class="etag">result_implies_test_response_exceptional</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_maintenance_required"></a><a class="efeature" href="../testing/eqa_result.html#f_is_maintenance_required">is_maintenance_required</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does the test need to be fixed?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_result.html#f_is_test_response_valid">is_test_response_valid</a>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">test_response_invalid_implies_result</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_result.html#f_is_test_response_valid">is_test_response_valid</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+			<span class="etag">teardown_exceptional_implies_result</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_test_response_valid"></a><a class="efeature" href="../testing/eqa_result.html#f_is_test_response_valid">is_test_response_valid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is test response valid?</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: the test response is valid if setup stage was not exceptional and no precondition</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;violation occurred which was caused by a call from TEST_INTERPRETER or any (!) call</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from an agent.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_exception">exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_result.html#f_test_response">test_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_exception">exception</a> <span class="ekeyword">as</span> l_exception <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">setup_clean</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_partial_result.html#f_setup_response">setup_response</a><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_invocation_response.html#f_is_exceptional">is_exceptional</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/eqa_result.html">EQA_RESULT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_result_chart.html">Chart</a>
+<a class="nav class" href="eqa_result_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_result"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

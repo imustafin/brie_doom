@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="m_fixed.c Fixed point arithmetics, implementation"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>m_fixed Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_fixed_chart.html">Chart</a>
+<a class="nav class" href="m_fixed_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_fixed"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">m_fixed.c</span>
+		<span class="estring">Fixed point arithmetics, implementation</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../brie_doom/doomtype_h.html">DOOMTYPE_H</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> m_fixed.h</span>
+
+	<a name="f_fracbits"></a><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">Fracbits</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_fracunit"></a><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracunit">Fracunit</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">Fracbits</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_fixedmul"></a><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fixedmul">fixedmul</a> <span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_as_integer_64">as_integer_64</a> <a class="esymbol" href="../../base/integer_64.html#f_product">*</a> <span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_as_integer_64">as_integer_64</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_64.html#f_bit_shift_right">|&gt;&gt;</a> <a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracbits">Fracbits</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/integer_64.html#f_as_integer_32">as_integer_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fixeddiv"></a><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fixeddiv">fixeddiv</a> <span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_abs">abs</a> <a class="esymbol" href="../../base/integer_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">14</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_abs">abs</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_bit_xor">bit_xor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32_ref.html#f_is_less">&lt;</a> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/doomtype_h.html#f_minint">Minint</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/doomtype_h.html#f_maxint">Maxint</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fixeddiv2">fixeddiv2</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="elocal">b</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fixeddiv2"></a><a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fixeddiv2">fixeddiv2</a> <span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../../base/real_64.html">REAL_64</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">c</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_double">to_double</a> <a class="esymbol" href="../../base/real_64.html#f_quotient">/</a> <span class="elocal">b</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_double">to_double</a><span class="esymbol">)</span> <a class="esymbol" href="../../base/real_64.html#f_product">*</a> <a class="efeature" href="../../brie_doom/math/m_fixed.html#f_fracunit">Fracunit</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_to_double">to_double</a>
+			<span class="ekeyword">if</span> <span class="elocal">c</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">2147483648.0</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <a class="esymbol" href="../../base/real_64.html#f_is_less">&lt;</a> <span class="enumber">-2147483648.0</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;FixedDiv: divide by zero&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../../base/real_64_ref.html#f_floor">floor</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/math/m_fixed.html">M_FIXED</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="m_fixed_chart.html">Chart</a>
+<a class="nav class" href="m_fixed_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="m_fixed"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

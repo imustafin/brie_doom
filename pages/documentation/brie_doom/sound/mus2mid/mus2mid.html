@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom mus2mid, originally by Ben Ryves"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>mus2mid Text</title>
+<link rel="stylesheet" href="../../../default.css" type="text/css">
+<script type="text/javascript" src="../../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mus2mid_chart.html">Chart</a>
+<a class="nav class" href="mus2mid_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mus2mid"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;chocolate doom mus2mid, originally by Ben Ryves&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../../brie_doom/sound/mus2mid/mus2mid.html">MUS2MID</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_num_channels"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_num_channels">Num_channels</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_midi_percussion_chan"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_percussion_chan">Midi_percussion_chan</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">6</span>
+
+	<a name="f_mus_percussion_chan"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_percussion_chan">Mus_percussion_chan</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">15</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> musevent, MUS event codes</span>
+
+	<a name="f_mus_releasekey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_releasekey">Mus_releasekey</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_mus_presskey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_presskey">Mus_presskey</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_mus_pitchwheel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_pitchwheel">Mus_pitchwheel</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+
+	<a name="f_mus_systemevent"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_systemevent">Mus_systemevent</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">48</span>
+
+	<a name="f_mus_changecontroller"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_changecontroller">Mus_changecontroller</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">64</span>
+
+	<a name="f_mus_scoreend"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_scoreend">Mus_scoreend</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">96</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> midievent, MIDI event codes</span>
+
+	<a name="f_midi_releasekey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_releasekey">Midi_releasekey</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+
+	<a name="f_midi_presskey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_presskey">Midi_presskey</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">144</span>
+
+	<a name="f_midi_aftertouchkey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_aftertouchkey">Midi_aftertouchkey</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">160</span>
+
+	<a name="f_midi_changecontroller"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_changecontroller">Midi_changecontroller</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">176</span>
+
+	<a name="f_midi_changepatch"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_changepatch">Midi_changepatch</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">192</span>
+
+	<a name="f_midi_aftertouchchannel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_aftertouchchannel">Midi_aftertouchchannel</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">208</span>
+
+	<a name="f_midi_pitchwheel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_pitchwheel">Midi_pitchwheel</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">224</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_write_midiheader"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_write_midiheader">write_midiheader</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'M'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'T'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'h'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'d'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">6</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">70</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'M'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'T'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'r'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="echar">'k'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="edot">.</span><a class="efeature" href="../../../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_channelvelocities"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channelvelocities">channelvelocities</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Cached channel velocities</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">127</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">15</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_queuedtime"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Timestamps between sequences of MUS events</span>
+
+	<a name="f_controller_map"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_controller_map">Controller_map</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">15</span> <a class="esymbol" href="../../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">32</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">2</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">3</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">7</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">4</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">10</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">5</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">11</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">6</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">91</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">7</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">93</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">8</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">64</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">9</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">67</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">10</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">120</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">11</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">123</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">12</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">126</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">13</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">127</span>
+			<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">14</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="enumber">121</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_channel_map"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">-1</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_num_channels">Num_channels</a> <a class="esymbol" href="../../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_writetime"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a> <span class="esymbol">(</span><span class="elocal">a_time</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write timestamp to a MIDI file</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">buffer</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">writeval</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">done</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">time</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">time</span> <span class="esymbol">:=</span> <span class="elocal">a_time</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">buffer</span> <span class="esymbol">:=</span> <span class="elocal">time</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">127</span>
+				<span class="elocal">time</span> <span class="esymbol">:=</span> <span class="elocal">time</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">7</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">time</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">buffer</span> <span class="esymbol">:=</span> <span class="elocal">buffer</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">8</span>
+				<span class="elocal">buffer</span> <span class="esymbol">:=</span> <span class="elocal">buffer</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">time</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_or">|</a> <span class="enumber">128</span><span class="esymbol">)</span>
+				<span class="elocal">time</span> <span class="esymbol">:=</span> <span class="elocal">time</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">7</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">done</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">writeval</span> <span class="esymbol">:=</span> <span class="elocal">buffer</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_32_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">255</span>
+				<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">writeval</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">buffer</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">128</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="elocal">buffer</span> <span class="esymbol">:=</span> <span class="elocal">buffer</span> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writeendtrack"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writeendtrack">writeendtrack</a>
+			<span class="ecomment">--</span><span class="ecomment"> Write the end of track marker</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">255</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">47</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writepresskey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writepresskey">writepresskey</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="esymbol">,</span> <span class="elocal">velocity</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a key press event</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_presskey">Midi_presskey</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_or">|</a> <span class="elocal">channel</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">velocity</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writereleasekey"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writereleasekey">writereleasekey</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a key release event</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_releasekey">Midi_releasekey</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_or">|</a> <span class="elocal">channel</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">key</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writepitchwheel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writepitchwheel">writepitchwheel</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">;</span> <span class="elocal">wheel</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_16.html">INTEGER_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a pitch/bend event</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_pitchwheel">Midi_pitchwheel</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_or">|</a> <span class="elocal">channel</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">wheel</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/integer_16_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">wheel</span> <a class="esymbol" href="../../../base/integer_16.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">7</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/integer_16_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writechangepatch"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangepatch">writechangepatch</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">patch</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a patch change event</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_changepatch">Midi_changepatch</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_or">|</a> <span class="elocal">channel</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">patch</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writechangecontroller_valued"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valued">writechangecontroller_valued</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">control</span><span class="esymbol">,</span> <span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a valued controller change event</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">working</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writetime">writetime</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_changecontroller">Midi_changecontroller</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_or">|</a> <span class="elocal">channel</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">control</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span>
+			<span class="elocal">working</span> <span class="esymbol">:=</span> <span class="elocal">value</span>
+			<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="elocal">working</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">128</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">working</span> <span class="esymbol">:=</span> <span class="enumber">127</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">working</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_writechangecontroller_valueless"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valueless">writechangecontroller_valueless</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">control</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write a valueless controller change event</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valued">writechangecontroller_valued</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">control</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_allocatemidichannel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_allocatemidichannel">allocatemidichannel</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Allocate a free MIDI channel</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">max</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">max</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_num_channels">Num_channels</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <a class="esymbol" href="../../../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">max</span> <span class="ekeyword">then</span>
+					<span class="elocal">max</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../../base/array.html#f_item">]</a>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">max</span> <a class="esymbol" href="../../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/integer_32.html#f_as_natural_8">as_natural_8</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_percussion_chan">Midi_percussion_chan</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/natural_8.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+				<span class="ekeyword">Result</span> <a class="esymbol" href="../../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_num_channels">Num_channels</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_getmidichannel"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_getmidichannel">getmidichannel</a> <span class="esymbol">(</span><span class="elocal">mus_channel</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given a MUS channel number, get the MIDI channel number to use</span>
+			<span class="ecomment">--</span><span class="ecomment"> in the outputted file</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">mus_channel</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_percussion_chan">Mus_percussion_chan</a><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_midi_percussion_chan">Midi_percussion_chan</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">mus_channel</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">mus_channel</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_allocatemidichannel">allocatemidichannel</a><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valueless">writechangecontroller_valueless</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">mus_channel</span><a class="esymbol" href="../../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">,</span> <span class="enumber">123</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channel_map">Channel_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">mus_channel</span><a class="esymbol" href="../../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32.html#f_as_natural_8">as_natural_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_readmusheader"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_readmusheader">readmusheader</a> <span class="esymbol">(</span><span class="elocal">header</span><span class="esymbol">:</span> <a class="eclass" href="../../../brie_doom/sound/mus2mid/musheader.html">MUSHEADER</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_id">Id</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">0</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_id">Id</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">1</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_id">Id</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">2</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_id">Id</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="enumber">3</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_scorelength">scorelength</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_scorestart">scorestart</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_primarychannels">primarychannels</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_secondarychannels">secondarychannels</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a>
+			<span class="elocal">header</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_instrumentcount">instrumentcount</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mus2mid"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus2mid">mus2mid</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read a MUS file from a stream (musinput) and output a MIDI file to</span>
+			<span class="ecomment">--</span><span class="ecomment"> a stream (midioutput)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">musfileheader</span><span class="esymbol">:</span> <a class="eclass" href="../../../brie_doom/sound/mus2mid/musheader.html">MUSHEADER</a>
+			<span class="elocal">eventdescriptor</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">hitscoreend</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">working</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">timedelay</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">eventdone</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">timedone</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">musfileheader</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_readmusheader">readmusheader</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">musfileheader</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <span class="esymbol">:=</span> <span class="elocal">musfileheader</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/musheader.html#f_scorestart">scorestart</a><span class="edot">.</span><a class="efeature" href="../../../base/natural_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_write_midiheader">write_midiheader</a>
+			<span class="ekeyword">from</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">hitscoreend</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">eventdone</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">hitscoreend</span> <a class="ekeyword" href="../../../base/boolean.html#f_disjuncted">or</a> <span class="elocal">eventdone</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">eventdescriptor</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+					<span class="elocal">hitscoreend</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_event">read_event</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">eventdescriptor</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="elocal">eventdescriptor</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">128</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="elocal">eventdone</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../../../base/boolean.html#f_negated">not</a> <span class="elocal">hitscoreend</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">from</span>
+						<span class="elocal">timedelay</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+						<span class="elocal">timedone</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">timedone</span>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">working</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+						<span class="elocal">timedelay</span> <span class="esymbol">:=</span> <span class="elocal">timedelay</span> <a class="esymbol" href="../../../base/natural_32.html#f_product">*</a> <span class="enumber">128</span> <a class="esymbol" href="../../../base/natural_32.html#f_plus">+</a> <span class="esymbol">(</span><span class="elocal">working</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+						<span class="ekeyword">if</span> <span class="elocal">working</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">128</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+							<span class="elocal">timedone</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_queuedtime">queuedtime</a> <a class="esymbol" href="../../../base/natural_32.html#f_plus">+</a> <span class="elocal">timedelay</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writeendtrack">writeendtrack</a>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a> <a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">[</a><span class="enumber">19</span><a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">]</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_tracksize">tracksize</a> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_32_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">255</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a> <a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">[</a><span class="enumber">20</span><a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">]</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_tracksize">tracksize</a> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_32_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">255</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a> <a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">[</a><span class="enumber">21</span><a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">]</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_tracksize">tracksize</a> <a class="esymbol" href="../../../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_32_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">255</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a> <a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">[</a><span class="enumber">22</span><a class="esymbol" href="../../../base/arrayed_list.html#f_i_th">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_tracksize">tracksize</a><span class="edot">.</span><a class="efeature" href="../../../base/natural_32_ref.html#f_to_natural_8">to_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">255</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_tracksize"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_tracksize">tracksize</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../../../base/integer_32.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../../../base/natural_32.html#f_minus">-</a> <span class="enumber">22</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_event"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_event">read_event</a> <span class="esymbol">(</span><span class="elocal">eventdescriptor</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read one event, return true if it was score end</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">controllernumber</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+			<span class="elocal">controllervalue</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">channel</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_getmidichannel">getmidichannel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">eventdescriptor</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">15</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="elocal">event</span> <span class="esymbol">:=</span> <span class="elocal">eventdescriptor</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">112</span>
+			<span class="ekeyword">if</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_releasekey">Mus_releasekey</a> <span class="ekeyword">then</span>
+				<span class="elocal">key</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writereleasekey">writereleasekey</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_presskey">Mus_presskey</a> <span class="ekeyword">then</span>
+				<span class="elocal">key</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<span class="ekeyword">if</span> <span class="elocal">key</span> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">128</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channelvelocities">channelvelocities</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">channel</span><a class="esymbol" href="../../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a> <a class="esymbol" href="../../../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">127</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writepresskey">writepresskey</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="esymbol">,</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_channelvelocities">channelvelocities</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">channel</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_pitchwheel">Mus_pitchwheel</a> <span class="ekeyword">then</span>
+				<span class="elocal">key</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writepitchwheel">writepitchwheel</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_16">to_integer_16</a> <a class="esymbol" href="../../../base/integer_16.html#f_product">*</a> <span class="enumber">64</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_systemevent">Mus_systemevent</a> <span class="ekeyword">then</span>
+				<span class="elocal">controllernumber</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<span class="ekeyword">check</span>
+						<span class="elocal">controllernumber</span> <a class="esymbol" href="../../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">10</span> <a class="ekeyword" href="../../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">controllernumber</span> <a class="esymbol" href="../../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">14</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valueless">writechangecontroller_valueless</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_controller_map">Controller_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">controllernumber</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_changecontroller">Mus_changecontroller</a> <span class="ekeyword">then</span>
+				<span class="elocal">controllernumber</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<span class="elocal">controllervalue</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a>
+				<span class="ekeyword">if</span> <span class="elocal">controllernumber</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangepatch">writechangepatch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">controllervalue</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">check</span>
+							<span class="elocal">controllernumber</span> <a class="esymbol" href="../../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span> <a class="ekeyword" href="../../../base/boolean.html#f_conjuncted">and</a> <span class="elocal">controllernumber</span> <a class="esymbol" href="../../../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">9</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_writechangecontroller_valued">writechangecontroller_valued</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_controller_map">Controller_map</a> <a class="esymbol" href="../../../base/array.html#f_item">[</a><span class="elocal">controllernumber</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a><a class="esymbol" href="../../../base/array.html#f_item">]</a><span class="esymbol">,</span> <span class="elocal">controllervalue</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">event</span> <span class="esymbol">=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus_scoreend">Mus_scoreend</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">else</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Unknown event &quot; <a class="esymbol" href="../../../base/string_8.html#f_plus">+</a> <span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../../../base/natural_8_ref.html#f_out">out</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_input</span><span class="esymbol">:</span> <a class="eclass" href="../../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="edot">.</span><a class="efeature" href="../../../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_input">input</a> <span class="esymbol">:=</span> <span class="elocal">a_input</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fill_output"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_fill_output">fill_output</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_mus2mid">mus2mid</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_output"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_output">output</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+
+	<a name="f_input"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_input">input</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/managed_pointer.html">MANAGED_POINTER</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_pos"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_read_natural_16"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_16">read_natural_16</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_16.html">NATURAL_16</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_input">input</a><span class="edot">.</span><a class="efeature" href="../../../base/managed_pointer.html#f_read_natural_16_le">read_natural_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <a class="esymbol" href="../../../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../../base/platform.html#f_integer_16_bytes">integer_16_bytes</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_8"></a><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_read_natural_8">read_natural_8</a><span class="esymbol">:</span> <a class="eclass" href="../../../base/natural_8.html">NATURAL_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_input">input</a><span class="edot">.</span><a class="efeature" href="../../../base/managed_pointer.html#f_read_natural_8_le">read_natural_8_le</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a><span class="esymbol">)</span>
+			<a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <span class="esymbol">:=</span> <a class="efeature" href="../../../brie_doom/sound/mus2mid/mus2mid.html#f_pos">pos</a> <a class="esymbol" href="../../../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../../base/platform.html#f_character_8_bytes">character_8_bytes</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../../brie_doom/sound/mus2mid/mus2mid.html">MUS2MID</a></pre><form class="nav" onsubmit="go_to('../../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mus2mid_chart.html">Chart</a>
+<a class="nav class" href="mus2mid_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mus2mid"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

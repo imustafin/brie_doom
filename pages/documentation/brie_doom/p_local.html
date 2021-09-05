@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="p_local.h Play functions, animation, global header."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>p_local Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="p_local_chart.html">Chart</a>
+<a class="nav class" href="p_local_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="p_local"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">p_local.h</span>
+		<span class="estring">Play functions, animation, global header.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/p_local.html">P_LOCAL</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_floatspeed"></a><a class="efeature" href="../brie_doom/p_local.html#f_floatspeed">Floatspeed</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">4</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_maxradius"></a><a class="efeature" href="../brie_doom/p_local.html#f_maxradius">Maxradius</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> MAXRADIUS is for precalculated sector block boxes</span>
+			<span class="ecomment">--</span><span class="ecomment"> the spider demon is larger,</span>
+			<span class="ecomment">--</span><span class="ecomment"> but we do not have any moving sectors nearby</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">32</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_gravity"></a><a class="efeature" href="../brie_doom/p_local.html#f_gravity">Gravity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_maxmove"></a><a class="efeature" href="../brie_doom/p_local.html#f_maxmove">Maxmove</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">30</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mapblockshift"></a><a class="efeature" href="../brie_doom/p_local.html#f_mapblockshift">Mapblockshift</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">7</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_onfloorz"></a><a class="efeature" href="../brie_doom/p_local.html#f_onfloorz">Onfloorz</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomtype_h.html">DOOMTYPE_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomtype_h.html#f_minint">minint</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_onceilingz"></a><a class="efeature" href="../brie_doom/p_local.html#f_onceilingz">Onceilingz</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomtype_h.html">DOOMTYPE_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomtype_h.html#f_maxint">maxint</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_viewheight"></a><a class="efeature" href="../brie_doom/p_local.html#f_viewheight">Viewheight</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">41</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_maxhealth"></a><a class="efeature" href="../brie_doom/p_local.html#f_maxhealth">Maxhealth</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">100</span>
+
+	<a name="f_userange"></a><a class="efeature" href="../brie_doom/p_local.html#f_userange">Userange</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">64</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pt_addlines"></a><a class="efeature" href="../brie_doom/p_local.html#f_pt_addlines">Pt_addlines</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_pt_addthings"></a><a class="efeature" href="../brie_doom/p_local.html#f_pt_addthings">Pt_addthings</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_pt_earlyout"></a><a class="efeature" href="../brie_doom/p_local.html#f_pt_earlyout">Pt_earlyout</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+
+	<a name="f_mapblockunits"></a><a class="efeature" href="../brie_doom/p_local.html#f_mapblockunits">Mapblockunits</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+
+	<a name="f_mapblocksize"></a><a class="efeature" href="../brie_doom/p_local.html#f_mapblocksize">Mapblocksize</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/p_local.html#f_mapblockunits">Mapblockunits</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mapbtofrac"></a><a class="efeature" href="../brie_doom/p_local.html#f_mapbtofrac">Mapbtofrac</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/p_local.html#f_mapblockshift">Mapblockshift</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracbits">fracbits</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_maxintercepts"></a><a class="efeature" href="../brie_doom/p_local.html#f_maxintercepts">Maxintercepts</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+
+	<a name="f_missilerange"></a><a class="efeature" href="../brie_doom/p_local.html#f_missilerange">Missilerange</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">32</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">64</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_meleerange"></a><a class="efeature" href="../brie_doom/p_local.html#f_meleerange">Meleerange</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">64</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/math/m_fixed.html">M_FIXED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/math/m_fixed.html#f_fracunit">fracunit</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_itemquesize"></a><a class="efeature" href="../brie_doom/p_local.html#f_itemquesize">Itemquesize</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+
+	<a name="f_basethreshold"></a><a class="efeature" href="../brie_doom/p_local.html#f_basethreshold">Basethreshold</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">100</span>
+			<span class="ecomment">--</span><span class="ecomment"> follow a player exlusively for 3 seconds</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/p_local.html">P_LOCAL</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="p_local_chart.html">Chart</a>
+<a class="nav class" href="p_local_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="p_local"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

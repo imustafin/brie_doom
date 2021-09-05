@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Stacks implemented by resizable arrays"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="dispenser, array"/>
+<meta name="representation" content="array"/>
+<meta name="access" content="fixed, lifo, membership"/>
+<meta name="size" content="fixed"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>arrayed_stack Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="arrayed_stack_chart.html">Chart</a>
+<a class="nav class" href="arrayed_stack_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="arrayed_stack"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Stacks implemented by resizable arrays&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> dispenser<span class="esymbol">,</span> array
+	<span class="eitag">representation</span><span class="esymbol">:</span> array
+	<span class="eitag">access</span><span class="esymbol">:</span> fixed<span class="esymbol">,</span> lifo<span class="esymbol">,</span> membership
+	<span class="eitag">size</span><span class="esymbol">:</span> fixed
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-12-15 18:06:16 +0000 (Sat, 15 Dec 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102608 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/stack.html">STACK</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_is_equal">is_equal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_prune_all">prune_all</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_replace">replace</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_is_inserted">is_inserted</a>
+		<span class="ekeyword">select</span>
+			<a class="efeature" href="../base/arrayed_stack.html#f_remove">remove</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_stack.html#f_extend">extend</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_stack.html#f_put">put</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/chain.html#f_put">put</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/chain.html#f_put">al_put</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_extend">al_extend</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_force">force</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_force">al_force</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_remove">remove</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_remove">al_remove</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_start">start</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_start">finish</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_finish">finish</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_finish">start</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_forth">forth</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_forth">back</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_back">back</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/arrayed_list.html#f_back">forth</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/list.html#f_after">after</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/list.html#f_after">before</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/list.html#f_before">before</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/list.html#f_before">after</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">}</span> <a class="efeature" href="../base/arrayed_list.html#f_count">count</a><span class="esymbol">,</span> <a class="efeature" href="../base/dispenser.html#f_readable">readable</a><span class="esymbol">,</span> <a class="efeature" href="../base/dispenser.html#f_writable">writable</a><span class="esymbol">,</span> <a class="efeature" href="../base/dynamic_chain.html#f_extendible">extendible</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_wipe_out">wipe_out</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_valid_index">valid_index</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_index">index</a><span class="esymbol">,</span> <a class="efeature" href="../base/chain.html#f_off">off</a>
+			<span class="esymbol">{</span><a class="eclass" href="../base/stack.html">STACK</a><span class="esymbol">}</span> <a class="efeature" href="../base/list.html#f_after">before</a><span class="esymbol">,</span> <a class="efeature" href="../base/list.html#f_before">after</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_finish">start</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_start">finish</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_back">forth</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_forth">back</a>
+			<span class="esymbol">{</span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a><span class="esymbol">}</span> <a class="efeature" href="../base/arrayed_list.html#f_valid_cursor">valid_cursor</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_cursor">cursor</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_go_to">go_to</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/to_special.html#f_area">area_v2</a><span class="esymbol">,</span> <a class="efeature" href="../base/arrayed_list.html#f_i_th">i_th</a><span class="esymbol">,</span> <a class="efeature" href="../base/chain.html#f_lower">Lower</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/dispenser.html#f_readable">readable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/dispenser.html#f_writable">writable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/dispenser.html#f_append">append</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/stack.html#f_fill">fill</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/arrayed_stack.html#f_linear_representation">linear_representation</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/arrayed_stack.html#f_make_from_iterable">make_from_iterable</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/arrayed_stack.html#f_make_from_iterable">make_from_iterable</a>
+
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/arrayed_list.html#f_make_filled">make_filled</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Creation</span>
+
+	<a name="f_make_from_iterable"></a><a class="efeature" href="../base/arrayed_stack.html#f_make_from_iterable">make_from_iterable</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/iterable.html">ITERABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a stack with all items obtained from </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/container.html#f_estimated_count_of">estimated_count_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">across</span>
+				<span class="elocal">other</span> <span class="ekeyword">as</span> o
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/arrayed_stack.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">o</span><span class="edot">.</span><a class="efeature" href="../base/iteration_cursor.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_extend"></a><a class="efeature" href="../base/arrayed_stack.html#f_extend">extend</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/arrayed_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Push </span><span class="equoted">v</span><span class="ecomment"> on top.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/arrayed_stack.html#f_put">put</a><span class="ecomment"> and </span><a class="efeature" href="../base/arrayed_stack.html#f_force">force</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_extend">al_extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_finish">start</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put"></a><a class="efeature" href="../base/arrayed_stack.html#f_put">put</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/arrayed_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Push </span><span class="equoted">v</span><span class="ecomment"> on top.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/arrayed_stack.html#f_extend">extend</a><span class="ecomment"> and </span><a class="efeature" href="../base/arrayed_stack.html#f_force">force</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_extend">al_extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_finish">start</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_force"></a><a class="efeature" href="../base/arrayed_stack.html#f_force">force</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/arrayed_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Push </span><span class="equoted">v</span><span class="ecomment"> on top.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/arrayed_stack.html#f_extend">extend</a><span class="ecomment"> and </span><a class="efeature" href="../base/arrayed_stack.html#f_put">put</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_extend">al_extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_finish">start</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_remove"></a><a class="efeature" href="../base/arrayed_stack.html#f_remove">remove</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove top item.</span>
+		<span class="ekeyword">require else</span>
+			<span class="etag">not_empty</span><span class="esymbol">:</span> <a class="efeature" href="../base/arrayed_list.html#f_count">count</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/arrayed_list.html#f_remove">al_remove</a>
+			<a class="efeature" href="../base/arrayed_list.html#f_finish">start</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_linear_representation"></a><a class="efeature" href="../base/arrayed_stack.html#f_linear_representation">linear_representation</a><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Representation as a linear structure</span>
+			<span class="ecomment">--</span><span class="ecomment"> (in the reverse order of original insertion)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/arrayed_list.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">1</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/arrayed_list.html#f_i_th">i_th</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/arrayed_stack.html">ARRAYED_STACK</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="arrayed_stack_chart.html">Chart</a>
+<a class="nav class" href="arrayed_stack_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="arrayed_stack"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

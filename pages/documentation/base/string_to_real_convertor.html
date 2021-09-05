@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="String to real/double convertor"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>string_to_real_convertor Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="string_to_real_convertor_chart.html">Chart</a>
+<a class="nav class" href="string_to_real_convertor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="string_to_real_convertor"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;String to real/double convertor&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">frozen</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/string_to_real_convertor.html">STRING_TO_REAL_CONVERTOR</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/string_to_numeric_convertor.html">STRING_TO_NUMERIC_CONVERTOR</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/string_to_real_convertor.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_make">make</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_leading_separators">leading_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot; &quot;<span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot; &quot;<span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">leading_separators_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_leading_separators">leading_separators</a> <span class="esymbol">~</span> &quot; &quot;
+			<span class="etag">trailing_separators_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a> <span class="esymbol">~</span> &quot; &quot;
+			<span class="etag">leading_separators_not_acceptable</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_leading_separators_acceptable">leading_separators_acceptable</a>
+			<span class="etag">trailing_separatorsnot_acceptable</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators_acceptable">trailing_separators_acceptable</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status reporting</span>
+
+	<a name="f_conversion_type_valid"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_conversion_type_valid">conversion_type_valid</a> <span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is conversion type </span><span class="equoted">type</span><span class="ecomment"> valid?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/numeric_information.html#f_real_double_type_valid">real_double_type_valid</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_overflowed"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_overflowed">overflowed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is real number parsed so far overflowed?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_underflowed"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_underflowed">underflowed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is real number parsed so far underflowed?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parse_successful"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_parse_successful">parse_successful</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> This only means we didn't enter an invalid state when parsing,</span>
+			<span class="ecomment">--</span><span class="ecomment"> it doesn't mean that we have got an valid double/real number.</span>
+			<span class="ecomment">--</span><span class="ecomment"> You need to check </span><span class="equoted">is_double</span><span class="ecomment"> or </span><span class="equoted">is_real</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">/=</span> <span class="enumber">9</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_separators_valid"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_separators_valid">separators_valid</a> <span class="esymbol">(</span><span class="elocal">separators</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are separators contained in </span><span class="equoted">separators</span><span class="ecomment"> valid?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="elocal">l_c</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">l_c</span> <span class="esymbol">:=</span> <span class="elocal">separators</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a>
+				<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_c</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">done</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">c</span> <span class="esymbol">:=</span> <span class="elocal">separators</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="echar">'0'</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">c</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="echar">'9'</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'+'</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'-'</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'E'</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'e'</span> <span class="ekeyword">then</span>
+					<span class="elocal">done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_integral_double"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_is_integral_double">is_integral_double</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is character sequence that has been parsed represents a valid double?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">1</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">9</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_integral_real"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_is_integral_real">is_integral_real</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is character sequence that has been parsed represents a valid real?	</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_is_integral_double">is_integral_double</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_part_of_double"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_is_part_of_double">is_part_of_double</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is character sequence that has been parsed so far a valid start part of double?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">/=</span> <span class="enumber">9</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_part_of_real"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_is_part_of_real">is_part_of_real</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is character sequence that has been parsed so far a valid start part of real?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_is_part_of_double">is_part_of_double</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parsed_double"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_parsed_double">parsed_double</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Parsed double value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_has_negative_exponent">has_negative_exponent</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">:=</span> <a class="esymbol" href="../base/integer_32.html#f_opposite">-</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_has_fractional_part">has_fractional_part</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <a class="esymbol" href="../base/real_64.html#f_quotient">/</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_is_negative">is_negative</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="esymbol" href="../base/real_64.html#f_opposite">-</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="esymbol">(</span><span class="enumber">10.0</span> <a class="esymbol" href="../base/real_64.html#f_power">^</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="esymbol">(</span><span class="enumber">10.0</span> <a class="esymbol" href="../base/real_64.html#f_power">^</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parsed_real"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_parsed_real">parsed_real</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Parsed real value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_parsed_double">parsed_double</a><span class="edot">.</span><a class="efeature" href="../base/real_64.html#f_truncated_to_real">truncated_to_real</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_reset"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_reset">reset</a> <span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Reset current convertor to parse real number string of type </span><span class="equoted">type</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_to_numeric_convertor.html#f_conversion_type">conversion_type</a> <span class="esymbol">:=</span> <span class="elocal">type</span>
+			<a class="efeature" href="../base/string_to_numeric_convertor.html#f_sign">sign</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">:=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <span class="esymbol">:=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a> <span class="esymbol">:=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_is_negative">is_negative</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_has_negative_exponent">has_negative_exponent</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_has_fractional_part">has_fractional_part</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">natural_part_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<span class="etag">fractional_part_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <span class="esymbol">=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<span class="etag">fractional_divider_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a> <span class="esymbol">=</span> <span class="enumber">0</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+			<span class="etag">exponent_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="etag">is_negative_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_is_negative">is_negative</a>
+			<span class="etag">has_negative_exponent_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_has_negative_exponent">has_negative_exponent</a>
+			<span class="etag">has_fractional_part_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_has_fractional_part">has_fractional_part</a>
+			<span class="etag">needs_digit_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Parse</span>
+
+	<a name="f_parse_string_with_type"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_parse_string_with_type">parse_string_with_type</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Parse string </span><span class="equoted">s</span><span class="ecomment"> as real number of type </span><span class="equoted">type</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_area8</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span>
+			<span class="elocal">l_area32</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span>
+			<span class="elocal">l_c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="elocal">l_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/string_to_real_convertor.html#f_reset">reset</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">)</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> l_str8 <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">l_area8</span> <span class="esymbol">:=</span> <span class="elocal">l_str8</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_area">area</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">=</span> <span class="enumber">9</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_parse_character">parse_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_area8</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> l_str32 <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">l_area32</span> <span class="esymbol">:=</span> <span class="elocal">l_str32</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">=</span> <span class="enumber">9</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_c</span> <span class="esymbol">:=</span> <span class="elocal">l_area32</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_c</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_character_8">is_character_8</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/string_to_real_convertor.html#f_parse_character">parse_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c</span><span class="edot">.</span><a class="efeature" href="../base/character_32.html#f_to_character_8">to_character_8</a><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">=</span> <span class="enumber">9</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_code</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_code">code</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_code</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/string_to_real_convertor.html#f_parse_character">parse_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_code</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_to_character_8">to_character_8</a><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parse_character"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_parse_character">parse_character</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Parse character </span><span class="equoted">c</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">inspect</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a>
+			<span class="ekeyword">when</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">2</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'+'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'-'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_is_negative">is_negative</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_leading_separators_acceptable">leading_separators_acceptable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_leading_separators">leading_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'.'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">3</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">2</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'.'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">3</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">2</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="enumber">10.0</span> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a> <a class="esymbol" href="../base/real_64.html#f_minus">-</a> <span class="enumber">48</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'.'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">3</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators_acceptable">trailing_separators_acceptable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">8</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_as_lower">as_lower</a> <span class="esymbol">=</span> <span class="echar">'e'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">5</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">3</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">4</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_has_fractional_part">has_fractional_part</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a> <span class="esymbol">:=</span> <span class="enumber">10.0</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_as_lower">as_lower</a> <span class="esymbol">=</span> <span class="echar">'e'</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">5</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators_acceptable">trailing_separators_acceptable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">8</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">4</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="enumber">10.0</span> <a class="esymbol" href="../base/real_64.html#f_plus">+</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_double">to_double</a>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a> <a class="esymbol" href="../base/real_64.html#f_product">*</a> <span class="enumber">10.0</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_as_lower">as_lower</a> <span class="esymbol">=</span> <span class="echar">'e'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">5</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators_acceptable">trailing_separators_acceptable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">8</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">5</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'-'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_has_negative_exponent">has_negative_exponent</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">6</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'+'</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">6</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">7</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">6</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">7</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">:=</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">7</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">10</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">48</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators_acceptable">trailing_separators_acceptable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">8</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">when</span> <span class="enumber">8</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/string_to_numeric_convertor.html#f_trailing_separators">trailing_separators</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/string_to_numeric_convertor.html#f_last_state">last_state</a> <span class="esymbol">:=</span> <span class="enumber">9</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_natural_part"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_natural_part">natural_part</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+
+	<a name="f_fractional_part"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_part">fractional_part</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+
+	<a name="f_fractional_divider"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_fractional_divider">fractional_divider</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+
+	<a name="f_exponent"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_exponent">exponent</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_is_negative"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_is_negative">is_negative</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_has_negative_exponent"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_has_negative_exponent">has_negative_exponent</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_has_fractional_part"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_has_fractional_part">has_fractional_part</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_needs_digit"></a><a class="efeature" href="../base/string_to_real_convertor.html#f_needs_digit">needs_digit</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Used to calculate real/double value</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/string_to_real_convertor.html">STRING_TO_REAL_CONVERTOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="string_to_real_convertor_chart.html">Chart</a>
+<a class="nav class" href="string_to_real_convertor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="string_to_real_convertor"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

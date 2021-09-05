@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Internal file information"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2019, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>file_info Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="file_info_chart.html">Chart</a>
+<a class="nav class" href="file_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="file_info"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Internal file information&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2019-01-31 11:17:45 +0000 (Thu, 31 Jan 2019) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102745 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/file_info.html">FILE_INFO</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/to_special.html">TO_SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/to_special.html#f_area">area</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/to_special.html#f_make_empty_area">make_empty_area</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/to_special.html#f_make_empty_area">make_buffered_file_info</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/file_info.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/file_info.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/native_string_handler.html">NATIVE_STRING_HANDLER</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/file_info.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/file_info.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/file_info.html#f_make">make</a>
+
+<span class="ekeyword">convert</span>
+	<a class="efeature" href="../base/file_info.html#f_to_unix_file_info">to_unix_file_info</a><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/unix_file_info.html">UNIX_FILE_INFO</a><span class="esymbol">}</span>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/file_info.html#f_make">make</a>
+			<span class="ecomment">--</span><span class="ecomment"> Creation procedure</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/to_special.html#f_make_filled_area">make_filled_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/file_info.html#f_stat_size">stat_size</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../base/file_info.html#f_exists">exists</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">not_exists</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+			<span class="etag">is_following_symlinks_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_protection"></a><a class="efeature" href="../base/file_info.html#f_protection">protection</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Protection mode of file (12 lower bits)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_type"></a><a class="efeature" href="../base/file_info.html#f_type">type</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> File type (4 bits, 12 lowest bits zeroed)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">11</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_inode"></a><a class="efeature" href="../base/file_info.html#f_inode">inode</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Inode number</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_size"></a><a class="efeature" href="../base/file_info.html#f_size">size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> File size, in bytes</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">6</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_user_id"></a><a class="efeature" href="../base/file_info.html#f_user_id">user_id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> UID of the file owner</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">4</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_group_id"></a><a class="efeature" href="../base/file_info.html#f_group_id">group_id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> GID of the file</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">5</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_date"></a><a class="efeature" href="../base/file_info.html#f_date">date</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last modification date</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">7</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_access_date"></a><a class="efeature" href="../base/file_info.html#f_access_date">access_date</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Date of last access</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">8</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_change_date"></a><a class="efeature" href="../base/file_info.html#f_change_date">change_date</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Date of last status change</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">9</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_device"></a><a class="efeature" href="../base/file_info.html#f_device">device</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Device number on which inode resides</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_device_type"></a><a class="efeature" href="../base/file_info.html#f_device_type">device_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Device type on which inode resides</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_links"></a><a class="efeature" href="../base/file_info.html#f_links">links</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of links</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">10</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_owner_name"></a><a class="efeature" href="../base/file_info.html#f_owner_name">owner_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the file owner, if available from /etc/passwd.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise, the UID</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_owner">file_owner</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file_info.html#f_user_id">user_id</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_group_name"></a><a class="efeature" href="../base/file_info.html#f_group_name">group_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the file group, if available from /etc/group.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise, the GID</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_group">file_group</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file_info.html#f_group_id">group_id</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_name"></a><a class="efeature" href="../base/file_info.html#f_file_name">file_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `file_entry' to ensure that filenames are not truncated. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> File name as a STRING_8 instance. The value might be truncated</span>
+			<span class="ecomment">--</span><span class="ecomment"> from the original name used to create the current FILE instance.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="ekeyword">as</span> l_name <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_as_string_8">as_string_8</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_entry"></a><a class="efeature" href="../base/file_info.html#f_file_entry">file_entry</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated entry for Current.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="ekeyword">as</span> l_ptr <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/native_string_handler.html">NATIVE_STRING_HANDLER</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_file_name_to_pointer"></a><a class="efeature" href="../base/file_info.html#f_file_name_to_pointer">file_name_to_pointer</a> <span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">a_ptr</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> File system specific encoding of </span><span class="equoted">a_name</span><span class="ecomment"> that will be stored in </span><span class="equoted">a_ptr</span><span class="ecomment"> if provided</span>
+			<span class="ecomment">--</span><span class="ecomment"> otherwise a new instance is created.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Typically a UTF-16 sequence on Windows, a UTF-8 sequence on Unix.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_name_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+			<span class="elocal">l_c_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/c_string.html">C_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_ptr</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">a_name</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="ekeyword">Result</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">2</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_escaped_utf_32_substring_into_utf_16_0_pointer">escaped_utf_32_substring_into_utf_16_0_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">create</span> <span class="elocal">l_c_string</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="ekeyword">Result</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file_info.html#f_multi_byte_to_utf_16">multi_byte_to_utf_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c_string</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/file_info.html#f_multi_byte_to_utf_16">multi_byte_to_utf_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c_string</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../base/file_info.html#f_multi_byte_to_utf_16">multi_byte_to_utf_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c_string</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="ekeyword">Result</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">a_name</span> <span class="ekeyword">then</span>
+					<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_escaped_utf_32_substring_into_utf_8_0_pointer">escaped_utf_32_substring_into_utf_8_0_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="ekeyword">Void</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/c_string.html">C_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make_shared_from_pointer_and_count">make_shared_from_pointer_and_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_set_string">set_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pointer_to_file_name_32"></a><a class="efeature" href="../base/file_info.html#f_pointer_to_file_name_32">pointer_to_file_name_32</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given a file system name represented by </span><span class="equoted">a_ptr</span><span class="ecomment"> provides a STRING_32 instance which</span>
+			<span class="ecomment">--</span><span class="ecomment"> could be escaped when underlying encoding is not valid.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+			<span class="elocal">l_managed</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_managed</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_share_from_pointer">share_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string_handler.html#f_pointer_length_in_bytes">pointer_length_in_bytes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_16_0_pointer_to_escaped_string_32">utf_16_0_pointer_to_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_8_0_pointer_to_escaped_string_32">utf_8_0_pointer_to_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_managed</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_pointer_to_file_name_8"></a><a class="efeature" href="../base/file_info.html#f_pointer_to_file_name_8">pointer_to_file_name_8</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given a file system name represented by </span><span class="equoted">a_ptr</span><span class="ecomment"> provides a STRING_8 instance.</span>
+			<span class="ecomment">--</span><span class="ecomment"> This is used for backward compatibility for APIs using STRING_8.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_cstring</span><span class="esymbol">:</span> <a class="eclass" href="../base/c_string.html">C_STRING</a>
+			<span class="elocal">l_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_utf_16_to_multi_byte">utf_16_to_multi_byte</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_utf_16_to_multi_byte">utf_16_to_multi_byte</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make_shared_from_pointer">make_shared_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">)</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_string">string</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_exists"></a><a class="efeature" href="../base/file_info.html#f_exists">exists</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does current file exists?</span>
+
+	<a name="f_is_following_symlinks"></a><a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does current follow symbolic links when retrieving properties?</span>
+
+	<a name="f_is_ready"></a><a class="efeature" href="../base/file_info.html#f_is_ready">is_ready</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current ready to perform a query?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_plain"></a><a class="efeature" href="../base/file_info.html#f_is_plain">is_plain</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a plain file?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">13</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_device"></a><a class="efeature" href="../base/file_info.html#f_is_device">is_device</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a device?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">14</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_directory"></a><a class="efeature" href="../base/file_info.html#f_is_directory">is_directory</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a directory?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">12</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_symlink"></a><a class="efeature" href="../base/file_info.html#f_is_symlink">is_symlink</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a symbolic link?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">18</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_fifo"></a><a class="efeature" href="../base/file_info.html#f_is_fifo">is_fifo</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a named pipe?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">17</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_socket"></a><a class="efeature" href="../base/file_info.html#f_is_socket">is_socket</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a named socket?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">19</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_block"></a><a class="efeature" href="../base/file_info.html#f_is_block">is_block</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a device block special file?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">16</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_character"></a><a class="efeature" href="../base/file_info.html#f_is_character">is_character</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file a character block special file?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_info">file_info</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">15</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_readable"></a><a class="efeature" href="../base/file_info.html#f_is_readable">is_readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file readable by effective UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_writable"></a><a class="efeature" href="../base/file_info.html#f_is_writable">is_writable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file writable by effective UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_executable"></a><a class="efeature" href="../base/file_info.html#f_is_executable">is_executable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file executable by effective UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_setuid"></a><a class="efeature" href="../base/file_info.html#f_is_setuid">is_setuid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file setuid?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_setgid"></a><a class="efeature" href="../base/file_info.html#f_is_setgid">is_setgid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file setgid?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">4</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_sticky"></a><a class="efeature" href="../base/file_info.html#f_is_sticky">is_sticky</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file sticky?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">5</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_owner"></a><a class="efeature" href="../base/file_info.html#f_is_owner">is_owner</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file owned by effective UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">6</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_access_owner"></a><a class="efeature" href="../base/file_info.html#f_is_access_owner">is_access_owner</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file owned by real UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_exists">exists</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">7</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_access_readable"></a><a class="efeature" href="../base/file_info.html#f_is_access_readable">is_access_readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file readable by real UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_is_ready">is_ready</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="ekeyword">as</span> l_ptr <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_access">file_access</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_access_writable"></a><a class="efeature" href="../base/file_info.html#f_is_access_writable">is_access_writable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file writable by real UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_is_ready">is_ready</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="ekeyword">as</span> l_ptr <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_access">file_access</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_access_executable"></a><a class="efeature" href="../base/file_info.html#f_is_access_executable">is_access_executable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is file executable by real UID?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_is_ready">is_ready</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="ekeyword">as</span> l_ptr <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_file_access">file_access</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/file_info.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object considered</span>
+			<span class="ecomment">--</span><span class="ecomment"> equal to current object?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="ekeyword">as</span> l_file_name <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="ekeyword">as</span> l_other_file_name <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_file_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_other_file_name</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a> <span class="esymbol">=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Duplication</span>
+
+	<a name="f_copy"></a><a class="efeature" href="../base/file_info.html#f_copy">copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update current object using fields of object attached</span>
+			<span class="ecomment">--</span><span class="ecomment"> to </span><span class="equoted">other</span><span class="ecomment">, so as to yield equal objects.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/any.html#f_standard_copy">standard_copy</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/to_special.html#f_set_area">set_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_twin">twin</a><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="ekeyword">as</span> l_pointer <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="esymbol">:=</span> <span class="elocal">l_pointer</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_twin">twin</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="ekeyword">as</span> l_file_name <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="esymbol">:=</span> <span class="elocal">l_file_name</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_twin">twin</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">not_shared_if_different</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a> <span class="esymbol">/=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a>
+			<span class="etag">equal_buffered_file_infos</span><span class="esymbol">:</span> <a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a> <span class="esymbol">~</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_unix_file_info"></a><a class="efeature" href="../base/file_info.html#f_to_unix_file_info">to_unix_file_info</a><span class="esymbol">:</span> <a class="eclass" href="../base/unix_file_info.html">UNIX_FILE_INFO</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `FILE_INFO' as type instead of `UNIX_FILE_INFO'. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Convert current to old format UNIX_FILE_INFO for backward compatibility.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_make">make</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="ekeyword">as</span> l_name <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/file_info.html#f_update">update</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_name</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_update"></a><a class="efeature" href="../base/file_info.html#f_update">update</a> <span class="esymbol">(</span><span class="elocal">f_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update information buffer: fill it in with information</span>
+			<span class="ecomment">--</span><span class="ecomment"> from the inode of </span><span class="equoted">f_name</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">f_name_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">f_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file_info.html#f_fast_update">fast_update</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">f_name</span><span class="esymbol">,</span> <a class="efeature" href="../base/file_info.html#f_file_name_to_pointer">file_name_to_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">f_name</span><span class="esymbol">,</span> <a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_following_symlinks"></a><a class="efeature" href="../base/file_info.html#f_set_is_following_symlinks">set_is_following_symlinks</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Should </span><a class="efeature" href="../base/file_info.html#f_update">update</a><span class="ecomment"> follow symlinks or not?</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_following_symlinks_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/file.html">FILE</a><span class="esymbol">,</span> <a class="eclass" href="../base/directory.html">DIRECTORY</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_fast_update"></a><a class="efeature" href="../base/file_info.html#f_fast_update">fast_update</a> <span class="esymbol">(</span><span class="elocal">f_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update information buffer: fill it in with information</span>
+			<span class="ecomment">--</span><span class="ecomment"> from the inode of </span><span class="equoted">f_name</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">f_name_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">f_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+			<span class="etag">a_ptr_not_empty</span><span class="esymbol">:</span> <span class="elocal">a_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="esymbol">:=</span> <span class="elocal">f_name</span>
+			<a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a> <span class="esymbol">:=</span> <span class="elocal">a_ptr</span>
+			<a class="efeature" href="../base/file_info.html#f_exists">exists</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_info.html#f_eif_file_stat">eif_file_stat</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="esymbol">$</span><a class="efeature" href="../base/to_special.html#f_area">buffered_file_info</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <a class="efeature" href="../base/file_info.html#f_is_following_symlinks">is_following_symlinks</a><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">file_name_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a> <span class="esymbol">=</span> <span class="elocal">f_name</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/file_info.html">FILE_INFO</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_internal_file_name"></a><a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a>
+			<span class="ecomment">--</span><span class="ecomment"> Store the name of the file as it was given to us by the user</span>
+
+	<a name="f_internal_name_pointer"></a><a class="efeature" href="../base/file_info.html#f_internal_name_pointer">internal_name_pointer</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> File system specific encoding of </span><a class="efeature" href="../base/file_info.html#f_internal_file_name">internal_file_name</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Typically a UTF-16 sequence on Windows, a UTF-8 sequence on Unix.</span>
+			<span class="ecomment">--</span><span class="ecomment"> to avoid conversion on storing as it is not necessary.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_stat_size"></a><a class="efeature" href="../base/file_info.html#f_stat_size">stat_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Get size of 'rt_stat_buf' (in bytes)</span>
+		<span class="ekeyword">external</span>
+			&quot;C use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_eif_file_stat"></a><a class="efeature" href="../base/file_info.html#f_eif_file_stat">eif_file_stat</a> <span class="esymbol">(</span><span class="elocal">fname</span><span class="esymbol">,</span> <span class="elocal">stat_buf</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">follow_symlinks</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Get information from file </span><span class="equoted">name</span><span class="ecomment"> into </span><span class="equoted">stat_buf</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, rt_stat_buf *, int): EIF_INTEGER use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_access"></a><a class="efeature" href="../base/file_info.html#f_file_access">file_access</a> <span class="esymbol">(</span><span class="elocal">fname</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">which</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Perform access test </span><span class="equoted">which</span><span class="ecomment"> on </span><span class="equoted">f_name</span><span class="ecomment"> using real ID.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (EIF_FILENAME, EIF_INTEGER): EIF_BOOLEAN use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_file_access&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_eaccess"></a><a class="efeature" href="../base/file_info.html#f_file_eaccess">file_eaccess</a> <span class="esymbol">(</span><span class="elocal">stat_buf</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">which</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Perform access tests using effective ID.</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (rt_stat_buf *, int): EIF_BOOLEAN use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_file_eaccess&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_info"></a><a class="efeature" href="../base/file_info.html#f_file_info">file_info</a> <span class="esymbol">(</span><span class="elocal">stat_buf</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">which</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Extract information </span><span class="equoted">which</span><span class="ecomment"> from information buffer</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (rt_stat_buf *, int): EIF_INTEGER use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_file_info&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_owner"></a><a class="efeature" href="../base/file_info.html#f_file_owner">file_owner</a> <span class="esymbol">(</span><span class="elocal">uid</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convert UID to login name if possible</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (int): EIF_REFERENCE use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_file_owner&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_file_group"></a><a class="efeature" href="../base/file_info.html#f_file_group">file_group</a> <span class="esymbol">(</span><span class="elocal">gid</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convert GID to group name if possible</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (int): EIF_REFERENCE use %&quot;eif_file.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;eif_file_group&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_multi_byte_to_utf_16"></a><a class="efeature" href="../base/file_info.html#f_multi_byte_to_utf_16">multi_byte_to_utf_16</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <span class="elocal">a_output</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_output_length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given a 8-bit string </span><span class="equoted">a_ptr</span><span class="ecomment">, fill </span><span class="equoted">a_output</span><span class="ecomment"> of length </span><span class="equoted">a_output_length</span><span class="ecomment"> with the UTF-16</span>
+			<span class="ecomment">--</span><span class="ecomment"> encoding of </span><span class="equoted">a_ptr</span><span class="ecomment"> but only if </span><span class="equoted">a_output</span><span class="ecomment"> is not the default_pointer, otherwise it returns</span>
+			<span class="ecomment">--</span><span class="ecomment"> the number of expected bytes to fill </span><span class="equoted">a_output</span><span class="ecomment"> including the null-terminating character.</span>
+		<span class="ekeyword">require</span>
+				<span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_eiffel.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;{
+			#ifdef EIF_WINDOWS
+				return (EIF_INTEGER) MultiByteToWideChar(CP_ACP, 0, (LPSTR) $a_ptr, -1, (LPWSTR) $a_output, (int) $a_output_length) * sizeof(wchar_t);
+			#else
+				return $a_output_length;
+			#endif
+			}<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_utf_16_to_multi_byte"></a><a class="efeature" href="../base/file_info.html#f_utf_16_to_multi_byte">utf_16_to_multi_byte</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_output</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_output_length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Given a 16-bit string </span><span class="equoted">a_ptr</span><span class="ecomment"> encoded in UTF-16, fill </span><span class="equoted">a_output</span><span class="ecomment"> of length </span><span class="equoted">a_output_length</span><span class="ecomment"> with the</span>
+			<span class="ecomment">--</span><span class="ecomment"> 8-bit encoding of </span><span class="equoted">a_ptr</span><span class="ecomment"> but only if </span><span class="equoted">a_output</span><span class="ecomment"> is not the default_pointer, otherwise it returns</span>
+			<span class="ecomment">--</span><span class="ecomment"> the number of expected bytes to fill </span><span class="equoted">a_output</span><span class="ecomment"> including the null-terminated character.</span>
+		<span class="ekeyword">require</span>
+				<span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use %&quot;eif_eiffel.h%&quot;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;{
+			#ifdef EIF_WINDOWS
+				return (EIF_INTEGER) WideCharToMultiByte(CP_ACP, 0, (LPCWSTR) $a_ptr, -1, (LPSTR) $a_output, (int) $a_output_length, NULL, NULL);
+			#else
+				return $a_output_length;
+			#endif
+			}<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2019, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/file_info.html">FILE_INFO</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="file_info_chart.html">Chart</a>
+<a class="nav class" href="file_info_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="file_info"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

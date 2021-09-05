@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Utilities for serializing/deserializing objects"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2013, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_utilities Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_utilities_chart.html">Chart</a>
+<a class="nav class" href="sed_utilities_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_utilities"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Utilities for serializing/deserializing objects&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-03-04 22:57:52 +0000 (Mon, 04 Mar 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 91317 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_utilities.html">SED_UTILITIES</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_is_void_safe"></a><a class="efeature" href="../base/sed_utilities.html#f_is_void_safe">Is_void_safe</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current system compiled in void-safe mode?</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="esymbol">/=</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_special_flag"></a><a class="efeature" href="../base/sed_utilities.html#f_is_special_flag">Is_special_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_is_tuple_flag"></a><a class="efeature" href="../base/sed_utilities.html#f_is_tuple_flag">Is_tuple_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+			<span class="ecomment">--</span><span class="ecomment"> Various flags for storing objects</span>
+
+	<a name="f_abstract_type"></a><a class="efeature" href="../base/sed_utilities.html#f_abstract_type">abstract_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Abstract type of </span><span class="equoted">a_type_id</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_type_id_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_type_id</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_spec_mapping</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_utilities.html#f_special_type_mapping">Special_type_mapping</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_spec_mapping</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_utilities.html#f_special_type_mapping">Special_type_mapping</a>
+			<span class="elocal">l_spec_mapping</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_search">search</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_spec_mapping</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found">found</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_spec_mapping</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_found_item">found_item</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_special_type_mapping"></a><a class="efeature" href="../base/sed_utilities.html#f_special_type_mapping">Special_type_mapping</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mapping betwwen dynamic type of SPECIAL instances</span>
+			<span class="ecomment">--</span><span class="ecomment"> to abstract element types.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">10</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_boolean_type">boolean_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_8_type">character_8_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_character_32_type">character_32_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_8_type">natural_8_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_16_type">natural_16_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_32_type">natural_32_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_natural_64_type">natural_64_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_8_type">integer_8_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_16_type">integer_16_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_32_type">integer_32_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_integer_64_type">integer_64_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_32_type">real_32_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_real_64_type">real_64_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_pointer_type">pointer_type</a><span class="esymbol">,</span> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/type.html#f_type_id">type_id</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">special_type_mapping_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2013, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_utilities.html">SED_UTILITIES</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_utilities_chart.html">Chart</a>
+<a class="nav class" href="sed_utilities_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_utilities"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

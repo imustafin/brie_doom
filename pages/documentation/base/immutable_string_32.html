@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Sequences of immutable 32-bit characters, accessible through integer indices in a contiguous range."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>immutable_string_32 Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="immutable_string_32_chart.html">Chart</a>
+<a class="nav class" href="immutable_string_32_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="immutable_string_32"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Sequences of immutable 32-bit characters, accessible through integer indices</span>
+		<span class="estring">in a contiguous range.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">frozen</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/immutable_string_general.html#f_is_immutable">Is_immutable</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/immutable_string_general.html">IMMUTABLE_STRING_GENERAL</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string_general</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_same_characters">same_characters</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_same_characters">same_characters_general</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_same_caseless_characters">same_caseless_characters</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_same_caseless_characters">same_caseless_characters_general</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_starts_with">starts_with</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_starts_with">starts_with_general</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_ends_with">ends_with</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_ends_with">ends_with_general</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_general.html#f_is_case_insensitive_equal">is_case_insensitive_equal</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_string_general.html#f_is_case_insensitive_equal">is_case_insensitive_equal_general</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_is_equal">is_equal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_has">has</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_index_of">index_of</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_last_index_of">last_index_of</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_occurrences">occurrences</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/mismatch_corrector.html">MISMATCH_CORRECTOR</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_is_equal">is_equal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_out">out</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_correct_mismatch">correct_mismatch</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_32.html#f_make_filled">make_filled</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_32.html#f_make_from_string">make_from_string</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_32">make_from_string_32</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_32.html#f_make_from_c">make_from_c</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_cil">make_from_cil</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_32.html#f_make_from_separate">make_from_separate</a>
+
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a>
+
+<span class="ekeyword">convert</span>
+	<a class="efeature" href="../base/readable_string_general.html#f_to_cil">to_cil</a><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">}</span><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_cil">make_from_cil</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">,</span>
+		<a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a><span class="esymbol">,</span>
+		<a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="esymbol">,</span>
+	<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_32">make_from_string_32</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">,</span>
+		<a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="esymbol">,</span>
+	<a class="efeature" href="../base/readable_string_general.html#f_as_string_32">as_string_32</a><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_32.html">STRING_32</a><span class="esymbol">}</span>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_from_string_general"></a><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_general">make_from_string_general</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize from the characters of </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> s8 <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s8</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> s32 <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_32">make_from_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s32</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_32">make_from_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_string_32">to_string_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_string_8"></a><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_8">make_from_string_8</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize from the characters of </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_attached</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+			<span class="elocal">s_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_area_lower">area_lower</a>
+				<span class="elocal">s_area</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_area">area</a>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s_area</span> <a class="esymbol" href="../base/special.html#f_item">[</a><span class="elocal">j</span><a class="esymbol" href="../base/special.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_string_32"></a><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_32">make_from_string_32</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize from the characters of </span><span class="equoted">s</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">s_attached</span><span class="esymbol">:</span> <span class="elocal">s</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/any.html#f_same_type">same_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area_lower">area_lower</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">:=</span> <span class="elocal">a</span>
+				<a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">:=</span> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_area_and_bounds"></a><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a> <span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">;</span> <span class="elocal">low</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current with area </span><span class="equoted">a</span><span class="ecomment"> with lower bounds </span><span class="equoted">low</span><span class="ecomment"> and count </span><span class="equoted">n</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_not_void</span><span class="esymbol">:</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_valid_count</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">low</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">low_non_negative</span><span class="esymbol">:</span> <span class="elocal">low</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">n_non_negative</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">:=</span> <span class="elocal">a</span>
+			<a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <span class="esymbol">:=</span> <span class="elocal">low</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">:=</span> <span class="elocal">n</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">area_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">=</span> <span class="elocal">a</span>
+			<span class="etag">area_lower_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <span class="esymbol">=</span> <span class="elocal">low</span>
+			<span class="etag">count_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">n</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_cil"></a><a class="efeature" href="../base/immutable_string_32.html#f_make_from_cil">make_from_cil</a> <span class="esymbol">(</span><span class="elocal">a_system_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/system_string.html">SYSTEM_STRING</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize Current with </span><span class="equoted">a_system_string</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_system_string</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">a_system_string</span><span class="edot">.</span><a class="efeature" href="../base/system_string.html#f_length">length</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/readable_string_general.html#f_dotnet_convertor">Dotnet_convertor</a><span class="edot">.</span><a class="efeature" href="../base/system_string_factory.html#f_escape_count">escape_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_system_string</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_count</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/readable_string_general.html#f_dotnet_convertor">Dotnet_convertor</a><span class="edot">.</span><a class="efeature" href="../base/system_string_factory.html#f_read_system_string_into_area_32">read_system_string_into_area_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_system_string</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">:=</span> <span class="elocal">l_count</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Duplication</span>
+
+	<a name="f_copy"></a><a class="efeature" href="../base/immutable_string_32.html#f_copy">copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Reinitialize by copying the characters of </span><span class="equoted">other</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (This is also used by </span><a class="efeature" href="../base/any.html#f_twin">twin</a><span class="ecomment">.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/any.html#f_standard_copy">standard_copy</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">new_result_count</span><span class="esymbol">:</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/immutable_string_32.html#f_item">item</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/immutable_string_32.html#f_item">[]</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character at position </span><span class="equoted">i</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/immutable_string_32.html#f_at">at</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_at"></a><a class="efeature" href="../base/immutable_string_32.html#f_at">at</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/immutable_string_32.html#f_at">@</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character at position </span><span class="equoted">i</span>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/immutable_string_32.html#f_item">item</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_code"></a><a class="efeature" href="../base/immutable_string_32.html#f_code">code</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Numeric code of character at position </span><span class="equoted">i</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_32.html#f_natural_32_code">natural_32_code</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item_code"></a><a class="efeature" href="../base/immutable_string_32.html#f_item_code">item_code</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">obsolete</span> &quot;Due to potential truncation it is recommended to use `code (i)' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Numeric code of character at position </span><span class="equoted">i</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_32.html#f_natural_32_code">natural_32_code</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_plus"></a><a class="efeature" href="../base/immutable_string_32.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/immutable_string_32.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">,</span> <span class="elocal">a_32</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+			<span class="elocal">l_s8_area</span><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> l_s32 <span class="ekeyword">then</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_s32</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <span class="elocal">l_s32</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">,</span> <span class="elocal">l_s32</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">}</span> <span class="elocal">s</span> <span class="ekeyword">as</span> l_s8 <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">a_32</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_s8</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">l_s8</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_area_lower">area_lower</a>
+					<span class="elocal">l_s8_area</span> <span class="esymbol">:=</span> <span class="elocal">l_s8</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_area">area</a>
+					<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_s8</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">a_32</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_s8_area</span> <a class="esymbol" href="../base/special.html#f_item">[</a><span class="elocal">j</span><a class="esymbol" href="../base/special.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">a_32</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_32</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">,</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">s</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mirrored"></a><a class="efeature" href="../base/immutable_string_32.html#f_mirrored">mirrored</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mirror image of string;</span>
+			<span class="ecomment">--</span><span class="ecomment"> Result for &quot;Hello world&quot; is &quot;dlrow olleH&quot;.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_mirror_area">mirror_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_lower"></a><a class="efeature" href="../base/immutable_string_32.html#f_as_lower">as_lower</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> New object with all letters in lower case.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_to_lower_area">to_lower_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_upper"></a><a class="efeature" href="../base/immutable_string_32.html#f_as_upper">as_upper</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> New object with all letters in upper case</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/readable_string_32.html#f_to_upper_area">to_upper_area</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_substring"></a><a class="efeature" href="../base/immutable_string_32.html#f_substring">substring</a> <span class="esymbol">(</span><span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> Copy of substring containing all characters at indices</span>
+			<span class="ecomment">--</span><span class="ecomment"> between </span><span class="equoted">start_index</span><span class="ecomment"> and </span><span class="equoted">end_index</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+			<span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="enumber">1</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">start_index</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_index</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">end_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">start_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">create</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_copy_data">copy_data</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">start_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%U'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/immutable_string_32.html#f_empty_string">Empty_string</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_shared_substring"></a><a class="efeature" href="../base/immutable_string_32.html#f_shared_substring">shared_substring</a> <span class="esymbol">(</span><span class="elocal">start_index</span><span class="esymbol">,</span> <span class="elocal">end_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">(</span><span class="enumber">1</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">start_index</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">start_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_index</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">end_index</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_area_and_bounds">make_from_area_and_bounds</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">,</span> <a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">start_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">end_index</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">start_index</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/immutable_string_32.html#f_empty_string">Empty_string</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_linear_representation"></a><a class="efeature" href="../base/immutable_string_32.html#f_linear_representation">linear_representation</a><span class="esymbol">:</span> <a class="eclass" href="../base/linear.html">LINEAR</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Representation as a linear structure</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">temp</span><span class="esymbol">:</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">]</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">temp</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/readable_string_32.html#f_capacity">capacity</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">temp</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/immutable_string_32.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">temp</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_empty"></a><a class="efeature" href="../base/immutable_string_32.html#f_is_empty">is_empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is structure empty?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_new_string"></a><a class="efeature" href="../base/immutable_string_32.html#f_new_string">new_string</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> New instance of current with space for at least </span><span class="equoted">n</span><span class="ecomment"> characters.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_empty_string"></a><a class="efeature" href="../base/immutable_string_32.html#f_empty_string">Empty_string</a><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Shared empty immutable string</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">empty_string_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">empty_string_empty</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">,</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_area_lower"></a><a class="efeature" href="../base/immutable_string_32.html#f_area_lower">area_lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index where current string starts in </span><a class="efeature" href="../base/readable_string_32.html#f_area">area</a>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Transformation</span>
+
+	<a name="f_correct_mismatch"></a><a class="efeature" href="../base/immutable_string_32.html#f_correct_mismatch">correct_mismatch</a>
+			<span class="ecomment">--</span><span class="ecomment"> Attempt to correct object mismatch during retrieve using </span><a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../base/readable_string_32.html#f_area">area</a><span class="esymbol">}</span> <a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;area&quot;<span class="esymbol">)</span> <span class="ekeyword">as</span> l_area <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/readable_string_32.html#f_area">area</a> <span class="esymbol">:=</span> <span class="elocal">l_area</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="immutable_string_32_chart.html">Chart</a>
+<a class="nav class" href="immutable_string_32_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="immutable_string_32"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

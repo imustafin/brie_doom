@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="r_plane.c Here is a core component: drawing the floors and ceilings  while maintaining a per column clipping list only. Moreover, the sky areas have to be determined."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>r_plane Chart</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="r_plane_links.html">Relations</a>
+<a class="nav class" href="r_plane.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="r_plane"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../../brie_doom/render/r_plane_chart.html">R_PLANE</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../../brie_doom/render/index.html">render</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;r_plane.c</span>
+		<span class="estring">Here is a core component: drawing the floors and ceilings</span>
+		<span class="estring"> while maintaining a per column clipping list only.</span>
+		<span class="estring">Moreover, the sky areas have to be determined.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../../brie_doom/render/r_plane.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`basexscale' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_basexscale">basexscale</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`baseyscale' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_baseyscale">baseyscale</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`cacheddistance' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_cacheddistance">cacheddistance</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`cachedheight' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_cachedheight">cachedheight</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`cachedxstep' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_cachedxstep">cachedxstep</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`cachedystep' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_cachedystep">cachedystep</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`ceilingclip' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_ceilingclip">ceilingclip</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span></span>
+	<span title="`ceilingplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_ceilingplane">ceilingplane</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a></span>
+	<span title="`distscale' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_distscale">Distscale</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+	<span title="`floorclip' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_floorclip">floorclip</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span></span>
+	<span title="`floorplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_floorplane">floorplane</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`lastopening' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_lastopening">lastopening</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/pointers/index_in_array_chart.html">INDEX_IN_ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span></span>
+	<span title="`lastvisplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_lastvisplane">lastvisplane</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`maxopenings' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_maxopenings">Maxopenings</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`maxvisplanes' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_maxvisplanes">Maxvisplanes</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`openings' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_openings">openings</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span></span>
+	<span title="`planeheight' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_planeheight">planeheight</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`planezlight' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_planezlight">planezlight</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/pointers/index_in_array_chart.html">INDEX_IN_ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/render/lighttable_t_chart.html">LIGHTTABLE_T</a><span class="esymbol">]</span><span class="esymbol">]</span></span>
+	<span title="`r_checkplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_checkplane">r_checkplane</a> <span class="esymbol">(</span><span class="elocal">pl</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a><span class="esymbol">;</span> <span class="elocal">start</span><span class="esymbol">,</span> <span class="elocal">stop</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a></span>
+	<span title="`r_findplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_findplane">r_findplane</a> <span class="esymbol">(</span><span class="elocal">a_height</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">;</span> <span class="elocal">picnum</span><span class="esymbol">,</span> <span class="elocal">a_lightlevel</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a></span>
+	<span title="`spanstart' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_spanstart">spanstart</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`visplanes' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_visplanes">visplanes</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a><span class="esymbol">]</span></span>
+	<span title="`yslope' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_yslope">Yslope</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">]</span></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_plane.html#f_i_main">i_main</a><span class="esymbol">]</span> <a class="eclass" href="../../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`r_clearplanes' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_clearplanes">r_clearplanes</a></span>
+	<span title="`r_drawplanes' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_drawplanes">r_drawplanes</a></span>
+	<span title="`r_initplanes' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_initplanes">r_initplanes</a></span>
+	<span title="`r_makespans' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_makespans">r_makespans</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">a_t1</span><span class="esymbol">,</span> <span class="elocal">a_b1</span><span class="esymbol">,</span> <span class="elocal">a_t2</span><span class="esymbol">,</span> <span class="elocal">a_b2</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`r_mapplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_r_mapplane">r_mapplane</a> <span class="esymbol">(</span><span class="elocal">y</span><span class="esymbol">,</span> <span class="elocal">x1</span><span class="esymbol">,</span> <span class="elocal">x2</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_ceilingplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_set_ceilingplane">set_ceilingplane</a> <span class="esymbol">(</span><span class="elocal">a_ceilingplane</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_plane.html#f_ceilingplane">ceilingplane</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a><span class="esymbol">)</span></span>
+	<span title="`set_floorplane' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_set_floorplane">set_floorplane</a> <span class="esymbol">(</span><span class="elocal">a_floorplane</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_plane.html#f_floorplane">floorplane</a><span class="esymbol">]</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/visplane_t_chart.html">VISPLANE_T</a><span class="esymbol">)</span></span>
+	<span title="`set_lastopening' is declared in `Current'"><a class="efeature" href="../../brie_doom/render/r_plane.html#f_set_lastopening">set_lastopening</a> <span class="esymbol">(</span><span class="elocal">a_lastopening</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/r_plane.html#f_lastopening">lastopening</a><span class="esymbol">]</span> <a class="eclass" href="../../brie_doom/pointers/index_in_array_chart.html">INDEX_IN_ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_16_chart.html">INTEGER_16</a><span class="esymbol">]</span><span class="esymbol">)</span></span>
+
+<span class="ekeyword">Constraints</span>
+
+</pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="r_plane_links.html">Relations</a>
+<a class="nav class" href="r_plane.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="r_plane"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

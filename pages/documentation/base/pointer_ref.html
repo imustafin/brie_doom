@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to objects containing reference to object meant to be exchanged with non-Eiffel software."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>pointer_ref Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="pointer_ref_chart.html">Chart</a>
+<a class="nav class" href="pointer_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="pointer_ref"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">References to objects containing reference to object</span>
+		<span class="estring">meant to be exchanged with non-Eiffel software.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:48:52 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101697 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/pointer_ref.html">POINTER_REF</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_is_equal">is_equal</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_is_hashable">is_hashable</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/refactoring_helper.html">REFACTORING_HELPER</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pointer value</span>
+
+
+	<a name="f_hash_code"></a><a class="efeature" href="../base/pointer_ref.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_hash_code">hash_code</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_item"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/pointer_ref.html#f_set_item">set_item</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">p</span><span class="ecomment"> the </span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/pointer_ref.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object of the same type</span>
+			<span class="ecomment">--</span><span class="ecomment"> as current object and identical to it?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_compare"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_compare">memory_compare</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> True if </span><span class="equoted">Current</span><span class="ecomment"> and </span><span class="equoted">other</span><span class="ecomment"> are identical on </span><span class="equoted">a_size</span><span class="ecomment"> bytes.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_size</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+			<span class="etag">valid_other</span><span class="esymbol">:</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_c_memcmp">c_memcmp</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">other</span><span class="esymbol">,</span> <span class="elocal">a_size</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_hashable"></a><a class="efeature" href="../base/pointer_ref.html#f_is_hashable">is_hashable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> May current object be hashed?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (True if it is not its type's default.)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_default_pointer"></a><a class="efeature" href="../base/pointer_ref.html#f_is_default_pointer">is_default_pointer</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current </span><a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Operations</span>
+
+	<a name="f_plus"></a><a class="efeature" href="../base/pointer_ref.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/pointer_ref.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pointer moved by an offset of </span><span class="equoted">offset</span><span class="ecomment"> bytes.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <a class="esymbol" href="../base/pointer.html#f_plus">+</a> <span class="elocal">offset</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_from_reference"></a><a class="efeature" href="../base/pointer_ref.html#f_make_from_reference">make_from_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer_ref.html">POINTER_REF</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with </span><span class="equoted">v.item</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_reference"></a><a class="efeature" href="../base/pointer_ref.html#f_to_reference">to_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer_ref.html">POINTER_REF</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated reference of Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_reference_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_integer_32"></a><a class="efeature" href="../base/pointer_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Convert </span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="ecomment"> into an INTEGER_32 value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/refactoring_helper.html#f_fixme">fixme</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">once</span> &quot;Do not forget to add proper precondition to ensure we can convert pointer value into an INTEGER_32&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_to_integer_32">to_integer_32</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Memory copy</span>
+
+	<a name="f_memory_copy"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_copy">memory_copy</a> <span class="esymbol">(</span><span class="elocal">a_source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Copy </span><span class="equoted">a_size</span><span class="ecomment"> bytes from </span><span class="equoted">a_source</span><span class="ecomment"> to </span><span class="equoted">Current</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_source</span><span class="ecomment"> and </span><span class="equoted">Current</span><span class="ecomment"> should not overlap.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_size</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">valid_source</span><span class="esymbol">:</span> <span class="elocal">a_source</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_c_memcpy">c_memcpy</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">a_source</span><span class="esymbol">,</span> <span class="elocal">a_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_move"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_move">memory_move</a> <span class="esymbol">(</span><span class="elocal">a_source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Copy </span><span class="equoted">a_size</span><span class="ecomment"> bytes from </span><span class="equoted">a_source</span><span class="ecomment"> to </span><span class="equoted">Current</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_source</span><span class="ecomment"> and </span><span class="equoted">Current</span><span class="ecomment"> can overlap.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_size</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">valid_source</span><span class="esymbol">:</span> <span class="elocal">a_source</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_c_memmove">c_memmove</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">a_source</span><span class="esymbol">,</span> <span class="elocal">a_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_set"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_set">memory_set</a> <span class="esymbol">(</span><span class="elocal">val</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fill first </span><span class="equoted">n</span><span class="ecomment"> bytes of the memory pointed by </span><span class="equoted">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> with constant </span><span class="equoted">val</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_val</span><span class="esymbol">:</span> <span class="elocal">val</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">valid_n</span><span class="esymbol">:</span> <span class="elocal">n</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_c_memset">c_memset</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">val</span><span class="esymbol">,</span> <span class="elocal">n</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Allocation/free</span>
+
+	<a name="f_memory_alloc"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_alloc">memory_alloc</a> <span class="esymbol">(</span><span class="elocal">a_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Allocated </span><span class="equoted">size</span><span class="ecomment"> bytes using </span><span class="equoted">malloc</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_size</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_c_malloc">c_malloc</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_calloc"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_calloc">memory_calloc</a> <span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">,</span> <span class="elocal">a_element_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Allocate </span><span class="equoted">a_count</span><span class="ecomment"> elements of size </span><span class="equoted">a_element_size</span><span class="ecomment"> bytes using `calloc.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_element_count</span><span class="esymbol">:</span> <span class="elocal">a_count</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+			<span class="etag">valid_element_size</span><span class="esymbol">:</span> <span class="elocal">a_element_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_c_calloc">c_calloc</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_count</span><span class="esymbol">,</span> <span class="elocal">a_element_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_realloc"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_realloc">memory_realloc</a> <span class="esymbol">(</span><span class="elocal">a_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Realloc </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_size</span><span class="esymbol">:</span> <span class="elocal">a_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_c_realloc">c_realloc</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">a_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_memory_free"></a><a class="efeature" href="../base/pointer_ref.html#f_memory_free">memory_free</a>
+			<span class="ecomment">--</span><span class="ecomment"> Free allocated memory with </span><span class="equoted">malloc</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_c_free">c_free</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/pointer_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_out"></a><a class="efeature" href="../base/pointer_ref.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Printable representation of pointer value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/pointer_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_out">out</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_c_memcpy"></a><a class="efeature" href="../base/pointer_ref.html#f_c_memcpy">c_memcpy</a> <span class="esymbol">(</span><span class="elocal">destination</span><span class="esymbol">,</span> <span class="elocal">source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> C memcpy</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *, const void *, size_t) use &lt;string.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;memcpy&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_memmove"></a><a class="efeature" href="../base/pointer_ref.html#f_c_memmove">c_memmove</a> <span class="esymbol">(</span><span class="elocal">destination</span><span class="esymbol">,</span> <span class="elocal">source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> C memmove</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *, const void *, size_t) use &lt;string.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;memmove&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_memset"></a><a class="efeature" href="../base/pointer_ref.html#f_c_memset">c_memset</a> <span class="esymbol">(</span><span class="elocal">source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">val</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> C memset</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *, int, size_t) use &lt;string.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;memset&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_memcmp"></a><a class="efeature" href="../base/pointer_ref.html#f_c_memcmp">c_memcmp</a> <span class="esymbol">(</span><span class="elocal">source</span><span class="esymbol">,</span> <span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> C memcmp</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *, void *, size_t): EIF_INTEGER use &lt;string.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;memcmp&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_malloc"></a><a class="efeature" href="../base/pointer_ref.html#f_c_malloc">c_malloc</a> <span class="esymbol">(</span><span class="elocal">size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> C malloc</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (size_t): EIF_POINTER use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;malloc&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_calloc"></a><a class="efeature" href="../base/pointer_ref.html#f_c_calloc">c_calloc</a> <span class="esymbol">(</span><span class="elocal">nmemb</span><span class="esymbol">,</span> <span class="elocal">size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> C calloc</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (size_t, size_t): EIF_POINTER use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;calloc&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_realloc"></a><a class="efeature" href="../base/pointer_ref.html#f_c_realloc">c_realloc</a> <span class="esymbol">(</span><span class="elocal">source</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> C realloc</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *, size_t): EIF_POINTER use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;realloc&quot;
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_free"></a><a class="efeature" href="../base/pointer_ref.html#f_c_free">c_free</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> C free</span>
+		<span class="ekeyword">external</span>
+			&quot;C signature (void *) use &lt;stdlib.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;free&quot;
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/pointer_ref.html">POINTER_REF</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="pointer_ref_chart.html">Chart</a>
+<a class="nav class" href="pointer_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="pointer_ref"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Sequential, one-way linked lists"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="linked_list, sequence"/>
+<meta name="representation" content="linked"/>
+<meta name="access" content="index, cursor, membership"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>linked_list Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="linked_list_chart.html">Chart</a>
+<a class="nav class" href="linked_list_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="linked_list"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Sequential, one-way linked lists&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> linked_list<span class="esymbol">,</span> sequence
+	<span class="eitag">representation</span><span class="esymbol">:</span> linked
+	<span class="eitag">access</span><span class="esymbol">:</span> index<span class="esymbol">,</span> cursor<span class="esymbol">,</span> membership
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-14 15:15:17 +0000 (Wed, 14 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102463 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/linked_list.html">LINKED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/dynamic_list.html">DYNAMIC_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/linked_list.html#f_go_i_th">go_i_th</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_put_left">put_left</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_move">move</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_wipe_out">wipe_out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_islast">islast</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_is_inserted">is_inserted</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_first">first</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_last">last</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_finish">finish</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_merge_left">merge_left</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_merge_right">merge_right</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_readable">readable</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_start">start</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_before">before</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_after">after</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_off">off</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_copy">copy</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/linked_list.html#f_new_cursor">new_cursor</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/linked_list.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/linked_list.html#f_make_from_iterable">make_from_iterable</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/linked_list.html#f_make">make</a>
+			<span class="ecomment">--</span><span class="ecomment"> Create an empty list.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_before</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_iterable"></a><a class="efeature" href="../base/linked_list.html#f_make_from_iterable">make_from_iterable</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/iterable.html">ITERABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create a linked list with all items obtained from </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/linked_list.html#f_make">make</a>
+			<span class="ekeyword">across</span>
+				<span class="elocal">other</span> <span class="ekeyword">as</span> o
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/linked_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">o</span><span class="edot">.</span><a class="efeature" href="../base/iteration_cursor.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">:</span> <span class="egeneric">G</span>
+			<span class="ecomment">--</span><span class="ecomment"> Current item</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="ekeyword">as</span> a
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_first"></a><a class="efeature" href="../base/linked_list.html#f_first">first</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at first position</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="ekeyword">as</span> f
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">f</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_last"></a><a class="efeature" href="../base/linked_list.html#f_last">last</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at last position</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a> <span class="ekeyword">as</span> l
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_index"></a><a class="efeature" href="../base/linked_list.html#f_index">index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of current position</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_active</span><span class="esymbol">,</span> <span class="elocal">l_active_iterator</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+					<span class="elocal">l_active</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+					<span class="elocal">l_active_iterator</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">l_active_iterator</span> <span class="esymbol">=</span> <span class="elocal">l_active</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">l_active_iterator</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_active_iterator</span> <span class="esymbol">:=</span> <span class="elocal">l_active_iterator</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cursor"></a><a class="efeature" href="../base/linked_list.html#f_cursor">cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/linked_list_cursor.html">LINKED_LIST_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Current cursor position</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a><span class="esymbol">,</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a><span class="esymbol">,</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access: Cursor</span>
+
+	<a name="f_new_cursor"></a><a class="efeature" href="../base/linked_list.html#f_new_cursor">new_cursor</a><span class="esymbol">:</span> <a class="eclass" href="../base/linked_list_iteration_cursor.html">LINKED_LIST_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fresh cursor associated with current structure</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_iteration_cursor.html#f_start">start</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/linked_list.html">LINKED_LIST</a><span class="esymbol">,</span> <a class="eclass" href="../base/linked_list_iteration_cursor.html">LINKED_LIST_ITERATION_CURSOR</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_first_element"></a><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a>
+			<span class="ecomment">--</span><span class="ecomment"> Head of list</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_count"></a><a class="efeature" href="../base/linked_list.html#f_count">count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of items</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_readable"></a><a class="efeature" href="../base/linked_list.html#f_readable">readable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there a current item that may be read?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_off">off</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_after"></a><a class="efeature" href="../base/linked_list.html#f_after">after</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no valid cursor position to the right of cursor?</span>
+
+	<a name="f_before"></a><a class="efeature" href="../base/linked_list.html#f_before">before</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no valid cursor position to the left of cursor?</span>
+
+	<a name="f_off"></a><a class="efeature" href="../base/linked_list.html#f_off">off</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no current item?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_isfirst"></a><a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is cursor at first position?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_islast"></a><a class="efeature" href="../base/linked_list.html#f_islast">islast</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is cursor at last position?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_valid_cursor"></a><a class="efeature" href="../base/linked_list.html#f_valid_cursor">valid_cursor</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Can the cursor be moved to position </span><span class="equoted">p</span><span class="ecomment">?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">temp</span><span class="esymbol">,</span> <span class="elocal">sought</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_cursor">cursor</a><span class="esymbol">}</span> <span class="elocal">p</span> <span class="ekeyword">as</span> ll_c <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">temp</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+					<span class="elocal">sought</span> <span class="esymbol">:=</span> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_active">active</a>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_before">before</a>
+				<span class="ekeyword">until</span>
+					<span class="ekeyword">Result</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">temp</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">temp</span> <span class="esymbol">=</span> <span class="elocal">sought</span>
+					<span class="elocal">temp</span> <span class="esymbol">:=</span> <span class="elocal">temp</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_full"></a><a class="efeature" href="../base/linked_list.html#f_full">Full</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+			<span class="ecomment">--</span><span class="ecomment"> Is structured filled to capacity? (Answer: no.)</span>
+
+	<a name="f_is_inserted"></a><a class="efeature" href="../base/linked_list.html#f_is_inserted">is_inserted</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="egeneric">G</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Has </span><span class="equoted">v</span><span class="ecomment"> been inserted at the end by the most recent </span><a class="efeature" href="../base/chain.html#f_put">put</a><span class="ecomment"> or</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/linked_list.html#f_extend">extend</a><span class="ecomment">?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+			<span class="ekeyword">if</span> <span class="elocal">l</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">put_constraint</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="elocal">v</span> <span class="esymbol">/=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_off">off</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">v</span> <span class="esymbol">=</span> <span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="elocal">v</span> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_start"></a><a class="efeature" href="../base/linked_list.html#f_start">start</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to first position.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">empty_convention</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_after">after</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_finish"></a><a class="efeature" href="../base/linked_list.html#f_finish">finish</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to last position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> (Go before if empty)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">p</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">empty_convention</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_forth"></a><a class="efeature" href="../base/linked_list.html#f_forth">forth</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to next position.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_back"></a><a class="efeature" href="../base/linked_list.html#f_back">back</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to previous item.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_move"></a><a class="efeature" href="../base/linked_list.html#f_move">move</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor </span><span class="equoted">i</span><span class="ecomment"> positions. The cursor</span>
+			<span class="ecomment">--</span><span class="ecomment"> may end up </span><a class="efeature" href="../base/linked_list.html#f_off">off</a><span class="ecomment"> if the offset is too big.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">counter</span><span class="esymbol">,</span> <span class="elocal">new_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="elocal">counter</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">until</span>
+					<span class="esymbol">(</span><span class="elocal">counter</span> <span class="esymbol">=</span> <span class="elocal">i</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="elocal">p</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span><span class="esymbol">)</span>
+				<span class="ekeyword">loop</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="elocal">counter</span> <span class="esymbol">:=</span> <span class="elocal">counter</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">p</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">new_index</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">if</span> <span class="elocal">new_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_move">move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">new_index</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">moved_if_inbounds</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <span class="esymbol">=</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="etag">before_set</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+			<span class="etag">after_set</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_index">index</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_after">after</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_go_i_th"></a><a class="efeature" href="../base/linked_list.html#f_go_i_th">go_i_th</a> <span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to </span><span class="equoted">i</span><span class="ecomment">-th position.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">i</span> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/linked_list.html#f_move">move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/linked_list.html#f_index">index</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_go_to"></a><a class="efeature" href="../base/linked_list.html#f_go_to">go_to</a> <span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/cursor.html">CURSOR</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to position </span><span class="equoted">p</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_cursor">cursor</a><span class="esymbol">}</span> <span class="elocal">p</span> <span class="ekeyword">as</span> ll_c <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_after">after</a>
+				<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_before">before</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">ll_c</span><span class="edot">.</span><a class="efeature" href="../base/linked_list_cursor.html#f_active">active</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">correct_cursor_type</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_put_front"></a><a class="efeature" href="../base/linked_list.html#f_put_front">put_front</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> to beginning.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_extend"></a><a class="efeature" href="../base/linked_list.html#f_extend">extend</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> to end.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">l</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a>
+				<span class="ekeyword">if</span> <span class="elocal">l</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">l</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_left"></a><a class="efeature" href="../base/linked_list.html#f_put_left">put_left</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> to the left of cursor position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_put_front">put_front</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/linked_list.html#f_back">back</a>
+				<a class="efeature" href="../base/linked_list.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/linked_list.html#f_move">move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a><span class="esymbol">)</span>
+				<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">previous_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">item_inserted</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a> <span class="ekeyword">as</span> q <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">q</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_put_right"></a><a class="efeature" href="../base/linked_list.html#f_put_right">put_right</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">v</span><span class="ecomment"> to the right of cursor position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">check</span>
+					<a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a><span class="esymbol">)</span>
+					<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">next_exists</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_next">next</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">item_inserted</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_next">next</a> <span class="ekeyword">as</span> n <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">n</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="etag">item_inserted_before</span><span class="esymbol">:</span> <span class="ekeyword">old</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="ekeyword">attached</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="ekeyword">as</span> c <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_replace"></a><a class="efeature" href="../base/linked_list.html#f_replace">replace</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Replace current item by </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_merge_left"></a><a class="efeature" href="../base/linked_list.html#f_merge_left">merge_left</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Merge </span><span class="equoted">other</span><span class="ecomment"> into current structure before cursor</span>
+			<span class="ecomment">--</span><span class="ecomment"> position. Do not move cursor. Empty </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">other_first_element</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">other_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a> <span class="ekeyword">as</span> other_last_element <span class="ekeyword">then</span>
+				<span class="elocal">other_first_element</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="elocal">other_count</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_count">count</a>
+				<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_wipe_out">wipe_out</a>
+				<span class="ekeyword">check</span>
+						<span class="elocal">other_first_element</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">other_first_element</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a> <span class="ekeyword">then</span>
+					<span class="elocal">other_last_element</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+					<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">other_first_element</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a>
+					<span class="ekeyword">if</span> <span class="elocal">p</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other_first_element</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">other_last_element</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">other_count</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_merge_right"></a><a class="efeature" href="../base/linked_list.html#f_merge_right">merge_right</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Merge </span><span class="equoted">other</span><span class="ecomment"> into current structure after cursor</span>
+			<span class="ecomment">--</span><span class="ecomment"> position. Do not move cursor. Empty </span><span class="equoted">other</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">other_first_element</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">other_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a> <span class="ekeyword">as</span> other_last_element <span class="ekeyword">then</span>
+				<span class="elocal">other_first_element</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="elocal">other_count</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_count">count</a>
+				<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_wipe_out">wipe_out</a>
+				<span class="ekeyword">check</span>
+						<span class="elocal">other_first_element</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">other_first_element</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/linked_list.html#f_islast">islast</a> <span class="ekeyword">then</span>
+						<span class="elocal">other_last_element</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other_first_element</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">other_count</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Removal</span>
+
+	<a name="f_remove"></a><a class="efeature" href="../base/linked_list.html#f_remove">remove</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove current item.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Move cursor to right neighbor</span>
+			<span class="ecomment">--</span><span class="ecomment"> (or </span><a class="efeature" href="../base/linked_list.html#f_after">after</a><span class="ecomment"> if no right neighbor).</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">succ</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">removed</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">removed</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">if</span> <span class="elocal">removed</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">removed</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="elocal">removed</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_forget_right">forget_right</a>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+					<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">check</span>
+							<span class="etag">no_active</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+						<span class="ekeyword">end</span>
+						<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">elseif</span> <a class="efeature" href="../base/linked_list.html#f_islast">islast</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a>
+					<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+					<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_forget_right">forget_right</a>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">succ</span> <span class="esymbol">:=</span> <span class="elocal">removed</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_previous">previous</a>
+					<span class="ekeyword">if</span> <span class="elocal">p</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">succ</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">removed</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_forget_right">forget_right</a>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="elocal">succ</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<a class="efeature" href="../base/linked_list.html#f_cleanup_after_remove">cleanup_after_remove</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">removed</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_remove_left"></a><a class="efeature" href="../base/linked_list.html#f_remove_left">remove_left</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove item to the left of cursor position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/linked_list.html#f_move">move</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">-2</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/linked_list.html#f_remove_right">remove_right</a>
+			<a class="efeature" href="../base/linked_list.html#f_forth">forth</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_remove_right"></a><a class="efeature" href="../base/linked_list.html#f_remove_right">remove_right</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove item to the right of cursor position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Do not move cursor.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">removed</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">f</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="elocal">succ</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<span class="elocal">f</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">if</span> <span class="elocal">f</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">removed</span> <span class="esymbol">:=</span> <span class="elocal">f</span>
+					<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="elocal">f</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+					<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_forget_right">forget_right</a>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="elocal">succ</span> <span class="esymbol">:=</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+					<span class="ekeyword">if</span> <span class="elocal">succ</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">removed</span> <span class="esymbol">:=</span> <span class="elocal">succ</span>
+						<span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_put_right">put_right</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">succ</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a><span class="esymbol">)</span>
+						<span class="elocal">succ</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_forget_right">forget_right</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+			<a class="efeature" href="../base/linked_list.html#f_cleanup_after_remove">cleanup_after_remove</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">removed</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/linked_list.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all items.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/linked_list.html#f_internal_wipe_out">internal_wipe_out</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Duplication</span>
+
+	<a name="f_copy"></a><a class="efeature" href="../base/linked_list.html#f_copy">copy</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update current object using fields of object attached</span>
+			<span class="ecomment">--</span><span class="ecomment"> to </span><span class="equoted">other</span><span class="ecomment">, so as to yield equal objects.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">cur</span><span class="esymbol">:</span> <a class="eclass" href="../base/linked_list_cursor.html">LINKED_LIST_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">other</span> <span class="esymbol">/=</span> <span class="ekeyword">Current</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/any.html#f_standard_copy">standard_copy</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/linked_list.html#f_internal_wipe_out">internal_wipe_out</a>
+					<span class="elocal">cur</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_cursor">cursor</a>
+					<span class="ekeyword">from</span>
+						<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_start">start</a>
+					<span class="ekeyword">until</span>
+						<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_off">off</a>
+					<span class="ekeyword">loop</span>
+						<a class="efeature" href="../base/linked_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span>
+						<a class="efeature" href="../base/linked_list.html#f_finish">finish</a>
+						<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_forth">forth</a>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="elocal">cur</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_go_to">go_to</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cur</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/linked_list.html">LINKED_LIST</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_new_chain"></a><a class="efeature" href="../base/linked_list.html#f_new_chain">new_chain</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+		<span class="ekeyword">obsolete</span> &quot;Use explicit creation instead. See also explanations for `duplicate`. [2018-11-30]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> A newly created instance of the same type.</span>
+			<span class="ecomment">--</span><span class="ecomment"> This feature may be redefined in descendants so as to</span>
+			<span class="ecomment">--</span><span class="ecomment"> produce an adequately allocated and initialized object.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/linked_list.html#f_make">make</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_cell"></a><a class="efeature" href="../base/linked_list.html#f_new_cell">new_cell</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/linkable.html">LINKABLE</a> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_item">item</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> A newly created instance of the same type as </span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> This feature may be redefined in descendants so as to</span>
+			<span class="ecomment">--</span><span class="ecomment"> produce an adequately allocated and initialized object.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_exists</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_previous"></a><a class="efeature" href="../base/linked_list.html#f_previous">previous</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="ecomment">--</span><span class="ecomment"> Element left of cursor</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_isfirst">isfirst</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../base/linked_list.html#f_before">before</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">p</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">p</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_next"></a><a class="efeature" href="../base/linked_list.html#f_next">next</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="ecomment">--</span><span class="ecomment"> Element right of cursor</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">a</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">else</span>
+				<span class="elocal">a</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+				<span class="ekeyword">if</span> <span class="elocal">a</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_active"></a><a class="efeature" href="../base/linked_list.html#f_active">active</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="ecomment">--</span><span class="ecomment"> Element at cursor position</span>
+
+	<a name="f_last_element"></a><a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+			<span class="ecomment">--</span><span class="ecomment"> Tail of list</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/linked_list.html#f_active">active</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">p</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">p</span>
+				<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../base/linkable.html#f_right">right</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cleanup_after_remove"></a><a class="efeature" href="../base/linked_list.html#f_cleanup_after_remove">cleanup_after_remove</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Clean-up a just removed cell.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">non_void_cell</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_internal_wipe_out"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/linked_list.html#f_internal_wipe_out">internal_wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Remove all items.</span>
+		<span class="ekeyword">require</span>
+				<a class="efeature" href="../base/dynamic_chain.html#f_prunable">prunable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../base/linked_list.html#f_before">before</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../base/linked_list.html#f_after">after</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../base/linked_list.html#f_count">count</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">wiped_out</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+			<span class="etag">is_before</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">prunable</span><span class="esymbol">:</span> <a class="efeature" href="../base/dynamic_chain.html#f_prunable">prunable</a>
+	<span class="etag">empty_constraint</span><span class="esymbol">:</span> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span><span class="esymbol">)</span><span class="esymbol">)</span>
+	<span class="etag">not_void_unless_empty</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+	<span class="etag">before_constraint</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_before">before</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_first_element">first_element</a><span class="esymbol">)</span>
+	<span class="etag">after_constraint</span><span class="esymbol">:</span> <a class="efeature" href="../base/linked_list.html#f_after">after</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><a class="efeature" href="../base/linked_list.html#f_active">active</a> <span class="esymbol">=</span> <a class="efeature" href="../base/linked_list.html#f_last_element">last_element</a><span class="esymbol">)</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/linked_list.html">LINKED_LIST</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="linked_list_chart.html">Chart</a>
+<a class="nav class" href="linked_list_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="linked_list"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

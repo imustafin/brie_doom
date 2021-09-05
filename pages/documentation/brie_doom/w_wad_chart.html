@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="w_wad.c Handles WAD file header, directory, lump I/O."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>w_wad Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="w_wad_links.html">Relations</a>
+<a class="nav class" href="w_wad.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="w_wad"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../brie_doom/w_wad_chart.html">W_WAD</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../brie_doom/index.html">brie_doom</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;w_wad.c</span>
+		<span class="estring">Handles WAD file header, directory, lump I/O.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../brie_doom/w_wad.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`extractfilebase' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_extractfilebase">extractfilebase</a> <span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`lumpcache' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_lumpcache">lumpcache</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/managed_pointer_chart.html">MANAGED_POINTER</a><span class="esymbol">]</span></span>
+	<span title="`lumpinfo' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_lumpinfo">lumpinfo</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/lumpinfo_t_chart.html">LUMPINFO_T</a><span class="esymbol">]</span></span>
+	<span title="`reloadlump' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_reloadlump">reloadlump</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`reloadname' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_reloadname">reloadname</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`w_cachelumpname' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">tag</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer_chart.html">MANAGED_POINTER</a></span>
+	<span title="`w_cachelumpnum' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpnum">w_cachelumpnum</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">,</span> <span class="elocal">tag</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer_chart.html">MANAGED_POINTER</a></span>
+	<span title="`w_checknumforname' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`w_getnumforname' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_getnumforname">w_getnumforname</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`w_lumplength' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_lumplength">w_lumplength</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`w_readlump' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_readlump">w_readlump</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer_chart.html">MANAGED_POINTER</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/w_wad.html#f_i_main">i_main</a><span class="esymbol">]</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`w_addfile' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_addfile">w_addfile</a> <span class="esymbol">(</span><span class="elocal">a_filename</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span></span>
+	<span title="`w_initmultiplefiles' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_initmultiplefiles">w_initmultiplefiles</a> <span class="esymbol">(</span><span class="elocal">a_filenames</span><span class="esymbol">:</span> <a class="eclass" href="../base/list_chart.html">LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">]</span><span class="esymbol">)</span></span>
+	<span title="`w_releaselumpnum' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_releaselumpnum">w_releaselumpnum</a> <span class="esymbol">(</span><span class="elocal">lump</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`w_reload' is declared in `Current'"><a class="efeature" href="../brie_doom/w_wad.html#f_w_reload">w_reload</a></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="w_wad_links.html">Relations</a>
+<a class="nav class" href="w_wad.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="w_wad"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

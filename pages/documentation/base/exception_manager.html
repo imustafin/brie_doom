@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Common exception operations and management."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>exception_manager Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="exception_manager_chart.html">Chart</a>
+<a class="nav class" href="exception_manager_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="exception_manager"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Common exception operations and management.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:47:11 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101695 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/exception_manager.html">EXCEPTION_MANAGER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_last_exception"></a><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_last_exception">last_exception</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Raise</span>
+
+	<a name="f_raise"></a><a class="efeature" href="../base/exception_manager.html#f_raise">raise</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Raise </span><span class="equoted">a_exception</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_not_void</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_exception_is_raisable</span><span class="esymbol">:</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_is_raisable">is_raisable</a>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_raise">raise</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status setting</span>
+
+	<a name="f_ignore"></a><a class="efeature" href="../base/exception_manager.html#f_ignore">ignore</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Ignore type of </span><span class="equoted">a_exception</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_not_void</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">is_ignorable</span><span class="esymbol">:</span> <a class="efeature" href="../base/exception_manager.html#f_is_ignorable">is_ignorable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_ignore">ignore</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">is_caught</span><span class="esymbol">:</span> <a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_catch"></a><a class="efeature" href="../base/exception_manager.html#f_catch">catch</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set type of </span><span class="equoted">a_exception</span><span class="ecomment"> </span><a class="efeature" href="../base/exception_manager.html#f_is_caught">is_caught</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_not_void</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_catch">catch</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">is_ignored</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_ignored"></a><a class="efeature" href="../base/exception_manager.html#f_set_is_ignored">set_is_ignored</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">a_ignored</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set type of </span><span class="equoted">a_exception</span><span class="ecomment"> to be </span><span class="equoted">a_ignored</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_not_void</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_ignored_implies_is_ignorable</span><span class="esymbol">:</span> <span class="elocal">a_ignored</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/exception_manager.html#f_is_ignorable">is_ignorable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_set_is_ignored">set_is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">,</span> <span class="elocal">a_ignored</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">is_ignored_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="elocal">a_ignored</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_ignorable"></a><a class="efeature" href="../base/exception_manager.html#f_is_ignorable">is_ignorable</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> If set, type of </span><span class="equoted">a_exception</span><span class="ecomment"> is ignorable.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_is_ignorable">is_ignorable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_raisable"></a><a class="efeature" href="../base/exception_manager.html#f_is_raisable">is_raisable</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> If set, type of </span><span class="equoted">a_exception</span><span class="ecomment"> is raisable.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_is_raisable">is_raisable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_ignored"></a><a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> If set, type of </span><span class="equoted">a_exception</span><span class="ecomment"> is not raised.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">not_is_caught</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/exception_manager.html#f_is_caught">is_caught</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_caught"></a><a class="efeature" href="../base/exception_manager.html#f_is_caught">is_caught</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> If set, type of </span><span class="equoted">a_exception</span><span class="ecomment"> is raised.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/exception_manager_factory.html">EXCEPTION_MANAGER_FACTORY</a><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/exception_manager_factory.html#f_exception_manager">Exception_manager</a><span class="edot">.</span><a class="efeature" href="../base/exception_manager.html#f_is_caught">is_caught</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">not_is_ignored</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/exception_manager.html#f_is_ignored">is_ignored</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/exceptions.html">EXCEPTIONS</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Backward compatibility support</span>
+
+	<a name="f_type_of_code"></a><a class="efeature" href="../base/exception_manager.html#f_type_of_code">type_of_code</a> <span class="esymbol">(</span><span class="elocal">a_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/type.html">TYPE</a> <span class="esymbol">[</span><a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Exception type of </span><span class="equoted">a_code</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_exception_from_code"></a><a class="efeature" href="../base/exception_manager.html#f_exception_from_code">exception_from_code</a> <span class="esymbol">(</span><span class="elocal">a_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a>
+			<span class="ecomment">--</span><span class="ecomment"> Create exception object from </span><span class="equoted">a_code</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/exception_manager.html">EXCEPTION_MANAGER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="exception_manager_chart.html">Chart</a>
+<a class="nav class" href="exception_manager_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="exception_manager"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Facility to mark objects once when traversing an object graph."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>object_graph_marker Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="object_graph_marker_chart.html">Chart</a>
+<a class="nav class" href="object_graph_marker_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="object_graph_marker"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Facility to mark objects once when traversing an object graph.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-04-28 20:47:11 +0000 (Sat, 28 Apr 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 101695 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/object_graph_marker.html">OBJECT_GRAPH_MARKER</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/object_graph_traversable.html">OBJECT_GRAPH_TRAVERSABLE</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_marked"></a><a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">obj</span><span class="ecomment"> marked?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_exists</span><span class="esymbol">:</span> <span class="elocal">obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_is_object_marked">is_object_marked</a> <span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">obj</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/object_graph_traversable.html">OBJECT_GRAPH_TRAVERSABLE</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Marking</span>
+
+	<a name="f_mark"></a><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Mark object </span><span class="equoted">obj</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> To be thread safe, make sure to call this feature when you</span>
+			<span class="ecomment">--</span><span class="ecomment"> have the marking lock that you acquire using </span><a class="efeature" href="../base/object_graph_marker.html#f_lock_marking">lock_marking</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_not_void</span><span class="esymbol">:</span> <span class="elocal">obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_mark_object">mark_object</a> <span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">obj</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">is_marked</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unmark"></a><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a> <span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Unmark object </span><span class="equoted">obj</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> To be thread safe, make sure to call this feature when you</span>
+			<span class="ecomment">--</span><span class="ecomment"> have the marking lock that you acquire using </span><a class="efeature" href="../base/object_graph_marker.html#f_lock_marking">lock_marking</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">object_not_void</span><span class="esymbol">:</span> <span class="elocal">obj</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_unmark_object">unmark_object</a> <span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">obj</span><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+			<span class="etag">is_not_marked</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">obj</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lock_marking"></a><a class="efeature" href="../base/object_graph_marker.html#f_lock_marking">lock_marking</a>
+			<span class="ecomment">--</span><span class="ecomment"> Get a lock on </span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="ecomment"> and </span><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a><span class="ecomment"> routine so that 2 threads cannot </span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="ecomment"> and</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a><span class="ecomment"> at the same time.</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_lock_marking">lock_marking</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unlock_marking"></a><a class="efeature" href="../base/object_graph_marker.html#f_unlock_marking">unlock_marking</a>
+			<span class="ecomment">--</span><span class="ecomment"> Release a lock on </span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="ecomment"> and </span><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a><span class="ecomment">, so that another thread can</span>
+			<span class="ecomment">--</span><span class="ecomment"> use </span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="ecomment"> and </span><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_unlock_marking">unlock_marking</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/object_graph_marker.html">OBJECT_GRAPH_MARKER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="object_graph_marker_chart.html">Chart</a>
+<a class="nav class" href="object_graph_marker_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="object_graph_marker"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

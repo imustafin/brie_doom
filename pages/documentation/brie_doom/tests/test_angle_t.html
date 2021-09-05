@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Eiffel tests that can be executed by testing tool."/>
+<meta name="author" content="EiffelStudio test wizard"/>
+<meta name="testing" content="type/manual"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>test_angle_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_angle_t_chart.html">Chart</a>
+<a class="nav class" href="test_angle_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_angle_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel tests that can be executed by testing tool.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelStudio test wizard&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">testing</span><span class="esymbol">:</span> <span class="estring">&quot;type/manual&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/tests/test_angle_t.html">TEST_ANGLE_T</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../testing/eqa_test_set.html">EQA_TEST_SET</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../testing/eqa_test_set.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Test routines</span>
+
+	<a name="f_test_abs_positive"></a><a class="efeature" href="../../brie_doom/tests/test_angle_t.html#f_test_abs_positive">test_abs_positive</a>
+			<span class="ecomment">--</span><span class="ecomment"> abs of positive should give the same</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">angle</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">angle</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">2</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;abs of pos is the the same pos&quot;<span class="esymbol">,</span> <span class="elocal">angle</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_abs">abs</a> <span class="esymbol">=</span> <span class="elocal">angle</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_test_abs_negative"></a><a class="efeature" href="../../brie_doom/tests/test_angle_t.html#f_test_abs_negative">test_abs_negative</a>
+			<span class="ecomment">--</span><span class="ecomment"> abs of negative should give other</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">angle_2</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+			<span class="elocal">angle_minus_2</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+			<span class="elocal">abs_angle_minus_2</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">angle_2</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="elocal">angle_minus_2</span> <span class="esymbol">:=</span> <a class="esymbol" href="../../brie_doom/math/angle_t.html#f_flip_sign">-</a> <span class="elocal">angle_2</span>
+			<span class="elocal">abs_angle_minus_2</span> <span class="esymbol">:=</span> <span class="elocal">angle_minus_2</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_abs">abs</a>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;abs of neg is the pos&quot;<span class="esymbol">,</span> <span class="elocal">abs_angle_minus_2</span> <span class="esymbol">~</span> <span class="elocal">angle_2</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_test_unary_minus"></a><a class="efeature" href="../../brie_doom/tests/test_angle_t.html#f_test_unary_minus">test_unary_minus</a>
+			<span class="ecomment">--</span><span class="ecomment"> a = --a</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">angle</span><span class="esymbol">,</span> <span class="elocal">m_angle</span><span class="esymbol">,</span> <span class="elocal">mm_angle</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">angle</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/angle_t.html">ANGLE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/angle_t.html#f_from_natural">from_natural</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">3</span><span class="esymbol">)</span>
+			<span class="elocal">m_angle</span> <span class="esymbol">:=</span> <a class="esymbol" href="../../brie_doom/math/angle_t.html#f_flip_sign">-</a> <span class="elocal">angle</span>
+			<span class="elocal">mm_angle</span> <span class="esymbol">:=</span> <a class="esymbol" href="../../brie_doom/math/angle_t.html#f_flip_sign">-</a> <span class="elocal">m_angle</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;minus minus a = a&quot;<span class="esymbol">,</span> <span class="elocal">angle</span> <span class="esymbol">=</span> <span class="elocal">mm_angle</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;minus a /= a&quot;<span class="esymbol">,</span> <span class="elocal">angle</span> <span class="esymbol">/=</span> <span class="elocal">m_angle</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/tests/test_angle_t.html">TEST_ANGLE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_angle_t_chart.html">Chart</a>
+<a class="nav class" href="test_angle_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_angle_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

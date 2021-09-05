@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="External iteration cursor for a file."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="author" content="Alexander Kogtenkov"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>file_iteration_cursor Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="file_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="file_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="file_iteration_cursor"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;External iteration cursor for a file.&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/file_iteration_cursor.html">FILE_ITERATION_CURSOR</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/disposable.html">DISPOSABLE</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/disposable.html#f_dispose">dispose</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_close">close</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/iteration_cursor.html">ITERATION_CURSOR</a> <span class="esymbol">[</span><a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/iteration_cursor.html#f_item">item</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_character">character</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/file.html">FILE</a><span class="esymbol">}</span>
+	<a class="efeature" href="../base/file_iteration_cursor.html#f_make_empty">make_empty</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/file_iteration_cursor.html#f_make_open_read">make_open_read</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/file_iteration_cursor.html#f_make_open_stdin">make_open_stdin</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Creation</span>
+
+	<a name="f_make_empty"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_make_empty">make_empty</a>
+			<span class="ecomment">--</span><span class="ecomment"> Create an iterator without any items.</span>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">ensure</span>
+				<a class="efeature" href="../base/file_iteration_cursor.html#f_after">after</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_open_read"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_make_open_read">make_open_read</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Open a file of name </span><span class="equoted">name</span><span class="ecomment"> to iterate over.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/file.html">FILE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_file_open">file_open</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file_iteration_cursor.html#f_forth">forth</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_open_stdin"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_make_open_stdin">make_open_stdin</a>
+			<span class="ecomment">--</span><span class="ecomment"> Open standard input.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/console.html">CONSOLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/console.html#f_console_def">console_def</a> <span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/file_iteration_cursor.html#f_forth">forth</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_character"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_character">character</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Item at current cursor position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> See also </span><a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_byte"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> See also </span><a class="efeature" href="../base/file_iteration_cursor.html#f_character">character</a><span class="ecomment">.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report	</span>
+
+	<a name="f_after"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_after">after</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are there no more items to iterate over?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a> <span class="esymbol">=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_forth"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_forth">forth</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next position.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Attempt to read a byte from the file and make it available in </span><a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="ecomment"> and </span><a class="efeature" href="../base/file_iteration_cursor.html#f_character">character</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/raw_file.html">RAW_FILE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/raw_file.html#f_file_fread">file_fread</a> <span class="esymbol">(</span><span class="esymbol">$</span><a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_item">to_pointer</a><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">1</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/file_iteration_cursor.html#f_close">close</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Disposal</span>
+
+	<a name="f_close"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_close">close</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action to be executed just before garbage collection</span>
+			<span class="ecomment">--</span><span class="ecomment"> reclaims an object.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Effect it in descendants to perform specific dispose</span>
+			<span class="ecomment">--</span><span class="ecomment"> actions. Those actions should only take care of freeing</span>
+			<span class="ecomment">--</span><span class="ecomment"> external resources; they should not perform remote calls</span>
+			<span class="ecomment">--</span><span class="ecomment"> on other objects since these may also be dead and reclaimed.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Release resources associated with the file.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../base/file.html">FILE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/file.html#f_file_close">file_close</a> <span class="esymbol">(</span><a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_file_pointer"></a><a class="efeature" href="../base/file_iteration_cursor.html#f_file_pointer">file_pointer</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> File pointer used by low-level C operations.</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">consistent_item</span><span class="esymbol">:</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_byte">byte</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_to_character_8">to_character_8</a> <span class="esymbol">=</span> <a class="efeature" href="../base/file_iteration_cursor.html#f_character">character</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2018-11-03 08:58:17 +0000 (Sat, 03 Nov 2018) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 102395 $&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Alexander Kogtenkov&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2018, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/file_iteration_cursor.html">FILE_ITERATION_CURSOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="file_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="file_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="file_iteration_cursor"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

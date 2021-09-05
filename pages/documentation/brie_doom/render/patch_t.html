@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="r_defs.h Patches. A patch holds one or more columns. Patches are used for sprites and all masked pictures, and we compose textures from the TEXTURE1/2 lists of patches"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>patch_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="patch_t_chart.html">Chart</a>
+<a class="nav class" href="patch_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="patch_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">r_defs.h</span>
+		<span class="estring">Patches.</span>
+		<span class="estring">A patch holds one or more columns.</span>
+		<span class="estring">Patches are used for sprites and all masked pictures,</span>
+		<span class="estring">and we compose textures from the TEXTURE1/2 lists</span>
+		<span class="estring">of patches</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_pointer"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_width"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+
+	<a name="f_height"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_height">height</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+
+	<a name="f_leftoffset"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_leftoffset">leftoffset</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+
+	<a name="f_topoffset"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_topoffset">topoffset</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+
+	<a name="f_columnofs"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_columns"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_columns">columns</a><span class="esymbol">:</span> <a class="eclass" href="../../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/render/column_t.html">COLUMN_T</a><span class="esymbol">]</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_column_by_offset">column_by_offset</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_column_by_offset"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_column_by_offset">column_by_offset</a> <span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/render/column_t.html">COLUMN_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/column_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_from_pointer"></a><a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a> <span class="esymbol">(</span><span class="elocal">a_p</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">has_header</span><span class="esymbol">:</span> <span class="elocal">a_p</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">40</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a> <span class="esymbol">:=</span> <span class="elocal">a_p</span>
+			<a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/patch_t.html#f_height">height</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/patch_t.html#f_leftoffset">leftoffset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/patch_t.html#f_topoffset">topoffset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">6</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_width">width</a> <a class="esymbol" href="../../base/integer_16.html#f_minus">-</a> <span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_upper">upper</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/patch_t.html#f_pointer">pointer</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">8</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">4</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+		<a class="efeature" href="../../brie_doom/render/patch_t.html#f_columnofs">columnofs</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_lower">lower</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="patch_t_chart.html">Chart</a>
+<a class="nav class" href="patch_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="patch_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

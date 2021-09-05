@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="d_ticcmd.h System specific interface stuff.  The data sampled per tick (single player) and transmitted to other players (multiplayer). Mainly movements/button commands per game tick, plus a checksum for internal state consistency."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>ticcmd_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ticcmd_t_chart.html">Chart</a>
+<a class="nav class" href="ticcmd_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="ticcmd_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">d_ticcmd.h</span>
+		<span class="estring">System specific interface stuff.</span>
+		
+		<span class="estring">The data sampled per tick (single player)</span>
+		<span class="estring">and transmitted to other players (multiplayer).</span>
+		<span class="estring">Mainly movements/button commands per game tick,</span>
+		<span class="estring">plus a checksum for internal state consistency.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/ticcmd_t.html">TICCMD_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_forwardmove"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_forwardmove">set_forwardmove</a>
+			<span class="ecomment">--</span><span class="ecomment"> *2048 for move</span>
+
+	<a name="f_set_forwardmove"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_forwardmove">set_forwardmove</a> <span class="esymbol">(</span><span class="elocal">a_forwardmove</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a> <span class="esymbol">:=</span> <span class="elocal">a_forwardmove</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sidemove"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_sidemove">set_sidemove</a>
+			<span class="ecomment">--</span><span class="ecomment"> *2048 for move</span>
+
+	<a name="f_set_sidemove"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_sidemove">set_sidemove</a> <span class="esymbol">(</span><span class="elocal">a_sidemove</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a> <span class="esymbol">:=</span> <span class="elocal">a_sidemove</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_angleturn"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_angleturn">set_angleturn</a>
+			<span class="ecomment">--</span><span class="ecomment"> &lt;&lt;16 for angle data</span>
+
+	<a name="f_set_angleturn"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_angleturn">set_angleturn</a> <span class="esymbol">(</span><span class="elocal">a_angleturn</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a> <span class="esymbol">:=</span> <span class="elocal">a_angleturn</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_consistancy"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_consistancy">consistancy</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_consistancy">set_consistancy</a>
+			<span class="ecomment">--</span><span class="ecomment"> checks for net game</span>
+
+	<a name="f_set_consistancy"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_consistancy">set_consistancy</a> <span class="esymbol">(</span><span class="elocal">a_consistancy</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_consistancy">consistancy</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_consistancy">consistancy</a> <span class="esymbol">:=</span> <span class="elocal">a_consistancy</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_chatchar"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_chatchar">chatchar</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_chatchar">set_chatchar</a>
+
+	<a name="f_set_chatchar"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_chatchar">set_chatchar</a> <span class="esymbol">(</span><span class="elocal">a_chatchar</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_chatchar">chatchar</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_chatchar">chatchar</a> <span class="esymbol">:=</span> <span class="elocal">a_chatchar</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_buttons"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_buttons">set_buttons</a>
+
+	<a name="f_set_buttons"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_set_buttons">set_buttons</a> <span class="esymbol">(</span><span class="elocal">a_buttons</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a> <span class="esymbol">:=</span> <span class="elocal">a_buttons</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_copy_from"></a><a class="efeature" href="../brie_doom/ticcmd_t.html#f_copy_from">copy_from</a> <span class="esymbol">(</span><span class="elocal">a_other</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/ticcmd_t.html">TICCMD_T</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_consistancy">consistancy</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_consistancy">consistancy</a>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_chatchar">chatchar</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_chatchar">chatchar</a>
+			<a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a> <span class="esymbol">:=</span> <span class="elocal">a_other</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">copied</span><span class="esymbol">:</span> <span class="ekeyword">Current</span> <span class="esymbol">~</span> <span class="elocal">a_other</span>
+			<span class="etag">not_modified_a_other</span><span class="esymbol">:</span> <span class="ekeyword">old</span> <span class="elocal">a_other</span> <span class="esymbol">~</span> <span class="elocal">a_other</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/ticcmd_t.html">TICCMD_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="ticcmd_t_chart.html">Chart</a>
+<a class="nav class" href="ticcmd_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="ticcmd_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="sounds.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sfxinfo_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sfxinfo_t_chart.html">Chart</a>
+<a class="nav class" href="sfxinfo_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sfxinfo_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;sounds.h&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_name">name</a><span class="esymbol">;</span> <span class="elocal">a_singularity</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_singularity">singularity</a><span class="esymbol">;</span> <span class="elocal">a_priority</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_priority">priority</a><span class="esymbol">;</span> <span class="elocal">a_link</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_link">link</a><span class="esymbol">;</span> <span class="elocal">a_pitch</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_pitch">pitch</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_name">name</a> <span class="esymbol">:=</span> <span class="elocal">a_name</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_singularity">singularity</a> <span class="esymbol">:=</span> <span class="elocal">a_singularity</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_priority">priority</a> <span class="esymbol">:=</span> <span class="elocal">a_priority</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_link">link</a> <span class="esymbol">:=</span> <span class="elocal">a_link</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_pitch">pitch</a> <span class="esymbol">:=</span> <span class="elocal">a_pitch</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_name"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_name">name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> up to 6-character name</span>
+
+	<a name="f_singularity"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_singularity">singularity</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Sfx singularity (one at a time) (originally int)</span>
+
+	<a name="f_priority"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_priority">priority</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Sfx priority</span>
+
+	<a name="f_link"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_link">link</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a>
+			<span class="ecomment">--</span><span class="ecomment"> referenced sound if a link</span>
+
+	<a name="f_pitch"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_pitch">pitch</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> pitch if a link</span>
+
+	<a name="f_volume"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_volume">volume</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> volume if a link</span>
+
+	<a name="f_data"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_data">data</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> sound data (orignally void*)</span>
+
+	<a name="f_usefulness"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_usefulness">usefulness</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_set_usefulness">set_usefulness</a>
+			<span class="ecomment">--</span><span class="ecomment"> this is checked every second to see if sound can be thrown out</span>
+			<span class="ecomment">--</span><span class="ecomment"> (if 0, then decrement,</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;if -1, then throw out,</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;if &gt; 0, then it is in use)</span>
+
+	<a name="f_set_usefulness"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_set_usefulness">set_usefulness</a> <span class="esymbol">(</span><span class="elocal">a_usefulness</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_usefulness">usefulness</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_usefulness">usefulness</a> <span class="esymbol">:=</span> <span class="elocal">a_usefulness</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lumpnum"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_set_lumpnum">set_lumpnum</a>
+			<span class="ecomment">--</span><span class="ecomment"> lump number of sfx</span>
+
+	<a name="f_set_lumpnum"></a><a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_set_lumpnum">set_lumpnum</a> <span class="esymbol">(</span><span class="elocal">a_lumpnum</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/sound/sfxinfo_t.html#f_lumpnum">lumpnum</a> <span class="esymbol">:=</span> <span class="elocal">a_lumpnum</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sfxinfo_t_chart.html">Chart</a>
+<a class="nav class" href="sfxinfo_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sfxinfo_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

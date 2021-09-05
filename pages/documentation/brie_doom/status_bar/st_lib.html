@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="st_lib.c The status bar widget code."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>st_lib Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="st_lib_chart.html">Chart</a>
+<a class="nav class" href="st_lib_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="st_lib"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">st_lib.c</span>
+		<span class="estring">The status bar widget code.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/status_bar/st_lib.html">ST_LIB</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_sttminus"></a><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_sttminus">sttminus</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a>
+
+	<a name="f_stlib_init"></a><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_stlib_init">stlib_init</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_checknumforname">w_checknumforname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;STTMINUS&quot;<span class="esymbol">)</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_sttminus">sttminus</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/render/patch_t.html">PATCH_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/patch_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/status_bar/st_lib.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;STTMINUS&quot;<span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/z_zone.html#f_pu_cache">pu_cache</a><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/status_bar/st_lib.html">ST_LIB</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="st_lib_chart.html">Chart</a>
+<a class="nav class" href="st_lib_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="st_lib"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

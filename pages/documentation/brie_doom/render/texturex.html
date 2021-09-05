@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Struct for TEXTURE1 and TEXTURE2 lumps.  Definition: https://doomwiki.org/wiki/TEXTURE1_and_TEXTURE2"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>texturex Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="texturex_chart.html">Chart</a>
+<a class="nav class" href="texturex_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="texturex"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Struct for TEXTURE1 and TEXTURE2 lumps.</span>
+		
+		<span class="estring">Definition: </span><a class="estring" href="https://doomwiki.org/wiki/TEXTURE1_and_TEXTURE2">https://doomwiki.org/wiki/TEXTURE1_and_TEXTURE2</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/render/texturex.html">TEXTUREX</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../brie_doom/render/texturex.html#f_from_pointer">from_pointer</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_from_pointer"></a><a class="efeature" href="../../brie_doom/render/texturex.html#f_from_pointer">from_pointer</a> <span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">numtextures</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">offsets</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">numtextures</span> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">offsets</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">numtextures</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">numtextures</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">offsets</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">4</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/maptexture_t.html">MAPTEXTURE_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_make">make</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">numtextures</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">numtextures</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/texturex.html#f_read_maptexture_t">read_maptexture_t</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">,</span> <span class="elocal">offsets</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_maptexture_t"></a><a class="efeature" href="../../brie_doom/render/texturex.html#f_read_maptexture_t">read_maptexture_t</a> <span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/maptexture_t.html">MAPTEXTURE_T</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">patchcount</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_16.html">INTEGER_16</a>
+			<span class="elocal">patches</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/mappatch_t.html">MAPPATCH_T</a><span class="esymbol">]</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_make">make</a>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_name">name</a> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/string_8.html">STRING_8</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../base/readable_string_8.html#f_make_from_c">make_from_c</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_item">item</a> <a class="esymbol" href="../../base/pointer.html#f_plus">+</a> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_masked">masked</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_32_le">read_integer_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">8</span><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_width">width</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">12</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_height">height</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">14</span><span class="esymbol">)</span>
+			<span class="elocal">patchcount</span> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">20</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">patches</span><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/mappatch_t.html">MAPPATCH_T</a><span class="esymbol">}</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">patchcount</span> <a class="esymbol" href="../../base/integer_16.html#f_minus">-</a> <span class="enumber">1</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">patchcount</span><span class="edot">.</span><a class="efeature" href="../../base/integer_16_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">patches</span> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/texturex.html#f_read_mappatch_t">read_mappatch_t</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">,</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">22</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="enumber">10</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/maptexture_t.html#f_patches">patches</a> <span class="esymbol">:=</span> <span class="elocal">patches</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_mappatch_t"></a><a class="efeature" href="../../brie_doom/render/texturex.html#f_read_mappatch_t">read_mappatch_t</a> <span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">;</span> <span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/mappatch_t.html">MAPPATCH_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/mappatch_t.html#f_originx">originx</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/mappatch_t.html#f_originy">originy</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">2</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/mappatch_t.html#f_patch">patch</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">4</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/mappatch_t.html#f_stepdir">stepdir</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">6</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/mappatch_t.html#f_colormap">colormap</a> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_integer_16_le">read_integer_16_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">8</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_textures"></a><a class="efeature" href="../../brie_doom/render/texturex.html#f_textures">textures</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/maptexture_t.html">MAPTEXTURE_T</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/render/texturex.html">TEXTUREX</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="texturex_chart.html">Chart</a>
+<a class="nav class" href="texturex_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="texturex"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

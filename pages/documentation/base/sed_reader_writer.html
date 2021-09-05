@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Ancestor for reading/writing basic known entities from and to a particular location specified in concrete descendants of current."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_reader_writer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_reader_writer_chart.html">Chart</a>
+<a class="nav class" href="sed_reader_writer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_reader_writer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Ancestor for reading/writing basic known entities from and to a particular location specified in concrete descendants of current.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Header/Footer</span>
+
+	<a name="f_read_header"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_header">read_header</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action being executed before starting to read data.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_header"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_header">write_header</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action being executed before starting to write data.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_footer"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_footer">read_footer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action being executed after finishing to read data.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_footer"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_footer">write_footer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Action being executed after finishing to write data.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_ready_for_reading"></a><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is Current ready for future read operations?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_ready_for_writing"></a><a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is Current ready for future write operations?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_pointer_value_stored"></a><a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is value of a POINTER stored?</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Settings</span>
+
+	<a name="f_set_is_pointer_value_stored"></a><a class="efeature" href="../base/sed_reader_writer.html#f_set_is_pointer_value_stored">set_is_pointer_value_stored</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_pointer_value_stored_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_read_character_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next 8-bits character</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_character_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_32">read_character_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next 32-bits character</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_to_character_32">to_character_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_string_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_string_8">read_string_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next 8-bits sequence of character</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">nb</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nb</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_character_8">read_character_8</a><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">read_string_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_immutable_string_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_immutable_string_8">read_immutable_string_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next 8-bits sequence of character as an IMMUTABLE_STRING_8</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_string_8">read_string_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">read_immutable_string_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_string_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_string_32">read_string_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next sequence of characters encoded in UTF-8.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_8_string_8_to_string_32">utf_8_string_8_to_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_string_8">read_string_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">read_string_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_immutable_string_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_immutable_string_32">read_immutable_string_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next sequence of characters encoded in UTF-8 as an IMMUTABLE_STRING_32.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_string_32">read_string_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">read_string_8_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_boolean"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next boolean</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next natural_8</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_16"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_16">read_natural_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next natural_16</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next natural_32</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_natural_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_64">read_natural_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next natural_64</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_8">read_integer_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next integer_8</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_16"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_16">read_integer_16</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next integer_16</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_32">read_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next integer_32</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_integer_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_integer_64">read_integer_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next integer_64</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_real_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_32">read_real_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next real_32</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_real_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_real_64">read_real_64</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next real_64</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_pointer"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_pointer">read_pointer</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next pointer</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_compressed_integer_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_integer_32">read_compressed_integer_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next compressed integer_32.</span>
+			<span class="ecomment">--</span><span class="ecomment"> See </span><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="ecomment"> for more details about encoding.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_compressed_natural_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_read_compressed_natural_32">read_compressed_natural_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next compressed natural_32.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Depending on first natural_8 value read, it will tell how much more we need to read:</span>
+			<span class="ecomment">--</span><span class="ecomment"> 1 - Of the form 0xxxxxxx (0x00) for values between 0 and 127</span>
+			<span class="ecomment">--</span><span class="ecomment"> 2 - Of the form 10xxxxxx (0x80) for values between 128 and 16382 and one more to read.</span>
+			<span class="ecomment">--</span><span class="ecomment"> 3 - Of the form 110xxxxx (0xC0) for values between 16383 and 2097150 and 2 more to read.</span>
+			<span class="ecomment">--</span><span class="ecomment"> 4 - Of the form 1110xxxx (0xE0) for values between 2097151 and 268435454 and 3 more to read</span>
+			<span class="ecomment">--</span><span class="ecomment"> 5 - Otherwise a full natural_32 to read.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_nat8</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_nat8</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a>
+			<span class="ekeyword">if</span> <span class="elocal">l_nat8</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">128</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_nat8</span><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">l_nat8</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">192</span> <span class="esymbol">=</span> <span class="enumber">128</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">l_nat8</span><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">63</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">l_nat8</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">224</span> <span class="esymbol">=</span> <span class="enumber">192</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">l_nat8</span><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">31</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">l_nat8</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="enumber">240</span> <span class="esymbol">=</span> <span class="enumber">224</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">l_nat8</span><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">15</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">24</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">16</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">8</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_8">read_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_natural_32">as_natural_32</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_natural_32">read_natural_32</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cleanup"></a><a class="efeature" href="../base/sed_reader_writer.html#f_cleanup">cleanup</a>
+			<span class="ecomment">--</span><span class="ecomment"> When a reading is stopped, perform the necessary cleanup to perform</span>
+			<span class="ecomment">--</span><span class="ecomment"> another reading or writing.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_write_character_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_8">write_character_8</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_character_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_character_32">write_character_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/character_32.html#f_natural_32_code">natural_32_code</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_string_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_character_8">write_character_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_string_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_string_32">write_string_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment"> in UTF-8 format.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_32_string_to_utf_8_string_8">utf_32_string_to_utf_8_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_immutable_string_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_immutable_string_8">write_immutable_string_8</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_8.html">IMMUTABLE_STRING_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use `write_string_8' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_string_8">write_string_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_boolean"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">v</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_natural_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_natural_16"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_16">write_natural_16</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_16.html">NATURAL_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_natural_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_natural_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_64">write_natural_64</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_64.html">NATURAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_integer_8"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_8">write_integer_8</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_8.html">INTEGER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_integer_16"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_16">write_integer_16</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_16.html">INTEGER_16</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_integer_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_32">write_integer_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_integer_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_integer_64">write_integer_64</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_64.html">INTEGER_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_real_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_32">write_real_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_real_64"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_real_64">write_real_64</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/real_64.html">REAL_64</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_pointer"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_pointer">write_pointer</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_compressed_integer_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_integer_32">write_compressed_integer_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment"> as a compressed integer_32.</span>
+			<span class="ecomment">--</span><span class="ecomment"> See </span><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="ecomment"> for details about encoding.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_as_natural_32">as_natural_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_compressed_natural_32"></a><a class="efeature" href="../base/sed_reader_writer.html#f_write_compressed_natural_32">write_compressed_natural_32</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write </span><span class="equoted">v</span><span class="ecomment"> as a compressed natural_32.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Depending on value of </span><span class="equoted">v</span><span class="ecomment">, it will tell how many natural_8 will</span>
+			<span class="ecomment">--</span><span class="ecomment"> be written. Below here is the actual encoding where </span><span class="equoted">x</span><span class="ecomment"> represents</span>
+			<span class="ecomment">--</span><span class="ecomment"> a meaningful bit for </span><span class="equoted">v</span><span class="ecomment"> and the last number in parenthesis is the</span>
+			<span class="ecomment">--</span><span class="ecomment"> marker value in hexadecimal which is added to the value of </span><span class="equoted">v</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> 1 - For values between 0 and 127, write 0xxxxxxx (0x00).</span>
+			<span class="ecomment">--</span><span class="ecomment"> 2 - For values between 128 and 16382, write 0x10xxxxxx xxxxxxxx (0xE0).</span>
+			<span class="ecomment">--</span><span class="ecomment"> 3 - For values between 16383 and 2097150, write 0x110xxxxx xxxxxxxx xxxxxxxx (0xC0).</span>
+			<span class="ecomment">--</span><span class="ecomment"> 4 - For values between 2097151 and 268435454, write 0x1110xxx xxxxxxxx xxxxxxxx xxxxxxxx (0xE0).</span>
+			<span class="ecomment">--</span><span class="ecomment"> 5 - Otherwise write </span><span class="equoted">v</span><span class="ecomment"> as a full natural_32.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="enumber">16384</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="enumber">128</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="enumber">32768</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">65280</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+					<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="enumber">2097152</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="enumber">12582912</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">16711680</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">65280</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="enumber">268435456</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="enumber">3758096384</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">4278190080</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">24</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">16711680</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">16</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">65280</span><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_right">|&gt;&gt;</a> <span class="enumber">8</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">v</span> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="enumber">255</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_natural_8">as_natural_8</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_8">write_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">240</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_reader_writer.html#f_write_natural_32">write_natural_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_reader_writer.html">SED_READER_WRITER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_reader_writer_chart.html">Chart</a>
+<a class="nav class" href="sed_reader_writer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_reader_writer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

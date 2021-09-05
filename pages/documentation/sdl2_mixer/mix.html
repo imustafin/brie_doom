@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Summary description for {MIX}."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>mix Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mix_chart.html">Chart</a>
+<a class="nav class" href="mix_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mix"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../sdl2_mixer/mix.html">MIX</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../sdl2_mixer/mix.html">MIX</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../sdl2_mixer/sdl_mixer_functions_api.html">SDL_MIXER_FUNCTIONS_API</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_load_mus">mix_load_mus</a> <span class="ekeyword">as</span> <a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_load_mus">mix_load_mus_api</a><span class="esymbol">,</span>
+			<a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_playing_music">mix_playing_music</a> <span class="ekeyword">as</span> <a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_playing_music">mix_playing_music_api</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_mix_play_channel"></a><a class="efeature" href="../sdl2_mixer/mix.html#f_mix_play_channel">mix_play_channel</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">chunk</span><span class="esymbol">:</span> <a class="eclass" href="../sdl2_mixer/mix_chunk_struct_api.html">MIX_CHUNK_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">loops</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_play_channel_timed">mix_play_channel_timed</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">chunk</span><span class="esymbol">,</span> <span class="elocal">loops</span><span class="esymbol">,</span> <span class="enumber">-1</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mix_max_volume"></a><a class="efeature" href="../sdl2_mixer/mix.html#f_mix_max_volume">mix_max_volume</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_mix_maxvolume">Sdl_mix_maxvolume</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_mix_maxvolume">sdl_mix_maxvolume</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mix_load_mus"></a><a class="efeature" href="../sdl2_mixer/mix.html#f_mix_load_mus">mix_load_mus</a> <span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../sdl2_mixer/mix_music_struct_api.html">MIX_MUSIC_STRUCT_API</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_load_mus">mix_load_mus_api</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/c_string.html">C_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">file</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">p</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_make_by_pointer">make_by_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mix_playing_music"></a><a class="efeature" href="../sdl2_mixer/mix.html#f_mix_playing_music">mix_playing_music</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../sdl2_mixer/sdl_mixer_functions_api.html#f_mix_playing_music">mix_playing_music_api</a> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../sdl2_mixer/mix.html">MIX</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mix_chart.html">Chart</a>
+<a class="nav class" href="mix_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mix"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="References to objects containing a character value"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>character_8_ref Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="character_8_ref_chart.html">Chart</a>
+<a class="nav class" href="character_8_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="character_8_ref"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;References to objects containing a character value&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/comparable.html">COMPARABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_out">out</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Character value</span>
+
+
+	<a name="f_code"></a><a class="efeature" href="../base/character_8_ref.html#f_code">code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">obsolete</span> &quot;Use `natural_32_code' instead. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Associated integer value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">code_non_negatif</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">code_in_range</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/character_8_ref.html#f_min_value">Min_value</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../base/character_8_ref.html#f_max_value">Max_value</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_natural_32_code"></a><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated natural value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_hash_code"></a><a class="efeature" href="../base/character_8_ref.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_hash_code">hash_code</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_min_value"></a><a class="efeature" href="../base/character_8_ref.html#f_min_value">Min_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_max_value"></a><a class="efeature" href="../base/character_8_ref.html#f_max_value">Max_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">255</span>
+
+	<a name="f_max_ascii_value"></a><a class="efeature" href="../base/character_8_ref.html#f_max_ascii_value">Max_ascii_value</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">127</span>
+			<span class="ecomment">--</span><span class="ecomment"> Bounds for integer representation of characters (ASCII)</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_less"></a><a class="efeature" href="../base/character_8_ref.html#f_is_less">is_less</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/character_8_ref.html#f_is_less">&lt;</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> greater than current character?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">definition</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a> <a class="esymbol" href="../base/natural_32.html#f_is_less">&lt;</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/character_8_ref.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object of the same type</span>
+			<span class="ecomment">--</span><span class="ecomment"> as current object and identical to it?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic routines</span>
+
+	<a name="f_plus"></a><a class="efeature" href="../base/character_8_ref.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/character_8_ref.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">incr</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Add </span><span class="equoted">incr</span><span class="ecomment"> to the code of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_increment</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">incr</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">incr</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/character_8_ref.html#f_difference">|-|</a> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">incr</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_minus"></a><a class="efeature" href="../base/character_8_ref.html#f_minus">minus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/character_8_ref.html#f_minus">-</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">decr</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Subtract </span><span class="equoted">decr</span><span class="ecomment"> from the code of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_decrement</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">decr</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">decr</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_result</span><span class="esymbol">:</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <a class="esymbol" href="../base/character_8_ref.html#f_difference">|-|</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="elocal">decr</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_difference"></a><a class="efeature" href="../base/character_8_ref.html#f_difference">difference</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../base/character_8_ref.html#f_difference">|-|</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Difference between the codes of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> and </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_result</span><span class="esymbol">:</span> <span class="elocal">other</span> <a class="esymbol" href="../base/character_8_ref.html#f_plus">+</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_next"></a><a class="efeature" href="../base/character_8_ref.html#f_next">next</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Next character</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <a class="esymbol" href="../base/character_8_ref.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/character_8_ref.html#f_difference">|-|</a> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_previous"></a><a class="efeature" href="../base/character_8_ref.html#f_previous">previous</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Previous character</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">valid_character</span><span class="esymbol">:</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_is_valid_character_8_code">is_valid_character_8_code</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <a class="esymbol" href="../base/character_8_ref.html#f_minus">-</a> <span class="enumber">1</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">valid_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/character_8_ref.html#f_difference">|-|</a> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="enumber">-1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_item"></a><a class="efeature" href="../base/character_8_ref.html#f_set_item">set_item</a> <span class="esymbol">(</span><span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Make </span><span class="equoted">c</span><span class="ecomment"> the </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> value.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">:=</span> <span class="elocal">c</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Output</span>
+
+	<a name="f_out"></a><a class="efeature" href="../base/character_8_ref.html#f_out">out</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Printable representation of character</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make_from_reference"></a><a class="efeature" href="../base/character_8_ref.html#f_make_from_reference">make_from_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> with </span><span class="equoted">v.item</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">v_not_void</span><span class="esymbol">:</span> <span class="elocal">v</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/character_8_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a> <span class="esymbol">=</span> <span class="elocal">v</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Conversion</span>
+
+	<a name="f_to_reference"></a><a class="efeature" href="../base/character_8_ref.html#f_to_reference">to_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated reference of Current</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">to_reference_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_character_8"></a><a class="efeature" href="../base/character_8_ref.html#f_to_character_8">to_character_8</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated character in 8 bit version</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_character_32"></a><a class="efeature" href="../base/character_8_ref.html#f_to_character_32">to_character_32</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated character in 32 bit version</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_upper"></a><a class="efeature" href="../base/character_8_ref.html#f_as_upper">as_upper</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Uppercase value of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> if not </span><a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/character_8_ref.html#f_upper">upper</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="esymbol">(</span><span class="echar">'a'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">(</span><span class="echar">'A'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_upper"></a><a class="efeature" href="../base/character_8_ref.html#f_upper">upper</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Uppercase value of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> if not </span><a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/character_8_ref.html#f_as_upper">as_upper</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="esymbol">(</span><span class="echar">'a'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">(</span><span class="echar">'A'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_as_lower"></a><a class="efeature" href="../base/character_8_ref.html#f_as_lower">as_lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Lowercase value of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> if not </span><a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/character_8_ref.html#f_lower">lower</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="esymbol">(</span><span class="echar">'A'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">(</span><span class="echar">'a'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_lower"></a><a class="efeature" href="../base/character_8_ref.html#f_lower">lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/character_8.html">CHARACTER_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Lowercase value of </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> if not </span><a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was declared in </span><a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a><span class="ecomment"> as synonym of </span><a class="efeature" href="../base/character_8_ref.html#f_as_lower">as_lower</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="esymbol">(</span><span class="echar">'A'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">(</span><span class="echar">'a'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_character_8">to_character_8</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_alpha"></a><a class="efeature" href="../base/character_8_ref.html#f_is_alpha">is_alpha</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> alphabetic?</span>
+			<span class="ecomment">--</span><span class="ecomment"> Alphabetic is </span><a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a><span class="ecomment"> or </span><a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_upper"></a><a class="efeature" href="../base/character_8_ref.html#f_is_upper">is_upper</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> uppercase?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_lower"></a><a class="efeature" href="../base/character_8_ref.html#f_is_lower">is_lower</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> lowercase?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_digit"></a><a class="efeature" href="../base/character_8_ref.html#f_is_digit">is_digit</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a digit?</span>
+			<span class="ecomment">--</span><span class="ecomment"> A digit is one of 0123456789</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_hexa_digit"></a><a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit">is_hexa_digit</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> an hexadecimal digit?</span>
+			<span class="ecomment">--</span><span class="ecomment"> A digit is one of 0123456789ABCDEFabcedf</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_space"></a><a class="efeature" href="../base/character_8_ref.html#f_is_space">is_space</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a white space?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_punctuation"></a><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation">is_punctuation</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a punctuation?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_alpha_numeric"></a><a class="efeature" href="../base/character_8_ref.html#f_is_alpha_numeric">is_alpha_numeric</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> alphabetic or a digit?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_printable"></a><a class="efeature" href="../base/character_8_ref.html#f_is_printable">is_printable</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a printable character including space?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_space_flag">Is_space_flag</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_graph"></a><a class="efeature" href="../base/character_8_ref.html#f_is_graph">is_graph</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a printable character except space?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_control"></a><a class="efeature" href="../base/character_8_ref.html#f_is_control">is_control</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="ecomment"> a control character?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><span class="esymbol">)</span> <a class="esymbol" href="../base/natural_8.html#f_bit_and">&#38;</a> <a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_character_types"></a><a class="efeature" href="../base/character_8_ref.html#f_character_types">character_types</a> <span class="esymbol">(</span><span class="elocal">a_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Associated type for character of code </span><span class="equoted">a_code</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_code</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">256</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/character_8_ref.html#f_internal_character_types">Internal_character_types</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_code</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_internal_character_types"></a><a class="efeature" href="../base/character_8_ref.html#f_internal_character_types">Internal_character_types</a><span class="esymbol">:</span> <a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/natural_8.html">NATURAL_8</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Array which stores the various type for the ASCII characters</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">256</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_space_flag">Is_space_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a> <a class="esymbol" href="../base/natural_8.html#f_bit_or">|</a> <a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_fill_with">fill_with</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">128</span><span class="esymbol">,</span> <span class="enumber">255</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">internal_character_types_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_upper_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_upper_flag">Is_upper_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+
+	<a name="f_is_lower_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_lower_flag">Is_lower_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+
+	<a name="f_is_digit_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_digit_flag">Is_digit_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+
+	<a name="f_is_white_space_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_white_space_flag">Is_white_space_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">8</span>
+
+	<a name="f_is_punctuation_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_punctuation_flag">Is_punctuation_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+
+	<a name="f_is_control_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_control_flag">Is_control_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+
+	<a name="f_is_hexa_digit_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_hexa_digit_flag">Is_hexa_digit_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">64</span>
+
+	<a name="f_is_space_flag"></a><a class="efeature" href="../base/character_8_ref.html#f_is_space_flag">Is_space_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_8.html">NATURAL_8</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/character_8_ref.html">CHARACTER_8_REF</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="character_8_ref_chart.html">Chart</a>
+<a class="nav class" href="character_8_ref_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="character_8_ref"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

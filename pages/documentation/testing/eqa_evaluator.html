@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Core implementation for root class of test executor. The test evaluator is used by the testing tool to run tests and retrieve results. Any descendant of this class should be used as the root class of an interpreter. Descendants need to provide {EQA_EVALUATOR} information on what test classes/routines are available and be able to create instances of them."/>
+<meta name="author" content=""/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2014, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>eqa_evaluator Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_evaluator_chart.html">Chart</a>
+<a class="nav class" href="eqa_evaluator_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_evaluator"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Core implementation for root class of test executor. The test evaluator is used by the</span>
+		<span class="estring">testing tool to run tests and retrieve results. Any descendant of this class should be used as</span>
+		<span class="estring">the root class of an interpreter. Descendants need to provide </span><a class="eclass" href="../testing/eqa_evaluator.html">EQA_EVALUATOR</a><span class="estring"> information on</span>
+		<span class="estring">what test classes/routines are available and be able to create instances of them.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2014-10-31 16:07:47 +0000 (Fri, 31 Oct 2014) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 96028 $&quot;</span>
+
+<span class="ekeyword">frozen</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/eqa_evaluator.html">EQA_EVALUATOR</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/execution_environment.html">EXECUTION_ENVIRONMENT</a>
+
+	<a class="eclass" href="../base/internal.html">INTERNAL</a>
+
+	<a class="eclass" href="../testing/eqa_externals.html">EQA_EXTERNALS</a>
+
+	<a class="eclass" href="../base/sed_storable_facilities.html">SED_STORABLE_FACILITIES</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/eqa_evaluator.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_make">make</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_socket</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_evaluator.html#f_parse_arguments">parse_arguments</a>
+			<span class="ekeyword">create</span> <span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">make_client_by_address_and_port</span><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><span class="neclass">INET_ADDRESS_FACTORY</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><span class="nefeature">create_loopback</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a><span class="esymbol">)</span>
+			<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">set_blocking</span>
+			<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">set_nodelay</span>
+			<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">connect</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">is_connected</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">make_client_by_address_and_port</span><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><span class="neclass">INET_ADDRESS_IMPL_V4</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><span class="nefeature">Loopback_address</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a><span class="esymbol">)</span>
+				<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">set_blocking</span>
+				<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">set_nodelay</span>
+				<span class="elocal">l_socket</span><span class="edot">.</span><span class="nefeature">connect</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a> <span class="esymbol">:=</span> <span class="elocal">l_socket</span>
+			<a class="efeature" href="../testing/eqa_evaluator.html#f_main_loop">main_loop</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parse_arguments"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_parse_arguments">parse_arguments</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment"> according to command line arguments.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_args</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/execution_environment.html#f_arguments">Arguments</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_args</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_arguments">Arguments</a>
+			<span class="ekeyword">if</span> <span class="elocal">l_args</span><span class="edot">.</span><a class="efeature" href="../base/arguments_32.html#f_argument_count">argument_count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">2</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a> <span class="esymbol">:=</span> <span class="elocal">l_args</span><span class="edot">.</span><a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+				<span class="ekeyword">create</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_testing_directory">testing_directory</a><span class="edot">.</span><a class="efeature" href="../base/path.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_args</span><span class="edot">.</span><a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a> <span class="esymbol">:=</span> <span class="enumber">49200</span>
+				<a class="efeature" href="../testing/eqa_evaluator.html#f_testing_directory">testing_directory</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/execution_environment.html#f_current_working_path">current_working_path</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">port_initialized</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_main_loop"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_main_loop">main_loop</a>
+			<span class="ecomment">--</span><span class="ecomment"> Receive test routines to be executed through </span><a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="ecomment"> and send obtained test results back.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">socket_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">socket_connected</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_connected</span>
+			<span class="etag">socket_open_write</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_open_write</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_result</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_execute_test">execute_test</a>
+			<span class="elocal">l_done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_environment</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_environment.html">EQA_ENVIRONMENT</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_environment</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_done</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a> <span class="esymbol">[</span><span class="elocal">test_name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">class_name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">body_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_from_medium">retrieved_from_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_retrieved <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_retrieved</span><span class="edot">.</span><span class="elocal">test_name</span> <span class="ekeyword">as</span> l_test_name <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <span class="elocal">l_retrieved</span><span class="edot">.</span><span class="elocal">class_name</span> <span class="ekeyword">as</span> l_class_name <span class="ekeyword">then</span>
+					<span class="elocal">l_environment</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_environment.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_test_name</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../testing/eqa_test_set.html">EQA_TEST_SET</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_set.html#f_test_name_key">test_name_key</a><span class="esymbol">)</span>
+					<span class="elocal">l_environment</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_environment.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_evaluator.html#f_testing_directory">testing_directory</a><span class="edot">.</span><a class="efeature" href="../base/path.html#f_name">name</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../testing/eqa_test_set.html">EQA_TEST_SET</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_set.html#f_testing_directory_key">testing_directory_key</a><span class="esymbol">)</span>
+					<span class="elocal">l_result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_execute_test">execute_test</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_class_name</span><span class="esymbol">,</span> <span class="elocal">l_retrieved</span><span class="edot">.</span><span class="elocal">body_id</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">put_boolean</span><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+					<a class="efeature" href="../base/sed_storable_facilities.html#f_store_in_medium">store_in_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_result</span><span class="esymbol">,</span> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="esymbol">)</span>
+					<span class="elocal">l_environment</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_environment.html#f_reset">reset</a>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_closed</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">close</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_closed</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">close</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access: Connection</span>
+
+	<a name="f_port"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_port">port</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Port number executor is listening to</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: command linne arg #1</span>
+
+	<a name="f_socket"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_socket">socket</a><span class="esymbol">:</span> <span class="neclass">NETWORK_STREAM_SOCKET</span>
+			<span class="ecomment">--</span><span class="ecomment"> Socket used to communicate to executor</span>
+
+	<a name="f_is_stream_invalid"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_is_stream_invalid">is_stream_invalid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Could stream not be initialized or was it closed early?</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access: Test execution</span>
+
+	<a name="f_testing_directory"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_testing_directory">testing_directory</a><span class="esymbol">:</span> <a class="eclass" href="../base/path.html">PATH</a>
+			<span class="ecomment">--</span><span class="ecomment"> Test execution directory</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: command line arg #2</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Execution</span>
+
+	<a name="f_execute_test"></a><a class="efeature" href="../testing/eqa_evaluator.html#f_execute_test">execute_test</a> <span class="esymbol">(</span><span class="elocal">a_name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">a_rout_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../testing/eqa_partial_result.html">EQA_PARTIAL_RESULT</a>
+			<span class="ecomment">--</span><span class="ecomment"> Execute test routine in test class.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_type</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/reflector.html#f_dynamic_type_from_string">dynamic_type_from_string</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_type</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/reflector.html#f_dynamic_type_from_string">dynamic_type_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;EQA_TEST_EVALUATOR [attached &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_name</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_as_upper">as_upper</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;]&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../testing/eqa_test_evaluator.html">EQA_TEST_EVALUATOR</a> <span class="esymbol">[</span><a class="eclass" href="../testing/eqa_test_set.html">EQA_TEST_SET</a><span class="esymbol">]</span><span class="esymbol">}</span> <a class="efeature" href="../base/reflector.html#f_new_instance_of">new_instance_of</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_type</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_eval
+			<span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_eval</span><span class="edot">.</span><a class="efeature" href="../testing/eqa_test_evaluator.html#f_execute">execute</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">agent</span> <a class="efeature" href="../testing/eqa_externals.html#f_invoke_routine">invoke_routine</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">?</span><span class="esymbol">,</span> <span class="elocal">a_rout_id</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2014, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/eqa_evaluator.html">EQA_EVALUATOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_evaluator_chart.html">Chart</a>
+<a class="nav class" href="eqa_evaluator_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_evaluator"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

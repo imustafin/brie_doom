@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="d_main.c DOOM main program (D_DoomMain) and game loop (D_DoomLoop), plus functions to determine game mode (shareware, registered), parse command line parameters, configure game parameters (turbo), and call the startup functions."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>d_main Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="d_main_links.html">Relations</a>
+<a class="nav class" href="d_main.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="d_main"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../brie_doom/d_main_chart.html">D_MAIN</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../brie_doom/index.html">brie_doom</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;d_main.c</span>
+		<span class="estring">DOOM main program (D_DoomMain) and game loop (D_DoomLoop),</span>
+		<span class="estring">plus functions to determine game mode (shareware, registered),</span>
+		<span class="estring">parse command line parameters, configure game parameters (turbo),</span>
+		<span class="estring">and call the startup functions.&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../brie_doom/d_main.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`advancedemo' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_advancedemo">advancedemo</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`autostart' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_autostart">autostart</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`debugfile' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_debugfile">debugfile</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/file_chart.html">FILE</a></span>
+	<span title="`demosequence' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_demosequence">demosequence</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`devparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_devparm">devparm</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`eventhead' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_eventhead">eventhead</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`events' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_events">Events</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/event_t_chart.html">EVENT_T</a><span class="esymbol">]</span></span>
+	<span title="`eventtail' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_eventtail">eventtail</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`fastparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_fastparm">fastparm</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`nomonsters' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_nomonsters">nomonsters</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`pagename' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_pagename">pagename</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a></span>
+	<span title="`pagetic' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_pagetic">pagetic</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`respawnparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_respawnparm">respawnparm</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`singletics' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_singletics">Singletics</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`startepisode' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_startepisode">startepisode</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`startmap' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_startmap">startmap</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`startskill' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_startskill">startskill</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`wadfiles' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_wadfiles">wadfiles</a><span class="esymbol">:</span> <a class="eclass" href="../base/list_chart.html">LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">]</span></span>
+	<span title="`wipe' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_wipe">wipe</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`wipestart' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_wipestart">wipestart</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`d_addfile' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_addfile">d_addfile</a> <span class="esymbol">(</span><span class="elocal">a_wadfile</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8_chart.html">STRING_8</a><span class="esymbol">)</span></span>
+	<span title="`d_advancedemo' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_advancedemo">d_advancedemo</a></span>
+	<span title="`d_doadvancedemo' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_doadvancedemo">d_doadvancedemo</a></span>
+	<span title="`d_doomloop' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_doomloop">d_doomloop</a></span>
+	<span title="`d_doommain' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_doommain">d_doommain</a></span>
+	<span title="`d_pageticker' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_pageticker">d_pageticker</a></span>
+	<span title="`d_postevent' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a> <span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t_chart.html">EVENT_T</a><span class="esymbol">)</span></span>
+	<span title="`d_processevents' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_processevents">d_processevents</a></span>
+	<span title="`d_runframe' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_runframe">d_runframe</a></span>
+	<span title="`d_starttitle' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_d_starttitle">d_starttitle</a></span>
+	<span title="`findresponsefile' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_findresponsefile">findresponsefile</a></span>
+	<span title="`identifyversion' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_identifyversion">identifyversion</a></span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`set_devparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_set_devparm">set_devparm</a> <span class="esymbol">(</span><span class="elocal">a_devparm</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/d_main.html#f_devparm">devparm</a><span class="esymbol">]</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">)</span></span>
+	<span title="`set_fastparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_set_fastparm">set_fastparm</a> <span class="esymbol">(</span><span class="elocal">a_fastparm</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/d_main.html#f_fastparm">fastparm</a><span class="esymbol">]</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">)</span></span>
+	<span title="`set_nomonsters' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_set_nomonsters">set_nomonsters</a> <span class="esymbol">(</span><span class="elocal">a_nomonsters</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/d_main.html#f_nomonsters">nomonsters</a><span class="esymbol">]</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">)</span></span>
+	<span title="`set_respawnparm' is declared in `Current'"><a class="efeature" href="../brie_doom/d_main.html#f_set_respawnparm">set_respawnparm</a> <span class="esymbol">(</span><span class="elocal">a_respawnparm</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/d_main.html#f_respawnparm">respawnparm</a><span class="esymbol">]</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="d_main_links.html">Relations</a>
+<a class="nav class" href="d_main.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="d_main"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

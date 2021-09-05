@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Structures for which there exists a traversal policy that will visit every element exactly once."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="names" content="traversable, traversing"/>
+<meta name="access" content="cursor"/>
+<meta name="contents" content="generic"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>traversable Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="traversable_chart.html">Chart</a>
+<a class="nav class" href="traversable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="traversable"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Structures for which there exists a traversal policy</span>
+		<span class="estring">that will visit every element exactly once.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">names</span><span class="esymbol">:</span> traversable<span class="esymbol">,</span> traversing
+	<span class="eitag">access</span><span class="esymbol">:</span> cursor
+	<span class="eitag">contents</span><span class="esymbol">:</span> generic
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2015-12-17 13:34:17 +0000 (Thu, 17 Dec 2015) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 98279 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/traversable.html">TRAVERSABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/container.html">CONTAINER</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/traversable.html#f_item">item</a><span class="esymbol">:</span> <span class="egeneric">G</span>
+			<span class="ecomment">--</span><span class="ecomment"> Item at current position</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_off</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/traversable.html#f_off">off</a>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_off"></a><a class="efeature" href="../base/traversable.html#f_off">off</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is there no current item?</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_start"></a><a class="efeature" href="../base/traversable.html#f_start">start</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to first position if any.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Iteration</span>
+
+	<a name="f_do_all"></a><a class="efeature" href="../base/traversable.html#f_do_all">do_all</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_exists</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_do_all">do_all</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_do_if"></a><a class="efeature" href="../base/traversable.html#f_do_if">do_if</a> <span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Apply </span><span class="equoted">action</span><span class="ecomment"> to every item that satisfies </span><span class="equoted">test</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Semantics not guaranteed if </span><span class="equoted">action</span><span class="ecomment"> or </span><span class="equoted">test</span><span class="ecomment"> changes the structure;</span>
+			<span class="ecomment">--</span><span class="ecomment"> in such a case, apply iterator to clone of structure instead.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">action_exists</span><span class="esymbol">:</span> <span class="elocal">action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">test_exists</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_do_if">do_if</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">action</span><span class="esymbol">,</span> <span class="elocal">test</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_there_exists"></a><a class="efeature" href="../base/traversable.html#f_there_exists">there_exists</a> <span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">test</span><span class="ecomment"> true for at least one item?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">test_exists</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_there_exists">there_exists</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_for_all"></a><a class="efeature" href="../base/traversable.html#f_for_all">for_all</a> <span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">:</span> <a class="eclass" href="../base/function.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">test</span><span class="ecomment"> true for all items?</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">test_exists</span><span class="esymbol">:</span> <span class="elocal">test</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/container.html#f_linear_representation">linear_representation</a><span class="edot">.</span><a class="efeature" href="../base/linear.html#f_for_all">for_all</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">test</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">empty_constraint</span><span class="esymbol">:</span> <a class="efeature" href="../base/container.html#f_is_empty">is_empty</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/traversable.html#f_off">off</a>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/traversable.html">TRAVERSABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="traversable_chart.html">Chart</a>
+<a class="nav class" href="traversable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="traversable"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

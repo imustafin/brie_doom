@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="TTTPlatform specific encoding of Unicode strings. By default, UTF-8 on unix or UTF-16 on Windows.  TTTMixed-encoding consideration TTT============================  TTTMost operating systems have conventions for strings that are incompatible with Unicode. TTTOn UNIX, a string is just a null-terminated byte sequence, it does not follow any TTTspecific encoding. Usually the locale setting enables you to see the string the way TTTyou expect. TTTOn Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows TTTdoes not guarantee that the sequence is actually a valid UTF-16 sequence.  TTTIn other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding TTTon Windows, the string is not directly representable as a Unicode string. To make it possible TTTto create and store strings in a textually representable form, the query `string' will create TTTan encoded representation that can be then later used in `make' to create a NATIVE_STRING TTTequivalent to the original string. The encoding is described in UTF_CONVERTER's note clause TTTand is a fourth variant of the recommended practice for replacement characters in Unicode TTT(see http://www.unicode.org/review/pr-121.html). "/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>native_string Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="native_string_chart.html">Chart</a>
+<a class="nav class" href="native_string_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="native_string"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">			Platform specific encoding of Unicode strings. By default, UTF-8 on unix or UTF-16 on Windows.</span>
+		
+		<span class="estring">			Mixed-encoding consideration</span>
+		<span class="estring">			============================</span>
+		
+		<span class="estring">			Most operating systems have conventions for strings that are incompatible with Unicode.</span>
+		<span class="estring">			On UNIX, a string is just a null-terminated byte sequence, it does not follow any</span>
+		<span class="estring">			specific encoding. Usually the locale setting enables you to see the string the way</span>
+		<span class="estring">			you expect.</span>
+		<span class="estring">			On Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows</span>
+		<span class="estring">			does not guarantee that the sequence is actually a valid UTF-16 sequence.</span>
+		
+		<span class="estring">			In other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding</span>
+		<span class="estring">			on Windows, the string is not directly representable as a Unicode string. To make it possible</span>
+		<span class="estring">			to create and store strings in a textually representable form, the query </span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="estring"> will create</span>
+		<span class="estring">			an encoded representation that can be then later used in </span><a class="efeature" href="../base/native_string.html#f_make">make</a><span class="estring"> to create a NATIVE_STRING</span>
+		<span class="estring">			equivalent to the original string. The encoding is described in UTF_CONVERTER's note clause</span>
+		<span class="estring">			and is a fourth variant of the recommended practice for replacement characters in Unicode</span>
+		<span class="estring">			(see </span><a class="estring" href="http://www.unicode.org/review/pr-121.html">http://www.unicode.org/review/pr-121.html</a><span class="estring">).</span>
+		
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-03-22 16:04:25 +0000 (Fri, 22 Mar 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92334 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/native_string.html">NATIVE_STRING</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/native_string_handler.html">NATIVE_STRING_HANDLER</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/native_string.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/native_string.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/native_string.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/native_string.html#f_make_from_raw_string">make_from_raw_string</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/native_string.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize an instance of Current using </span><span class="equoted">a_string</span><span class="ecomment"> treated as a sequence</span>
+			<span class="ecomment">--</span><span class="ecomment"> of Unicode characters.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_string_not_void</span><span class="esymbol">:</span> <span class="elocal">a_string</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/native_string.html#f_set_string">set_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_empty"></a><a class="efeature" href="../base/native_string.html#f_make_empty">make_empty</a> <span class="esymbol">(</span><span class="elocal">a_length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize an empty instance of Current that will accommodate </span><span class="equoted">a_length</span><span class="ecomment"> code units.</span>
+			<span class="ecomment">--</span><span class="ecomment"> The memory area is not initialized.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_length_positive</span><span class="esymbol">:</span> <span class="elocal">a_length</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">a_length</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_pointer"></a><a class="efeature" href="../base/native_string.html#f_make_from_pointer">make_from_pointer</a> <span class="esymbol">(</span><span class="elocal">a_pointer</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current from </span><span class="equoted">a_pointer</span><span class="ecomment">, a platform system specific null-terminated string.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_path_pointer_not_null</span><span class="esymbol">:</span> <span class="elocal">a_pointer</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string_handler.html#f_pointer_length_in_bytes">pointer_length_in_bytes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_pointer</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make_from_pointer">make_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_pointer</span><span class="esymbol">,</span> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">:=</span> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_from_raw_string"></a><a class="efeature" href="../base/native_string.html#f_make_from_raw_string">make_from_raw_string</a> <span class="esymbol">(</span><span class="elocal">a_raw_string</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/native_string.html#f_raw_string">raw_string</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current from </span><span class="equoted">a_raw_string</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_raw_string_not_void</span><span class="esymbol">:</span> <span class="elocal">a_raw_string</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_raw_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+			<span class="ekeyword">across</span>
+				<span class="elocal">a_raw_string</span> <span class="ekeyword">as</span> l_c
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_character">put_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_c</span><span class="edot">.</span><a class="efeature" href="../base/general_special_iteration_cursor.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_natural_16">put_natural_16</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">set</span><span class="esymbol">:</span> <a class="efeature" href="../base/native_string.html#f_raw_string">raw_string</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_same_string">same_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_raw_string</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_raw_string"></a><a class="efeature" href="../base/native_string.html#f_raw_string">raw_string</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Sequence of bytes representing </span><span class="equoted">Current</span><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_cstr</span><span class="esymbol">:</span> <a class="eclass" href="../base/c_string.html">C_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make_shared_from_pointer_and_count">make_shared_from_pointer_and_count</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">l_cstr</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_string"></a><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Representation of Current up to the first null character.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_16_0_pointer_to_escaped_string_32">utf_16_0_pointer_to_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_8_0_pointer_to_escaped_string_32">utf_8_0_pointer_to_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_substring"></a><a class="efeature" href="../base/native_string.html#f_substring">substring</a> <span class="esymbol">(</span><span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Copy of substring containing all code units at indices</span>
+			<span class="ecomment">--</span><span class="ecomment"> between </span><span class="equoted">start_pos</span><span class="ecomment"> and </span><span class="equoted">end_pos</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">start_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+			<span class="etag">end_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">end_position_not_too_big</span><span class="esymbol">:</span> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_capacity">capacity</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_16_0_subpointer_into_escaped_string_32">utf_16_0_subpointer_into_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">,</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_8_0_pointer_to_escaped_string_32">utf_8_0_pointer_to_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">)</span>
+				<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_utf_8_0_subpointer_into_escaped_string_32">utf_8_0_subpointer_into_escaped_string_32</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">,</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">,</span> <span class="ekeyword">Result</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">susbstring_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Get pointer to allocated area.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">item_not_null</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_managed_data"></a><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hold data of Current.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status Report</span>
+
+	<a name="f_is_empty"></a><a class="efeature" href="../base/native_string.html#f_is_empty">is_empty</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is current empty?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Measurement</span>
+
+	<a name="f_capacity"></a><a class="efeature" href="../base/native_string.html#f_capacity">capacity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes in Current.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_bytes_count"></a><a class="efeature" href="../base/native_string.html#f_bytes_count">bytes_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of bytes used by Current not including the null terminating character.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">bytes_count_non_negative</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_unit_count"></a><a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Number of units used by Current not including the null terminating unit.</span>
+
+	<a name="f_unit_size"></a><a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size in bytes of a unit for </span><span class="equoted">storage</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">2</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Comparison</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../base/native_string.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is content of string identical to content of string </span><span class="equoted">other</span><span class="ecomment">?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../base/pointer_ref.html#f_is_equal">is_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../base/native_string.html#f_item">item</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_string"></a><a class="efeature" href="../base/native_string.html#f_set_string">set_string</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="ecomment"> with </span><span class="equoted">a_string</span><span class="ecomment">	treated as a sequence of Unicode characters.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_string_not_void</span><span class="esymbol">:</span> <span class="elocal">a_string</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/native_string.html#f_set_substring">set_substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_substring"></a><a class="efeature" href="../base/native_string.html#f_set_substring">set_substring</a> <span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_general.html">READABLE_STRING_GENERAL</a><span class="esymbol">;</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/native_string.html#f_string">string</a><span class="ecomment"> with a subset of </span><span class="equoted">a_string</span><span class="ecomment"> from </span><span class="equoted">a_start_pos</span><span class="ecomment"> index to </span><span class="equoted">end_pos</span><span class="ecomment"> index.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_string_not_void</span><span class="esymbol">:</span> <span class="elocal">a_string</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">start_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">1</span>
+			<span class="etag">end_position_big_enough</span><span class="esymbol">:</span> <span class="elocal">start_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="etag">end_pos_small_enough</span><span class="esymbol">:</span> <span class="elocal">end_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">a_string</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_count">count</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">u</span><span class="esymbol">:</span> <a class="eclass" href="../base/utf_converter.html">UTF_CONVERTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <span class="ekeyword">then</span>
+				<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_escaped_utf_32_substring_into_utf_16_0_pointer">escaped_utf_32_substring_into_utf_16_0_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">,</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_upper_cell">Upper_cell</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">u</span><span class="edot">.</span><a class="efeature" href="../base/utf_converter.html#f_escaped_utf_32_substring_into_utf_8_0_pointer">escaped_utf_32_substring_into_utf_8_0_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_string</span><span class="esymbol">,</span> <span class="elocal">start_pos</span><span class="esymbol">,</span> <span class="elocal">end_pos</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string.html#f_upper_cell">Upper_cell</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/native_string.html#f_upper_cell">Upper_cell</a><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_item">item</a> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_shared_from_pointer"></a><a class="efeature" href="../base/native_string.html#f_set_shared_from_pointer">set_shared_from_pointer</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> New instance sharing </span><span class="equoted">a_ptr</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_ptr_not_null</span><span class="esymbol">:</span> <span class="elocal">a_ptr</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/native_string.html#f_set_shared_from_pointer_and_count">set_shared_from_pointer_and_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <a class="efeature" href="../base/native_string_handler.html#f_pointer_length_in_bytes">pointer_length_in_bytes</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">)</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_shared_from_pointer_and_count"></a><a class="efeature" href="../base/native_string.html#f_set_shared_from_pointer_and_count">set_shared_from_pointer_and_count</a> <span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">a_length</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> New instance sharing </span><span class="equoted">a_ptr</span><span class="ecomment"> of </span><span class="equoted">a_length</span><span class="ecomment"> byte. Space for an additional</span>
+			<span class="ecomment">--</span><span class="ecomment"> null terminating code unit is added to </span><a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_ptr_not_null</span><span class="esymbol">:</span> <span class="elocal">a_ptr</span> <span class="esymbol">/=</span> <a class="efeature" href="../base/any.html#f_default_pointer">default_pointer</a>
+			<span class="etag">a_length_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_length</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_length_valid</span><span class="esymbol">:</span> <span class="esymbol">(</span><span class="elocal">a_length</span> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/native_string.html#f_unit_count">unit_count</a> <span class="esymbol">:=</span> <span class="elocal">a_length</span> <a class="esymbol" href="../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_is_shared">is_shared</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_share_from_pointer">share_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <span class="elocal">a_length</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_set_from_pointer">set_from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_ptr</span><span class="esymbol">,</span> <span class="elocal">a_length</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_platform"></a><a class="efeature" href="../base/native_string.html#f_platform">Platform</a><span class="esymbol">:</span> <a class="eclass" href="../base/platform.html">PLATFORM</a>
+			<span class="ecomment">--</span><span class="ecomment"> Access underlying platform info, used to satisfy invariant below.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_upper_cell"></a><a class="efeature" href="../base/native_string.html#f_upper_cell">Upper_cell</a><span class="esymbol">:</span> <a class="eclass" href="../base/cell.html">CELL</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Temporary storage for byte index of last insertions when using UTF_CONVERTER routines.</span>
+		<span class="ekeyword">once</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/cell.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">little_endian_windows</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/native_string.html#f_platform">Platform</a><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_little_endian">Is_little_endian</a>
+	<span class="etag">even_count_on_windows</span><span class="esymbol">:</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_is_windows">is_windows</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="efeature" href="../base/native_string.html#f_managed_data">managed_data</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_integer_remainder">\\</a> <a class="efeature" href="../base/native_string.html#f_unit_size">unit_size</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2012, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/native_string.html">NATIVE_STRING</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="native_string_chart.html">Chart</a>
+<a class="nav class" href="native_string_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="native_string"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

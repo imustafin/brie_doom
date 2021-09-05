@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="TTObjects representing an exception raised while invoking a test class and/or feature. TT TTNote: {EQA_TEST_INVOCATION_EXCEPTION} does not only contain the exception information, it also TT      analyses the stack trace to determine whether the implementation or the test code is TT      to blame.  TTTODO: Take stack frames of agent calls into account, meaning that even though {PROCEDURE}.fast_call TT      causes a precondition violation, the stack frame calling the agent is to blame."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>eqa_test_invocation_exception Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_test_invocation_exception_chart.html">Chart</a>
+<a class="nav class" href="eqa_test_invocation_exception_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_test_invocation_exception"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">		Objects representing an exception raised while invoking a test class and/or feature.</span>
+		<span class="estring">		</span>
+		<span class="estring">		Note: </span><a class="eclass" href="../testing/eqa_test_invocation_exception.html">EQA_TEST_INVOCATION_EXCEPTION</a><span class="estring"> does not only contain the exception information, it also</span>
+		<span class="estring">		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;analyses the stack trace to determine whether the implementation or the test code is</span>
+		<span class="estring">		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to blame.</span>
+		
+		<span class="estring">		TODO: Take stack frames of agent calls into account, meaning that even though </span><span class="esymbol">{</span><a class="eclass" href="../base/procedure.html">PROCEDURE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_fast_call">fast_call</a>
+		<span class="estring">		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;causes a precondition violation, the stack frame calling the agent is to blame.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-05-03 14:51:35 +0000 (Wed, 03 May 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100315 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/eqa_test_invocation_exception.html">EQA_TEST_INVOCATION_EXCEPTION</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/any.html">ANY</a>
+
+	<a class="eclass" href="../base/excep_const.html">EXCEP_CONST</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/internal.html">INTERNAL</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/internal.html#f_class_name">class_name</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/internal.html#f_class_name">class_name_from_object</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/internal.html#f_dynamic_type">dynamic_type</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/internal.html#f_dynamic_type">dynamic_type_from_object</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/mismatch_corrector.html">MISMATCH_CORRECTOR</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_correct_mismatch">correct_mismatch</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/exception.html">EXCEPTION</a><span class="esymbol">;</span> <span class="elocal">a_class_name</span><span class="esymbol">,</span> <span class="elocal">a_feature_name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize </span><span class="equoted">Current</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: If </span><span class="equoted">a_test_class_name</span><span class="ecomment"> is attached, the stack trace will be truncated after the last</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frame containing a call to the class (if </span><span class="equoted">a_test_feature_name</span><span class="ecomment"> the feature name of the</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack frame is also considered). In addition it will be determined, whether the class</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="equoted">a_class_name</span><span class="ecomment"> (or feature </span><span class="equoted">a_feature_name</span><span class="ecomment"> if provided) is to blame, or any routine</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;further down the call stack.</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If </span><span class="equoted">a_test_class_name</span><span class="ecomment"> is Void, the complete trace will be made available in </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_exception</span><span class="ecomment">: Original exception object.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_class_name</span><span class="ecomment">: Name of test class in which exception was raised, or Void.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_feature_name</span><span class="ecomment">: Name of test feature in which exception was raised, or Void.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_exception_attached</span><span class="esymbol">:</span> <span class="elocal">a_exception</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_feature_name_attached_implies_a_class_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_feature_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">a_class_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_feature_name_not_empty</span><span class="esymbol">:</span> <span class="elocal">a_feature_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_feature_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_code">code</a> <span class="esymbol">:=</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_code">code</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_type_name">type_name</a> <span class="ekeyword">as</span> l_type <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a> <span class="esymbol">:=</span> <span class="elocal">l_type</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_string">string</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_recipient_name">recipient_name</a> <span class="ekeyword">as</span> l_rec <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a> <span class="esymbol">:=</span> <span class="elocal">l_rec</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_string">string</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_description">description</a> <span class="ekeyword">as</span> l_tag <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a><span class="edot">.</span><a class="efeature" href="../base/immutable_string_32.html#f_make_from_string_general">make_from_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_tag</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">a_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_trace">trace</a> <span class="ekeyword">as</span> l_trace <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_trace</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_trace">parse_trace</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_trace</span><span class="esymbol">,</span> <span class="elocal">a_class_name</span><span class="esymbol">,</span> <span class="elocal">a_feature_name</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parse_trace"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_trace">parse_trace</a> <span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="esymbol">;</span> <span class="elocal">a_class_name</span><span class="esymbol">,</span> <span class="elocal">a_feature_name</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize trace from original trace by cutting off routines which invoked testing routine.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_trace</span><span class="ecomment">: Original exception trace.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_class_name</span><span class="ecomment">: Name of test class in which exception was raised, or Void.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_feature_name</span><span class="ecomment">: Name of test feature in which exception was raised, or Void.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_trace_not_empty</span><span class="esymbol">:</span> <span class="elocal">a_trace</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+			<span class="etag">a_feature_name_attached_implies_a_class_name_attached</span><span class="esymbol">:</span> <span class="elocal">a_feature_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="elocal">a_class_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_feature_name_not_empty</span><span class="esymbol">:</span> <span class="elocal">a_feature_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_feature_name</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_empty">is_empty</a>
+			<span class="etag">code_valid</span><span class="esymbol">:</span> <a class="efeature" href="../base/excep_const.html#f_valid_code">valid_code</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_code">code</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">l_last</span><span class="esymbol">,</span> <span class="elocal">l_depth</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_prev</span><span class="esymbol">,</span> <span class="elocal">l_found</span><span class="esymbol">,</span> <span class="elocal">l_bp_set</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_go_after_next_dash_line">go_after_next_dash_line</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">,</span> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_go_after_next_dash_line">go_after_next_dash_line</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_class_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+				<span class="ekeyword">loop</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_found</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_depth</span> <span class="esymbol">:=</span> <span class="elocal">l_depth</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_frame">parse_frame</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_bp_set</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_break_point_slot">break_point_slot</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a>
+						<span class="elocal">l_bp_set</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_class_name">last_class_name</a> <span class="ekeyword">as</span> l_cn <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_cn</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_class_name</span><span class="esymbol">)</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="esymbol">(</span><span class="elocal">a_feature_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="esymbol">(</span><span class="ekeyword">attached</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_routine_name">last_routine_name</a> <span class="ekeyword">as</span> l_rn <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_rn</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_same_string">same_string_general</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_feature_name</span><span class="esymbol">)</span><span class="esymbol">)</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_found</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+							<span class="elocal">l_prev</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="ekeyword">elseif</span> <span class="elocal">l_prev</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_last</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+							<span class="elocal">l_prev</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_go_after_next_dash_line">go_after_next_dash_line</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_found</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_code">code</a> <span class="esymbol">=</span> <a class="efeature" href="../base/excep_const.html#f_precondition">Precondition</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a> <span class="esymbol">:=</span> <span class="elocal">l_depth</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">2</span>
+					<span class="ekeyword">else</span>
+						<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a> <span class="esymbol">:=</span> <span class="elocal">l_depth</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">1</span>
+					<span class="ekeyword">end</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_prev</span> <span class="ekeyword">then</span>
+						<span class="elocal">l_last</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_trace_valid">is_trace_valid</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="elocal">l_last</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_frame">parse_frame</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_break_point_slot">break_point_slot</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a>
+				<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_trace_valid">is_trace_valid</a> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+				<span class="elocal">l_last</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">,</span> <span class="elocal">l_last</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_code"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_code">code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Exception code</span>
+
+	<a name="f_recipient_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the feature that triggered the exception</span>
+
+	<a name="f_class_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_8.html">READABLE_STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of the class in which the exception occurred</span>
+
+	<a name="f_tag_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Tag describing the exception</span>
+
+	<a name="f_trace"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="esymbol">:</span> <a class="eclass" href="../base/readable_string_32.html">READABLE_STRING_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Text based representation of the stack trace</span>
+
+	<a name="f_break_point_slot"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_break_point_slot">break_point_slot</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Break point slot in exception recipient that triggered exception;</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note that the number of slots available in a routine may change depending</span>
+			<span class="ecomment">--</span><span class="ecomment"> on the level of assertion monitoring.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access: parsing</span>
+
+	<a name="f_last_class_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_class_name">last_class_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a>
+			<span class="ecomment">--</span><span class="ecomment"> Class name last parsed through </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_frame">parse_frame</a>
+
+	<a name="f_last_routine_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_routine_name">last_routine_name</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a>
+			<span class="ecomment">--</span><span class="ecomment"> Routine name last parsed through </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_frame">parse_frame</a>
+
+	<a name="f_last_break_point_slot"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_break_point_slot">break_point_slot</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last breakpoint slot parsed by </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_trace_valid">is_trace_valid</a><span class="ecomment">, zero if slot information could not be found.</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_trace_valid"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_trace_valid">is_trace_valid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="ecomment"> have an expected format?</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: is provided class/feature name in creation procedure was not found in exception trace,</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="ecomment"> will contain the original exception trace and </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_trace_valid">is_trace_valid</a><span class="ecomment"> will be False.</span>
+
+	<a name="f_is_test_invalid"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_is_test_invalid">is_test_invalid</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does this exception show that the associated test is invalid.</span>
+			<span class="ecomment">--</span><span class="ecomment"> An invalid test happens when the system is not brought into a state</span>
+			<span class="ecomment">--</span><span class="ecomment"> suitable to test the feature under test. For example, if the precondition</span>
+			<span class="ecomment">--</span><span class="ecomment"> of the feature under test is not satisfied.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_go_after_next_dash_line"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_go_after_next_dash_line">go_after_next_dash_line</a> <span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="esymbol">;</span> <span class="elocal">a_start</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of character immediatly after next occurance of </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_dash_line">Dash_line</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: If </span><span class="equoted">a_start</span><span class="ecomment"> is 0, </span><span class="equoted">Result</span><span class="ecomment"> will automatically be 0 as well. This allows</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_go_after_next_dash_line">go_after_next_dash_line</a><span class="ecomment"> to be called iteratively without checking the result.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_trace</span><span class="ecomment">: Trace containing stack frames.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_start</span><span class="ecomment">: Start position from which next stack frame will be located.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">Result</span><span class="ecomment">: Contains index of first character of next stack frame, or 0 if no frame found.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_start_valid</span><span class="esymbol">:</span> <span class="elocal">a_start</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">a_start</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_start</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_dash_line">Dash_line</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_dash_line">Dash_line</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_has">has</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_start</span><span class="esymbol">)</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="elocal">a_start</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">l_count</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/comparable.html#f_max">max</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">a_start</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_substring_index">substring_index</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_dash_line">Dash_line</a><span class="esymbol">,</span> <span class="elocal">i</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="elocal">l_count</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_valid</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">a_start</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a><span class="esymbol">)</span>
+			<span class="etag">start_zero_implies_result_zero</span><span class="esymbol">:</span> <span class="elocal">a_start</span> <span class="esymbol">=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="enumber">0</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_parse_frame"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_parse_frame">parse_frame</a> <span class="esymbol">(</span><span class="elocal">a_trace</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="esymbol">;</span> <span class="elocal">a_position</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Parse current frame in stack trace and set </span><span class="equoted">last_class</span><span class="ecomment">, </span><span class="equoted">last_routine</span><span class="ecomment"> and</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a><span class="ecomment"> accordingly.</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_trace</span><span class="ecomment">: Complete stack trace.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">a_position</span><span class="ecomment">: Position in </span><span class="equoted">a_trace</span><span class="ecomment"> where current frame begins.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_trace_attached</span><span class="esymbol">:</span> <span class="elocal">a_trace</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_position_valid</span><span class="esymbol">:</span> <span class="elocal">a_position</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">a_position</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span><span class="esymbol">,</span> <span class="elocal">l_count</span><span class="esymbol">,</span> <span class="elocal">l_bp</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_done</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_substring</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a>
+			<span class="elocal">c</span><span class="esymbol">:</span> <a class="eclass" href="../base/character_32.html">CHARACTER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_class_name">last_class_name</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_routine_name">last_routine_name</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">a_position</span>
+				<span class="elocal">l_count</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_count">count</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_done</span>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">j</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">j</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">l_count</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="esymbol">(</span><span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">j</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_space">is_space</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">j</span><span class="esymbol">)</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">c</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">j</span><span class="esymbol">)</span>
+					<span class="elocal">j</span> <span class="esymbol">:=</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">if</span> <span class="elocal">c</span><span class="edot">.</span><a class="efeature" href="../base/character_32_ref.html#f_is_space">is_space</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">c</span> <span class="esymbol">=</span> <span class="echar">'@'</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_to_character_32">to_character_32</a> <span class="ekeyword">then</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">j</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">j</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_substring</span> <span class="esymbol">:=</span> <span class="elocal">a_trace</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_substring">substring</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">j</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_class_name">last_class_name</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_class_name">last_class_name</a> <span class="esymbol">:=</span> <span class="elocal">l_substring</span>
+					<span class="ekeyword">elseif</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_routine_name">last_routine_name</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_routine_name">last_routine_name</a> <span class="esymbol">:=</span> <span class="elocal">l_substring</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_substring</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_is_integer">is_integer</a> <span class="ekeyword">then</span>
+							<span class="elocal">l_bp</span> <span class="esymbol">:=</span> <span class="elocal">l_substring</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+							<span class="ekeyword">if</span> <span class="elocal">l_bp</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+								<a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_last_break_point_slot">last_break_point_slot</a> <span class="esymbol">:=</span> <span class="elocal">l_bp</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">l_done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_done</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Constants</span>
+
+	<a name="f_dash_line"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_dash_line">Dash_line</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_32.html">STRING_32</a> <span class="esymbol">=</span> &quot;-------------------------------------------------------------------------------%N&quot;
+
+	<a name="f_class_attribute_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_attribute_name">Class_attribute_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;class_name&quot;
+
+	<a name="f_recipient_attribute_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_attribute_name">Recipient_attribute_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;internal_exception&quot;
+
+	<a name="f_tag_attribute_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_attribute_name">Tag_attribute_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;tag_name&quot;
+
+	<a name="f_trace_attribute_name"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace_attribute_name">Trace_attribute_name</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;trace&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Name of attributes in </span><span class="equoted">Current</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Mismatch Correnction</span>
+
+	<a name="f_correct_mismatch"></a><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_correct_mismatch">correct_mismatch</a>
+			<span class="ecomment">--</span><span class="ecomment"> Attempt to correct object mismatch using </span><a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a><span class="esymbol">}</span> <a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_attribute_name">Class_attribute_name</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_class <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a><span class="esymbol">}</span> <a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_attribute_name">Recipient_attribute_name</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_recipient <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a><span class="esymbol">}</span> <a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_attribute_name">Tag_attribute_name</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_tag <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="esymbol">}</span> <a class="efeature" href="../base/mismatch_corrector.html#f_mismatch_information">Mismatch_information</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace_attribute_name">Trace_attribute_name</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_trace <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_class</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_recipient</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_tag</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a><span class="esymbol">}</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_32.html#f_make_from_string">make_from_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_trace</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="ekeyword" href="../base/mismatch_corrector.html#f_correct_mismatch">Precursor</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">code_valid</span><span class="esymbol">:</span> <a class="efeature" href="../base/excep_const.html#f_valid_code">valid_code</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_code">code</a><span class="esymbol">)</span>
+	<span class="etag">recipient_name_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_recipient_name">recipient_name</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">class_name_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_class_name">class_name</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">tag_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_tag_name">tag_name</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">trace_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_trace">trace</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">exception_break_point_slot_positive</span><span class="esymbol">:</span> <a class="efeature" href="../testing/eqa_test_invocation_exception.html#f_break_point_slot">break_point_slot</a> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/eqa_test_invocation_exception.html">EQA_TEST_INVOCATION_EXCEPTION</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="eqa_test_invocation_exception_chart.html">Chart</a>
+<a class="nav class" href="eqa_test_invocation_exception_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="eqa_test_invocation_exception"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

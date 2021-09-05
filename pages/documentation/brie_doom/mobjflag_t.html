@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="mobjflag_t from p_mobj.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>mobjflag_t Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mobjflag_t_chart.html">Chart</a>
+<a class="nav class" href="mobjflag_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mobjflag_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;mobjflag_t from p_mobj.h&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/mobjflag_t.html">MOBJFLAG_T</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> mobjflag_t;</span>
+
+	<a name="f_mf_special"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_special">Mf_special</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Call P_SpecialThing when touched.</span>
+
+	<a name="f_mf_solid"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_solid">Mf_solid</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+			<span class="ecomment">--</span><span class="ecomment"> Blocks.</span>
+
+	<a name="f_mf_shootable"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_shootable">Mf_shootable</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+			<span class="ecomment">--</span><span class="ecomment"> Can be hit.</span>
+
+	<a name="f_mf_nosector"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_nosector">Mf_nosector</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't use the sector links (invisible but touchable).</span>
+
+	<a name="f_mf_noblockmap"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_noblockmap">Mf_noblockmap</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't use the blocklinks (inert but displayable)</span>
+
+	<a name="f_mf_ambush"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_ambush">Mf_ambush</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;// Not to be activated by sound, deaf monster.</span>
+
+	<a name="f_mf_justhit"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_justhit">Mf_justhit</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">64</span>
+			<span class="ecomment">--</span><span class="ecomment"> Will try to attack right back.</span>
+
+	<a name="f_mf_justattacked"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_justattacked">Mf_justattacked</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;// Will take at least one step before attacking.</span>
+
+	<a name="f_mf_spawnceiling"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_spawnceiling">Mf_spawnceiling</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">256</span>
+			<span class="ecomment">--</span><span class="ecomment"> On level spawning (initial position),</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;hang from ceiling instead of stand on floor.</span>
+
+	<a name="f_mf_nogravity"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_nogravity">Mf_nogravity</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">512</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't apply gravity (every tic),</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;that is, object will float, keeping current height</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;or changing it actively.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Movement flags.</span>
+
+	<a name="f_mf_dropoff"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_dropoff">Mf_dropoff</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1024</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;// This allows jumps from high places.</span>
+
+	<a name="f_mf_pickup"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_pickup">Mf_pickup</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2048</span>
+			<span class="ecomment">--</span><span class="ecomment"> For players, will pick up items.</span>
+
+	<a name="f_mf_noclip"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_noclip">Mf_noclip</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4096</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;// Player cheat. ???</span>
+
+	<a name="f_mf_slide"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_slide">Mf_slide</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8192</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;&nbsp;&nbsp;// Player: keep info about sliding along walls.</span>
+
+	<a name="f_mf_float"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_float">Mf_float</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16384</span>
+			<span class="ecomment">--</span><span class="ecomment"> Allow moves to any height, no gravity.</span>
+			<span class="ecomment">--</span><span class="ecomment"> For active floaters, e.g. cacodemons, pain elementals.</span>
+
+	<a name="f_mf_teleport"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_teleport">Mf_teleport</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">32768</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't cross lines</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;&nbsp;??? or look at heights on teleport.</span>
+
+	<a name="f_mf_missile"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_missile">Mf_missile</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">65536</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't hit same species, explode on block.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Player missiles as well as fireballs of various kinds.</span>
+
+	<a name="f_mf_dropped"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_dropped">Mf_dropped</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">131072</span>
+			<span class="ecomment">--</span><span class="ecomment"> Dropped by a demon, not level spawned.</span>
+			<span class="ecomment">--</span><span class="ecomment"> E.g. ammo clips dropped by dying former humans.</span>
+
+	<a name="f_mf_shadow"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_shadow">Mf_shadow</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">262144</span>
+			<span class="ecomment">--</span><span class="ecomment"> Use fuzzy draw (shadow demons or spectres),</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;temporary player invisibility powerup.</span>
+
+	<a name="f_mf_noblood"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_noblood">Mf_noblood</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">524288</span>
+			<span class="ecomment">--</span><span class="ecomment"> Flag: don't bleed when shot (use puff),</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;barrels and shootable furniture shall not bleed.</span>
+
+	<a name="f_mf_corpse"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_corpse">Mf_corpse</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1048576</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't stop moving halfway off a step,</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;that is, have dead bodies slide down all the way.</span>
+
+	<a name="f_mf_infloat"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_infloat">Mf_infloat</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2097152</span>
+			<span class="ecomment">--</span><span class="ecomment"> Floating to a height for a move, ???</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;don't auto float to target's height.</span>
+
+	<a name="f_mf_countkill"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_countkill">Mf_countkill</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4194304</span>
+			<span class="ecomment">--</span><span class="ecomment"> On kill, count this enemy object</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;towards intermission kill total.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Happy gathering.</span>
+
+	<a name="f_mf_countitem"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_countitem">Mf_countitem</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8388608</span>
+			<span class="ecomment">--</span><span class="ecomment"> On picking up, count this item object</span>
+			<span class="ecomment">--</span><span class="ecomment"> towards intermission item total.</span>
+
+	<a name="f_mf_skullfly"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_skullfly">Mf_skullfly</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16777216</span>
+			<span class="ecomment">--</span><span class="ecomment"> Special handling: skull in flight.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Neither a cacodemon nor a missile.</span>
+
+	<a name="f_mf_notdmatch"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_notdmatch">Mf_notdmatch</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">33554432</span>
+			<span class="ecomment">--</span><span class="ecomment"> Don't spawn this object</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;in death match mode (e.g. key cards).</span>
+
+	<a name="f_mf_translation"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_translation">Mf_translation</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">201326592</span>
+			<span class="ecomment">--</span><span class="ecomment"> Player sprites in multiplayer modes are modified</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;using an internal color lookup table for re-indexing.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If 0x4 0x8 or 0xc,</span>
+			<span class="ecomment">--</span><span class="ecomment"> &nbsp;use a translation table for player colormaps</span>
+
+	<a name="f_mf_transshift"></a><a class="efeature" href="../brie_doom/mobjflag_t.html#f_mf_transshift">Mf_transshift</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">26</span>
+			<span class="ecomment">--</span><span class="ecomment"> Hmm ???.</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/mobjflag_t.html">MOBJFLAG_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="mobjflag_t_chart.html">Chart</a>
+<a class="nav class" href="mobjflag_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="mobjflag_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

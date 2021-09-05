@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="TTUtility class to traverse object graphs starting at a root object.   TTWhen traversing a graph the class distinguishes four different types of references: TT TTT(1) Normal references TTT(2) References with copy-semantics, which are usually seen when attaching  TTTTan expanded object to an ANY reference TTT(3) User-defined expanded objects, embedded inside another object.  TTTTSemantically this is a special case of a copy-semantics reference. TTT(4) Language-defined expanded objects (INTEGER, POINTER etc) embedded inside another object.  TTTTSemantically, this is a special case of a copy-semantics reference. TTTT TTThis class will follow all reference types except (4).  TT TTDuring traversal the agent `on_processing_object_action' will be called for each object TTand the agent `on_processing_reference_action' for each reference, if present. This includes TTreferences to objects that have already been processed. TT TTThe algorighm has two output values: `visited_objects' and `visited_types': TTAny standard object without copy-semantics (i.e. reference type (1)) will be stored TTby aliasing inside `visited_object'. For references of type (2) and (3) a copy will be stored. TTThe `visited_types' hash table contains the dynamic type id of all types encountered during  TTtraversal. The key and value in the hashtable are the same. TT TTSetting `is_skip_copy_semantics_reference' to true means that references of (2) and (3) will TTnot be stored in `visited_types'. Note that this is the only effect of this setting - i.e. TTthe traversal algorithm will still follow the references, the agents will be called, and the TT`visited_types' array will be extended anyway.  TTNOTE: TT TTDue to a limitation in the reflection library, references of type (2) and (3) within TUPLE  TTand references of type (3) within SPECIAL cannot be handled without causing a copy. This is  TTproblematic for agents, especially when they want to change the object. Therefore TTthe algorithm will raise an exception when an agent is attached. TTIn read-only situations it may be acceptable to use a copy of an object. Therefore to disable the TTexception behaviour you can set `is_exception_on_copy_suppressed' to True. TT TTNOTE: TT TTTo maintain backwards compatibility the traversal algorithm will silently ignore any kind of  TTexception and just return normally, with `traversed_objects' set to whatever value it had before  TTinvoking `traverse'. In order to get exceptions you need to set `is_exception_propagated' to True."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="author" content="Stephanie Balzer"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>object_graph_traversable Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="object_graph_traversable_chart.html">Chart</a>
+<a class="nav class" href="object_graph_traversable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="object_graph_traversable"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">		Utility class to traverse object graphs starting at a root object.</span>
+		
+		
+		<span class="estring">		When traversing a graph the class distinguishes four different types of references:</span>
+		<span class="estring">		</span>
+		<span class="estring">			(1) Normal references</span>
+		<span class="estring">			(2) References with copy-semantics, which are usually seen when attaching </span>
+		<span class="estring">				an expanded object to an ANY reference</span>
+		<span class="estring">			(3) User-defined expanded objects, embedded inside another object. </span>
+		<span class="estring">				Semantically this is a special case of a copy-semantics reference.</span>
+		<span class="estring">			(4) Language-defined expanded objects (INTEGER, POINTER etc) embedded inside another object. </span>
+		<span class="estring">				Semantically, this is a special case of a copy-semantics reference.</span>
+		<span class="estring">				</span>
+		<span class="estring">		This class will follow all reference types except (4). </span>
+		<span class="estring">		</span>
+		<span class="estring">		During traversal the agent </span><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a><span class="estring"> will be called for each object</span>
+		<span class="estring">		and the agent </span><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a><span class="estring"> for each reference, if present. This includes</span>
+		<span class="estring">		references to objects that have already been processed.</span>
+		<span class="estring">		</span>
+		<span class="estring">		The algorighm has two output values: </span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a><span class="estring"> and </span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a><span class="estring">:</span>
+		<span class="estring">		Any standard object without copy-semantics (i.e. reference type (1)) will be stored</span>
+		<span class="estring">		by aliasing inside </span><span class="estring">visited_object</span><span class="estring">. For references of type (2) and (3) a copy will be stored.</span>
+		<span class="estring">		The </span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a><span class="estring"> hash table contains the dynamic type id of all types encountered during </span>
+		<span class="estring">		traversal. The key and value in the hashtable are the same.</span>
+		<span class="estring">		</span>
+		<span class="estring">		Setting </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a><span class="estring"> to true means that references of (2) and (3) will</span>
+		<span class="estring">		not be stored in </span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a><span class="estring">. Note that this is the only effect of this setting - i.e.</span>
+		<span class="estring">		the traversal algorithm will still follow the references, the agents will be called, and the</span>
+		<span class="estring">		</span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a><span class="estring"> array will be extended anyway.</span>
+		
+		<span class="estring">		NOTE:</span>
+		<span class="estring">		</span>
+		<span class="estring">		Due to a limitation in the reflection library, references of type (2) and (3) within TUPLE </span>
+		<span class="estring">		and references of type (3) within SPECIAL cannot be handled without causing a copy. This is </span>
+		<span class="estring">		problematic for agents, especially when they want to change the object. Therefore</span>
+		<span class="estring">		the algorithm will raise an exception when an agent is attached.</span>
+		<span class="estring">		In read-only situations it may be acceptable to use a copy of an object. Therefore to disable the</span>
+		<span class="estring">		exception behaviour you can set </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a><span class="estring"> to True.</span>
+		<span class="estring">		</span>
+		<span class="estring">		NOTE:</span>
+		<span class="estring">		</span>
+		<span class="estring">		To maintain backwards compatibility the traversal algorithm will silently ignore any kind of </span>
+		<span class="estring">		exception and just return normally, with </span><span class="estring">traversed_objects</span><span class="estring"> set to whatever value it had before </span>
+		<span class="estring">		invoking </span><a class="efeature" href="../base/object_graph_traversable.html#f_traverse">traverse</a><span class="estring">. In order to get exceptions you need to set </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a><span class="estring"> to True.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;Free implementation of ELKS library&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Stephanie Balzer&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-03-23 19:18:26 +0000 (Thu, 23 Mar 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100033 $&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/object_graph_traversable.html">OBJECT_GRAPH_TRAVERSABLE</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_root_object"></a><a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Starting point of graph traversing</span>
+
+	<a name="f_on_processing_object_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Action called on every object in the object graph.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: The argument is reused later for a different object. Do not alias it.</span>
+
+	<a name="f_on_processing_reference_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">,</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Action called on every reference in the object graph.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: The arguments are reused later for different objects. Do not alias them.</span>
+
+	<a name="f_object_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/procedure.html">PROCEDURE</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Action called on every object in object graph</span>
+
+	<a name="f_visited_objects"></a><a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List referencing objects of object graph that have been visited in </span><a class="efeature" href="../base/object_graph_traversable.html#f_traverse">traverse</a><span class="ecomment">.</span>
+
+	<a name="f_visited_types"></a><a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List of all types encountered during traversal</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_has_failed"></a><a class="efeature" href="../base/object_graph_traversable.html#f_has_failed">has_failed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was the last traversal successful?</span>
+
+	<a name="f_is_root_object_set"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_root_object_set">is_root_object_set</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is starting point of graph traversing set?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_object_action_set"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_object_action_set">is_object_action_set</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is procedure to call on every object set?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_has_reference_with_copy_semantics"></a><a class="efeature" href="../base/object_graph_traversable.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does the traversed graph of objects contain reference with copy semantics?</span>
+
+	<a name="f_is_skip_transient"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we skip transient attribute during traversal?</span>
+
+	<a name="f_is_skip_copy_semantics_reference"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we skip copy semantics reference from </span><a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a><span class="ecomment"> during traversal?</span>
+
+	<a name="f_is_exception_on_copy_suppressed"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Do we suppress an exception when </span><a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a><span class="ecomment"> is called on a copied object?</span>
+			<span class="ecomment">--</span><span class="ecomment"> A copy happens when encountering tuples containing copy-semantics references</span>
+			<span class="ecomment">--</span><span class="ecomment"> or with SPECIAL</span><span class="ecomment">[XX]</span><span class="ecomment">, where XX is a user-defined expanded type.</span>
+
+	<a name="f_is_exception_propagated"></a><a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Does the algorithm propagate any exceptions to the user?</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Element change</span>
+
+	<a name="f_set_root_object"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_root_object">set_root_object</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a><span class="ecomment"> with 'an_object'.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a> <span class="esymbol">:=</span> <span class="elocal">an_object</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">root_object_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a> <span class="esymbol">=</span> <span class="elocal">an_object</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_root_object_set">is_root_object_set</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_on_processing_object_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_on_processing_object_action">set_on_processing_object_action</a> <span class="esymbol">(</span><span class="elocal">an_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a><span class="ecomment"> with </span><span class="equoted">an_action</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_action_not_void</span><span class="esymbol">:</span> <span class="elocal">an_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a> <span class="esymbol">:=</span> <span class="elocal">an_action</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">on_processing_object_action_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a> <span class="esymbol">=</span> <span class="elocal">an_action</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_on_processing_reference_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_on_processing_reference_action">set_on_processing_reference_action</a> <span class="esymbol">(</span><span class="elocal">an_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a><span class="ecomment"> with </span><span class="equoted">an_action</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_action_not_void</span><span class="esymbol">:</span> <span class="elocal">an_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a> <span class="esymbol">:=</span> <span class="elocal">an_action</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">on_processing_reference_action_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a> <span class="esymbol">=</span> <span class="elocal">an_action</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_object_action"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_object_action">set_object_action</a> <span class="esymbol">(</span><span class="elocal">an_object_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a><span class="esymbol">)</span>
+		<span class="ekeyword">obsolete</span> &quot;Use set_on_processing_object_action to read and manipulate objects via REFLECTED_OBJECT. [2017-05-31]&quot;
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a><span class="ecomment"> with </span><span class="equoted">an_object_action</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">an_object_action_not_void</span><span class="esymbol">:</span> <span class="elocal">an_object_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a> <span class="esymbol">:=</span> <span class="elocal">an_object_action</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">an_object_action_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a> <span class="esymbol">=</span> <span class="elocal">an_object_action</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_object_action_set">is_object_action_set</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_skip_transient"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_skip_transient">set_is_skip_transient</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_skip_transient_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_skip_copy_semantics_reference"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_skip_copy_semantics_reference">set_is_skip_copy_semantics_reference</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_skip_copy_semantics_reference_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_exception_on_copy_suppressed"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_exception_on_copy_suppressed">set_is_exception_on_copy_suppressed</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_exception_on_copy_suppressed">set_is_exception_on_copy_suppressed</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_exception_on_copy_suppressed_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_set_is_exception_propagated"></a><a class="efeature" href="../base/object_graph_traversable.html#f_set_is_exception_propagated">set_is_exception_propagated</a> <span class="esymbol">(</span><span class="elocal">v</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set </span><a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a><span class="ecomment"> with </span><span class="equoted">v</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a> <span class="esymbol">:=</span> <span class="elocal">v</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">is_exception_propagated_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a> <span class="esymbol">=</span> <span class="elocal">v</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Basic operations</span>
+
+	<a name="f_traverse"></a><span class="ekeyword">frozen</span> <a class="efeature" href="../base/object_graph_traversable.html#f_traverse">traverse</a>
+			<span class="ecomment">--</span><span class="ecomment"> Traverse object structure starting at 'root_object' and call object_action</span>
+			<span class="ecomment">--</span><span class="ecomment"> on every object in the graph.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">root_object_available</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_root_object_set">is_root_object_set</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_marker</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/object_graph_marker.html">OBJECT_GRAPH_MARKER</a>
+			<span class="elocal">l_has_lock</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_retried</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_retried</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a> <span class="ekeyword">as</span> l_root <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_marker</span>
+				<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_lock_marking">lock_marking</a>
+				<span class="elocal">l_has_lock</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<a class="efeature" href="../base/object_graph_traversable.html#f_internal_traverse">internal_traverse</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_root</span><span class="esymbol">)</span>
+				<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_unlock_marking">unlock_marking</a>
+				<a class="efeature" href="../base/object_graph_traversable.html#f_has_failed">has_failed</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">l_retried</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_has_failed">has_failed</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_has_lock</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_marker</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_unlock_marking">unlock_marking</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_propagated">is_exception_propagated</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">retry</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_wipe_out"></a><a class="efeature" href="../base/object_graph_traversable.html#f_wipe_out">wipe_out</a>
+			<span class="ecomment">--</span><span class="ecomment"> Clear current to default values</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_root_object">root_object</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">visited_objects_reset</span><span class="esymbol">:</span> <a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span>
+			<span class="etag">object_action_not_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_object_action_set">is_object_action_set</a>
+			<span class="etag">root_object_not_set</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_root_object_set">is_root_object_set</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation</span>
+
+	<a name="f_new_dispenser"></a><a class="efeature" href="../base/object_graph_traversable.html#f_new_dispenser">new_dispenser</a><span class="esymbol">:</span> <a class="eclass" href="../base/dispenser.html">DISPENSER</a> <span class="esymbol">[</span><span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> New dispenser to use for storing visited objects.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">new_dispenser_not_void</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_default_size"></a><a class="efeature" href="../base/object_graph_traversable.html#f_default_size">Default_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">200</span>
+			<span class="ecomment">--</span><span class="ecomment"> Default size for containers used during object traversal</span>
+
+	<a name="f_internal_traverse"></a><a class="efeature" href="../base/object_graph_traversable.html#f_internal_traverse">internal_traverse</a> <span class="esymbol">(</span><span class="elocal">a_root_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Traverse object structure starting at 'root_object' and call object_action</span>
+			<span class="ecomment">--</span><span class="ecomment"> on every object in the graph.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_object</span><span class="esymbol">:</span> <span class="ekeyword">separate</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">l_field</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_reference_item">reference_item</a>
+			<span class="elocal">l_field_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_marker</span><span class="esymbol">:</span> <a class="eclass" href="../base/object_graph_marker.html">OBJECT_GRAPH_MARKER</a>
+			<span class="elocal">l_objects_to_visit</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_new_dispenser">new_dispenser</a>
+			<span class="elocal">l_visited</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a>
+			<span class="elocal">l_visited_types</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a>
+			<span class="elocal">l_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a>
+			<span class="elocal">l_on_processing_object_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a>
+			<span class="elocal">l_spec</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_area">area</a>
+			<span class="elocal">l_reflected_reference_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+			<span class="elocal">l_reflected_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a>
+			<span class="elocal">l_has_reference_with_copy_semantics</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_on_processing_reference_action</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a>
+			<span class="elocal">l_referee_object_cache</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a>
+			<span class="elocal">l_referee_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_marker</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_reflected_reference_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_root_object</span><span class="esymbol">)</span>
+				<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_root_object</span><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/object_graph_traversable.html#f_default_size">Default_size</a><span class="esymbol">)</span>
+				<span class="ekeyword">create</span> <span class="elocal">l_visited_types</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/object_graph_traversable.html#f_default_size">Default_size</a><span class="esymbol">)</span>
+				<span class="elocal">l_objects_to_visit</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_new_dispenser">new_dispenser</a>
+				<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_root_object</span><span class="esymbol">)</span>
+				<span class="elocal">l_action</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_object_action">object_action</a>
+				<span class="elocal">l_on_processing_object_action</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_object_action">on_processing_object_action</a>
+				<span class="elocal">l_on_processing_reference_action</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/object_graph_traversable.html#f_on_processing_reference_action">on_processing_reference_action</a>
+				<span class="ekeyword">create</span> <span class="elocal">l_referee_object_cache</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_root_object</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_object</span> <span class="esymbol">:=</span> <span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/active.html#f_item">item</a>
+				<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/active.html#f_remove">remove</a>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_object.html">REFLECTED_OBJECT</a><span class="esymbol">}</span> <span class="elocal">l_object</span> <span class="ekeyword">as</span> l_copy_semantics_object <span class="ekeyword">then</span>
+					<span class="ekeyword">check</span>
+						<span class="etag">embedded_or_copy_semantics</span><span class="esymbol">:</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_copy_semantics_object.html">REFLECTED_COPY_SEMANTICS_OBJECT</a><span class="esymbol">}</span> <span class="elocal">l_copy_semantics_object</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="esymbol">(</span><span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflected_reference_object.html">REFLECTED_REFERENCE_OBJECT</a><span class="esymbol">}</span> <span class="elocal">l_copy_semantics_object</span> <span class="ekeyword">as</span> l_ref_obj <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_ref_obj</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_physical_offset">physical_offset</a> <span class="esymbol">/=</span> <span class="enumber">0</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<span class="elocal">l_has_reference_with_copy_semantics</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <span class="elocal">l_copy_semantics_object</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_copy_semantics_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_object">object</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_reflected_reference_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_object</span><span class="esymbol">)</span>
+					<span class="elocal">l_reflected_object</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_reference_object</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_reflected_reference_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_expanded">is_expanded</a> <span class="ekeyword">then</span>
+						<span class="elocal">l_has_reference_with_copy_semantics</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+						<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_copy_semantics_reference">is_skip_copy_semantics_reference</a> <span class="ekeyword">then</span>
+							<span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_object</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">else</span>
+						<span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_object</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="elocal">l_visited_types</span><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="esymbol">,</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_dynamic_type">dynamic_type</a><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_on_processing_object_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_expanded">is_expanded</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/object_graph_traversable.html#f_raise_unwanted_copy_exception">raise_unwanted_copy_exception</a>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_action</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+						<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_object_action</span> <span class="ekeyword">then</span>
+							<span class="elocal">l_on_processing_object_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special">is_special</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_of_reference">is_special_of_reference</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">l_object</span> <span class="ekeyword">as</span> l_sp <span class="ekeyword">then</span>
+							<span class="ekeyword">from</span>
+								<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+								<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_sp</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+							<span class="ekeyword">until</span>
+								<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+							<span class="ekeyword">loop</span>
+								<span class="ekeyword">if</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_copy_semantics_item">is_special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+									<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_special_copy_semantics_item">special_copy_semantics_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+									<span class="elocal">l_field</span> <span class="esymbol">:=</span> <span class="elocal">l_referee_object</span>
+									<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+									<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <span class="ekeyword">then</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">else</span>
+									<span class="elocal">l_field</span> <span class="esymbol">:=</span> <span class="elocal">l_sp</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+									<span class="ekeyword">if</span> <span class="elocal">l_field</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+										<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+										<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+									<span class="ekeyword">end</span>
+									<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="elocal">l_field</span> <span class="ekeyword">then</span>
+										<span class="elocal">l_referee_object_cache</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+										<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_referee_object_cache</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">end</span>
+								<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_special_of_expanded">is_special_of_expanded</a> <span class="ekeyword">then</span>
+						<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/special.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <span class="elocal">l_object</span> <span class="ekeyword">as</span> l_sp <span class="ekeyword">then</span>
+							<span class="ekeyword">from</span>
+								<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+								<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_sp</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+							<span class="ekeyword">until</span>
+								<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+							<span class="ekeyword">loop</span>
+								<span class="elocal">l_field</span> <span class="esymbol">:=</span> <span class="elocal">l_sp</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+								<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+								<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <span class="ekeyword">then</span>
+									<span class="ekeyword">if</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a> <span class="ekeyword">then</span>
+										<span class="elocal">l_referee_object_cache</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+										<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_referee_object_cache</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">else</span>
+										<a class="efeature" href="../base/object_graph_traversable.html#f_raise_unwanted_copy_exception">raise_unwanted_copy_exception</a>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">end</span>
+								<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_tuple">is_tuple</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a><span class="esymbol">}</span> <span class="elocal">l_object</span> <span class="ekeyword">as</span> l_tuple_obj <span class="ekeyword">then</span>
+						<span class="ekeyword">from</span>
+							<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+							<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_tuple_obj</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">until</span>
+							<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+						<span class="ekeyword">loop</span>
+							<span class="ekeyword">if</span> <span class="elocal">l_tuple_obj</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_is_reference_item">is_reference_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+								<span class="elocal">l_field</span> <span class="esymbol">:=</span> <span class="elocal">l_tuple_obj</span><span class="edot">.</span><a class="efeature" href="../base/tuple.html#f_reference_item">reference_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+								<span class="ekeyword">if</span> <span class="elocal">l_field</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+									<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+									<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+								<span class="ekeyword">end</span>
+								<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <span class="elocal">l_field</span> <span class="ekeyword">then</span>
+									<span class="ekeyword">if</span> <a class="efeature" href="../base/object_graph_traversable.html#f_is_exception_on_copy_suppressed">is_exception_on_copy_suppressed</a> <span class="ekeyword">then</span>
+										<span class="elocal">l_referee_object_cache</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+										<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_referee_object_cache</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">else</span>
+										<a class="efeature" href="../base/object_graph_traversable.html#f_raise_unwanted_copy_exception">raise_unwanted_copy_exception</a>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">end</span>
+							<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="ekeyword">end</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">from</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+						<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_count">field_count</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">until</span>
+						<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+					<span class="ekeyword">loop</span>
+						<span class="elocal">l_field_type</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_field_type">field_type</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+						<span class="ekeyword">if</span> <span class="elocal">l_field_type</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_reference_type">reference_type</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_field_type</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_expanded_type">expanded_type</a> <span class="ekeyword">then</span>
+							<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/object_graph_traversable.html#f_is_skip_transient">is_skip_transient</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_field_transient">is_field_transient</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+								<span class="ekeyword">if</span> <span class="elocal">l_field_type</span> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/reflector_constants.html">REFLECTOR_CONSTANTS</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/reflector_constants.html#f_expanded_type">expanded_type</a> <span class="ekeyword">then</span>
+									<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_expanded_field">expanded_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+									<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_referee_object</span><span class="esymbol">)</span>
+									<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <span class="ekeyword">then</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">elseif</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_is_copy_semantics_field">is_copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+									<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_copy_semantics_field">copy_semantics_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+									<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_referee_object</span><span class="esymbol">)</span>
+									<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <span class="ekeyword">then</span>
+										<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">else</span>
+									<span class="elocal">l_field</span> <span class="esymbol">:=</span> <span class="elocal">l_reflected_object</span><span class="edot">.</span><a class="efeature" href="../base/reflected_object.html#f_reference_field">reference_field</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span>
+									<span class="ekeyword">if</span> <span class="elocal">l_field</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+										<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_is_marked">is_marked</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+											<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_mark">mark</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+											<span class="elocal">l_objects_to_visit</span><span class="edot">.</span><a class="efeature" href="../base/dispenser.html#f_put">put</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+										<span class="ekeyword">end</span>
+										<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">l_on_processing_reference_action</span> <span class="ekeyword">then</span>
+											<span class="elocal">l_referee_object_cache</span><span class="edot">.</span><a class="efeature" href="../base/reflected_reference_object.html#f_set_object">set_object</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_field</span><span class="esymbol">)</span>
+											<span class="elocal">l_referee_object</span> <span class="esymbol">:=</span> <span class="elocal">l_referee_object_cache</span>
+											<span class="elocal">l_on_processing_reference_action</span><span class="edot">.</span><a class="efeature" href="../base/procedure.html#f_call">call</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">[</span><span class="elocal">l_reflected_object</span><span class="esymbol">,</span> <span class="elocal">l_referee_object</span><span class="esymbol">]</span><span class="esymbol">)</span>
+										<span class="ekeyword">end</span>
+									<span class="ekeyword">end</span>
+								<span class="ekeyword">end</span>
+							<span class="ekeyword">end</span>
+						<span class="ekeyword">end</span>
+						<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+					<span class="ekeyword">variant</span>
+							<span class="elocal">nb</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="elocal">i</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">nb</span> <span class="esymbol">:=</span> <span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a>
+				<span class="elocal">l_spec</span> <span class="esymbol">:=</span> <span class="elocal">l_visited</span><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_area">area</a>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <span class="esymbol">=</span> <span class="elocal">nb</span>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">l_marker</span><span class="edot">.</span><a class="efeature" href="../base/object_graph_marker.html#f_unmark">unmark</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_spec</span><span class="edot">.</span><a class="efeature" href="../base/special.html#f_item">item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">i</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_visited_objects">visited_objects</a> <span class="esymbol">:=</span> <span class="elocal">l_visited</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_visited_types">visited_types</a> <span class="esymbol">:=</span> <span class="elocal">l_visited_types</span>
+			<a class="efeature" href="../base/object_graph_traversable.html#f_has_reference_with_copy_semantics">has_reference_with_copy_semantics</a> <span class="esymbol">:=</span> <span class="elocal">l_has_reference_with_copy_semantics</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_raise_unwanted_copy_exception"></a><a class="efeature" href="../base/object_graph_traversable.html#f_raise_unwanted_copy_exception">raise_unwanted_copy_exception</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_exception</span><span class="esymbol">:</span> <a class="eclass" href="../base/developer_exception.html">DEVELOPER_EXCEPTION</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">l_exception</span>
+			<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;An agent has been invoked on a copy of an object during object graph traversal.%NThis happens in TUPLE containing objects with copy-semantics or in SPECIAL[XX],%Nwhere XX is a user-defined expanded type.&quot;<span class="esymbol">)</span>
+			<span class="elocal">l_exception</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/object_graph_traversable.html">OBJECT_GRAPH_TRAVERSABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="object_graph_traversable_chart.html">Chart</a>
+<a class="nav class" href="object_graph_traversable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="object_graph_traversable"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

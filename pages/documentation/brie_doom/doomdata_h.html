@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="doomdata.h all external data is defined here most of the data is loaded into different structures at run time some internal structures shared by many modules are here"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>doomdata_h Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="doomdata_h_chart.html">Chart</a>
+<a class="nav class" href="doomdata_h_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="doomdata_h"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">doomdata.h</span>
+		<span class="estring">all external data is defined here</span>
+		<span class="estring">most of the data is loaded into different structures at run time</span>
+		<span class="estring">some internal structures shared by many modules are here</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/doomdata_h.html">DOOMDATA_H</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> ML enum</span>
+
+	<a name="f_ml_label"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_label">Ml_label</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+			<span class="ecomment">--</span><span class="ecomment"> A separator, name, ExMx or MAPxx</span>
+
+	<a name="f_ml_things"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_things">Ml_things</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Monsters, items...</span>
+
+	<a name="f_ml_linedefs"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_linedefs">Ml_linedefs</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+			<span class="ecomment">--</span><span class="ecomment"> LineDefs, from editing</span>
+
+	<a name="f_ml_sidedefs"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_sidedefs">Ml_sidedefs</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+			<span class="ecomment">--</span><span class="ecomment"> SideDefs, from editing</span>
+
+	<a name="f_ml_vertexes"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_vertexes">Ml_vertexes</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+			<span class="ecomment">--</span><span class="ecomment"> Vertices, edited and BSP splits generated</span>
+
+	<a name="f_ml_segs"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_segs">Ml_segs</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">5</span>
+			<span class="ecomment">--</span><span class="ecomment"> LineSegs, from LineDefs split by BSP</span>
+
+	<a name="f_ml_ssectors"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_ssectors">Ml_ssectors</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">6</span>
+			<span class="ecomment">--</span><span class="ecomment"> SubSectors, list of LineSegs</span>
+
+	<a name="f_ml_nodes"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_nodes">Ml_nodes</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">7</span>
+			<span class="ecomment">--</span><span class="ecomment"> BSP nodes</span>
+
+	<a name="f_ml_sectors"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_sectors">Ml_sectors</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8</span>
+			<span class="ecomment">--</span><span class="ecomment"> Sectors, from editing</span>
+
+	<a name="f_ml_reject"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_reject">Ml_reject</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">9</span>
+			<span class="ecomment">--</span><span class="ecomment"> LUT, sector-sector visibility</span>
+
+	<a name="f_ml_blockmap"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_blockmap">Ml_blockmap</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">10</span>
+			<span class="ecomment">--</span><span class="ecomment"> LUT, motion clipping, walls/grid element</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Other ML_ ????</span>
+
+	<a name="f_ml_twosided"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_twosided">Ml_twosided</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+			<span class="ecomment">--</span><span class="ecomment"> Backside will not be present at all if not two sided.</span>
+
+	<a name="f_ml_mapped"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_mapped">Ml_mapped</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">256</span>
+			<span class="ecomment">--</span><span class="ecomment"> Set if already seen, thus drawn in automap.</span>
+
+	<a name="f_ml_dontpegtop"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_dontpegtop">Ml_dontpegtop</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8</span>
+			<span class="ecomment">--</span><span class="ecomment"> upper texture unpegged</span>
+
+	<a name="f_ml_dontpegbottom"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_dontpegbottom">Ml_dontpegbottom</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">16</span>
+			<span class="ecomment">--</span><span class="ecomment"> lower texture unpegged</span>
+
+	<a name="f_ml_secret"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_secret">Ml_secret</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">32</span>
+			<span class="ecomment">--</span><span class="ecomment"> In AutoMap: don't map as two sided: IT'S A SECRET!</span>
+
+	<a name="f_ml_blocking"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_blocking">Ml_blocking</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Solid, is an obstacle</span>
+
+	<a name="f_ml_blockmonsters"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_blockmonsters">Ml_blockmonsters</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
+			<span class="ecomment">--</span><span class="ecomment"> Blocks monsters only</span>
+
+	<a name="f_ml_soundblock"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_ml_soundblock">Ml_soundblock</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">64</span>
+			<span class="ecomment">--</span><span class="ecomment"> Sound rendering: don't let sound cross two of these</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_nf_subsector"></a><a class="efeature" href="../brie_doom/doomdata_h.html#f_nf_subsector">Nf_subsector</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">32768</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/doomdata_h.html">DOOMDATA_H</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="doomdata_h_chart.html">Chart</a>
+<a class="nav class" href="doomdata_h_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="doomdata_h"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

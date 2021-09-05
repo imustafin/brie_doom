@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Serialize/Deserialize data from a medium."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sed_medium_reader_writer Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_medium_reader_writer_chart.html">Chart</a>
+<a class="nav class" href="sed_medium_reader_writer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_medium_reader_writer"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Serialize/Deserialize data from a medium.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-09-25 15:53:33 +0000 (Mon, 25 Sep 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100789 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/sed_medium_reader_writer.html">SED_MEDIUM_READER_WRITER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/sed_binary_reader_writer.html">SED_BINARY_READER_WRITER</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_header">read_header</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_header">write_header</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_cleanup">cleanup</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_footer">write_footer</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/platform.html">PLATFORM</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make">make</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_reading">make_for_reading</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_writing">make_for_writing</a><span class="esymbol">,</span>
+	<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_with_buffer">make_with_buffer</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current to read or write from </span><span class="equoted">a_medium</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_with_buffer">make_with_buffer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_default_buffer_size">Default_buffer_size</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">medium_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">=</span> <span class="elocal">a_medium</span>
+			<span class="etag">buffer_size_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_default_buffer_size">Default_buffer_size</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_for_reading"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_reading">make_for_reading</a> <span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current to read from </span><span class="equoted">a_medium</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_open_for_reading</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_read">is_open_read</a>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_set_for_reading">set_for_reading</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">medium_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">=</span> <span class="elocal">a_medium</span>
+			<span class="etag">buffer_size_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_default_buffer_size">Default_buffer_size</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_for_writing"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_for_writing">make_for_writing</a> <span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current to write to </span><span class="equoted">a_medium</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_medium_open_for_writing</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_write">is_open_write</a>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_set_for_writing">set_for_writing</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">medium_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">=</span> <span class="elocal">a_medium</span>
+			<span class="etag">buffer_size_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_default_buffer_size">Default_buffer_size</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_make_with_buffer"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_make_with_buffer">make_with_buffer</a> <span class="esymbol">(</span><span class="elocal">a_medium</span><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a><span class="esymbol">;</span> <span class="elocal">a_buffer_size</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Initialize current to read or write from </span><span class="equoted">a_medium</span><span class="ecomment"> using a buffer of size </span><span class="equoted">a_buffer_size</span><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a><span class="ecomment"> will be overriden during read operation by the value of </span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a><span class="ecomment"> used</span>
+			<span class="ecomment">--</span><span class="ecomment"> when writing.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_medium_not_void</span><span class="esymbol">:</span> <span class="elocal">a_medium</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_buffer_size_non_negative</span><span class="esymbol">:</span> <span class="elocal">a_buffer_size</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+			<span class="etag">a_medium_support_storable</span><span class="esymbol">:</span> <span class="elocal">a_medium</span><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">:=</span> <span class="elocal">a_medium</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <span class="elocal">a_buffer_size</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_buffer_size</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">medium_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">=</span> <span class="elocal">a_medium</span>
+			<span class="etag">buffer_size_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">=</span> <span class="elocal">a_buffer_size</span>
+			<span class="etag">buffer_size_set</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <span class="esymbol">=</span> <span class="elocal">a_buffer_size</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Header/Footer</span>
+
+	<a name="f_read_header"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_header">read_header</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve configuration of how data was stored.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_buffer_from_medium">read_buffer_from_medium</a>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_little_endian_storable">is_little_endian_storable</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_reader_writer.html#f_read_boolean">read_boolean</a>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_stored_pointer_bytes">stored_pointer_bytes</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_read_integer_32">read_integer_32</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_header"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_header">write_header</a>
+			<span class="ecomment">--</span><span class="ecomment"> Store configuration on how data will be stored.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+			<span class="ekeyword">check</span>
+				<span class="etag">enough_space</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">4</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_boolean_bytes">boolean_bytes</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">2</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_little_endian_storable">is_little_endian_storable</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/platform.html#f_is_little_endian">Is_little_endian</a>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_chunk_header">write_chunk_header</a>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_little_endian_storable">is_little_endian_storable</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_reader_writer.html#f_write_boolean">write_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_reader_writer.html#f_is_pointer_value_stored">is_pointer_value_stored</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_write_integer_32">write_integer_32</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_pointer_bytes">pointer_bytes</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_chunk_header"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_chunk_header">write_chunk_header</a>
+			<span class="ecomment">--</span><span class="ecomment"> Store information about chunks</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_integer_32_be">put_integer_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">-1</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_natural_32_be">put_natural_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_reader_writer_version_6_6">Reader_writer_version_6_6</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_natural_32_bytes">natural_32_bytes</a>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_boolean_bytes">boolean_bytes</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_write_footer"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_footer">write_footer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Store last buffered data.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_flush_buffer_to_medium">flush_buffer_to_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_is_ready_for_reading"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is Current ready for future read operations?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_for_reading">is_for_reading</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_exists">exists</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_read">is_open_read</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_readable">readable</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_ready_for_writing"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is Current ready for future write operations?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_for_reading">is_for_reading</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_exists">exists</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_is_open_write">is_open_write</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_support_storable">support_storable</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_last_chunk"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_last_chunk">is_last_chunk</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are we reading the last chunk?</span>
+
+	<a name="f_cleanup"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_cleanup">cleanup</a>
+			<span class="ecomment">--</span><span class="ecomment"> When a reading is stopped, perform the necessary cleanup to perform</span>
+			<span class="ecomment">--</span><span class="ecomment"> another reading or writing.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+			<span class="ekeyword">until</span>
+				<a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_last_chunk">is_last_chunk</a>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_buffer_from_medium">read_buffer_from_medium</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_reader_writer_version_6_6"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_reader_writer_version_6_6">Reader_writer_version_6_6</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a> <span class="esymbol">=</span> <span class="enumber">1</span>
+			<span class="ecomment">--</span><span class="ecomment"> Version of format used for reading/writing.</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Implementation: Access</span>
+
+	<a name="f_medium"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="esymbol">:</span> <a class="eclass" href="../base/io_medium.html">IO_MEDIUM</a>
+			<span class="ecomment">--</span><span class="ecomment"> Medium used for read/write operations</span>
+
+	<a name="f_version_position"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_version_position">version_position</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Position where information about version is stored</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_size_position"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a> <span class="esymbol">(</span><span class="elocal">a_is_new_format</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Position where size information for current chunk is stored.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">a_is_new_format</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_version_position">version_position</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_natural_32_bytes">natural_32_bytes</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_new_chunk_position"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_new_chunk_position">new_chunk_position</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Position where presence or not of a next chunk is stored.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_chunk_header_size"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_chunk_header_size">chunk_header_size</a> <span class="esymbol">(</span><span class="elocal">a_is_new_format</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Size of data</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a>
+			<span class="ekeyword">if</span> <span class="elocal">a_is_new_format</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_natural_32_bytes">natural_32_bytes</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_boolean_bytes">boolean_bytes</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Buffer update</span>
+
+	<a name="f_check_buffer"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_check_buffer">check_buffer</a> <span class="esymbol">(</span><span class="elocal">n</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> If there is enough space in </span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="ecomment"> to read </span><span class="equoted">n</span><span class="ecomment"> bytes, do nothing.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Otherwise, read/write to </span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="ecomment"> to free some space.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_is_for_reading">is_for_reading</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_buffer_from_medium">read_buffer_from_medium</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_medium_reader_writer.html#f_flush_buffer_to_medium">flush_buffer_to_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_read_buffer_from_medium"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_read_buffer_from_medium">read_buffer_from_medium</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read next chunk of data.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_reading">is_ready_for_reading</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_version</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">l_is_new_format</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_failure</span><span class="esymbol">:</span> <a class="eclass" href="../base/serialization_failure.html">SERIALIZATION_FAILURE</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_bytes_read">bytes_read</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_integer_32_be">read_integer_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+				<a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_last_chunk">is_last_chunk</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">=</span> <span class="enumber">-1</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_is_new_format</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+					<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_version_position">version_position</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a><span class="esymbol">)</span>
+					<span class="elocal">l_version</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_natural_32_be">read_natural_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_version_position">version_position</a><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_version</span> <span class="esymbol">=</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_reader_writer_version_6_6">Reader_writer_version_6_6</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a><span class="esymbol">)</span>
+						<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_integer_32_be">read_integer_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span><span class="esymbol">)</span>
+						<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_new_chunk_position">new_chunk_position</a><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_boolean_bytes">boolean_bytes</a><span class="esymbol">)</span>
+						<a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_last_chunk">is_last_chunk</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_boolean">read_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_new_chunk_position">new_chunk_position</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">l_is_new_format</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_chunk_header_size">chunk_header_size</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_is_new_format</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_resize">resize</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="esymbol">{</span><a class="eclass" href="../base/platform.html">PLATFORM</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/platform.html#f_integer_32_bytes">integer_32_bytes</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_read_to_managed_pointer">read_to_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_bytes_read">bytes_read</a> <span class="esymbol">/=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+						<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+						<span class="ekeyword">create</span> <span class="elocal">l_failure</span>
+						<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Read less than expected number of bytes in buffer.&quot;<span class="esymbol">)</span>
+						<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+					<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+					<span class="ekeyword">create</span> <span class="elocal">l_failure</span>
+					<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Read less than 4 bytes in buffer's header.&quot;<span class="esymbol">)</span>
+					<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_size">buffer_size</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_count">count</a>
+				<span class="ekeyword">create</span> <span class="elocal">l_failure</span>
+				<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_set_description">set_description</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Cannot read buffer size from header.&quot;<span class="esymbol">)</span>
+				<span class="elocal">l_failure</span><span class="edot">.</span><a class="efeature" href="../base/exception.html#f_raise">raise</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_flush_buffer_to_medium"></a><a class="efeature" href="../base/sed_medium_reader_writer.html#f_flush_buffer_to_medium">flush_buffer_to_medium</a> <span class="esymbol">(</span><span class="elocal">last_chunk</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Write next chunk of data to </span><a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">is_ready</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_is_ready_for_writing">is_ready_for_writing</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_integer_32_be">put_integer_32_be</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a><span class="esymbol">,</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_size_position">size_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_put_boolean">put_boolean</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">last_chunk</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_new_chunk_position">new_chunk_position</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_put_managed_pointer">put_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer">buffer</a><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <a class="efeature" href="../base/sed_binary_reader_writer.html#f_buffer_position">buffer_position</a><span class="esymbol">)</span>
+			<a class="efeature" href="../base/sed_medium_reader_writer.html#f_write_chunk_header">write_chunk_header</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">medium_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../base/sed_medium_reader_writer.html#f_medium">medium</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/sed_medium_reader_writer.html">SED_MEDIUM_READER_WRITER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sed_medium_reader_writer_chart.html">Chart</a>
+<a class="nav class" href="sed_medium_reader_writer_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sed_medium_reader_writer"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

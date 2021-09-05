@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Summary description for {TEST_NUMBER_CONVERSIONS}."/>
+<meta name="author" content=""/>
+<meta name="testing" content="type/manual"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>test_number_conversions Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_number_conversions_chart.html">Chart</a>
+<a class="nav class" href="test_number_conversions_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_number_conversions"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../../brie_doom/tests/test_number_conversions.html">TEST_NUMBER_CONVERSIONS</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+	<span class="eitag">testing</span><span class="esymbol">:</span> <span class="estring">&quot;type/manual&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/tests/test_number_conversions.html">TEST_NUMBER_CONVERSIONS</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../../testing/eqa_test_set.html">EQA_TEST_SET</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../../testing/eqa_test_set.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_neg_int_to_natural"></a><a class="efeature" href="../../brie_doom/tests/test_number_conversions.html#f_neg_int_to_natural">neg_int_to_natural</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">int</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">nat</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">int</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="elocal">nat</span> <span class="esymbol">:=</span> <span class="elocal">int</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;same bits&quot;<span class="esymbol">,</span> <span class="elocal">int</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_hex_string">to_hex_string</a> <span class="esymbol">~</span> <span class="elocal">nat</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_hex_string">to_hex_string</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_neg_int_as_natural"></a><a class="efeature" href="../../brie_doom/tests/test_number_conversions.html#f_neg_int_as_natural">neg_int_as_natural</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">int</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">nat</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">int</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+			<span class="elocal">nat</span> <span class="esymbol">:=</span> <span class="elocal">int</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_as_natural_32">as_natural_32</a>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">int</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_hex_string">to_hex_string</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">nat</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_hex_string">to_hex_string</a> <a class="esymbol" href="../../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../../testing/eqa_test_set.html#f_assert">assert</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;same bits&quot;<span class="esymbol">,</span> <span class="elocal">int</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_hex_string">to_hex_string</a> <span class="esymbol">~</span> <span class="elocal">nat</span><span class="edot">.</span><a class="efeature" href="../../base/natural_32_ref.html#f_to_hex_string">to_hex_string</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/tests/test_number_conversions.html">TEST_NUMBER_CONVERSIONS</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="test_number_conversions_chart.html">Chart</a>
+<a class="nav class" href="test_number_conversions_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="test_number_conversions"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

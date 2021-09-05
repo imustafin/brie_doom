@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Interpreter for line based Eiffel like interpreter language. Depends on a generated Erl-G reflection library."/>
+<meta name="author" content="Andreas Leitner"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>itp_interpreter Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_interpreter_chart.html">Chart</a>
+<a class="nav class" href="itp_interpreter_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_interpreter"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Interpreter for line based Eiffel like interpreter language.</span>
+		<span class="estring">Depends on a generated Erl-G reflection library.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Andreas Leitner&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-05-03 14:51:35 +0000 (Wed, 03 May 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 100315 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/itp_interpreter.html">ITP_INTERPRETER</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/any.html">ANY</a>
+
+	<a class="eclass" href="../base/exceptions.html">EXCEPTIONS</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/arguments_32.html">ARGUMENTS_32</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../testing/itp_shared_constants.html">ITP_SHARED_CONSTANTS</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../testing/erl_constants.html">ERL_CONSTANTS</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/execution_environment.html">EXECUTION_ENVIRONMENT</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/execution_environment.html#f_command_line">Command_line</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/execution_environment.html#f_command_line">Command_line_arguments</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/sed_storable_facilities.html">SED_STORABLE_FACILITIES</a>
+		<span class="ekeyword">export</span>
+			<span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ekeyword">all</span>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../testing/eqa_externals.html">EQA_EXTERNALS</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/itp_interpreter.html#f_execute">execute</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_execute"></a><a class="efeature" href="../testing/itp_interpreter.html#f_execute">execute</a>
+			<span class="ecomment">--</span><span class="ecomment"> Execute interpreter.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Command line for current: interpreter &lt;port&gt; &lt;melt feature id&gt; &lt;log file&gt;</span>
+			<span class="ecomment">--</span><span class="ecomment"> &lt;port&gt; is the port number used in socket IPC</span>
+			<span class="ecomment">--</span><span class="ecomment"> &lt;melt feature id&gt; is the feature body ID whose byte-code is to be injected</span>
+			<span class="ecomment">--</span><span class="ecomment"> &lt;log file&gt; is the file to store logs.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_log_filename</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="elocal">l_server_url</span><span class="esymbol">:</span> <a class="eclass" href="../base/immutable_string_32.html">IMMUTABLE_STRING_32</a>
+			<span class="elocal">l_port</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/arguments_32.html#f_argument_count">argument_count</a> <span class="esymbol">/=</span> <span class="enumber">5</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">check</span>
+					<span class="etag">wrong_number_of_arguments</span><span class="esymbol">:</span> <span class="ekeyword">False</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_server_url</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="elocal">l_port</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">2</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_body_id">byte_code_feature_body_id</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">3</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_pattern_id">byte_code_feature_pattern_id</a> <span class="esymbol">:=</span> <a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+			<span class="elocal">l_log_filename</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/arguments_32.html#f_argument">argument</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">5</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_buffer_size">Buffer_size</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_buffer_size">Buffer_size</a><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="edot">.</span><a class="efeature" href="../testing/itp_store.html#f_make">make</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_make_with_name">make_with_name</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_log_filename</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_open_append">open_append</a>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_is_open_write">is_open_write</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;could not open log file '&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_log_filename</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'.&quot;<span class="esymbol">)</span>
+				<a class="efeature" href="../base/exceptions.html#f_die">die</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_start">start</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_port</span><span class="esymbol">,</span> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><span class="neclass">INET_ADDRESS_FACTORY</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><span class="nefeature">create_loopback</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_close">close</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_start"></a><a class="efeature" href="../testing/itp_interpreter.html#f_start">start</a> <span class="esymbol">(</span><span class="elocal">a_port</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">a_server_url</span><span class="esymbol">:</span> <span class="neclass">INET_ADDRESS</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Connect to EiffelStudio and initiate </span><a class="efeature" href="../testing/itp_interpreter.html#f_main_loop">main_loop</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_server_url_attached</span><span class="esymbol">:</span> <span class="elocal">a_server_url</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_port_valid</span><span class="esymbol">:</span> <span class="elocal">a_port</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="enumber">0</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_trace</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">make_client_by_address_and_port</span><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_server_url</span><span class="esymbol">,</span> <span class="elocal">a_port</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">connect</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">set_blocking</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">set_nodelay</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;session&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_main_loop">main_loop</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;/session&gt;%N&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">rescue</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exceptions.html#f_exception_trace">exception_trace</a> <span class="ekeyword">as</span> l_excpt_trace <span class="ekeyword">then</span>
+				<span class="elocal">l_trace</span> <span class="esymbol">:=</span> <span class="elocal">l_excpt_trace</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_twin">twin</a>
+				<span class="elocal">l_trace</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_replace_substring_all">replace_substring_all</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%N&quot;<span class="esymbol">,</span> &quot; &quot;<span class="esymbol">)</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_internal_error">log_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_excpt_trace</span><span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_trace</span> <span class="esymbol">:=</span> &quot;Unknown error&quot;
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_internal_error">log_internal_error</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_trace</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;/session&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;internal. &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_trace</span><span class="esymbol">)</span>
+			<a class="efeature" href="../base/exceptions.html#f_die">die</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_has_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Has an error occurred while parsing?</span>
+
+	<a name="f_is_last_protected_execution_successfull"></a><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_protected_execution_successfull">is_last_protected_execution_successfull</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Was the last protected execution successfull?</span>
+			<span class="ecomment">--</span><span class="ecomment"> (i.e. did it not trigger an exception)</span>
+
+	<a name="f_should_quit"></a><a class="efeature" href="../testing/itp_interpreter.html#f_should_quit">should_quit</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Should main loop quit?</span>
+
+	<a name="f_is_request_type_valid"></a><a class="efeature" href="../testing/itp_interpreter.html#f_is_request_type_valid">is_request_type_valid</a> <span class="esymbol">(</span><span class="elocal">a_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">a_type</span><span class="ecomment"> a valid request type?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">a_type</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_start_request_flag">Start_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">a_type</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_quit_request_flag">Quit_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">a_type</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_execute_request_flag">Execute_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">a_type</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_type_request_flag">Type_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Handlers</span>
+
+	<a name="f_report_type_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_type_request">report_type_request</a>
+		<span class="ekeyword">require</span>
+			<span class="etag">last_request_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">last_request_is_type_request</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_type_request_flag">Type_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">b</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">l_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_value</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="elocal">l_object_store</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a>
+			<span class="elocal">l_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">}</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="ekeyword">as</span> l_obj_index <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;report_type_request start%N&quot;<span class="esymbol">)</span>
+				<span class="elocal">l_index</span> <span class="esymbol">:=</span> <span class="elocal">l_obj_index</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a>
+				<span class="elocal">l_object_store</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a>
+				<span class="ekeyword">if</span> <span class="elocal">l_object_store</span><span class="edot">.</span><a class="efeature" href="../testing/itp_store.html#f_is_variable_defined">is_variable_defined</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_index</span><span class="esymbol">)</span> <span class="ekeyword">then</span>
+					<span class="elocal">l_value</span> <span class="esymbol">:=</span> <span class="elocal">l_object_store</span><span class="edot">.</span><a class="efeature" href="../testing/itp_store.html#f_variable_value">variable_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_index</span><span class="esymbol">)</span>
+					<span class="ekeyword">if</span> <span class="elocal">l_value</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">create</span> <span class="elocal">l_type</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">4</span><span class="esymbol">)</span>
+						<span class="elocal">l_type</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/erl_constants.html#f_none_type_name">None_type_name</a><span class="esymbol">)</span>
+					<span class="ekeyword">else</span>
+						<span class="ekeyword">create</span> <span class="elocal">l_type</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">64</span><span class="esymbol">)</span>
+						<span class="elocal">b</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_check_assert">check_assert</a> <span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+						<span class="elocal">l_type</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_value</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_generating_type">generating_type</a><span class="edot">.</span><a class="efeature" href="../base/type.html#f_name">name</a><span class="esymbol">)</span>
+						<span class="elocal">b</span> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../base/ise_runtime.html">ISE_RUNTIME</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/ise_runtime.html#f_check_assert">check_assert</a> <span class="esymbol">(</span><span class="elocal">b</span><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_print_line_and_flush">print_line_and_flush</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_type</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Variable `v_&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_index</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;' not defined.&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;report_type_request end%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_invalid_request_format_error">Invalid_request_format_error</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_refresh_last_response_flag">refresh_last_response_flag</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_last_response">last_response</a> <span class="esymbol">:=</span> <span class="esymbol">[</span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="esymbol">]</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_send_response_to_socket">send_response_to_socket</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_report_quit_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_quit_request">report_quit_request</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_should_quit">should_quit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_report_start_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_start_request">report_start_request</a>
+		<span class="ekeyword">do</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_report_execute_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_execute_request">report_execute_request</a>
+			<span class="ecomment">--</span><span class="ecomment"> Report execute request.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">last_request_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">last_request_is_execute_request</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_execute_request_flag">Execute_request_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_bcode</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="elocal">l_cstring</span><span class="esymbol">:</span> <a class="eclass" href="../base/c_string.html">C_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/tuple.html">TUPLE</a> <span class="esymbol">[</span><span class="elocal">l_byte_code</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">l_data</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">]</span><span class="esymbol">}</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="ekeyword">as</span> l_last_request <span class="ekeyword">then</span>
+				<span class="elocal">l_bcode</span> <span class="esymbol">:=</span> <span class="elocal">l_last_request</span><span class="edot">.</span><span class="elocal">l_byte_code</span>
+				<span class="ekeyword">if</span> <span class="elocal">l_bcode</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_not_found_error">Byte_code_not_found_error</a><span class="esymbol">)</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">l_bcode</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_length_error">Byte_code_length_error</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;report_execute_request start%N&quot;<span class="esymbol">)</span>
+					<span class="ekeyword">create</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_bcode</span><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/eqa_externals.html#f_override_byte_code_of_body">override_byte_code_of_body</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_body_id">byte_code_feature_body_id</a><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_pattern_id">byte_code_feature_pattern_id</a><span class="esymbol">,</span> <span class="elocal">l_cstring</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_bcode</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_count">count</a><span class="esymbol">)</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_execute_protected">execute_protected</a>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;report_execute_request end%N&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_invalid_request_format_error">Invalid_request_format_error</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_refresh_last_response_flag">refresh_last_response_flag</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_last_response">last_response</a> <span class="esymbol">:=</span> <span class="esymbol">[</span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="esymbol">]</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_send_response_to_socket">send_response_to_socket</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_refresh_last_response_flag"></a><a class="efeature" href="../testing/itp_interpreter.html#f_refresh_last_response_flag">refresh_last_response_flag</a>
+			<span class="ecomment">--</span><span class="ecomment"> Refresh the value of </span><a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a><span class="ecomment"> according to current status.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_internal_error_respones_flag">Internal_error_respones_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_invariant_violation_on_entry_response_flag">Invariant_violation_on_entry_response_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_normal_response_flag">Normal_response_flag</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_natural_32">to_natural_32</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Error Reporting</span>
+
+	<a name="f_report_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a> <span class="esymbol">(</span><span class="elocal">a_reason</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reason_not_void</span><span class="esymbol">:</span> <span class="elocal">a_reason</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">a_reason_not_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_reason</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;error: &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">a_reason</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">has_error</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_log_internal_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_log_internal_error">log_internal_error</a> <span class="esymbol">(</span><span class="elocal">a_reason</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Put </span><span class="equoted">a_reason</span><span class="ecomment"> in log file.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_reason_attached</span><span class="esymbol">:</span> <span class="elocal">a_reason</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">not_a_reason_is_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_reason</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;error type='internal'&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;reason&gt;%N&lt;![CDATA[%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_reason</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;]]&gt;%N&lt;/reason&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;/error&gt;%N&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Logging</span>
+
+	<a name="f_log_file"></a><a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="esymbol">:</span> <a class="eclass" href="../base/plain_text_file.html">PLAIN_TEXT_FILE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Log file</span>
+
+	<a name="f_log_instance"></a><a class="efeature" href="../testing/itp_interpreter.html#f_log_instance">log_instance</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Log an XML representation of </span><span class="equoted">an_object</span><span class="ecomment"> to </span><a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;instance&lt;![CDATA[%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">an_object</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Void%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">an_object</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_tagged_out">tagged_out</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;]]&gt;%N&lt;/instance&gt;%N&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_log_message"></a><a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a> <span class="esymbol">(</span><span class="elocal">a_message</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Log message </span><span class="equoted">a_messgae</span><span class="ecomment"> to </span><a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_message_not_void</span><span class="esymbol">:</span> <span class="elocal">a_message</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_put_string">put_string</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_message</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_report_trace"></a><a class="efeature" href="../testing/itp_interpreter.html#f_report_trace">report_trace</a>
+			<span class="ecomment">--</span><span class="ecomment"> Report trace information into </span><a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_buffer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a>
+			<span class="elocal">l_exception_code</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">l_recipient</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/exceptions.html#f_recipient_name">recipient_name</a>
+			<span class="elocal">l_recipient_class_name</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/exceptions.html#f_class_name">class_name</a>
+			<span class="elocal">l_tag</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/exceptions.html#f_tag_name">tag_name</a>
+			<span class="elocal">l_trace</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/exceptions.html#f_exception_trace">exception_trace</a>
+			<span class="elocal">l_meaning</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/exceptions.html#f_meaning">meaning</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_exception_code</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/exceptions.html#f_exception">exception</a>
+			<span class="elocal">l_meaning</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/exceptions.html#f_meaning">meaning</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exception_code</span><span class="esymbol">)</span>
+			<span class="elocal">l_tag</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/exceptions.html#f_tag_name">tag_name</a>
+			<span class="elocal">l_recipient</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/exceptions.html#f_recipient_name">recipient_name</a>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exceptions.html#f_class_name">class_name</a> <span class="ekeyword">as</span> l_class_name <span class="ekeyword">then</span>
+				<span class="elocal">l_recipient_class_name</span> <span class="esymbol">:=</span> <span class="elocal">l_class_name</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_recipient_class_name</span> <span class="esymbol">:=</span> &quot;UNKNOWN_CLASS&quot;
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../base/exceptions.html#f_exception_trace">exception_trace</a> <span class="ekeyword">as</span> l_exception_trace <span class="ekeyword">then</span>
+				<span class="elocal">l_trace</span> <span class="esymbol">:=</span> <span class="elocal">l_exception_trace</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">l_trace</span> <span class="esymbol">:=</span> &quot;Unknown exception trace&quot;
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_meaning</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_meaning</span> <span class="esymbol">:=</span> &quot;&quot;
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_recipient</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_recipient</span> <span class="esymbol">:=</span> &quot;&quot;
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+				<span class="etag">l_class_name_not_void</span><span class="esymbol">:</span> <span class="elocal">l_recipient_class_name</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">l_tag</span> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_tag</span> <span class="esymbol">:=</span> &quot;&quot;
+			<span class="ekeyword">end</span>
+			<span class="elocal">l_buffer</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_exception_code</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_recipient</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_recipient_class_name</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_tag</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_out">out</a><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+			<span class="elocal">l_buffer</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_trace</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;call_result type='exception'&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;meaning value='&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_meaning</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'/&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;tag value='&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_tag</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'/&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;recipient value='&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_recipient</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'/&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;class value='&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_recipient_class_name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;invariant violation on entry='&quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="edot">.</span><a class="efeature" href="../base/boolean_ref.html#f_out">out</a> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;'&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;%T&lt;exception_trace&gt;%N&lt;![CDATA[%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_trace</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;]]&gt;%N&lt;/exception_trace&gt;%N&quot;<span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_log_message">log_message</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&lt;/call_result&gt;%N&quot;<span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> IO Buffer</span>
+
+	<a name="f_output_buffer"></a><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Buffer used to store standard output from Current process</span>
+			<span class="ecomment">--</span><span class="ecomment"> Fixme: Should store standard error also, but due to an implementation</span>
+			<span class="ecomment">--</span><span class="ecomment"> limitation in STD_FILES, we cannot redirect standard error to a buffer.</span>
+			<span class="ecomment">--</span><span class="ecomment"> So stderr will be ignored for the moment. Jason 2008.10.18</span>
+
+	<a name="f_error_buffer"></a><a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Buffer to store error information (either interpreter error or exception trace from testee feature)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Note: Error here does not mean standard error from testee feature, stderr error should be handled by</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="ecomment">.</span>
+
+	<a name="f_wipe_out_buffer"></a><a class="efeature" href="../testing/itp_interpreter.html#f_wipe_out_buffer">wipe_out_buffer</a>
+			<span class="ecomment">--</span><span class="ecomment"> Clear </span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="ecomment"> and </span><a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_wipe_out">wipe_out</a>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_wipe_out">wipe_out</a>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">output_buffer_cleared</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+			<span class="etag">error_buffer_cleared</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_buffer_size"></a><a class="efeature" href="../testing/itp_interpreter.html#f_buffer_size">Buffer_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4096</span>
+			<span class="ecomment">--</span><span class="ecomment"> Size in byte for </span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Socket IPC</span>
+
+	<a name="f_socket"></a><a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="esymbol">:</span> <span class="neclass">NETWORK_STREAM_SOCKET</span>
+			<span class="ecomment">--</span><span class="ecomment"> Socket used for communitation between proxy and current interpreter</span>
+
+	<a name="f_last_request_type"></a><a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Type of the last request retrieved by </span><a class="efeature" href="../testing/itp_interpreter.html#f_retrieve_request">retrieve_request</a><span class="ecomment">.</span>
+
+	<a name="f_last_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last received request by </span><a class="efeature" href="../testing/itp_interpreter.html#f_retrieve_request">retrieve_request</a>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">flag</span><span class="ecomment"> indicates request type,</span>
+			<span class="ecomment">--</span><span class="ecomment"> </span><span class="equoted">data</span><span class="ecomment"> stores data needed for that reques type.</span>
+
+	<a name="f_last_response_flag"></a><a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Flag indicating the status of the response</span>
+			<span class="ecomment">--</span><span class="ecomment"> See </span><a class="eclass" href="../testing/itp_shared_constants.html">ITP_SHARED_CONSTANTS</a><span class="ecomment"> for valid values</span>
+
+	<a name="f_last_response"></a><a class="efeature" href="../testing/itp_interpreter.html#f_last_response">last_response</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Last response to be sent back to the proxy</span>
+
+	<a name="f_retrieve_request"></a><a class="efeature" href="../testing/itp_interpreter.html#f_retrieve_request">retrieve_request</a>
+			<span class="ecomment">--</span><span class="ecomment"> Retrieve request from proxy and store it in </span><a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Blocking if no request is received.</span>
+			<span class="ecomment">--</span><span class="ecomment"> Close socket on error.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">socket_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">socket_open</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_open_read</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_retried</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_last_response">last_response</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_retried</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">read_natural_32</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><a class="efeature" href="../base/io_medium.html#f_last_natural_32">last_natural_32</a>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><span class="ekeyword">like</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a><span class="esymbol">}</span> <a class="efeature" href="../base/sed_storable_facilities.html#f_retrieved_from_medium">retrieved_from_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="esymbol">)</span> <span class="ekeyword">as</span> l_request <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">:=</span> <span class="elocal">l_request</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">l_retried</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_closed</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">close</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">retry</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_send_response_to_socket"></a><a class="efeature" href="../testing/itp_interpreter.html#f_send_response_to_socket">send_response_to_socket</a>
+			<span class="ecomment">--</span><span class="ecomment"> Send response stored in </span><a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="ecomment"> and </span><a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a><span class="ecomment"> into </span><a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="ecomment">.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If error occurs, close </span><a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="ecomment">.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_retried</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_retried</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">put_natural_32</span><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_last_response_flag">last_response_flag</a><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_response">last_response</a> <span class="ekeyword">as</span> l_last_response <span class="ekeyword">then</span>
+					<a class="efeature" href="../base/sed_storable_facilities.html#f_store_in_medium">store_in_medium</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_last_response</span><span class="esymbol">,</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">l_retried</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">close</span>
+			<span class="ekeyword">retry</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_print_line_and_flush"></a><a class="efeature" href="../testing/itp_interpreter.html#f_print_line_and_flush">print_line_and_flush</a> <span class="esymbol">(</span><span class="elocal">a_text</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Print </span><span class="equoted">a_text</span><span class="ecomment"> followed by a newline and flush output stream.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_text_not_void</span><span class="esymbol">:</span> <span class="elocal">a_text</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_text</span><span class="esymbol">)</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append_character">append_character</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="echar">'%N'</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Parsing</span>
+
+	<a name="f_parse"></a><a class="efeature" href="../testing/itp_interpreter.html#f_parse">parse</a>
+			<span class="ecomment">--</span><span class="ecomment"> Parse input and call corresponding handler routines (</span><span class="equoted">report_*</span><span class="ecomment">).</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">not_has_error</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../testing/itp_interpreter.html#f_is_request_type_valid">is_request_type_valid</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a><span class="esymbol">)</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request">last_request</a> <span class="esymbol">=</span> <span class="ekeyword">Void</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;Received data is not recognized as a request.&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">inspect</span> <a class="efeature" href="../testing/itp_interpreter.html#f_last_request_type">last_request_type</a>
+					<span class="ekeyword">when</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_execute_request_flag">Execute_request_flag</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/itp_interpreter.html#f_report_execute_request">report_execute_request</a>
+					<span class="ekeyword">when</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_type_request_flag">Type_request_flag</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/itp_interpreter.html#f_report_type_request">report_type_request</a>
+					<span class="ekeyword">when</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_start_request_flag">Start_request_flag</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/itp_interpreter.html#f_report_start_request">report_start_request</a>
+					<span class="ekeyword">when</span> <a class="efeature" href="../testing/itp_shared_constants.html#f_quit_request_flag">Quit_request_flag</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../testing/itp_interpreter.html#f_report_quit_request">report_quit_request</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_report_error">report_error</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_interpreter.html#f_invalid_request_type_error">Invalid_request_type_error</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Object pool</span>
+
+	<a name="f_object_store"></a><a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="esymbol">:</span> <a class="eclass" href="../testing/itp_store.html">ITP_STORE</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object store</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Byte code</span>
+
+	<a name="f_byte_code_feature_body_id"></a><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_body_id">byte_code_feature_body_id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> ID for feature whose byte-code is to be injected</span>
+
+	<a name="f_byte_code_feature_pattern_id"></a><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_feature_pattern_id">byte_code_feature_pattern_id</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Pattern ID for feature whose byte-code is to be injected</span>
+
+	<a name="f_execute_protected"></a><a class="efeature" href="../testing/itp_interpreter.html#f_execute_protected">execute_protected</a>
+			<span class="ecomment">--</span><span class="ecomment"> Execute </span><span class="equoted">procedure</span><span class="ecomment"> in a protected way.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">failed</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_is_last_protected_execution_successfull">is_last_protected_execution_successfull</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">failed</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_execute_byte_code">execute_byte_code</a>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_is_last_protected_execution_successfull">is_last_protected_execution_successfull</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<span class="elocal">failed</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_report_trace">report_trace</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/exceptions.html#f_exception">exception</a> <span class="esymbol">=</span> <a class="efeature" href="../base/excep_const.html#f_class_invariant">Class_invariant</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_should_quit">should_quit</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">retry</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_execute_byte_code"></a><a class="efeature" href="../testing/itp_interpreter.html#f_execute_byte_code">execute_byte_code</a>
+			<span class="ecomment">--</span><span class="ecomment"> Execute test case</span>
+			<span class="ecomment">--</span><span class="ecomment"> The test case will be written as byte-code.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">v_1</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">v_1</span> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_store_variable_at_index"></a><a class="efeature" href="../testing/itp_interpreter.html#f_store_variable_at_index">store_variable_at_index</a> <span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">;</span> <span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Store </span><span class="equoted">a_object</span><span class="ecomment"> at </span><span class="equoted">a_index</span><span class="ecomment"> in </span><a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="edot">.</span><a class="efeature" href="../testing/itp_store.html#f_assign_value">assign_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_object</span><span class="esymbol">,</span> <span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_variable_at_index"></a><a class="efeature" href="../testing/itp_interpreter.html#f_variable_at_index">variable_at_index</a> <span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a>
+			<span class="ecomment">--</span><span class="ecomment"> Object in </span><a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="ecomment"> at position </span><span class="equoted">a_index</span><span class="ecomment">.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a><span class="edot">.</span><a class="efeature" href="../testing/itp_store.html#f_variable_value">variable_value</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_main_loop"></a><a class="efeature" href="../testing/itp_interpreter.html#f_main_loop">main_loop</a>
+			<span class="ecomment">--</span><span class="ecomment"> Main loop</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">from</span>
+			<span class="ekeyword">until</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_should_quit">should_quit</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a><span class="edot">.</span><span class="nefeature">is_closed</span>
+			<span class="ekeyword">loop</span>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_wipe_out_buffer">wipe_out_buffer</a>
+				<a class="efeature" href="../testing/itp_interpreter.html#f_retrieve_request">retrieve_request</a>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../testing/itp_interpreter.html#f_has_error">has_error</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../testing/itp_interpreter.html#f_parse">parse</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Error message</span>
+
+	<a name="f_invalid_request_format_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_invalid_request_format_error">Invalid_request_format_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;Invalid request format.&quot;
+
+	<a name="f_byte_code_not_found_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_not_found_error">Byte_code_not_found_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;No byte-code is found in request.&quot;
+
+	<a name="f_byte_code_length_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_byte_code_length_error">Byte_code_length_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;Length of retrieved byte-code is not the same as specified in request.&quot;
+
+	<a name="f_invalid_request_type_error"></a><a class="efeature" href="../testing/itp_interpreter.html#f_invalid_request_type_error">Invalid_request_type_error</a><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a> <span class="esymbol">=</span> &quot;Request type is invalid.&quot;
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Invariant checking</span>
+
+	<a name="f_is_last_invariant_violated"></a><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is the class invariant violated when </span><a class="efeature" href="../testing/itp_interpreter.html#f_check_invariant">check_invariant</a><span class="ecomment"> is invoked</span>
+			<span class="ecomment">--</span><span class="ecomment"> the last time?</span>
+
+	<a name="f_check_invariant"></a><a class="efeature" href="../testing/itp_interpreter.html#f_check_invariant">check_invariant</a> <span class="esymbol">(</span><span class="elocal">o</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Check if the class invariant </span><span class="equoted">o</span><span class="ecomment"> is satisfied.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If not satisfied, set </span><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="ecomment"> to True</span>
+			<span class="ecomment">--</span><span class="ecomment"> and raise the exception.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If satisfied, set </span><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="ecomment"> to False.</span>
+			<span class="ecomment">--</span><span class="ecomment"> if </span><span class="equoted">o</span><span class="ecomment"> is detached, set </span><a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a><span class="ecomment"> to False and do nothing.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="esymbol">{</span><a class="eclass" href="../base/any.html">ANY</a><span class="esymbol">}</span> <span class="elocal">o</span> <span class="ekeyword">as</span> l_obj <span class="ekeyword">then</span>
+				<span class="elocal">l_obj</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">rescue</span>
+			<a class="efeature" href="../testing/itp_interpreter.html#f_is_last_invariant_violated">is_last_invariant_violated</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">invariant</span>
+	<span class="etag">log_file_open_write</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_log_file">log_file</a><span class="edot">.</span><a class="efeature" href="../base/file.html#f_is_open_write">is_open_write</a>
+	<span class="etag">store_not_void</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_object_store">object_store</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">output_buffer_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_output_buffer">output_buffer</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">error_buffer_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_error_buffer">error_buffer</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+	<span class="etag">socket_attached</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_interpreter.html#f_socket">socket</a> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/itp_interpreter.html">ITP_INTERPRETER</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_interpreter_chart.html">Chart</a>
+<a class="nav class" href="itp_interpreter_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_interpreter"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="p_maputl.c  Movement/collision utility functions, as used by function in p_map.c. BLOCKMAP Iterator functions, and some PIT_* functions to use for iteration"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>p_maputl Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="p_maputl_links.html">Relations</a>
+<a class="nav class" href="p_maputl.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="p_maputl"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../brie_doom/p_maputl_chart.html">P_MAPUTL</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <a class="ecluster" href="../brie_doom/index.html">brie_doom</a>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;p_maputl.c</span>
+		
+		<span class="estring">Movement/collision utility functions,</span>
+		<span class="estring">as used by function in p_map.c.</span>
+		<span class="estring">BLOCKMAP Iterator functions,</span>
+		<span class="estring">and some PIT_* functions to use for iteration&quot;</span>
+	<span class="eitag">create</span><span class="esymbol">:</span> <a class="efeature" href="../brie_doom/p_maputl.html#f_make">make</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/any_chart.html">ANY</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`earlyout' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_earlyout">earlyout</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`i_main' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a></span>
+	<span title="`intercept_p' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_intercept_p">intercept_p</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../brie_doom/pointers/index_in_array_chart.html">INDEX_IN_ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/intercept_t_chart.html">INTERCEPT_T</a><span class="esymbol">]</span></span>
+	<span title="`intercepts' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_intercepts">intercepts</a><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/intercept_t_chart.html">INTERCEPT_T</a><span class="esymbol">]</span></span>
+	<span title="`lowfloor' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_lowfloor">lowfloor</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`openbottom' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_openbottom">openbottom</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`openrange' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_openrange">openrange</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`opentop' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_opentop">opentop</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`p_aproxdistance' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_aproxdistance">p_aproxdistance</a> <span class="esymbol">(</span><span class="elocal">a_dx</span><span class="esymbol">,</span> <span class="elocal">a_dy</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`p_blocklinesiterator' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_blocklinesiterator">p_blocklinesiterator</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">func</span><span class="esymbol">:</span> <a class="eclass" href="../base/predicate_chart.html">PREDICATE</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/render/line_t_chart.html">LINE_T</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`p_blockthingsiterator' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_blockthingsiterator">p_blockthingsiterator</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">func</span><span class="esymbol">:</span> <a class="eclass" href="../base/function_chart.html">FUNCTION</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/mobj_t_chart.html">MOBJ_T</a><span class="esymbol">,</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`p_boxonlineside' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_boxonlineside">p_boxonlineside</a> <span class="esymbol">(</span><span class="elocal">tmbox</span><span class="esymbol">:</span> <a class="eclass" href="../base/array_chart.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">ld</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/line_t_chart.html">LINE_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`p_interceptvector' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_interceptvector">p_interceptvector</a> <span class="esymbol">(</span><span class="elocal">v2</span><span class="esymbol">,</span> <span class="elocal">v1</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/divline_t_chart.html">DIVLINE_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a></span>
+	<span title="`p_pathtraverse' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_pathtraverse">p_pathtraverse</a> <span class="esymbol">(</span><span class="elocal">a_x1</span><span class="esymbol">,</span> <span class="elocal">a_y1</span><span class="esymbol">,</span> <span class="elocal">a_x2</span><span class="esymbol">,</span> <span class="elocal">a_y2</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">;</span> <span class="elocal">flags</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">trav</span><span class="esymbol">:</span> <a class="eclass" href="../base/predicate_chart.html">PREDICATE</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/intercept_t_chart.html">INTERCEPT_T</a><span class="esymbol">]</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`p_pointondivlineside' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_pointondivlineside">p_pointondivlineside</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">;</span> <span class="elocal">line</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/divline_t_chart.html">DIVLINE_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`p_pointonlineside' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_pointonlineside">p_pointonlineside</a> <span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">;</span> <span class="elocal">line</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/line_t_chart.html">LINE_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`p_traverseintercepts' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_traverseintercepts">p_traverseintercepts</a> <span class="esymbol">(</span><span class="elocal">func</span><span class="esymbol">:</span> <a class="eclass" href="../base/predicate_chart.html">PREDICATE</a> <span class="esymbol">[</span><a class="eclass" href="../brie_doom/intercept_t_chart.html">INTERCEPT_T</a><span class="esymbol">]</span><span class="esymbol">;</span> <span class="elocal">maxfrac</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/math/fixed_t_chart.html">FIXED_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`pit_addlineintercepts' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_pit_addlineintercepts">pit_addlineintercepts</a> <span class="esymbol">(</span><span class="elocal">ld</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/line_t_chart.html">LINE_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`pit_addthingintercepts' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_pit_addthingintercepts">pit_addthingintercepts</a> <span class="esymbol">(</span><span class="elocal">thing</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/mobj_t_chart.html">MOBJ_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`trace' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_trace">trace</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/divline_t_chart.html">DIVLINE_T</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`make' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="esymbol">[</span><span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/p_maputl.html#f_i_main">i_main</a><span class="esymbol">]</span> <a class="eclass" href="../brie_doom/i_main_chart.html">I_MAIN</a><span class="esymbol">)</span></span>
+	<span title="`p_lineopening' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_lineopening">p_lineopening</a> <span class="esymbol">(</span><span class="elocal">linedef</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/render/line_t_chart.html">LINE_T</a><span class="esymbol">)</span></span>
+	<span title="`p_setthingposition' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_setthingposition">p_setthingposition</a> <span class="esymbol">(</span><span class="elocal">thing</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/mobj_t_chart.html">MOBJ_T</a><span class="esymbol">)</span></span>
+	<span title="`p_unsetthingposition' is declared in `Current'"><a class="efeature" href="../brie_doom/p_maputl.html#f_p_unsetthingposition">p_unsetthingposition</a> <span class="esymbol">(</span><span class="elocal">thing</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/mobj_t_chart.html">MOBJ_T</a><span class="esymbol">)</span></span>
+
+<span class="ekeyword">Constraints</span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="p_maputl_links.html">Relations</a>
+<a class="nav class" href="p_maputl.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="p_maputl"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

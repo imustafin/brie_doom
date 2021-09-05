@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="An external iteration cursor for {HASH_TABLE}."/>
+<meta name="library" content="EiffelBase: Library of reusable components for Eiffel."/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2017, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>hash_table_iteration_cursor Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_table_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="hash_table_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="hash_table_iteration_cursor"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;An external iteration cursor for </span><span class="esymbol">{</span><a class="eclass" href="../base/hash_table.html">HASH_TABLE</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">library</span><span class="esymbol">:</span> <span class="estring">&quot;EiffelBase: Library of reusable components for Eiffel.&quot;</span>
+	<span class="eitag">status</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">legal</span><span class="esymbol">:</span> <span class="estring">&quot;See notice at end of class.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2017-02-27 13:20:16 +0000 (Mon, 27 Feb 2017) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 99873 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../base/hash_table_iteration_cursor.html">HASH_TABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable.html">HASHABLE</a><span class="esymbol">]</span>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../base/readable_indexable_iteration_cursor.html">READABLE_INDEXABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">target_index</a> <span class="ekeyword">as</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../base/hash_table_iteration_cursor.html#f_after">after</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table_iteration_cursor.html#f_cursor_index">cursor_index</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table_iteration_cursor.html#f_forth">forth</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table_iteration_cursor.html#f_item">item</a><span class="esymbol">,</span>
+			<a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/table_iteration_cursor.html">TABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span><span class="esymbol">]</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_item"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_item">item</a><span class="esymbol">:</span> <span class="egeneric">G</span>
+			<span class="ecomment">--</span><span class="ecomment"> Item at current cursor position.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_content">content</a> <a class="esymbol" href="../base/special.html#f_item">[</a><a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a><a class="esymbol" href="../base/special.html#f_item">]</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_key"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_key">key</a><span class="esymbol">:</span> <span class="egeneric">K</span>
+			<span class="ecomment">--</span><span class="ecomment"> Key at current cursor position</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_keys">keys</a> <a class="esymbol" href="../base/special.html#f_item">[</a><a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a><a class="esymbol" href="../base/special.html#f_item">]</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cursor_index"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_cursor_index">cursor_index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index position of cursor in the iteration.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">p</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+			<span class="elocal">n</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+			<span class="elocal">n</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_is_reversed">is_reversed</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_keys">keys</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="ekeyword">until</span>
+					<span class="elocal">p</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="elocal">i</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_previous_iteration_position">previous_iteration_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+					<span class="elocal">n</span> <span class="esymbol">:=</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="ekeyword">if</span> <span class="elocal">n</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="elocal">n</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="enumber">-1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">p</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">i</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">p</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_next_iteration_position">next_iteration_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">p</span><span class="esymbol">)</span>
+					<span class="elocal">n</span> <span class="esymbol">:=</span> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+					<span class="ekeyword">if</span> <span class="elocal">n</span> <span class="esymbol">=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+						<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+						<span class="elocal">n</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="enumber">0</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="elocal">n</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="elocal">n</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">Result</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Status report</span>
+
+	<a name="f_after"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_after">after</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Are there no more items to iterate over?</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_pos</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_is_valid">is_valid</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_keys">keys</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Cursor movement</span>
+
+	<a name="f_forth"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_forth">forth</a>
+			<span class="ecomment">--</span><span class="ecomment"> Move to next position.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">,</span> <span class="elocal">nb</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a>
+			<span class="elocal">l_pos</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a>
+			<span class="elocal">nb</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_step">step</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_is_reversed">is_reversed</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <span class="enumber">0</span>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_previous_iteration_position">previous_iteration_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">from</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">until</span>
+					<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">nb</span> <a class="ekeyword" href="../base/boolean.html#f_disjuncted_semistrict">or else</a> <span class="elocal">l_pos</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_keys">keys</a><span class="edot">.</span><a class="efeature" href="../base/special.html#f_count">count</a>
+				<span class="ekeyword">loop</span>
+					<span class="elocal">l_pos</span> <span class="esymbol">:=</span> <a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="edot">.</span><a class="efeature" href="../base/hash_table.html#f_next_iteration_position">next_iteration_position</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_pos</span><span class="esymbol">)</span>
+					<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../base/readable_indexable_iteration_cursor.html#f_target_index">iteration_position</a> <span class="esymbol">:=</span> <span class="elocal">l_pos</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="esymbol">{</span><a class="eclass" href="../base/iterable.html">ITERABLE</a><span class="esymbol">,</span> <a class="eclass" href="../base/iteration_cursor.html">ITERATION_CURSOR</a><span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_target"></a><a class="efeature" href="../base/hash_table_iteration_cursor.html#f_target">target</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> Associated structure used for iteration.</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2017, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../base/hash_table_iteration_cursor.html">HASH_TABLE_ITERATION_CURSOR</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="hash_table_iteration_cursor_chart.html">Chart</a>
+<a class="nav class" href="hash_table_iteration_cursor_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="hash_table_iteration_cursor"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

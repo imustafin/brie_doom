@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Truth values, with the boolean operations"/>
+<meta name="external_name" content="System.Boolean"/>
+<meta name="assembly" content="mscorlib"/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>boolean Relations</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="boolean_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="boolean.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="boolean"></span>
+</div></form><pre><span class="ekeyword">expanded</span> <span class="ekeyword">class</span>
+	<a class="eclass" href="../base/boolean_links.html">BOOLEAN</a>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/boolean_ref_links.html">BOOLEAN_REF</a>
+
+<span class="ekeyword">Clients</span>
+	<span class="neclass">ABSOLUTE</span><span class="echar">*</span>
+	<a class="eclass" href="../base/active_links.html">ACTIVE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/anim_t_links.html">ANIM_T</a>
+	<a class="eclass" href="../base/any_links.html">ANY</a>
+	<a class="eclass" href="../base/arguments_links.html">ARGUMENTS</a>
+	<a class="eclass" href="../base/arguments_32_links.html">ARGUMENTS_32</a>
+	<a class="eclass" href="../base/array_links.html">ARRAY</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/arrayed_list_links.html">ARRAYED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/arrayed_list_iteration_cursor_links.html">ARRAYED_LIST_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/arrayed_queue_links.html">ARRAYED_QUEUE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/array_iteration_cursor_links.html">ARRAY_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/bilinear_links.html">BILINEAR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/boolean_links.html">BOOLEAN</a>
+	<a class="eclass" href="../base/boolean_ref_links.html">BOOLEAN_REF</a>
+	<a class="eclass" href="../base/chain_links.html">CHAIN</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/character_32_ref_links.html">CHARACTER_32_REF</a>
+	<a class="eclass" href="../base/character_8_ref_links.html">CHARACTER_8_REF</a>
+	<a class="eclass" href="../base/character_property_links.html">CHARACTER_PROPERTY</a>
+	<span class="neclass">CODE_VALIDITY_CHECKER</span>
+	<a class="eclass" href="../base/collection_links.html">COLLECTION</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/comparable_links.html">COMPARABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/com_failure_links.html">COM_FAILURE</a>
+	<a class="eclass" href="../base/console_links.html">CONSOLE</a>
+	<a class="eclass" href="../base/container_links.html">CONTAINER</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<span class="neclass">C_DATE</span>
+	<a class="eclass" href="../base/c_string_links.html">C_STRING</a>
+	<span class="neclass">DATE</span>
+	<span class="neclass">DATE_CONSTANTS</span>
+	<span class="neclass">DATE_DURATION</span>
+	<span class="neclass">DATE_TIME</span>
+	<span class="neclass">DATE_TIME_CODE_STRING</span>
+	<span class="neclass">DATE_TIME_DURATION</span>
+	<span class="neclass">DATE_TIME_PARSER</span>
+	<span class="neclass">DATE_TIME_VALIDITY_CHECKER</span>
+	<span class="neclass">DATE_VALIDITY_CHECKER</span>
+	<a class="eclass" href="../base/directory_links.html">DIRECTORY</a>
+	<a class="eclass" href="../base/dispenser_links.html">DISPENSER</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<span class="neclass">DURATION</span><span class="echar">*</span>
+	<a class="eclass" href="../base/dynamic_chain_links.html">DYNAMIC_CHAIN</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/dynamic_list_links.html">DYNAMIC_LIST</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/render/d_display_links.html">D_DISPLAY</a>
+	<a class="eclass" href="../brie_doom/d_main_links.html">D_MAIN</a>
+	<a class="eclass" href="../brie_doom/d_net_links.html">D_NET</a>
+	<a class="eclass" href="../testing/eqa_assertions_links.html">EQA_ASSERTIONS</a>
+	<a class="eclass" href="../testing/eqa_environment_links.html">EQA_ENVIRONMENT</a>
+	<a class="eclass" href="../testing/eqa_evaluator_links.html">EQA_EVALUATOR</a>
+	<a class="eclass" href="../testing/eqa_file_system_links.html">EQA_FILE_SYSTEM</a>
+	<a class="eclass" href="../testing/eqa_partial_result_links.html">EQA_PARTIAL_RESULT</a>
+	<a class="eclass" href="../testing/eqa_result_links.html">EQA_RESULT</a>
+	<a class="eclass" href="../testing/eqa_system_path_links.html">EQA_SYSTEM_PATH</a>
+	<a class="eclass" href="../testing/eqa_test_evaluator_links.html">EQA_TEST_EVALUATOR</a> <span class="esymbol">[</span><span class="egeneric">G</span> <span class="esymbol">-&gt;</span> <a class="eclass" href="../testing/eqa_test_set_links.html">EQA_TEST_SET</a> <span class="ekeyword">create</span> <a class="efeature" href="../testing/eqa_test_set.html#f_default_create">default_create</a> <span class="ekeyword">end</span><span class="esymbol">]</span>
+	<a class="eclass" href="../testing/eqa_test_invocation_exception_links.html">EQA_TEST_INVOCATION_EXCEPTION</a>
+	<a class="eclass" href="../testing/eqa_test_invocation_response_links.html">EQA_TEST_INVOCATION_RESPONSE</a>
+	<a class="eclass" href="../testing/eqa_test_output_buffer_links.html">EQA_TEST_OUTPUT_BUFFER</a>
+	<a class="eclass" href="../testing/eqa_test_set_links.html">EQA_TEST_SET</a><span class="echar">*</span>
+	<a class="eclass" href="../base/exception_links.html">EXCEPTION</a>
+	<a class="eclass" href="../base/exceptions_links.html">EXCEPTIONS</a>
+	<a class="eclass" href="../base/exception_manager_links.html">EXCEPTION_MANAGER</a>
+	<a class="eclass" href="../base/excep_const_links.html">EXCEP_CONST</a>
+	<a class="eclass" href="../base/execution_environment_links.html">EXECUTION_ENVIRONMENT</a>
+	<a class="eclass" href="../base/file_links.html">FILE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/file_info_links.html">FILE_INFO</a>
+	<span class="neclass">FIND_SEPARATOR_FACILITY</span>
+	<a class="eclass" href="../base/function_links.html">FUNCTION</a> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple_links.html">TUPLE</a> <span class="ekeyword">create</span> <a class="efeature" href="../base/any.html#f_default_create">default_create</a> <span class="ekeyword">end</span><span class="esymbol">,</span> <span class="egeneric">RESULT_TYPE</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/f_wipe_links.html">F_WIPE</a>
+	<a class="eclass" href="../base/gc_info_links.html">GC_INFO</a>
+	<a class="eclass" href="../brie_doom/g_game_links.html">G_GAME</a>
+	<a class="eclass" href="../base/hash_table_links.html">HASH_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/hash_table_iteration_cursor_links.html">HASH_TABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/hashable_links.html">HASHABLE</a><span class="esymbol">]</span>
+	<a class="eclass" href="../base/hexadecimal_string_to_integer_converter_links.html">HEXADECIMAL_STRING_TO_INTEGER_CONVERTER</a>
+	<a class="eclass" href="../base/immutable_string_32_links.html">IMMUTABLE_STRING_32</a>
+	<a class="eclass" href="../base/immutable_string_8_links.html">IMMUTABLE_STRING_8</a>
+	<a class="eclass" href="../base/indexable_iteration_cursor_links.html">INDEXABLE_ITERATION_CURSOR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<span class="neclass">INET4_ADDRESS</span>
+	<span class="neclass">INET6_ADDRESS</span>
+	<span class="neclass">INET_ADDRESS</span><span class="echar">*</span>
+	<span class="neclass">INET_ADDRESS_FACTORY</span>
+	<span class="neclass">INET_PROPERTIES</span>
+	<a class="eclass" href="../base/infinite_links.html">INFINITE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/integer_16_ref_links.html">INTEGER_16_REF</a>
+	<a class="eclass" href="../base/integer_32_ref_links.html">INTEGER_32_REF</a>
+	<a class="eclass" href="../base/integer_64_ref_links.html">INTEGER_64_REF</a>
+	<a class="eclass" href="../base/integer_8_ref_links.html">INTEGER_8_REF</a>
+	<a class="eclass" href="../base/integer_interval_links.html">INTEGER_INTERVAL</a>
+	<a class="eclass" href="../base/integer_overflow_checker_links.html">INTEGER_OVERFLOW_CHECKER</a>
+	<a class="eclass" href="../base/internal_links.html">INTERNAL</a>
+	<span class="neclass">INTERVAL</span> <span class="esymbol">[</span><span class="egeneric">G</span> <span class="esymbol">-&gt;</span> <span class="neclass">ABSOLUTE</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/io_medium_links.html">IO_MEDIUM</a><span class="echar">*</span>
+	<a class="eclass" href="../base/ise_exception_manager_links.html">ISE_EXCEPTION_MANAGER</a>
+	<a class="eclass" href="../base/iteration_cursor_links.html">ITERATION_CURSOR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../testing/itp_constant_links.html">ITP_CONSTANT</a>
+	<a class="eclass" href="../testing/itp_interpreter_links.html">ITP_INTERPRETER</a>
+	<a class="eclass" href="../testing/itp_store_links.html">ITP_STORE</a>
+	<a class="eclass" href="../testing/itp_variable_links.html">ITP_VARIABLE</a>
+	<a class="eclass" href="../brie_doom/sound/i_sound_links.html">I_SOUND</a>
+	<a class="eclass" href="../brie_doom/render/i_video_links.html">I_VIDEO</a>
+	<a class="eclass" href="../base/linear_links.html">LINEAR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/linked_list_links.html">LINKED_LIST</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/linked_list_cursor_links.html">LINKED_LIST_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/linked_list_iteration_cursor_links.html">LINKED_LIST_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/list_links.html">LIST</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/managed_pointer_links.html">MANAGED_POINTER</a>
+	<a class="eclass" href="../brie_doom/pointers/managed_pointer_with_offset_links.html">MANAGED_POINTER_WITH_OFFSET</a>
+	<a class="eclass" href="../base/memory_links.html">MEMORY</a>
+	<a class="eclass" href="../base/memory_structure_links.html">MEMORY_STRUCTURE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/mem_info_links.html">MEM_INFO</a>
+	<a class="eclass" href="../sdl2_mixer/mix_chunk_struct_api_links.html">MIX_CHUNK_STRUCT_API</a>
+	<a class="eclass" href="../sdl2_mixer/mix_init_flags_enum_api_links.html">MIX_INIT_FLAGS_ENUM_API</a>
+	<a class="eclass" href="../brie_doom/sound/mus2mid/mus2mid_links.html">MUS2MID</a>
+	<a class="eclass" href="../brie_doom/sound/music_sdl_module_links.html">MUSIC_SDL_MODULE</a>
+	<a class="eclass" href="../brie_doom/m_argv_links.html">M_ARGV</a>
+	<a class="eclass" href="../brie_doom/math/m_fixed_links.html">M_FIXED</a>
+	<a class="eclass" href="../brie_doom/m_menu_links.html">M_MENU</a>
+	<a class="eclass" href="../base/native_string_links.html">NATIVE_STRING</a>
+	<a class="eclass" href="../base/natural_16_ref_links.html">NATURAL_16_REF</a>
+	<a class="eclass" href="../base/natural_32_ref_links.html">NATURAL_32_REF</a>
+	<a class="eclass" href="../base/natural_64_ref_links.html">NATURAL_64_REF</a>
+	<a class="eclass" href="../base/natural_8_ref_links.html">NATURAL_8_REF</a>
+	<span class="neclass">NETWORK_SOCKET</span><span class="echar">*</span>
+	<span class="neclass">NETWORK_SOCKET_ADDRESS</span>
+	<span class="neclass">NETWORK_STREAM_SOCKET</span>
+	<a class="eclass" href="../base/numeric_information_links.html">NUMERIC_INFORMATION</a>
+	<a class="eclass" href="../base/object_graph_marker_links.html">OBJECT_GRAPH_MARKER</a>
+	<a class="eclass" href="../base/object_graph_traversable_links.html">OBJECT_GRAPH_TRAVERSABLE</a><span class="echar">*</span>
+	<span class="neclass">PACKET</span>
+	<a class="eclass" href="../base/part_comparable_links.html">PART_COMPARABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/path_links.html">PATH</a>
+	<a class="eclass" href="../base/plain_text_file_links.html">PLAIN_TEXT_FILE</a>
+	<a class="eclass" href="../brie_doom/player_t_links.html">PLAYER_T</a>
+	<a class="eclass" href="../brie_doom/render/post_t_links.html">POST_T</a>
+	<a class="eclass" href="../base/primes_links.html">PRIMES</a>
+	<a class="eclass" href="../brie_doom/p_doors_links.html">P_DOORS</a>
+	<a class="eclass" href="../brie_doom/p_enemy_links.html">P_ENEMY</a>
+	<a class="eclass" href="../brie_doom/p_floor_links.html">P_FLOOR</a>
+	<a class="eclass" href="../brie_doom/p_inter_links.html">P_INTER</a>
+	<a class="eclass" href="../brie_doom/p_map_links.html">P_MAP</a>
+	<a class="eclass" href="../brie_doom/p_maputl_links.html">P_MAPUTL</a>
+	<a class="eclass" href="../brie_doom/p_mobj_links.html">P_MOBJ</a>
+	<a class="eclass" href="../brie_doom/p_pspr_links.html">P_PSPR</a>
+	<a class="eclass" href="../brie_doom/p_setup_links.html">P_SETUP</a>
+	<a class="eclass" href="../brie_doom/p_sight_links.html">P_SIGHT</a>
+	<a class="eclass" href="../brie_doom/p_switch_links.html">P_SWITCH</a>
+	<a class="eclass" href="../brie_doom/p_tick_links.html">P_TICK</a>
+	<a class="eclass" href="../brie_doom/p_user_links.html">P_USER</a>
+	<a class="eclass" href="../base/raw_file_links.html">RAW_FILE</a>
+	<a class="eclass" href="../base/readable_indexable_links.html">READABLE_INDEXABLE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/readable_indexable_iteration_cursor_links.html">READABLE_INDEXABLE_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/readable_string_32_links.html">READABLE_STRING_32</a><span class="echar">*</span>
+	<a class="eclass" href="../base/readable_string_8_links.html">READABLE_STRING_8</a><span class="echar">*</span>
+	<a class="eclass" href="../base/readable_string_general_links.html">READABLE_STRING_GENERAL</a><span class="echar">*</span>
+	<a class="eclass" href="../base/real_32_ref_links.html">REAL_32_REF</a>
+	<a class="eclass" href="../base/real_64_ref_links.html">REAL_64_REF</a>
+	<a class="eclass" href="../base/reflected_copy_semantics_object_links.html">REFLECTED_COPY_SEMANTICS_OBJECT</a>
+	<a class="eclass" href="../base/reflected_object_links.html">REFLECTED_OBJECT</a><span class="echar">*</span>
+	<a class="eclass" href="../base/reflected_reference_object_links.html">REFLECTED_REFERENCE_OBJECT</a>
+	<a class="eclass" href="../base/reflector_links.html">REFLECTOR</a>
+	<a class="eclass" href="../base/reflector_helper_links.html">REFLECTOR_HELPER</a>
+	<a class="eclass" href="../base/routine_links.html">ROUTINE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">OPEN_ARGS</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/tuple_links.html">TUPLE</a> <span class="ekeyword">create</span> <a class="efeature" href="../base/any.html#f_default_create">default_create</a> <span class="ekeyword">end</span><span class="esymbol">]</span>
+	<span class="neclass">RT_DBG_ATTRIBUTE_RECORD</span> <span class="esymbol">[</span><span class="egeneric">G</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any_links.html">ANY</a><span class="esymbol">]</span>
+	<span class="neclass">RT_DBG_CALL_RECORD</span>
+	<span class="neclass">RT_DBG_COMMON</span><span class="echar">*</span>
+	<span class="neclass">RT_DBG_EXECUTION_RECORDER</span>
+	<span class="neclass">RT_DBG_FIELD_RECORD</span> <span class="esymbol">[</span><span class="egeneric">G</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any_links.html">ANY</a><span class="esymbol">]</span>
+	<span class="neclass">RT_DBG_INTERNAL</span><span class="echar">*</span>
+	<span class="neclass">RT_DBG_LOCAL_RECORD</span> <span class="esymbol">[</span><span class="egeneric">G</span> <span class="esymbol">-&gt;</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/any_links.html">ANY</a><span class="esymbol">]</span>
+	<span class="neclass">RT_DBG_VALUE_RECORD</span><span class="echar">*</span>
+	<span class="neclass">RT_EXTENSION</span>
+	<span class="neclass">RT_EXTENSION_GENERAL</span><span class="echar">*</span>
+	<a class="eclass" href="../brie_doom/render/r_bsp_links.html">R_BSP</a>
+	<a class="eclass" href="../brie_doom/render/r_data_links.html">R_DATA</a>
+	<a class="eclass" href="../brie_doom/render/r_draw_links.html">R_DRAW</a>
+	<a class="eclass" href="../brie_doom/render/r_main_links.html">R_MAIN</a>
+	<a class="eclass" href="../brie_doom/render/r_plane_links.html">R_PLANE</a>
+	<a class="eclass" href="../brie_doom/render/r_segs_links.html">R_SEGS</a>
+	<a class="eclass" href="../brie_doom/render/r_things_links.html">R_THINGS</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_audio_cvt_struct_api_links.html">SDL_AUDIO_CVT_STRUCT_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_audio_functions_api_links.html">SDL_AUDIO_FUNCTIONS_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_palette_struct_api_links.html">SDL_PALETTE_STRUCT_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_pixel_format_struct_api_links.html">SDL_PIXEL_FORMAT_STRUCT_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_renderer_flags_enum_api_links.html">SDL_RENDERER_FLAGS_ENUM_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_renderer_info_struct_api_links.html">SDL_RENDERER_INFO_STRUCT_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_render_functions_api_links.html">SDL_RENDER_FUNCTIONS_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_surface_links.html">SDL_SURFACE</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_surface_functions_api_links.html">SDL_SURFACE_FUNCTIONS_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api_links.html">SDL_SURFACE_STRUCT_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_texture_access_enum_api_links.html">SDL_TEXTURE_ACCESS_ENUM_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_video_functions_api_links.html">SDL_VIDEO_FUNCTIONS_API</a>
+	<a class="eclass" href="../wrap_sdl2/sdl_window_flags_enum_api_links.html">SDL_WINDOW_FLAGS_ENUM_API</a>
+	<a class="eclass" href="../base/sed_basic_deserializer_links.html">SED_BASIC_DESERIALIZER</a>
+	<a class="eclass" href="../base/sed_binary_reader_writer_links.html">SED_BINARY_READER_WRITER</a><span class="echar">*</span>
+	<a class="eclass" href="../base/sed_medium_reader_writer_links.html">SED_MEDIUM_READER_WRITER</a>
+	<a class="eclass" href="../base/sed_objects_table_links.html">SED_OBJECTS_TABLE</a>
+	<a class="eclass" href="../base/sed_recoverable_deserializer_links.html">SED_RECOVERABLE_DESERIALIZER</a>
+	<a class="eclass" href="../base/sed_recoverable_serializer_links.html">SED_RECOVERABLE_SERIALIZER</a>
+	<a class="eclass" href="../base/sed_session_deserializer_links.html">SED_SESSION_DESERIALIZER</a>
+	<a class="eclass" href="../base/sed_session_serializer_links.html">SED_SESSION_SERIALIZER</a>
+	<a class="eclass" href="../base/sed_storable_facilities_links.html">SED_STORABLE_FACILITIES</a>
+	<a class="eclass" href="../base/sed_type_mismatch_links.html">SED_TYPE_MISMATCH</a>
+	<a class="eclass" href="../base/sequence_links.html">SEQUENCE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/set_links.html">SET</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<span class="neclass">SOCKET</span><span class="echar">*</span>
+	<span class="neclass">SOCKET_ADDRESS</span>
+	<span class="neclass">SOCKET_TIMEOUT_UTILITIES</span>
+	<a class="eclass" href="../brie_doom/sound/sound_sdl_module_links.html">SOUND_SDL_MODULE</a>
+	<a class="eclass" href="../base/special_links.html">SPECIAL</a> <span class="esymbol">[</span><span class="egeneric">T</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/special_iteration_cursor_links.html">SPECIAL_ITERATION_CURSOR</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/spriteframe_t_links.html">SPRITEFRAME_T</a>
+	<a class="eclass" href="../base/stack_links.html">STACK</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<span class="neclass">STREAM_SOCKET</span><span class="echar">*</span>
+	<a class="eclass" href="../base/string_32_links.html">STRING_32</a>
+	<a class="eclass" href="../base/string_32_iteration_cursor_links.html">STRING_32_ITERATION_CURSOR</a>
+	<a class="eclass" href="../base/string_8_links.html">STRING_8</a>
+	<a class="eclass" href="../base/string_8_iteration_cursor_links.html">STRING_8_ITERATION_CURSOR</a>
+	<a class="eclass" href="../base/string_general_links.html">STRING_GENERAL</a><span class="echar">*</span>
+	<a class="eclass" href="../base/string_searcher_links.html">STRING_SEARCHER</a><span class="echar">*</span>
+	<a class="eclass" href="../base/string_table_links.html">STRING_TABLE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/string_to_integer_convertor_links.html">STRING_TO_INTEGER_CONVERTOR</a>
+	<a class="eclass" href="../base/string_to_numeric_convertor_links.html">STRING_TO_NUMERIC_CONVERTOR</a><span class="echar">*</span>
+	<a class="eclass" href="../base/string_to_real_convertor_links.html">STRING_TO_REAL_CONVERTOR</a>
+	<a class="eclass" href="../brie_doom/status_bar/st_bin_icon_links.html">ST_BIN_ICON</a>
+	<a class="eclass" href="../brie_doom/status_bar/st_mult_icon_links.html">ST_MULT_ICON</a>
+	<a class="eclass" href="../brie_doom/status_bar/st_number_links.html">ST_NUMBER</a>
+	<a class="eclass" href="../brie_doom/status_bar/st_percent_links.html">ST_PERCENT</a>
+	<a class="eclass" href="../brie_doom/status_bar/st_stuff_links.html">ST_STUFF</a>
+	<a class="eclass" href="../brie_doom/sound/s_sound_links.html">S_SOUND</a>
+	<a class="eclass" href="../base/table_iteration_cursor_links.html">TABLE_ITERATION_CURSOR</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">,</span> <span class="egeneric">K</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/tests/test_cliprange_t_links.html">TEST_CLIPRANGE_T</a>
+	<a class="eclass" href="../brie_doom/thinker_t_links.html">THINKER_T</a>
+	<span class="neclass">TIME</span>
+	<span class="neclass">TIME_DURATION</span>
+	<span class="neclass">TIME_VALIDITY_CHECKER</span>
+	<a class="eclass" href="../base/traversable_links.html">TRAVERSABLE</a><span class="echar">*</span> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/tuple_links.html">TUPLE</a>
+	<a class="eclass" href="../base/type_links.html">TYPE</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../base/utf_converter_links.html">UTF_CONVERTER</a>
+	<a class="eclass" href="../brie_doom/utils_links.html">UTILS</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
+	<a class="eclass" href="../brie_doom/render/visplane_t_links.html">VISPLANE_T</a>
+	<a class="eclass" href="../brie_doom/render/v_video_links.html">V_VIDEO</a>
+	<a class="eclass" href="../brie_doom/wi_stuff_links.html">WI_STUFF</a>
+	<a class="eclass" href="../brie_doom/w_wad_links.html">W_WAD</a>
+
+<span class="ekeyword">Suppliers</span>
+	<a class="eclass" href="../base/boolean_links.html">BOOLEAN</a>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="boolean_chart.html">Chart</a>
+<span class="nav class selected">Relations</span>
+<a class="nav class" href="boolean.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="boolean"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

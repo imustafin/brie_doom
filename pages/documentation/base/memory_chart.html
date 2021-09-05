@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Facilities for tuning up the garbage collection mechanism. This class may be used as ancestor by classes needing its facilities."/>
+<meta name="library" content="Free implementation of ELKS library"/>
+<meta name="legal" content="See notice at end of class."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2018, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>memory Chart</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="memory_links.html">Relations</a>
+<a class="nav class" href="memory.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="memory"></span>
+</div></form><pre><span class="ekeyword">class</span>
+	<a class="eclass" href="../base/memory_chart.html">MEMORY</a>
+
+<span class="ekeyword">General</span>
+	<span class="eitag">cluster</span><span class="esymbol">:</span> <span class="necluster">elks</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> 
+		<span class="estring">&quot;Facilities for tuning up the garbage collection mechanism.</span>
+		<span class="estring">This class may be used as ancestor by classes needing its facilities.&quot;</span>
+
+<span class="ekeyword">Ancestors</span>
+	<a class="eclass" href="../base/disposable_chart.html">DISPOSABLE</a><span class="echar">*</span>
+	<a class="eclass" href="../base/mem_const_chart.html">MEM_CONST</a>
+
+<span class="ekeyword">Queries</span>
+	<span title="`c_memory' was declared in MEM_CONST"><a class="efeature" href="../base/mem_const.html#f_c_memory">C_memory</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`chunk_size' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_chunk_size">chunk_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`coalesce_period' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_coalesce_period">coalesce_period</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`collecting' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_collecting">collecting</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean_chart.html">BOOLEAN</a></span>
+	<span title="`collection_period' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_collection_period">collection_period</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`eiffel_memory' was declared in MEM_CONST"><a class="efeature" href="../base/mem_const.html#f_eiffel_memory">Eiffel_memory</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`full_collector' was declared in MEM_CONST"><a class="efeature" href="../base/mem_const.html#f_full_collector">Full_collector</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`gc_statistics' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_gc_statistics">gc_statistics</a> <span class="esymbol">(</span><span class="elocal">collector_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/gc_info_chart.html">GC_INFO</a></span>
+	<span title="`generation_object_limit' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_generation_object_limit">generation_object_limit</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`incremental_collector' was declared in MEM_CONST"><a class="efeature" href="../base/mem_const.html#f_incremental_collector">Incremental_collector</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`largest_coalesced_block' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_largest_coalesced_block">largest_coalesced_block</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`max_mem' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_max_mem">max_mem</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`memory_count_map' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_memory_count_map">memory_count_map</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table_chart.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`memory_map' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_memory_map">memory_map</a><span class="esymbol">:</span> <a class="eclass" href="../base/hash_table_chart.html">HASH_TABLE</a> <span class="esymbol">[</span><a class="eclass" href="../base/arrayed_list_chart.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">]</span><span class="esymbol">,</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">]</span></span>
+	<span title="`memory_statistics' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_memory_statistics">memory_statistics</a> <span class="esymbol">(</span><span class="elocal">memory_type</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/mem_info_chart.html">MEM_INFO</a></span>
+	<span title="`memory_threshold' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_memory_threshold">memory_threshold</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`objects_instance_of' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_objects_instance_of">objects_instance_of</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">]</span></span>
+	<span title="`objects_instance_of_type' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_objects_instance_of_type">objects_instance_of_type</a> <span class="esymbol">(</span><span class="elocal">a_type_id</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">]</span></span>
+	<span title="`referers' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_referers">referers</a> <span class="esymbol">(</span><span class="elocal">an_object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/special_chart.html">SPECIAL</a> <span class="esymbol">[</span><a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">]</span></span>
+	<span title="`scavenge_zone_size' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_scavenge_zone_size">scavenge_zone_size</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`tenure' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_tenure">tenure</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+	<span title="`total_memory' was declared in MEM_CONST"><a class="efeature" href="../base/mem_const.html#f_total_memory">Total_memory</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a></span>
+
+<span class="ekeyword">Commands</span>
+	<span title="`allocate_compact' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_allocate_compact">allocate_compact</a></span>
+	<span title="`allocate_fast' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_allocate_fast">allocate_fast</a></span>
+	<span title="`allocate_tiny' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_allocate_tiny">allocate_tiny</a></span>
+	<span title="`collect' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_collect">collect</a></span>
+	<span title="`collection_off' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_collection_off">collection_off</a></span>
+	<span title="`collection_on' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_collection_on">collection_on</a></span>
+	<span title="`disable_time_accounting' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_disable_time_accounting">disable_time_accounting</a></span>
+	<span title="`dispose' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_dispose">dispose</a></span>
+	<span title="`enable_time_accounting' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_enable_time_accounting">enable_time_accounting</a></span>
+	<span title="`execute_without_collection' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_execute_without_collection">execute_without_collection</a> <span class="esymbol">(</span><span class="elocal">a_action</span><span class="esymbol">:</span> <a class="eclass" href="../base/procedure_chart.html">PROCEDURE</a><span class="esymbol">)</span></span>
+	<span title="`free' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_free">free</a> <span class="esymbol">(</span><span class="elocal">object</span><span class="esymbol">:</span> <a class="eclass" href="../base/any_chart.html">ANY</a><span class="esymbol">)</span></span>
+	<span title="`full_coalesce' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_full_coalesce">full_coalesce</a></span>
+	<span title="`full_collect' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_full_collect">full_collect</a></span>
+	<span title="`set_coalesce_period' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_set_coalesce_period">set_coalesce_period</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_collection_period' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_set_collection_period">set_collection_period</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_max_mem' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_set_max_mem">set_max_mem</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+	<span title="`set_memory_threshold' is declared in `Current'"><a class="efeature" href="../base/memory.html#f_set_memory_threshold">set_memory_threshold</a> <span class="esymbol">(</span><span class="elocal">value</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32_chart.html">INTEGER_32</a><span class="esymbol">)</span></span>
+
+</pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<span class="nav class selected">Chart</span>
+<a class="nav class" href="memory_links.html">Relations</a>
+<a class="nav class" href="memory.html">Text</a>
+<span class="nav class goto">Go to: <input name="c" value="memory"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>

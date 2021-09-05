@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Objects representing variables."/>
+<meta name="author" content="Andreas Leitner"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="copyright" content="Copyright (c) 1984-2009, Eiffel Software and others"/>
+<meta name="license" content="Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"/>
+<meta name="source" content="Eiffel Software 5949 Hollister Ave., Goleta, CA 93117 USA Telephone 805-685-1006, Fax 805-685-6869 Website http://www.eiffel.com Customer support http://support.eiffel.com"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>itp_variable Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_variable_chart.html">Chart</a>
+<a class="nav class" href="itp_variable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_variable"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Objects representing variables.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">author</span><span class="esymbol">:</span> <span class="estring">&quot;Andreas Leitner&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date: 2013-05-20 23:15:17 +0000 (Mon, 20 May 2013) $&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision: 92557 $&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../testing/itp_variable.html">ITP_VARIABLE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../testing/itp_expression.html">ITP_EXPRESSION</a>
+		<span class="ekeyword">undefine</span>
+			<a class="efeature" href="../testing/itp_variable.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+	<a class="eclass" href="../base/hashable.html">HASHABLE</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../testing/itp_variable.html#f_is_equal">is_equal</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../testing/itp_variable.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> <span class="esymbol">{</span>NONE<span class="esymbol">}</span> <span class="ecomment">--</span><span class="ecomment"> Initialization</span>
+
+	<a name="f_make"></a><a class="efeature" href="../testing/itp_variable.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_index</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Create new variable with </span><span class="equoted">a_index</span><span class="ecomment">.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_index_positive</span><span class="esymbol">:</span> <span class="elocal">a_index</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../testing/itp_variable.html#f_index">index</a> <span class="esymbol">:=</span> <span class="elocal">a_index</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">index_set</span><span class="esymbol">:</span> <a class="efeature" href="../testing/itp_variable.html#f_index">index</a> <span class="esymbol">=</span> <span class="elocal">a_index</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_name"></a><a class="efeature" href="../testing/itp_variable.html#f_name">name</a> <span class="esymbol">(</span><span class="elocal">a_prefix</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+			<span class="ecomment">--</span><span class="ecomment"> Name of variable</span>
+			<span class="ecomment">--</span><span class="ecomment"> Return a new string every time.</span>
+		<span class="ekeyword">require</span>
+			<span class="etag">a_prefix_attached</span><span class="esymbol">:</span> <span class="elocal">a_prefix</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">not_a_prefix_is_empty</span><span class="esymbol">:</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">a_prefix</span><span class="edot">.</span><a class="efeature" href="../base/finite.html#f_is_empty">is_empty</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">5</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_prefix</span><span class="esymbol">)</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/string_8.html#f_append">append</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">result_attached</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">/=</span> <span class="ekeyword">Void</span>
+			<span class="etag">good_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/readable_string_8.html#f_is_equal">is_equal</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_prefix</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_out">out</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_hash_code"></a><a class="efeature" href="../testing/itp_variable.html#f_hash_code">hash_code</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Hash code value</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../testing/itp_variable.html#f_index">index</a>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">good_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <a class="efeature" href="../testing/itp_variable.html#f_index">index</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_is_equal"></a><a class="efeature" href="../testing/itp_variable.html#f_is_equal">is_equal</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Is </span><span class="equoted">other</span><span class="ecomment"> attached to an object considered</span>
+			<span class="ecomment">--</span><span class="ecomment"> equal to current object?</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a> <span class="esymbol">=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure then</span>
+			<span class="etag">good_result</span><span class="esymbol">:</span> <span class="ekeyword">Result</span> <span class="esymbol">=</span> <span class="esymbol">(</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a> <span class="esymbol">=</span> <span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_index"></a><a class="efeature" href="../testing/itp_variable.html#f_index">index</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Index of current variable</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Processing</span>
+
+	<a name="f_process"></a><a class="efeature" href="../testing/itp_variable.html#f_process">process</a> <span class="esymbol">(</span><span class="elocal">a_processor</span><span class="esymbol">:</span> <a class="eclass" href="../testing/itp_expression_processor.html">ITP_EXPRESSION_PROCESSOR</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Process current expression.</span>
+		<span class="ekeyword">do</span>
+			<span class="elocal">a_processor</span><span class="edot">.</span><a class="efeature" href="../testing/itp_expression_processor.html#f_process_variable">process_variable</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">Current</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">note</span>
+	<span class="eitag">copyright</span><span class="esymbol">:</span> <span class="estring">&quot;Copyright (c) 1984-2009, Eiffel Software and others&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;Eiffel Forum License v2 (see </span><a class="estring" href="http://www.eiffel.com/licensing/forum.txt">http://www.eiffel.com/licensing/forum.txt</a><span class="estring">)&quot;</span>
+	<span class="eitag">source</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Eiffel Software</span>
+		<span class="estring">5949 Hollister Ave., Goleta, CA 93117 USA</span>
+		<span class="estring">Telephone 805-685-1006, Fax 805-685-6869</span>
+		<span class="estring">Website </span><a class="estring" href="http://www.eiffel.com">http://www.eiffel.com</a>
+		<span class="estring">Customer support </span><a class="estring" href="http://support.eiffel.com">http://support.eiffel.com</a>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../testing/itp_variable.html">ITP_VARIABLE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="itp_variable_chart.html">Chart</a>
+<a class="nav class" href="itp_variable_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="itp_variable"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

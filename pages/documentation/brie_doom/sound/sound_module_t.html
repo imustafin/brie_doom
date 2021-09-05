@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom i_sound.h"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sound_module_t Text</title>
+<link rel="stylesheet" href="../../default.css" type="text/css">
+<script type="text/javascript" src="../../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sound_module_t_chart.html">Chart</a>
+<a class="nav class" href="sound_module_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sound_module_t"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;chocolate doom i_sound.h&quot;</span>
+
+<span class="ekeyword">deferred</span> <span class="ekeyword">class</span> 
+	<a class="eclass" href="../../brie_doom/sound/sound_module_t.html">SOUND_MODULE_T</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_sound_devices"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_sound_devices">sound_devices</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span>
+			<span class="ecomment">--</span><span class="ecomment"> List of sound devices that this sound module is used for.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_init"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_init">init</a> <span class="esymbol">(</span><span class="elocal">use_sfx_prefix</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Initialise sound module</span>
+			<span class="ecomment">--</span><span class="ecomment"> Returns True if successfully initialised</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_shutdown"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_shutdown">shutdown</a>
+			<span class="ecomment">--</span><span class="ecomment"> Shutdown sound module</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_get_sfx_lump_num"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_get_sfx_lump_num">get_sfx_lump_num</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Returns the lump index of the given sound.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_update">update</a>
+			<span class="ecomment">--</span><span class="ecomment"> Called periodically to update the subsystem.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_update_sound_params"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_update_sound_params">update_sound_params</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">vol</span><span class="esymbol">,</span> <span class="elocal">sep</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Update the sound settings on the given channel.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_start_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_start_sound">start_sound</a> <span class="esymbol">(</span><span class="elocal">sfxinfo</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">;</span> <span class="elocal">channel</span><span class="esymbol">,</span> <span class="elocal">vol</span><span class="esymbol">,</span> <span class="elocal">sep</span><span class="esymbol">,</span> <span class="elocal">pitch</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Start a sound on a given channel. Returns the channel id</span>
+			<span class="ecomment">--</span><span class="ecomment"> or -1 on failure.</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_stop_sound"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_stop_sound">stop_sound</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Stop the sound playing on the given channel</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_cache_sounds"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_cache_sounds">cache_sounds</a> <span class="esymbol">(</span><span class="elocal">sounds</span><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/sound/sfxinfo_t.html">SFXINFO_T</a><span class="esymbol">]</span><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Called on startup to precache sound effects (if necessary)</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sound_is_playing"></a><a class="efeature" href="../../brie_doom/sound/sound_module_t.html#f_sound_is_playing">sound_is_playing</a> <span class="esymbol">(</span><span class="elocal">channel</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="ecomment">--</span><span class="ecomment"> Query if a sound is playing on the given channel</span>
+		<span class="ekeyword">deferred</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/sound/sound_module_t.html">SOUND_MODULE_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sound_module_t_chart.html">Chart</a>
+<a class="nav class" href="sound_module_t_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sound_module_t"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

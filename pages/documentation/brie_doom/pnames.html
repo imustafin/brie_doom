@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Struct for PNAMES lump  From https://zdoom.org/wiki/PNAMES Bytes 0-3 is uint32 (number of entries) x+0 - x+8 is char[8] (patch name)"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>pnames Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="pnames_chart.html">Chart</a>
+<a class="nav class" href="pnames_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="pnames"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Struct for PNAMES lump</span>
+		
+		<span class="estring">From </span><a class="estring" href="https://zdoom.org/wiki/PNAMES">https://zdoom.org/wiki/PNAMES</a>
+		<span class="estring">Bytes 0-3 is uint32 (number of entries)</span>
+		<span class="estring">x+0 - x+8 is char</span><span class="estring">[8]</span><span class="estring"> (patch name)</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/pnames.html">PNAMES</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/pnames.html#f_from_pointer">from_pointer</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_from_pointer"></a><a class="efeature" href="../brie_doom/pnames.html#f_from_pointer">from_pointer</a> <span class="esymbol">(</span><span class="elocal">m</span><span class="esymbol">:</span> <a class="eclass" href="../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">len</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+			<span class="elocal">pos</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">cstr</span><span class="esymbol">:</span> <a class="eclass" href="../base/c_string.html">C_STRING</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">len</span> <span class="esymbol">:=</span> <span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_read_natural_32_le">read_natural_32_le</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="elocal">pos</span> <span class="esymbol">:=</span> <span class="enumber">4</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/pnames.html#f_names">names</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;&quot;<span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="elocal">len</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="elocal">len</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="ekeyword">loop</span>
+				<span class="elocal">cstr</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../base/c_string.html">C_STRING</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_make_by_pointer_and_count">make_by_pointer_and_count</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">m</span><span class="edot">.</span><a class="efeature" href="../base/managed_pointer.html#f_item">item</a> <a class="esymbol" href="../base/pointer.html#f_plus">+</a> <span class="elocal">pos</span> <a class="esymbol" href="../base/pointer.html#f_plus">+</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">8</span><span class="esymbol">,</span> <span class="enumber">8</span><span class="esymbol">)</span>
+				<a class="efeature" href="../brie_doom/pnames.html#f_names">names</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">cstr</span><span class="edot">.</span><a class="efeature" href="../base/c_string.html#f_string">string</a>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_names"></a><a class="efeature" href="../brie_doom/pnames.html#f_names">names</a><span class="esymbol">:</span> <a class="eclass" href="../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">]</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/pnames.html">PNAMES</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="pnames_chart.html">Chart</a>
+<a class="nav class" href="pnames_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="pnames"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

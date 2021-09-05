@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Summary description for {SDL_SURFACE}."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>sdl_surface Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sdl_surface_chart.html">Chart</a>
+<a class="nav class" href="sdl_surface_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sdl_surface"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Summary description for </span><span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_surface.html">SDL_SURFACE</a><span class="esymbol">}</span><span class="estring">.&quot;</span>
+	<span class="eitag">date</span><span class="esymbol">:</span> <span class="estring">&quot;$Date$&quot;</span>
+	<span class="eitag">revision</span><span class="esymbol">:</span> <span class="estring">&quot;$Revision$&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../wrap_sdl2/sdl_surface.html">SDL_SURFACE</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../wrap_sdl2/sdl_surface_functions_api.html">SDL_SURFACE_FUNCTIONS_API</a>
+		<span class="ekeyword">rename</span>
+			<a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_fill_rect">sdl_fill_rect</a> <span class="ekeyword">as</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_fill_rect">sdl_fill_rect_api</a><span class="esymbol">,</span>
+			<a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_upper_blit">sdl_upper_blit</a> <span class="ekeyword">as</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_upper_blit">sdl_upper_blit_api</a><span class="esymbol">,</span>
+			<a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_convert_surface">sdl_convert_surface</a> <span class="ekeyword">as</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_convert_surface">sdl_convert_surface_api</a><span class="esymbol">,</span>
+			<a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_upper_blit_scaled">sdl_upper_blit_scaled</a> <span class="ekeyword">as</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_sdl_upper_blit_scaled">sdl_upper_blit_scaled_api</a>
+		<span class="ekeyword">end</span>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
+
+	<a name="f_sdl_must_lock"></a><a class="efeature" href="../wrap_sdl2/sdl_surface.html#f_sdl_must_lock">sdl_must_lock</a> <span class="esymbol">(</span><span class="elocal">surface</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">surface</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_surface_struct_api.html#f_flags">flags</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_bit_and">bit_and</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_rleaccel">sdl_rleaccel</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span> <span class="esymbol">/=</span> <span class="enumber">0</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_fill_rect"></a><a class="efeature" href="../wrap_sdl2/sdl_surface.html#f_sdl_fill_rect">sdl_fill_rect</a> <span class="esymbol">(</span><span class="elocal">dst</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">rect</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_rect_struct_api.html">SDL_RECT_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">color</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_rect</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">rect</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_rect</span> <span class="esymbol">:=</span> <span class="elocal">rect</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_c_sdl_fill_rect">c_sdl_fill_rect</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">dst</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_rect</span><span class="esymbol">,</span> <span class="elocal">color</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_upper_blit"></a><a class="efeature" href="../wrap_sdl2/sdl_surface.html#f_sdl_upper_blit">sdl_upper_blit</a> <span class="esymbol">(</span><span class="elocal">src</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">srcrect</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_rect_struct_api.html">SDL_RECT_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">dst</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">dstrect</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_rect_struct_api.html">SDL_RECT_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_srcrect</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="elocal">l_dstrect</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">srcrect</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_srcrect</span> <span class="esymbol">:=</span> <span class="elocal">srcrect</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">dstrect</span> <span class="ekeyword">then</span>
+				<span class="elocal">l_dstrect</span> <span class="esymbol">:=</span> <span class="elocal">dstrect</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_c_sdl_upper_blit">c_sdl_upper_blit</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">src</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_srcrect</span><span class="esymbol">,</span> <span class="elocal">dst</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_dstrect</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_convert_surface"></a><a class="efeature" href="../wrap_sdl2/sdl_surface.html#f_sdl_convert_surface">sdl_convert_surface</a> <span class="esymbol">(</span><span class="elocal">src</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">fmt</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_pixel_format_struct_api.html">SDL_PIXEL_FORMAT_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">flags</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_fmt_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">fmt</span> <span class="ekeyword">as</span> l_fmt <span class="ekeyword">then</span>
+				<span class="elocal">l_fmt_ptr</span> <span class="esymbol">:=</span> <span class="elocal">l_fmt</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_c_sdl_convert_surface">c_sdl_convert_surface</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">src</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_fmt_ptr</span><span class="esymbol">,</span> <span class="elocal">flags</span><span class="esymbol">)</span> <span class="ekeyword">as</span> l_ptr <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <span class="elocal">l_ptr</span><span class="edot">.</span><a class="efeature" href="../base/pointer.html#f_is_default_pointer">is_default_pointer</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_make_by_pointer">make_by_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_ptr</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_upper_blit_scaled"></a><a class="efeature" href="../wrap_sdl2/sdl_surface.html#f_sdl_upper_blit_scaled">sdl_upper_blit_scaled</a> <span class="esymbol">(</span><span class="elocal">src</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">srcrect</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_rect_struct_api.html">SDL_RECT_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">dst</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_surface_struct_api.html">SDL_SURFACE_STRUCT_API</a><span class="esymbol">;</span> <span class="elocal">dstrect</span><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../wrap_sdl2/sdl_rect_struct_api.html">SDL_RECT_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">l_srcrect_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+			<span class="elocal">l_dstrect_ptr</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">srcrect</span> <span class="ekeyword">as</span> l_srcrect <span class="ekeyword">then</span>
+				<span class="elocal">l_srcrect_ptr</span> <span class="esymbol">:=</span> <span class="elocal">l_srcrect</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="ekeyword">attached</span> <span class="elocal">dstrect</span> <span class="ekeyword">as</span> l_dstrect <span class="ekeyword">then</span>
+				<span class="elocal">l_dstrect_ptr</span> <span class="esymbol">:=</span> <span class="elocal">l_dstrect</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../wrap_sdl2/sdl_surface_functions_api.html#f_c_sdl_upper_blit_scaled">c_sdl_upper_blit_scaled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">src</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_srcrect_ptr</span><span class="esymbol">,</span> <span class="elocal">dst</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">l_dstrect_ptr</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../wrap_sdl2/sdl_surface.html">SDL_SURFACE</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="sdl_surface_chart.html">Chart</a>
+<a class="nav class" href="sdl_surface_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="sdl_surface"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+
