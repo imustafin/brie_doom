@@ -1,0 +1,43 @@
+name: Build to gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  github-pages:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Move site to root
+        run: cd site && mv * ../ && cd .. && rm -rf site
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install JS deps
+        run: yarn install
+
+      - name: Build site
+        uses: limjh16/jekyll-action-ts@v2
+        env:
+          JEKYLL_ENV: production
+          NODE_ENV: production
+        with:
+          enable_cache: true
+          format_output: true
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
+          enable_jekyll: false

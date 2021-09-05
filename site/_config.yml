@@ -12,4 +12,18 @@ sass:
   implementation: sass-embedded
   sourcemap: never
 
-exclude: []
+exclude:
+  # Build job moves files from /site dir to the root,
+  # so ignore everything from root
+  - README.md
+  - brie_doom
+  - docs
+  - .github
+  - .gitattributes
+  - .gitignore
+  # Ignore js files
+  - package.json
+  - postcss.config.js
+  - tailwind.config.js
+  - yarn.lock
+
