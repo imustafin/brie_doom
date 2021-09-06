@@ -14,6 +14,9 @@ sass:
   sourcemap: never
 
 exclude:
+  # Speedup tailwind https://canolcer.com/post/jekyll-and-tailwind/
+  - assets/css/tailwind.scss
+
   # Build job moves files from /site dir to the root,
   # so ignore everything from root
   - README.md
@@ -24,6 +27,7 @@ exclude:
   - .gitignore
   - WrapC
   - wrap_sdl
+  - dev.sh
   # Ignore js files
   - package.json
   - postcss.config.js
@@ -31,3 +35,5 @@ exclude:
   - yarn.lock
   - pages/.keep
 
+keep_files:
+  - assets/css/tailwind.css
