@@ -18,6 +18,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
+          bundler-cache: true
 
       - uses: actions/setup-node@v2
         with:
@@ -40,7 +41,8 @@ jobs:
             \
             libmikmod-dev libfishsound1-dev libsmpeg-dev \
             liboggz2-dev libflac-dev libfluidsynth-dev \
-            libsdl2-mixer-dev libsdl2-mixer-2.0-0
+            libsdl2-mixer-dev libsdl2-mixer-2.0-0 \
+            cccc
 
       - name: Install wrap_sdl_my
         env:
@@ -73,6 +75,28 @@ jobs:
           sed -i "s/...wrap_sdl_my/wrap_sdl/g" brie_doom/brie_doom.ecf
           sed -i "/precompile/d" brie_doom/brie_doom.ecf
           cat brie_doom/brie_doom.ecf
+
+      - name: Count port progress. Analyse C
+        run: |
+          git clone https://github.com/id-Software/DOOM.git
+          cccc --lang=c DOOM/linuxdoom-1.10/*.c
+          ls .cccc
+          cp .cccc/anonymous.xml utils/
+          rm -rf .cccc
+          rm -rf DOOM
+
+      - name: Count port progress. Analyse Eiffel
+        run: |
+          cd brie_doom
+          ec -filter ascii -all -batch -verbose -config brie_doom.ecf
+          cd ..
+          mv brie_doom/Documentation utils/
+
+      - name: Count port progress. Make data
+        run: |
+          cd utils
+          bundle exec ruby count_functions_ported.rb > ../_data/functions_ported.yml
+          cd ..
 
       - name: Build site
         uses: limjh16/jekyll-action-ts@v2
