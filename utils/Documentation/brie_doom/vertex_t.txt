@@ -1,0 +1,34 @@
+note
+	description: "[
+		vertex_t from r_defs.h
+		
+		Your plain vanilla vertex.
+		Note: transformed values not buffered locally,
+		like some DOOM-alikes ("wt", "WebView") did.
+	]"
+
+class 
+	VERTEX_T
+
+create 
+	default_create,
+	from_pointer
+
+feature 
+
+	x: FIXED_T
+
+	y: FIXED_T
+	
+feature 
+
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32)
+		do
+			x := create {FIXED_T}.from_integer (m.read_integer_16_le (0 + offset).to_integer_32 |<< {M_FIXED}.fracbits)
+			y := create {FIXED_T}.from_integer (m.read_integer_16_le (2 + offset).to_integer_32 |<< {M_FIXED}.fracbits)
+		end
+
+	Structure_size: INTEGER_32 = 4
+			-- sizeof(mapvertex_t)
+	
+end -- class VERTEX_T

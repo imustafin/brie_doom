@@ -1,0 +1,18 @@
+class
+	LINKABLE [G]
+
+General
+	cluster: elks
+	description: "Linkable cells containing a reference to their right neighbor"
+	create: put
+
+Ancestors
+	CELL [G]
+
+Queries
+	item: G -- (from CELL)
+	right: [detachable like Current] detachable LINKABLE [G]
+
+Commands
+	replace (v: [like item] G) -- (from CELL)
+

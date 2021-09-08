@@ -1,0 +1,39 @@
+deferred class
+	ROUTINE [OPEN_ARGS -> detachable TUPLE create default_create end]
+
+General
+	cluster: elks
+	description: 
+		"Objects representing delayed calls to a routine,
+		with some operands possibly still open"
+
+Ancestors
+	HASHABLE*
+	MISMATCH_CORRECTOR
+	REFLECTOR
+
+Queries
+	Callable: BOOLEAN
+	hash_code: INTEGER_32
+	is_equal (other: [like Current] ROUTINE [OPEN_ARGS]): BOOLEAN
+	is_hashable: BOOLEAN -- (from HASHABLE)
+	is_target_closed: BOOLEAN
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+	open_count: INTEGER_32
+	operands: detachable OPEN_ARGS
+	postcondition (args: [like operands] detachable OPEN_ARGS): BOOLEAN
+	precondition (args: [like operands] detachable OPEN_ARGS): BOOLEAN
+	target: detachable ANY
+	valid_operands (args: detachable separate TUPLE): BOOLEAN
+	valid_target (args: detachable TUPLE): BOOLEAN
+
+Commands
+	adapt (other: [like Current] ROUTINE [OPEN_ARGS])
+	apply
+	call (args: detachable separate OPEN_ARGS)
+	copy (other: [like Current] ROUTINE [OPEN_ARGS])
+	correct_mismatch
+	flexible_call (a: detachable separate TUPLE)
+	set_operands (args: detachable OPEN_ARGS)
+	set_target (a_target: [like target] detachable ANY)
+

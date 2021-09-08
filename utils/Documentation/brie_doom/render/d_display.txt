@@ -1,0 +1,138 @@
+note
+	description: "Summary description for {D_DISPLAY}."
+	author: ""
+	date: "$Date$"
+	revision: "$Revision$"
+
+class 
+	D_DISPLAY
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			wipegamestate := {DOOMDEF_H}.gs_demoscreen
+			oldgamestate := -1
+		end
+	
+feature 
+
+	d_pagedrawer
+		do
+			check
+					attached i_main.D_main as d_doom_main
+			then
+				i_main.V_video.v_drawpatch (0, 0, create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname (d_doom_main.pagename, {Z_ZONE}.pu_cache)))
+			end
+		end
+	
+feature -- D_Display
+
+	wipegamestate: INTEGER_32
+			-- wipegamestate can be set to -1 to force a wipe on the next draw
+
+	viewactivestate: BOOLEAN
+
+	menuactivestate: BOOLEAN
+
+	inhelpscreensstate: BOOLEAN
+
+	fullscreen: BOOLEAN
+
+	oldgamestate: INTEGER_32
+
+	borderdrawcount: INTEGER_32
+
+	d_display: BOOLEAN
+			-- draw current display, possibly wiping it from the previous
+		local
+			y: INTEGER_32
+			redrawsbar: BOOLEAN
+		do
+			redrawsbar := False
+			if i_main.R_main.setsizeneeded then
+				i_main.R_main.r_executesetviewsize
+				oldgamestate := -1
+				borderdrawcount := 3
+			end
+			if i_main.G_game.gamestate /= wipegamestate then
+				Result := True
+				i_main.F_wipe.wipe_startscreen (0, 0, {DOOMDEF_H}.screenwidth, {DOOMDEF_H}.screenheight)
+			else
+				Result := False
+			end
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level and i_main.G_game.gametic /= 0 then
+				i_main.Hu_stuff.hu_erase
+			end
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level then
+				if i_main.G_game.gametic /= 0 then
+					if i_main.Am_map.automapactive then
+						i_main.Am_map.am_drawer
+					end
+					if Result or (i_main.R_draw.viewheight /= {DOOMDEF_H}.screenheight and fullscreen) then
+						redrawsbar := True
+					end
+					if inhelpscreensstate and not i_main.M_menu.inhelpscreens then
+						redrawsbar := True
+					end
+					i_main.St_stuff.st_drawer (i_main.R_draw.viewheight = {DOOMDEF_H}.screenheight, redrawsbar)
+					fullscreen := i_main.R_draw.viewheight = {DOOMDEF_H}.screenheight
+				end
+			elseif i_main.G_game.gamestate = {DOOMDEF_H}.gs_intermission then
+				i_main.Wi_stuff.wi_drawer
+			elseif i_main.G_game.gamestate = {DOOMDEF_H}.gs_finale then
+				i_main.F_finale.f_drawer
+			elseif i_main.G_game.gamestate = {DOOMDEF_H}.gs_demoscreen then
+				d_pagedrawer
+			end
+			i_main.I_video.i_updatenoblit
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level and not i_main.Am_map.automapactive and i_main.G_game.gametic /= 0 then
+				i_main.R_main.r_renderplayerview (i_main.G_game.Players [i_main.G_game.displayplayer])
+			end
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level and i_main.G_game.gametic /= 0 then
+				i_main.Hu_stuff.hu_drawer
+			end
+			if i_main.G_game.gamestate /= oldgamestate and i_main.G_game.gamestate /= {DOOMDEF_H}.gs_level then
+				check
+						attached i_main.I_video as iv
+				then
+					iv.i_setpalette (i_main.W_wad.w_cachelumpname ("PLAYPAL", {Z_ZONE}.pu_cache))
+				end
+			end
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level and oldgamestate /= {DOOMDEF_H}.gs_level then
+				viewactivestate := False
+				i_main.R_draw.r_fillbackscreen
+			end
+			if i_main.G_game.gamestate = {DOOMDEF_H}.gs_level and not i_main.Am_map.automapactive and i_main.R_draw.scaledviewwidth /= {DOOMDEF_H}.screenwidth then
+				if i_main.M_menu.menuactive or menuactivestate or not viewactivestate then
+					borderdrawcount := 3
+				end
+				if borderdrawcount /= 0 then
+					i_main.R_draw.r_drawviewborder
+					borderdrawcount := borderdrawcount - 1
+				end
+			end
+			menuactivestate := i_main.M_menu.menuactive
+			viewactivestate := i_main.G_game.viewactive
+			inhelpscreensstate := i_main.M_menu.inhelpscreens
+			oldgamestate := i_main.G_game.gamestate
+			wipegamestate := i_main.G_game.gamestate
+			if i_main.G_game.paused then
+				if i_main.Am_map.automapactive then
+					y := 4
+				else
+					y := i_main.R_draw.viewwindowy + 4
+				end
+				i_main.V_video.v_drawpatchdirect (i_main.R_draw.viewwindowx + (i_main.R_draw.scaledviewwidth - 68) // 2, y, create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("M_PAUSE", {Z_ZONE}.pu_cache)))
+			end
+			i_main.M_menu.m_drawer
+			i_main.D_net.netupdate
+		end
+	
+end -- class D_DISPLAY

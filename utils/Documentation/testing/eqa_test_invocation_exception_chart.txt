@@ -1,0 +1,44 @@
+class
+	EQA_TEST_INVOCATION_EXCEPTION
+
+General
+	cluster: testing
+	description: 
+		"Objects representing an exception raised while invoking a test class and/or feature.
+		
+		Note: EQA_TEST_INVOCATION_EXCEPTION does not only contain the exception information, it also
+		      analyses the stack trace to determine whether the implementation or the test code is
+		      to blame.
+		
+		TODO: Take stack frames of agent calls into account, meaning that even though {PROCEDURE}.fast_call
+		      causes a precondition violation, the stack frame calling the agent is to blame."
+	create: make
+
+Ancestors
+	ANY
+	EXCEP_CONST
+	INTERNAL
+	MISMATCH_CORRECTOR
+
+Queries
+	break_point_slot: INTEGER_32
+	class_name: READABLE_STRING_8
+	code: INTEGER_32
+	is_test_invalid: BOOLEAN
+	is_trace_valid: BOOLEAN
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+	recipient_name: READABLE_STRING_8
+	tag_name: READABLE_STRING_32
+	trace: READABLE_STRING_32
+
+Commands
+	correct_mismatch
+
+Constraints
+	code valid
+	recipient name attached
+	class name attached
+	tag attached
+	trace attached
+	exception break point slot positive
+

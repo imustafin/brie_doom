@@ -1,0 +1,196 @@
+class
+	ST_STUFF
+
+General
+	cluster: status_bar
+	description: 
+		"st_stuff.c
+		Status bar code.
+		Does the face/direction indicator animation.
+		Does palette indicators as well (red pain/berserk, bright pickup)"
+	create: make
+
+Ancestors
+	CHEAT_T
+	POWERTYPE_T
+	WEAPONTYPE_T
+
+Queries
+	arms: ARRAY [ARRAY [detachable PATCH_T]]
+	armsbg: detachable PATCH_T
+	Automapstate: INTEGER_32
+	Cf_godmode: INTEGER_32 -- (from CHEAT_T)
+	Cf_noclip: INTEGER_32 -- (from CHEAT_T)
+	Cf_nomomentum: INTEGER_32 -- (from CHEAT_T)
+	faceback: detachable PATCH_T
+	faces: ARRAY [detachable PATCH_T]
+	Firstpersonstate: INTEGER_32
+	Getchatstate: INTEGER_32
+	i_main: I_MAIN
+	keyboxes: ARRAY [INTEGER_32]
+	keys: ARRAY [detachable PATCH_T]
+	Largeammo: INTEGER_32
+	lastattackdown: INTEGER_32
+	lastcalc: INTEGER_32
+	load_patch (name: STRING_8): PATCH_T
+	lu_palette: INTEGER_32
+	Numbonuspals: INTEGER_32
+	Numpowers: INTEGER_32 -- (from POWERTYPE_T)
+	Numredpals: INTEGER_32
+	Numweapons: INTEGER_32 -- (from WEAPONTYPE_T)
+	oldhealth: INTEGER_32
+	oldweaponsowned: ARRAY [BOOLEAN]
+	plyr: detachable PLAYER_T
+	priority: INTEGER_32
+	Pw_allmap: INTEGER_32 -- (from POWERTYPE_T)
+	Pw_infrared: INTEGER_32 -- (from POWERTYPE_T)
+	Pw_invisibility: INTEGER_32 -- (from POWERTYPE_T)
+	Pw_invulnerability: INTEGER_32 -- (from POWERTYPE_T)
+	Pw_ironfeet: INTEGER_32 -- (from POWERTYPE_T)
+	Pw_strength: INTEGER_32 -- (from POWERTYPE_T)
+	Radiationpal: INTEGER_32
+	sbar: detachable PATCH_T
+	sbarr: detachable PATCH_T
+	shortnum: ARRAY [detachable PATCH_T]
+	St_ammo0width: INTEGER_32
+	St_ammo0x: INTEGER_32
+	St_ammo0y: INTEGER_32
+	St_ammo1width: INTEGER_32
+	St_ammo1x: INTEGER_32
+	St_ammo1y: INTEGER_32
+	St_ammo2width: INTEGER_32
+	St_ammo2x: INTEGER_32
+	St_ammo2y: INTEGER_32
+	St_ammo3width: INTEGER_32
+	St_ammo3x: INTEGER_32
+	St_ammo3y: INTEGER_32
+	St_ammowidth: INTEGER_32
+	St_ammox: INTEGER_32
+	St_ammoy: INTEGER_32
+	St_armorx: INTEGER_32
+	St_armory: INTEGER_32
+	St_armsbgx: INTEGER_32
+	St_armsbgy: INTEGER_32
+	st_armson: BOOLEAN
+	St_armsx: INTEGER_32
+	St_armsxspace: INTEGER_32
+	St_armsy: INTEGER_32
+	St_armsyspace: INTEGER_32
+	st_backing_screen: detachable PIXEL_T_BUFFER
+	st_calcpainoffset: INTEGER_32
+	st_chat: BOOLEAN
+	st_chatstate: INTEGER_32
+	st_clock: NATURAL_32
+	st_cursoron: BOOLEAN
+	St_deadface: INTEGER_32
+	St_evilgrincount: INTEGER_32
+	St_evilgrinoffset: INTEGER_32
+	st_facecount: INTEGER_32
+	st_faceindex: INTEGER_32
+	St_facestride: INTEGER_32
+	St_facesx: INTEGER_32
+	St_facesy: INTEGER_32
+	st_firsttime: BOOLEAN
+	st_fragscount: INTEGER_32
+	st_fragson: BOOLEAN
+	St_fragswidth: INTEGER_32
+	St_fragsx: INTEGER_32
+	St_fragsy: INTEGER_32
+	St_fx: INTEGER_32
+	St_fy: INTEGER_32
+	st_gamestate: INTEGER_32
+	St_godface: INTEGER_32
+	St_healthx: INTEGER_32
+	St_healthy: INTEGER_32
+	St_height: INTEGER_32
+	St_key0x: INTEGER_32
+	St_key0y: INTEGER_32
+	St_key1x: INTEGER_32
+	St_key1y: INTEGER_32
+	St_key2x: INTEGER_32
+	St_key2y: INTEGER_32
+	St_maxammo0width: INTEGER_32
+	St_maxammo0x: INTEGER_32
+	St_maxammo0y: INTEGER_32
+	St_maxammo1width: INTEGER_32
+	St_maxammo1x: INTEGER_32
+	St_maxammo1y: INTEGER_32
+	St_maxammo2width: INTEGER_32
+	St_maxammo2x: INTEGER_32
+	St_maxammo2y: INTEGER_32
+	St_maxammo3width: INTEGER_32
+	St_maxammo3x: INTEGER_32
+	St_maxammo3y: INTEGER_32
+	st_msgcounter: INTEGER_32
+	St_muchpain: INTEGER_32
+	st_notdeathmatch: BOOLEAN
+	St_numextrafaces: INTEGER_32
+	St_numfaces: INTEGER_32
+	St_numpainfaces: INTEGER_32
+	St_numspecialfaces: INTEGER_32
+	St_numstraightfaces: INTEGER_32
+	St_numturnfaces: INTEGER_32
+	st_oldchat: BOOLEAN
+	st_oldhealth: INTEGER_32
+	St_ouchcount: INTEGER_32
+	St_ouchoffset: INTEGER_32
+	st_palette: INTEGER_32
+	St_rampagedelay: INTEGER_32
+	St_rampageoffset: INTEGER_32
+	st_randomnumber: INTEGER_32
+	st_responder (ev: EVENT_T): BOOLEAN
+	st_statusbaron: BOOLEAN
+	st_stopped: BOOLEAN
+	St_straightfacecount: INTEGER_32
+	St_turncount: INTEGER_32
+	St_turnoffset: INTEGER_32
+	St_width: INTEGER_32
+	St_x: INTEGER_32
+	St_x2: INTEGER_32
+	St_y: INTEGER_32
+	Startbonuspals: INTEGER_32
+	Startchatstate: INTEGER_32
+	Startredpals: INTEGER_32
+	tallnum: ARRAY [detachable PATCH_T]
+	tallpercent: detachable PATCH_T
+	w_ammo: ARRAY [detachable ST_NUMBER]
+	w_armor: detachable ST_PERCENT
+	w_arms: ARRAY [detachable ST_MULT_ICON]
+	w_armsbg: detachable ST_BIN_ICON
+	w_faces: detachable ST_MULT_ICON
+	w_frags: detachable ST_NUMBER
+	w_health: detachable ST_PERCENT
+	w_keyboxes: ARRAY [detachable ST_MULT_ICON]
+	w_maxammo: ARRAY [detachable ST_NUMBER]
+	w_ready: detachable ST_NUMBER
+	Waitdeststate: INTEGER_32
+	Wp_bfg: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_chaingun: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_chainsaw: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_fist: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_missile: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_nochange: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_pistol: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_plasma: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_shotgun: INTEGER_32 -- (from WEAPONTYPE_T)
+	Wp_supershotgun: INTEGER_32 -- (from WEAPONTYPE_T)
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	st_createwidgets
+	st_diffdraw
+	st_dopalettestuff
+	st_dorefresh
+	st_drawer (fullscreen, refresh: BOOLEAN)
+	st_drawwidgets (refresh: BOOLEAN)
+	st_init
+	st_initdata
+	st_loaddata
+	st_loadgraphics
+	st_refreshbackground
+	st_start
+	st_stop
+	st_ticker
+	st_updatefacewidget
+	st_updatewidgets
+

@@ -1,0 +1,53 @@
+class
+	R_DATA
+
+General
+	cluster: render
+	description: 
+		"r_data.c
+		Preparation for data rendering,
+		generation of lookups, caching, retrieval by name."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	colormaps: ARRAY [LIGHTTABLE_T]
+	firstflat: INTEGER_32
+	firstspritelump: INTEGER_32
+	flattranslation: ARRAY [INTEGER_32]
+	i_main: I_MAIN
+	lastflat: INTEGER_32
+	lastspritelump: INTEGER_32
+	numflats: INTEGER_32
+	numspritelumps: INTEGER_32
+	numtextures: INTEGER_32
+	r_checktexturenumforname (name: STRING_8): INTEGER_32
+	r_flatnumforname (name: STRING_8): INTEGER_32
+	r_getcolumn (tex, a_col: INTEGER_32): MANAGED_POINTER_WITH_OFFSET
+	r_texturenumforname (name: STRING_8): INTEGER_32
+	spriteoffset: detachable ARRAY [FIXED_T]
+	spritetopoffset: detachable ARRAY [FIXED_T]
+	spritewidth: detachable ARRAY [FIXED_T]
+	texturecolumnlump: detachable ARRAY [detachable ARRAY [INTEGER_16]]
+	texturecolumnofs: detachable ARRAY [detachable ARRAY [NATURAL_16]]
+	texturecomposite: detachable ARRAY [detachable MANAGED_POINTER]
+	texturecompositesize: detachable ARRAY [INTEGER_32]
+	textureheight: ARRAY [INTEGER_32]
+	textures: ARRAY [TEXTURE_T]
+	texturetranslation: ARRAY [INTEGER_32]
+	texturewidthmask: ARRAY [INTEGER_32]
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	r_drawcolumnincache (real_patch: PATCH_T; col_num: INTEGER_32; cache: MANAGED_POINTER; cache_ofs, originy, cacheheight: INTEGER_32)
+	r_generatecomposite (texnum: INTEGER_32)
+	r_generatelookup (texnum: INTEGER_32)
+	r_initcolormaps
+	r_initdata
+	r_initflats
+	r_initspritelumps
+	r_inittextures
+	r_precachelevel
+

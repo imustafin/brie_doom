@@ -1,0 +1,510 @@
+note
+	description: "[
+		s_sound.c
+		none
+	]"
+
+class 
+	S_SOUND
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			create channels.make_empty
+			snd_sfxvolume := 15
+			snd_musicvolume := 15
+		end
+	
+feature 
+
+	snd_sfxvolume: INTEGER_32 assign set_snd_sfxvolume
+
+	set_snd_sfxvolume (a_snd_sfxvolume: like snd_sfxvolume)
+		do
+			snd_sfxvolume := a_snd_sfxvolume
+		end
+
+	s_setsfxvolume (volume: INTEGER_32)
+		require
+				volume >= 0 and volume <= 127
+		do
+			if volume < 0 or volume > 127 then
+				i_main.i_error ("Attempt to set sfx volume at " + volume.out)
+			end
+			snd_sfxvolume := volume
+		end
+
+	snd_musicvolume: INTEGER_32 assign set_snd_musicvolume
+
+	set_snd_musicvolume (a_snd_musicvolume: like snd_musicvolume)
+		do
+			snd_musicvolume := a_snd_musicvolume
+		end
+
+	s_setmusicvolume (volume: INTEGER_32)
+		require
+				volume >= 0 and volume <= 127
+		do
+			if volume < 0 or volume > 127 then
+				i_main.i_error ("Attempt to set music volume at " + volume.out + "%N")
+			end
+			i_main.I_sound.i_setmusicvolume (127)
+			i_main.I_sound.i_setmusicvolume (volume)
+			snd_musicvolume := volume
+		end
+	
+feature 
+
+	mus_paused: BOOLEAN
+			-- whether songs are mus_paused
+
+	mus_playing: detachable MUSICINFO_T
+	
+feature -- following is set by the defaults code in M_Misc
+
+	numchannels: INTEGER_32 assign set_numchannels
+			-- number of channels available
+
+	set_numchannels (a_numchannels: like numchannels)
+		do
+			numchannels := a_numchannels
+		end
+	
+feature 
+
+	channels: ARRAY [CHANNEL_T]
+			-- the set of channels available
+	
+feature -- Adjustible by menu.
+
+	Norm_pitch: INTEGER_32 = 128
+
+	Norm_priority: INTEGER_32 = 64
+
+	Norm_sep: INTEGER_32 = 128
+
+	S_stereo_swing: INTEGER_32
+		once
+			Result := 96 * 65536
+		end
+
+	S_close_dist: INTEGER_32
+			-- Distance tp origin when sounds should be maxed out.
+			-- This should relate to movement clipping resolution
+			-- (see BLOCKMAP handling).
+			-- // Originally: (200*0x10000).
+		once
+			Result := 160 * 65536
+		end
+
+	S_attenuator: INTEGER_32
+		once
+			Result := (S_clipping_dist - S_close_dist) |>> {M_FIXED}.fracbits
+		end
+	
+feature 
+
+	S_clipping_dist: INTEGER_32
+			-- when to clip out sounds
+			-- Does not fit the large outdoor areas
+		once
+			Result := 1200 * 65536
+		end
+	
+feature 
+
+	s_init (sfxvolume: INTEGER_32; musicvolume: INTEGER_32)
+			-- Initializes sound stuff, including volume
+			-- Sets channels, SFX and music volume,
+			--  allocates channel buffer, sets S_sfx lookup.
+		local
+			i: INTEGER_32
+		do
+			print ("S_Init: default sfx volume " + sfxvolume.out + "%N")
+			i_main.I_sound.i_setchannels
+			s_setsfxvolume (sfxvolume)
+			s_setmusicvolume (musicvolume)
+			create channels.make_filled (create {CHANNEL_T}.make, 0, numchannels - 1)
+			from
+				i := 0
+			until
+				i >= numchannels
+			loop
+				channels [i] := create {CHANNEL_T}.make
+				channels [i].sfxinfo := Void
+				i := i + 1
+			end
+			mus_paused := False
+			from
+				i := 1
+			until
+				i >= {SOUNDS_H}.numsfx
+			loop
+				{SOUNDS_H}.s_sfx [i].lumpnum := -1
+				{SOUNDS_H}.s_sfx [i].usefulness := -1
+				i := i + 1
+			end
+		end
+	
+feature 
+
+	s_pausesound
+		do
+			if mus_playing /= Void and not mus_paused then
+				i_main.I_sound.i_pausesong
+				mus_paused := True
+			end
+		end
+
+	s_resumesound
+		do
+			if mus_playing /= Void and mus_paused then
+				i_main.I_sound.i_resumesong
+				mus_paused := False
+			end
+		end
+	
+feature 
+
+	s_updatesounds (listener: detachable MOBJ_T)
+			-- Updates music & sounds
+			-- from chocolate doom
+		local
+			audible: BOOLEAN
+			cnum: INTEGER_32
+			volume: INTEGER_32_REF
+			sep: INTEGER_32_REF
+			c: CHANNEL_T
+			l_stopped: BOOLEAN
+		do
+			i_main.I_sound.i_updatesound
+			from
+				cnum := 0
+			until
+				cnum >= numchannels
+			loop
+				l_stopped := False
+				c := channels [cnum]
+				if attached c.sfxinfo as sfx then
+					if i_main.I_sound.i_soundisplaying (c.handle) then
+						volume := snd_sfxvolume
+						sep := Norm_sep
+						if attached sfx.link then
+							volume := volume + sfx.volume
+							if volume < 1 then
+								s_stopchannel (cnum)
+								l_stopped := True
+							elseif volume > snd_sfxvolume then
+								volume := snd_sfxvolume
+							end
+						end
+						if not l_stopped then
+							if attached c.origin as origin and then listener /= origin then
+								check
+										attached listener as l
+								then
+									audible := s_adjustsoundparams (listener, origin, volume, sep)
+								end
+								if not audible then
+									s_stopchannel (cnum)
+								else
+									i_main.I_sound.i_updatesoundparams (c.handle, create {INTEGER_32}.make_from_reference (volume), create {INTEGER_32}.make_from_reference (sep))
+								end
+							end
+						end
+					else
+						s_stopchannel (cnum)
+					end
+				end
+				cnum := cnum + 1
+			end
+		end
+
+	s_startsound (origin_p: detachable ANY; sfx_id: INTEGER_32)
+		local
+			sfx: SFXINFO_T
+			origin: MOBJ_T
+			rc: BOOLEAN
+			sep, pitch, cnum, volume: INTEGER_32
+			ignore: BOOLEAN
+		do
+			volume := snd_sfxvolume
+			if sfx_id < 1 or sfx_id > {SOUNDS_H}.numsfx then
+				{I_MAIN}.i_error ("Bad sfx #:" + sfx_id.out)
+			end
+			sfx := {SOUNDS_H}.s_sfx [sfx_id]
+			pitch := Norm_pitch
+			if attached sfx.link as link then
+				volume := volume + sfx.volume
+				pitch := sfx.pitch
+				if volume < 1 then
+					ignore := True
+				else
+					if volume > snd_sfxvolume then
+						volume := snd_sfxvolume
+					end
+				end
+			end
+			if not ignore then
+				if attached origin and then origin /= i_main.G_game.Players [i_main.G_game.consoleplayer].mo then
+					check
+							attached i_main.G_game.Players [i_main.G_game.consoleplayer].mo as mo
+					then
+						rc := s_adjustsoundparams (mo, origin, volume, sep)
+						if origin.x = mo.x and origin.y = mo.y then
+							sep := Norm_sep
+						end
+					end
+					if not rc then
+						ignore := True
+					end
+				else
+					sep := Norm_sep
+				end
+			end
+			if not ignore then
+				if sfx_id >= {SOUNDS_H}.sfx_sawup and sfx_id <= {SOUNDS_H}.sfx_sawhit then
+					pitch := pitch + 8 - (i_main.M_random.m_random & 15)
+				elseif sfx_id /= {SOUNDS_H}.sfx_itemup and sfx_id /= {SOUNDS_H}.sfx_tink then
+					pitch := pitch + 16 - (i_main.M_random.m_random & 31)
+				end
+				pitch := pitch.min (255).max (0)
+				s_stopsound (origin)
+				cnum := s_getchannel (origin, sfx)
+				if cnum < 0 then
+					ignore := True
+				end
+			end
+			if not ignore then
+				sfx.usefulness := (sfx.usefulness + 1).max (1)
+				if sfx.lumpnum < 0 then
+					sfx.lumpnum := i_main.I_sound.i_getsfxlumpnum (sfx)
+				end
+				channels [cnum].pitch := pitch
+				channels [cnum].handle := i_main.I_sound.i_startsound (sfx, cnum, volume, sep, channels [cnum].pitch)
+			end
+		end
+
+	s_getchannel (origin: detachable MOBJ_T; sfxinfo: SFXINFO_T): INTEGER_32
+			-- If none available, return -1. Otherwise channel #.
+		local
+			c: CHANNEL_T
+			found: BOOLEAN
+		do
+			from
+				Result := 0
+			until
+				found or Result > channels.upper
+			loop
+				if channels [Result].sfxinfo = Void then
+					found := True
+				elseif attached origin and then channels [Result].origin = origin then
+					s_stopchannel (Result)
+					found := True
+				else
+					Result := Result + 1
+				end
+			end
+			if Result > channels.upper then
+				from
+					Result := 0
+					found := False
+				until
+					found or Result > channels.upper
+				loop
+					if attached channels [Result].sfxinfo as csfxinfo and then csfxinfo.priority >= sfxinfo.priority then
+						found := True
+					else
+						Result := Result + 1
+					end
+				end
+				if Result > channels.upper then
+					Result := -1
+				else
+					s_stopchannel (Result)
+				end
+			end
+			if Result /= -1 then
+				c := channels [Result]
+				c.sfxinfo := sfxinfo
+				c.origin := origin
+			end
+		end
+
+	s_stopsound (origin: detachable MOBJ_T)
+		local
+			cnum: INTEGER_32
+			done: BOOLEAN
+		do
+			from
+				cnum := 0
+			until
+				not done or cnum > channels.upper
+			loop
+				if channels [cnum].sfxinfo /= Void and channels [cnum].origin = origin then
+					s_stopchannel (cnum)
+					done := True
+				end
+				cnum := cnum + 1
+			end
+		end
+
+	s_startmusic (m_id: INTEGER_32)
+		do
+			s_changemusic (m_id, False)
+		end
+
+	s_changemusic (a_musicnum: INTEGER_32; looping: BOOLEAN)
+		local
+			music: MUSICINFO_T
+			musicnum: INTEGER_32
+			handle: ANY
+		do
+			musicnum := a_musicnum
+			if musicnum = {SOUNDS_H}.mus_intro and (i_main.I_sound.snd_musicdevice = {I_SOUND}.snddevice_adlib or i_main.I_sound.snd_musicdevice = {I_SOUND}.snddevice_sb) and i_main.W_wad.w_checknumforname ("D_INTROA") >= 0 then
+				musicnum := {SOUNDS_H}.mus_introa
+			end
+			if musicnum <= {SOUNDS_H}.mus_none or musicnum >= {SOUNDS_H}.nummusic then
+				{I_MAIN}.i_error ("Bad music number " + musicnum.out)
+			else
+				music := {SOUNDS_H}.s_music [musicnum]
+			end
+			check
+					attached music as m
+			then
+				if mus_playing = m then
+				else
+					s_stopmusic
+					if m.lumpnum = 0 then
+						m.lumpnum := i_main.W_wad.w_getnumforname ("d_" + m.name)
+					end
+					m.data := i_main.W_wad.w_cachelumpnum (m.lumpnum, {Z_ZONE}.pu_static)
+					handle := i_main.I_sound.i_registersong (m.data, i_main.W_wad.w_lumplength (m.lumpnum))
+					m.handle := handle
+					i_main.I_sound.i_playsong (handle, looping)
+					mus_playing := m
+				end
+			end
+		end
+
+	s_stopmusic
+		do
+			if attached mus_playing as m then
+				if mus_paused then
+					i_main.I_sound.i_resumesong
+				end
+				i_main.I_sound.i_stopsong
+				i_main.I_sound.i_unregistersong (m.handle)
+				i_main.W_wad.w_releaselumpnum (m.lumpnum)
+				m.data := Void
+				mus_playing := Void
+			end
+		end
+
+	s_stopchannel (cnum: INTEGER_32)
+			-- from chocolate doom
+		local
+			c: CHANNEL_T
+			i: INTEGER_32
+		do
+			c := channels [cnum]
+			if attached c.sfxinfo as sfxinfo then
+				if i_main.I_sound.i_soundisplaying (c.handle) then
+					i_main.I_sound.i_stopsound (c.handle)
+				end
+				from
+					i := 0
+				until
+					i > channels.upper or else (cnum /= i and c.sfxinfo = channels [i].sfxinfo)
+				loop
+					i := i + 1
+				end
+				if attached c.sfxinfo as si then
+					si.usefulness := si.usefulness - 1
+				end
+				c.sfxinfo := Void
+				c.origin := Void
+			end
+		end
+
+	s_adjustsoundparams (listener: MOBJ_T; source: MOBJ_T; vol, sep: INTEGER_32_REF): BOOLEAN
+			-- (originally returned int)
+			-- Changes volume, stereo-separation, and pith variables
+			--  from the norm of a sound effect to be played.
+			-- If the sound is not audible, returns False (originally 0).
+			-- Otherwise, modifies parameters and returns True (originally 1).
+		local
+			approx_dist: FIXED_T
+			adx: FIXED_T
+			ady: FIXED_T
+			angle: ANGLE_T
+		do
+			adx := create {FIXED_T}.from_integer ((listener.x - source.x).abs)
+			ady := create {FIXED_T}.from_integer ((listener.y - source.y).abs)
+			approx_dist := adx + ady - (adx.min (ady) |>> 1)
+			if i_main.G_game.gamemap /= 8 and approx_dist > create {FIXED_T}.from_integer (S_clipping_dist) then
+				Result := False
+			else
+				angle := i_main.R_main.r_pointtoangle2 (listener.x, listener.y, source.x, source.y)
+				if angle > listener.angle then
+					angle := angle - listener.angle
+				else
+					angle := angle + (create {ANGLE_T}.from_natural (({NATURAL_32} 4294967295)) - listener.angle)
+				end
+				angle := angle |>> {TABLES}.angletofineshift
+				sep.set_item ((128 - ({M_FIXED}.fixedmul (create {FIXED_T}.from_integer (S_stereo_swing), create {FIXED_T}.from_integer ({TABLES}.finesine [angle.as_integer_32]))) |>> {M_FIXED}.fracbits.as_integer_32).as_integer_32)
+				if approx_dist < create {FIXED_T}.from_integer (S_close_dist) then
+					vol.set_item (snd_sfxvolume)
+				elseif i_main.G_game.gamemap = 8 then
+					if approx_dist > create {FIXED_T}.from_integer (S_clipping_dist) then
+						approx_dist := create {FIXED_T}.from_integer (S_clipping_dist)
+					end
+					vol.set_item ((vol * (15 + ((snd_sfxvolume - 15) * ((S_clipping_dist - approx_dist.as_integer_32) |>> {M_FIXED}.fracbits)) // S_attenuator)).as_integer_32)
+				else
+					vol.set_item ((vol * ((snd_sfxvolume * ((S_clipping_dist - approx_dist.as_integer_32) |>> {M_FIXED}.fracbits)) // S_attenuator)).as_integer_32)
+				end
+				Result := vol > 0
+			end
+		end
+
+	s_start
+			-- Per level startup code.
+			-- Kills playing sounds at start of level,
+			-- determines music if any, changes music.
+		local
+			cnum: INTEGER_32
+			mnum: INTEGER_32
+			spmus: ARRAY [INTEGER_32]
+		do
+			from
+				cnum := 0
+			until
+				cnum >= numchannels
+			loop
+				if channels [cnum].sfxinfo /= Void then
+					s_stopchannel (cnum)
+				end
+				cnum := cnum + 1
+			end
+			mus_paused := False
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				mnum := {SOUNDS_H}.mus_runnin + i_main.G_game.gamemap - 1
+			else
+				spmus := <<{SOUNDS_H}.mus_e3m4, {SOUNDS_H}.mus_e3m2, {SOUNDS_H}.mus_e3m3, {SOUNDS_H}.mus_e1m5, {SOUNDS_H}.mus_e2m7, {SOUNDS_H}.mus_e2m4, {SOUNDS_H}.mus_e2m6, {SOUNDS_H}.mus_e2m5, {SOUNDS_H}.mus_e1m9>>
+				if i_main.G_game.gameepisode < 4 then
+					mnum := {SOUNDS_H}.mus_e1m1 + (i_main.G_game.gameepisode - 1) * 9 + i_main.G_game.gamemap - 1
+				else
+					mnum := spmus [i_main.G_game.gamemap - 1]
+				end
+			end
+			s_changemusic (mnum, True)
+		end
+	
+end -- class S_SOUND

@@ -1,0 +1,39 @@
+class
+	MIX
+
+General
+	cluster: src
+	description: "Summary description for {MIX}."
+
+Ancestors
+	SDL_MIXER_FUNCTIONS_API
+
+Queries
+	c_mix_play_channel_timed (channel: INTEGER_32; chunk: POINTER; loops, ticks: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	c_mix_play_music (music: POINTER; loops: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	c_mix_query_spec (frequency: TYPED_POINTER [INTEGER_32]; format: POINTER; channels: TYPED_POINTER [INTEGER_32]): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	c_mix_set_panning (channel: INTEGER_32; left, right: CHARACTER_8): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_allocate_channels (numchans: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_halt_channel (channel: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_halt_music: INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_init (flags: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_load_mus (file: STRING_8): detachable MIX_MUSIC_STRUCT_API
+	mix_load_mus_api (file: POINTER): POINTER -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_max_volume: [like {SDL_CONSTANT_API}.sdl_mix_maxvolume] INTEGER_64
+	mix_open_audio_device (frequency: INTEGER_32; format: NATURAL_32; channels, chunksize: INTEGER_32; device: POINTER; allowed_changes: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_play_channel (channel: INTEGER_32; chunk: MIX_CHUNK_STRUCT_API; loops: INTEGER_32): INTEGER_32
+	mix_play_channel_timed (channel: INTEGER_32; chunk: MIX_CHUNK_STRUCT_API; loops, ticks: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_play_music (music: MIX_MUSIC_STRUCT_API; loops: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_playing (channel: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_playing_music: BOOLEAN
+	mix_playing_music_api: INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_query_spec (frequency: TYPED_POINTER [INTEGER_32]; format: POINTER; channels: TYPED_POINTER [INTEGER_32]): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_set_music_cmd (command: POINTER): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_set_panning (channel: INTEGER_32; left, right: CHARACTER_8): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_volume_music (volume: INTEGER_32): INTEGER_32 -- (from SDL_MIXER_FUNCTIONS_API)
+
+Commands
+	c_mix_free_music (music: POINTER) -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_close_audio -- (from SDL_MIXER_FUNCTIONS_API)
+	mix_free_music (music: MIX_MUSIC_STRUCT_API) -- (from SDL_MIXER_FUNCTIONS_API)
+

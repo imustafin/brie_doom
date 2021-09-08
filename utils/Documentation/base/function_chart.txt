@@ -1,0 +1,46 @@
+class
+	FUNCTION [OPEN_ARGS -> detachable TUPLE create default_create end, RESULT_TYPE]
+
+General
+	cluster: elks
+	description: 
+		"Objects representing delayed calls to a function,
+		with some arguments possibly still open.
+		
+		Note: Features are the same as those of ROUTINE,
+		with apply made effective, and the addition
+		of last_result and item."
+	create: set_rout_disp, set_rout_disp_final
+
+Ancestors
+	ROUTINE* [OPEN_ARGS -> detachable TUPLE create default_create end]
+
+Queries
+	Callable: BOOLEAN -- (from ROUTINE)
+	flexible_item (a: detachable separate TUPLE): RESULT_TYPE
+	hash_code: INTEGER_32 -- (from ROUTINE)
+	is_equal (other: [like Current] FUNCTION [OPEN_ARGS, RESULT_TYPE]): BOOLEAN
+	is_hashable: BOOLEAN -- (from HASHABLE)
+	is_target_closed: BOOLEAN -- (from ROUTINE)
+	item alias "()" (args: detachable separate OPEN_ARGS): RESULT_TYPE
+	last_result: detachable RESULT_TYPE
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+	open_count: INTEGER_32 -- (from ROUTINE)
+	operands: detachable OPEN_ARGS -- (from ROUTINE)
+	postcondition (args: [like operands] detachable OPEN_ARGS): BOOLEAN -- (from ROUTINE)
+	precondition (args: [like operands] detachable OPEN_ARGS): BOOLEAN -- (from ROUTINE)
+	target: detachable ANY -- (from ROUTINE)
+	valid_operands (args: detachable separate TUPLE): BOOLEAN -- (from ROUTINE)
+	valid_target (args: detachable TUPLE): BOOLEAN -- (from ROUTINE)
+
+Commands
+	adapt (other: [like Current] FUNCTION [OPEN_ARGS, RESULT_TYPE]) -- (from ROUTINE)
+	apply
+	call (args: detachable separate OPEN_ARGS)
+	clear_last_result
+	copy (other: [like Current] FUNCTION [OPEN_ARGS, RESULT_TYPE])
+	correct_mismatch -- (from ROUTINE)
+	flexible_call (a: detachable separate TUPLE) -- (from ROUTINE)
+	set_operands (args: detachable OPEN_ARGS) -- (from ROUTINE)
+	set_target (a_target: [like target] detachable ANY) -- (from ROUTINE)
+

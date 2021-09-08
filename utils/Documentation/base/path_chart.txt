@@ -1,0 +1,144 @@
+class
+	PATH
+
+General
+	cluster: elks
+	description: 
+		"Objects representing a path, i.e. a way to identify a file or a directory for the
+		current underlying platform. A path is made of two components:
+		1 - an optional root which can either be:
+		a - a drive letter followed by colon on Windows, i.e. %"C:%" or %"C:\%"
+		b - %"/%" for UNIX root directory.
+		c - %"\%" for Windows root directory.
+		d - %"\\server\share%" or %"\\server\share\%" for Microsoft UNC path.
+		2 - a sequence of zero or more names.
+		
+		A path is absolute if it has a root, and on windows if the root is a drive, then it should
+		be followed by %"\%". Otherwise a path is relative.
+		
+		
+		Validity
+		========
+		
+		The current class will not check the validity of filenames. Check your file
+		system for your operating system manual for the list of invalid characters.
+		
+		
+		Windows consideration
+		=====================
+		
+		When the root of a Windows path is a drive, be aware of the following behavior:
+		1 - %"C:filename.txt%" refers to the file name %"filename.txt%" in the current directory 
+		    on drive %"C:%".
+		2 - %"C:sub\filename.txt%" refers to the file name %"filename.txt%" in a subdirectory %"sub%"
+		    of the current directory on drive %"C:%".
+		3 - %"C:\sub\filename.txt%" refers to the file name %"filename.txt%" in a subdirectory %"sub%"
+		    located at the root of the drive %"C:%".
+		
+		Both forward and backslashes are accepted, but forward slashes are internally converted
+		to backward slashes whenever they are used to construct a path.
+		
+		On Windows, there is a limit of 259 characters for a path. If you need to create a larger
+		path, you can do so by using the following conventions which will let you have paths of
+		about 32,767 characters:
+		1 - Use \\?\ for non-UNC path and let the rest unchanged.
+		2 - Use \\?\UNC\server\share for UNC path and let the rest unchanged.
+		The above path cannot be used to specify a relative path.
+		
+		To know more about Windows paths, read the %"Naming Files, Paths, and Namespaces%"
+		document located at:
+		  http://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx
+		
+		
+		Unicode consideration
+		=====================
+		
+		The PATH class treats strings as sequence of Unicode characters, i.e. an instance of 
+		a READABLE_STRING_8 or descendant will be treated as if characters in the range
+		128 .. 255 were Unicode code points.
+		This contrasts to the FILE/DIRECTORY classes where to preserve backward compatibility, those
+		characters are treated as is.
+		
+		
+		Mixed-encoding consideration
+		============================
+		
+		Most operating systems have conventions for paths that are incompatible with Unicode.
+		On UNIX, in a sequence of names, each name is just a null-terminated byte sequence, it
+		does not follow any specific encoding. Usually the locale setting enables you to see
+		the filename the way you expect.
+		On Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows
+		does not guarantee that the sequence is actually a valid UTF-16 sequence.
+		
+		In other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding
+		on Windows, the filename is not directly representable as a Unicode string. To make it possible
+		to create and store paths in a textually representable form, the query name will create
+		an encoded representation that can be then later used in make_from_string to create a PATH
+		equivalent to the original path. The encoding is described in UTF_CONVERTER's note clause
+		and is a fourth variant of the recommended practice for replacement characters in Unicode
+		(see http://www.unicode.org/review/pr-121.html).
+		
+		
+		Immutability
+		============
+		
+		Instances of the current class are immutable."
+	create: make_from_pointer, make_from_storage, make_from_normalized_storage, make_empty, make_current, make_from_string, make_from_separate
+
+Ancestors
+	COMPARABLE*
+	DEBUG_OUTPUT*
+	HASHABLE*
+	NATIVE_STRING_HANDLER
+
+Queries
+	absolute_path: PATH
+	absolute_path_in (a_current_directory: PATH): PATH
+	appended (a_extra: READABLE_STRING_GENERAL): PATH
+	appended_with_extension (a_ext: READABLE_STRING_GENERAL): PATH
+	canonical_path: PATH
+	components: ARRAYED_LIST [PATH]
+	directory_separator: CHARACTER_8
+	entry: detachable PATH
+	extended (a_name: READABLE_STRING_GENERAL): PATH
+	extended_path alias "+" (a_path: PATH): PATH
+	extension: detachable IMMUTABLE_STRING_32
+	has_extension (a_ext: READABLE_STRING_GENERAL): BOOLEAN
+	has_root: BOOLEAN
+	hash_code: INTEGER_32
+	is_absolute: BOOLEAN
+	is_case_insensitive_equal (other: PATH): BOOLEAN
+	is_case_sensitive_equal (other: PATH): BOOLEAN
+	is_current_symbol: BOOLEAN
+	is_empty: BOOLEAN
+	is_equal (other: [like Current] PATH): BOOLEAN
+	is_greater alias ">" (other: [like Current] PATH): BOOLEAN -- (from COMPARABLE)
+	is_greater_equal alias ">=" (other: [like Current] PATH): BOOLEAN -- (from COMPARABLE)
+	is_hashable: BOOLEAN -- (from HASHABLE)
+	is_less alias "<" (other: [like Current] PATH): BOOLEAN
+	is_less_equal alias "<=" (other: [like Current] PATH): BOOLEAN -- (from COMPARABLE)
+	is_parent_symbol: BOOLEAN
+	is_relative: BOOLEAN
+	is_same_file_as (a_path: PATH): BOOLEAN
+	is_simple: BOOLEAN
+	max (other: [like Current] PATH): [like Current] PATH -- (from COMPARABLE)
+	min (other: [like Current] PATH): [like Current] PATH -- (from COMPARABLE)
+	name: IMMUTABLE_STRING_32
+	native_string: NATIVE_STRING
+	out: STRING_8
+	parent: PATH
+	root: detachable PATH
+	same_as (other: detachable PATH): BOOLEAN
+	three_way_comparison (other: [like Current] PATH): INTEGER_32 -- (from COMPARABLE)
+	Unix_separator: CHARACTER_8
+	utf_8_name: STRING_8
+	Windows_separator: CHARACTER_8
+
+Commands
+	copy (other: [like Current] PATH)
+
+Constraints
+	little endian windows
+	even count on windows
+	no forward slash on windows
+

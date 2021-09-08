@@ -1,0 +1,39 @@
+class
+	C_STRING
+
+General
+	cluster: elks
+	description: "A low-level string class to solve some garbage collector problems (mainly objects moving around) when interfacing with C APIs."
+	create: make, make_empty, make_by_pointer, make_by_pointer_and_count, make_shared_from_pointer, make_shared_from_pointer_and_count, own_from_pointer, own_from_pointer_and_count
+
+Ancestors
+	STRING_HANDLER
+
+Queries
+	bytes_count: INTEGER_32
+	capacity: INTEGER_32
+	Character_size: INTEGER_32
+	count: INTEGER_32
+	item: POINTER
+	managed_data: MANAGED_POINTER
+	string: STRING_8
+	substring (start_pos, end_pos: INTEGER_32): STRING_8
+
+Commands
+	copy_to_string (a_string: STRING_GENERAL; source_index, destination_index, n: INTEGER_32)
+	fill_blank
+	fill_value (a_value: INTEGER_8)
+	read_string_into (a_string: STRING_GENERAL)
+	read_substring_into (a_string: STRING_GENERAL; start_pos, end_pos: INTEGER_32)
+	read_substring_into_character_32_area (a_area: SPECIAL [CHARACTER_32]; start_pos, end_pos: INTEGER_32)
+	read_substring_into_character_8_area (a_area: SPECIAL [CHARACTER_8]; start_pos, end_pos: INTEGER_32)
+	set_count (a_count: INTEGER_32)
+	set_shared_from_pointer (a_ptr: POINTER)
+	set_shared_from_pointer_and_count (a_ptr: POINTER; a_length: INTEGER_32)
+	set_string (a_string: READABLE_STRING_GENERAL)
+	set_substring (a_string: READABLE_STRING_GENERAL; start_pos, end_pos: INTEGER_32)
+
+Constraints
+	managed data not void
+	count not negative
+

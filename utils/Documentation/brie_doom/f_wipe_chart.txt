@@ -1,0 +1,38 @@
+class
+	F_WIPE
+
+General
+	cluster: brie_doom
+	description: 
+		"f_wipe.c
+		Mission begin melt/wipe screen special effect."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	go: BOOLEAN
+	i_main: I_MAIN
+	melt_y: ARRAY [INTEGER_32]
+	Sizeof_wipe_scr: INTEGER_32
+	Wipe_colorxform: INTEGER_32
+	wipe_docolorxform (width, height, ticks: INTEGER_32): BOOLEAN
+	wipe_domelt (a_width, height, a_ticks: INTEGER_32): BOOLEAN
+	wipe_exitcolorxform (width, height, ticks: INTEGER_32): BOOLEAN
+	wipe_exitmelt (width, height, ticks: INTEGER_32): BOOLEAN
+	wipe_initcolorxform (width, height, ticks: INTEGER_32): BOOLEAN
+	wipe_initmelt (width, height, ticks: INTEGER_32): BOOLEAN
+	Wipe_melt: INTEGER_32
+	Wipe_numwipes: INTEGER_32
+	wipe_scr: PIXEL_T_BUFFER
+	wipe_scr_end: PIXEL_T_BUFFER
+	wipe_scr_start: PIXEL_T_BUFFER
+	wipe_screenwipe (wipeno, x, y, width, height, ticks: INTEGER_32): BOOLEAN
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	wipe_endscreen (x, y, width, height: INTEGER_32)
+	wipe_shittycolmajorxform (array: PIXEL_T_BUFFER; width, height: INTEGER_32)
+	wipe_startscreen (x, y, width, height: INTEGER_32)
+

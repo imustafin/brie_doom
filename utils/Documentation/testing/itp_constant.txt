@@ -1,0 +1,70 @@
+note
+	description: "[
+		Objects representing constants.
+	]"
+	author: "Andreas Leitner"
+	date: "$Date: 2017-05-03 14:51:35 +0000 (Wed, 03 May 2017) $"
+	revision: "$Revision: 100315 $"
+
+class 
+	ITP_CONSTANT
+
+inherit
+	ITP_EXPRESSION
+
+	ERL_CONSTANTS
+
+create 
+	make
+
+feature {NONE} -- Initialization
+
+	make (a_value: like value)
+			-- Create new constant.
+		do
+			value := a_value
+		ensure
+			value_set: value = a_value
+		end
+	
+feature -- Access
+
+	value: detachable ANY
+			-- Value
+
+	type_name: STRING_8
+			-- Type name of constant
+		local
+			l_value: like value
+		do
+			l_value := value
+			if l_value = Void then
+				Result := None_type_name
+			else
+				Result := l_value.generating_type.name.as_string_8
+			end
+		ensure
+			result_not_void: Result /= Void
+			result_not_empty: not Result.is_empty
+		end
+	
+feature -- Processing
+
+	process (a_processor: ITP_EXPRESSION_PROCESSOR)
+			-- Process current expression.
+		do
+			a_processor.process_constant (Current)
+		end
+	
+note
+	copyright: "Copyright (c) 1984-2017, Eiffel Software and others"
+	license: "Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
+	source: "[
+		Eiffel Software
+		5949 Hollister Ave., Goleta, CA 93117 USA
+		Telephone 805-685-1006, Fax 805-685-6869
+		Website http://www.eiffel.com
+		Customer support http://support.eiffel.com
+	]"
+
+end -- class ITP_CONSTANT

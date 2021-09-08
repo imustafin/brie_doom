@@ -1,0 +1,135 @@
+note
+	description: "[
+		sector_t from r_defs.h
+		
+		The SECTORS record, at runtime.
+		Stores things/mobjs
+	]"
+
+class 
+	SECTOR_T
+
+create 
+	make,
+	from_pointer
+
+feature 
+
+	make
+		do
+			create lines.make (0)
+			create blockbox.make_filled (0, 0, 3)
+			create soundorg
+		end
+	
+feature 
+
+	floorheight: FIXED_T assign set_floorheight
+
+	set_floorheight (a_floorheight: like floorheight)
+		do
+			floorheight := a_floorheight
+		end
+
+	ceilingheight: FIXED_T assign set_ceilingheight
+
+	set_ceilingheight (a_ceilingheight: like ceilingheight)
+		do
+			ceilingheight := a_ceilingheight
+		end
+
+	floorpic: INTEGER_16
+
+	ceilingpic: INTEGER_16
+
+	lightlevel: INTEGER_16
+
+	special: INTEGER_16
+
+	tag: INTEGER_16
+
+	soundtraversed: INTEGER_32 assign set_soundtraversed
+			-- 0 = untraversed, 1,2 = sndlines - 1
+
+	set_soundtraversed (a_soundtraversed: like soundtraversed)
+		do
+			soundtraversed := a_soundtraversed
+		end
+
+	soundtarget: detachable MOBJ_T assign set_soundtarget
+			-- thing that made a sound (or null)
+
+	set_soundtarget (a_soundtarget: like soundtarget)
+		do
+			soundtarget := a_soundtarget
+		end
+
+	blockbox: ARRAY [INTEGER_32]
+			-- mapblock bounding box for height changes
+
+	soundorg: DEGENMOBJ_T
+			-- origin for any sounds played by the sector
+
+	validcount: INTEGER_32 assign set_validcout
+			-- if == validcount, already checked
+
+	set_validcout (a_validcount: like validcount)
+		do
+			validcount := a_validcount
+		end
+
+	thinglist: detachable MOBJ_T assign set_thinglist
+			-- list of mobjs in sector (head of linked list mobj_t.{snext,sprev})
+
+	set_thinglist (a_thinglist: like thinglist)
+		do
+			thinglist := a_thinglist
+		end
+
+	specialdata: detachable ANY assign set_specialdata
+			-- thinker_t for reversable actions
+
+	set_specialdata (a_specialdata: like specialdata)
+		do
+			specialdata := a_specialdata
+		end
+
+	linecount: INTEGER_32 assign set_linecount
+
+	set_linecount (a_linecount: like linecount)
+		do
+			linecount := a_linecount
+		end
+
+	lines: ARRAYED_LIST [LINE_T]
+	
+feature 
+
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32; i_main: I_MAIN)
+		local
+			floorpic_name: STRING_8
+			ceilingpic_name: STRING_8
+		do
+			floorheight := create {FIXED_T}.from_integer (m.read_integer_16_le (offset).to_integer_32 |<< {M_FIXED}.fracbits)
+			ceilingheight := create {FIXED_T}.from_integer (m.read_integer_16_le (offset + 2).to_integer_32 |<< {M_FIXED}.fracbits)
+			floorpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 4, 8)).string
+			ceilingpic_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 12, 8)).string
+			floorpic := i_main.R_data.r_flatnumforname (floorpic_name).to_integer_16
+			ceilingpic := i_main.R_data.r_flatnumforname (ceilingpic_name).to_integer_16
+			lightlevel := m.read_integer_16_le (offset + 20)
+			special := m.read_integer_16_le (offset + 22)
+			tag := m.read_integer_16_le (offset + 24)
+			thinglist := Void
+			linecount := 0
+			create lines.make (0)
+			create blockbox.make_filled (0, 0, 3)
+			create soundorg
+		end
+
+	Structure_size: INTEGER_32 = 26
+	
+invariant
+		blockbox.count = 4
+		blockbox.lower = 0
+
+end -- class SECTOR_T

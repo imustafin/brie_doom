@@ -1,0 +1,70 @@
+note
+	description: "[
+		side_t from r_defs.h
+		
+		The SideDef.
+	]"
+
+class 
+	SIDE_T
+
+create 
+	default_create,
+	from_pointer
+
+feature 
+
+	textureoffset: FIXED_T
+			-- add this to the calculated texture column
+
+	rowoffset: FIXED_T
+			-- add this to the calculated texture top
+
+	toptexture: INTEGER_16 assign set_toptexture
+
+	set_toptexture (a_toptexture: like toptexture)
+		do
+			toptexture := a_toptexture
+		end
+
+	bottomtexture: INTEGER_16 assign set_bottomtexture
+
+	set_bottomtexture (a_bottomtexture: like bottomtexture)
+		do
+			bottomtexture := a_bottomtexture
+		end
+
+	midtexture: INTEGER_16 assign set_midtexture
+
+	set_midtexture (a_midtexture: like midtexture)
+		do
+			midtexture := a_midtexture
+		end
+
+	sector: detachable SECTOR_T
+			-- Sector the SideDef is facing.
+	
+feature 
+
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32; i_main: I_MAIN)
+		local
+			upper_name: STRING_8
+			middle_name: STRING_8
+			lower_name: STRING_8
+			sector_num: INTEGER_16
+		do
+			textureoffset := create {FIXED_T}.from_integer (m.read_integer_16_le (offset).to_integer_32 |<< {M_FIXED}.fracbits)
+			rowoffset := create {FIXED_T}.from_integer (m.read_integer_16_le (offset + 2).to_integer_32 |<< {M_FIXED}.fracbits)
+			upper_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 4, 8)).string
+			lower_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 12, 8)).string
+			middle_name := (create {C_STRING}.make_by_pointer_and_count (m.item + offset + 20, 8)).string
+			toptexture := i_main.R_data.r_texturenumforname (upper_name).to_integer_16
+			bottomtexture := i_main.R_data.r_texturenumforname (lower_name).to_integer_16
+			midtexture := i_main.R_data.r_texturenumforname (middle_name).to_integer_16
+			sector_num := m.read_integer_16_le (offset + 28)
+			sector := i_main.P_setup.sectors [sector_num.to_integer_32]
+		end
+
+	Structure_size: INTEGER_32 = 30
+	
+end -- class SIDE_T

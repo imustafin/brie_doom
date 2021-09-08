@@ -1,0 +1,46 @@
+note
+	description: "r_defs.h"
+
+class 
+	COLUMN_T
+
+create 
+	from_pointer
+
+feature 
+
+	pointer: MANAGED_POINTER
+
+	offset: INTEGER_32
+	
+feature 
+
+	posts: ARRAYED_LIST [POST_T]
+		local
+			post: POST_T
+			ofs: INTEGER_32
+		do
+			create Result.make (0)
+			from
+				ofs := offset
+				create post.from_pointer (pointer, ofs)
+			until
+				post.is_after
+			loop
+				Result.extend (post)
+				ofs := ofs + post.length.to_integer_32 + 4
+				create post.from_pointer (pointer, ofs)
+			end
+		end
+	
+feature 
+
+	from_pointer (a_pointer: MANAGED_POINTER; a_offset: INTEGER_32)
+		require
+				a_offset >= 0
+		do
+			pointer := a_pointer
+			offset := a_offset
+		end
+	
+end -- class COLUMN_T

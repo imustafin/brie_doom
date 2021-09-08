@@ -1,0 +1,37 @@
+class
+	OBJECT_GRAPH_BREADTH_FIRST_TRAVERSABLE
+
+General
+	cluster: elks
+	description: "Objects that traverse object graphs starting at the root object in a breadth first manner."
+
+Ancestors
+	OBJECT_GRAPH_TRAVERSABLE*
+
+Queries
+	has_failed: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	has_reference_with_copy_semantics: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_exception_on_copy_suppressed: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_exception_propagated: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_object_action_set: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_root_object_set: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_skip_copy_semantics_reference: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	is_skip_transient: BOOLEAN -- (from OBJECT_GRAPH_TRAVERSABLE)
+	object_action: detachable PROCEDURE [separate ANY] -- (from OBJECT_GRAPH_TRAVERSABLE)
+	on_processing_object_action: detachable PROCEDURE [REFLECTED_OBJECT] -- (from OBJECT_GRAPH_TRAVERSABLE)
+	on_processing_reference_action: detachable PROCEDURE [REFLECTED_OBJECT, REFLECTED_OBJECT] -- (from OBJECT_GRAPH_TRAVERSABLE)
+	root_object: detachable ANY -- (from OBJECT_GRAPH_TRAVERSABLE)
+	visited_objects: detachable ARRAYED_LIST [separate ANY] -- (from OBJECT_GRAPH_TRAVERSABLE)
+	visited_types: detachable HASH_TABLE [INTEGER_32, INTEGER_32] -- (from OBJECT_GRAPH_TRAVERSABLE)
+
+Commands
+	set_is_exception_on_copy_suppressed (v: [like is_exception_on_copy_suppressed] BOOLEAN) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_is_exception_propagated (v: [like is_exception_propagated] BOOLEAN) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_is_skip_copy_semantics_reference (v: [like is_skip_copy_semantics_reference] BOOLEAN) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_is_skip_transient (v: [like is_skip_transient] BOOLEAN) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_on_processing_object_action (an_action: [like on_processing_object_action] detachable PROCEDURE [REFLECTED_OBJECT]) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_on_processing_reference_action (an_action: [like on_processing_reference_action] detachable PROCEDURE [REFLECTED_OBJECT, REFLECTED_OBJECT]) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	set_root_object (an_object: [like root_object] detachable ANY) -- (from OBJECT_GRAPH_TRAVERSABLE)
+	traverse -- (from OBJECT_GRAPH_TRAVERSABLE)
+	wipe_out -- (from OBJECT_GRAPH_TRAVERSABLE)
+

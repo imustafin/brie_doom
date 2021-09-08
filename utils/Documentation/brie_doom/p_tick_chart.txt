@@ -1,0 +1,28 @@
+class
+	P_TICK
+
+General
+	cluster: brie_doom
+	description: 
+		"p_tick.c
+		Archiving: SaveGame I/O.
+		Thinker, Ticker."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	i_main: I_MAIN
+	leveltime: INTEGER_32
+	thinkers: LINKED_LIST [WITH_THINKER]
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	p_addthinker (thinker: WITH_THINKER)
+	p_initthinkers
+	p_removethinker (thinker: WITH_THINKER)
+	p_runthinkers
+	p_ticker
+	set_leveltime (a_leveltime: [like leveltime] INTEGER_32)
+

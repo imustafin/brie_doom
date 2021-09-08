@@ -1,0 +1,51 @@
+class
+	DIRECTORY
+
+General
+	cluster: elks
+	description: "Directories, in the Unix sense, with creation and exploration features"
+	create: make, make_with_path, make_with_name, make_open_read
+
+Ancestors
+	DISPOSABLE*
+	NATIVE_STRING_HANDLER
+
+Queries
+	count: INTEGER_32
+	entries: ARRAYED_LIST [PATH]
+	exists: BOOLEAN
+	has_entry (entry_name: READABLE_STRING_GENERAL): BOOLEAN
+	is_closed: BOOLEAN
+	is_empty: BOOLEAN
+	is_executable: BOOLEAN
+	is_readable: BOOLEAN
+	is_writable: BOOLEAN
+	last_entry_32: detachable STRING_32
+	last_entry_8: detachable STRING_8
+	linear_representation_32: ARRAYED_LIST [STRING_32]
+	path: PATH
+	resolved_entries: ARRAYED_LIST [PATH]
+
+Commands
+	change_name (new_name: READABLE_STRING_GENERAL)
+	close
+	create_dir
+	delete
+	delete_content
+	delete_content_with_action (action: detachable PROCEDURE [LIST [READABLE_STRING_GENERAL]]; is_cancel_requested: detachable FUNCTION [BOOLEAN]; file_number: INTEGER_32)
+	dispose
+	make (dn: READABLE_STRING_GENERAL)
+	make_open_read (dn: READABLE_STRING_GENERAL)
+	make_with_name (dn: READABLE_STRING_GENERAL)
+	make_with_path (a_path: PATH)
+	open_read
+	readentry
+	recursive_create_dir
+	recursive_delete
+	recursive_delete_with_action (action: detachable PROCEDURE [LIST [READABLE_STRING_GENERAL]]; is_cancel_requested: detachable FUNCTION [BOOLEAN]; file_number: INTEGER_32)
+	rename_path (new_name: PATH)
+	start
+
+Constraints
+	name attached
+

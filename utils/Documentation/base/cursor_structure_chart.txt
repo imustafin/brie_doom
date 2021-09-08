@@ -1,0 +1,43 @@
+deferred class
+	CURSOR_STRUCTURE [G]
+
+General
+	cluster: elks
+	description: 
+		"Active structures, which always have a current position
+		accessible through a cursor."
+
+Ancestors
+	ACTIVE* [G]
+
+Queries
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	cursor: CURSOR
+	extendible: BOOLEAN -- (from COLLECTION)
+	has (v: G): BOOLEAN -- (from CONTAINER)
+	is_empty: BOOLEAN -- (from CONTAINER)
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	item: G -- (from ACTIVE)
+	linear_representation: LINEAR [G] -- (from CONTAINER)
+	new_cursor: ITERATION_CURSOR [G] -- (from ITERABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: G): INTEGER_32 -- (from BAG)
+	prunable: BOOLEAN -- (from COLLECTION)
+	readable: BOOLEAN -- (from ACTIVE)
+	replaceable: BOOLEAN -- (from ACTIVE)
+	valid_cursor (p: CURSOR): BOOLEAN
+	writable: BOOLEAN -- (from ACTIVE)
+
+Commands
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	extend (v: G) -- (from BAG)
+	fill (other: CONTAINER [G]) -- (from COLLECTION)
+	go_to (p: CURSOR)
+	prune (v: G) -- (from COLLECTION)
+	prune_all (v: G) -- (from COLLECTION)
+	put (v: G) -- (from COLLECTION)
+	remove -- (from ACTIVE)
+	replace (v: G) -- (from ACTIVE)
+	wipe_out -- (from COLLECTION)
+

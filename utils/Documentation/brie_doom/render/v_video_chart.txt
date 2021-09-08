@@ -1,0 +1,66 @@
+class
+	V_VIDEO
+
+General
+	cluster: render
+	description: 
+		"v_video.c
+		Gamma correction LUT stuff.
+		Functions to draw patches (by post) directly to screen.
+		Functions to blit a block to the screen"
+	create: make
+
+Ancestors
+	DOOMDEF_H
+
+Queries
+	dest_screen: PIXEL_T_BUFFER
+	dirtybox: ARRAY [FIXED_T]
+	English: INTEGER_32 -- (from DOOMDEF_H)
+	French: INTEGER_32 -- (from DOOMDEF_H)
+	Gammatable: ARRAY [ARRAY [NATURAL_8]]
+	German: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_demoscreen: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_finale: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_intermission: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_level: INTEGER_32 -- (from DOOMDEF_H)
+	i_main: I_MAIN
+	Infratics: INTEGER_32 -- (from DOOMDEF_H)
+	Invistics: INTEGER_32 -- (from DOOMDEF_H)
+	Invulntics: INTEGER_32 -- (from DOOMDEF_H)
+	Irontics: INTEGER_32 -- (from DOOMDEF_H)
+	Key_downarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_enter: INTEGER_32 -- (from DOOMDEF_H)
+	Key_f12: INTEGER_32 -- (from DOOMDEF_H)
+	Key_leftarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_pause: INTEGER_32 -- (from DOOMDEF_H)
+	Key_ralt: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rctrl: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rightarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rshift: INTEGER_32 -- (from DOOMDEF_H)
+	Key_uparrow: INTEGER_32 -- (from DOOMDEF_H)
+	Maxplayers: INTEGER_32 -- (from DOOMDEF_H)
+	Mtf_ambush: INTEGER_32 -- (from DOOMDEF_H)
+	Screenheight: INTEGER_32 -- (from DOOMDEF_H)
+	Screenwidth: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_baby: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_easy: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_hard: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_medium: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_nightmare: INTEGER_32 -- (from DOOMDEF_H)
+	Ticrate: INTEGER_32 -- (from DOOMDEF_H)
+	Unknown: INTEGER_32 -- (from DOOMDEF_H)
+	usegamma: INTEGER_32
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	set_usegamma (a_usegamma: [like usegamma] INTEGER_32)
+	v_copyrect (srcx, srcy: INTEGER_32; source: PIXEL_T_BUFFER; width, a_height, destx, desty: INTEGER_32)
+	v_drawblock (x, y, width, a_height: INTEGER_32; a_src: PIXEL_T_BUFFER)
+	v_drawpatch (a_x, a_y: INTEGER_32; patch: PATCH_T)
+	v_drawpatchdirect (x, y: INTEGER_32; patch: PATCH_T)
+	v_init
+	v_markrect (x, y, width, height: INTEGER_32)
+	v_restorebuffer
+	v_usebuffer (buffer: PIXEL_T_BUFFER)
+

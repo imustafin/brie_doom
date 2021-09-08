@@ -1,0 +1,36 @@
+deferred class
+	TABLE [G, H]
+
+General
+	cluster: elks
+	description: "Containers whose items are accessible through keys"
+
+Ancestors
+	BAG* [G]
+
+Queries
+	at alias "@" (k: H): G
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	extendible: BOOLEAN -- (from COLLECTION)
+	has (v: G): BOOLEAN -- (from CONTAINER)
+	is_empty: BOOLEAN -- (from CONTAINER)
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	item alias "[]" (k: H): G
+	linear_representation: LINEAR [G] -- (from CONTAINER)
+	new_cursor: ITERATION_CURSOR [G] -- (from ITERABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: G): INTEGER_32 -- (from BAG)
+	prunable: BOOLEAN -- (from COLLECTION)
+	valid_key (k: H): BOOLEAN
+
+Commands
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	extend (v: G) -- (from BAG)
+	fill (other: CONTAINER [G]) -- (from COLLECTION)
+	force (v: G; k: H)
+	prune (v: G) -- (from COLLECTION)
+	prune_all (v: G) -- (from COLLECTION)
+	put (v: G; k: H)
+	wipe_out -- (from COLLECTION)
+

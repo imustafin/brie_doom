@@ -1,0 +1,36 @@
+class 
+	SDL_TEXTURE_ACCESS_ENUM_API
+
+create 
+	default_create
+
+feature 
+
+	is_valid_enum (a_value: INTEGER_32): BOOLEAN
+			-- Is `a_value` a valid integer code for this enum ?
+		do
+			Result := a_value = sdl_textureaccess_static or a_value = sdl_textureaccess_streaming or a_value = sdl_textureaccess_target
+		end
+
+	sdl_textureaccess_static: INTEGER_32
+		external
+			"C inline use <SDL.h>"
+		alias
+			"SDL_TEXTUREACCESS_STATIC"
+		end
+
+	sdl_textureaccess_streaming: INTEGER_32
+		external
+			"C inline use <SDL.h>"
+		alias
+			"SDL_TEXTUREACCESS_STREAMING"
+		end
+
+	sdl_textureaccess_target: INTEGER_32
+		external
+			"C inline use <SDL.h>"
+		alias
+			"SDL_TEXTUREACCESS_TARGET"
+		end
+	
+end -- class SDL_TEXTURE_ACCESS_ENUM_API

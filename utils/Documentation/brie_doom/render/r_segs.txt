@@ -1,0 +1,600 @@
+note
+	description: "[
+		r_segs.c
+		All the clipping: columns, horizontal spans, sky columns.
+	]"
+
+class 
+	R_SEGS
+
+inherit
+	R_DEFS
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			create maskedtexturecol.make (0, i_main.R_plane.openings)
+		end
+	
+feature 
+
+	walllights: detachable ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]] assign set_walllights
+			-- lighttable_t**
+
+	set_walllights (a_walllights: like walllights)
+		do
+			walllights := a_walllights
+		end
+
+	rw_angle1: ANGLE_T assign set_rw_angle1
+
+	set_rw_angle1 (a_rw_angle1: like rw_angle1)
+		do
+			rw_angle1 := a_rw_angle1
+		end
+
+	rw_centerangle: ANGLE_T
+
+	rw_offset: FIXED_T
+
+	rw_normalangle: ANGLE_T
+
+	rw_distance: FIXED_T
+
+	rw_x: INTEGER_32
+
+	rw_stopx: INTEGER_32
+
+	rw_scale: FIXED_T
+
+	rw_scalestep: FIXED_T
+
+	rw_midtexturemid: FIXED_T
+
+	rw_toptexturemid: FIXED_T
+
+	rw_bottomtexturemid: FIXED_T
+
+	worldtop: INTEGER_32
+
+	worldbottom: INTEGER_32
+
+	worldhigh: INTEGER_32
+
+	worldlow: INTEGER_32
+
+	toptexture: INTEGER_32
+
+	bottomtexture: INTEGER_32
+
+	midtexture: INTEGER_32
+
+	maskedtexture: BOOLEAN
+
+	markfloor: BOOLEAN
+
+	markceiling: BOOLEAN
+
+	maskedtexturecol: INDEX_IN_ARRAY [INTEGER_16]
+			-- index in {R_PLANE}.openings
+
+	segtextured: BOOLEAN
+
+	topstep: FIXED_T
+
+	topfrac: FIXED_T
+
+	bottomstep: FIXED_T
+
+	bottomfrac: FIXED_T
+
+	pixhigh: FIXED_T
+
+	pixlow: FIXED_T
+
+	pixhighstep: FIXED_T
+
+	pixlowstep: FIXED_T
+	
+feature 
+
+	r_storewallrange (start, stop: INTEGER_32)
+			-- A wall segment will be drawn
+			-- between start and stop pixels (inclusive)
+		require
+			rangecheck: start < i_main.R_draw.viewwidth and start <= stop
+		local
+			hyp: FIXED_T
+			sineval: FIXED_T
+			distangle, offsetangle: ANGLE_T
+			vtop: FIXED_T
+			lightnum: INTEGER_32
+		do
+			if i_main.R_bsp.ds_p /= Maxdrawsegs then
+				i_main.R_bsp.sidedef := i_main.R_bsp.curline.sidedef
+				i_main.R_bsp.linedef := i_main.R_bsp.curline.linedef
+				i_main.R_bsp.linedef.flags := i_main.R_bsp.linedef.flags | {DOOMDATA_H}.ml_mapped.as_integer_16
+				rw_normalangle := i_main.R_bsp.curline.angle + {TABLES}.ang90
+				offsetangle := (rw_normalangle - rw_angle1).abs
+				if offsetangle > {TABLES}.ang90 then
+					offsetangle := {TABLES}.ang90
+				end
+				distangle := {TABLES}.ang90 - offsetangle
+				hyp := i_main.R_main.r_pointtodist (i_main.R_bsp.curline.v1.x, i_main.R_bsp.curline.v1.y)
+				sineval := create {FIXED_T}.from_integer ({TABLES}.finesine [distangle |>> {TABLES}.angletofineshift.as_integer_32])
+				rw_distance := {M_FIXED}.fixedmul (hyp, sineval)
+				rw_x := start
+				i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].x1 := start
+				i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].x2 := stop
+				i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].curline := i_main.R_bsp.curline
+				rw_stopx := stop + 1
+				rw_scale := i_main.R_main.r_scalefromglobalangle (i_main.R_main.viewangle + i_main.R_main.Xtoviewangle [start])
+				i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scale1 := rw_scale
+				if stop > start then
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scale2 := i_main.R_main.r_scalefromglobalangle (i_main.R_main.viewangle + i_main.R_main.Xtoviewangle [stop])
+					rw_scalestep := (i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scale2 - rw_scale) // create {FIXED_T}.from_integer ((stop - start))
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scalestep := rw_scalestep
+				else
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scale2 := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].scale1
+				end
+				worldtop := (i_main.R_bsp.frontsector.ceilingheight - i_main.R_main.viewz).to_integer_32
+				worldbottom := (i_main.R_bsp.frontsector.floorheight - i_main.R_main.viewz).to_integer_32
+				midtexture := 0
+				toptexture := 0
+				bottomtexture := 0
+				maskedtexture := False
+				i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].maskedtexturecol := Void
+				if i_main.R_bsp.backsector = Void then
+					midtexture := i_main.R_data.texturetranslation [i_main.R_bsp.sidedef.midtexture.to_integer_32]
+					markceiling := True
+					markfloor := True
+					if i_main.R_bsp.linedef.flags.to_integer_32 & {DOOMDATA_H}.ml_dontpegbottom /= 0 then
+						vtop := i_main.R_bsp.frontsector.floorheight + create {FIXED_T}.from_integer (i_main.R_data.textureheight [i_main.R_bsp.sidedef.midtexture.to_integer_32])
+						rw_midtexturemid := vtop - i_main.R_main.viewz
+					else
+						rw_midtexturemid := create {FIXED_T}.from_integer (worldtop)
+					end
+					rw_midtexturemid := rw_midtexturemid + i_main.R_bsp.sidedef.rowoffset
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := Sil_both
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprtopclip := create {INDEX_IN_ARRAY [INTEGER_16]}.make (0, i_main.R_things.screenheightarray)
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprbottomclip := create {INDEX_IN_ARRAY [INTEGER_16]}.make (0, i_main.R_things.negonearray)
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].bsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.maxint)
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].tsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.minint)
+				else
+					check
+							attached i_main.R_bsp.backsector as backsector
+					then
+						i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprbottomclip := Void
+						i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprtopclip := Void
+						i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := 0
+						if i_main.R_bsp.frontsector.floorheight > backsector.floorheight then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := Sil_bottom
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].bsilheight := i_main.R_bsp.frontsector.floorheight
+						elseif backsector.floorheight > i_main.R_main.viewz then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := Sil_bottom
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].bsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.maxint)
+						end
+						if i_main.R_bsp.frontsector.ceilingheight < backsector.ceilingheight then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_top
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].tsilheight := i_main.R_bsp.frontsector.ceilingheight
+						elseif backsector.ceilingheight < i_main.R_main.viewz then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_top
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].tsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.minint)
+						end
+						if backsector.ceilingheight <= i_main.R_bsp.frontsector.floorheight then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprbottomclip := create {INDEX_IN_ARRAY [INTEGER_16]}.make (0, i_main.R_things.negonearray)
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].bsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.maxint)
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_bottom
+						end
+						if backsector.floorheight >= i_main.R_bsp.frontsector.ceilingheight then
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprtopclip := create {INDEX_IN_ARRAY [INTEGER_16]}.make (0, i_main.R_things.screenheightarray)
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].tsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.minint)
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_top
+						end
+						worldhigh := (backsector.ceilingheight - i_main.R_main.viewz).to_integer_32
+						worldlow := (backsector.floorheight - i_main.R_main.viewz).to_integer_32
+						if i_main.R_bsp.frontsector.ceilingpic.to_integer_32 = i_main.R_sky.skyflatnum and backsector.ceilingpic.to_integer_32 = i_main.R_sky.skyflatnum then
+							worldtop := worldhigh
+						end
+						if worldlow /= worldbottom or backsector.floorpic /= i_main.R_bsp.frontsector.floorpic or backsector.lightlevel /= i_main.R_bsp.frontsector.lightlevel then
+							markfloor := True
+						else
+							markfloor := False
+						end
+						if worldhigh /= worldtop or backsector.ceilingpic /= i_main.R_bsp.frontsector.ceilingpic or backsector.lightlevel /= i_main.R_bsp.frontsector.lightlevel then
+							markceiling := True
+						else
+							markceiling := False
+						end
+						if backsector.ceilingheight <= i_main.R_bsp.frontsector.floorheight or backsector.floorheight >= i_main.R_bsp.frontsector.ceilingheight then
+							markceiling := True
+							markfloor := True
+						end
+						if worldhigh < worldtop then
+							toptexture := i_main.R_data.texturetranslation [i_main.R_bsp.sidedef.toptexture.to_integer_32]
+							if i_main.R_bsp.linedef.flags.to_integer_32 & {DOOMDATA_H}.ml_dontpegtop /= 0 then
+								rw_toptexturemid := create {FIXED_T}.from_integer (worldtop)
+							else
+								vtop := backsector.ceilingheight + create {FIXED_T}.from_integer (i_main.R_data.textureheight [i_main.R_bsp.sidedef.toptexture.to_integer_32])
+								rw_toptexturemid := vtop - i_main.R_main.viewz
+							end
+						end
+						if worldlow > worldbottom then
+							bottomtexture := i_main.R_data.texturetranslation [i_main.R_bsp.sidedef.bottomtexture.to_integer_32]
+							if i_main.R_bsp.linedef.flags.to_integer_32 & {DOOMDATA_H}.ml_dontpegbottom /= 0 then
+								rw_bottomtexturemid := create {FIXED_T}.from_integer (worldtop)
+							else
+								rw_bottomtexturemid := create {FIXED_T}.from_integer (worldlow)
+							end
+						end
+						rw_toptexturemid := rw_toptexturemid + i_main.R_bsp.sidedef.rowoffset
+						rw_bottomtexturemid := rw_bottomtexturemid + i_main.R_bsp.sidedef.rowoffset
+						if i_main.R_bsp.sidedef.midtexture /= 0 then
+							maskedtexture := True
+							maskedtexturecol := i_main.R_plane.lastopening - rw_x
+							i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].maskedtexturecol := maskedtexturecol
+							i_main.R_plane.lastopening := i_main.R_plane.lastopening + rw_stopx - rw_x
+						end
+					end
+				end
+				segtextured := (midtexture | toptexture | bottomtexture) /= 0 or maskedtexture
+				if segtextured then
+					offsetangle := rw_normalangle - rw_angle1
+					if offsetangle > {TABLES}.ang180 then
+						offsetangle := - offsetangle
+					end
+					if offsetangle > {TABLES}.ang90 then
+						offsetangle := {TABLES}.ang90
+					end
+					sineval := create {FIXED_T}.from_integer ({TABLES}.finesine [offsetangle |>> {TABLES}.angletofineshift.as_integer_32])
+					rw_offset := {M_FIXED}.fixedmul (hyp, sineval)
+					if rw_normalangle - rw_angle1 < {TABLES}.ang180 then
+						rw_offset := - rw_offset
+					end
+					rw_offset := rw_offset + i_main.R_bsp.sidedef.textureoffset + i_main.R_bsp.curline.offset
+					rw_centerangle := {TABLES}.ang90 + i_main.R_main.viewangle - rw_normalangle
+					if i_main.R_main.fixedcolormap = Void then
+						lightnum := (i_main.R_bsp.frontsector.lightlevel |>> {R_MAIN}.lightsegshift).to_integer_32 + i_main.R_main.extralight
+						if i_main.R_bsp.curline.v1.y = i_main.R_bsp.curline.v2.y then
+							lightnum := lightnum - 1
+						elseif i_main.R_bsp.curline.v1.x = i_main.R_bsp.curline.v2.x then
+							lightnum := lightnum + 1
+						end
+						check
+								attached i_main.R_main.scalelight as scalelight
+						then
+							if lightnum < 0 then
+								walllights := scalelight [0]
+							elseif lightnum >= {R_MAIN}.lightlevels then
+								walllights := scalelight [{R_MAIN}.lightlevels - 1]
+							else
+								walllights := scalelight [lightnum]
+							end
+						end
+					end
+				end
+				if i_main.R_bsp.frontsector.floorheight >= i_main.R_main.viewz then
+					markfloor := False
+				end
+				if i_main.R_bsp.frontsector.ceilingheight <= i_main.R_main.viewz and i_main.R_bsp.frontsector.ceilingpic.to_integer_32 /= i_main.R_sky.skyflatnum then
+					markceiling := False
+				end
+				worldtop := worldtop |>> 4
+				worldbottom := worldbottom |>> 4
+				topstep := - {M_FIXED}.fixedmul (rw_scalestep, create {FIXED_T}.from_integer (worldtop))
+				topfrac := (i_main.R_main.centeryfrac |>> 4) - {M_FIXED}.fixedmul (create {FIXED_T}.from_integer (worldtop), rw_scale)
+				bottomstep := - {M_FIXED}.fixedmul (rw_scalestep, create {FIXED_T}.from_integer (worldbottom))
+				bottomfrac := (i_main.R_main.centeryfrac |>> 4) - {M_FIXED}.fixedmul (create {FIXED_T}.from_integer (worldbottom), rw_scale)
+				if attached i_main.R_bsp.backsector as backsector then
+					worldhigh := worldhigh |>> 4
+					worldlow := worldlow |>> 4
+					if worldhigh < worldtop then
+						pixhigh := (i_main.R_main.centeryfrac |>> 4) - {M_FIXED}.fixedmul (create {FIXED_T}.from_integer (worldhigh), rw_scale)
+						pixhighstep := - {M_FIXED}.fixedmul (rw_scalestep, create {FIXED_T}.from_integer (worldhigh))
+					end
+					if worldlow > worldbottom then
+						pixlow := (i_main.R_main.centeryfrac |>> 4) - {M_FIXED}.fixedmul (create {FIXED_T}.from_integer (worldlow), rw_scale)
+						pixlowstep := - {M_FIXED}.fixedmul (rw_scalestep, create {FIXED_T}.from_integer (worldlow))
+					end
+				end
+				if markceiling then
+					check
+							attached i_main.R_plane.ceilingplane as ceilingplane
+					then
+						i_main.R_plane.ceilingplane := i_main.R_plane.r_checkplane (ceilingplane, rw_x, rw_stopx - 1)
+					end
+				end
+				if markfloor then
+					check
+							attached i_main.R_plane.floorplane as floorplane
+					then
+						i_main.R_plane.floorplane := i_main.R_plane.r_checkplane (floorplane, rw_x, rw_stopx - 1)
+					end
+				end
+				r_rendersegloop
+				if (i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette & Sil_top /= 0 or maskedtexture) and i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprtopclip = Void then
+					i_main.R_plane.lastopening.subcopy (i_main.R_plane.ceilingclip, start, rw_stopx, 0)
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprtopclip := i_main.R_plane.lastopening - start
+					i_main.R_plane.lastopening := i_main.R_plane.lastopening + rw_stopx - start
+				end
+				if (i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette & Sil_bottom /= 0 or maskedtexture) and i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprbottomclip = Void then
+					i_main.R_plane.lastopening.subcopy (i_main.R_plane.floorclip, start, rw_stopx, 0)
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].sprbottomclip := i_main.R_plane.lastopening - start
+					i_main.R_plane.lastopening := i_main.R_plane.lastopening + rw_stopx - start
+				end
+				if maskedtexture and not (i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette & Sil_top /= 0) then
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_top
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].tsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.minint)
+				end
+				if maskedtexture and not (i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette & Sil_bottom /= 0) then
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette := i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].silhouette | Sil_bottom
+					i_main.R_bsp.drawsegs [i_main.R_bsp.ds_p].bsilheight := create {FIXED_T}.from_integer ({DOOMTYPE_H}.maxint)
+				end
+				i_main.R_bsp.ds_p := i_main.R_bsp.ds_p + 1
+			end
+		end
+	
+feature -- R_RenderSegLoop
+
+	Heightbits: INTEGER_32 = 12
+
+	Heightunit: INTEGER_32
+		once
+			Result := 1 |<< Heightbits
+		ensure
+			instance_free: class
+		end
+
+	r_rendersegloop
+			-- Draws zero, one, or two textures (and possibly a masked texture)
+			-- for walls.
+			-- Can draw or mark the starting pixel of floor and ceiling textures.
+			-- CALLED: CORE LOOPING ROUTINE
+		local
+			angle: ANGLE_T
+			index: NATURAL_32
+			yl: INTEGER_32
+			yh: INTEGER_32
+			mid: INTEGER_32
+			texturecolumn: FIXED_T
+			top: INTEGER_32
+			bottom: INTEGER_32
+			ceilingclip: ARRAY [INTEGER_16]
+			floorclip: ARRAY [INTEGER_16]
+			xtoviewangle: ARRAY [ANGLE_T]
+			angletofineshift: INTEGER_32
+			finetangent: ARRAY [INTEGER_32]
+			fracbits: INTEGER_32
+			lightscaleshift: INTEGER_32
+			maxlightscale: INTEGER_32
+			colfunc: PROCEDURE
+			viewheight: INTEGER_32
+		do
+			ceilingclip := i_main.R_plane.ceilingclip
+			floorclip := i_main.R_plane.floorclip
+			xtoviewangle := i_main.R_main.Xtoviewangle
+			angletofineshift := {TABLES}.angletofineshift
+			finetangent := {TABLES}.finetangent
+			fracbits := {M_FIXED}.fracbits
+			lightscaleshift := {R_MAIN}.lightscaleshift
+			maxlightscale := {R_MAIN}.maxlightscale
+			check
+					attached i_main.R_main.colfunc as cf
+			then
+				colfunc := cf
+			end
+			viewheight := i_main.R_draw.viewheight
+			from
+			until
+				rw_x >= rw_stopx
+			loop
+				yl := ((topfrac + create {FIXED_T}.from_integer (Heightunit) - create {FIXED_T}.from_integer (1)) |>> Heightbits).to_integer_32
+				if yl < ceilingclip [rw_x] + 1.to_integer_32 then
+					yl := ceilingclip [rw_x] + 1.to_integer_32
+				end
+				if markceiling then
+					top := ceilingclip [rw_x] + 1.to_integer_32
+					bottom := yl - 1
+					if bottom >= floorclip [rw_x].to_integer_32 then
+						bottom := floorclip [rw_x] - 1.to_integer_32
+					end
+					if top <= bottom then
+						check
+								attached i_main.R_plane.ceilingplane as ceilingplane
+						then
+							ceilingplane.top [rw_x] := top.to_natural_8
+							ceilingplane.bottom [rw_x] := bottom.to_natural_8
+						end
+					end
+				end
+				yh := (bottomfrac |>> Heightbits).to_integer_32
+				if yh >= floorclip [rw_x].to_integer_32 then
+					yh := floorclip [rw_x] - 1.to_integer_32
+				end
+				if markfloor then
+					top := yh + 1
+					bottom := floorclip [rw_x] - 1.to_integer_32
+					if top <= ceilingclip [rw_x].to_integer_32 then
+						top := ceilingclip [rw_x] + 1.to_integer_32
+					end
+					if top <= bottom then
+						check
+								attached i_main.R_plane.floorplane as floorplane
+						then
+							floorplane.top [rw_x] := top.to_natural_8
+							floorplane.bottom [rw_x] := bottom.to_natural_8
+						end
+					end
+				end
+				if segtextured then
+					angle := (rw_centerangle + xtoviewangle [rw_x]) |>> angletofineshift
+					texturecolumn := rw_offset - {M_FIXED}.fixedmul (create {FIXED_T}.from_integer (finetangent [angle.as_integer_32]), rw_distance)
+					texturecolumn := texturecolumn |>> fracbits
+					index := rw_scale |>> lightscaleshift.as_natural_32
+					if index.to_integer_32 >= maxlightscale then
+						index := (maxlightscale - 1).to_natural_32
+					end
+					check
+							attached walllights as wls
+					then
+						i_main.R_draw.dc_colormap := wls [index.to_integer_32]
+					end
+					i_main.R_draw.dc_x := rw_x
+					i_main.R_draw.dc_iscale := create {FIXED_T}.from_integer (((4294967295).to_natural_32 // rw_scale.to_natural_32).to_integer_32)
+				end
+				if midtexture /= 0 then
+					i_main.R_draw.dc_yl := yl
+					i_main.R_draw.dc_yh := yh
+					i_main.R_draw.dc_texturemid := rw_midtexturemid
+					i_main.R_draw.dc_source := i_main.R_data.r_getcolumn (midtexture, texturecolumn.to_integer_32)
+					colfunc.call
+					ceilingclip [rw_x] := viewheight.to_integer_16
+					floorclip [rw_x] := -1
+				else
+					if toptexture /= 0 then
+						mid := (pixhigh |>> Heightbits).to_integer_32
+						pixhigh := pixhigh + pixhighstep
+						if mid >= floorclip [rw_x].to_integer_32 then
+							mid := floorclip [rw_x] - 1.to_integer_32
+						end
+						if mid >= yl then
+							i_main.R_draw.dc_yl := yl
+							i_main.R_draw.dc_yh := mid
+							i_main.R_draw.dc_texturemid := rw_toptexturemid
+							i_main.R_draw.dc_source := i_main.R_data.r_getcolumn (toptexture, texturecolumn.to_integer_32)
+							colfunc.call
+							ceilingclip [rw_x] := mid.to_integer_16
+						else
+							ceilingclip [rw_x] := (yl - 1).to_integer_16
+						end
+					else
+						if markceiling then
+							ceilingclip [rw_x] := (yl - 1).to_integer_16
+						end
+					end
+					if bottomtexture /= 0 then
+						mid := ((pixlow + create {FIXED_T}.from_integer (Heightunit) - create {FIXED_T}.from_integer (1)) |>> Heightbits).to_integer_32
+						pixlow := pixlow + pixlowstep
+						if mid <= ceilingclip [rw_x].to_integer_32 then
+							mid := ceilingclip [rw_x] + 1.to_integer_32
+						end
+						if mid <= yh then
+							i_main.R_draw.dc_yl := mid
+							i_main.R_draw.dc_yh := yh
+							i_main.R_draw.dc_texturemid := rw_bottomtexturemid
+							i_main.R_draw.dc_source := i_main.R_data.r_getcolumn (bottomtexture, texturecolumn.to_integer_32)
+							colfunc.call
+							floorclip [rw_x] := mid.to_integer_16
+						else
+							floorclip [rw_x] := (yh + 1).to_integer_16
+						end
+					else
+						if markfloor then
+							floorclip [rw_x] := (yh + 1).to_integer_16
+						end
+					end
+					if maskedtexture then
+						maskedtexturecol [rw_x] := texturecolumn.to_integer_16
+					end
+				end
+				rw_scale := rw_scale + rw_scalestep
+				topfrac := topfrac + topstep
+				bottomfrac := bottomfrac + bottomstep
+				rw_x := rw_x + 1
+			end
+		end
+	
+feature -- R_RenderMaskedSegRange
+
+	r_rendermaskedsegrange (ds: DRAWSEG_T; x1, x2: INTEGER_32)
+		local
+			index: NATURAL_32
+			col: MANAGED_POINTER_WITH_OFFSET
+			lightnum: INTEGER_32
+			texnum: INTEGER_32
+		do
+			check
+					attached ds.curline as dsc
+			then
+				i_main.R_bsp.curline := dsc
+			end
+			check
+					attached i_main.R_bsp.curline.frontsector as fs
+			then
+				i_main.R_bsp.frontsector := fs
+			end
+			i_main.R_bsp.backsector := i_main.R_bsp.curline.backsector
+			texnum := i_main.R_data.texturetranslation [i_main.R_bsp.curline.sidedef.midtexture.to_integer_32]
+			lightnum := (i_main.R_bsp.frontsector.lightlevel |>> {R_MAIN}.lightsegshift).to_integer_32 + i_main.R_main.extralight
+			if i_main.R_bsp.curline.v1.y = i_main.R_bsp.curline.v2.y then
+				lightnum := lightnum - 1
+			elseif i_main.R_bsp.curline.v1.x = i_main.R_bsp.curline.v2.x then
+				lightnum := lightnum + 1
+			end
+			if lightnum < 0 then
+				walllights := i_main.R_main.scalelight [0]
+			elseif lightnum >= {R_MAIN}.lightlevels then
+				walllights := i_main.R_main.scalelight [{R_MAIN}.lightlevels - 1]
+			else
+				walllights := i_main.R_main.scalelight [lightnum]
+			end
+			check
+					attached ds.maskedtexturecol as mtc
+			then
+				maskedtexturecol := mtc
+			end
+			rw_scalestep := ds.scalestep
+			i_main.R_things.spryscale := ds.scale1 + create {FIXED_T}.from_integer ((x1 - ds.x1) * rw_scalestep.as_integer_32)
+			i_main.R_things.mfloorclip := ds.sprbottomclip
+			i_main.R_things.mceilingclip := ds.sprtopclip
+			check
+					attached i_main.R_bsp.backsector as bs
+			then
+				if i_main.R_bsp.curline.linedef.flags.to_integer_32 & {DOOMDATA_H}.ml_dontpegbottom /= 0 then
+					i_main.R_draw.dc_texturemid := i_main.R_bsp.frontsector.floorheight.max (bs.floorheight)
+					i_main.R_draw.dc_texturemid := i_main.R_draw.dc_texturemid + create {FIXED_T}.from_integer (i_main.R_data.textureheight [texnum]) - i_main.R_main.viewz
+				else
+					i_main.R_draw.dc_texturemid := i_main.R_bsp.frontsector.ceilingheight.min (bs.ceilingheight)
+					i_main.R_draw.dc_texturemid := i_main.R_draw.dc_texturemid - i_main.R_main.viewz
+				end
+			end
+			i_main.R_draw.dc_texturemid := i_main.R_draw.dc_texturemid + i_main.R_bsp.curline.sidedef.rowoffset
+			if i_main.R_main.fixedcolormap /= Void then
+				i_main.R_draw.dc_colormap := i_main.R_main.fixedcolormap
+			end
+			from
+				i_main.R_draw.dc_x := x1
+			until
+				i_main.R_draw.dc_x > x2
+			loop
+				if maskedtexturecol [i_main.R_draw.dc_x] /= {DOOMTYPE_H}.maxshort then
+					if i_main.R_main.fixedcolormap = Void then
+						index := i_main.R_things.spryscale |>> {R_MAIN}.lightscaleshift.as_natural_32
+						if index >= {R_MAIN}.maxlightscale.to_natural_32 then
+							index := {R_MAIN}.maxlightscale.to_natural_32 - 1
+						end
+						check
+								attached walllights as wl
+						then
+							i_main.R_draw.dc_colormap := wl [index.to_integer_32]
+						end
+					end
+					i_main.R_things.sprtopscreen := i_main.R_main.centeryfrac - {M_FIXED}.fixedmul (i_main.R_draw.dc_texturemid, i_main.R_things.spryscale)
+					i_main.R_draw.dc_iscale := create {FIXED_T}.from_integer (((4294967295).to_natural_32 // i_main.R_things.spryscale.to_natural_32).to_integer_32)
+					col := i_main.R_data.r_getcolumn (texnum, maskedtexturecol [i_main.R_draw.dc_x].to_integer_32)
+					i_main.R_things.r_drawmaskedcolumn (create {COLUMN_T}.from_pointer (col.mp, col.ofs - 3))
+					maskedtexturecol [i_main.R_draw.dc_x] := {DOOMTYPE_H}.maxshort
+				end
+				i_main.R_things.spryscale := i_main.R_things.spryscale + rw_scalestep
+				i_main.R_draw.dc_x := i_main.R_draw.dc_x + 1
+			end
+		end
+	
+end -- class R_SEGS

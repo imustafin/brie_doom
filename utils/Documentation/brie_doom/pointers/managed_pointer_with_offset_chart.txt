@@ -1,0 +1,21 @@
+class
+	MANAGED_POINTER_WITH_OFFSET
+
+General
+	cluster: pointers
+	description: "Utility class to bundle a managed pointer with an offset"
+	create: make
+
+Ancestors
+	BYTE_SEQUENCE*
+
+Queries
+	count: INTEGER_32
+	get alias "[]" (pos: INTEGER_32): NATURAL_8
+	mp: MANAGED_POINTER
+	ofs: INTEGER_32
+	valid_index (i: INTEGER_32): BOOLEAN
+
+Commands
+	make (a_mp: [like mp] MANAGED_POINTER; a_ofs: [like ofs] INTEGER_32)
+

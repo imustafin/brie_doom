@@ -1,0 +1,34 @@
+class
+	W_WAD
+
+General
+	cluster: brie_doom
+	description: 
+		"w_wad.c
+		Handles WAD file header, directory, lump I/O."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	extractfilebase (a_filename: STRING_8): STRING_8
+	i_main: I_MAIN
+	lumpcache: detachable ARRAY [detachable MANAGED_POINTER]
+	lumpinfo: detachable ARRAY [LUMPINFO_T]
+	reloadlump: INTEGER_32
+	reloadname: detachable STRING_8
+	w_cachelumpname (name: STRING_8; tag: INTEGER_32): MANAGED_POINTER
+	w_cachelumpnum (lump, tag: INTEGER_32): MANAGED_POINTER
+	w_checknumforname (name: STRING_8): INTEGER_32
+	w_getnumforname (name: STRING_8): INTEGER_32
+	w_lumplength (lump: INTEGER_32): INTEGER_32
+	w_readlump (lump: INTEGER_32): MANAGED_POINTER
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	w_addfile (a_filename: STRING_8)
+	w_initmultiplefiles (a_filenames: LIST [STRING_8])
+	w_releaselumpnum (lump: INTEGER_32)
+	w_reload
+

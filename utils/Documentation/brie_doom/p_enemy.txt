@@ -1,0 +1,958 @@
+note
+	description: "[
+		p_enemy.c
+		Enemy thinking, AI.
+		Action Pointer Functions
+		that are associated with states/frames
+	]"
+
+class 
+	P_ENEMY
+
+inherit
+	SFXENUM_T
+
+	MOBJTYPE_T
+
+	MOBJFLAG_T
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: I_MAIN)
+		do
+			i_main := a_i_main
+		end
+	
+feature -- dirtype_t
+
+	Di_east: INTEGER_32 = 0
+
+	Di_northeast: INTEGER_32 = 1
+
+	Di_north: INTEGER_32 = 2
+
+	Di_northwest: INTEGER_32 = 3
+
+	Di_west: INTEGER_32 = 4
+
+	Di_southwest: INTEGER_32 = 5
+
+	Di_south: INTEGER_32 = 6
+
+	Di_southeast: INTEGER_32 = 7
+
+	Di_nodir: INTEGER_32 = 8
+
+	Numdirs: INTEGER_32 = 9
+
+	Opposite: ARRAY [INTEGER_32]
+		once
+			Result := <<Di_west, Di_southwest, Di_south, Di_southeast, Di_east, Di_northeast, Di_north, Di_northwest, Di_nodir>>
+			Result.rebase (0)
+		end
+
+	Diags: ARRAY [INTEGER_32]
+		once
+			Result := <<Di_northwest, Di_northeast, Di_southwest, Di_southeast>>
+			Result.rebase (0)
+		end
+	
+feature 
+
+	soundtarget: detachable MOBJ_T
+
+	p_noisealert (target, emitter: MOBJ_T)
+			-- If a monster yells at a player,
+			-- it will alert other monsters to the player.
+		do
+			soundtarget := target
+			i_main.R_main.validcount := i_main.R_main.validcount + 1
+			check
+					attached emitter.subsector as sub and then attached sub.sector as s
+			then
+				p_recursivesound (s, 0)
+			end
+		end
+
+	p_recursivesound (sec: SECTOR_T; soundblocks: INTEGER_32)
+			-- Called by P_NoiseAlert
+			-- Recursively traverse adjacent sectors,
+			-- sound blocking lines cut off traversal.
+		local
+			i: INTEGER_32
+			c: LINE_T
+			other: SECTOR_T
+		do
+			if sec.validcount = i_main.R_main.validcount and sec.soundtraversed <= soundblocks + 1 then
+			else
+				sec.validcount := i_main.R_main.validcount
+				sec.soundtraversed := soundblocks + 1
+				sec.soundtarget := soundtarget
+				from
+					i := sec.lines.Lower
+				until
+					i > sec.lines.upper
+				loop
+					c := sec.lines [i]
+					if c.flags.to_integer_32 & {DOOMDATA_H}.ml_twosided = 0 then
+					else
+						i_main.P_maputl.p_lineopening (c)
+						if i_main.P_maputl.openrange <= create {FIXED_T}.from_integer (0) then
+						else
+							if i_main.P_setup.sides [c.sidenum [0].to_integer_32].sector = sec then
+								other := i_main.P_setup.sides [c.sidenum [1].to_integer_32].sector
+							else
+								other := i_main.P_setup.sides [c.sidenum [0].to_integer_32].sector
+							end
+							if c.flags.to_integer_32 & {DOOMDATA_H}.ml_soundblock /= 0 then
+								check
+										attached other
+								then
+									if soundblocks = 0 then
+										p_recursivesound (other, 1)
+									else
+										p_recursivesound (other, soundblocks)
+									end
+								end
+							end
+						end
+					end
+					i := i + 1
+				end
+			end
+		end
+	
+feature 
+
+	a_openshotgun2 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+			print ("A_OpenShotgun2 is not implemented%N")
+		end
+
+	a_loadshotgun2 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+			print ("A_LoadShotgun2 is not implemented%N")
+		end
+
+	a_closeshotgun2 (player: PLAYER_T; psp: PSPDEF_T)
+		do
+			print ("A_CloseShotgun2 is not implmented%N")
+		end
+
+	a_explode (thingy: MOBJ_T)
+		do
+			print ("A_Explode is not implemented%N")
+		end
+
+	a_pain (actor: MOBJ_T)
+		do
+			check
+					attached actor.info as info
+			then
+				if info.painsound /= 0 then
+					i_main.S_sound.s_startsound (actor, info.painsound)
+				end
+			end
+		end
+
+	a_playerscream (mo: MOBJ_T)
+		local
+			sound: INTEGER_32
+		do
+			sound := Sfx_pldeth
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial and mo.health < -50 then
+				sound := Sfx_pdiehi
+			end
+			i_main.S_sound.s_startsound (mo, sound)
+		end
+
+	a_fall (actor: MOBJ_T)
+		do
+			actor.flags := actor.flags & {P_MOBJ}.mf_solid.bit_not
+		end
+
+	a_xscream (actor: MOBJ_T)
+		do
+			i_main.S_sound.s_startsound (actor, Sfx_slop)
+		end
+
+	a_look (actor: MOBJ_T)
+			-- Stay in state until a player is sighted
+		local
+			targ: MOBJ_T
+			seeyou: BOOLEAN
+			returned: BOOLEAN
+			sound: INTEGER_32
+		do
+			actor.threshold := 0
+			check
+					attached actor.subsector as sub and then attached sub.sector as sec
+			then
+				targ := sec.soundtarget
+			end
+			if attached targ and then targ.flags & Mf_shootable /= 0 then
+				actor.target := targ
+				if actor.flags & Mf_ambush /= 0 then
+					if i_main.P_sight.p_checksight (actor, targ) then
+						seeyou := True
+					end
+				else
+					seeyou := True
+				end
+			end
+			if not seeyou then
+				if not p_lookforplayers (actor, False) then
+					returned := True
+				end
+			end
+			if not returned then
+				check
+						attached actor.info as i
+				then
+					if i.seesound /= 0 then
+						if i.seesound = Sfx_posit1 or i.seesound = Sfx_posit2 or i.seesound = Sfx_posit3 then
+							sound := Sfx_posit1 + i_main.M_random.p_random \\ 3
+						elseif i.seesound = Sfx_bgsit1 or i.seesound = Sfx_bgsit2 then
+							sound := Sfx_bgsit1 + i_main.M_random.p_random \\ 2
+						else
+							sound := i.seesound
+						end
+						if actor.type = Mt_spider or actor.type = Mt_cyborg then
+							i_main.S_sound.s_startsound (Void, sound)
+						else
+							i_main.S_sound.s_startsound (actor, sound)
+						end
+					end
+					i_main.P_mobj.p_setmobjstate (actor, i.seestate).do_nothing
+				end
+			end
+		end
+
+	p_lookforplayers (actor: MOBJ_T; allaround: BOOLEAN): BOOLEAN
+			-- If allaround is false, only look 180 degrees in front.
+			-- Returns true if a player is targeted.
+		local
+			c: INTEGER_32
+			stop: INTEGER_32
+			player: PLAYER_T
+			an: ANGLE_T
+			dist: FIXED_T
+			returned: BOOLEAN
+			continue: BOOLEAN
+		do
+			c := 0
+			stop := (actor.lastlook - 1) & 3
+			from
+			until
+				returned
+			loop
+				continue := False
+				if not i_main.G_game.Playeringame [actor.lastlook] then
+				else
+					c := c + 1
+					if c = 3 or actor.lastlook = stop then
+						Result := False
+						returned := True
+					else
+						player := i_main.G_game.Players [actor.lastlook]
+						if player.health <= 0 then
+						else
+							check
+									attached player.mo as mo
+							then
+								if not i_main.P_sight.p_checksight (actor, mo) then
+								else
+									if not allaround then
+										an := i_main.R_main.r_pointtoangle2 (actor.x, actor.y, mo.x, mo.y) - actor.angle
+										if an > {R_MAIN}.ang90 and an < {R_MAIN}.ang270 then
+											dist := i_main.P_maputl.p_aproxdistance (mo.x - actor.x, mo.y - actor.y)
+											if dist > create {FIXED_T}.from_integer ({P_LOCAL}.meleerange) then
+												continue := True
+											end
+										end
+									end
+									if not continue then
+										actor.target := player.mo
+										Result := True
+										returned := True
+									end
+								end
+							end
+						end
+					end
+				end
+				if not returned then
+					actor.lastlook := (actor.lastlook + 1) & 3
+				end
+			end
+			if not returned then
+				Result := False
+			end
+		end
+
+	a_chase (actor: MOBJ_T)
+			-- Actor has a melee attack,
+			-- so it tries to close as fast as possible
+		local
+			delta: INTEGER_32
+			returned: BOOLEAN
+		do
+			check
+					attached actor.info as ainfo
+			then
+				if actor.reactiontime /= 0 then
+					actor.reactiontime := actor.reactiontime - 1
+				end
+				if actor.threshold /= 0 then
+					if actor.target = Void or (attached actor.target as t and then t.health <= 0) then
+						actor.threshold := 0
+					else
+						actor.threshold := actor.threshold - 1
+					end
+				end
+				if actor.movedir < 8 then
+					actor.angle := actor.angle & create {ANGLE_T}.from_natural (((7).to_natural_32 |<< 29))
+					delta := actor.angle.as_integer_32 - (actor.movedir |<< 29)
+					if delta > 0 then
+						actor.angle := actor.angle - {R_MAIN}.ang90 // create {ANGLE_T}.from_natural ((2).to_natural_32)
+					elseif delta < 0 then
+						actor.angle := actor.angle + {R_MAIN}.ang90 // create {ANGLE_T}.from_natural ((2).to_natural_32)
+					end
+				end
+				if actor.target = Void or else (attached actor.target as t and then t.flags & Mf_shootable = 0) then
+					if p_lookforplayers (actor, True) then
+					else
+						i_main.P_mobj.p_setmobjstate (actor, ainfo.spawnstate).do_nothing
+					end
+				else
+					if actor.flags & Mf_justattacked /= 0 then
+						actor.flags := actor.flags & Mf_justattacked.bit_not
+						if i_main.G_game.gameskill /= {DOOMDEF_H}.sk_nightmare and not i_main.D_main.fastparm then
+							p_newchasedir (actor)
+						end
+					else
+						if ainfo.meleestate /= 0 and p_checkmeleerange (actor) then
+							if ainfo.attacksound /= 0 then
+								i_main.S_sound.s_startsound (actor, ainfo.attacksound)
+							end
+							i_main.P_mobj.p_setmobjstate (actor, ainfo.meleestate).do_nothing
+						else
+							if ainfo.missilestate /= 0 then
+								if i_main.G_game.gameskill < {DOOMDEF_H}.sk_nightmare and not i_main.D_main.fastparm and actor.movecount /= 0 then
+								elseif not p_checkmissilerange (actor) then
+								else
+									i_main.P_mobj.p_setmobjstate (actor, ainfo.missilestate).do_nothing
+									actor.flags := actor.flags | Mf_justattacked
+									returned := True
+								end
+								if not returned then
+									check
+											attached actor.target as t
+									then
+										if i_main.G_game.netgame and actor.threshold = 0 and not i_main.P_sight.p_checksight (actor, t) then
+											if p_lookforplayers (actor, True) then
+												returned := True
+											end
+										end
+									end
+								end
+								if not returned then
+									actor.movecount := actor.movecount - 1
+									if actor.movecount < 0 or else not p_move (actor) then
+										p_newchasedir (actor)
+									end
+									if ainfo.activesound /= 0 and i_main.M_random.p_random < 3 then
+										i_main.S_sound.s_startsound (actor, ainfo.activesound)
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+	p_newchasedir (actor: MOBJ_T)
+		require
+				attached actor.target
+		local
+			deltax, deltay: FIXED_T
+			d: ARRAY [INTEGER_32]
+			tdir: INTEGER_32
+			olddir: INTEGER_32
+			turnaround: INTEGER_32
+			returned: BOOLEAN
+		do
+			create d.make_filled (0, 0, 2)
+			check
+					attached actor.target as t
+			then
+				olddir := actor.movedir
+				turnaround := Opposite [olddir]
+				deltax := t.x - actor.x
+				deltay := t.y - actor.y
+				if deltax > create {FIXED_T}.from_integer (10 * {M_FIXED}.fracunit) then
+					d [1] := Di_east
+				elseif deltax < create {FIXED_T}.from_integer (-10 * {M_FIXED}.fracunit) then
+					d [1] := Di_west
+				else
+					d [1] := Di_nodir
+				end
+				if deltay < create {FIXED_T}.from_integer (-10 * {M_FIXED}.fracunit) then
+					d [2] := Di_south
+				elseif deltay > create {FIXED_T}.from_integer (10 * {M_FIXED}.fracunit) then
+					d [2] := Di_north
+				else
+					d [2] := Di_nodir
+				end
+				if d [1] /= Di_nodir and d [2] /= Di_nodir then
+					actor.movedir := Diags [((deltay < create {FIXED_T}.from_integer (0)).to_integer |<< 1) + (deltax > create {FIXED_T}.from_integer (0)).to_integer]
+					if actor.movedir /= turnaround and then p_trywalk (actor) then
+						returned := True
+					end
+				end
+				if not returned then
+					if i_main.M_random.p_random > 200 or deltay.abs > deltax.abs then
+						tdir := d [1]
+						d [1] := d [2]
+						d [2] := tdir
+					end
+					if d [1] = turnaround then
+						d [1] := Di_nodir
+					end
+					if d [2] = turnaround then
+						d [2] := Di_nodir
+					end
+					if d [1] /= Di_nodir then
+						actor.movedir := d [1]
+						if p_trywalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					if d [2] /= Di_nodir then
+						actor.movedir := d [2]
+						if p_trywalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					if olddir /= Di_nodir then
+						actor.movedir := olddir
+						if p_trywalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					if (i_main.M_random.p_random & 1) /= 0 then
+						from
+							tdir := Di_east
+						until
+							returned or tdir > Di_southeast
+						loop
+							if tdir /= turnaround then
+								actor.movedir := tdir
+								if p_trywalk (actor) then
+									returned := True
+								end
+							end
+							tdir := tdir + 1
+						end
+					else
+						from
+							tdir := Di_southeast
+						until
+							returned or tdir <= Di_east - 1
+						loop
+							if tdir /= turnaround then
+								actor.movedir := tdir
+								if p_trywalk (actor) then
+									returned := True
+								end
+							end
+							tdir := tdir - 1
+						end
+					end
+				end
+				if not returned then
+					if turnaround /= Di_nodir then
+						actor.movedir := turnaround
+						if p_trywalk (actor) then
+							returned := True
+						end
+					end
+				end
+				if not returned then
+					actor.movedir := Di_nodir
+				end
+			end
+		end
+
+	p_trywalk (actor: MOBJ_T): BOOLEAN
+			-- Attempts to move actor on
+			-- in its current (ob->moveangle) direction.
+			-- If blocked by either a wall or an actor
+			-- returns FALSE
+			-- If move is either clear or blocked only by a door,
+			-- returns TRUE and sets...
+			-- If a door is in the way,
+			-- an OpenDoor call is made to start it opening
+		do
+			if not p_move (actor) then
+				Result := False
+			else
+				actor.movecount := i_main.M_random.p_random & 15
+				Result := True
+			end
+		end
+
+	p_checkmeleerange (actor: MOBJ_T): BOOLEAN
+		local
+			dist: FIXED_T
+		do
+			if attached actor.target as pl then
+				dist := i_main.P_maputl.p_aproxdistance (pl.x - actor.x, pl.y - actor.y)
+				check
+						attached pl.info as i
+				then
+					if dist >= create {FIXED_T}.from_integer ({P_LOCAL}.meleerange - 20 * {M_FIXED}.fracunit + i.radius) then
+						Result := False
+					else
+						if not i_main.P_sight.p_checksight (actor, pl) then
+							Result := False
+						else
+							Result := True
+						end
+					end
+				end
+			else
+				Result := False
+			end
+		end
+
+	p_checkmissilerange (actor: MOBJ_T): BOOLEAN
+		local
+			dist: FIXED_T
+			returned: BOOLEAN
+		do
+			check
+					attached actor.target as t and then attached actor.info as i
+			then
+				if not i_main.P_sight.p_checksight (actor, t) then
+					Result := False
+				elseif actor.flags & Mf_justhit /= 0 then
+					actor.flags := actor.flags & Mf_justhit.bit_not
+					Result := True
+				elseif actor.reactiontime /= 0 then
+					Result := False
+				else
+					dist := i_main.P_maputl.p_aproxdistance (actor.x - t.x, actor.y - t.y) - create {FIXED_T}.from_integer (64 * {M_FIXED}.fracunit)
+					if i.meleestate = 0 then
+						dist := dist - create {FIXED_T}.from_integer (128 * {M_FIXED}.fracunit)
+					end
+					dist := dist |>> 16
+					if actor.type = Mt_vile then
+						if dist > create {FIXED_T}.from_integer (14 * 64) then
+							Result := False
+							returned := True
+						end
+					elseif actor.type = Mt_undead then
+						if dist < create {FIXED_T}.from_integer (196) then
+							Result := False
+						else
+							dist := dist |>> 1
+						end
+					elseif actor.type = Mt_cyborg or actor.type = Mt_spider or actor.type = Mt_skull then
+						dist := dist |>> 1
+					end
+					if not returned then
+						if dist > create {FIXED_T}.from_integer (200) then
+							dist := create {FIXED_T}.from_integer (200)
+						end
+						if actor.type = Mt_cyborg and dist > create {FIXED_T}.from_integer (160) then
+							dist := create {FIXED_T}.from_integer (160)
+						end
+						if i_main.M_random.p_random < dist.as_integer_32 then
+							Result := False
+						else
+							Result := True
+						end
+					end
+				end
+			end
+		end
+	
+feature -- P_Move
+
+	Xspeed: ARRAY [FIXED_T]
+		once
+			Result := ARRAY [FIXED_T] <<create {FIXED_T}.from_integer ({M_FIXED}.fracunit), create {FIXED_T}.from_integer (47000), create {FIXED_T}.from_integer (0), create {FIXED_T}.from_integer (-47000), create {FIXED_T}.from_integer (- {M_FIXED}.fracunit), create {FIXED_T}.from_integer (-47000), create {FIXED_T}.from_integer (0), create {FIXED_T}.from_integer (47000)>>
+			Result.rebase (0)
+		end
+
+	Yspeed: ARRAY [FIXED_T]
+		once
+			Result := ARRAY [FIXED_T] <<create {FIXED_T}.from_integer (0), create {FIXED_T}.from_integer (47000), create {FIXED_T}.from_integer ({M_FIXED}.fracunit), create {FIXED_T}.from_integer (47000), create {FIXED_T}.from_integer (0), create {FIXED_T}.from_integer (-47000), create {FIXED_T}.from_integer (- {M_FIXED}.fracunit), create {FIXED_T}.from_integer (-47000)>>
+			Result.rebase (0)
+		end
+
+	p_move (actor: MOBJ_T): BOOLEAN
+		require
+				actor.movedir < 8
+		local
+			tryx, tryy: FIXED_T
+			ld: LINE_T
+			try_ok: BOOLEAN
+			good: BOOLEAN
+			returned: BOOLEAN
+		do
+			if actor.movedir = Di_nodir then
+				Result := False
+			else
+				check
+						attached actor.info as i
+				then
+					tryx := actor.x + create {FIXED_T}.from_integer (i.speed * Xspeed [actor.movedir].as_integer_32)
+					tryy := actor.y + create {FIXED_T}.from_integer (i.speed * Yspeed [actor.movedir].as_integer_32)
+					try_ok := i_main.P_map.p_trymove (actor, tryx, tryy)
+					if not try_ok then
+						if actor.flags & Mf_float /= 0 and i_main.P_map.floatok then
+							if actor.z < i_main.P_map.tmfloorz then
+								actor.z := actor.z + create {FIXED_T}.from_integer ({P_LOCAL}.floatspeed)
+							else
+								actor.z := actor.z - create {FIXED_T}.from_integer ({P_LOCAL}.floatspeed)
+							end
+							actor.flags := actor.flags | Mf_infloat
+							Result := True
+							returned := True
+						end
+						if not returned then
+							if i_main.P_map.numspechit = 0 then
+								Result := False
+								returned := True
+							end
+						end
+						if not returned then
+							actor.movedir := Di_nodir
+							good := False
+							from
+							until
+								i_main.P_map.numspechit = 0
+							loop
+								i_main.P_map.numspechit := i_main.P_map.numspechit - 1
+								ld := i_main.P_map.spechit [i_main.P_map.numspechit]
+								check
+										attached ld
+								then
+									if i_main.P_switch.p_usespecialline (actor, ld, 0) then
+										good := True
+									end
+								end
+							end
+							Result := good
+							returned := True
+						end
+					else
+						actor.flags := actor.flags & Mf_infloat.bit_not
+					end
+					if not returned then
+						if actor.flags & Mf_float = 0 then
+							actor.z := actor.floorz
+						end
+						Result := True
+					end
+				end
+			end
+		end
+	
+feature 
+
+	a_facetarget (actor: MOBJ_T)
+		do
+			if attached actor.target as t then
+				actor.flags := actor.flags & Mf_ambush.bit_not
+				actor.angle := i_main.R_main.r_pointtoangle2 (actor.x, actor.y, t.x, t.y)
+				if t.flags & Mf_shadow /= 0 then
+					actor.angle := actor.angle + create {ANGLE_T}.from_natural (((i_main.M_random.p_random - i_main.M_random.p_random) |<< 21).to_natural_32)
+				end
+			end
+		end
+
+	a_posattack (actor: MOBJ_T)
+		local
+			angle: ANGLE_T
+			damage: INTEGER_32
+			slope: INTEGER_32
+		do
+			if attached actor.target as t then
+				a_facetarget (actor)
+				angle := actor.angle
+				slope := i_main.P_map.p_aimlineattack (actor, angle, create {FIXED_T}.from_integer ({P_LOCAL}.missilerange)).as_integer_32
+				i_main.S_sound.s_startsound (actor, Sfx_pistol)
+				angle := angle + create {ANGLE_T}.from_natural (((i_main.M_random.p_random - i_main.M_random.p_random) |<< 20).to_natural_32)
+				damage := ((i_main.M_random.p_random \\ 5) + 1) * 3
+				i_main.P_map.p_lineattack (actor, angle, create {FIXED_T}.from_integer ({P_LOCAL}.missilerange), create {FIXED_T}.from_integer (slope), damage)
+			end
+		end
+
+	a_scream (actor: MOBJ_T)
+		local
+			sound: INTEGER_32
+			returned: BOOLEAN
+		do
+			check
+					attached actor.info as i
+			then
+				if i.deathsound = 0 then
+					returned := True
+				elseif i.deathsound = Sfx_podth1 or i.deathsound = Sfx_podth2 or i.deathsound = Sfx_podth3 then
+					sound := Sfx_podth1 + i_main.M_random.p_random \\ 3
+				elseif i.deathsound = Sfx_bgdth1 or i.deathsound = Sfx_bgdth2 then
+					sound := Sfx_bgdth1 + i_main.M_random.p_random \\ 2
+				else
+					sound := i.deathsound
+				end
+			end
+			if not returned then
+				if actor.type = Mt_spider or actor.type = Mt_cyborg then
+					i_main.S_sound.s_startsound (Void, sound)
+				else
+					i_main.S_sound.s_startsound (actor, sound)
+				end
+			end
+		end
+
+	a_sposattack (actor: MOBJ_T)
+		do
+			print ("A_SPosAttack is not implemented%N")
+		end
+
+	a_vilechase (actor: MOBJ_T)
+			-- Check for resurrecting a body
+		do
+			print ("A_VileChase is not implemented%N")
+		end
+
+	a_vilestart (actor: MOBJ_T)
+		do
+			print ("A_VileStart is not implemented%N")
+		end
+
+	a_viletarget (actor: MOBJ_T)
+			-- Spawn the hellfire
+		do
+			print ("A_VileTarget is not implemented%N")
+		end
+
+	a_vileattack (actor: MOBJ_T)
+		do
+			print ("A_VileAttack is not implemented%N")
+		end
+
+	a_startfire (actor: MOBJ_T)
+		do
+			print ("A_StartFire is not implemented%N")
+		end
+
+	a_fire (actor: MOBJ_T)
+			-- Keep fire in front of player unless out of sight
+		do
+			print ("A_Fire is not implemented%N")
+		end
+
+	a_firecrackle (actor: MOBJ_T)
+		do
+			print ("A_FireCrackle is not implemented%N")
+		end
+
+	a_tracer (actor: MOBJ_T)
+		do
+			print ("A_Tracer is not implemented%N")
+		end
+
+	a_skelwhoosh (actor: MOBJ_T)
+		do
+			print ("A_SkelWhoosh is not implemented%N")
+		end
+
+	a_skelfist (actor: MOBJ_T)
+		do
+			print ("A_SkelFist is not implemented%N")
+		end
+
+	a_skelmissile (actor: MOBJ_T)
+		do
+			print ("A_SkelMissile is not implemented%N")
+		end
+
+	a_fatraise (actor: MOBJ_T)
+		do
+			print ("A_FatRaise is not implemented%N")
+		end
+
+	a_fatattack1 (actor: MOBJ_T)
+		do
+			print ("A_FatAttack1 is not implemented%N")
+		end
+
+	a_fatattack2 (actor: MOBJ_T)
+		do
+			print ("A_FatAttack2 is not implemented%N")
+		end
+
+	a_fatattack3 (actor: MOBJ_T)
+		do
+			print ("A_FatAttack3 is not implemented%N")
+		end
+
+	a_bossdeath (mo: MOBJ_T)
+			-- Possibly trigger special effects
+			-- if on first boss level
+		do
+			print ("A_BossDeath is not implemented%N")
+		end
+
+	a_cposattack (actor: MOBJ_T)
+		do
+			print ("A_CPosAttack is not implemented%N")
+		end
+
+	a_cposrefire (actor: MOBJ_T)
+		do
+			print ("A_CPosRefire is not implemented%N")
+		end
+
+	a_troopattack (actor: MOBJ_T)
+		local
+			damage: INTEGER_32
+		do
+			if attached actor.target as t then
+				a_facetarget (actor)
+				if p_checkmeleerange (actor) then
+					i_main.S_sound.s_startsound (actor, Sfx_claw)
+					damage := (i_main.M_random.p_random \\ 8 + 1) * 3
+					i_main.P_inter.p_damagemobj (t, actor, actor, damage)
+				else
+					i_main.P_mobj.p_spawnmissile (actor, t, Mt_troopshot).do_nothing
+				end
+			end
+		end
+
+	a_sargattack (actor: MOBJ_T)
+		do
+			print ("A_SargAttack is not implemented%N")
+		end
+
+	a_headattack (actor: MOBJ_T)
+		do
+			print ("A_HeadAttack is not implemented%N")
+		end
+
+	a_bruisattack (actor: MOBJ_T)
+		do
+			print ("A_BruisAttack is not implemented%N")
+		end
+
+	a_skullattack (actor: MOBJ_T)
+		do
+			print ("A_SkullAttack is not implemented%N")
+		end
+
+	a_metal (mo: MOBJ_T)
+		do
+			print ("A_Metal is not implemented%N")
+		end
+
+	a_spidrefire (actor: MOBJ_T)
+		do
+			print ("A_SpidRefire is not implemented%N")
+		end
+
+	a_babymetal (mo: MOBJ_T)
+		do
+			print ("A_BabyMetal is not implemented%N")
+		end
+
+	a_bspiattack (mo: MOBJ_T)
+		do
+			print ("A_BspiAttack is not implemented%N")
+		end
+
+	a_hoof (mo: MOBJ_T)
+		do
+			print ("A_Hoof is not implemented%N")
+		end
+
+	a_cyberattack (actor: MOBJ_T)
+		do
+			print ("A_CyberAttack is not implemented%N")
+		end
+
+	a_painattack (actor: MOBJ_T)
+			-- Spawn a lost soul and launch it at the target
+		do
+			print ("A_PainAttack is not implemented%N")
+		end
+
+	a_paindie (actor: MOBJ_T)
+		do
+			print ("A_PainDie is not implemented%N")
+		end
+
+	a_keendie (mo: MOBJ_T)
+			-- DOOM II special, map 32.
+			-- Uses special tag 666.
+		do
+			print ("A_KeenDie is not implemented%N")
+		end
+
+	a_brainpain (mo: MOBJ_T)
+		do
+			print ("A_BrainPain is not implemented%N")
+		end
+
+	a_brainscream (mo: MOBJ_T)
+		do
+			print ("A_BrainScream is not implemented%N")
+		end
+
+	a_braindie (mo: MOBJ_T)
+		do
+			print ("A_BrainDie is not implemented%N")
+		end
+
+	a_brainawake (mo: MOBJ_T)
+		do
+			print ("A_BrainAwake is not implemented%N")
+		end
+
+	a_brainspit (mo: MOBJ_T)
+		do
+			print ("A_BrainSpit is not implemented%N")
+		end
+
+	a_spawnsound (mo: MOBJ_T)
+			-- Travelling cube sound
+		do
+			print ("A_SpawnSound is not implemented%N")
+		end
+
+	a_spawnfly (mo: MOBJ_T)
+		do
+			print ("A_SpawnFly is not implemented%N")
+		end
+
+	a_brainexplode (mo: MOBJ_T)
+		do
+			print ("A_BrainExplode is not implemented%N")
+		end
+	
+end -- class P_ENEMY

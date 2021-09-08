@@ -1,0 +1,81 @@
+note
+	description: "[
+		Struct for TEXTURE1 and TEXTURE2 lumps.
+		
+		Definition: https://doomwiki.org/wiki/TEXTURE1_and_TEXTURE2
+	]"
+
+class 
+	TEXTUREX
+
+create 
+	from_pointer
+
+feature 
+
+	from_pointer (m: MANAGED_POINTER)
+		local
+			numtextures: INTEGER_32
+			offsets: ARRAY [INTEGER_32]
+			i: INTEGER_32
+		do
+			numtextures := m.read_integer_32_le (0)
+			create offsets.make_filled (0, 0, numtextures - 1)
+			from
+				i := 0
+			until
+				i >= numtextures
+			loop
+				offsets [i] := m.read_integer_32_le (4 + i * 4)
+				i := i + 1
+			end
+			create textures.make_filled (create {MAPTEXTURE_T}.make, 0, numtextures - 1)
+			from
+				i := 0
+			until
+				i >= numtextures
+			loop
+				textures [i] := read_maptexture_t (m, offsets [i])
+				i := i + 1
+			end
+		end
+
+	read_maptexture_t (m: MANAGED_POINTER; offset: INTEGER_32): MAPTEXTURE_T
+		local
+			patchcount: INTEGER_16
+			patches: ARRAY [MAPPATCH_T]
+			i: INTEGER_32
+		do
+			create Result.make
+			Result.name := create {STRING_8}.make_from_c (m.item + offset)
+			Result.masked := m.read_integer_32_le (offset + 8) /= 0
+			Result.width := m.read_integer_16_le (offset + 12)
+			Result.height := m.read_integer_16_le (offset + 14)
+			patchcount := m.read_integer_16_le (offset + 20)
+			create patches.make_filled (create {MAPPATCH_T}, 0, patchcount - 1.to_integer_32)
+			from
+				i := 0
+			until
+				i >= patchcount.to_integer_32
+			loop
+				patches [i] := read_mappatch_t (m, offset + 22 + i * 10)
+				i := i + 1
+			end
+			Result.patches := patches
+		end
+
+	read_mappatch_t (m: MANAGED_POINTER; offset: INTEGER_32): MAPPATCH_T
+		do
+			create Result
+			Result.originx := m.read_integer_16_le (offset)
+			Result.originy := m.read_integer_16_le (offset + 2)
+			Result.patch := m.read_integer_16_le (offset + 4)
+			Result.stepdir := m.read_integer_16_le (offset + 6)
+			Result.colormap := m.read_integer_16_le (offset + 8)
+		end
+	
+feature 
+
+	textures: ARRAY [MAPTEXTURE_T]
+	
+end -- class TEXTUREX

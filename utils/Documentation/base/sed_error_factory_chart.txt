@@ -1,0 +1,26 @@
+class
+	SED_ERROR_FACTORY
+
+General
+	cluster: ise
+	description: "Objects that provide instances of {SED_ERROR}."
+
+Ancestors
+	ANY
+
+Queries
+	new_attribute_count_mismatch (a_type_id, a_received_attribute_count: INTEGER_32): SED_ERROR
+	new_attribute_mismatch (a_type_id: INTEGER_32; a_attribute_name: STRING_8; a_attribute_type_id, a_received_attribute_type_id: INTEGER_32): SED_ERROR
+	new_exception_error (a_exception: EXCEPTION): SED_ERROR
+	new_format_mismatch (a_old_version, a_new_version: NATURAL_32): SED_ERROR
+	new_format_mismatch_66: SED_ERROR
+	new_internal_error (a_msg: STRING_8): SED_ERROR
+	new_invalid_object_error (a_obj: ANY): SED_ERROR
+	new_missing_attribute_error (a_type_id: INTEGER_32; a_attribute_name: STRING_8): SED_ERROR
+	new_missing_type_error (a_stored_type, a_adapted_type: STRING_8): SED_ERROR
+	new_object_mismatch_error (a_obj: ANY): SED_ERROR
+	new_obsolete_storable_type: SED_ERROR
+	new_storable_version_mismatch_error (a_type_id: INTEGER_32; a_old_version_str: detachable STRING_8): SED_ERROR
+	new_unknown_attribute_type_error (a_type_id: INTEGER_32; a_attribute_name: STRING_8): SED_ERROR
+	new_unknown_storable_type: SED_ERROR
+

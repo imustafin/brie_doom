@@ -1,0 +1,46 @@
+class
+	R_BSP
+
+General
+	cluster: render
+	description: 
+		"r_bsp.c
+		BSP traversal, handling of LineSegs for rendering"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	backsector: detachable SECTOR_T
+	Checkcoord: ARRAY [ARRAY [INTEGER_32]]
+	curline: SEG_T
+	drawsegs: ARRAY [DRAWSEG_T]
+	ds_p: INTEGER_32
+	frontsector: SECTOR_T
+	i_main: I_MAIN
+	linedef: LINE_T
+	Maxsegs: INTEGER_32
+	newend: INTEGER_32
+	r_checkbbox (bspcoord: ARRAY [FIXED_T]): BOOLEAN
+	sidedef: SIDE_T
+	solidsegs: ARRAY [CLIPRANGE_T]
+
+Commands
+	make (a_i_main: I_MAIN)
+	r_addline (line: SEG_T)
+	r_clearclipsegs
+	r_cleardrawsegs
+	r_clippasswallsegment (first, last: INTEGER_32)
+	r_clipsolidwallsegment (first, last: INTEGER_32)
+	r_renderbspnode (bspnum: INTEGER_32)
+	r_subsector (num: INTEGER_32)
+	set_backsector (a_backsector: [like backsector] detachable SECTOR_T)
+	set_curline (a_curline: [like curline] SEG_T)
+	set_ds_p (a_ds_p: [like ds_p] INTEGER_32)
+	set_frontsector (a_frontsector: [like frontsector] SECTOR_T)
+	set_linedef (a_linedef: [like linedef] LINE_T)
+	set_sidedef (a_sidedef: [like sidedef] SIDE_T)
+
+Constraints
+

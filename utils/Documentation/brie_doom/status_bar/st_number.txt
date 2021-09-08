@@ -1,0 +1,145 @@
+note
+	description: "st_number_t with it's functions from st_lib.c"
+
+class 
+	ST_NUMBER
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_x: like x; a_y: like y; a_p: like p; a_num: like num; a_on: like on; a_width: like width; a_i_main: I_MAIN)
+		do
+			x := a_x
+			y := a_y
+			oldnum := 0
+			width := a_width
+			num := a_num
+			on := a_on
+			p := a_p
+			i_main := a_i_main
+		end
+	
+feature 
+
+	x: INTEGER_32
+			-- upper right-hand corner
+			-- of the number (right-justified)
+
+	y: INTEGER_32
+			-- upper right-hand corner
+			-- of the number (right-justified)
+
+	width: INTEGER_32
+			-- max # of digits in number
+
+	oldnum: INTEGER_32
+			-- last number value
+
+	num: FUNCTION [INTEGER_32] assign set_num
+			-- pointer to current value
+
+	set_num (a_num: like num)
+		do
+			num := a_num
+		end
+
+	on: PREDICATE
+			-- pointer to boolean stating
+			-- whether to update number
+
+	p: ARRAY [detachable PATCH_T]
+			-- list of patches for 0-9
+
+	data: INTEGER_32 assign set_data
+			-- user data
+
+	set_data (a_data: like data)
+		do
+			data := a_data
+		end
+	
+feature 
+
+	update (refresh: BOOLEAN)
+		do
+			if on.item then
+				draw (refresh)
+			end
+		end
+
+	draw (refreh: BOOLEAN)
+			-- A fairly efficient way to draw a number
+			-- based on differences from the old number.
+			-- Note: worth the trouble?
+		local
+			numdigits: INTEGER_32
+			l_num: INTEGER_32
+			w: INTEGER_32
+			h: INTEGER_32
+			l_x: INTEGER_32
+			neg: BOOLEAN
+		do
+			numdigits := width
+			l_num := num.item
+			check
+					attached p [0] as p0
+			then
+				w := p0.width.to_integer_32
+				h := p0.height.to_integer_32
+			end
+			l_x := x
+			oldnum := num.item
+			neg := l_num < 0
+			if neg then
+				if numdigits = 2 and l_num < -9 then
+					l_num := -9
+				elseif numdigits = 3 and l_num < -99 then
+					l_num := -99
+				end
+			end
+			l_x := x - numdigits * w
+			check
+					y - {ST_STUFF}.st_y >= 0
+			end
+			check
+					attached i_main.St_stuff.st_backing_screen as sb
+			then
+				i_main.V_video.v_copyrect (l_x, y - {ST_STUFF}.st_y, sb, w * numdigits, h, l_x, y)
+			end
+			if l_num = 1994 then
+			else
+				l_x := x.item
+				if l_num = 0 then
+					check
+							attached p [0] as p0
+					then
+						i_main.V_video.v_drawpatch (l_x - w, y, p0)
+					end
+				end
+				from
+				until
+					l_num = 0 or numdigits = 0
+				loop
+					l_x := l_x - w
+					check
+							attached p [l_num \\ 10] as pnum
+					then
+						i_main.V_video.v_drawpatch (l_x, y, pnum)
+					end
+					l_num := l_num // 10
+					numdigits := numdigits - 1
+				end
+				if neg and attached i_main.St_lib.sttminus as sm then
+					i_main.V_video.v_drawpatch (l_x - 8, y, sm)
+				end
+			end
+		ensure
+			x_not_changed: x = old x
+			y_not_changed: y = old y
+		end
+	
+end -- class ST_NUMBER

@@ -1,0 +1,57 @@
+class
+	MUS2MID
+
+General
+	cluster: mus2mid
+	description: "chocolate doom mus2mid, originally by Ben Ryves"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	allocatemidichannel: NATURAL_8
+	Channel_map: ARRAY [INTEGER_32]
+	channelvelocities: ARRAY [NATURAL_8]
+	Controller_map: ARRAY [NATURAL_8]
+	getmidichannel (mus_channel: INTEGER_32): NATURAL_8
+	input: MANAGED_POINTER
+	Midi_aftertouchchannel: NATURAL_8
+	Midi_aftertouchkey: NATURAL_8
+	Midi_changecontroller: NATURAL_8
+	Midi_changepatch: NATURAL_8
+	Midi_percussion_chan: NATURAL_8
+	Midi_pitchwheel: NATURAL_8
+	Midi_presskey: NATURAL_8
+	Midi_releasekey: NATURAL_8
+	Mus_changecontroller: NATURAL_8
+	Mus_percussion_chan: NATURAL_8
+	Mus_pitchwheel: NATURAL_8
+	Mus_presskey: NATURAL_8
+	Mus_releasekey: NATURAL_8
+	Mus_scoreend: NATURAL_8
+	Mus_systemevent: NATURAL_8
+	Num_channels: INTEGER_32
+	output: ARRAYED_LIST [NATURAL_8]
+	pos: INTEGER_32
+	queuedtime: NATURAL_32
+	read_event (eventdescriptor: NATURAL_8): BOOLEAN
+	read_natural_16: NATURAL_16
+	read_natural_8: NATURAL_8
+	tracksize: NATURAL_32
+
+Commands
+	fill_output
+	make (a_input: MANAGED_POINTER)
+	mus2mid
+	readmusheader (header: MUSHEADER)
+	write_midiheader
+	writechangecontroller_valued (channel, control, value: NATURAL_8)
+	writechangecontroller_valueless (channel, control: NATURAL_8)
+	writechangepatch (channel, patch: NATURAL_8)
+	writeendtrack
+	writepitchwheel (channel: NATURAL_8; wheel: INTEGER_16)
+	writepresskey (channel, key, velocity: NATURAL_8)
+	writereleasekey (channel, key: NATURAL_8)
+	writetime (a_time: NATURAL_32)
+

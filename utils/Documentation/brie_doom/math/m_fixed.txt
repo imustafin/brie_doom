@@ -1,0 +1,64 @@
+note
+	description: "[
+		m_fixed.c
+		Fixed point arithmetics, implementation
+	]"
+
+class 
+	M_FIXED
+
+inherit
+	DOOMTYPE_H
+
+create 
+	default_create
+
+feature -- m_fixed.h
+
+	Fracbits: INTEGER_32 = 16
+
+	Fracunit: INTEGER_32
+		once
+			Result := 1 |<< Fracbits
+		ensure
+			instance_free: class
+		end
+	
+feature 
+
+	fixedmul (a, b: FIXED_T): FIXED_T
+		do
+			Result := create {FIXED_T}.from_integer (((a.as_integer_64 * b.as_integer_64) |>> Fracbits).as_integer_32)
+		ensure
+			instance_free: class
+		end
+
+	fixeddiv (a, b: FIXED_T): FIXED_T
+		do
+			if (a.abs |>> 14) >= b.abs then
+				if a.bit_xor (b) < create {FIXED_T}.from_integer (0) then
+					Result := create {FIXED_T}.from_integer (Minint)
+				else
+					Result := create {FIXED_T}.from_integer (Maxint)
+				end
+			else
+				Result := fixeddiv2 (a, b)
+			end
+		ensure
+			instance_free: class
+		end
+
+	fixeddiv2 (a, b: FIXED_T): FIXED_T
+		local
+			c: REAL_64
+		do
+			c := (a.to_double / b.to_double) * Fracunit.to_double
+			if c >= 2147483648.0 or c < -2147483648.0 then
+				{I_MAIN}.i_error ("FixedDiv: divide by zero")
+			end
+			Result := create {FIXED_T}.from_integer (c.floor)
+		ensure
+			instance_free: class
+		end
+	
+end -- class M_FIXED

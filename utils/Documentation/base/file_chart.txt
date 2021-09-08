@@ -1,0 +1,240 @@
+deferred class
+	FILE
+
+General
+	cluster: elks
+	description: "Sequential files, viewed as persistent sequences of characters"
+
+Ancestors
+	IO_MEDIUM*
+	NATIVE_STRING_HANDLER
+	SEQUENCE* [G]
+	UNBOUNDED* [G]
+
+Queries
+	access_date: INTEGER_32
+	access_exists: BOOLEAN
+	after: BOOLEAN
+	before: BOOLEAN
+	bytes_read: INTEGER_32 -- (from IO_MEDIUM)
+	change_date: INTEGER_32
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32
+	date: INTEGER_32
+	descriptor: INTEGER_32
+	descriptor_available: BOOLEAN
+	end_of_file: BOOLEAN
+	exhausted: BOOLEAN -- (from LINEAR)
+	exists: BOOLEAN
+	extendible: BOOLEAN
+	file_info: FILE_INFO
+	file_pointer: POINTER
+	file_readable: BOOLEAN
+	file_writable: BOOLEAN
+	for_all (test: FUNCTION [CHARACTER_8, BOOLEAN]): BOOLEAN -- (from LINEAR)
+	Full: BOOLEAN
+	group_id: INTEGER_32
+	has (v: [like item] CHARACTER_8): BOOLEAN -- (from LINEAR)
+	index: INTEGER_32 -- (from LINEAR)
+	index_of (v: [like item] CHARACTER_8; i: INTEGER_32): INTEGER_32 -- (from LINEAR)
+	inode: INTEGER_32
+	is_access_executable: BOOLEAN
+	is_access_owner: BOOLEAN
+	is_access_readable: BOOLEAN
+	is_access_writable: BOOLEAN
+	is_block: BOOLEAN
+	is_character: BOOLEAN
+	is_closed: BOOLEAN
+	is_creatable: BOOLEAN
+	is_device: BOOLEAN
+	is_directory: BOOLEAN
+	is_empty: BOOLEAN -- (from FINITE)
+	is_executable: BOOLEAN
+	is_fifo: BOOLEAN
+	is_inserted (v: CHARACTER_8): BOOLEAN -- (from COLLECTION)
+	is_open_append: BOOLEAN
+	is_open_read: BOOLEAN
+	is_open_write: BOOLEAN
+	is_owner: BOOLEAN
+	is_plain: BOOLEAN
+	is_plain_text: BOOLEAN -- (from IO_MEDIUM)
+	is_readable: BOOLEAN
+	is_setgid: BOOLEAN
+	is_setuid: BOOLEAN
+	is_socket: BOOLEAN
+	is_sticky: BOOLEAN
+	is_symlink: BOOLEAN
+	is_writable: BOOLEAN
+	item: CHARACTER_8
+	item_for_iteration: CHARACTER_8 -- (from LINEAR)
+	last_character: CHARACTER_8 -- (from IO_MEDIUM)
+	last_double: REAL_64 -- (from IO_MEDIUM)
+	last_integer: INTEGER_32 -- (from IO_MEDIUM)
+	last_integer_16: INTEGER_16 -- (from IO_MEDIUM)
+	last_integer_32: INTEGER_32 -- (from IO_MEDIUM)
+	last_integer_64: INTEGER_64 -- (from IO_MEDIUM)
+	last_integer_8: INTEGER_8 -- (from IO_MEDIUM)
+	last_natural: NATURAL_32 -- (from IO_MEDIUM)
+	last_natural_16: NATURAL_16 -- (from IO_MEDIUM)
+	last_natural_32: NATURAL_32 -- (from IO_MEDIUM)
+	last_natural_64: NATURAL_64 -- (from IO_MEDIUM)
+	last_natural_8: NATURAL_8 -- (from IO_MEDIUM)
+	last_real: REAL_32 -- (from IO_MEDIUM)
+	last_string: STRING_8 -- (from IO_MEDIUM)
+	lastchar: CHARACTER_8 -- (from IO_MEDIUM)
+	lastdouble: REAL_64 -- (from IO_MEDIUM)
+	lastint: INTEGER_32 -- (from IO_MEDIUM)
+	lastreal: REAL_32 -- (from IO_MEDIUM)
+	laststring: [like last_string] STRING_8 -- (from IO_MEDIUM)
+	linear_representation: LINEAR [CHARACTER_8] -- (from LINEAR)
+	links: INTEGER_32
+	new_cursor: FILE_ITERATION_CURSOR
+	null_name: STRING_8
+	null_path: PATH
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: [like item] CHARACTER_8): INTEGER_32 -- (from LINEAR)
+	off: BOOLEAN
+	owner_name: STRING_8
+	path: PATH
+	path_exists: BOOLEAN
+	position: INTEGER_32
+	protection: INTEGER_32
+	prunable: BOOLEAN
+	read_to_string (a_string: STRING_8; pos, nb: INTEGER_32): INTEGER_32
+	readable: BOOLEAN -- (from SEQUENCE)
+	replaceable: BOOLEAN
+	retrieved: detachable ANY
+	same_file (fn: READABLE_STRING_GENERAL): BOOLEAN
+	separator: CHARACTER_8
+	support_storable: BOOLEAN -- (from IO_MEDIUM)
+	there_exists (test: FUNCTION [CHARACTER_8, BOOLEAN]): BOOLEAN -- (from LINEAR)
+	user_id: INTEGER_32
+	writable: BOOLEAN -- (from SEQUENCE)
+
+Commands
+	add_permission (who, what: STRING_8)
+	append (f: [like Current] FILE)
+	back
+	basic_store (object: ANY)
+	change_group (new_group_id: INTEGER_32)
+	change_mode (mask: INTEGER_32)
+	change_owner (new_owner_id: INTEGER_32)
+	close
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	copy_to (file: [like Current] FILE)
+	create_read_write
+	delete
+	dispose -- (from IO_MEDIUM)
+	do_all (action: PROCEDURE [CHARACTER_8]) -- (from LINEAR)
+	do_if (action: PROCEDURE [CHARACTER_8]; test: FUNCTION [CHARACTER_8, BOOLEAN]) -- (from LINEAR)
+	extend (v: CHARACTER_8)
+	fd_open_append (fd: INTEGER_32)
+	fd_open_read (fd: INTEGER_32)
+	fd_open_read_append (fd: INTEGER_32)
+	fd_open_read_write (fd: INTEGER_32)
+	fd_open_write (fd: INTEGER_32)
+	fill (other: CONTAINER [CHARACTER_8]) -- (from COLLECTION)
+	finish
+	flush
+	force (v: [like item] CHARACTER_8) -- (from SEQUENCE)
+	forth
+	general_store (object: ANY)
+	go (abs_position: INTEGER_32)
+	independent_store (object: ANY)
+	link (fn: READABLE_STRING_GENERAL)
+	make_create_read_write (fn: READABLE_STRING_GENERAL)
+	make_open_append (fn: READABLE_STRING_GENERAL)
+	make_open_read (fn: READABLE_STRING_GENERAL)
+	make_open_read_append (fn: READABLE_STRING_GENERAL)
+	make_open_read_write (fn: READABLE_STRING_GENERAL)
+	make_open_temporary
+	make_open_temporary_with_prefix (a_prefix: READABLE_STRING_GENERAL)
+	make_open_write (fn: READABLE_STRING_GENERAL)
+	make_with_name (fn: READABLE_STRING_GENERAL)
+	make_with_path (a_path: PATH)
+	move (offset: INTEGER_32)
+	new_line
+	next_line
+	open_append
+	open_read
+	open_read_append
+	open_read_write
+	open_write
+	prune_all (v: [like item] CHARACTER_8) -- (from SEQUENCE)
+	put (v: [like item] CHARACTER_8) -- (from SEQUENCE)
+	put_boolean (b: BOOLEAN)
+	put_character (c: CHARACTER_8)
+	put_double (d: REAL_64)
+	put_integer (i: INTEGER_32)
+	put_integer_16 (i: INTEGER_16) -- (from IO_MEDIUM)
+	put_integer_32 (i: INTEGER_32) -- (from IO_MEDIUM)
+	put_integer_64 (i: INTEGER_64) -- (from IO_MEDIUM)
+	put_integer_8 (i: INTEGER_8) -- (from IO_MEDIUM)
+	put_managed_pointer (p: MANAGED_POINTER; start_pos, nb_bytes: INTEGER_32)
+	put_natural (i: NATURAL_32) -- (from IO_MEDIUM)
+	put_natural_16 (i: NATURAL_16) -- (from IO_MEDIUM)
+	put_natural_32 (i: NATURAL_32) -- (from IO_MEDIUM)
+	put_natural_64 (i: NATURAL_64) -- (from IO_MEDIUM)
+	put_natural_8 (i: NATURAL_8) -- (from IO_MEDIUM)
+	put_new_line
+	put_real (r: REAL_32)
+	put_string (s: STRING_8)
+	putbool (b: BOOLEAN)
+	putchar (c: CHARACTER_8)
+	putdouble (d: REAL_64)
+	putint (i: INTEGER_32)
+	putreal (r: REAL_32)
+	putstring (s: STRING_8)
+	read_character
+	read_double
+	read_integer
+	read_integer_16 -- (from IO_MEDIUM)
+	read_integer_32 -- (from IO_MEDIUM)
+	read_integer_64 -- (from IO_MEDIUM)
+	read_integer_8 -- (from IO_MEDIUM)
+	read_line
+	read_line_thread_aware
+	read_natural -- (from IO_MEDIUM)
+	read_natural_16 -- (from IO_MEDIUM)
+	read_natural_32 -- (from IO_MEDIUM)
+	read_natural_64 -- (from IO_MEDIUM)
+	read_natural_8 -- (from IO_MEDIUM)
+	read_real
+	read_stream (nb_char: INTEGER_32)
+	read_stream_thread_aware (nb_char: INTEGER_32)
+	read_to_managed_pointer (p: MANAGED_POINTER; start_pos, nb_bytes: INTEGER_32)
+	read_word
+	read_word_thread_aware
+	readchar
+	readdouble
+	readint
+	readline
+	readreal
+	readstream (nb_char: INTEGER_32)
+	readword
+	recede (abs_position: INTEGER_32)
+	recreate_read_write (fname: READABLE_STRING_GENERAL)
+	remove_permission (who, what: STRING_8)
+	rename_file (new_name: READABLE_STRING_GENERAL)
+	rename_path (new_path: PATH)
+	reopen_append (fname: READABLE_STRING_GENERAL)
+	reopen_read (fname: READABLE_STRING_GENERAL)
+	reopen_read_append (fname: READABLE_STRING_GENERAL)
+	reopen_read_write (fname: READABLE_STRING_GENERAL)
+	reopen_write (fname: READABLE_STRING_GENERAL)
+	reset (fn: READABLE_STRING_GENERAL)
+	reset_path (fp: PATH)
+	search (v: [like item] CHARACTER_8) -- (from BILINEAR)
+	set_access (time: INTEGER_32)
+	set_date (time: INTEGER_32)
+	stamp (time: INTEGER_32)
+	start
+	touch
+	wipe_out
+
+Constraints
+	valid mode
+	name exists
+	name not empty
+

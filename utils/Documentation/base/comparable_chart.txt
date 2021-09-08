@@ -1,0 +1,27 @@
+deferred class
+	COMPARABLE
+
+General
+	cluster: elks
+	description: 
+		"Objects that may be compared according to a total order relation
+		
+		Note: The basic operation is < (less than); others are defined
+		in terms of this operation and is_equal."
+
+Ancestors
+	PART_COMPARABLE*
+
+Queries
+	is_equal (other: [like Current] COMPARABLE): BOOLEAN
+	is_greater alias ">" (other: [like Current] COMPARABLE): BOOLEAN
+	is_greater_equal alias ">=" (other: [like Current] COMPARABLE): BOOLEAN
+	is_less alias "<" (other: [like Current] COMPARABLE): BOOLEAN
+	is_less_equal alias "<=" (other: [like Current] COMPARABLE): BOOLEAN
+	max (other: [like Current] COMPARABLE): [like Current] COMPARABLE
+	min (other: [like Current] COMPARABLE): [like Current] COMPARABLE
+	three_way_comparison (other: [like Current] COMPARABLE): INTEGER_32
+
+Constraints
+	irreflexive comparison
+

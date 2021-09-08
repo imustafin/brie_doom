@@ -1,0 +1,20 @@
+class
+	FILELUMP_T
+
+General
+	cluster: brie_doom
+	description: "w_wad.c"
+	create: make, read_bytes
+
+Ancestors
+	ANY
+
+Queries
+	filepos: INTEGER_32
+	name: STRING_8
+	size: INTEGER_32
+
+Commands
+	make (a_filepos: [like filepos] INTEGER_32; a_size: [like size] INTEGER_32; a_name: [like name] STRING_8)
+	read_bytes (a_file: RAW_FILE)
+

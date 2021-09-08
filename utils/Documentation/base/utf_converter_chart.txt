@@ -1,0 +1,108 @@
+expanded class
+	UTF_CONVERTER
+
+General
+	cluster: elks
+	description: 
+		"Converter from/to UTF-8, UTF-16 and UTF-32 encodings.
+		
+		Handling of invalid encodings
+		=============================
+		
+		Whenever a UTF-8 or UTF-16 sequence is decoded, the decoding routines also check
+		that the sequence is valid. If it is not, it will replace the invalid unit (e.g. a byte
+		for UTF-8 and a 2-byte for UTF-16 by the replacement character U+FFFD as described by
+		variant #3 of the recommended practice for replacement character in Unicode (see
+		http://www.unicode.org/review/pr-121.html for more details).
+		
+		However it means that you cannot roundtrip incorrectly encoded sequence back and forth
+		between the encoded version and the decoded STRING_32 version. To allow roundtrip, an
+		escaped representation of a bad encoded sequence has been introduced. It is adding a
+		a fourth variant (which is a slight modification of variant #3) to the recommended
+		practice where the replacement character is followed by the printed hexadecimal value
+		of the invalid byte or the invalid 2-byte sequence.
+		
+		To provide an example (assuming that the Unicode character U+FFFD is represented as
+		? textually):
+		1 - on UNIX, any invalid UTF-8 byte sequence such as 0x8F 0x8F is encoded as the
+		following Unicode sequence: U+FFFD U+0038 U+0046 U+FFFF U+0038 U+0046, and textually
+		it looks like %"?8F?8F%".
+		2 - on Windows, any invalid UTF-16 2-byte sequence such as 0xD800 0x0054 is encoded as the
+		following Unicode sequence: U+FFFD U+0075 U+0044 U+0038 U+0030 U+0030 U+FFFD U+0035 U+0033,
+		and textually it looks like %"?uD800?54%". The rule is that if the 2-byte sequence does not fit
+		into 1 byte, it uses the letter u followed by the hexadecimal value of the 2-byte sequence,
+		otherwise it simply uses the 1-byte hexadecimal representation."
+
+Ancestors
+	ANY
+
+Queries
+	Escape_character: CHARACTER_32
+	escaped_utf_32_string_to_utf_16le_string_8 (s: READABLE_STRING_GENERAL): STRING_8
+	escaped_utf_32_string_to_utf_8_string_8 (s: READABLE_STRING_GENERAL): STRING_8
+	is_valid_utf_16 (s: SPECIAL [NATURAL_16]): BOOLEAN
+	is_valid_utf_16_subpointer (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN): BOOLEAN
+	is_valid_utf_16le_string_8 (s: READABLE_STRING_8): BOOLEAN
+	is_valid_utf_8_string_8 (s: READABLE_STRING_8): BOOLEAN
+	string_32_to_utf_16 (s: READABLE_STRING_32): SPECIAL [NATURAL_16]
+	string_32_to_utf_16_0 (s: READABLE_STRING_32): SPECIAL [NATURAL_16]
+	string_32_to_utf_8_string_8 (s: READABLE_STRING_32): STRING_8
+	utf_16_0_pointer_to_escaped_string_32 (p: MANAGED_POINTER): STRING_32
+	utf_16_0_pointer_to_string_32 (p: MANAGED_POINTER): STRING_32
+	utf_16_0_subpointer_to_escaped_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN): STRING_32
+	utf_16_0_subpointer_to_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN): STRING_32
+	utf_16_bytes_count (s: READABLE_STRING_GENERAL; start_pos, end_pos: INTEGER_32): INTEGER_32
+	utf_16_characters_count_form_pointer (m: MANAGED_POINTER; start_pos, end_pos: INTEGER_32): INTEGER_32
+	utf_16_to_string_32 (s: SPECIAL [NATURAL_16]): STRING_32
+	utf_16_to_utf_8_string_8 (s: SPECIAL [NATURAL_16]): STRING_8
+	Utf_16be_bom_to_string_8: STRING_8
+	Utf_16le_bom_to_string_8: STRING_8
+	utf_16le_string_8_to_escaped_string_32 (s: READABLE_STRING_8): STRING_32
+	utf_16le_string_8_to_string_32 (s: READABLE_STRING_8): STRING_32
+	utf_16le_string_8_to_utf_8_string_8 (s: READABLE_STRING_8): STRING_8
+	utf_32_string_to_utf_16 (s: READABLE_STRING_GENERAL): SPECIAL [NATURAL_16]
+	utf_32_string_to_utf_16_0 (s: READABLE_STRING_GENERAL): SPECIAL [NATURAL_16]
+	utf_32_string_to_utf_16le_string_8 (s: READABLE_STRING_GENERAL): STRING_8
+	utf_32_string_to_utf_8 (s: READABLE_STRING_GENERAL): SPECIAL [NATURAL_8]
+	utf_32_string_to_utf_8_0 (s: READABLE_STRING_GENERAL): SPECIAL [NATURAL_8]
+	utf_32_string_to_utf_8_string_8 (s: READABLE_STRING_GENERAL): STRING_8
+	Utf_32be_bom_to_string_8: STRING_8
+	Utf_32le_bom_to_string_8: STRING_8
+	utf_8_0_pointer_to_escaped_string_32 (p: MANAGED_POINTER): STRING_32
+	utf_8_0_subpointer_to_escaped_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN): STRING_32
+	Utf_8_bom_to_string_8: STRING_8
+	utf_8_bytes_count (s: READABLE_STRING_GENERAL; start_pos, end_pos: INTEGER_32): INTEGER_32
+	utf_8_string_8_to_escaped_string_32 (s: READABLE_STRING_8): STRING_32
+	utf_8_string_8_to_string_32 (s: READABLE_STRING_8): STRING_32
+	utf_8_string_8_to_utf_16 (s: READABLE_STRING_8): SPECIAL [NATURAL_16]
+	utf_8_string_8_to_utf_16_0 (s: READABLE_STRING_8): SPECIAL [NATURAL_16]
+	utf_8_to_string_32_count (s: SPECIAL [CHARACTER_8]; start_pos, end_pos: INTEGER_32): INTEGER_32
+
+Commands
+	escaped_utf_32_string_into_utf_16le_string_8 (s: READABLE_STRING_GENERAL; a_result: STRING_8)
+	escaped_utf_32_string_into_utf_8_string_8 (s: READABLE_STRING_GENERAL; a_result: STRING_8)
+	escaped_utf_32_substring_into_utf_16_0_pointer (s: READABLE_STRING_GENERAL; start_pos, end_pos: [like {READABLE_STRING_32}.count] INTEGER_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	escaped_utf_32_substring_into_utf_8_0_pointer (s: READABLE_STRING_GENERAL; start_pos, end_pos: INTEGER_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	string_32_into_utf_16_0_pointer (s: READABLE_STRING_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	string_32_into_utf_16_pointer (s: READABLE_STRING_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	string_32_into_utf_8_0_pointer (s: READABLE_STRING_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	string_32_into_utf_8_string_8 (s: READABLE_STRING_32; a_result: STRING_8)
+	utf_16_0_pointer_into_escaped_string_32 (p: MANAGED_POINTER; a_result: STRING_32)
+	utf_16_0_pointer_into_string_32 (p: MANAGED_POINTER; a_result: STRING_32)
+	utf_16_0_subpointer_into_escaped_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN; a_result: STRING_32)
+	utf_16_0_subpointer_into_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN; a_result: STRING_32)
+	utf_16_into_string_32 (s: SPECIAL [NATURAL_16]; a_result: STRING_32)
+	utf_16_into_utf_8_string_8 (s: SPECIAL [NATURAL_16]; a_result: STRING_8)
+	utf_16le_string_8_into_escaped_string_32 (s: READABLE_STRING_8; a_result: STRING_32)
+	utf_16le_string_8_into_string_32 (s: READABLE_STRING_8; a_result: STRING_32)
+	utf_16le_string_8_into_utf_8_string_8 (s: READABLE_STRING_8; a_result: STRING_8)
+	utf_32_string_into_utf_16le_string_8 (s: READABLE_STRING_GENERAL; a_result: STRING_8)
+	utf_32_string_into_utf_8_0_pointer (s: READABLE_STRING_GENERAL; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	utf_32_string_into_utf_8_string_8 (s: READABLE_STRING_GENERAL; a_result: STRING_8)
+	utf_32_substring_into_utf_16_0_pointer (s: READABLE_STRING_GENERAL; start_pos, end_pos: [like {READABLE_STRING_32}.count] INTEGER_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	utf_32_substring_into_utf_16_pointer (s: READABLE_STRING_GENERAL; start_pos, end_pos: [like {READABLE_STRING_32}.count] INTEGER_32; p: MANAGED_POINTER; p_offset: INTEGER_32; a_new_upper: detachable CELL [INTEGER_32])
+	utf_8_0_pointer_into_escaped_string_32 (p: MANAGED_POINTER; a_result: STRING_32)
+	utf_8_0_subpointer_into_escaped_string_32 (p: MANAGED_POINTER; start_pos, end_pos: INTEGER_32; a_stop_at_null: BOOLEAN; a_result: STRING_32)
+	utf_8_string_8_into_escaped_string_32 (s: READABLE_STRING_8; a_result: STRING_32)
+	utf_8_string_8_into_string_32 (s: READABLE_STRING_8; a_result: STRING_32)
+

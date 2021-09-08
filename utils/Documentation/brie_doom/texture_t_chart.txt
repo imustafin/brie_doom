@@ -1,0 +1,31 @@
+class
+	TEXTURE_T
+
+General
+	cluster: brie_doom
+	description: 
+		"texture_t from r_data.c
+		
+		A maptexturedef_t describes a rectangular texture,
+		which is composed of one or more mappatch_t structures
+		that arrange graphic patches."
+	create: make, make_from_maptexture_t
+
+Ancestors
+	ANY
+
+Queries
+	height: INTEGER_16
+	name: STRING_8
+	patches: ARRAY [TEXPATCH_T]
+	width: INTEGER_16
+
+Commands
+	make
+	make_from_maptexture_t (m: MAPTEXTURE_T; patchlookup: ARRAY [INTEGER_32])
+	set_height (a_height: [like height] INTEGER_16)
+	set_name (a_name: [like name] STRING_8)
+	set_width (a_width: [like width] INTEGER_16)
+
+Constraints
+

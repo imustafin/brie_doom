@@ -1,0 +1,34 @@
+note
+	description: "Reference for array of bytes (NATURAL_8)"
+
+class 
+	BYTE_ARRAY
+
+inherit
+	BYTE_SEQUENCE
+
+create 
+	with_array
+
+feature 
+
+	with_array (ar: ARRAY [NATURAL_8])
+		do
+			item := ar
+		end
+
+	item: ARRAY [NATURAL_8]
+	
+feature 
+
+	get alias "[]" (index: INTEGER_32): NATURAL_8
+		do
+			Result := item [index]
+		end
+
+	valid_index (i: INTEGER_32): BOOLEAN
+		do
+			Result := item.valid_index (i)
+		end
+	
+end -- class BYTE_ARRAY

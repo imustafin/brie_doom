@@ -1,0 +1,116 @@
+note
+	description: "External iteration cursor for a file."
+
+class 
+	FILE_ITERATION_CURSOR
+
+inherit
+	DISPOSABLE
+		rename
+			dispose as close
+		end
+
+	ITERATION_CURSOR [CHARACTER_8]
+		rename
+			item as character
+		end
+
+create {FILE}
+	make_empty,
+	make_open_read,
+	make_open_stdin
+
+feature {NONE} -- Creation
+
+	make_empty
+			-- Create an iterator without any items.
+		do
+		ensure
+				after
+		end
+
+	make_open_read (name: MANAGED_POINTER)
+			-- Open a file of name `name` to iterate over.
+		do
+			file_pointer := {FILE}.file_open (name.item, 0)
+			forth
+		end
+
+	make_open_stdin
+			-- Open standard input.
+		do
+			file_pointer := {CONSOLE}.console_def (0)
+			forth
+		end
+	
+feature -- Access
+
+	character: CHARACTER_8
+			-- Item at current cursor position.
+			-- See also byte.
+		do
+			Result := byte.to_character_8
+		end
+
+	byte: NATURAL_8
+			-- See also character.
+	
+feature -- Status report	
+
+	after: BOOLEAN
+			-- Are there no more items to iterate over?
+		do
+			Result := file_pointer = default_pointer
+		end
+	
+feature -- Cursor movement
+
+	forth
+			-- Move to next position.
+			-- Attempt to read a byte from the file and make it available in byte and character.
+		do
+			if {RAW_FILE}.file_fread ($byte.to_pointer, 1, 1, file_pointer) /= 1 then
+				close
+			end
+		end
+	
+feature -- Disposal
+
+	close
+			-- Action to be executed just before garbage collection
+			-- reclaims an object.
+			-- Effect it in descendants to perform specific dispose
+			-- actions. Those actions should only take care of freeing
+			-- external resources; they should not perform remote calls
+			-- on other objects since these may also be dead and reclaimed.
+			-- Release resources associated with the file.
+		do
+			if file_pointer /= default_pointer then
+				{FILE}.file_close (file_pointer)
+				file_pointer := default_pointer
+			end
+		end
+	
+feature {NONE} -- Access
+
+	file_pointer: POINTER
+			-- File pointer used by low-level C operations.
+	
+invariant
+	consistent_item: byte.to_character_8 = character
+
+note
+	date: "$Date: 2018-11-03 08:58:17 +0000 (Sat, 03 Nov 2018) $"
+	revision: "$Revision: 102395 $"
+	author: "Alexander Kogtenkov"
+	copyright: "Copyright (c) 1984-2018, Eiffel Software and others"
+	license: "Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
+	source: "[
+		Eiffel Software
+		5949 Hollister Ave., Goleta, CA 93117 USA
+		Telephone 805-685-1006, Fax 805-685-6869
+		Website http://www.eiffel.com
+		Customer support http://support.eiffel.com
+	]"
+
+end -- class FILE_ITERATION_CURSOR

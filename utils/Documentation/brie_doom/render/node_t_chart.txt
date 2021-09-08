@@ -1,0 +1,34 @@
+class
+	NODE_T
+
+General
+	cluster: render
+	description: 
+		"node_t from r_defs.h
+		
+		BSP node."
+	create: make, from_pointer
+
+Ancestors
+	DIVLINE_T
+
+Queries
+	bbox: ARRAY [ARRAY [FIXED_T]]
+	children: ARRAY [NATURAL_16]
+	dx: FIXED_T -- (from DIVLINE_T)
+	dy: FIXED_T -- (from DIVLINE_T)
+	Structure_size: INTEGER_32
+	x: FIXED_T -- (from DIVLINE_T)
+	y: FIXED_T -- (from DIVLINE_T)
+
+Commands
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32)
+	make
+	make_from_line (li: LINE_T) -- (from DIVLINE_T)
+	set_dx (a_dx: [like dx] FIXED_T) -- (from DIVLINE_T)
+	set_dy (a_dy: [like dy] FIXED_T) -- (from DIVLINE_T)
+	set_x (a_x: [like x] FIXED_T) -- (from DIVLINE_T)
+	set_y (a_y: [like y] FIXED_T) -- (from DIVLINE_T)
+
+Constraints
+

@@ -1,0 +1,88 @@
+class
+	LIGHTTABLE_T
+
+General
+	cluster: render
+	description: 
+		"r_defs.h
+		This could be wider for >8 bit display.
+		Indeed, true color support is possible
+		 precalculating 24bpp lightmap/colormap LUT.
+		 from darkening PLAYPAL to all black.
+		Could even us emore than 32 levels."
+	create: default_create, from_natural_8
+
+Ancestors
+	NATURAL_8_REF
+
+Queries
+	as_integer_16: INTEGER_16 -- (from NATURAL_8_REF)
+	as_integer_32: INTEGER_32 -- (from NATURAL_8_REF)
+	as_integer_64: INTEGER_64 -- (from NATURAL_8_REF)
+	as_integer_8: INTEGER_8 -- (from NATURAL_8_REF)
+	as_natural_16: NATURAL_16 -- (from NATURAL_8_REF)
+	as_natural_32: NATURAL_32 -- (from NATURAL_8_REF)
+	as_natural_64: NATURAL_64 -- (from NATURAL_8_REF)
+	as_natural_8: NATURAL_8 -- (from NATURAL_8_REF)
+	bit_and alias "&" (i: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	bit_not: [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	bit_or alias "|" (i: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	bit_shift (n: INTEGER_32): NATURAL_8 -- (from NATURAL_8_REF)
+	bit_shift_left alias "|<<" (n: INTEGER_32): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	bit_shift_right alias "|>>" (n: INTEGER_32): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	bit_test (n: INTEGER_32): BOOLEAN -- (from NATURAL_8_REF)
+	bit_xor (i: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	divisible (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from NATURAL_8_REF)
+	exponentiable (other: NUMERIC): BOOLEAN -- (from NATURAL_8_REF)
+	hash_code: INTEGER_32 -- (from NATURAL_8_REF)
+	identity alias "+": [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	integer_quotient alias "//" (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	integer_remainder alias "\\" (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	interval alias "|..|" (other: INTEGER_32): INTEGER_INTERVAL -- (from NATURAL_8_REF)
+	is_equal (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from NATURAL_8_REF)
+	is_greater alias ">" (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from COMPARABLE)
+	is_greater_equal alias ">=" (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from COMPARABLE)
+	is_hashable: BOOLEAN -- (from NATURAL_8_REF)
+	is_less alias "<" (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from NATURAL_8_REF)
+	is_less_equal alias "<=" (other: [like Current] LIGHTTABLE_T): BOOLEAN -- (from COMPARABLE)
+	is_valid_character_32_code: BOOLEAN -- (from NATURAL_8_REF)
+	is_valid_character_8_code: BOOLEAN -- (from NATURAL_8_REF)
+	item: NATURAL_8 -- (from NATURAL_8_REF)
+	max (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from COMPARABLE)
+	Max_value: NATURAL_8 -- (from NATURAL_8_REF)
+	min (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from COMPARABLE)
+	Min_value: NATURAL_8 -- (from NATURAL_8_REF)
+	minus alias "-" (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	one: [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	out: STRING_8 -- (from NATURAL_8_REF)
+	plus alias "+" (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	power alias "^" (other: REAL_64): REAL_64 -- (from NATURAL_8_REF)
+	product alias "*" (other: [like Current] LIGHTTABLE_T): [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	quotient alias "/" (other: [like Current] LIGHTTABLE_T): REAL_64 -- (from NATURAL_8_REF)
+	set_bit (b: BOOLEAN; n: INTEGER_32): NATURAL_8 -- (from NATURAL_8_REF)
+	set_bit_with_mask (b: BOOLEAN; m: NATURAL_8): NATURAL_8 -- (from NATURAL_8_REF)
+	sign: INTEGER_32 -- (from NATURAL_8_REF)
+	three_way_comparison (other: [like Current] LIGHTTABLE_T): INTEGER_32 -- (from COMPARABLE)
+	to_boolean: BOOLEAN -- (from NATURAL_8_REF)
+	to_character_32: CHARACTER_32 -- (from NATURAL_8_REF)
+	to_character_8: CHARACTER_8 -- (from NATURAL_8_REF)
+	to_hex_character: CHARACTER_8 -- (from NATURAL_8_REF)
+	to_hex_string: STRING_8 -- (from NATURAL_8_REF)
+	to_integer_16: INTEGER_16 -- (from NATURAL_8_REF)
+	to_integer_32: INTEGER_32 -- (from NATURAL_8_REF)
+	to_integer_64: INTEGER_64 -- (from NATURAL_8_REF)
+	to_integer_8: INTEGER_8 -- (from NATURAL_8_REF)
+	to_natural_16: NATURAL_16 -- (from NATURAL_8_REF)
+	to_natural_32: NATURAL_32 -- (from NATURAL_8_REF)
+	to_natural_64: NATURAL_64 -- (from NATURAL_8_REF)
+	to_natural_8: NATURAL_8 -- (from NATURAL_8_REF)
+	to_real_32: REAL_32 -- (from NATURAL_8_REF)
+	to_real_64: REAL_64 -- (from NATURAL_8_REF)
+	to_reference: NATURAL_8_REF -- (from NATURAL_8_REF)
+	unapplicable_opposite: [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+	zero: [like Current] LIGHTTABLE_T -- (from NATURAL_8_REF)
+
+Commands
+	from_natural_8 (a_val: NATURAL_8)
+	set_item (i: NATURAL_8) -- (from NATURAL_8_REF)
+

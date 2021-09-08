@@ -1,0 +1,47 @@
+class
+	SED_RECOVERABLE_DESERIALIZER
+
+General
+	cluster: ise
+	description: 
+		"Decoding of arbitrary objects graphs between sessions of programs
+		containing the same types or potentially different types (which can
+		be mapped to the new type system via a correction mechanism,). It
+		also basically takes care of potential reordering of attributes
+		from one system to the other."
+	create: make
+
+Ancestors
+	MISMATCH_CORRECTOR
+	SED_BASIC_DESERIALIZER
+
+Queries
+	deserializer: SED_READER_WRITER -- (from SED_SESSION_DESERIALIZER)
+	errors: detachable ARRAYED_LIST [SED_ERROR] -- (from SED_SESSION_DESERIALIZER)
+	has_error: BOOLEAN -- (from SED_SESSION_DESERIALIZER)
+	is_caught (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN -- (from EXCEPTION_MANAGER)
+	is_ignorable (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN -- (from EXCEPTION_MANAGER)
+	is_ignored (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN -- (from EXCEPTION_MANAGER)
+	is_raisable (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN -- (from EXCEPTION_MANAGER)
+	last_decoded_object: detachable ANY -- (from SED_SESSION_DESERIALIZER)
+	last_exception: detachable EXCEPTION -- (from EXCEPTION_MANAGER)
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+
+Commands
+	allow_attribute_removal
+	allow_conforming_mismatches
+	catch (a_exception: TYPE [detachable EXCEPTION]) -- (from EXCEPTION_MANAGER)
+	continue_on_data_retrieval_error
+	correct_mismatch -- (from MISMATCH_CORRECTOR)
+	decode (a_is_gc_enabled: BOOLEAN) -- (from SED_SESSION_DESERIALIZER)
+	disallow_attribute_removal
+	disallow_conforming_mismatches
+	ignore (a_exception: TYPE [detachable EXCEPTION]) -- (from EXCEPTION_MANAGER)
+	raise (a_exception: EXCEPTION) -- (from EXCEPTION_MANAGER)
+	set_attribute_name_translator (a_translator: [like attribute_name_translator] detachable FUNCTION [STRING_8, INTEGER_32, STRING_8])
+	set_class_type_translator (a_translator: [like class_type_translator] detachable FUNCTION [STRING_8, STRING_8])
+	set_deserializer (a_deserializer: [like deserializer] SED_READER_WRITER) -- (from SED_SESSION_DESERIALIZER)
+	set_is_checking_data_consistency (v: [like is_checking_data_consistency] BOOLEAN)
+	set_is_ignored (a_exception: TYPE [detachable EXCEPTION]; a_ignored: BOOLEAN) -- (from EXCEPTION_MANAGER)
+	stop_on_data_retrieval_error
+

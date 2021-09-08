@@ -1,0 +1,87 @@
+deferred class
+	CHAIN [G]
+
+General
+	cluster: elks
+	description: 
+		"Possibly circular sequences of items,
+		without commitment to a particular representation"
+
+Ancestors
+	CURSOR_STRUCTURE* [G]
+	INDEXABLE* [G, H -> INTEGER_32]
+	SEQUENCE* [G]
+	SEQUENCE* [G]
+
+Queries
+	after: BOOLEAN -- (from LINEAR)
+	at alias "@" (i: INTEGER_32): [like item] G
+	before: BOOLEAN -- (from BILINEAR)
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32 -- (from FINITE)
+	cursor: CURSOR -- (from CURSOR_STRUCTURE)
+	exhausted: BOOLEAN -- (from LINEAR)
+	extendible: BOOLEAN -- (from COLLECTION)
+	first: [like item] G
+	for_all (test: FUNCTION [G, BOOLEAN]): BOOLEAN -- (from LINEAR)
+	full: BOOLEAN -- (from BOX)
+	has (v: [like item] G): BOOLEAN
+	i_th alias "[]" (i: INTEGER_32): [like item] G
+	index: INTEGER_32 -- (from LINEAR)
+	index_of (v: [like item] G; i: INTEGER_32): INTEGER_32
+	is_empty: BOOLEAN -- (from FINITE)
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	isfirst: BOOLEAN
+	islast: BOOLEAN
+	item: G -- (from ACTIVE)
+	item_for_iteration: G -- (from LINEAR)
+	last: [like item] G
+	linear_representation: LINEAR [G] -- (from LINEAR)
+	Lower: INTEGER_32
+	new_cursor: INDEXABLE_ITERATION_CURSOR [G] -- (from READABLE_INDEXABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: [like item] G): INTEGER_32
+	off: BOOLEAN
+	prunable: BOOLEAN -- (from COLLECTION)
+	readable: BOOLEAN -- (from SEQUENCE)
+	replaceable: BOOLEAN -- (from ACTIVE)
+	there_exists (test: FUNCTION [G, BOOLEAN]): BOOLEAN -- (from LINEAR)
+	valid_cursor (p: CURSOR): BOOLEAN -- (from CURSOR_STRUCTURE)
+	valid_cursor_index (i: INTEGER_32): BOOLEAN
+	valid_index (i: INTEGER_32): BOOLEAN
+	writable: BOOLEAN -- (from SEQUENCE)
+
+Commands
+	append (s: SEQUENCE [G])
+	back -- (from BILINEAR)
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	do_all (action: PROCEDURE [G]) -- (from LINEAR)
+	do_if (action: PROCEDURE [G]; test: FUNCTION [G, BOOLEAN]) -- (from LINEAR)
+	extend (v: G) -- (from BAG)
+	fill (other: CONTAINER [G])
+	finish
+	force (v: [like item] G) -- (from SEQUENCE)
+	forth -- (from LINEAR)
+	go_i_th (i: INTEGER_32)
+	go_to (p: CURSOR) -- (from CURSOR_STRUCTURE)
+	move (i: INTEGER_32)
+	prune (v: [like item] G) -- (from SEQUENCE)
+	prune_all (v: [like item] G) -- (from SEQUENCE)
+	put (v: [like item] G)
+	put_i_th (v: [like item] G; i: INTEGER_32)
+	replace (v: G) -- (from ACTIVE)
+	search (v: [like item] G) -- (from BILINEAR)
+	sequence_put (v: [like item] G) -- (from SEQUENCE)
+	start
+	swap (i: INTEGER_32)
+	wipe_out -- (from COLLECTION)
+
+Constraints
+	non negative index
+	index small enough
+	off definition
+	isfirst definition
+	islast definition
+	item corresponds to index
+

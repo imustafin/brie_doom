@@ -1,0 +1,32 @@
+class
+	VISPLANE_T
+
+General
+	cluster: render
+	description: "visplane_t from r_defs.h"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	bottom: ARRAY [NATURAL_8]
+	height: FIXED_T
+	lightlevel: INTEGER_32
+	maxx: INTEGER_32
+	minx: INTEGER_32
+	picnum: INTEGER_32
+	top: ARRAY [NATURAL_8]
+
+Commands
+	make
+	set_height (a_height: [like height] FIXED_T)
+	set_lightlevel (a_lightlevel: [like lightlevel] INTEGER_32)
+	set_maxx (a_maxx: [like maxx] INTEGER_32)
+	set_minx (a_minx: [like minx] INTEGER_32)
+	set_picnum (a_picnum: [like picnum] INTEGER_32)
+
+Constraints
+	top has pad plus minus 1
+	bottom has pad plus minus 1
+

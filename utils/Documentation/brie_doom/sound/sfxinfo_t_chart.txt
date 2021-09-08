@@ -1,0 +1,27 @@
+class
+	SFXINFO_T
+
+General
+	cluster: sound
+	description: "sounds.h"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	data: detachable ANY
+	link: detachable SFXINFO_T
+	lumpnum: INTEGER_32
+	name: detachable STRING_8
+	pitch: INTEGER_32
+	priority: INTEGER_32
+	singularity: BOOLEAN
+	usefulness: INTEGER_32
+	volume: INTEGER_32
+
+Commands
+	make (a_name: [like name] detachable STRING_8; a_singularity: [like singularity] BOOLEAN; a_priority: [like priority] INTEGER_32; a_link: [like link] detachable SFXINFO_T; a_pitch: [like pitch] INTEGER_32)
+	set_lumpnum (a_lumpnum: [like lumpnum] INTEGER_32)
+	set_usefulness (a_usefulness: [like usefulness] INTEGER_32)
+

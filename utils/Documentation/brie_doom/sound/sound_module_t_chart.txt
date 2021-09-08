@@ -1,0 +1,24 @@
+deferred class
+	SOUND_MODULE_T
+
+General
+	cluster: sound
+	description: "chocolate doom i_sound.h"
+
+Ancestors
+	ANY
+
+Queries
+	get_sfx_lump_num (sfxinfo: SFXINFO_T): INTEGER_32
+	init (use_sfx_prefix: BOOLEAN): BOOLEAN
+	sound_devices: ARRAY [INTEGER_32]
+	sound_is_playing (channel: INTEGER_32): BOOLEAN
+	start_sound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER_32): INTEGER_32
+
+Commands
+	cache_sounds (sounds: ARRAY [SFXINFO_T])
+	shutdown
+	stop_sound (channel: INTEGER_32)
+	update
+	update_sound_params (channel, vol, sep: INTEGER_32)
+

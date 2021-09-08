@@ -1,0 +1,37 @@
+class
+	INTEGER_OVERFLOW_CHECKER
+
+General
+	cluster: elks
+	description: "String - Integer/Natural conversion overflow checker"
+	create: make
+
+Ancestors
+	NUMERIC_INFORMATION
+
+Queries
+	double_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	integer_natural_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	integer_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	max_integer_type: INTEGER_64 -- (from NUMERIC_INFORMATION)
+	max_natural_type: NATURAL_64 -- (from NUMERIC_INFORMATION)
+	natural_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	real_double_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	real_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	Type_count: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_double: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_16: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_32: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_64: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_8: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_natural_separator: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_16: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_32: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_64: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_8: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_no_limitation: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_real: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	will_overflow (part1, part2: [like max_natural_type] NATURAL_64; type, sign: INTEGER_32): BOOLEAN
+

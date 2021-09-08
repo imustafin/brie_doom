@@ -1,0 +1,39 @@
+class
+	MEM_INFO
+
+General
+	cluster: elks
+	description: 
+		"Properties of the memory management mechanism.
+		This class may be used as ancestor by classes needing its facilities."
+	create: make
+
+Ancestors
+	MEMORY_STRUCTURE*
+	MEM_CONST
+
+Queries
+	C_memory: INTEGER_32 -- (from MEM_CONST)
+	chunk: INTEGER_32
+	Eiffel_memory: INTEGER_32 -- (from MEM_CONST)
+	exists: BOOLEAN -- (from MEMORY_STRUCTURE)
+	free: INTEGER_32
+	free64: NATURAL_64
+	Full_collector: INTEGER_32 -- (from MEM_CONST)
+	Incremental_collector: INTEGER_32 -- (from MEM_CONST)
+	overhead: INTEGER_32
+	overhead64: NATURAL_64
+	total: INTEGER_32
+	total64: NATURAL_64
+	Total_memory: INTEGER_32 -- (from MEM_CONST)
+	type: INTEGER_32
+	used: INTEGER_32
+	used64: NATURAL_64
+
+Commands
+	make (memory: INTEGER_32)
+	update (memory: INTEGER_32)
+
+Constraints
+	consistent memory
+

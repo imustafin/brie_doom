@@ -1,0 +1,28 @@
+deferred class
+	EQA_TEST_SET
+
+General
+	cluster: testing
+	description: "Sets of related testing operations."
+
+Ancestors
+	ANY
+
+Queries
+	asserter: [like new_asserter] EQA_ASSERTIONS
+	environment: EQA_ENVIRONMENT
+	file_system: [like new_file_system] EQA_FILE_SYSTEM
+	is_prepared: BOOLEAN
+	Source_path_key: STRING_8
+	Target_path_key: STRING_8
+	Test_name_key: STRING_8
+	Testing_directory_key: STRING_8
+
+Commands
+	assert (a_tag: STRING_8; a_condition: BOOLEAN)
+	assert_32 (a_tag: READABLE_STRING_GENERAL; a_condition: BOOLEAN)
+	set_asserter (a: [like asserter] EQA_ASSERTIONS)
+
+Constraints
+	internal file system valid
+

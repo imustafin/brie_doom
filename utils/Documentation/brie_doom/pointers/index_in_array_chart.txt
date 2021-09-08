@@ -1,0 +1,24 @@
+class
+	INDEX_IN_ARRAY [G]
+
+General
+	cluster: pointers
+	description: "Utility class to represent pointers inside array"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	index: INTEGER_32
+	item alias "[]" (num: INTEGER_32): G
+	minus alias "-" (num: INTEGER_32): [like Current] INDEX_IN_ARRAY [G]
+	plus alias "+" (num: INTEGER_32): [like Current] INDEX_IN_ARRAY [G]
+	this: G
+	valid_index (num: INTEGER_32): BOOLEAN
+
+Commands
+	make (a_index: INTEGER_32; a_array: ARRAY [G])
+	put (v: G; num: INTEGER_32)
+	subcopy (other: ARRAY [G]; start_pos, end_pos, index_pos: INTEGER_32)
+

@@ -1,0 +1,81 @@
+class
+	P_SETUP
+
+General
+	cluster: brie_doom
+	description: 
+		"p_setup.c
+		Do all the WAD I/O, get map description,
+		set up initial state and misc. LUTs."
+	create: make
+
+Ancestors
+	DOOMDATA_H
+
+Queries
+	blocklinks: ARRAY [detachable MOBJ_T]
+	blockmap: detachable INDEX_IN_ARRAY [INTEGER_16]
+	blockmaplump: ARRAY [INTEGER_16]
+	bmapheight: INTEGER_32
+	bmaporgx: FIXED_T
+	bmaporgy: FIXED_T
+	bmapwidth: INTEGER_32
+	Commercial_monsters: ARRAY [INTEGER_32]
+	deathmatch_p: INTEGER_32
+	deathmatchstarts: ARRAY [MAPTHING_T]
+	i_main: I_MAIN
+	lines: ARRAY [LINE_T]
+	Max_deathmatch_starts: INTEGER_32
+	Ml_blocking: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_blockmap: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_blockmonsters: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_dontpegbottom: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_dontpegtop: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_label: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_linedefs: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_mapped: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_nodes: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_reject: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_secret: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_sectors: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_segs: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_sidedefs: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_soundblock: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_ssectors: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_things: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_twosided: INTEGER_32 -- (from DOOMDATA_H)
+	Ml_vertexes: INTEGER_32 -- (from DOOMDATA_H)
+	Nf_subsector: INTEGER_32 -- (from DOOMDATA_H)
+	nodes: ARRAY [NODE_T]
+	numlines: INTEGER_32
+	numnodes: INTEGER_32
+	numsectors: INTEGER_32
+	numsegs: INTEGER_32
+	numsides: INTEGER_32
+	numvertexes: INTEGER_32
+	playerstarts: ARRAY [MAPTHING_T]
+	rejectmatrix: detachable ARRAY [NATURAL_8]
+	sectors: ARRAY [SECTOR_T]
+	segs: ARRAY [SEG_T]
+	sides: ARRAY [SIDE_T]
+	subsectors: ARRAY [SUBSECTOR_T]
+	vertexes: ARRAY [VERTEX_T]
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	p_grouplines
+	p_init
+	p_loadblockmap (lump: INTEGER_32)
+	p_loadlinedefs (lump: INTEGER_32)
+	p_loadnodes (lump: INTEGER_32)
+	p_loadsectors (lump: INTEGER_32)
+	p_loadsegs (lump: INTEGER_32)
+	p_loadsidedefs (lump: INTEGER_32)
+	p_loadsubsectors (lump: INTEGER_32)
+	p_loadthings (lump: INTEGER_32)
+	p_loadvertexes (lump: INTEGER_32)
+	p_setuplevel (episode, map, playermask, skill: INTEGER_32)
+	set_deathmatch_p (a_deathmatch_p: [like deathmatch_p] INTEGER_32)
+
+Constraints
+

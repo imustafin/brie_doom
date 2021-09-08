@@ -1,0 +1,1303 @@
+note
+	description: "[
+		g_game.c
+		none
+	]"
+
+class 
+	G_GAME
+
+inherit
+	DOOMDEF_H
+
+	WEAPONTYPE_T
+
+	AMMOTYPE_T
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			create wminfo
+			pars := <<<<30, 75, 120, 90, 165, 180, 180, 30, 165>>, <<90, 90, 90, 120, 90, 360, 240, 30, 170>>, <<90, 45, 90, 150, 90, 90, 165, 30, 135>>>>
+			cpars := <<30, 90, 120, 120, 90, 150, 120, 120, 270, 90, 210, 150, 150, 150, 210, 150, 420, 150, 210, 150, 240, 150, 180, 150, 150, 300, 330, 420, 300, 180, 120, 30>>
+			cpars.rebase (0)
+		end
+	
+feature 
+
+	Turbothreshold: INTEGER_32 = 50
+	
+feature 
+
+	nodrawers: BOOLEAN
+			-- for comparative timing purposes
+	
+feature 
+
+	viewactive: BOOLEAN
+
+	singledemo: BOOLEAN
+			-- quit after playing a demo from cmdline
+
+	demoplayback: BOOLEAN
+	
+feature 
+
+	paused: BOOLEAN assign set_paused
+
+	set_paused (a_paused: like paused)
+		do
+			paused := a_paused
+		end
+
+	sendpause: BOOLEAN
+			-- send a pause event next tic
+
+	sendsave: BOOLEAN
+			-- send a save event next tic
+
+	usergame: BOOLEAN assign set_usergame
+			-- ok to save / end game
+
+	set_usergame (a_usergame: like usergame)
+		do
+			usergame := a_usergame
+		end
+	
+feature 
+
+	bodyqueslot: INTEGER_32 assign set_bodyqueslot
+
+	set_bodyqueslot (a_bodyqueslot: like bodyqueslot)
+		do
+			bodyqueslot := a_bodyqueslot
+		end
+	
+feature 
+
+	levelstarttic: INTEGER_32
+			-- gametic at level start
+
+	starttime: INTEGER_32
+			-- for comparative timing puroses
+
+	totalkills: INTEGER_32 assign set_totalkills
+
+	set_totalkills (a_totalkills: like totalkills)
+		do
+			totalkills := a_totalkills
+		end
+
+	totalitems: INTEGER_32 assign set_totalitems
+
+	set_totalitems (a_totalitems: like totalitems)
+		do
+			totalitems := a_totalitems
+		end
+
+	totalsecret: INTEGER_32 assign set_totalsecret
+
+	set_totalsecret (a_totalsecret: like totalsecret)
+		do
+			totalsecret := a_totalsecret
+		end
+
+	wminfo: WBSTARTSTRUCT_T
+	
+feature -- controls (have defaults)
+
+	key_right: INTEGER_32 assign set_key_right
+
+	set_key_right (a_key_right: like key_right)
+		do
+			key_right := a_key_right
+		end
+
+	key_left: INTEGER_32 assign set_key_left
+
+	set_key_left (a_key_left: like key_left)
+		do
+			key_left := a_key_left
+		end
+
+	key_up: INTEGER_32 assign set_key_up
+
+	set_key_up (a_key_up: like key_up)
+		do
+			key_up := a_key_up
+		end
+
+	key_down: INTEGER_32 assign set_key_down
+
+	set_key_down (a_key_down: like key_down)
+		do
+			key_down := a_key_down
+		end
+
+	key_strafeleft: INTEGER_32 assign set_key_strafeleft
+
+	set_key_strafeleft (a_key_strafeleft: like key_strafeleft)
+		do
+			key_strafeleft := a_key_strafeleft
+		end
+
+	key_straferight: INTEGER_32 assign set_key_straferight
+
+	set_key_straferight (a_key_straferight: like key_straferight)
+		do
+			key_straferight := a_key_straferight
+		end
+
+	key_fire: INTEGER_32 assign set_key_fire
+
+	set_key_fire (a_key_fire: like key_fire)
+		do
+			key_fire := a_key_fire
+		end
+
+	key_use: INTEGER_32 assign set_key_use
+
+	set_key_use (a_key_use: like key_use)
+		do
+			key_use := a_key_use
+		end
+
+	key_debug_a: INTEGER_32 assign set_key_debug_a
+			-- DEBUG
+
+	set_key_debug_a (a_key_debug_a: like key_debug_a)
+		do
+			key_debug_a := a_key_debug_a
+		end
+
+	key_debug_b: INTEGER_32 assign set_key_debug_b
+			-- DEBUG
+
+	set_key_debug_b (a_key_debug_b: like key_debug_b)
+		do
+			key_debug_b := a_key_debug_b
+		end
+
+	key_strafe: INTEGER_32 assign set_key_strafe
+
+	set_key_strafe (a_key_strafe: like key_strafe)
+		do
+			key_strafe := a_key_strafe
+		end
+
+	key_speed: INTEGER_32 assign set_key_speed
+
+	set_key_speed (a_key_speed: like key_speed)
+		do
+			key_speed := a_key_speed
+		end
+
+	mousebfire: INTEGER_32 assign set_mousebfire
+
+	set_mousebfire (a_mousebfire: like mousebfire)
+		do
+			mousebfire := a_mousebfire
+		end
+
+	mousebstrafe: INTEGER_32 assign set_mousebstrafe
+
+	set_mousebstrafe (a_mousebstrafe: like mousebstrafe)
+		do
+			mousebstrafe := a_mousebstrafe
+		end
+
+	mousebforward: INTEGER_32 assign set_mousebforward
+
+	set_mousebforward (a_mousebforward: like mousebforward)
+		do
+			mousebforward := a_mousebforward
+		end
+
+	joybfire: INTEGER_32 assign set_joybfire
+
+	set_joybfire (a_joybfire: like joybfire)
+		do
+			joybfire := a_joybfire
+		end
+
+	joybstrafe: INTEGER_32 assign set_joybstrafe
+
+	set_joybstrafe (a_joybstrafe: like joybstrafe)
+		do
+			joybstrafe := a_joybstrafe
+		end
+
+	joybuse: INTEGER_32 assign set_joybuse
+
+	set_joybuse (a_joybuse: like joybuse)
+		do
+			joybuse := a_joybuse
+		end
+
+	joybspeed: INTEGER_32 assign set_joybspeed
+
+	set_joybspeed (a_joybspeed: like joybspeed)
+		do
+			joybspeed := a_joybspeed
+		end
+
+	Maxplmove: INTEGER_32
+		once
+			Result := Forwardmove [1]
+		end
+
+	Mousebuttons: ARRAY [BOOLEAN]
+			-- originally `&mousearray[1]` with `boolean mousearray[4]`
+		once
+			create Result.make_filled (False, -1, 2)
+		end
+
+	mousex: INTEGER_32
+
+	mousey: INTEGER_32
+
+	dclicktime: INTEGER_32
+
+	dclickstate: BOOLEAN
+			-- originally int
+
+	dclicks: INTEGER_32
+
+	dclicktime2: INTEGER_32
+
+	dclickstate2: BOOLEAN
+			-- originally int
+
+	dclicks2: INTEGER_32
+			-- joystick values are repeated
+
+	joyxmove: INTEGER_32
+
+	joyymove: INTEGER_32
+
+	Joybuttons: ARRAY [BOOLEAN]
+			-- originall `&joyarray[1]` with `boolean joyarray[5]`
+		once
+			create Result.make_filled (False, -1, 3)
+		end
+
+	savegameslot: INTEGER_32
+
+	savedescription: detachable STRING_8
+
+	turnheld: INTEGER_32
+
+	Slowturntics: INTEGER_32 = 6
+
+	Forwardmove: ARRAY [INTEGER_32]
+		once
+			create Result.make_filled (0, 0, 1)
+			Result [0] := 25
+			Result [1] := 50
+		ensure
+				Result.lower = 0 and Result.count = 2
+		end
+
+	Sidemove: ARRAY [INTEGER_32]
+		once
+			create Result.make_filled (0, 0, 1)
+			Result [0] := 24
+			Result [1] := 40
+		ensure
+				Result.lower = 0 and Result.count = 2
+		end
+
+	Angleturn: ARRAY [INTEGER_32]
+			-- + slow turn
+		once
+			create Result.make_filled (0, 0, 2)
+			Result [0] := 640
+			Result [1] := 1280
+			Result [2] := 320
+		ensure
+				Result.lower = 0 and Result.count = 3
+		end
+	
+feature 
+
+	Consistancy: ARRAY [ARRAY [INTEGER_32]]
+		local
+			i: INTEGER_32
+		once
+			create Result.make_filled (create {ARRAY [INTEGER_32]}.make_empty, 0, {DOOMDEF_H}.maxplayers - 1)
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				Result [i] := create {ARRAY [INTEGER_32]}.make_filled (0, 0, {D_NET}.backuptics - 1)
+				i := i + 1
+			end
+		end
+
+	Numkeys: INTEGER_32 = 256
+
+	Gamekeydown: ARRAY [BOOLEAN]
+		once
+			create Result.make_filled (False, 0, Numkeys - 1)
+		end
+	
+feature -- gameaction_t
+
+	Ga_nothing: INTEGER_32 = 0
+
+	Ga_loadlevel: INTEGER_32 = 1
+
+	Ga_newgame: INTEGER_32 = 2
+
+	Ga_loadgame: INTEGER_32 = 3
+
+	Ga_savegame: INTEGER_32 = 4
+
+	Ga_playdemo: INTEGER_32 = 5
+
+	Ga_completed: INTEGER_32 = 6
+
+	Ga_victory: INTEGER_32 = 7
+
+	Ga_worlddone: INTEGER_32 = 8
+
+	Ga_screenshot: INTEGER_32 = 9
+	
+feature 
+
+	gameaction: INTEGER_32 assign set_gameaction
+
+	set_gameaction (a_gameaction: like gameaction)
+		do
+			gameaction := a_gameaction
+		end
+
+	gamestate: INTEGER_32 assign set_gamestate
+
+	set_gamestate (a_gamestate: like gamestate)
+		do
+			gamestate := a_gamestate
+		end
+
+	gameskill: INTEGER_32
+
+	gameepisode: INTEGER_32
+
+	gamemap: INTEGER_32
+
+	respawnmonsters: BOOLEAN
+	
+feature 
+
+	demorecording: BOOLEAN
+
+	netgame: BOOLEAN assign set_netgame
+
+	set_netgame (a_netgame: like netgame)
+		do
+			netgame := a_netgame
+		end
+
+	deathmatch: BOOLEAN
+			-- only if started as net death
+
+	netdemo: BOOLEAN
+	
+feature -- G_InitNew
+
+	d_skill: INTEGER_32
+
+	d_episode: INTEGER_32
+
+	d_map: INTEGER_32
+
+	g_deferedinitnew (skill, episode, map: INTEGER_32)
+		do
+			d_skill := skill
+			d_episode := episode
+			d_map := map
+			gameaction := Ga_newgame
+		end
+
+	g_initnew (a_skill: INTEGER_32; a_episode: INTEGER_32; a_map: INTEGER_32)
+		local
+			i: INTEGER_32
+			skill: INTEGER_32
+			episode: INTEGER_32
+			map: INTEGER_32
+		do
+			skill := a_skill
+			episode := a_episode
+			map := a_map
+			if paused then
+				paused := False
+				i_main.S_sound.s_resumesound
+			end
+			if skill > Sk_nightmare then
+				skill := Sk_nightmare
+			end
+			if episode < 1 then
+				episode := 1
+			end
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.retail then
+				if episode > 4 then
+					episode := 4
+				end
+			elseif i_main.Doomstat_h.gamemode = {GAME_MODE_T}.shareware then
+				if episode > 1 then
+					episode := 1
+				end
+			else
+				if episode > 3 then
+					episode := 3
+				end
+			end
+			if map < 1 then
+				map := 1
+			end
+			if map > 9 and i_main.Doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				map := 9
+			end
+			i_main.M_random.m_clearrandom
+			check
+					attached i_main.D_main as main
+			then
+				if skill = Sk_nightmare or main.respawnparm then
+					respawnmonsters := True
+				else
+					respawnmonsters := False
+				end
+				if main.fastparm or (skill = Sk_nightmare and gameskill /= Sk_nightmare) then
+					from
+						i := {INFO}.s_sarg_run1
+					until
+						i > {INFO}.s_sarg_pain2
+					loop
+						{INFO}.states [i].tics := {INFO}.states [i].tics |>> 1
+						i := i + 1
+					end
+					{INFO}.mobjinfo [{INFO}.mt_bruisershot].speed := 20 * {M_FIXED}.fracunit
+					{INFO}.mobjinfo [{INFO}.mt_headshot].speed := 20 * {M_FIXED}.fracunit
+					{INFO}.mobjinfo [{INFO}.mt_troopshot].speed := 20 * {M_FIXED}.fracunit
+				elseif skill /= Sk_nightmare and gameskill = Sk_nightmare then
+					from
+						i := {INFO}.s_sarg_run1
+					until
+						i > {INFO}.s_sarg_pain2
+					loop
+						{INFO}.states [i].tics := {INFO}.states [i].tics |<< 1
+						i := i + 1
+					end
+					{INFO}.mobjinfo [{INFO}.mt_bruisershot].speed := 15 * {M_FIXED}.fracunit
+					{INFO}.mobjinfo [{INFO}.mt_headshot].speed := 10 * {M_FIXED}.fracunit
+					{INFO}.mobjinfo [{INFO}.mt_troopshot].speed := 10 * {M_FIXED}.fracunit
+				end
+			end
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				Players [i].playerstate := {D_PLAYER}.pst_reborn
+				i := i + 1
+			end
+			usergame := True
+			paused := False
+			demoplayback := False
+			i_main.Am_map.automapactive := False
+			viewactive := True
+			gameepisode := episode
+			gamemap := map
+			gameskill := skill
+			viewactive := True
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY3")
+				if gamemap < 12 then
+					i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY1")
+				elseif gamemap < 21 then
+					i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY2")
+				end
+			else
+				i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY" + episode.out)
+			end
+			g_doloadlevel
+		end
+	
+feature -- G_DoCompleted
+
+	secretexit: BOOLEAN
+
+	g_exitlevel
+		do
+			secretexit := False
+			gameaction := Ga_completed
+		end
+
+	g_secretexitlevel
+			-- Here's for the german edition
+		do
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial and i_main.W_wad.w_checknumforname ("map31") < 0 then
+				secretexit := False
+			else
+				secretexit := True
+				gameaction := Ga_completed
+			end
+		end
+	
+feature 
+
+	consoleplayer: INTEGER_32 assign set_consoleplayer
+			-- player taking events and displaying
+
+	displayplayer: INTEGER_32 assign set_displayplayer
+			-- view being displayed
+
+	gametic: INTEGER_32 assign set_gametic
+	
+feature 
+
+	set_gametic (a_gametic: like gametic)
+		do
+			gametic := a_gametic
+		end
+
+	set_consoleplayer (a_consoleplayer: like consoleplayer)
+		do
+			consoleplayer := a_consoleplayer
+		end
+
+	set_displayplayer (a_displayplayer: like displayplayer)
+		do
+			displayplayer := a_displayplayer
+		end
+	
+feature 
+
+	g_beginrecording
+		do
+		end
+
+	debug_a
+		do
+			if attached Players [consoleplayer].mo as mo then
+				print ("DEBUG_A: player.mo (" + mo.x.out + " " + mo.y.out + " " + mo.z.out + " " + mo.angle.out + ")%N")
+			else
+				print ("DEBUG_A: player.mo is Void%N")
+			end
+		end
+
+	debug_b
+		do
+			g_exitlevel
+		end
+
+	g_buildticcmd (cmd: TICCMD_T)
+			-- Builds a ticcmd from all of the available inputs
+			-- or reads it from the demo buffer.
+			-- If recording a demo, write it out
+		local
+			i: INTEGER_32
+			done: BOOLEAN
+			strafe: BOOLEAN
+			bstrafe: BOOLEAN
+			speed: INTEGER_32
+			tspeed: INTEGER_32
+			forward: INTEGER_32
+			side: INTEGER_32
+			base: TICCMD_T
+		do
+			base := i_main.I_system.I_baseticcmd
+			cmd.copy_from (base)
+			cmd.consistancy := Consistancy [consoleplayer] [i_main.D_net.maketic \\ {D_NET}.backuptics]
+			if Gamekeydown [key_debug_a] then
+				debug_a
+			end
+			if Gamekeydown [key_debug_b] then
+				debug_b
+			end
+			strafe := Gamekeydown [key_strafe] or Mousebuttons [mousebstrafe] or Joybuttons [joybstrafe]
+			speed := if Gamekeydown [key_speed] or Joybuttons [joybspeed] then
+				1
+			else
+				0
+			end
+			forward := 0
+			side := 0
+			if joyxmove < 0 or joyxmove > 0 or Gamekeydown [key_right] or Gamekeydown [key_left] then
+				turnheld := turnheld + i_main.D_net.ticdup
+			else
+				turnheld := 0
+			end
+			if turnheld < Slowturntics then
+				tspeed := 2
+			else
+				tspeed := speed
+			end
+			if strafe then
+				if Gamekeydown [key_right] then
+					side := side + Sidemove [speed]
+				end
+				if Gamekeydown [key_left] then
+					side := side - Sidemove [speed]
+				end
+				if joyxmove > 0 then
+					side := side + Sidemove [speed]
+				end
+				if joyxmove < 0 then
+					side := side - Sidemove [speed]
+				end
+			else
+				if Gamekeydown [key_right] then
+					cmd.angleturn := cmd.angleturn - Angleturn [tspeed]
+				end
+				if Gamekeydown [key_left] then
+					cmd.angleturn := cmd.angleturn + Angleturn [tspeed]
+				end
+				if joyxmove > 0 then
+					cmd.angleturn := cmd.angleturn - Angleturn [tspeed]
+				end
+				if joyxmove < 0 then
+					cmd.angleturn := cmd.angleturn + Angleturn [tspeed]
+				end
+			end
+			if Gamekeydown [key_up] then
+				forward := forward + Forwardmove [speed]
+			end
+			if Gamekeydown [key_down] then
+				forward := forward - Forwardmove [speed]
+			end
+			if joyymove < 0 then
+				forward := forward + Forwardmove [speed]
+			end
+			if joyymove > 0 then
+				forward := forward - Forwardmove [speed]
+			end
+			if Gamekeydown [key_straferight] then
+				side := side + Sidemove [speed]
+			end
+			if Gamekeydown [key_strafeleft] then
+				side := side - Sidemove [speed]
+			end
+			cmd.chatchar := i_main.Hu_stuff.hu_dequeuechatchar
+			if Gamekeydown [key_fire] or Mousebuttons [mousebfire] or Joybuttons [joybfire] then
+				cmd.buttons := cmd.buttons | {D_EVENT}.bt_attack
+			end
+			if Gamekeydown [key_use] or Joybuttons [joybuse] then
+				cmd.buttons := cmd.buttons | {D_EVENT}.bt_use
+				dclicks := 0
+			end
+			from
+				i := 0
+				done := False
+			until
+				done or i >= Numweapons - 1
+			loop
+				if Gamekeydown [('1').code + i] then
+					cmd.buttons := cmd.buttons | {D_EVENT}.bt_change
+					cmd.buttons := cmd.buttons | (i |<< {D_EVENT}.bt_weaponshift)
+					done := True
+				end
+				i := i + 1
+			end
+			if Mousebuttons [mousebforward] then
+				forward := forward + Forwardmove [speed]
+			end
+			if Mousebuttons [mousebforward] /= dclickstate and dclicktime > 1 then
+				dclickstate := Mousebuttons [mousebforward]
+				if dclickstate then
+					dclicks := dclicks + 1
+				end
+				if dclicks = 2 then
+					cmd.buttons := cmd.buttons | {D_EVENT}.bt_use
+					dclicks := 0
+				else
+					dclicktime := 0
+				end
+			else
+				dclicktime := dclicktime + i_main.D_net.ticdup
+				if dclicktime > 20 then
+					dclicks := 0
+					dclickstate := False
+				end
+			end
+			bstrafe := Mousebuttons [mousebstrafe] or Joybuttons [joybstrafe]
+			if bstrafe /= dclickstate2 and dclicktime2 > 1 then
+				dclickstate2 := bstrafe
+				if dclickstate2 then
+					dclicks2 := dclicks2 + 1
+				end
+				if dclicks2 = 2 then
+					cmd.buttons := cmd.buttons | {D_EVENT}.bt_use
+					dclicks2 := 0
+				else
+					dclicktime2 := 0
+				end
+			else
+				dclicktime2 := dclicktime2 + i_main.D_net.ticdup
+				if dclicktime2 > 20 then
+					dclicks2 := 0
+					dclickstate2 := False
+				end
+			end
+			forward := forward + mousey
+			if strafe then
+				side := side + mousex * 2
+			else
+				cmd.angleturn := cmd.angleturn - mousex * 8
+			end
+			mousex := 0
+			mousey := 0
+			if forward > Maxplmove then
+				forward := Maxplmove
+			elseif forward < - Maxplmove then
+				forward := - Maxplmove
+			end
+			if side > Maxplmove then
+				side := Maxplmove
+			elseif side < - Maxplmove then
+				side := - Maxplmove
+			end
+			cmd.forwardmove := (cmd.forwardmove.to_integer_32 + forward).to_integer_8
+			cmd.sidemove := (cmd.sidemove.to_integer_32 + side).to_integer_8
+			if sendpause then
+				sendpause := False
+				cmd.buttons := {D_EVENT}.bt_special | {D_EVENT}.bts_pause
+			end
+			if sendsave then
+				sendsave := False
+				cmd.buttons := {D_EVENT}.bt_special | {D_EVENT}.bts_savegame | (savegameslot |<< {D_EVENT}.bts_saveshift)
+			end
+		end
+
+	g_ticker
+			-- Make ticcmd_ts for the players.
+		local
+			i: INTEGER_32
+			buf: INTEGER_32
+			cmd: TICCMD_T
+			btn: INTEGER_32
+		do
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				if Playeringame [i] and Players [i].playerstate = {PLAYER_T}.pst_reborn then
+					g_doreborn (i)
+				end
+				i := i + 1
+			end
+			from
+			until
+				gameaction = Ga_nothing
+			loop
+				if gameaction = Ga_loadlevel then
+					g_doloadlevel
+				elseif gameaction = Ga_newgame then
+					g_donewgame
+				elseif gameaction = Ga_loadgame then
+					g_doloadgame
+				elseif gameaction = Ga_savegame then
+					g_dosavegame
+				elseif gameaction = Ga_playdemo then
+					g_doplaydemo
+				elseif gameaction = Ga_completed then
+					g_docompleted
+				elseif gameaction = Ga_victory then
+					i_main.F_finale.f_startfinale
+				elseif gameaction = Ga_worlddone then
+					g_doworlddone
+				elseif gameaction = Ga_screenshot then
+					i_main.M_misc.m_screenshot
+					gameaction := Ga_nothing
+				end
+			end
+			buf := (gametic // i_main.D_net.ticdup) \\ {D_NET}.backuptics
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				if Playeringame [i] then
+					cmd := Players [i].cmd
+					cmd.copy (i_main.D_net.Netcmds [i] [buf])
+					if demoplayback then
+						g_readdemoticcmd (cmd)
+					end
+					if demorecording then
+						g_writedemoticcmd (cmd)
+					end
+					if cmd.forwardmove.to_integer_32 > Turbothreshold and (gametic & 31 /= 0) and ((gametic |>> 5) & 3) = i then
+						Players [consoleplayer].message := {HU_STUFF}.player_names [i] + " is turbo!"
+					end
+					if netgame and not netdemo and gametic \\ i_main.D_net.ticdup = 0 then
+						if gametic > {D_NET}.backuptics and Consistancy [i] [buf] /= cmd.consistancy then
+							{I_MAIN}.i_error ("consistancy failure (" + cmd.consistancy.out + " should be " + Consistancy [i] [buf].out + ")")
+						end
+						if attached Players [i].mo as mo then
+							Consistancy [i] [buf] := mo.x.to_integer_32
+						else
+							Consistancy [i] [buf] := i_main.M_random.rndindex
+						end
+					end
+				end
+				i := i + 1
+			end
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				if Playeringame [i] then
+					if Players [i].cmd.buttons & {D_EVENT}.bt_special /= 0 then
+						btn := Players [i].cmd.buttons & {D_EVENT}.bt_specialmask
+						if btn = {D_EVENT}.bts_pause then
+							paused := not paused
+							if paused then
+								i_main.S_sound.s_pausesound
+							else
+								i_main.S_sound.s_resumesound
+							end
+						elseif btn = {D_EVENT}.bts_savegame then
+							if savedescription = Void then
+								savedescription := "NET GAME"
+							end
+							savegameslot := (Players [i].cmd.buttons & {D_EVENT}.bts_savemask) |>> {D_EVENT}.bts_saveshift
+							gameaction := Ga_savegame
+						end
+					end
+				end
+				i := i + 1
+			end
+			if gamestate = Gs_level then
+				i_main.P_tick.p_ticker
+				i_main.St_stuff.st_ticker
+				i_main.Am_map.am_ticker
+				i_main.Hu_stuff.hu_ticker
+			elseif gamestate = Gs_intermission then
+				i_main.Wi_stuff.wi_ticker
+			elseif gamestate = Gs_finale then
+				i_main.F_finale.f_ticker
+			elseif gamestate = Gs_demoscreen then
+				check
+						attached i_main.D_main as d_doom_main
+				then
+					d_doom_main.d_pageticker
+				end
+			end
+		end
+	
+feature -- demo
+
+	g_readdemoticcmd (cmd: TICCMD_T)
+		do
+		end
+
+	g_writedemoticcmd (cmd: TICCMD_T)
+		do
+		end
+	
+feature 
+
+	g_doreborn (playernum: INTEGER_32)
+		do
+			if not netgame then
+				gameaction := Ga_loadlevel
+			else
+				{I_MAIN}.i_error ("G_DoReborn for netgame not implemented")
+			end
+		end
+	
+feature -- G_DoLoadLevel
+
+	wipegamestate: INTEGER_32
+
+	g_doloadlevel
+		local
+			i: INTEGER_32
+		do
+			i_main.R_sky.skyflatnum := i_main.R_data.r_flatnumforname ({R_SKY}.skyflatname)
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY3")
+				if gamemap < 12 then
+					i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY1")
+				elseif gamemap < 21 then
+					i_main.R_sky.skytexture := i_main.R_data.r_texturenumforname ("SKY2")
+				end
+			end
+			levelstarttic := gametic
+			if wipegamestate = Gs_level then
+				wipegamestate := -1
+			end
+			gamestate := Gs_level
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				if Playeringame [i] and then Players [i].playerstate = {D_PLAYER}.pst_dead then
+					Players [i].playerstate := {D_PLAYER}.pst_reborn
+				end;
+				Players [i].frags.fill_with (0)
+				i := i + 1
+			end
+			i_main.P_setup.p_setuplevel (gameepisode, gamemap, 0, gameskill)
+			displayplayer := consoleplayer
+			starttime := i_main.I_system.i_gettime
+			gameaction := Ga_nothing
+			i_main.Z_zone.z_checkheap
+			Gamekeydown.fill_with (False)
+			joyxmove := 0
+			joyymove := 0
+			mousex := 0
+			mousey := 0
+			sendpause := False
+			sendsave := False
+			paused := False
+			Mousebuttons.fill_with (False)
+			Joybuttons.fill_with (False)
+		end
+
+	g_donewgame
+		do
+			demoplayback := False
+			netdemo := False
+			netgame := False
+			deathmatch := False
+			Playeringame [1] := False
+			Playeringame [2] := False
+			Playeringame [3] := False
+			check
+					attached i_main.D_main as main
+			then
+				main.respawnparm := False
+				main.fastparm := False
+				main.nomonsters := False
+			end
+			consoleplayer := 0
+			g_initnew (d_skill, d_episode, d_map)
+			gameaction := Ga_nothing
+		end
+
+	g_doloadgame
+		do
+			{I_MAIN}.i_error ("G_DoLoadGame not implemented")
+		end
+
+	g_dosavegame
+		do
+			{I_MAIN}.i_error ("G_DoSaveGame not implemented")
+		end
+
+	g_doplaydemo
+		do
+			gameaction := Ga_nothing
+		end
+
+	g_playerfinishlevel (player: INTEGER_32)
+			-- Can when a player completes a level.
+		local
+			p: PLAYER_T
+		do
+			p := Players [player]
+			p.powers.fill_with (0)
+			p.cards.fill_with (False)
+			check
+					attached p.mo as mo
+			then
+				mo.flags := mo.flags & {P_MOBJ}.mf_shadow.bit_not
+			end
+			p.extralight := 0
+			p.fixedcolormap := 0
+			p.damagecount := 0
+			p.bonuscount := 0
+		end
+
+	cpars: ARRAY [INTEGER_32]
+
+	pars: ARRAY [ARRAY [INTEGER_32]]
+
+	statcopy: detachable WBSTARTSTRUCT_T
+
+	g_docompleted
+		local
+			i: INTEGER_32
+			returned: BOOLEAN
+		do
+			gameaction := Ga_nothing
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				if Playeringame [i] then
+					g_playerfinishlevel (i)
+				end
+				i := i + 1
+			end
+			if i_main.Am_map.automapactive then
+				i_main.Am_map.am_stop
+			end
+			if i_main.Doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				if gamemap = 8 then
+					gameaction := Ga_victory
+					returned := True
+				elseif gamemap = 9 then
+					from
+						i := 0
+					until
+						i >= Maxplayers
+					loop
+						Players [i].didsecret := True
+						i := i + 1
+					end
+				end
+				if not returned then
+					wminfo.didsecret := Players [consoleplayer].didsecret
+					wminfo.epsd := gameepisode - 1
+					wminfo.last := gamemap - 1
+					if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+						if secretexit then
+							if gamemap = 15 then
+								wminfo.next := 30
+							elseif gamemap = 31 then
+								wminfo.next := 31
+							end
+						else
+							if gamemap = 31 or gamemap = 32 then
+								wminfo.next := 15
+							else
+								wminfo.next := gamemap
+							end
+						end
+					else
+						if secretexit then
+							wminfo.next := 8
+						elseif gamemap = 9 then
+							if gameepisode = 1 then
+								wminfo.next := 3
+							elseif gameepisode = 2 then
+								wminfo.next := 5
+							elseif gameepisode = 3 then
+								wminfo.next := 6
+							elseif gameepisode = 4 then
+								wminfo.next := 2
+							end
+						else
+							wminfo.next := gamemap
+						end
+					end
+					wminfo.maxkills := totalkills
+					wminfo.maxitems := totalitems
+					wminfo.maxsecret := totalsecret
+					wminfo.maxfrags := 0
+					if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+						wminfo.partime := 35 * cpars [gamemap - 1]
+					else
+						wminfo.partime := 35 * pars [gameepisode] [gamemap]
+					end
+					wminfo.pnum := consoleplayer
+					from
+						i := 0
+					until
+						i >= Maxplayers
+					loop
+						wminfo.Plyr [i].in := Playeringame [i]
+						wminfo.Plyr [i].skills := Players [i].killcount
+						wminfo.Plyr [i].sitems := Players [i].itemcount
+						wminfo.Plyr [i].ssecret := Players [i].secretcount
+						wminfo.Plyr [i].stime := i_main.P_tick.leveltime;
+						wminfo.Plyr [i].Frags.copy (Players [i].frags)
+						i := i + 1
+					end
+					gamestate := Gs_intermission
+					viewactive := False
+					i_main.Am_map.automapactive := False
+					if attached statcopy as statcopy_attached then
+						statcopy_attached.copy (wminfo)
+					end
+					i_main.Wi_stuff.wi_start (wminfo)
+				end
+			end
+		end
+
+	g_worlddone
+		do
+			gameaction := Ga_worlddone
+			if secretexit then
+				Players [consoleplayer].didsecret := True
+			end
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				if gamemap = 15 or gamemap = 31 and not secretexit then
+				elseif gamemap = 6 or gamemap = 11 or gamemap = 20 or gamemap = 30 or gamemap = 15 or gamemap = 31 then
+					i_main.F_finale.f_startfinale
+				end
+			end
+		end
+
+	g_doworlddone
+		do
+			gamestate := Gs_level
+			gamemap := wminfo.next + 1
+			g_doloadlevel
+			gameaction := Ga_nothing
+			viewactive := True
+		end
+	
+feature 
+
+	Players: ARRAY [PLAYER_T]
+		local
+			i: INTEGER_32
+		once
+			create Result.make_filled (create {PLAYER_T}.make, 0, {DOOMDEF_H}.maxplayers - 1)
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				Result [i] := create {PLAYER_T}.make
+				i := i + 1
+			end
+		end
+
+	player_index (p: PLAYER_T): INTEGER_32
+		do
+			Result := {UTILS [PLAYER_T]}.first_index (Players, p)
+		ensure
+				Players [Result] = p
+		end
+
+	Playeringame: ARRAY [BOOLEAN]
+		once
+			create Result.make_filled (False, 0, {DOOMDEF_H}.maxplayers - 1)
+		end
+	
+feature 
+
+	g_responder (ev: EVENT_T): BOOLEAN
+		do
+			if gamestate = {DOOMDEF_H}.gs_level and ev.type = {EVENT_T}.ev_keydown and ev.data1 = {DOOMDEF_H}.key_f12 and (singledemo or not deathmatch) then
+				from
+					displayplayer := (displayplayer + 1) \\ Maxplayers
+				until
+					Playeringame [displayplayer] and displayplayer /= consoleplayer
+				loop
+					displayplayer := (displayplayer + 1) \\ Maxplayers
+				end
+				Result := True
+			else
+				if gameaction = Ga_nothing and not singledemo and (demoplayback or gamestate = Gs_demoscreen) then
+					if ev.type = {EVENT_T}.ev_keydown or (ev.type = {EVENT_T}.ev_mouse and ev.data1 /= 0) or (ev.type = {EVENT_T}.ev_joystick and ev.data1 /= 0) then
+						i_main.M_menu.m_startcontrolpanel
+						Result := True
+					else
+						Result := False
+					end
+				else
+					if gamestate = Gs_level and then i_main.Hu_stuff.hu_responder (ev) then
+						Result := True
+					elseif gamestate = Gs_level and then i_main.St_stuff.st_responder (ev) then
+						Result := True
+					elseif gamestate = Gs_level and then i_main.Am_map.am_responder (ev) then
+						Result := True
+					elseif gamestate = Gs_finale and then i_main.F_finale.f_responder (ev) then
+						Result := True
+					else
+						if ev.type = {EVENT_T}.ev_keydown then
+							if ev.data1 = Key_pause then
+								sendpause := True
+							else
+								if ev.data1 < Numkeys then
+									Gamekeydown [ev.data1] := True
+								end
+							end
+							Result := True
+						elseif ev.type = {EVENT_T}.ev_keyup then
+							if ev.data1 < Numkeys then
+								Gamekeydown [ev.data1] := False
+							end
+							Result := False
+						end
+					end
+				end
+			end
+		end
+	
+feature -- G_PlayDemo
+
+	defdemoname: detachable STRING_8
+
+	g_deferedplaydemo (name: STRING_8)
+		do
+			defdemoname := name
+			gameaction := Ga_playdemo
+		end
+	
+feature 
+
+	g_deathmatchspawnplayer (playernum: INTEGER_32)
+			-- Spawns a player at one of the random death match spots
+			-- called at level load and each death
+		do
+		end
+	
+feature 
+
+	g_playerreborn (player: INTEGER_32)
+			-- Called after a player dies
+			-- almost everything is cleared and initialized
+		local
+			p: PLAYER_T
+			i: INTEGER_32
+			frags: ARRAY [INTEGER_32]
+			killcount: INTEGER_32
+			itemcount: INTEGER_32
+			secretcount: INTEGER_32
+		do
+			create frags.make_empty
+			frags.copy (Players [player].frags)
+			killcount := Players [player].killcount
+			itemcount := Players [player].itemcount
+			secretcount := Players [player].secretcount
+			p := Players [player]
+			p.reset
+			p.frags.copy (frags)
+			p.killcount := killcount
+			p.secretcount := secretcount
+			p.usedown := True
+			p.attackdown := True
+			p.playerstate := {PLAYER_T}.pst_live
+			p.health := {P_LOCAL}.maxhealth
+			p.readyweapon := Wp_pistol
+			p.pendingweapon := Wp_pistol
+			p.weaponowned [Wp_fist] := True
+			p.weaponowned [Wp_pistol] := True
+			p.ammo [Am_clip] := 50
+			from
+				i := 0
+			until
+				i >= Numammo
+			loop
+				p.maxammo [i] := {P_INTER}.maxammo [i]
+				i := i + 1
+			end
+		end
+	
+invariant
+		cpars.lower = 0 and cpars.count = 32
+		pars.lower = 1 and pars.count = 3 and across
+			pars as p
+		all
+			p.item.lower = 1 and p.item.count = 9
+		end
+
+end -- class G_GAME

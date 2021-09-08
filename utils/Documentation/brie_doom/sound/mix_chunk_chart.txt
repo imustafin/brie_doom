@@ -1,0 +1,30 @@
+class
+	MIX_CHUNK
+
+General
+	cluster: sound
+	create: make
+
+Ancestors
+	MIX_CHUNK_STRUCT_API
+
+Queries
+	abuf_api: detachable C_STRING -- (from MIX_CHUNK_STRUCT_API)
+	abuf_managed: detachable MANAGED_POINTER
+	alen: NATURAL_32 -- (from MIX_CHUNK_STRUCT_API)
+	allocated: INTEGER_32 -- (from MIX_CHUNK_STRUCT_API)
+	exists: BOOLEAN -- (from MEMORY_STRUCTURE)
+	item: POINTER -- (from MEMORY_STRUCTURE)
+	shared: BOOLEAN -- (from MEMORY_STRUCTURE)
+	structure_size: INTEGER_32 -- (from MIX_CHUNK_STRUCT_API)
+	volume: CHARACTER_8 -- (from MIX_CHUNK_STRUCT_API)
+
+Commands
+	allocate_abuf (len: INTEGER_32)
+	make -- (from MEMORY_STRUCTURE)
+	make_by_pointer (a_ptr: POINTER) -- (from MEMORY_STRUCTURE)
+	set_abuf_api (a_value: C_STRING) -- (from MIX_CHUNK_STRUCT_API)
+	set_alen (a_value: NATURAL_32) -- (from MIX_CHUNK_STRUCT_API)
+	set_allocated (a_value: INTEGER_32) -- (from MIX_CHUNK_STRUCT_API)
+	set_volume (a_value: CHARACTER_8) -- (from MIX_CHUNK_STRUCT_API)
+

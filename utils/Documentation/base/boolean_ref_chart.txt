@@ -1,0 +1,33 @@
+class
+	BOOLEAN_REF
+
+General
+	cluster: elks
+	description: "References to objects containing a boolean value"
+
+Ancestors
+	HASHABLE*
+
+Queries
+	conjuncted alias "and" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	conjuncted_semistrict alias "and then" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	disjuncted alias "or" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	disjuncted_exclusive alias "xor" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	disjuncted_semistrict alias "or else" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	hash_code: INTEGER_32
+	implication alias "implies" (other: [like Current] BOOLEAN_REF): BOOLEAN
+	is_hashable: BOOLEAN -- (from HASHABLE)
+	item: BOOLEAN
+	negated alias "not": BOOLEAN
+	out: STRING_8
+	to_integer: INTEGER_32
+	to_reference: BOOLEAN_REF
+
+Commands
+	set_item (b: BOOLEAN)
+
+Constraints
+	involutive negation
+	non contradiction
+	completeness
+

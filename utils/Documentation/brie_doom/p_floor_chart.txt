@@ -1,0 +1,23 @@
+class
+	P_FLOOR
+
+General
+	cluster: brie_doom
+	description: 
+		"p_floor.c
+		
+		Floor animation: raising stairs."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	ev_buildstairs (line: LINE_T; type: INTEGER_32): BOOLEAN
+	ev_dofloor (line: LINE_T; type: INTEGER_32): BOOLEAN
+	i_main: I_MAIN
+	t_moveplane (sector: SECTOR_T; speed, dest: FIXED_T; crush: BOOLEAN; floororceiling, direction: INTEGER_32): RESULT_E
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+

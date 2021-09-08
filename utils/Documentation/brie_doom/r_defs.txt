@@ -1,0 +1,40 @@
+note
+	description: "[
+		r_defs.h
+		
+		Refresh/rendering module, shared data struct definitions.
+	]"
+
+class 
+	R_DEFS
+
+create 
+	default_create
+
+feature -- slopetype_t
+
+	St_horizontal: INTEGER_32 = 0
+
+	St_vertical: INTEGER_32 = 1
+
+	St_positive: INTEGER_32 = 2
+
+	St_negative: INTEGER_32 = 3
+	
+feature 
+
+	Maxdrawsegs: INTEGER_32 = 256
+	
+feature -- Silhouette
+-- needed for clipping Segs (mainly)
+-- and sprites representing things.
+
+	Sil_none: INTEGER_32 = 0
+
+	Sil_bottom: INTEGER_32 = 1
+
+	Sil_top: INTEGER_32 = 2
+
+	Sil_both: INTEGER_32 = 3
+	
+end -- class R_DEFS

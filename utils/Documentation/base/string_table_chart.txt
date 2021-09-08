@@ -1,0 +1,77 @@
+class
+	STRING_TABLE [G]
+
+General
+	cluster: elks
+	description: "Hash tables, used to store items identified by string keys that are compared with or without case sensitivity."
+	create: make, make_equal, make_caseless, make_equal_caseless
+
+Ancestors
+	HASH_TABLE [G, K -> detachable HASHABLE]
+
+Queries
+	after: BOOLEAN -- (from HASH_TABLE)
+	at alias "@" (key: READABLE_STRING_GENERAL): detachable G -- (from HASH_TABLE)
+	capacity: INTEGER_32 -- (from HASH_TABLE)
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	conflict: BOOLEAN -- (from HASH_TABLE)
+	count: INTEGER_32 -- (from HASH_TABLE)
+	current_keys: ARRAY [READABLE_STRING_GENERAL] -- (from HASH_TABLE)
+	cursor: CURSOR -- (from HASH_TABLE)
+	definite_item (key: READABLE_STRING_GENERAL): G -- (from HASH_TABLE)
+	disjoint (other: HASH_TABLE [G, READABLE_STRING_GENERAL]): BOOLEAN -- (from HASH_TABLE)
+	Extendible: BOOLEAN -- (from HASH_TABLE)
+	found: BOOLEAN -- (from HASH_TABLE)
+	found_item: detachable G -- (from HASH_TABLE)
+	Full: BOOLEAN -- (from HASH_TABLE)
+	has (key: READABLE_STRING_GENERAL): BOOLEAN -- (from HASH_TABLE)
+	has_item (v: G): BOOLEAN -- (from HASH_TABLE)
+	has_key (key: READABLE_STRING_GENERAL): BOOLEAN -- (from HASH_TABLE)
+	hash_code_of (a_key: READABLE_STRING_GENERAL): INTEGER_32
+	inserted: BOOLEAN -- (from HASH_TABLE)
+	is_case_insensitive: BOOLEAN
+	is_empty: BOOLEAN -- (from FINITE)
+	is_equal (other: [like Current] STRING_TABLE [G]): BOOLEAN
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	item alias "[]" (key: READABLE_STRING_GENERAL): detachable G -- (from HASH_TABLE)
+	item_for_iteration: G -- (from HASH_TABLE)
+	iteration_item (i: INTEGER_32): G -- (from HASH_TABLE)
+	iteration_lower: INTEGER_32 -- (from HASH_TABLE)
+	iteration_upper: INTEGER_32 -- (from HASH_TABLE)
+	key_for_iteration: READABLE_STRING_GENERAL -- (from HASH_TABLE)
+	linear_representation: ARRAYED_LIST [G] -- (from HASH_TABLE)
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+	new_cursor: HASH_TABLE_ITERATION_CURSOR [G, READABLE_STRING_GENERAL] -- (from HASH_TABLE)
+	not_found: BOOLEAN -- (from HASH_TABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: G): INTEGER_32 -- (from HASH_TABLE)
+	off: BOOLEAN -- (from HASH_TABLE)
+	prunable: BOOLEAN -- (from HASH_TABLE)
+	removed: BOOLEAN -- (from HASH_TABLE)
+	replaced: BOOLEAN -- (from HASH_TABLE)
+	same_keys (a_search_key, a_key: READABLE_STRING_GENERAL): BOOLEAN
+	valid_cursor (c: CURSOR): BOOLEAN -- (from HASH_TABLE)
+	valid_iteration_index (i: INTEGER_32): BOOLEAN -- (from HASH_TABLE)
+
+Commands
+	accommodate (n: INTEGER_32) -- (from HASH_TABLE)
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	copy (other: [like Current] STRING_TABLE [G]) -- (from HASH_TABLE)
+	extend (new: G; key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	fill (other: CONTAINER [G]) -- (from COLLECTION)
+	force (new: G; key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	forth -- (from HASH_TABLE)
+	go_to (c: CURSOR) -- (from HASH_TABLE)
+	make (n: INTEGER_32) -- (from HASH_TABLE)
+	make_equal (n: INTEGER_32) -- (from HASH_TABLE)
+	merge (other: HASH_TABLE [G, READABLE_STRING_GENERAL]) -- (from HASH_TABLE)
+	prune (v: G) -- (from HASH_TABLE)
+	put (new: G; key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	remove (key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	replace (new: G; key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	replace_key (new_key, old_key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	search (key: READABLE_STRING_GENERAL) -- (from HASH_TABLE)
+	start -- (from HASH_TABLE)
+	wipe_out -- (from HASH_TABLE)
+

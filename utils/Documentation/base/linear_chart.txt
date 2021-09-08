@@ -1,0 +1,41 @@
+deferred class
+	LINEAR [G]
+
+General
+	cluster: elks
+	description: "Structures whose items may be accessed sequentially, one-way"
+
+Ancestors
+	TRAVERSABLE* [G]
+
+Queries
+	after: BOOLEAN
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	exhausted: BOOLEAN
+	for_all (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+	has (v: [like item] G): BOOLEAN
+	index: INTEGER_32
+	index_of (v: [like item] G; i: INTEGER_32): INTEGER_32
+	is_empty: BOOLEAN -- (from CONTAINER)
+	item: G -- (from TRAVERSABLE)
+	item_for_iteration: G
+	linear_representation: LINEAR [G]
+	new_cursor: ITERATION_CURSOR [G] -- (from ITERABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: [like item] G): INTEGER_32
+	off: BOOLEAN
+	there_exists (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+
+Commands
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	do_all (action: PROCEDURE [G])
+	do_if (action: PROCEDURE [G]; test: FUNCTION [G, BOOLEAN])
+	finish
+	forth
+	search (v: [like item] G)
+	start -- (from TRAVERSABLE)
+
+Constraints
+	after constraint
+

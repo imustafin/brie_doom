@@ -1,0 +1,1171 @@
+note
+	description: "[
+		st_stuff.c
+		Status bar code.
+		Does the face/direction indicator animation.
+		Does palette indicators as well (red pain/berserk, bright pickup)
+	]"
+
+class 
+	ST_STUFF
+
+inherit
+	POWERTYPE_T
+
+	CHEAT_T
+
+	WEAPONTYPE_T
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		local
+			i: INTEGER_32
+		do
+			i_main := a_i_main
+			create arms.make_filled (create {ARRAY [detachable PATCH_T]}.make_empty, 0, 5)
+			from
+				i := 0
+			until
+				i > 5
+			loop
+				arms [i] := create {ARRAY [detachable PATCH_T]}.make_filled (Void, 0, 1)
+				i := i + 1
+			end
+			create shortnum.make_filled (Void, 0, 9)
+			create tallnum.make_filled (Void, 0, 9)
+			create faces.make_filled (Void, 0, St_numfaces - 1)
+			create keys.make_filled (Void, 0, {CARD_T}.numcards - 1)
+			create oldweaponsowned.make_filled (False, 0, Numweapons - 1)
+			create keyboxes.make_filled (0, 0, 2)
+			create w_maxammo.make_filled (Void, 0, 3)
+			create w_ammo.make_filled (Void, 0, 3)
+			create w_keyboxes.make_filled (Void, 0, 2)
+			create w_arms.make_filled (Void, 0, 5)
+			lastattackdown := -1
+			oldhealth := -1
+		ensure
+				arms.lower = 0 and arms.count = 6 and across
+					arms as a
+				all
+					a.item.lower = 0 and a.item.count = 2
+				end
+				faces.lower = 0 and faces.count = St_numfaces
+				keys.lower = 0 and keys.count = {CARD_T}.numcards
+				shortnum.lower = 0 and shortnum.count = 10
+				tallnum.lower = 0 and tallnum.count = 10
+				oldweaponsowned.lower = 0 and oldweaponsowned.count = Numweapons
+				keyboxes.lower = 0 and keyboxes.count = 3
+				w_maxammo.lower = 0 and w_maxammo.count = 4
+				w_ammo.lower = 0 and w_ammo.count = 4
+				w_keyboxes.lower = 0 and w_keyboxes.count = 3
+				w_arms.lower = 0 and w_arms.count = 6
+				lastattackdown = -1
+				oldhealth = -1
+		end
+	
+feature 
+
+	St_height: INTEGER_32 = 32
+
+	St_width: INTEGER_32
+		once
+			Result := {DOOMDEF_H}.screenwidth
+		end
+
+	St_numpainfaces: INTEGER_32 = 5
+
+	St_numstraightfaces: INTEGER_32 = 3
+
+	St_numextrafaces: INTEGER_32 = 2
+
+	St_numturnfaces: INTEGER_32 = 2
+
+	St_numspecialfaces: INTEGER_32 = 3
+
+	St_facestride: INTEGER_32
+		once
+			Result := St_numstraightfaces + St_numturnfaces + St_numspecialfaces
+		end
+
+	St_numfaces: INTEGER_32
+		once
+			Result := St_facestride * St_numpainfaces + St_numextrafaces
+		end
+
+	Startredpals: INTEGER_32 = 1
+
+	Startbonuspals: INTEGER_32 = 9
+
+	Numredpals: INTEGER_32 = 8
+
+	Numbonuspals: INTEGER_32 = 4
+
+	Radiationpal: INTEGER_32 = 13
+
+	st_palette: INTEGER_32
+
+	St_x: INTEGER_32 = 0
+
+	St_x2: INTEGER_32 = 104
+
+	St_fx: INTEGER_32 = 143
+
+	St_fy: INTEGER_32 = 169
+
+	St_armsbgx: INTEGER_32 = 104
+
+	St_y: INTEGER_32
+		once
+			Result := {DOOMDEF_H}.screenheight - St_height
+		ensure
+			instance_free: class
+		end
+
+	St_ammox: INTEGER_32 = 44
+
+	St_ammoy: INTEGER_32 = 171
+
+	St_ammowidth: INTEGER_32 = 3
+
+	St_healthx: INTEGER_32 = 90
+
+	St_healthy: INTEGER_32 = 171
+
+	St_armsbgy: INTEGER_32 = 168
+
+	St_armsx: INTEGER_32 = 111
+
+	St_armsy: INTEGER_32 = 172
+
+	St_armsxspace: INTEGER_32 = 12
+
+	St_armsyspace: INTEGER_32 = 10
+
+	St_fragsx: INTEGER_32 = 138
+
+	St_fragsy: INTEGER_32 = 171
+
+	St_fragswidth: INTEGER_32 = 2
+
+	St_facesx: INTEGER_32 = 143
+
+	St_facesy: INTEGER_32 = 168
+
+	St_armorx: INTEGER_32 = 221
+
+	St_armory: INTEGER_32 = 171
+
+	St_key0x: INTEGER_32 = 239
+
+	St_key0y: INTEGER_32 = 171
+
+	St_key1x: INTEGER_32 = 239
+
+	St_key1y: INTEGER_32 = 181
+
+	St_key2x: INTEGER_32 = 239
+
+	St_key2y: INTEGER_32 = 191
+
+	St_ammo0x: INTEGER_32 = 288
+
+	St_ammo0y: INTEGER_32 = 173
+
+	St_ammo0width: INTEGER_32 = 3
+
+	St_ammo1width: INTEGER_32
+		once
+			Result := St_ammo0width
+		end
+
+	St_ammo2width: INTEGER_32
+		once
+			Result := St_ammo0width
+		end
+
+	St_ammo3width: INTEGER_32
+		once
+			Result := St_ammo0width
+		end
+
+	St_ammo1x: INTEGER_32 = 288
+
+	St_ammo1y: INTEGER_32 = 179
+
+	St_ammo2x: INTEGER_32 = 288
+
+	St_ammo2y: INTEGER_32 = 191
+
+	St_ammo3x: INTEGER_32 = 288
+
+	St_ammo3y: INTEGER_32 = 185
+
+	St_maxammo0x: INTEGER_32 = 314
+
+	St_maxammo0y: INTEGER_32 = 173
+
+	St_maxammo0width: INTEGER_32 = 3
+
+	St_maxammo1x: INTEGER_32 = 314
+
+	St_maxammo1y: INTEGER_32 = 179
+
+	St_maxammo1width: INTEGER_32
+		once
+			Result := St_maxammo0width
+		end
+
+	St_maxammo2x: INTEGER_32 = 314
+
+	St_maxammo2y: INTEGER_32 = 191
+
+	St_maxammo2width: INTEGER_32
+		once
+			Result := St_maxammo0width
+		end
+
+	St_maxammo3x: INTEGER_32 = 314
+
+	St_maxammo3y: INTEGER_32 = 185
+
+	St_maxammo3width: INTEGER_32
+		once
+			Result := St_maxammo0width
+		end
+	
+feature 
+
+	St_deadface: INTEGER_32
+		once
+			Result := St_godface + 1
+		end
+
+	St_godface: INTEGER_32
+		once
+			Result := St_numpainfaces * St_facestride
+		end
+
+	St_rampageoffset: INTEGER_32
+		once
+			Result := St_evilgrinoffset + 1
+		end
+
+	St_evilgrinoffset: INTEGER_32
+		once
+			Result := St_ouchoffset + 1
+		end
+
+	St_ouchoffset: INTEGER_32
+		once
+			Result := St_turnoffset + St_numturnfaces
+		end
+
+	St_evilgrincount: INTEGER_32
+		once
+			Result := 2 * {DOOMDEF_H}.ticrate
+		end
+
+	St_straightfacecount: INTEGER_32
+		once
+			Result := {DOOMDEF_H}.ticrate // 2
+		end
+
+	St_turncount: INTEGER_32
+		once
+			Result := {DOOMDEF_H}.ticrate
+		end
+
+	St_ouchcount: INTEGER_32
+		once
+			Result := {DOOMDEF_H}.ticrate
+		end
+
+	St_rampagedelay: INTEGER_32
+		once
+			Result := 2 * {DOOMDEF_H}.ticrate
+		end
+
+	St_turnoffset: INTEGER_32
+		once
+			Result := St_numstraightfaces
+		end
+
+	St_muchpain: INTEGER_32 = 20
+	
+feature 
+
+	st_backing_screen: detachable PIXEL_T_BUFFER
+			-- graphics are drawn to a backing screen and blitted to the real screen
+
+	lu_palette: INTEGER_32
+			-- lump number for PLAYPAL
+
+	sbar: detachable PATCH_T
+			-- main bar left
+
+	sbarr: detachable PATCH_T
+			-- main bar right, for doom 1.0
+
+	tallnum: ARRAY [detachable PATCH_T]
+			-- 0-9, tall numbers [10]
+
+	tallpercent: detachable PATCH_T
+
+	shortnum: ARRAY [detachable PATCH_T]
+			-- 0-9, short, yellow (,different!) numbers [10]
+
+	keys: ARRAY [detachable PATCH_T]
+			-- 3 key-cards, 3 skulls [NUMCARDS]
+
+	faces: ARRAY [detachable PATCH_T]
+			-- face status patches [ST_NUMFACES]
+
+	faceback: detachable PATCH_T
+			-- face background
+
+	armsbg: detachable PATCH_T
+			-- main bar right
+
+	arms: ARRAY [ARRAY [detachable PATCH_T]]
+			-- weapon ownership patches [6][2]
+	
+feature 
+
+	st_clock: NATURAL_32
+			-- used for timing
+
+	st_chatstate: INTEGER_32
+			-- st_chatstateenum_t used when in chat
+
+	st_gamestate: INTEGER_32
+			-- st_stateenum_t whether in automap or first-person
+
+	st_oldchat: BOOLEAN
+			-- value of st_chat before message popped up
+
+	st_chat: BOOLEAN
+			-- whether status bar chat is active
+
+	st_cursoron: BOOLEAN
+			-- whether chat window has the cursor on
+
+	st_faceindex: INTEGER_32
+			-- current face index, used by w_faces
+
+	st_oldhealth: INTEGER_32
+			-- used to use appropriately pained face
+
+	oldweaponsowned: ARRAY [BOOLEAN]
+			-- used for evil grin [NUMWEAPONS]
+
+	keyboxes: ARRAY [INTEGER_32]
+			-- holds key-type for each key box on bar
+
+	st_randomnumber: INTEGER_32
+			-- a random number per tick
+
+	st_msgcounter: INTEGER_32
+			-- used for making messages go away
+	
+feature -- st_chatstateenum_t
+
+	Startchatstate: INTEGER_32 = 0
+
+	Waitdeststate: INTEGER_32 = 1
+
+	Getchatstate: INTEGER_32 = 2
+	
+feature -- st_stateenum_t
+
+	Automapstate: INTEGER_32 = 0
+
+	Firstpersonstate: INTEGER_32 = 1
+	
+feature 
+
+	st_statusbaron: BOOLEAN
+			-- whether left-side main status bar is active
+
+	st_firsttime: BOOLEAN
+			-- ST_Start() has just been called
+
+	plyr: detachable PLAYER_T
+
+	st_facecount: INTEGER_32
+			-- count until face changes
+	
+feature 
+
+	w_ready: detachable ST_NUMBER
+			-- ready-weapon widget
+
+	w_frags: detachable ST_NUMBER
+			-- in deathmatch only, summary of frags stats
+
+	w_health: detachable ST_PERCENT
+			-- health widget
+
+	w_armsbg: detachable ST_BIN_ICON
+			-- arms background
+
+	w_arms: ARRAY [detachable ST_MULT_ICON]
+			-- weapon ownership widgets [6]
+
+	w_faces: detachable ST_MULT_ICON
+			-- face status widget
+
+	w_keyboxes: ARRAY [detachable ST_MULT_ICON]
+			-- keycard widgets [3]
+
+	w_armor: detachable ST_PERCENT
+			-- armor widget
+
+	w_ammo: ARRAY [detachable ST_NUMBER]
+			-- ammo widgets [4]
+
+	w_maxammo: ARRAY [detachable ST_NUMBER]
+			-- max ammo widgets
+	
+feature 
+
+	st_loadgraphics
+		local
+			i: INTEGER_32
+			j: INTEGER_32
+			facenum: INTEGER_32
+			namebuf: STRING_8
+		do
+			from
+				i := 0
+			until
+				i >= 10
+			loop
+				tallnum [i] := load_patch ("STTNUM" + i.out)
+				shortnum [i] := load_patch ("STYSNUM" + i.out)
+				i := i + 1
+			end
+			tallpercent := load_patch ("STTPRCNT")
+			from
+				i := 0
+			until
+				i >= {CARD_T}.numcards
+			loop
+				keys [i] := load_patch ("STKEYS" + i.out)
+				i := i + 1
+			end
+			armsbg := load_patch ("STARMS")
+			from
+				i := 0
+			until
+				i >= 6
+			loop
+				arms [i] [0] := load_patch ("STGNUM" + (i + 2).out)
+				arms [i] [1] := shortnum [i + 2]
+				i := i + 1
+			end
+			faceback := load_patch ("STFB" + i_main.G_game.consoleplayer.out)
+			if i_main.W_wad.w_checknumforname ("STBAR") > 0 then
+				sbar := load_patch ("STBAR")
+				sbarr := Void
+			else
+				sbar := load_patch ("STMBARL")
+				sbarr := load_patch ("STMBARR")
+			end
+			facenum := 0
+			from
+				i := 0
+			until
+				i >= St_numpainfaces
+			loop
+				from
+					j := 0
+				until
+					j >= St_numstraightfaces
+				loop
+					faces [facenum] := load_patch ("STFST" + i.out + j.out)
+					facenum := facenum + 1
+					j := j + 1
+				end
+				faces [facenum] := load_patch ("STFTR" + i.out + "0")
+				facenum := facenum + 1
+				faces [facenum] := load_patch ("STFTL" + i.out + "0")
+				facenum := facenum + 1
+				faces [facenum] := load_patch ("STFOUCH" + i.out)
+				facenum := facenum + 1
+				faces [facenum] := load_patch ("STFEVL" + i.out)
+				facenum := facenum + 1
+				faces [facenum] := load_patch ("STFKILL" + i.out)
+				facenum := facenum + 1
+				i := i + 1
+			end
+			faces [facenum] := load_patch ("STFGOD0")
+			facenum := facenum + 1
+			faces [facenum] := load_patch ("STFDEAD0")
+			facenum := facenum + 1
+		end
+
+	load_patch (name: STRING_8): PATCH_T
+		do
+			Result := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname (name, {Z_ZONE}.pu_static))
+		end
+
+	st_loaddata
+		do
+			lu_palette := i_main.W_wad.w_getnumforname ("PLAYPAL")
+			st_loadgraphics
+		end
+
+	st_init
+		do
+			st_loaddata
+			create st_backing_screen.make (St_width * St_height)
+		end
+	
+feature 
+
+	st_drawer (fullscreen: BOOLEAN; refresh: BOOLEAN)
+		do
+			st_statusbaron := (not fullscreen) or i_main.Am_map.automapactive
+			st_firsttime := st_firsttime or refresh
+			st_dopalettestuff
+			if st_firsttime then
+				st_dorefresh
+			else
+				st_diffdraw
+			end
+		end
+
+	st_dopalettestuff
+		local
+			palette: INTEGER_32
+			pal: MANAGED_POINTER
+			cnt: INTEGER_32
+			bzc: INTEGER_32
+		do
+			check
+					attached plyr as p
+			then
+				cnt := p.damagecount
+				if p.powers [Pw_strength] /= 0 then
+					bzc := 12 - (p.powers [Pw_strength] |>> 6)
+					if bzc > cnt then
+						cnt := bzc
+					end
+				end
+				if cnt /= 0 then
+					palette := (cnt + 7) |>> 3
+					if palette >= Numredpals then
+						palette := Numredpals - 1
+					end
+					palette := palette + Startredpals
+				elseif p.bonuscount /= 0 then
+					palette := (p.bonuscount + 7) |>> 3
+					if palette >= Numbonuspals then
+						palette := Numbonuspals - 1
+					end
+					palette := palette + Startbonuspals
+				elseif p.powers [Pw_ironfeet] > 4 * 32 or p.powers [Pw_ironfeet] & 8 /= 0 then
+					palette := Radiationpal
+				else
+					palette := 0
+				end
+			end
+			if palette /= st_palette then
+				st_palette := palette
+				pal := i_main.W_wad.w_cachelumpnum (lu_palette, {Z_ZONE}.pu_cache)
+				create pal.share_from_pointer (pal.item + palette * 768, pal.count - palette * 768)
+				i_main.I_video.i_setpalette (pal)
+			end
+		end
+
+	st_dorefresh
+		do
+			st_firsttime := False
+			st_refreshbackground
+			st_drawwidgets (True)
+		end
+
+	st_diffdraw
+		do
+			st_drawwidgets (False)
+		end
+
+	st_drawwidgets (refresh: BOOLEAN)
+		local
+			i: INTEGER_32
+		do
+			st_armson := st_statusbaron and not i_main.G_game.deathmatch
+			st_fragson := i_main.G_game.deathmatch and st_statusbaron
+			check
+					attached w_ready as wr
+			then
+				wr.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 4
+			loop
+				check
+						attached w_ammo [i] as wai
+				then
+					wai.update (refresh)
+				end
+				check
+						attached w_maxammo [i] as wmai
+				then
+					wmai.update (refresh)
+				end
+				i := i + 1
+			end
+			check
+					attached w_health as wh
+			then
+				wh.update (refresh)
+			end
+			check
+					attached w_armor as wa
+			then
+				wa.update (refresh)
+			end
+			check
+					attached w_armsbg as wabg
+			then
+				wabg.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 6
+			loop
+				check
+						attached w_arms [i] as wi
+				then
+					wi.update (refresh)
+				end
+				i := i + 1
+			end
+			check
+					attached w_faces as wf
+			then
+				wf.update (refresh)
+			end
+			from
+				i := 0
+			until
+				i >= 3
+			loop
+				check
+						attached w_keyboxes [i] as wki
+				then
+					wki.update (refresh)
+				end
+				i := i + 1
+			end
+			check
+					attached w_frags as wf
+			then
+				wf.update (refresh)
+			end
+		end
+
+	st_refreshbackground
+		do
+			if st_statusbaron then
+				check
+						attached st_backing_screen as sb
+				then
+					i_main.V_video.v_usebuffer (sb)
+				end
+				check
+						attached sbar as at_sbar
+				then
+					i_main.V_video.v_drawpatch (St_x, 0, at_sbar)
+				end
+				if attached sbarr as at_sbarr then
+					i_main.V_video.v_drawpatch (St_armsbgx, 0, at_sbarr)
+				end
+				if i_main.G_game.netgame then
+					check
+							attached faceback as at_faceback
+					then
+						i_main.V_video.v_drawpatch (St_fx, 0, at_faceback)
+					end
+				end
+				i_main.V_video.v_restorebuffer
+				check
+						attached st_backing_screen as sb
+				then
+					i_main.V_video.v_copyrect (St_x, 0, sb, St_width, St_height, St_x, St_y)
+				end
+			end
+		end
+	
+feature 
+
+	st_responder (ev: EVENT_T): BOOLEAN
+		do
+		end
+	
+feature 
+
+	st_stopped: BOOLEAN
+
+	st_notdeathmatch: BOOLEAN
+
+	st_armson: BOOLEAN
+
+	st_fragscount: INTEGER_32
+
+	st_fragson: BOOLEAN
+
+	st_start
+		do
+			if not st_stopped then
+				st_stop
+			end
+			st_initdata
+			st_createwidgets
+			st_stopped := False
+		end
+
+	st_createwidgets
+		local
+			i: INTEGER_32
+		do
+			check
+					attached plyr as p
+			then
+				create w_ready.make (St_ammox, St_ammoy, tallnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.ammo [{D_ITEMS}.weaponinfo [agent_p.readyweapon].ammo]
+							end
+						end), agent st_statusbaron, St_ammowidth, i_main)
+				check
+						attached w_ready as wr
+				then
+					wr.data := p.readyweapon
+				end
+				check
+						attached tallpercent as tp
+				then
+					create w_health.make (St_healthx, St_healthy, tallnum, (agent: INTEGER_32
+							do
+								check
+										attached plyr as agent_p
+								then
+									Result := agent_p.health
+								end
+							end), agent st_statusbaron, tp, i_main)
+				end
+				check
+						attached armsbg as abg
+				then
+					create w_armsbg.make (St_armsbgx, St_armsbgy, abg, agent st_notdeathmatch, agent st_statusbaron, i_main)
+				end
+				from
+					i := 0
+				until
+					i >= 6
+				loop
+					w_arms [i] := create {ST_MULT_ICON}.make (St_armsx + (i \\ 3) * St_armsxspace, St_armsy + (i // 3) * St_armsyspace, arms [i], (agent (wep: INTEGER_32): INTEGER_32
+							do
+								check
+										attached plyr as agent_p
+								then
+									Result := agent_p.weaponowned [wep + 1].to_integer
+								end
+							end (i)), agent st_armson, i_main)
+					i := i + 1
+				end
+				create w_frags.make (St_fragsx, St_fragsy, tallnum, agent st_fragscount, agent st_fragson, St_fragswidth, i_main)
+				create w_faces.make (St_facesx, St_facesy, faces, agent st_faceindex, agent st_statusbaron, i_main)
+				check
+						attached tallpercent as tp
+				then
+					create w_armor.make (St_armorx, St_armory, tallnum, (agent: INTEGER_32
+							do
+								check
+										attached plyr as agent_p
+								then
+									Result := agent_p.armorpoints
+								end
+							end), agent st_statusbaron, tp, i_main)
+				end
+				w_keyboxes [0] := create {ST_MULT_ICON}.make (St_key0x, St_key0y, keys, (agent: INTEGER_32
+						do
+							Result := keyboxes [0]
+						end), agent st_statusbaron, i_main)
+				w_keyboxes [1] := create {ST_MULT_ICON}.make (St_key1x, St_key1y, keys, (agent: INTEGER_32
+						do
+							Result := keyboxes [1]
+						end), agent st_statusbaron, i_main)
+				w_keyboxes [2] := create {ST_MULT_ICON}.make (St_key2x, St_key2y, keys, (agent: INTEGER_32
+						do
+							Result := keyboxes [2]
+						end), agent st_statusbaron, i_main)
+				w_ammo [0] := create {ST_NUMBER}.make (St_ammo0x, St_ammo0y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.ammo [0]
+							end
+						end), agent st_statusbaron, St_ammo0width, i_main)
+				w_ammo [1] := create {ST_NUMBER}.make (St_ammo1x, St_ammo1y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.ammo [1]
+							end
+						end), agent st_statusbaron, St_ammo1width, i_main)
+				w_ammo [2] := create {ST_NUMBER}.make (St_ammo2x, St_ammo2y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.ammo [2]
+							end
+						end), agent st_statusbaron, St_ammo2width, i_main)
+				w_ammo [3] := create {ST_NUMBER}.make (St_ammo3x, St_ammo3y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.ammo [3]
+							end
+						end), agent st_statusbaron, St_ammo3width, i_main)
+				w_maxammo [0] := create {ST_NUMBER}.make (St_maxammo0x, St_maxammo0y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.maxammo [0]
+							end
+						end), agent st_statusbaron, St_maxammo0width, i_main)
+				w_maxammo [1] := create {ST_NUMBER}.make (St_maxammo1x, St_maxammo1y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.maxammo [1]
+							end
+						end), agent st_statusbaron, St_maxammo1width, i_main)
+				w_maxammo [2] := create {ST_NUMBER}.make (St_maxammo2x, St_maxammo2y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.maxammo [2]
+							end
+						end), agent st_statusbaron, St_maxammo2width, i_main)
+				w_maxammo [3] := create {ST_NUMBER}.make (St_maxammo3x, St_maxammo3y, shortnum, (agent: INTEGER_32
+						do
+							check
+									attached plyr as agent_p
+							then
+								Result := agent_p.maxammo [3]
+							end
+						end), agent st_statusbaron, St_maxammo3width, i_main)
+			end
+		end
+
+	st_stop
+		do
+			if st_stopped then
+			else
+				i_main.I_video.i_setpalette (i_main.W_wad.w_cachelumpnum (lu_palette, {Z_ZONE}.pu_cache))
+				st_stopped := True
+			end
+		end
+
+	st_initdata
+		local
+			i: INTEGER_32
+		do
+			st_firsttime := True
+			plyr := i_main.G_game.Players [i_main.G_game.consoleplayer]
+			st_clock := 0
+			st_chatstate := Startchatstate
+			st_gamestate := Firstpersonstate
+			st_statusbaron := True
+			st_oldchat := False
+			st_chat := False
+			st_cursoron := False
+			st_faceindex := 0
+			st_palette := -1
+			st_oldhealth := -1
+			from
+				i := 0
+			until
+				i >= Numweapons
+			loop
+				check
+						attached plyr as p
+				then
+					oldweaponsowned [i] := p.weaponowned [i]
+				end
+				i := i + 1
+			end
+			from
+				i := 0
+			until
+				i >= 3
+			loop
+				keyboxes [i] := -1
+				i := i + 1
+			end
+			i_main.St_lib.stlib_init
+		end
+	
+feature 
+
+	st_ticker
+		do
+			st_clock := st_clock + 1
+			st_randomnumber := i_main.M_random.m_random
+			st_updatewidgets
+			check
+					attached plyr as p
+			then
+				st_oldhealth := p.health
+			end
+		end
+	
+feature 
+
+	Largeammo: INTEGER_32 = 1994
+
+	lastattackdown: INTEGER_32
+
+	priority: INTEGER_32
+
+	st_updatefacewidget
+			-- This is a not-very-pretty routine which handles
+			-- the face states and their timing.
+			-- the precedence of expressions is this:
+			-- dead > evil grin > turned head > straight head
+		local
+			i: INTEGER_32
+			badguyangle: ANGLE_T
+			diffang: ANGLE_T
+			doevilgrin: BOOLEAN
+		do
+			check
+					attached plyr as p
+			then
+				if priority < 10 then
+					if p.health = 0 then
+						priority := 9
+						st_faceindex := St_deadface
+						st_facecount := 1
+					end
+				end
+				if priority < 9 then
+					if p.bonuscount /= 0 then
+						doevilgrin := False
+						from
+							i := 0
+						until
+							i >= {WEAPONTYPE_T}.numweapons
+						loop
+							if oldweaponsowned [i] /= p.weaponowned [i] then
+								doevilgrin := True
+								oldweaponsowned [i] := p.weaponowned [i]
+							end
+							i := i + 1
+						end
+						if doevilgrin then
+							priority := 8
+							st_facecount := St_evilgrincount
+							st_faceindex := st_calcpainoffset + St_evilgrinoffset
+						end
+					end
+				end
+				if priority < 8 then
+					if p.damagecount /= 0 and then attached p.attacker as attacker and then attacker /= p.mo then
+						priority := 7
+						if p.health - st_oldhealth > St_muchpain then
+							st_facecount := St_turncount
+							st_faceindex := st_calcpainoffset + St_ouchoffset
+						else
+							check
+									attached p.mo as mo
+							then
+								badguyangle := i_main.R_main.r_pointtoangle2 (mo.x, mo.y, attacker.x, attacker.y)
+								if badguyangle > mo.angle then
+									diffang := badguyangle - mo.angle
+									i := (diffang > {R_MAIN}.ang180).to_integer
+								else
+									diffang := mo.angle - badguyangle
+									i := (diffang <= {R_MAIN}.ang180).to_integer
+								end
+								st_facecount := St_turncount
+								st_faceindex := st_calcpainoffset
+								if diffang < {R_MAIN}.ang45 then
+									st_faceindex := st_faceindex + St_rampageoffset
+								elseif i /= 0 then
+									st_faceindex := st_faceindex + St_turnoffset
+								else
+									st_faceindex := st_faceindex + St_turnoffset + 1
+								end
+							end
+						end
+					end
+				end
+				if priority < 7 then
+					if p.damagecount /= 0 then
+						if p.health - st_oldhealth > St_muchpain then
+							priority := 7
+							st_facecount := St_turncount
+							st_faceindex := st_calcpainoffset + St_ouchoffset
+						else
+							priority := 6
+							st_facecount := St_turncount
+							st_faceindex := st_calcpainoffset + St_rampageoffset
+						end
+					end
+				end
+				if priority < 6 then
+					if p.attackdown then
+						if lastattackdown = -1 then
+							lastattackdown := St_rampagedelay
+						else
+							lastattackdown := lastattackdown - 1
+							if lastattackdown = 0 then
+								priority := 5
+								st_faceindex := st_calcpainoffset + St_rampageoffset
+								st_facecount := 1
+								lastattackdown := 1
+							end
+						end
+					else
+						lastattackdown := -1
+					end
+				end
+				if priority < 5 then
+					if p.cheats & Cf_godmode /= 0 or p.powers [Pw_invulnerability] /= 0 then
+						priority := 4
+						st_faceindex := St_godface
+						st_facecount := 1
+					end
+				end
+				if st_facecount = 0 then
+					st_faceindex := st_calcpainoffset + (st_randomnumber \\ 3)
+					st_facecount := St_straightfacecount
+					priority := 0
+				end
+				st_facecount := st_facecount - 1
+			end
+		end
+	
+feature 
+
+	lastcalc: INTEGER_32
+
+	oldhealth: INTEGER_32
+
+	st_calcpainoffset: INTEGER_32
+		local
+			health: INTEGER_32
+		do
+			check
+					attached plyr as p
+			then
+				health := if p.health > 100 then
+					100
+				else
+					p.health
+				end
+				if health /= oldhealth then
+					lastcalc := St_facestride * (((100 - health) * St_numpainfaces) // 101)
+					oldhealth := health
+				end
+			end
+			Result := lastcalc
+		end
+	
+feature 
+
+	st_updatewidgets
+		local
+			i: INTEGER_32
+		do
+			check
+					attached plyr as p
+			then
+				if {D_ITEMS}.weaponinfo [p.readyweapon].ammo = {AMMOTYPE_T}.am_noammo then
+					check
+							attached w_ready as wr
+					then
+						wr.num := agent Largeammo
+					end
+				else
+					check
+							attached w_ready as wr
+					then
+						wr.num := (agent: INTEGER_32
+							do
+								check
+										attached plyr as agent_p
+								then
+									Result := agent_p.ammo [{D_ITEMS}.weaponinfo [agent_p.readyweapon].ammo]
+								end
+							end)
+					end
+				end
+				check
+						attached w_ready as wr
+				then
+					wr.data := p.readyweapon
+				end
+				from
+					i := 0
+				until
+					i >= 3
+				loop
+					keyboxes [i] := if p.cards [i] then
+						i
+					else
+						-1
+					end
+					if p.cards [i + 3] then
+						keyboxes [i] := i + 3
+					end
+					i := i + 1
+				end
+				st_updatefacewidget
+				st_notdeathmatch := not i_main.G_game.deathmatch
+				st_armson := st_statusbaron and not i_main.G_game.deathmatch
+				st_fragson := i_main.G_game.deathmatch and st_statusbaron
+				st_fragscount := 0
+				from
+					i := 0
+				until
+					i >= {DOOMDEF_H}.maxplayers
+				loop
+					if i /= i_main.G_game.consoleplayer then
+						st_fragscount := st_fragscount + p.frags [i]
+					else
+						st_fragscount := st_fragscount - p.frags [i]
+					end
+					i := i + 1
+				end
+				st_msgcounter := st_msgcounter - 1
+				if st_msgcounter = 0 then
+					st_chat := st_oldchat
+				end
+			end
+		end
+	
+end -- class ST_STUFF

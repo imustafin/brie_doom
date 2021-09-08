@@ -1,0 +1,31 @@
+class
+	MENU_T
+
+General
+	cluster: brie_doom
+	description: "m_menu.c"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	laston: INTEGER_32
+	menuitems: ARRAY [MENUITEM_T]
+	numitems: INTEGER_32
+	prevmenu: detachable MENU_T
+	routine: PROCEDURE
+	x: INTEGER_32
+	y: INTEGER_32
+
+Commands
+	make (a_numitems: [like numitems] INTEGER_32; a_prevmenu: [like prevmenu] detachable MENU_T; a_menuitems: [like menuitems] ARRAY [MENUITEM_T]; a_routine: [like routine] PROCEDURE; a_x: [like x] INTEGER_32; a_y: [like y] INTEGER_32; a_laston: [like laston] INTEGER_32)
+	set_laston (a_laston: [like laston] INTEGER_32)
+	set_numitems (a_numitems: [like numitems] INTEGER_32)
+	set_prevmenu (a_prevmenu: [like prevmenu] detachable MENU_T)
+	set_routine (a_routine: [like routine] PROCEDURE)
+	set_x (a_x: [like x] INTEGER_32)
+	set_y (a_y: [like y] INTEGER_32)
+
+Constraints
+

@@ -1,0 +1,66 @@
+class
+	I_SOUND
+
+General
+	cluster: sound
+	description: 
+		"i_sound.c
+		System interface for sound."
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	active_music_module: detachable MUSIC_MODULE_T
+	check_separation (separation: INTEGER_32): INTEGER_32
+	check_volume (volume: INTEGER_32): INTEGER_32
+	i_getsfxlumpnum (sfxinfo: SFXINFO_T): INTEGER_32
+	i_main: I_MAIN
+	i_registersong (data: detachable ANY; len: INTEGER_32): detachable ANY
+	i_soundisplaying (channel: INTEGER_32): BOOLEAN
+	i_startsound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER_32): INTEGER_32
+	music_module: detachable MUSIC_MODULE_T
+	Music_modules: ARRAY [detachable MUSIC_MODULE_T]
+	music_pack_module: I_MUSICPACK
+	music_packs_active: BOOLEAN
+	Music_sdl_module: MUSIC_SDL_MODULE
+	Norm_pitch: INTEGER_32
+	Snd_maxslicetime_ms: INTEGER_32
+	Snd_musiccmd: STRING_8
+	snd_musicdevice: INTEGER_32
+	Snd_pitchshift: INTEGER_32
+	Snd_samplerate: INTEGER_32
+	snd_sfxdevice: INTEGER_32
+	Snddevice_adlib: INTEGER_32
+	Snddevice_awe32: INTEGER_32
+	Snddevice_cd: INTEGER_32
+	Snddevice_genmidi: INTEGER_32
+	Snddevice_gus: INTEGER_32
+	Snddevice_none: INTEGER_32
+	Snddevice_pas: INTEGER_32
+	Snddevice_pcspeaker: INTEGER_32
+	Snddevice_sb: INTEGER_32
+	Snddevice_soundcanvas: INTEGER_32
+	Snddevice_waveblaster: INTEGER_32
+	sound_module: detachable SOUND_MODULE_T
+	Sound_modules: ARRAY [detachable SOUND_MODULE_T]
+	Steptable: ARRAY [INTEGER_32]
+	Vol_lookup: ARRAY [INTEGER_32]
+
+Commands
+	i_initsound (use_sfx_prefix: BOOLEAN)
+	i_pausesong
+	i_playsong (handle: detachable ANY; looping: BOOLEAN)
+	i_resumesong
+	i_setchannels
+	i_setmusicvolume (volume: INTEGER_32)
+	i_stopsong
+	i_stopsound (channel: INTEGER_32)
+	i_unregistersong (handle: detachable ANY)
+	i_updatesound
+	i_updatesoundparams (channel, vol, sep: INTEGER_32)
+	initmusicmodule
+	initsfxmodule (use_sfx_prefix: BOOLEAN)
+	make (a_i_main: [like i_main] I_MAIN)
+

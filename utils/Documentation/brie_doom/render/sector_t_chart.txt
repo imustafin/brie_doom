@@ -1,0 +1,48 @@
+class
+	SECTOR_T
+
+General
+	cluster: render
+	description: 
+		"sector_t from r_defs.h
+		
+		The SECTORS record, at runtime.
+		Stores things/mobjs"
+	create: make, from_pointer
+
+Ancestors
+	ANY
+
+Queries
+	blockbox: ARRAY [INTEGER_32]
+	ceilingheight: FIXED_T
+	ceilingpic: INTEGER_16
+	floorheight: FIXED_T
+	floorpic: INTEGER_16
+	lightlevel: INTEGER_16
+	linecount: INTEGER_32
+	lines: ARRAYED_LIST [LINE_T]
+	soundorg: DEGENMOBJ_T
+	soundtarget: detachable MOBJ_T
+	soundtraversed: INTEGER_32
+	special: INTEGER_16
+	specialdata: detachable ANY
+	Structure_size: INTEGER_32
+	tag: INTEGER_16
+	thinglist: detachable MOBJ_T
+	validcount: INTEGER_32
+
+Commands
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32; i_main: I_MAIN)
+	make
+	set_ceilingheight (a_ceilingheight: [like ceilingheight] FIXED_T)
+	set_floorheight (a_floorheight: [like floorheight] FIXED_T)
+	set_linecount (a_linecount: [like linecount] INTEGER_32)
+	set_soundtarget (a_soundtarget: [like soundtarget] detachable MOBJ_T)
+	set_soundtraversed (a_soundtraversed: [like soundtraversed] INTEGER_32)
+	set_specialdata (a_specialdata: [like specialdata] detachable ANY)
+	set_thinglist (a_thinglist: [like thinglist] detachable MOBJ_T)
+	set_validcout (a_validcount: [like validcount] INTEGER_32)
+
+Constraints
+

@@ -1,0 +1,93 @@
+note
+	description: "mobjinfo_t from info.h"
+
+class 
+	MOBJINFO_T
+
+create 
+	default_create,
+	make
+
+feature 
+
+	make (a_doomednum: INTEGER_32; a_spawnstate: INTEGER_32; a_spawnhealth: INTEGER_32; a_seestate: INTEGER_32; a_seesound: INTEGER_32; a_reactiontime: INTEGER_32; a_attacksound: INTEGER_32; a_painstate: INTEGER_32; a_painchance: INTEGER_32; a_painsound: INTEGER_32; a_meleestate: INTEGER_32; a_missilestate: INTEGER_32; a_deathstate: INTEGER_32; a_xdeathstate: INTEGER_32; a_deathsound: INTEGER_32; a_speed: INTEGER_32; a_radius: INTEGER_32; a_height: INTEGER_32; a_mass: INTEGER_32; a_damage: INTEGER_32; a_activesound: INTEGER_32; a_flags: INTEGER_32; a_raisestate: INTEGER_32)
+		do
+			doomednum := a_doomednum
+			spawnstate := a_spawnstate
+			spawnhealth := a_spawnhealth
+			seestate := a_seestate
+			seesound := a_seesound
+			reactiontime := a_reactiontime
+			attacksound := a_attacksound
+			painstate := a_painstate
+			painchance := a_painchance
+			painsound := a_painsound
+			meleestate := a_meleestate
+			missilestate := a_missilestate
+			deathstate := a_deathstate
+			xdeathstate := a_xdeathstate
+			deathsound := a_deathsound
+			speed := a_speed
+			radius := a_radius
+			height := a_height
+			mass := a_mass
+			damage := a_damage
+			activesound := a_activesound
+			flags := a_flags
+			raisestate := a_raisestate
+		end
+	
+feature 
+
+	doomednum: INTEGER_32
+
+	spawnstate: INTEGER_32
+
+	spawnhealth: INTEGER_32
+
+	seestate: INTEGER_32
+
+	seesound: INTEGER_32
+
+	reactiontime: INTEGER_32
+
+	attacksound: INTEGER_32
+
+	painstate: INTEGER_32
+
+	painchance: INTEGER_32
+
+	painsound: INTEGER_32
+
+	meleestate: INTEGER_32
+
+	missilestate: INTEGER_32
+
+	deathstate: INTEGER_32
+
+	xdeathstate: INTEGER_32
+
+	deathsound: INTEGER_32
+
+	speed: INTEGER_32 assign set_speed
+
+	set_speed (a_speed: like speed)
+		do
+			speed := a_speed
+		end
+
+	radius: INTEGER_32
+
+	height: INTEGER_32
+
+	mass: INTEGER_32
+
+	damage: INTEGER_32
+
+	activesound: INTEGER_32
+
+	flags: INTEGER_32
+
+	raisestate: INTEGER_32
+	
+end -- class MOBJINFO_T

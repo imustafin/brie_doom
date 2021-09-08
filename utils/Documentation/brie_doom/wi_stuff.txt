@@ -1,0 +1,1038 @@
+note
+	description: "[
+		wi_stuff.c
+		Intermission screens.
+	]"
+
+class 
+	WI_STUFF
+
+inherit
+	DOOMDEF_H
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			numanims := <<epsd0animinfo.count, epsd1animinfo.count, epsd2animinfo.count>>
+			numanims.rebase (0)
+			anims := <<epsd0animinfo, epsd1animinfo, epsd2animinfo>>
+			anims.rebase (0)
+			create bp.make_filled (Void, 0, Maxplayers - 1)
+			create p.make_filled (Void, 0, Maxplayers - 1)
+			create num.make_filled (Void, 0, 9)
+			create yah.make_filled (Void, 0, 1)
+			create cnt_secret.make_filled (0, 0, Maxplayers - 1)
+			create cnt_items.make_filled (0, 0, Maxplayers - 1)
+			create cnt_kills.make_filled (0, 0, Maxplayers - 1)
+		end
+	
+feature -- GLOBAL LOCATIONS
+
+	Wi_titley: INTEGER_32 = 2
+
+	Wi_spacingy: INTEGER_32 = 33
+			-- SINGPLE-PLAYER STUFF
+
+	Sp_statsx: INTEGER_32 = 50
+
+	Sp_statsy: INTEGER_32 = 50
+
+	Sp_timex: INTEGER_32 = 16
+
+	Sp_timey: INTEGER_32
+		once
+			Result := (Screenheight - 32)
+		end
+	
+feature 
+
+	Shownextlocdelay: INTEGER_32 = 4
+			-- in seconds
+	
+feature 
+
+	wbs: detachable WBSTARTSTRUCT_T
+
+	plrs: detachable ARRAY [WBPLAYERSTRUCT_T]
+	
+feature -- animenum_t
+
+	Anim_always: INTEGER_32 = 0
+
+	Anim_random: INTEGER_32 = 1
+
+	Anim_level: INTEGER_32 = 2
+	
+feature -- stateenum_t
+
+	Nostate: INTEGER_32 = -1
+
+	Statcount: INTEGER_32 = 0
+
+	Shownextloc: INTEGER_32 = 1
+	
+feature 
+
+	Numepisodes: INTEGER_32 = 4
+
+	Nummaps: INTEGER_32 = 9
+	
+feature 
+
+	epsd0animinfo: ARRAY [ANIM_T]
+		do
+			Result := <<create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (224, 104)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (184, 160)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (112, 136)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (72, 112)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (88, 96)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (64, 48)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (192, 40)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (136, 16)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (80, 16)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (64, 24))>>
+			Result.rebase (0)
+		ensure
+				Result.lower = 0
+		end
+
+	epsd1animinfo: ARRAY [ANIM_T]
+		do
+			Result := <<create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 1), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 2), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 3), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 4), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 5), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 6), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 7), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 3, create {POINT_T}.make (192, 144), 8), create {ANIM_T}.make2 (Anim_level, Ticrate // 3, 1, create {POINT_T}.make (128, 136), 8)>>
+			Result.rebase (0)
+		ensure
+				Result.lower = 0
+		end
+
+	epsd2animinfo: ARRAY [ANIM_T]
+		do
+			Result := <<create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (104, 168)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (40, 136)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (160, 96)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (104, 80)), create {ANIM_T}.make (Anim_always, Ticrate // 3, 3, create {POINT_T}.make (120, 32)), create {ANIM_T}.make (Anim_always, Ticrate // 4, 3, create {POINT_T}.make (40, 0))>>
+			Result.rebase (0)
+		ensure
+				Result.lower = 0
+		end
+
+	lnodes: ARRAY [ARRAY [POINT_T]]
+		do
+			Result := <<<<create {POINT_T}.make (185, 164), create {POINT_T}.make (148, 143), create {POINT_T}.make (69, 122), create {POINT_T}.make (209, 102), create {POINT_T}.make (116, 89), create {POINT_T}.make (166, 55), create {POINT_T}.make (71, 56), create {POINT_T}.make (135, 29), create {POINT_T}.make (71, 24)>>, <<create {POINT_T}.make (254, 25), create {POINT_T}.make (97, 50), create {POINT_T}.make (188, 64), create {POINT_T}.make (128, 78), create {POINT_T}.make (214, 92), create {POINT_T}.make (133, 130), create {POINT_T}.make (208, 136), create {POINT_T}.make (148, 140), create {POINT_T}.make (235, 158)>>, <<create {POINT_T}.make (156, 168), create {POINT_T}.make (48, 154), create {POINT_T}.make (174, 95), create {POINT_T}.make (265, 75), create {POINT_T}.make (130, 48), create {POINT_T}.make (279, 23), create {POINT_T}.make (198, 48), create {POINT_T}.make (140, 25), create {POINT_T}.make (281, 136)>>>>
+			Result.rebase (0)
+			across
+				Result as ri
+			loop
+				ri.item.rebase (0)
+			end
+		end
+	
+feature 
+
+	numanims: ARRAY [INTEGER_32]
+
+	anims: ARRAY [ARRAY [ANIM_T]]
+
+	numcmaps: INTEGER_32
+
+	snl_pointeron: BOOLEAN
+	
+feature 
+
+	me: INTEGER_32
+			-- wbs->pnum
+
+	acceleratestage: INTEGER_32
+			-- used to accelerate or skip a stage
+
+	state: INTEGER_32
+			-- specifies current state (stateenum_t)
+
+	firstrefresh: INTEGER_32
+			-- signals to refresh everything for one frame
+
+	cnt: INTEGER_32
+			-- used for general timing
+
+	bcnt: INTEGER_32
+			-- used for timing of background animation
+
+	sp_state: INTEGER_32
+
+	cnt_kills: ARRAY [INTEGER_32]
+
+	cnt_items: ARRAY [INTEGER_32]
+
+	cnt_secret: ARRAY [INTEGER_32]
+
+	cnt_time: INTEGER_32
+
+	cnt_par: INTEGER_32
+
+	cnt_pause: INTEGER_32
+	
+feature -- GRAPHICS
+-- background (map of levels).
+
+	bg: detachable PATCH_T
+			-- You Are Here graphic
+
+	yah: ARRAY [detachable PATCH_T]
+			-- splat
+
+	splat: detachable PATCH_T
+			-- %, : graphics
+
+	percent: detachable PATCH_T
+
+	colon: detachable PATCH_T
+			-- 0-9 graphic
+
+	num: ARRAY [detachable PATCH_T]
+			-- minus sign
+
+	wiminus: detachable PATCH_T
+			-- "Finished!" graphics
+
+	finished: detachable PATCH_T
+			-- "Entering" graphic
+
+	entering: detachable PATCH_T
+			-- "secret"
+
+	sp_secret: detachable PATCH_T
+			-- "Kills", "Scrt", "Items", "Frags"
+
+	kills: detachable PATCH_T
+
+	secret: detachable PATCH_T
+
+	items: detachable PATCH_T
+
+	frags: detachable PATCH_T
+			-- Time sucks.
+
+	time: detachable PATCH_T
+
+	par: detachable PATCH_T
+
+	sucks: detachable PATCH_T
+			-- "killers", "victims"
+
+	killers: detachable PATCH_T
+
+	victims: detachable PATCH_T
+			-- "Total", your face, your dead face
+
+	total: detachable PATCH_T
+
+	star: detachable PATCH_T
+
+	bstar: detachable PATCH_T
+			-- "red P[1..MAXPLAYERS]"
+
+	p: ARRAY [detachable PATCH_T]
+			-- "gray P[1..MAXPLAYERS]"
+
+	bp: ARRAY [detachable PATCH_T]
+			-- Name graphics of each level (centered)
+
+	lnames: detachable ARRAY [detachable PATCH_T]
+	
+feature -- Drawing
+
+	wi_drawdeathmatchstats
+		do
+			{I_MAIN}.i_error ("WI_drawDeathmatchStats not implemented")
+		end
+
+	wi_drawnetgamestats
+		do
+			{I_MAIN}.i_error ("WI_drawNetgameStats not implemented")
+		end
+
+	wi_drawel
+			-- Draws "Entering <LevelName>"
+		local
+			y: INTEGER_32
+		do
+			y := Wi_titley
+			check
+					attached entering as l_entering
+			then
+				i_main.V_video.v_drawpatch ((Screenwidth - l_entering.width.to_integer_32) // 2, y, l_entering)
+			end
+			check
+					attached wbs as l_wbs and then attached lnames as lns and then attached lns [l_wbs.next] as next
+			then
+				y := y + (5 * next.height.to_integer_32) // 4
+				i_main.V_video.v_drawpatch ((Screenwidth - next.width.to_integer_32) // 2, y, next)
+			end
+		end
+
+	wi_drawonlnode (n: INTEGER_32; c: ARRAY [PATCH_T])
+		local
+			i: INTEGER_32
+			left: INTEGER_32
+			top: INTEGER_32
+			right: INTEGER_32
+			bottom: INTEGER_32
+			fits: BOOLEAN
+		do
+			from
+				i := 0
+			until
+				fits or i = 2
+			loop
+				check
+						attached wbs as l_wbs
+				then
+					left := lnodes [l_wbs.epsd] [n].x - c [i].leftoffset.to_integer_32
+					top := lnodes [l_wbs.epsd] [n].y - c [i].topoffset.to_integer_32
+					right := left + c [i].width.to_integer_32
+					bottom := top + c [i].height.to_integer_32
+					if left >= 0 and right <= Screenwidth and top >= 0 and bottom < Screenheight then
+						fits := True
+					else
+						i := i + 1
+					end
+					if fits and i < 2 then
+						i_main.V_video.v_drawpatch (lnodes [l_wbs.epsd] [n].x, lnodes [l_wbs.epsd] [n].y, c [i])
+					else
+						print ("Could not place patch on level " + (n + 1).out + "%N")
+					end
+				end
+			end
+		end
+
+	wi_drawshownextloc
+		local
+			i: INTEGER_32
+			last: INTEGER_32
+			returned: BOOLEAN
+			splat_ar, yah_ar: ARRAY [PATCH_T]
+		do
+			check
+					attached splat as l_splat
+			then
+				splat_ar := <<l_splat>>
+				splat_ar.rebase (0)
+			end
+			wi_slambackground
+			wi_drawanimatedback
+			if i_main.Doomstat_h.gamemode /= {GAME_MODE_T}.commercial then
+				check
+						attached wbs as l_wbs
+				then
+					if l_wbs.epsd > 2 then
+						wi_drawel
+						returned := True
+					end
+					if not returned then
+						last := if l_wbs.last = 8 then
+							l_wbs.next - 1
+						else
+							l_wbs.last
+						end
+						from
+							i := 0
+						until
+							i > last
+						loop
+							wi_drawonlnode (i, splat_ar)
+							i := i + 1
+						end
+						if l_wbs.didsecret then
+							wi_drawonlnode (8, splat_ar)
+						end
+						if snl_pointeron then
+							check
+									attached yah [0] as yah0 and then attached yah [1] as yah1
+							then
+								yah_ar := <<yah0, yah1>>
+								yah_ar.rebase (0)
+								wi_drawonlnode (l_wbs.next, yah_ar)
+							end
+						end
+					end
+				end
+			end
+			if not returned then
+				check
+						attached wbs as l_wbs
+				then
+					if i_main.Doomstat_h.gamemode /= {GAME_MODE_T}.commercial or l_wbs.next /= 30 then
+						wi_drawel
+					end
+				end
+			end
+		end
+
+	wi_drawnostate
+		do
+			snl_pointeron := True
+			wi_drawshownextloc
+		end
+
+	wi_slambackground
+			-- from chocolate doom
+		do
+			check
+					attached bg as l_bg
+			then
+				i_main.V_video.v_drawpatch (0, 0, l_bg)
+			end
+		end
+
+	wi_drawanimatedback
+		do
+		end
+
+	wi_drawlf
+			-- Draws "<Levelname> Finished!"
+		local
+			y: INTEGER_32
+		do
+			check
+					attached wbs as l_wbs and then attached lnames as lns and then attached lns [l_wbs.last] as lname
+			then
+				y := Wi_titley
+				i_main.V_video.v_drawpatch ((Screenwidth - lname.width.to_integer_32) // 2, y, lname)
+				y := y + (5 * lname.height.to_integer_32) // 4
+				check
+						attached finished as l_finished
+				then
+					i_main.V_video.v_drawpatch ((Screenwidth - l_finished.width.to_integer_32) // 2, y, l_finished)
+				end
+			end
+		end
+
+	wi_drawpercent (x, y, a_p: INTEGER_32)
+		do
+			if a_p >= 0 then
+				check
+						attached percent as l_percent
+				then
+					i_main.V_video.v_drawpatch (x, y, l_percent)
+				end
+				wi_drawnum (x, y, a_p, -1).do_nothing
+			end
+		end
+
+	wi_drawtime (a_x, y, t: INTEGER_32)
+			-- Display level completion time and par,
+			-- or "sucks" message if overflow
+		local
+			div: INTEGER_32
+			n: INTEGER_32
+			did: BOOLEAN
+			x: INTEGER_32
+		do
+			x := a_x
+			if t >= 0 then
+				if t <= 61 * 59 then
+					div := 1
+					from
+					until
+						did and t // div = 0
+					loop
+						did := True
+						n := (t // div) \\ 60
+						check
+								attached colon as l_colon
+						then
+							x := wi_drawnum (x, y, n, 2) - l_colon.width.to_integer_32
+						end
+						div := div * 60
+						if div = 60 or t // div /= 0 then
+							check
+									attached colon as l_colon
+							then
+								i_main.V_video.v_drawpatch (x, y, l_colon)
+							end
+						end
+					end
+				else
+					check
+							attached sucks as l_sucks
+					then
+						i_main.V_video.v_drawpatch (x - l_sucks.width.to_integer_32, y, l_sucks)
+					end
+				end
+			end
+		end
+
+	wi_drawnum (a_x, y, a_n, a_digits: INTEGER_32): INTEGER_32
+			-- Draws a number.
+			-- If digits > 0, then use that many digits minimum,
+			-- otherwise only use as many as neccessary.
+			-- Returns new x position
+		local
+			fontwidth: INTEGER_32
+			neg: BOOLEAN
+			temp: INTEGER_32
+			digits: INTEGER_32
+			x: INTEGER_32
+			n: INTEGER_32
+		do
+			x := a_x
+			digits := a_digits
+			n := a_n
+			check
+					attached num [0] as num0
+			then
+				fontwidth := num0.width.to_integer_32
+			end
+			if digits < 0 then
+				if n = 0 then
+					digits := 1
+				else
+					digits := n.out.count
+				end
+			end
+			neg := n < 0
+			if neg then
+				n := - n
+			end
+			if n = 1994 then
+				Result := 0
+			else
+				from
+				until
+					digits = 0
+				loop
+					digits := digits - 1
+					x := x - fontwidth
+					check
+							attached num [n \\ 10] as num_patch
+					then
+						i_main.V_video.v_drawpatch (x, y, num_patch)
+					end
+					n := n // 10
+				end
+				if neg then
+					x := x - 8
+					check
+							attached wiminus as wmn
+					then
+						i_main.V_video.v_drawpatch (x, y, wmn)
+					end
+				end
+				Result := x
+			end
+		end
+
+	wi_drawstats
+		local
+			lh: INTEGER_32
+		do
+			check
+					attached num [0] as n0
+			then
+				lh := (3 * n0.height.to_integer_32) // 2
+			end
+			wi_slambackground
+			wi_drawanimatedback
+			wi_drawlf
+			check
+					attached kills as l_kills
+			then
+				i_main.V_video.v_drawpatch (Sp_statsx, Sp_statsy, l_kills)
+			end
+			wi_drawpercent (Screenwidth - Sp_statsx, Sp_statsy, cnt_kills [0])
+			check
+					attached items as l_items
+			then
+				i_main.V_video.v_drawpatch (Sp_statsx, Sp_statsy + lh, l_items)
+			end
+			wi_drawpercent (Screenwidth - Sp_statsx, Sp_statsy + lh, cnt_items [0])
+			check
+					attached sp_secret as l_sp_secret
+			then
+				i_main.V_video.v_drawpatch (Sp_statsx, Sp_statsy + 2 * lh, l_sp_secret)
+			end
+			wi_drawpercent (Screenwidth - Sp_statsx, Sp_statsy + 2 * lh, cnt_secret [0])
+			check
+					attached time as l_time
+			then
+				i_main.V_video.v_drawpatch (Sp_timex, Sp_timey, l_time)
+			end
+			wi_drawtime (Screenwidth // 2 - Sp_timex, Sp_timey, cnt_time)
+			check
+					attached wbs as l_wbs
+			then
+				if l_wbs.epsd < 3 then
+					check
+							attached par as l_par
+					then
+						i_main.V_video.v_drawpatch (Screenwidth // 2 + Sp_timex, Sp_timey, l_par)
+					end
+					wi_drawtime (Screenwidth - Sp_timex, Sp_timey, cnt_par)
+				end
+			end
+		end
+
+	wi_drawer
+		do
+			if state = Statcount then
+				if i_main.G_game.deathmatch then
+					wi_drawdeathmatchstats
+				elseif i_main.G_game.netgame then
+					wi_drawnetgamestats
+				else
+					wi_drawstats
+				end
+			elseif state = Shownextloc then
+				wi_drawshownextloc
+			elseif state = Nostate then
+				wi_drawnostate
+			end
+		end
+	
+feature 
+
+	wi_checkforaccelerate
+		local
+			i: INTEGER_32
+			player: PLAYER_T
+		do
+			from
+				i := 0
+			until
+				i >= Maxplayers
+			loop
+				player := i_main.G_game.Players [i]
+				if player.cmd.buttons & {D_EVENT}.bt_attack /= 0 then
+					if not player.attackdown then
+						acceleratestage := 1
+					end
+					player.attackdown := True
+				else
+					player.attackdown := False
+				end
+				if player.cmd.buttons & {D_EVENT}.bt_use /= 0 then
+					if not player.usedown then
+						acceleratestage := 1
+					end
+					player.usedown := True
+				else
+					player.usedown := False
+				end
+				i := i + 1
+			end
+		end
+
+	wi_updatedeathmatchstats
+		do
+			{I_MAIN}.i_error ("WI_updateDeathmatchStats not implemented")
+		end
+
+	wi_updatenetgamestats
+		do
+			{I_MAIN}.i_error ("WI_updateNetgameStats not implemented")
+		end
+
+	wi_updatestats
+		do
+			wi_updateanimatedback
+			check
+					attached plrs as l_plrs and then attached l_plrs [me] as pme and then attached wbs as l_wbs
+			then
+				if acceleratestage /= 0 and sp_state /= 10 then
+					acceleratestage := 0
+					cnt_kills [0] := (pme.skills * 100) // l_wbs.maxkills
+					cnt_items [0] := (pme.sitems * 100) // l_wbs.maxitems
+					cnt_secret [0] := (pme.ssecret * 100) // l_wbs.maxsecret
+					cnt_time := pme.stime // Ticrate
+					cnt_par := l_wbs.partime // Ticrate
+					i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+					sp_state := 10
+				end
+				if sp_state = 2 then
+					cnt_kills [0] := cnt_kills [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_kills [0] >= (pme.skills * 100) // l_wbs.maxkills then
+						cnt_kills [0] := (pme.skills * 100) // l_wbs.maxkills
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 4 then
+					cnt_items [0] := cnt_items [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_items [0] >= (pme.sitems * 100) // l_wbs.maxitems then
+						cnt_items [0] := (pme.sitems * 100) // l_wbs.maxitems
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 6 then
+					cnt_secret [0] := cnt_secret [0] + 2
+					if bcnt & 3 = 0 then
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					if cnt_secret [0] >= (pme.ssecret * 100) // l_wbs.maxsecret then
+						cnt_secret [0] := (pme.ssecret * 100) // l_wbs.maxsecret
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+						sp_state := sp_state + 1
+					end
+				elseif sp_state = 8 then
+					if bcnt & 3 = 0 then
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_pistol)
+					end
+					cnt_time := cnt_time + 3
+					if cnt_time >= pme.stime // Ticrate then
+						cnt_time := pme.stime // Ticrate
+					end
+					cnt_par := cnt_par + 3
+					if cnt_par >= l_wbs.partime // Ticrate then
+						cnt_par := l_wbs.partime // Ticrate
+						if cnt_time >= pme.stime // Ticrate then
+							i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_barexp)
+							sp_state := sp_state + 1
+						end
+					end
+				elseif sp_state = 10 then
+					if acceleratestage /= 0 then
+						i_main.S_sound.s_startsound (Void, {SFXENUM_T}.sfx_sgcock)
+						if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+							wi_initnostate
+						else
+							wi_initshownextloc
+						end
+					end
+				elseif sp_state & 1 /= 0 then
+					cnt_pause := cnt_pause - 1
+					if cnt_pause = 0 then
+						sp_state := sp_state + 1
+						cnt_pause := Ticrate
+					end
+				end
+			end
+		end
+
+	wi_updateshownextloc
+		do
+			wi_updateanimatedback
+			cnt := cnt - 1
+			if cnt = 0 or acceleratestage /= 0 then
+				wi_initnostate
+			else
+				snl_pointeron := (cnt & 31) < 20
+			end
+		end
+
+	wi_initnostate
+		do
+			state := Nostate
+			acceleratestage := 0
+			cnt := 10
+		end
+
+	wi_initshownextloc
+		do
+			state := Shownextloc
+			acceleratestage := 0
+			cnt := Shownextlocdelay * Ticrate
+			wi_initanimatedback
+		end
+
+	wi_ticker
+			-- Updates stuff each tick
+		do
+			bcnt := bcnt + 1
+			if bcnt = 1 then
+				if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					i_main.S_sound.s_changemusic ({SOUNDS_H}.mus_dm2int, True)
+				else
+					i_main.S_sound.s_changemusic ({SOUNDS_H}.mus_inter, True)
+				end
+			end
+			wi_checkforaccelerate
+			if state = Statcount then
+				if i_main.G_game.deathmatch then
+					wi_updatedeathmatchstats
+				elseif i_main.G_game.netgame then
+					wi_updatenetgamestats
+				else
+					wi_updatestats
+				end
+			elseif state = Shownextloc then
+				wi_updateshownextloc
+			elseif state = Nostate then
+				wi_updatenostate
+			end
+		end
+
+	wi_updatenostate
+		do
+			wi_updateanimatedback
+			cnt := cnt - 1
+			if cnt = 0 then
+				wi_end
+				i_main.G_game.g_worlddone
+			end
+		end
+
+	wi_updateanimatedback
+		do
+		end
+
+	wi_initvariables (wbstartstruct: WBSTARTSTRUCT_T)
+		do
+			wbs := wbstartstruct
+			check
+					attached wbs as l_wbs
+			then
+				acceleratestage := 0
+				cnt := 0
+				bcnt := 0
+				firstrefresh := 1
+				me := l_wbs.pnum
+				plrs := l_wbs.Plyr
+				if l_wbs.maxkills = 0 then
+					l_wbs.maxkills := 1
+				end
+				if l_wbs.maxitems = 0 then
+					l_wbs.maxitems := 1
+				end
+				if l_wbs.maxsecret = 0 then
+					l_wbs.maxsecret := 1
+				end
+				if i_main.Doomstat_h.gamemode /= {GAME_MODE_T}.retail then
+					if l_wbs.epsd > 2 then
+						l_wbs.epsd := l_wbs.epsd - 3
+					end
+				end
+			end
+		end
+
+	two_digits (i: INTEGER_32): STRING_8
+		do
+			if i.out.count < 2 then
+				Result := "0" + i.out
+			else
+				Result := i.out
+			end
+		ensure
+				Result.count = 2
+				Result.to_integer = i
+		end
+
+	wi_loaddata
+		require
+				wbs /= Void
+		local
+			i: INTEGER_32
+			j: INTEGER_32
+			name: STRING_8
+			a: ANIM_T
+		do
+			check
+					attached wbs as l_wbs
+			then
+				if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					name := "INTERPIC"
+				else
+					name := "WIMAP" + l_wbs.epsd.out
+				end
+				if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.retail then
+					if l_wbs.epsd = 3 then
+						name := "INTERPIC"
+					end
+				end
+				bg := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname (name, {Z_ZONE}.pu_cache))
+				if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+					numcmaps := 32
+					create lnames.make_filled (Void, 0, 32 - 1)
+					from
+						i := 0
+					until
+						i >= numcmaps
+					loop
+						check
+								attached lnames as lns
+						then
+							lns [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("CWILV" + two_digits (i), {Z_ZONE}.pu_cache))
+						end
+						i := i + 1
+					end
+				else
+					create lnames.make_filled (Void, 0, Nummaps - 1)
+					from
+						i := 0
+					until
+						i >= Nummaps
+					loop
+						check
+								attached lnames as lns
+						then
+							lns [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WILV" + l_wbs.epsd.out + i.out, {Z_ZONE}.pu_cache))
+						end
+						i := i + 1
+					end
+					yah [0] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIURH0", {Z_ZONE}.pu_static))
+					yah [1] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIURH1", {Z_ZONE}.pu_static))
+					splat := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WISPLAT", {Z_ZONE}.pu_static))
+					if l_wbs.epsd < 3 then
+						from
+							j := 0
+						until
+							j >= numanims [l_wbs.epsd]
+						loop
+							a := anims [l_wbs.epsd] [j]
+							from
+								i := 0
+							until
+								i >= a.nanims
+							loop
+								if l_wbs.epsd /= 1 or j /= 0 then
+									a.p [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIA" + l_wbs.epsd.out + two_digits (j) + two_digits (i), {Z_ZONE}.pu_static))
+								else
+									a.p [i] := anims [1] [4].p [i]
+								end
+								i := i + 1
+							end
+							j := j + 1
+						end
+					end
+				end
+			end
+			wiminus := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIMINUS", {Z_ZONE}.pu_static))
+			from
+				i := 0
+			until
+				i >= 10
+			loop
+				num [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WINUM" + i.out, {Z_ZONE}.pu_static))
+				i := i + 1
+			end
+			percent := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIPCNT", {Z_ZONE}.pu_static))
+			finished := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIF", {Z_ZONE}.pu_static))
+			entering := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIENTER", {Z_ZONE}.pu_static))
+			kills := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIOSTK", {Z_ZONE}.pu_static))
+			secret := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIOSTS", {Z_ZONE}.pu_static))
+			sp_secret := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WISCRT2", {Z_ZONE}.pu_static))
+			if {DOOMDEF_H}.french /= 0 then
+				if i_main.G_game.netgame and not i_main.G_game.deathmatch then
+					items := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIOBJ", {Z_ZONE}.pu_static))
+				else
+					items := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIOSTI", {Z_ZONE}.pu_static))
+				end
+			else
+				items := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIOSTI", {Z_ZONE}.pu_static))
+			end
+			frags := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIFRGS", {Z_ZONE}.pu_static))
+			colon := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WICOLON", {Z_ZONE}.pu_static))
+			time := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WITIME", {Z_ZONE}.pu_static))
+			sucks := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WISUCKS", {Z_ZONE}.pu_static))
+			par := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIPAR", {Z_ZONE}.pu_static))
+			killers := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIKILRS", {Z_ZONE}.pu_static))
+			victims := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIVCTMS", {Z_ZONE}.pu_static))
+			total := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIMSTT", {Z_ZONE}.pu_static))
+			star := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("STFST01", {Z_ZONE}.pu_static))
+			bstar := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("STFDEAD0", {Z_ZONE}.pu_static))
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				p [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("STPB" + i.out, {Z_ZONE}.pu_static))
+				bp [i] := create {PATCH_T}.from_pointer (i_main.W_wad.w_cachelumpname ("WIBP" + (i + 1).out, {Z_ZONE}.pu_static))
+				i := i + 1
+			end
+		end
+
+	wi_initdeathmatchstats
+		do
+			{I_MAIN}.i_error ("WI_initDeathmatchStats not implemnted")
+		end
+
+	wi_initnetgamestats
+		do
+			{I_MAIN}.i_error ("WI_initNetgameStat not implemented")
+		end
+
+	wi_initstats
+		do
+			state := Statcount
+			acceleratestage := 0
+			sp_state := 1
+			cnt_kills [0] := -1
+			cnt_items [0] := -1
+			cnt_secret [0] := -1
+			cnt_time := -1
+			cnt_par := -1
+			cnt_pause := {DOOMDEF_H}.ticrate
+			wi_initanimatedback
+		end
+
+	wi_initanimatedback
+		local
+			i: INTEGER_32
+			a: ANIM_T
+		do
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+			else
+				check
+						attached wbs as l_wbs
+				then
+					if l_wbs.epsd > 2 then
+					else
+						from
+							i := 0
+						until
+							i >= numanims [l_wbs.epsd]
+						loop
+							a := anims [l_wbs.epsd] [i]
+							a.ctr := -1
+							if a.type = Anim_always then
+								a.nexttic := bcnt + 1 + (i_main.M_random.m_random \\ a.period)
+							elseif a.type = Anim_random then
+								a.nexttic := bcnt + 1 + a.data2 + (i_main.M_random.m_random \\ a.data1)
+							elseif a.type = Anim_level then
+								a.nexttic := bcnt + 1
+							end
+							i := i + 1
+						end
+					end
+				end
+			end
+		end
+
+	wi_end
+		do
+			wi_unloaddata
+		end
+
+	wi_unloaddata
+		do
+		end
+
+	wi_start (wbstartstruct: WBSTARTSTRUCT_T)
+		do
+			wi_initvariables (wbstartstruct)
+			wi_loaddata
+			if i_main.G_game.deathmatch then
+				wi_initdeathmatchstats
+			elseif i_main.G_game.netgame then
+				wi_initnetgamestats
+			else
+				wi_initstats
+			end
+		end
+	
+invariant
+		numanims.lower = 0
+		numanims.count = Numepisodes - 1
+		anims.lower = 0 and across
+			anims as ai
+		all
+			ai.item.lower = 0
+		end
+		anims.count = Numepisodes - 1
+		{UTILS [detachable PATCH_T]}.invariant_ref_array (p, Maxplayers)
+		{UTILS [detachable PATCH_T]}.invariant_ref_array (bp, Maxplayers)
+		{UTILS [detachable PATCH_T]}.invariant_ref_array (yah, 2)
+		{UTILS [detachable PATCH_T]}.invariant_ref_array (num, 10)
+		cnt_kills.lower = 0 and cnt_kills.count = Maxplayers
+		cnt_items.lower = 0 and cnt_items.count = Maxplayers
+		cnt_secret.lower = 0 and cnt_items.count = Maxplayers
+
+end -- class WI_STUFF

@@ -1,0 +1,27 @@
+class
+	TEST_FIXED_T
+
+General
+	cluster: tests
+	description: "Eiffel tests that can be executed by testing tool."
+
+Ancestors
+	EQA_TEST_SET*
+
+Queries
+	asserter: [like new_asserter] EQA_ASSERTIONS -- (from EQA_TEST_SET)
+	environment: EQA_ENVIRONMENT -- (from EQA_TEST_SET)
+	file_system: [like new_file_system] EQA_FILE_SYSTEM -- (from EQA_TEST_SET)
+	is_prepared: BOOLEAN -- (from EQA_TEST_SET)
+	Source_path_key: STRING_8 -- (from EQA_TEST_SET)
+	Target_path_key: STRING_8 -- (from EQA_TEST_SET)
+	Test_name_key: STRING_8 -- (from EQA_TEST_SET)
+	Testing_directory_key: STRING_8 -- (from EQA_TEST_SET)
+
+Commands
+	assert (a_tag: STRING_8; a_condition: BOOLEAN) -- (from EQA_TEST_SET)
+	assert_32 (a_tag: READABLE_STRING_GENERAL; a_condition: BOOLEAN) -- (from EQA_TEST_SET)
+	set_asserter (a: [like asserter] EQA_ASSERTIONS) -- (from EQA_TEST_SET)
+	test_abs_ref2_of_negative
+	test_abs_ref2_of_positive
+

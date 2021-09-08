@@ -1,0 +1,116 @@
+note
+	description: "mobjflag_t from p_mobj.h"
+
+class 
+	MOBJFLAG_T
+
+create 
+	default_create
+
+feature -- mobjflag_t;
+
+	Mf_special: INTEGER_32 = 1
+			-- Call P_SpecialThing when touched.
+
+	Mf_solid: INTEGER_32 = 2
+			-- Blocks.
+
+	Mf_shootable: INTEGER_32 = 4
+			-- Can be hit.
+
+	Mf_nosector: INTEGER_32 = 8
+			-- Don't use the sector links (invisible but touchable).
+
+	Mf_noblockmap: INTEGER_32 = 16
+			-- Don't use the blocklinks (inert but displayable)
+
+	Mf_ambush: INTEGER_32 = 32
+			--     // Not to be activated by sound, deaf monster.
+
+	Mf_justhit: INTEGER_32 = 64
+			-- Will try to attack right back.
+
+	Mf_justattacked: INTEGER_32 = 128
+			--     // Will take at least one step before attacking.
+
+	Mf_spawnceiling: INTEGER_32 = 256
+			-- On level spawning (initial position),
+			--  hang from ceiling instead of stand on floor.
+
+	Mf_nogravity: INTEGER_32 = 512
+			-- Don't apply gravity (every tic),
+			--  that is, object will float, keeping current height
+			--  or changing it actively.
+			-- Movement flags.
+
+	Mf_dropoff: INTEGER_32 = 1024
+			--     // This allows jumps from high places.
+
+	Mf_pickup: INTEGER_32 = 2048
+			-- For players, will pick up items.
+
+	Mf_noclip: INTEGER_32 = 4096
+			--     // Player cheat. ???
+
+	Mf_slide: INTEGER_32 = 8192
+			--     // Player: keep info about sliding along walls.
+
+	Mf_float: INTEGER_32 = 16384
+			-- Allow moves to any height, no gravity.
+			-- For active floaters, e.g. cacodemons, pain elementals.
+
+	Mf_teleport: INTEGER_32 = 32768
+			-- Don't cross lines
+			--   ??? or look at heights on teleport.
+
+	Mf_missile: INTEGER_32 = 65536
+			-- Don't hit same species, explode on block.
+			-- Player missiles as well as fireballs of various kinds.
+
+	Mf_dropped: INTEGER_32 = 131072
+			-- Dropped by a demon, not level spawned.
+			-- E.g. ammo clips dropped by dying former humans.
+
+	Mf_shadow: INTEGER_32 = 262144
+			-- Use fuzzy draw (shadow demons or spectres),
+			--  temporary player invisibility powerup.
+
+	Mf_noblood: INTEGER_32 = 524288
+			-- Flag: don't bleed when shot (use puff),
+			--  barrels and shootable furniture shall not bleed.
+
+	Mf_corpse: INTEGER_32 = 1048576
+			-- Don't stop moving halfway off a step,
+			--  that is, have dead bodies slide down all the way.
+
+	Mf_infloat: INTEGER_32 = 2097152
+			-- Floating to a height for a move, ???
+			--  don't auto float to target's height.
+
+	Mf_countkill: INTEGER_32 = 4194304
+			-- On kill, count this enemy object
+			--  towards intermission kill total.
+			-- Happy gathering.
+
+	Mf_countitem: INTEGER_32 = 8388608
+			-- On picking up, count this item object
+			-- towards intermission item total.
+
+	Mf_skullfly: INTEGER_32 = 16777216
+			-- Special handling: skull in flight.
+			-- Neither a cacodemon nor a missile.
+
+	Mf_notdmatch: INTEGER_32 = 33554432
+			-- Don't spawn this object
+			--  in death match mode (e.g. key cards).
+
+	Mf_translation: INTEGER_32 = 201326592
+			-- Player sprites in multiplayer modes are modified
+			--  using an internal color lookup table for re-indexing.
+			-- If 0x4 0x8 or 0xc,
+			--  use a translation table for player colormaps
+
+	Mf_transshift: INTEGER_32 = 26
+			-- Hmm ???.
+	
+end -- class MOBJFLAG_T

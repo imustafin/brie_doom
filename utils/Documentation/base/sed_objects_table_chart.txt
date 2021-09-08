@@ -1,0 +1,26 @@
+class
+	SED_OBJECTS_TABLE
+
+General
+	cluster: ise
+	description: 
+		"Equivalent of HASH_TABLE [NATURAL_32, ANY], since this type cannot be written
+		as ANY does not inherit from HASHABLE"
+	create: make, table_make
+
+Ancestors
+	HASH_TABLE [G, K -> detachable HASHABLE]
+	SED_ABSTRACT_OBJECTS_TABLE*
+
+Queries
+	capacity: INTEGER_32 -- (from HASH_TABLE)
+	index (an_obj: separate ANY): NATURAL_32
+	is_equal (other: [like Current] SED_OBJECTS_TABLE): BOOLEAN -- (from HASH_TABLE)
+
+Commands
+	copy (other: [like Current] SED_OBJECTS_TABLE) -- (from HASH_TABLE)
+	wipe_out
+
+Constraints
+	not is dotnet
+

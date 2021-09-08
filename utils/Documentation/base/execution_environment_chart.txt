@@ -1,0 +1,30 @@
+class
+	EXECUTION_ENVIRONMENT
+
+General
+	cluster: elks
+	description: "The objects available from the environment at time of execution"
+
+Ancestors
+	NATIVE_STRING_HANDLER
+
+Queries
+	Arguments: ARGUMENTS_32
+	available_cpu_count: NATURAL_32
+	current_working_path: PATH
+	Default_shell: STRING_32
+	Home_directory_path: detachable PATH
+	item (s: READABLE_STRING_GENERAL): detachable STRING_32
+	return_code: INTEGER_32
+	Root_directory_name: STRING_8
+	starting_environment: HASH_TABLE [STRING_32, STRING_32]
+	Temporary_directory_path: detachable PATH
+	User_directory_path: detachable PATH
+
+Commands
+	change_working_path (path: PATH)
+	launch (s: READABLE_STRING_GENERAL)
+	put (value, key: READABLE_STRING_GENERAL)
+	sleep (nanoseconds: INTEGER_64)
+	system (s: READABLE_STRING_GENERAL)
+

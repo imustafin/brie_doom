@@ -1,0 +1,64 @@
+class
+	SPECIAL [T]
+
+General
+	cluster: elks
+	description: 
+		"Special objects: homogeneous sequences of values,
+		used to represent arrays and strings"
+	create: make_empty, make_filled, make_from_native_array
+
+Ancestors
+	ABSTRACT_SPECIAL*
+	READABLE_INDEXABLE* [G]
+
+Queries
+	aliased_resized_area (n: INTEGER_32): [like Current] SPECIAL [T]
+	aliased_resized_area_with_default (a_default_value: T; n: INTEGER_32): [like Current] SPECIAL [T]
+	at alias "@" (i: INTEGER_32): T
+	base_address: POINTER
+	capacity: INTEGER_32
+	count: INTEGER_32
+	debug_output: STRING_8
+	filled_with (v: T; start_index, end_index: INTEGER_32): BOOLEAN
+	for_all_in_bounds (test: FUNCTION [T, BOOLEAN]; start_index, end_index: INTEGER_32): BOOLEAN
+	index_of (v: T; start_position: INTEGER_32): INTEGER_32
+	item alias "[]" (i: INTEGER_32): T
+	item_address (i: INTEGER_32): POINTER
+	Lower: INTEGER_32
+	native_array: NATIVE_ARRAY [T]
+	new_cursor: SPECIAL_ITERATION_CURSOR [T]
+	resized_area (n: INTEGER_32): [like Current] SPECIAL [T]
+	resized_area_with_default (a_default_value: T; n: INTEGER_32): [like Current] SPECIAL [T]
+	same_items (other: [like Current] SPECIAL [T]; source_index, destination_index, n: INTEGER_32): BOOLEAN
+	there_exists_in_bounds (test: FUNCTION [T, BOOLEAN]; start_index, end_index: INTEGER_32): BOOLEAN
+	to_array: ARRAY [T]
+	upper: INTEGER_32
+	valid_index (i: INTEGER_32): BOOLEAN
+
+Commands
+	copy_data (other: SPECIAL [T]; source_index, destination_index, n: INTEGER_32)
+	do_all_in_bounds (action: PROCEDURE [T]; start_index, end_index: INTEGER_32)
+	do_all_with_index_in_bounds (action: PROCEDURE [T, INTEGER_32]; start_index, end_index: INTEGER_32)
+	do_if_in_bounds (action: PROCEDURE [T]; test: FUNCTION [T, BOOLEAN]; start_index, end_index: INTEGER_32)
+	do_if_with_index_in_bounds (action: PROCEDURE [T, INTEGER_32]; test: FUNCTION [T, INTEGER_32, BOOLEAN]; start_index, end_index: INTEGER_32)
+	extend (v: T)
+	extend_filled (v: T)
+	fill_with (v: T; start_index, end_index: INTEGER_32)
+	fill_with_default (start_index, end_index: INTEGER_32)
+	force (v: T; i: INTEGER_32)
+	insert_data (other: SPECIAL [T]; source_index, destination_index, n: INTEGER_32)
+	keep_head (n: INTEGER_32)
+	keep_tail (n: INTEGER_32)
+	move_data (source_index, destination_index, n: INTEGER_32)
+	non_overlapping_move (source_index, destination_index, n: INTEGER_32)
+	overlapping_move (source_index, destination_index, n: INTEGER_32)
+	put (v: T; i: INTEGER_32)
+	remove_head (n: INTEGER_32)
+	remove_tail (n: INTEGER_32)
+	replace_all (v: T)
+	wipe_out
+
+Constraints
+	consistent count
+

@@ -1,0 +1,58 @@
+deferred class
+	STRING_TO_NUMERIC_CONVERTOR
+
+General
+	cluster: elks
+	description: "Abstract convertor for string to number conversion"
+
+Ancestors
+	NUMERIC_INFORMATION
+
+Queries
+	conversion_type: INTEGER_32
+	conversion_type_valid (type: INTEGER_32): BOOLEAN
+	double_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	integer_natural_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	integer_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	leading_separators: STRING_8
+	leading_separators_acceptable: BOOLEAN
+	max_integer_type: INTEGER_64 -- (from NUMERIC_INFORMATION)
+	max_natural_type: NATURAL_64 -- (from NUMERIC_INFORMATION)
+	natural_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	overflowed: BOOLEAN
+	parse_successful: BOOLEAN
+	real_double_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	real_type_valid (type: INTEGER_32): BOOLEAN -- (from NUMERIC_INFORMATION)
+	separators_valid (separators: STRING_8): BOOLEAN
+	trailing_separators: STRING_8
+	trailing_separators_acceptable: BOOLEAN
+	Type_count: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_double: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_16: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_32: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_64: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_8: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_integer_natural_separator: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_16: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_32: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_64: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_natural_8: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_no_limitation: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	Type_real: INTEGER_32 -- (from NUMERIC_INFORMATION)
+	underflowed: BOOLEAN
+
+Commands
+	parse_character (c: CHARACTER_8)
+	parse_string_with_type (s: READABLE_STRING_GENERAL; type: INTEGER_32)
+	reset (type: INTEGER_32)
+	set_leading_separators (separators: STRING_8)
+	set_leading_separators_acceptable (b: BOOLEAN)
+	set_trailing_separators (separators: STRING_8)
+	set_trailing_separators_acceptable (b: BOOLEAN)
+
+Constraints
+	leading separators not void
+	trailing separators not void
+

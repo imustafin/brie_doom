@@ -1,0 +1,279 @@
+note
+	description: "[
+		i_main.c
+		Main program, simply calls D_DoomMain high level loop
+	]"
+
+class 
+	I_MAIN
+
+inherit
+	ARGUMENTS_32
+
+create 
+	main
+
+feature -- Globals
+
+	Doomstat_h: DOOMSTAT_H
+		once
+			create Result.make
+		end
+
+	V_video: V_VIDEO
+		once
+			create Result.make (Current)
+		end
+
+	M_misc: M_MISC
+		once
+			create Result.make (Current)
+		end
+
+	Z_zone: Z_ZONE
+		once
+			create Result.make
+		end
+
+	W_wad: W_WAD
+		once
+			create Result.make (Current)
+		end
+
+	M_menu: M_MENU
+		once
+			create Result.make (Current)
+		end
+
+	R_main: R_MAIN
+		once
+			create Result.make (Current)
+		end
+
+	R_data: R_DATA
+		once
+			create Result.make (Current)
+		end
+
+	R_plane: R_PLANE
+		once
+			create Result.make (Current)
+		end
+
+	R_sky: R_SKY
+		once
+			create Result.make
+		end
+
+	R_draw: R_DRAW
+		once
+			create Result.make (Current)
+		end
+
+	P_setup: P_SETUP
+		once
+			create Result.make (Current)
+		end
+
+	P_switch: P_SWITCH
+		once
+			create Result.make (Current)
+		end
+
+	P_spec: P_SPEC
+		once
+			create Result.make
+		end
+
+	R_things: R_THINGS
+		once
+			create Result.make (Current)
+		end
+
+	Info: INFO
+		once
+			create Result.make
+		end
+
+	I_system: I_SYSTEM
+		once
+			create Result.make (Current)
+		end
+
+	I_sound: I_SOUND
+		once
+			create Result.make (Current)
+		end
+
+	D_net: D_NET
+		once
+			create Result.make (Current)
+		end
+
+	S_sound: S_SOUND
+		once
+			create Result.make (Current)
+		end
+
+	Hu_stuff: HU_STUFF
+		once
+			create Result.make (Current)
+		end
+
+	St_stuff: ST_STUFF
+		once
+			create Result.make (Current)
+		end
+
+	G_game: G_GAME
+		once
+			create Result.make (Current)
+		end
+
+	I_video: I_VIDEO
+		once
+			create Result.make (Current)
+		end
+
+	I_net: I_NET
+		once
+			create Result.make (Current)
+		end
+
+	D_main: D_MAIN
+		once
+			create Result.make (Current)
+		end
+
+	F_finale: F_FINALE
+		once
+			create Result.make
+		end
+
+	F_wipe: F_WIPE
+		once
+			create Result.make (Current)
+		end
+
+	Hu_lib: HU_LIB
+		once
+			create Result.make
+		end
+
+	Am_map: AM_MAP
+		once
+			create Result.make
+		end
+
+	Wi_stuff: WI_STUFF
+		once
+			create Result.make (Current)
+		end
+
+	M_random: M_RANDOM
+		once
+			create Result.make
+		end
+
+	I_midipipe: I_MIDIPIPE
+		once
+			create Result
+		end
+
+	P_tick: P_TICK
+		once
+			create Result.make (Current)
+		end
+
+	P_mobj: P_MOBJ
+		once
+			create Result.make (Current)
+		end
+
+	R_segs: R_SEGS
+		once
+			create Result.make (Current)
+		end
+
+	R_bsp: R_BSP
+		once
+			create Result.make (Current)
+		end
+
+	P_pspr: P_PSPR
+		once
+			create Result.make (Current)
+		end
+
+	P_maputl: P_MAPUTL
+		once
+			create Result.make (Current)
+		end
+
+	P_user: P_USER
+		once
+			create Result.make (Current)
+		end
+
+	D_display: D_DISPLAY
+		once
+			create Result.make (Current)
+		end
+
+	P_map: P_MAP
+		once
+			create Result.make (Current)
+		end
+
+	P_doors: P_DOORS
+		once
+			create Result.make (Current)
+		end
+
+	P_inter: P_INTER
+		once
+			create Result.make (Current)
+		end
+
+	P_floor: P_FLOOR
+		once
+			create Result.make (Current)
+		end
+
+	m_argv: M_ARGV
+
+	P_enemy: P_ENEMY
+		once
+			create Result.make (Current)
+		end
+
+	St_lib: ST_LIB
+		once
+			create Result.make (Current)
+		end
+
+	P_sight: P_SIGHT
+		once
+			create Result.make (Current)
+		end
+	
+feature {NONE} -- Initialization
+
+	main
+			-- Run application.
+		do
+			create m_argv.make (argument_array)
+			D_main.d_doommain
+		end
+	
+feature -- i_system.c
+
+	i_error (a_message: STRING_8)
+		do
+			print ("Error: " + a_message + "%N");
+			(create {DEVELOPER_EXCEPTION}).raise
+		ensure
+			instance_free: class
+		end
+	
+end -- class I_MAIN

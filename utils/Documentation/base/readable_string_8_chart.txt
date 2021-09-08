@@ -1,0 +1,125 @@
+deferred class
+	READABLE_STRING_8
+
+General
+	cluster: elks
+	description: 
+		"Sequences of 8-bit characters, accessible through integer indices
+		in a contiguous range. Read-only interface."
+
+Ancestors
+	READABLE_INDEXABLE* [G]
+	READABLE_STRING_GENERAL*
+
+Queries
+	as_lower: [like Current] READABLE_STRING_8 -- (from READABLE_STRING_GENERAL)
+	as_string_32: STRING_32 -- (from READABLE_STRING_GENERAL)
+	as_string_8: STRING_8 -- (from READABLE_STRING_GENERAL)
+	as_upper: [like Current] READABLE_STRING_8 -- (from READABLE_STRING_GENERAL)
+	at alias "@" (i: INTEGER_32): CHARACTER_8
+	capacity: INTEGER_32
+	case_insensitive_hash_code: INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	character_32_has (c: [like character_32_item] CHARACTER_32): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	character_32_index_of (c: [like character_32_item] CHARACTER_32; start_index: INTEGER_32): INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	character_32_item (i: INTEGER_32): CHARACTER_32 -- (from READABLE_STRING_GENERAL)
+	character_32_last_index_of (c: [like character_32_item] CHARACTER_32; start_index_from_end: INTEGER_32): INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	character_32_occurrences (c: CHARACTER_32): INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	code (i: INTEGER_32): NATURAL_32 -- (from READABLE_STRING_GENERAL)
+	count: INTEGER_32
+	ends_with (s: READABLE_STRING_8): BOOLEAN
+	ends_with_general (s: READABLE_STRING_GENERAL): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	False_constant: STRING_8 -- (from READABLE_STRING_GENERAL)
+	fuzzy_index (other: READABLE_STRING_GENERAL; start, fuzz: INTEGER_32): INTEGER_32
+	has (c: CHARACTER_8): BOOLEAN
+	has_code (c: [like code] NATURAL_32): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	has_substring (other: READABLE_STRING_GENERAL): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	hash_code: INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	head (n: INTEGER_32): [like Current] READABLE_STRING_8 -- (from READABLE_STRING_GENERAL)
+	index_of (c: CHARACTER_8; start_index: INTEGER_32): INTEGER_32
+	index_of_code (c: [like code] NATURAL_32; start_index: INTEGER_32): INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	is_boolean: BOOLEAN
+	is_case_insensitive_equal (other: READABLE_STRING_8): BOOLEAN
+	is_case_insensitive_equal_general (other: READABLE_STRING_GENERAL): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_double: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_empty: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_equal (other: [like Current] READABLE_STRING_8): BOOLEAN
+	is_greater alias ">" (other: [like Current] READABLE_STRING_8): BOOLEAN -- (from COMPARABLE)
+	is_greater_equal alias ">=" (other: [like Current] READABLE_STRING_8): BOOLEAN -- (from COMPARABLE)
+	is_hashable: BOOLEAN -- (from HASHABLE)
+	is_immutable: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_integer: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_integer_16: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_integer_32: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_integer_64: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_integer_8: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_less alias "<" (other: [like Current] READABLE_STRING_8): BOOLEAN
+	is_less_equal alias "<=" (other: [like Current] READABLE_STRING_8): BOOLEAN -- (from COMPARABLE)
+	is_natural: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_natural_16: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_natural_32: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_natural_64: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_natural_8: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_number_sequence: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_real: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_real_32: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_real_64: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	is_real_sequence: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	Is_string_32: BOOLEAN
+	Is_string_8: BOOLEAN
+	is_substring_whitespace (start_index, end_index: INTEGER_32): BOOLEAN
+	Is_valid_as_string_8: BOOLEAN
+	is_whitespace: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	item alias "[]" (i: INTEGER_32): CHARACTER_8
+	last_index_of (c: CHARACTER_8; start_index_from_end: INTEGER_32): INTEGER_32
+	last_index_of_code (c: [like code] NATURAL_32; start_index_from_end: INTEGER_32): INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	Lower: INTEGER_32
+	max (other: [like Current] READABLE_STRING_8): [like Current] READABLE_STRING_8 -- (from COMPARABLE)
+	min (other: [like Current] READABLE_STRING_8): [like Current] READABLE_STRING_8 -- (from COMPARABLE)
+	mirrored: [like Current] READABLE_STRING_8
+	new_character_32_cursor: STRING_ITERATION_CURSOR -- (from READABLE_STRING_GENERAL)
+	new_cursor: STRING_8_ITERATION_CURSOR
+	occurrences (c: CHARACTER_8): INTEGER_32
+	out: STRING_8
+	plus alias "+" (s: READABLE_STRING_GENERAL): [like Current] READABLE_STRING_8 -- (from READABLE_STRING_GENERAL)
+	same_caseless_characters (other: READABLE_STRING_8; start_pos, end_pos, index_pos: INTEGER_32): BOOLEAN
+	same_caseless_characters_general (other: READABLE_STRING_GENERAL; start_pos, end_pos, index_pos: INTEGER_32): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	same_characters (other: READABLE_STRING_8; start_pos, end_pos, index_pos: INTEGER_32): BOOLEAN
+	same_characters_general (other: READABLE_STRING_GENERAL; start_pos, end_pos, index_pos: INTEGER_32): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	same_string (other: READABLE_STRING_8): BOOLEAN
+	same_string_general (other: READABLE_STRING_GENERAL): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	shared_with (other: READABLE_STRING_8): BOOLEAN
+	split (a_separator: CHARACTER_32): LIST [[like Current] READABLE_STRING_8] -- (from READABLE_STRING_GENERAL)
+	starts_with (s: READABLE_STRING_8): BOOLEAN
+	starts_with_general (s: READABLE_STRING_GENERAL): BOOLEAN -- (from READABLE_STRING_GENERAL)
+	string: STRING_8
+	string_representation: STRING_8
+	substring (start_index, end_index: INTEGER_32): [like Current] READABLE_STRING_8
+	substring_index (other: READABLE_STRING_GENERAL; start_index: INTEGER_32): INTEGER_32
+	substring_index_in_bounds (other: READABLE_STRING_GENERAL; start_pos, end_pos: INTEGER_32): INTEGER_32
+	tail (n: INTEGER_32): [like Current] READABLE_STRING_8 -- (from READABLE_STRING_GENERAL)
+	three_way_comparison (other: [like Current] READABLE_STRING_8): INTEGER_32 -- (from COMPARABLE)
+	to_boolean: BOOLEAN -- (from READABLE_STRING_GENERAL)
+	to_cil: SYSTEM_STRING -- (from READABLE_STRING_GENERAL)
+	to_double: REAL_64 -- (from READABLE_STRING_GENERAL)
+	to_integer: INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	to_integer_16: INTEGER_16 -- (from READABLE_STRING_GENERAL)
+	to_integer_32: INTEGER_32 -- (from READABLE_STRING_GENERAL)
+	to_integer_64: INTEGER_64 -- (from READABLE_STRING_GENERAL)
+	to_integer_8: INTEGER_8 -- (from READABLE_STRING_GENERAL)
+	to_natural: NATURAL_32 -- (from READABLE_STRING_GENERAL)
+	to_natural_16: NATURAL_16 -- (from READABLE_STRING_GENERAL)
+	to_natural_32: NATURAL_32 -- (from READABLE_STRING_GENERAL)
+	to_natural_64: NATURAL_64 -- (from READABLE_STRING_GENERAL)
+	to_natural_8: NATURAL_8 -- (from READABLE_STRING_GENERAL)
+	to_real: REAL_32 -- (from READABLE_STRING_GENERAL)
+	to_real_32: REAL_32 -- (from READABLE_STRING_GENERAL)
+	to_real_64: REAL_64 -- (from READABLE_STRING_GENERAL)
+	to_string_32: STRING_32 -- (from READABLE_STRING_GENERAL)
+	to_string_8: STRING_8 -- (from READABLE_STRING_GENERAL)
+	True_constant: STRING_8 -- (from READABLE_STRING_GENERAL)
+	valid_code (v: NATURAL_32): BOOLEAN
+	valid_index (i: INTEGER_32): BOOLEAN -- (from READABLE_STRING_GENERAL)
+
+Constraints
+	area not void
+

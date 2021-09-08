@@ -1,0 +1,37 @@
+expanded class
+	TYPED_POINTER [G]
+
+General
+	cluster: elks
+	description: 
+		"References to objects containing reference to object
+		meant to be exchanged with non-Eiffel software."
+
+Ancestors
+	POINTER_REF
+
+Queries
+	hash_code: INTEGER_32 -- (from POINTER_REF)
+	is_default_pointer: BOOLEAN -- (from POINTER_REF)
+	is_equal (other: [like Current] TYPED_POINTER [G]): BOOLEAN -- (from POINTER_REF)
+	is_hashable: BOOLEAN -- (from POINTER_REF)
+	memory_alloc (a_size: INTEGER_32): POINTER -- (from POINTER_REF)
+	memory_calloc (a_count, a_element_size: INTEGER_32): POINTER -- (from POINTER_REF)
+	memory_compare (other: POINTER; a_size: INTEGER_32): BOOLEAN -- (from POINTER_REF)
+	memory_realloc (a_size: INTEGER_32): POINTER -- (from POINTER_REF)
+	out: STRING_8 -- (from POINTER_REF)
+	plus alias "+" (offset: INTEGER_32): POINTER -- (from POINTER_REF)
+	to_implement_assertion (comment: STRING_8): BOOLEAN -- (from REFACTORING_HELPER)
+	to_integer_32: INTEGER_32 -- (from POINTER_REF)
+	to_pointer: POINTER -- (from POINTER_REF)
+	to_reference: POINTER_REF -- (from POINTER_REF)
+
+Commands
+	fixme (comment: STRING_8) -- (from REFACTORING_HELPER)
+	memory_copy (a_source: POINTER; a_size: INTEGER_32) -- (from POINTER_REF)
+	memory_free -- (from POINTER_REF)
+	memory_move (a_source: POINTER; a_size: INTEGER_32) -- (from POINTER_REF)
+	memory_set (val, n: INTEGER_32) -- (from POINTER_REF)
+	set_item (p: POINTER) -- (from POINTER_REF)
+	to_implement (comment: STRING_8) -- (from REFACTORING_HELPER)
+

@@ -1,0 +1,23 @@
+class
+	EXCEPTION_MANAGER
+
+General
+	cluster: elks
+	description: "Common exception operations and management."
+
+Ancestors
+	ANY
+
+Queries
+	is_caught (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN
+	is_ignorable (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN
+	is_ignored (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN
+	is_raisable (a_exception: TYPE [detachable EXCEPTION]): BOOLEAN
+	last_exception: detachable EXCEPTION
+
+Commands
+	catch (a_exception: TYPE [detachable EXCEPTION])
+	ignore (a_exception: TYPE [detachable EXCEPTION])
+	raise (a_exception: EXCEPTION)
+	set_is_ignored (a_exception: TYPE [detachable EXCEPTION]; a_ignored: BOOLEAN)
+

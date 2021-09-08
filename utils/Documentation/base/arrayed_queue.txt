@@ -1,0 +1,515 @@
+note
+	description: "Unbounded queues, implemented by resizable arrays"
+	library: "Free implementation of ELKS library"
+	legal: "See notice at end of class."
+	status: "See notice at end of class."
+	names: dispenser, array
+	representation: array
+	access: fixed, fifo, membership
+	size: fixed
+	contents: generic
+	date: "$Date: 2018-12-15 18:06:16 +0000 (Sat, 15 Dec 2018) $"
+	revision: "$Revision: 102608 $"
+
+class 
+	ARRAYED_QUEUE [G]
+
+inherit
+	QUEUE [G]
+		redefine
+			is_empty,
+			is_equal,
+			copy,
+			prune_all
+		end
+
+	RESIZABLE [G]
+		redefine
+			is_equal,
+			copy,
+			is_empty
+		end
+
+	MISMATCH_CORRECTOR
+		export
+			{NONE} all
+		redefine
+			is_equal,
+			copy,
+			correct_mismatch
+		end
+
+create 
+	make
+
+feature {NONE} -- Initialization
+
+	make (n: INTEGER_32)
+			-- Create queue for at most `n` items.
+		require
+			non_negative_argument: n >= 0
+		do
+			create area.make_empty (n)
+			out_index := 1
+			count := 0
+		ensure
+			capacity_expected: capacity = n
+			is_empty: is_empty
+		end
+	
+feature -- Access
+
+	item: G
+			-- Oldest item.
+		do
+			Result := area.item (out_index - Lower)
+		end
+
+	has (v: like item): BOOLEAN
+			-- Does queue include `v`?
+			-- (Reference or object equality,
+			-- based on object_comparison.)
+		local
+			i, j, nb: INTEGER_32
+		do
+			i := out_index - Lower
+			j := count
+			nb := area.capacity
+			if object_comparison then
+				from
+				until
+					j = 0 or v ~ area.item (i)
+				loop
+					i := i + 1
+					if i = nb then
+						i := 0
+					end
+					j := j - 1
+				end
+			else
+				from
+				until
+					j = 0 or v = area.item (i)
+				loop
+					i := i + 1
+					if i = nb then
+						i := 0
+					end
+					j := j - 1
+				end
+			end
+			Result := j > 0
+		end
+	
+feature -- Iteration
+
+	new_cursor: ARRAYED_QUEUE_ITERATION_CURSOR [G]
+			-- Fresh cursor associated with current structure
+		do
+			create Result.make (Current)
+		end
+	
+feature -- Comparison
+
+	is_equal (other: like Current): BOOLEAN
+			-- Is `other` attached to an object considered
+			-- equal to current object?
+		local
+			i, j: INTEGER_32
+			nb, other_nb: INTEGER_32
+			c: INTEGER_32
+		do
+			c := count
+			if c = other.count and object_comparison = other.object_comparison then
+				i := out_index - Lower
+				j := other.out_index - Lower
+				nb := area.capacity
+				other_nb := other.area.capacity
+				Result := True
+				if object_comparison then
+					from
+					until
+						c = 0 or not Result
+					loop
+						Result := area.item (i) ~ other.area.item (j)
+						j := j + 1
+						if j > other_nb then
+							j := 0
+						end
+						i := i + 1
+						if i = nb then
+							i := 0
+						end
+						c := c - 1
+					end
+				else
+					from
+					until
+						c = 0 or not Result
+					loop
+						Result := area.item (i) = other.area.item (j)
+						j := j + 1
+						if j > other_nb then
+							j := 0
+						end
+						i := i + 1
+						if i = nb then
+							i := 0
+						end
+						c := c - 1
+					end
+				end
+			end
+		end
+	
+feature -- Measurement
+
+	count: INTEGER_32
+			-- Number of items
+
+	capacity: INTEGER_32
+			-- Number of items that may be stored
+		do
+			Result := area.capacity
+		end
+
+	occurrences (v: G): INTEGER_32
+			-- Number of times `v` appears in structure
+			-- (Reference or object equality,
+			-- based on object_comparison.)
+		local
+			i, j, nb: INTEGER_32
+		do
+			i := out_index - Lower
+			j := count
+			nb := area.capacity
+			if object_comparison then
+				from
+				until
+					j = 0
+				loop
+					if area.item (i) ~ v then
+						Result := Result + 1
+					end
+					i := i + 1
+					if i = nb then
+						i := 0
+					end
+					j := j - 1
+				end
+			else
+				from
+				until
+					j = 0
+				loop
+					if area.item (i) = v then
+						Result := Result + 1
+					end
+					i := i + 1
+					if i = nb then
+						i := 0
+					end
+					j := j - 1
+				end
+			end
+		end
+
+	index_set: INTEGER_INTERVAL
+			-- Range of acceptable indexes
+		do
+			create Result.make (1, count)
+		ensure then
+			count_definition: Result.count = count
+		end
+	
+feature -- Status report
+
+	is_empty: BOOLEAN
+			-- Is the structure empty?
+			-- Was declared in ARRAYED_QUEUE as synonym of off.
+		do
+			Result := count = 0
+		end
+
+	off: BOOLEAN
+			-- Is the structure empty?
+			-- Was declared in ARRAYED_QUEUE as synonym of is_empty.
+		do
+			Result := count = 0
+		end
+
+	extendible: BOOLEAN
+			-- May items be added? (Answer: yes.)
+		do
+			Result := True
+		end
+
+	prunable: BOOLEAN
+			-- May items be removed? (Answer: no.)
+		do
+			Result := False
+		end
+	
+feature -- Element change
+
+	extend (v: G)
+			-- Add `v` as newest item.
+			-- Was declared in ARRAYED_QUEUE as synonym of put and force.
+		local
+			l_capacity: like capacity
+			l_count: like count
+		do
+			l_capacity := capacity
+			l_count := count
+			if l_count >= l_capacity then
+				grow (l_capacity + additional_space)
+			end
+			area.force (v, in_index - Lower)
+			count := l_count + 1
+		end
+
+	put (v: G)
+			-- Add `v` as newest item.
+			-- Was declared in ARRAYED_QUEUE as synonym of extend and force.
+		local
+			l_capacity: like capacity
+			l_count: like count
+		do
+			l_capacity := capacity
+			l_count := count
+			if l_count >= l_capacity then
+				grow (l_capacity + additional_space)
+			end
+			area.force (v, in_index - Lower)
+			count := l_count + 1
+		end
+
+	force (v: G)
+			-- Add `v` as newest item.
+			-- Was declared in ARRAYED_QUEUE as synonym of extend and put.
+		local
+			l_capacity: like capacity
+			l_count: like count
+		do
+			l_capacity := capacity
+			l_count := count
+			if l_count >= l_capacity then
+				grow (l_capacity + additional_space)
+			end
+			area.force (v, in_index - Lower)
+			count := l_count + 1
+		end
+
+	replace (v: like item)
+			-- Replace oldest item by `v`.
+		do
+			area.put (v, out_index - Lower)
+		end
+	
+feature -- Duplication
+
+	copy (other: like Current)
+			-- Update current object using fields of object attached
+			-- to `other`, so as to yield equal objects.
+		do
+			if other /= Current then
+				standard_copy (other)
+				area := area.twin
+			end
+		end
+	
+feature -- Removal
+
+	remove
+			-- Remove oldest item.
+		require else
+			writable: writable
+		local
+			l_removed_index: like out_index
+		do
+			l_removed_index := out_index
+			out_index := l_removed_index \\ capacity + 1
+			count := count - 1
+			if count = 0 then
+				wipe_out
+			else
+				area.put (newest_item, l_removed_index - Lower)
+			end
+		end
+
+	prune (v: G)
+			-- Remove one occurrence of `v` if any.
+			-- (Reference or object equality,
+			-- based on object_comparison.)
+		do
+		end
+
+	prune_all (v: G)
+			-- Remove all occurrences of `v`.
+			-- (Reference or object equality,
+			-- based on object_comparison.)
+		do
+		end
+
+	wipe_out
+			-- Remove all items.
+		require else
+			prunable: True
+		do
+			area.wipe_out
+			out_index := 1
+			count := 0
+		end
+	
+feature -- Resizing
+
+	trim
+			-- Decrease capacity to the minimum value.
+			-- Apply to reduce allocated storage.
+		local
+			i: like Lower
+			j: like Lower
+			n: like count
+			m: like capacity
+		do
+			n := count
+			m := capacity
+			if n < m then
+				i := out_index - Lower
+				j := in_index - Lower
+				if i < j then
+					area.move_data (i, 0, n)
+					out_index := Lower
+				elseif n > 0 then
+					area.move_data (i, j, m - i)
+					out_index := j + Lower
+				end
+				area := area.aliased_resized_area (n)
+			end
+		ensure then
+			same_items: linear_representation ~ old linear_representation
+		end
+	
+feature -- Conversion
+
+	linear_representation: ARRAYED_LIST [G]
+			-- Representation as a linear structure
+			-- (in the original insertion order)
+		local
+			i, j, nb: INTEGER_32
+		do
+			from
+				i := out_index - Lower
+				j := count
+				nb := area.capacity
+				create Result.make (j)
+			until
+				j = 0
+			loop
+				Result.extend (area.item (i))
+				i := i + 1
+				if i = nb then
+					i := 0
+				end
+				j := j - 1
+			end
+		end
+	
+feature {NONE} -- Retrieval
+
+	correct_mismatch
+			-- Attempt to correct object mismatch using Mismatch_information.
+		do
+			if not Mismatch_information.has ("count") and then attached {SPECIAL [G]} Mismatch_information.item ("area") as a and then attached {INTEGER_32} Mismatch_information.item ("in_index") as i and then attached {INTEGER_32} Mismatch_information.item ("out_index") as o and then attached {BOOLEAN} Mismatch_information.item ("object_comparison") as c then
+				area := a
+				out_index := o
+				if a.capacity = 0 then
+					count := 0
+				else
+					count := (i - o + a.capacity) \\ a.capacity
+				end
+				object_comparison := c
+			else
+				Precursor
+			end
+		end
+	
+feature {ARRAYED_QUEUE, ARRAYED_QUEUE_ITERATION_CURSOR} -- Access
+
+	area: SPECIAL [G]
+			-- Storage for queue.
+
+	out_index: INTEGER_32
+			-- Position of oldest item.
+	
+feature {ARRAYED_QUEUE} -- Implementation
+
+	in_index: INTEGER_32
+			-- Position for next insertion
+		local
+			c: like capacity
+		do
+			c := capacity
+			if c > 0 then
+				Result := (out_index - Lower + count) \\ c + Lower
+			else
+				Result := out_index
+			end
+		end
+
+	grow (n: INTEGER_32)
+			-- Ensure that capacity is at least `i`.
+		local
+			old_count, new_capacity: like capacity
+			nb: INTEGER_32
+		do
+			new_capacity := area.capacity.max (n)
+			if count = 0 or else in_index > out_index then
+				area := area.aliased_resized_area (new_capacity)
+			else
+				old_count := area.count
+				area := area.aliased_resized_area_with_default (newest_item, new_capacity)
+				nb := old_count - out_index + 1
+				area.move_data (out_index - Lower, new_capacity - nb, nb)
+				out_index := new_capacity - nb + 1
+			end
+		end
+	
+feature {ARRAYED_QUEUE_ITERATION_CURSOR} -- Access
+
+	Lower: INTEGER_32 = 1
+			-- Lower bound for accessing list items via indexes
+	
+feature {NONE} -- Implementation
+
+	upper: INTEGER_32
+			-- Upper bound for accessing list items via indexes
+		do
+			Result := area.count
+		end
+
+	newest_item: G
+			-- Most recently added item.
+		local
+			l_pos: INTEGER_32
+		do
+			l_pos := in_index - 1
+			if l_pos = 0 then
+				Result := area.item (area.upper)
+			else
+				Result := area.item (l_pos - Lower)
+			end
+		end
+	
+note
+	copyright: "Copyright (c) 1984-2018, Eiffel Software and others"
+	license: "Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
+	source: "[
+		Eiffel Software
+		5949 Hollister Ave., Goleta, CA 93117 USA
+		Telephone 805-685-1006, Fax 805-685-6869
+		Website http://www.eiffel.com
+		Customer support http://support.eiffel.com
+	]"
+
+end -- class ARRAYED_QUEUE

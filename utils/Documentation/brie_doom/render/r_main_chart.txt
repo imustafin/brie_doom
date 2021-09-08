@@ -1,0 +1,137 @@
+class
+	R_MAIN
+
+General
+	cluster: render
+	description: 
+		"r_main.c
+		Rendering main loop and setup functions,
+		 utility functions (BSP, geometry, trigonometry).
+		See tables.c, too"
+	create: make
+
+Ancestors
+	DOOMDEF_H
+	TABLES
+
+Queries
+	Ang180: ANGLE_T -- (from TABLES)
+	Ang270: ANGLE_T -- (from TABLES)
+	Ang45: ANGLE_T -- (from TABLES)
+	Ang90: ANGLE_T -- (from TABLES)
+	Angletofineshift: INTEGER_32 -- (from TABLES)
+	basecolfunc: detachable PROCEDURE
+	centerx: INTEGER_32
+	centerxfrac: FIXED_T
+	centery: INTEGER_32
+	centeryfrac: FIXED_T
+	clipangle: ANGLE_T
+	colfunc: detachable PROCEDURE
+	Dbits: INTEGER_32 -- (from TABLES)
+	detailshift: INTEGER_32
+	Distmap: INTEGER_32
+	English: INTEGER_32 -- (from DOOMDEF_H)
+	extralight: INTEGER_32
+	Fieldofview: INTEGER_32
+	Fineangles: INTEGER_32 -- (from TABLES)
+	Finecosine: ARRAY [FIXED_T]
+	Finemask: INTEGER_32 -- (from TABLES)
+	Finesine: ARRAY [INTEGER_32] -- (from TABLES)
+	finesine_original: ARRAY [INTEGER_32] -- (from TABLES)
+	Finetangent: ARRAY [INTEGER_32] -- (from TABLES)
+	Finetangent_original: ARRAY [INTEGER_32] -- (from TABLES)
+	fixedcolormap: detachable INDEX_IN_ARRAY [LIGHTTABLE_T]
+	framecount: INTEGER_32
+	French: INTEGER_32 -- (from DOOMDEF_H)
+	fuzzcolfunc: detachable PROCEDURE
+	German: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_demoscreen: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_finale: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_intermission: INTEGER_32 -- (from DOOMDEF_H)
+	Gs_level: INTEGER_32 -- (from DOOMDEF_H)
+	i_main: I_MAIN
+	Infratics: INTEGER_32 -- (from DOOMDEF_H)
+	Invistics: INTEGER_32 -- (from DOOMDEF_H)
+	Invulntics: INTEGER_32 -- (from DOOMDEF_H)
+	Irontics: INTEGER_32 -- (from DOOMDEF_H)
+	Key_downarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_enter: INTEGER_32 -- (from DOOMDEF_H)
+	Key_f12: INTEGER_32 -- (from DOOMDEF_H)
+	Key_leftarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_pause: INTEGER_32 -- (from DOOMDEF_H)
+	Key_ralt: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rctrl: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rightarrow: INTEGER_32 -- (from DOOMDEF_H)
+	Key_rshift: INTEGER_32 -- (from DOOMDEF_H)
+	Key_uparrow: INTEGER_32 -- (from DOOMDEF_H)
+	Lightlevels: INTEGER_32
+	Lightscaleshift: INTEGER_32
+	Lightsegshift: INTEGER_32
+	Lightzshift: INTEGER_32
+	linecount: INTEGER_32
+	loopcount: INTEGER_32
+	Maxlightscale: INTEGER_32
+	Maxlightz: INTEGER_32
+	Maxplayers: INTEGER_32 -- (from DOOMDEF_H)
+	Mtf_ambush: INTEGER_32 -- (from DOOMDEF_H)
+	Numcolormaps: INTEGER_32
+	projection: FIXED_T
+	r_pointinsubsector (x, y: FIXED_T): SUBSECTOR_T
+	r_pointonsegside (x, y: FIXED_T; line: SEG_T): INTEGER_32
+	r_pointonside (x, y: FIXED_T; node: NODE_T): BOOLEAN
+	r_pointtoangle (a_x, a_y: FIXED_T): ANGLE_T
+	r_pointtoangle2 (x1, y1, x2, y2: FIXED_T): ANGLE_T
+	r_pointtodist (x, y: FIXED_T): FIXED_T
+	r_scalefromglobalangle (visangle: ANGLE_T): FIXED_T
+	scalelight: ARRAY [ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]]
+	scalelightfixed: ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]
+	Screenheight: INTEGER_32 -- (from DOOMDEF_H)
+	Screenwidth: INTEGER_32 -- (from DOOMDEF_H)
+	setblocks: INTEGER_32
+	setdetail: INTEGER_32
+	setsizeneeded: BOOLEAN
+	Sk_baby: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_easy: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_hard: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_medium: INTEGER_32 -- (from DOOMDEF_H)
+	Sk_nightmare: INTEGER_32 -- (from DOOMDEF_H)
+	Slopebits: INTEGER_32 -- (from TABLES)
+	slopediv (num, den: NATURAL_32): INTEGER_32 -- (from TABLES)
+	Sloperange: INTEGER_32 -- (from TABLES)
+	spanfunc: detachable PROCEDURE
+	sscount: INTEGER_32
+	Tantoangle: ARRAY [ANGLE_T] -- (from TABLES)
+	Tantoangle_original: ARRAY [INTEGER_32] -- (from TABLES)
+	Ticrate: INTEGER_32 -- (from DOOMDEF_H)
+	transcolfunc: detachable PROCEDURE
+	Unknown: INTEGER_32 -- (from DOOMDEF_H)
+	validcount: INTEGER_32
+	viewangle: ANGLE_T
+	viewangleoffset: INTEGER_32
+	viewangletox: ARRAY [INTEGER_32]
+	viewcos: FIXED_T
+	viewplayer: PLAYER_T
+	viewsin: FIXED_T
+	viewx: FIXED_T
+	viewy: FIXED_T
+	viewz: FIXED_T
+	Xtoviewangle: ARRAY [ANGLE_T]
+	zlight: ARRAY [ARRAY [detachable INDEX_IN_ARRAY [LIGHTTABLE_T]]]
+
+Commands
+	make (a_i_main: [like i_main] I_MAIN)
+	r_executesetviewsize
+	r_init
+	r_initlighttables
+	r_initpointtoangle
+	r_inittables
+	r_inittexturemapping
+	r_renderplayerview (player: PLAYER_T)
+	r_setupframe (player: PLAYER_T)
+	r_setviewsize (blocks, detail: INTEGER_32)
+	set_colfunc (a_colfunc: [like colfunc] detachable PROCEDURE)
+	set_sscount (a_sscount: [like sscount] INTEGER_32)
+	set_validcount (a_validcount: [like validcount] INTEGER_32)
+
+Constraints
+

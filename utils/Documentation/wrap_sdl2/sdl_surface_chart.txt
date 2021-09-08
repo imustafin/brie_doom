@@ -1,0 +1,42 @@
+class
+	SDL_SURFACE
+
+General
+	cluster: src
+	description: "Summary description for {SDL_SURFACE}."
+
+Ancestors
+	SDL_SURFACE_FUNCTIONS_API
+
+Queries
+	c_sdl_convert_surface (src, fmt: POINTER; flags: NATURAL_32): POINTER -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_fill_rect (dst, rect: POINTER; color: NATURAL_32): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_load_bmp_rw (src: POINTER; freesrc: INTEGER_32): POINTER -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_lock_surface (surface: POINTER): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_lower_blit (src, srcrect, dst, dstrect: POINTER): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_lower_blit_scaled (src, srcrect, dst, dstrect: POINTER): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_set_color_key (surface: POINTER; flag: INTEGER_32; key: NATURAL_32): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_upper_blit (src, srcrect, dst, dstrect: POINTER): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_upper_blit_scaled (src, srcrect, dst, dstrect: POINTER): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_convert_surface (src: SDL_SURFACE_STRUCT_API; fmt: detachable SDL_PIXEL_FORMAT_STRUCT_API; flags: NATURAL_32): detachable SDL_SURFACE_STRUCT_API
+	sdl_convert_surface_api (src: SDL_SURFACE_STRUCT_API; fmt: SDL_PIXEL_FORMAT_STRUCT_API; flags: NATURAL_32): detachable SDL_SURFACE_STRUCT_API -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_create_rgbsurface (flags: NATURAL_32; width, height, depth: INTEGER_32; rmask, gmask, bmask, amask: NATURAL_32): POINTER -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_fill_rect (dst: SDL_SURFACE_STRUCT_API; rect: detachable SDL_RECT_STRUCT_API; color: NATURAL_32): INTEGER_32
+	sdl_fill_rect_api (dst: SDL_SURFACE_STRUCT_API; rect: SDL_RECT_STRUCT_API; color: NATURAL_32): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_load_bmp_rw (src: SDL_RWOPS_STRUCT_API; freesrc: INTEGER_32): detachable SDL_SURFACE_STRUCT_API -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_lock_surface (surface: SDL_SURFACE_STRUCT_API): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_lower_blit (src: SDL_SURFACE_STRUCT_API; srcrect: SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: SDL_RECT_STRUCT_API): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_lower_blit_scaled (src: SDL_SURFACE_STRUCT_API; srcrect: SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: SDL_RECT_STRUCT_API): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_must_lock (surface: SDL_SURFACE_STRUCT_API): BOOLEAN
+	sdl_set_color_key (surface: SDL_SURFACE_STRUCT_API; flag: INTEGER_32; key: NATURAL_32): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_upper_blit (src: SDL_SURFACE_STRUCT_API; srcrect: detachable SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: detachable SDL_RECT_STRUCT_API): INTEGER_32
+	sdl_upper_blit_api (src: SDL_SURFACE_STRUCT_API; srcrect: SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: SDL_RECT_STRUCT_API): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_upper_blit_scaled (src: SDL_SURFACE_STRUCT_API; srcrect: detachable SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: detachable SDL_RECT_STRUCT_API): INTEGER_32
+	sdl_upper_blit_scaled_api (src: SDL_SURFACE_STRUCT_API; srcrect: SDL_RECT_STRUCT_API; dst: SDL_SURFACE_STRUCT_API; dstrect: SDL_RECT_STRUCT_API): INTEGER_32 -- (from SDL_SURFACE_FUNCTIONS_API)
+
+Commands
+	c_sdl_free_surface (surface: POINTER) -- (from SDL_SURFACE_FUNCTIONS_API)
+	c_sdl_unlock_surface (surface: POINTER) -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_free_surface (surface: SDL_SURFACE_STRUCT_API) -- (from SDL_SURFACE_FUNCTIONS_API)
+	sdl_unlock_surface (surface: SDL_SURFACE_STRUCT_API) -- (from SDL_SURFACE_FUNCTIONS_API)
+

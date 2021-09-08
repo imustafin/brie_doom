@@ -1,0 +1,428 @@
+note
+	description: "[
+		p_switch.c
+		Switches, buttons. Two-state animation. Exits.
+	]"
+
+class 
+	P_SWITCH
+
+inherit
+	STAIR_E
+
+	PLATTYPE_E
+
+	FLOOR_E
+
+	VLDOOR_E
+
+	CEILING_E
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		local
+			i: INTEGER_32
+		do
+			i_main := a_i_main
+			create switchlist.make_filled (0, 0, {P_SPEC}.maxswitches * 2 - 1)
+			create buttonlist.make_filled (create {BUTTON_T}, 0, {P_SPEC}.maxbuttons - 1)
+			from
+				i := buttonlist.lower
+			until
+				i > buttonlist.upper
+			loop
+				buttonlist [i] := create {BUTTON_T}
+				i := i + 1
+			end
+		end
+	
+feature 
+
+	numswitches: INTEGER_32
+
+	switchlist: ARRAY [INTEGER_32]
+
+	buttonlist: ARRAY [BUTTON_T]
+
+	Alphswitchlist: ARRAY [TUPLE [name1: STRING_8; name2: STRING_8; episode: INTEGER_32]]
+		once
+			Result := <<["SW1BRCOM", "SW2BRCOM", 1], ["SW1BRN1", "SW2BRN1", 1], ["SW1BRN2", "SW2BRN2", 1], ["SW1BRNGN", "SW2BRNGN", 1], ["SW1BROWN", "SW2BROWN", 1], ["SW1COMM", "SW2COMM", 1], ["SW1COMP", "SW2COMP", 1], ["SW1DIRT", "SW2DIRT", 1], ["SW1EXIT", "SW2EXIT", 1], ["SW1GRAY", "SW2GRAY", 1], ["SW1GRAY1", "SW2GRAY1", 1], ["SW1METAL", "SW2METAL", 1], ["SW1PIPE", "SW2PIPE", 1], ["SW1SLAD", "SW2SLAD", 1], ["SW1STARG", "SW2STARG", 1], ["SW1STON1", "SW2STON1", 1], ["SW1STON2", "SW2STON2", 1], ["SW1STONE", "SW2STONE", 1], ["SW1STRTN", "SW2STRTN", 1], ["SW1BLUE", "SW2BLUE", 2], ["SW1CMT", "SW2CMT", 2], ["SW1GARG", "SW2GARG", 2], ["SW1GSTON", "SW2GSTON", 2], ["SW1HOT", "SW2HOT", 2], ["SW1LION", "SW2LION", 2], ["SW1SATYR", "SW2SATYR", 2], ["SW1SKIN", "SW2SKIN", 2], ["SW1VINE", "SW2VINE", 2], ["SW1WOOD", "SW2WOOD", 2], ["SW1PANEL", "SW2PANEL", 3], ["SW1ROCK", "SW2ROCK", 3], ["SW1MET2", "SW2MET2", 3], ["SW1WDMET", "SW2WDMET", 3], ["SW1BRIK", "SW2BRIK", 3], ["SW1MOD1", "SW2MOD1", 3], ["SW1ZIM", "SW2ZIM", 3], ["SW1STON6", "SW2STON6", 3], ["SW1TEK", "SW2TEK", 3], ["SW1MARB", "SW2MARB", 3], ["SW1SKULL", "SW2SKULL", 3], ["\0", "\0", 0]>>
+			Result.rebase (0)
+		end
+	
+feature 
+
+	p_initswitchlist
+		local
+			i: INTEGER_32
+			index: INTEGER_32
+			episode: INTEGER_32
+			break: BOOLEAN
+		do
+			episode := 1
+			if i_main.Doomstat_h.gamemode = {GAME_MODE_T}.registered then
+				episode := 2
+			elseif i_main.Doomstat_h.gamemode = {GAME_MODE_T}.commercial then
+				episode := 3
+			end
+			from
+				index := 0
+				i := 0
+			until
+				break or i >= {P_SPEC}.maxswitches
+			loop
+				if Alphswitchlist [i].episode = 0 then
+					numswitches := index // 2
+					switchlist [index] := -1
+					break := True
+				else
+					if Alphswitchlist [i].episode <= episode then
+						switchlist [index] := i_main.R_data.r_texturenumforname (Alphswitchlist [i].name1)
+						index := index + 1
+						switchlist [index] := i_main.R_data.r_texturenumforname (Alphswitchlist [i].name2)
+						index := index + 1
+					end
+				end
+				i := i + 1
+			end
+		end
+
+	p_usespecialline (thing: MOBJ_T; line: LINE_T; side: INTEGER_32): BOOLEAN
+			-- Called when a thing uses a special line.
+			-- Only the front sides of lines are usable.
+		local
+			returned: BOOLEAN
+		do
+			if side /= 0 then
+				if line.special = 124 then
+				else
+					Result := False
+					returned := True
+				end
+			end
+			if not returned then
+				if thing.player = Void then
+					if line.flags.to_integer_32 & {DOOMDATA_H}.ml_secret /= 0 then
+						Result := False
+						returned := True
+					end
+					if not returned then
+						if line.special = 1 or line.special = 32 or line.special = 33 or line.special = 34 then
+						else
+							Result := False
+							returned := True
+						end
+					end
+				end
+			end
+			if not returned then
+				if line.special = 1 or line.special = 26 or line.special = 27 or line.special = 27 or line.special = 31 or line.special = 32 or line.special = 33 or line.special = 34 or line.special = 117 or line.special = 118 then
+					i_main.P_doors.ev_verticaldoor (line, thing)
+				elseif line.special = 7 then
+					if {P_FLOOR}.ev_buildstairs (line, Build8) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 9 then
+					if {P_SPEC}.ev_dodonut (line) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 11 then
+					p_changeswitchtexture (line, 0)
+					i_main.G_game.g_exitlevel
+				elseif line.special = 14 then
+					if {P_PLATS}.ev_doplat (line, Raiseandchange, 32) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 15 then
+					if {P_PLATS}.ev_doplat (line, Raiseandchange, 24) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 18 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloortonearest) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 20 then
+					if {P_PLATS}.ev_doplat (line, Raisetonearestandchange, 0) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 21 then
+					if {P_PLATS}.ev_doplat (line, Downwaitupstay, 0) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 23 then
+					if {P_FLOOR}.ev_dofloor (line, Lowerfloortolowest) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 29 then
+					if {P_DOORS}.ev_dodoor (line, Normal) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 41 then
+					if {P_CEILNG}.ev_doceiling (line, Lowertofloor) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 71 then
+					if {P_FLOOR}.ev_dofloor (line, Turbolower) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 49 then
+					if {P_CEILNG}.ev_doceiling (line, Crushandraise) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 50 then
+					if {P_DOORS}.ev_dodoor (line, Close) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 51 then
+					p_changeswitchtexture (line, 0)
+					i_main.G_game.g_secretexitlevel
+				elseif line.special = 55 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloorcrush) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 101 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloor) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 102 then
+					if {P_FLOOR}.ev_dofloor (line, Lowerfloor) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 103 then
+					if {P_DOORS}.ev_dodoor (line, Open) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 111 then
+					if {P_DOORS}.ev_dodoor (line, Blazeraise) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 112 then
+					if {P_DOORS}.ev_dodoor (line, Blazeopen) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 113 then
+					if {P_DOORS}.ev_dodoor (line, Blazeclose) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 122 then
+					if {P_PLATS}.ev_doplat (line, Blazedwus, 0) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 127 then
+					if {P_FLOOR}.ev_buildstairs (line, Turbo16) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 131 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloorturbo) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 133 or line.special = 135 or line.special = 137 then
+					if {P_DOORS}.ev_dolockeddoor (line, Blazeopen, thing) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 140 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloor512) then
+						p_changeswitchtexture (line, 0)
+					end
+				elseif line.special = 42 then
+					if {P_DOORS}.ev_dodoor (line, Close) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 43 then
+					if {P_CEILNG}.ev_doceiling (line, Lowertofloor) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 45 then
+					if {P_FLOOR}.ev_dofloor (line, Lowerfloor) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 60 then
+					if {P_FLOOR}.ev_dofloor (line, Lowerfloortolowest) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 61 then
+					if {P_DOORS}.ev_dodoor (line, Open) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 62 then
+					if {P_PLATS}.ev_doplat (line, Downwaitupstay, 1) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 63 then
+					if {P_DOORS}.ev_dodoor (line, Normal) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 64 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloor) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 66 then
+					if {P_PLATS}.ev_doplat (line, Raiseandchange, 24) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 67 then
+					if {P_PLATS}.ev_doplat (line, Raiseandchange, 32) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 65 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloorcrush) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 68 then
+					if {P_PLATS}.ev_doplat (line, Raisetonearestandchange, 0) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 69 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloortonearest) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 70 then
+					if {P_FLOOR}.ev_dofloor (line, Turbolower) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 114 then
+					if {P_DOORS}.ev_dodoor (line, Blazeraise) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 115 then
+					if {P_DOORS}.ev_dodoor (line, Blazeopen) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 116 then
+					if {P_DOORS}.ev_dodoor (line, Blazeclose) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 123 then
+					if {P_PLATS}.ev_doplat (line, Blazedwus, 0) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 132 then
+					if {P_FLOOR}.ev_dofloor (line, Raisefloorturbo) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 99 or line.special = 134 or line.special = 136 then
+					if {P_DOORS}.ev_dolockeddoor (line, Blazeopen, thing) then
+						p_changeswitchtexture (line, 1)
+					end
+				elseif line.special = 138 then
+					{P_LIGHTS}.ev_lightturnon (line, 255)
+					p_changeswitchtexture (line, 1)
+				elseif line.special = 139 then
+					{P_LIGHTS}.ev_lightturnon (line, 35)
+					p_changeswitchtexture (line, 1)
+				end
+			end
+			if not returned then
+				Result := True
+			end
+		end
+
+	p_changeswitchtexture (line: LINE_T; useagain: INTEGER_32)
+			-- Function that changes wall texture
+			-- Tell it if switch is ok to use again (1=yes, it's a button).
+		local
+			textop: INTEGER_32
+			texmid: INTEGER_32
+			texbot: INTEGER_32
+			i: INTEGER_32
+			sound: INTEGER_32
+			returned: BOOLEAN
+		do
+			if useagain = 0 then
+				line.special := 0
+			end
+			textop := i_main.P_setup.sides [line.sidenum [0].to_integer_32].toptexture.to_integer_32
+			texmid := i_main.P_setup.sides [line.sidenum [0].to_integer_32].midtexture.to_integer_32
+			texbot := i_main.P_setup.sides [line.sidenum [0].to_integer_32].bottomtexture.to_integer_32
+			sound := {SFXENUM_T}.sfx_swtchn
+			if line.special = 11 then
+				sound := {SFXENUM_T}.sfx_swtchx
+			end
+			from
+				i := 0
+			until
+				returned or i >= numswitches * 2
+			loop
+				i := i + 1
+				if switchlist [i] = textop then
+					i_main.S_sound.s_startsound (buttonlist [0].soundorg, sound)
+					i_main.P_setup.sides [line.sidenum [0].to_integer_32].midtexture := switchlist [i.bit_xor (1)].to_integer_16
+					if useagain /= 0 then
+						p_startbutton (line, {BUTTON_T}.top, switchlist [i], {P_SPEC}.buttontime)
+					end
+					returned := True
+				else
+					if switchlist [i] = texmid then
+						i_main.S_sound.s_startsound (buttonlist [0].soundorg, sound)
+						i_main.P_setup.sides [line.sidenum [0].to_integer_32].midtexture := switchlist [i.bit_xor (1)].to_integer_16
+						if useagain /= 0 then
+							p_startbutton (line, {BUTTON_T}.middle, switchlist [i], {P_SPEC}.buttontime)
+						end
+						returned := True
+					else
+						if switchlist [i] = texbot then
+							i_main.S_sound.s_startsound (buttonlist [0].soundorg, sound)
+							i_main.P_setup.sides [line.sidenum [0].to_integer_32].bottomtexture := switchlist [i.bit_xor (1)].to_integer_16
+							if useagain /= 0 then
+								p_startbutton (line, {BUTTON_T}.bottom, switchlist [i], {P_SPEC}.buttontime)
+							end
+							returned := True
+						end
+					end
+				end
+			end
+		end
+
+	p_startbutton (line: LINE_T; w: INTEGER_32; texture, time: INTEGER_32)
+			-- Start a button counting down till it turns off.
+		local
+			i: INTEGER_32
+			returned: BOOLEAN
+		do
+			from
+				i := 0
+			until
+				returned or i >= {P_SPEC}.maxbuttons
+			loop
+				if buttonlist [i].btimer /= 0 and buttonlist [i].line = line then
+					returned := True
+				end
+				i := i + 1
+			end
+			if not returned then
+				from
+					i := 0
+				until
+					returned or i >= {P_SPEC}.maxbuttons
+				loop
+					if buttonlist [i].btimer = 0 then
+						buttonlist [i].line := line
+						buttonlist [i].where := w
+						buttonlist [i].btexture := texture
+						buttonlist [i].btimer := time
+						check
+								attached line.frontsector as fs
+						then
+							buttonlist [i].soundorg := fs.soundorg
+						end
+						returned := True
+					end
+					i := i + 1
+				end
+			end
+			if not returned then
+				{I_MAIN}.i_error ("P_StartButton: no button slots left!")
+			end
+		end
+	
+invariant
+		switchlist.lower = 0 and switchlist.count = {P_SPEC}.maxswitches * 2
+		{UTILS [BUTTON_T]}.invariant_ref_array (buttonlist, {P_SPEC}.maxbuttons)
+
+end -- class P_SWITCH

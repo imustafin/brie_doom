@@ -1,0 +1,36 @@
+class
+	READABLE_INDEXABLE_ITERATION_CURSOR [G]
+
+General
+	cluster: elks
+	description: "Concrete version of an external iteration cursor for {READABLE_INDEXABLE}."
+	create: make
+
+Ancestors
+	TYPED_INDEXABLE_ITERATION_CURSOR* [G, H -> READABLE_INDEXABLE [G]]
+
+Queries
+	after: BOOLEAN
+	cursor_index: INTEGER_32
+	decremented alias "-" (n: [like step] INTEGER_32): [like Current] READABLE_INDEXABLE_ITERATION_CURSOR [G]
+	first_index: INTEGER_32
+	incremented alias "+" (n: [like step] INTEGER_32): [like Current] READABLE_INDEXABLE_ITERATION_CURSOR [G]
+	is_first: BOOLEAN
+	is_last: BOOLEAN
+	is_reversed: BOOLEAN
+	is_valid: BOOLEAN
+	item: G -- (from TYPED_INDEXABLE_ITERATION_CURSOR)
+	last_index: INTEGER_32
+	new_cursor: [like Current] READABLE_INDEXABLE_ITERATION_CURSOR [G]
+	reversed alias "-": [like Current] READABLE_INDEXABLE_ITERATION_CURSOR [G]
+	step: INTEGER_32
+	target_index: INTEGER_32
+	version: NATURAL_32
+	with_step (n: [like step] INTEGER_32): [like Current] READABLE_INDEXABLE_ITERATION_CURSOR [G]
+
+Commands
+	forth
+	reverse
+	set_step (v: [like step] INTEGER_32)
+	start
+

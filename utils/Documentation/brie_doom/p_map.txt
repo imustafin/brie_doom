@@ -1,0 +1,848 @@
+note
+	description: "[
+		p_map.c
+		
+		Movement, collision handling.
+		Shooting and aiming
+	]"
+
+class 
+	P_MAP
+
+inherit
+	MOBJFLAG_T
+
+	MOBJTYPE_T
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+			create spechit.make_filled (Void, 0, Maxspecialcross - 1)
+			create tmbbox.make_filled (0, 0, 3)
+		end
+	
+feature 
+
+	ceilingline: detachable LINE_T
+			-- keep track of the line that lowers the ceiling,
+			-- so missiles don't explode against sky hack walls
+
+	floatok: BOOLEAN
+			-- If true, move would be ok
+			-- if within `tmfloorz - tmceilingz`
+
+	tmbbox: ARRAY [INTEGER_32]
+
+	tmthing: detachable MOBJ_T
+
+	tmflags: INTEGER_32
+
+	tmx: INTEGER_32
+
+	tmy: INTEGER_32
+
+	tmfloorz: FIXED_T
+
+	tmceilingz: FIXED_T
+
+	tmdropoffz: FIXED_T
+
+	numspechit: INTEGER_32 assign set_numspechit
+
+	set_numspechit (a_numspechit: like numspechit)
+		do
+			numspechit := a_numspechit
+		end
+
+	spechit: ARRAY [detachable LINE_T]
+
+	Maxspecialcross: INTEGER_32 = 8
+	
+feature 
+
+	usething: detachable MOBJ_T
+
+	p_uselines (player: PLAYER_T)
+			-- Looks for special lines in front of the player to activate
+		require
+				player.mo /= Void
+		local
+			angle: INTEGER_32
+			x1: FIXED_T
+			y1: FIXED_T
+			x2: FIXED_T
+			y2: FIXED_T
+		do
+			check
+					attached player.mo as mo
+			then
+				usething := mo
+				angle := mo.angle |>> {TABLES}.angletofineshift.as_integer_32
+				x1 := mo.x
+				y1 := mo.y
+				x2 := x1 + create {FIXED_T}.from_integer (({P_LOCAL}.userange |>> {M_FIXED}.fracbits) * i_main.R_main.Finecosine [angle].as_integer_32)
+				y2 := y1 + create {FIXED_T}.from_integer (({P_LOCAL}.userange |>> {M_FIXED}.fracbits) * i_main.R_main.Finesine [angle])
+				if i_main.P_maputl.p_pathtraverse (x1, y1, x2, y2, {P_LOCAL}.pt_addlines, agent ptr_usetraverse) then
+				end
+			end
+		end
+
+	ptr_usetraverse (in: INTERCEPT_T): BOOLEAN
+		require
+				usething /= Void
+		local
+			side: INTEGER_32
+		do
+			check
+					attached in.line as line and then attached usething as ut
+			then
+				if line.special = 0 then
+					i_main.P_maputl.p_lineopening (line)
+					if i_main.P_maputl.openrange <= create {FIXED_T}.from_integer (0) then
+						i_main.S_sound.s_startsound (usething, {SFXENUM_T}.sfx_noway)
+						Result := False
+					else
+						Result := True
+					end
+				else
+					side := 0
+					if i_main.P_maputl.p_pointonlineside (ut.x, ut.y, line) = 1 then
+						side := 1
+					end
+					if i_main.P_switch.p_usespecialline (ut, line, side) then
+					end
+					Result := False
+				end
+			end
+		end
+
+	p_trymove (thing: MOBJ_T; x, y: FIXED_T): BOOLEAN
+			-- Attempt to move to a new position,
+			-- crossing special lines unless MF_TELEPORT is set
+		local
+			oldx: FIXED_T
+			oldy: FIXED_T
+			side: INTEGER_32
+			oldside: INTEGER_32
+			ld: LINE_T
+			returned: BOOLEAN
+		do
+			floatok := False
+			if not p_checkposition (thing, x, y) then
+				returned := True
+				Result := False
+			end
+			if not returned then
+				if thing.flags & {MOBJFLAG_T}.mf_noclip = 0 then
+					if tmceilingz - tmfloorz < thing.height then
+						returned := True
+						Result := False
+					end
+					if not returned then
+						floatok := True
+						if thing.flags & {MOBJFLAG_T}.mf_teleport = 0 and tmceilingz - thing.z < thing.height then
+							returned := True
+							Result := False
+						end
+					end
+					if not returned then
+						if thing.flags & {MOBJFLAG_T}.mf_teleport = 0 and tmfloorz - thing.z > create {FIXED_T}.from_integer (24 * {M_FIXED}.fracunit) then
+							returned := True
+							Result := False
+						end
+					end
+					if not returned then
+						if thing.flags & ({MOBJFLAG_T}.mf_dropoff | {MOBJFLAG_T}.mf_float) = 0 and tmfloorz - tmdropoffz > create {FIXED_T}.from_integer (24 * {M_FIXED}.fracunit) then
+							returned := True
+							Result := False
+						end
+					end
+				end
+			end
+			if not returned then
+				i_main.P_maputl.p_unsetthingposition (thing)
+				oldx := thing.x
+				oldy := thing.y
+				thing.floorz := tmfloorz
+				thing.ceilingz := tmceilingz
+				thing.x := x
+				thing.y := y
+				i_main.P_maputl.p_setthingposition (thing)
+				if thing.flags & ({MOBJFLAG_T}.mf_teleport | {MOBJFLAG_T}.mf_noclip) = 0 then
+					from
+					until
+						numspechit <= 0
+					loop
+						numspechit := numspechit - 1
+						ld := spechit [numspechit]
+						check
+								attached ld
+						then
+							side := i_main.P_maputl.p_pointonlineside (thing.x, thing.y, ld)
+							oldside := i_main.P_maputl.p_pointonlineside (oldx, oldy, ld)
+							if side /= oldside then
+								if ld.special /= 0 then
+									i_main.P_spec.p_crossspecialline ({UTILS [LINE_T]}.first_index (i_main.P_setup.lines, ld), oldside, thing)
+								end
+							end
+						end
+					end
+				end
+				Result := True
+			end
+		ensure
+				(not Result) implies thing ~ old thing
+		end
+
+	p_checkposition (thing: MOBJ_T; x, y: FIXED_T): BOOLEAN
+		local
+			xl: INTEGER_32
+			xh: INTEGER_32
+			yl: INTEGER_32
+			yh: INTEGER_32
+			bx: INTEGER_32
+			by: INTEGER_32
+			newsubsec: SUBSECTOR_T
+			returned: BOOLEAN
+		do
+			tmthing := thing
+			tmflags := thing.flags
+			tmx := x.to_integer_32
+			tmy := y.to_integer_32
+			tmbbox [{M_BBOX}.boxtop] := (y + thing.radius).to_integer_32
+			tmbbox [{M_BBOX}.boxbottom] := (y - thing.radius).to_integer_32
+			tmbbox [{M_BBOX}.boxright] := (x + thing.radius).to_integer_32
+			tmbbox [{M_BBOX}.boxleft] := (x - thing.radius).to_integer_32
+			ceilingline := Void
+			newsubsec := i_main.R_main.r_pointinsubsector (x, y)
+			check
+					attached newsubsec.sector as sector
+			then
+				tmfloorz := sector.floorheight
+				tmdropoffz := tmfloorz
+				tmceilingz := sector.ceilingheight
+			end
+			i_main.R_main.validcount := i_main.R_main.validcount + 1
+			numspechit := 0
+			if tmflags & {MOBJFLAG_T}.mf_noclip /= 0 then
+				Result := True
+				returned := True
+			end
+			if not returned then
+				xl := (tmbbox [{M_BBOX}.boxleft] - i_main.P_setup.bmaporgx.as_integer_32 - {P_LOCAL}.maxradius) |>> {P_LOCAL}.mapblockshift
+				xh := (tmbbox [{M_BBOX}.boxright] - i_main.P_setup.bmaporgx.as_integer_32 + {P_LOCAL}.maxradius) |>> {P_LOCAL}.mapblockshift
+				yl := (tmbbox [{M_BBOX}.boxbottom] - i_main.P_setup.bmaporgy.as_integer_32 - {P_LOCAL}.maxradius) |>> {P_LOCAL}.mapblockshift
+				yh := (tmbbox [{M_BBOX}.boxtop] - i_main.P_setup.bmaporgy.as_integer_32 + {P_LOCAL}.maxradius) |>> {P_LOCAL}.mapblockshift
+				from
+					bx := xl
+				until
+					returned or bx > xh
+				loop
+					from
+						by := yl
+					until
+						returned or by > yh
+					loop
+						if not i_main.P_maputl.p_blockthingsiterator (bx, by, agent pit_checkthing) then
+							Result := False
+							returned := True
+						end
+						by := by + 1
+					end
+					bx := bx + 1
+				end
+			end
+			if not returned then
+				xl := (tmbbox [{M_BBOX}.boxleft] - i_main.P_setup.bmaporgx.as_integer_32) |>> {P_LOCAL}.mapblockshift
+				xh := (tmbbox [{M_BBOX}.boxright] - i_main.P_setup.bmaporgx.as_integer_32) |>> {P_LOCAL}.mapblockshift
+				yl := (tmbbox [{M_BBOX}.boxbottom] - i_main.P_setup.bmaporgy.as_integer_32) |>> {P_LOCAL}.mapblockshift
+				yh := (tmbbox [{M_BBOX}.boxtop] - i_main.P_setup.bmaporgy.as_integer_32) |>> {P_LOCAL}.mapblockshift
+				from
+					bx := xl
+				until
+					returned or bx > xh
+				loop
+					from
+						by := yl
+					until
+						returned or by > yh
+					loop
+						if not i_main.P_maputl.p_blocklinesiterator (bx, by, agent pit_checkline) then
+							Result := False
+							returned := True
+						end
+						by := by + 1
+					end
+					bx := bx + 1
+				end
+			end
+			if not returned then
+				Result := True
+			end
+		end
+
+	pit_checkthing (thing: MOBJ_T): BOOLEAN
+		local
+			blockdist: FIXED_T
+			solid: BOOLEAN
+			damage: INTEGER_32
+			returned: BOOLEAN
+		do
+			if thing.flags & (Mf_solid | Mf_special | Mf_shootable) = 0 then
+				Result := True
+				returned := True
+			end
+			if not returned then
+				check
+						attached tmthing as tmt
+				then
+					blockdist := thing.radius + tmt.radius
+				end
+				if (thing.x - create {FIXED_T}.from_integer (tmx)).abs >= blockdist.as_integer_32 or (thing.y - create {FIXED_T}.from_integer (tmy)).abs >= blockdist.as_integer_32 then
+					Result := True
+					returned := True
+				end
+			end
+			if not returned then
+				if thing = tmthing then
+					Result := True
+					returned := True
+				end
+			end
+			if not returned then
+				check
+						attached tmthing as tmt
+				then
+					if tmt.flags & Mf_skullfly /= 0 then
+						check
+								attached tmt.info as info
+						then
+							damage := ((i_main.M_random.p_random \\ 8) + 1) * info.damage
+							i_main.P_inter.p_damagemobj (thing, tmthing, tmthing, damage)
+							tmt.flags := tmt.flags & Mf_skullfly.bit_not
+							tmt.momx := create {FIXED_T}.from_integer (0)
+							tmt.momy := create {FIXED_T}.from_integer (0)
+							tmt.momz := create {FIXED_T}.from_integer (0)
+							if i_main.P_mobj.p_setmobjstate (tmt, info.spawnstate) then
+							end
+							Result := False
+							returned := True
+						end
+					end
+				end
+			end
+			if not returned then
+				check
+						attached tmthing as tmt
+				then
+					if tmt.flags & Mf_missile /= 0 then
+						if tmt.z > thing.z + thing.height then
+							Result := True
+							returned := True
+						elseif tmt.z + tmt.height < thing.z then
+							Result := True
+							returned := True
+						end
+						if not returned then
+							if attached tmt.target as target and then (target.type = thing.type or (target.type = Mt_knight and thing.type = Mt_bruiser) or (target.type = Mt_bruiser and thing.type = Mt_knight)) then
+								if thing = tmt.target then
+									Result := True
+									returned := True
+								elseif thing.type /= Mt_player then
+									Result := False
+									returned := True
+								end
+							end
+						end
+						if not returned then
+							if thing.flags & Mf_shootable = 0 then
+								Result := thing.flags & Mf_solid = 0
+								returned := True
+							end
+						end
+						if not returned then
+							check
+									attached tmt.info as info
+							then
+								damage := ((i_main.M_random.p_random \\ 8) + 1) * info.damage
+								i_main.P_inter.p_damagemobj (thing, tmthing, tmt.target, damage)
+							end
+							Result := False
+							returned := True
+						end
+					end
+				end
+			end
+			if not returned then
+				if thing.flags & Mf_special /= 0 then
+					solid := thing.flags & Mf_solid /= 0
+					if tmflags & Mf_pickup /= 0 then
+						check
+								attached tmthing as tmt
+						then
+							i_main.P_inter.p_touchspecialthing (thing, tmt)
+						end
+					end
+					Result := not solid
+					returned := True
+				end
+			end
+			if not returned then
+				Result := thing.flags & Mf_solid = 0
+			end
+		end
+
+	pit_checkline (ld: LINE_T): BOOLEAN
+			-- Adjusts tmfloorz and tmceilingz as lines are contacted
+		local
+			returned: BOOLEAN
+		do
+			if tmbbox [{M_BBOX}.boxright] <= ld.bbox [{M_BBOX}.boxleft].as_integer_32 or tmbbox [{M_BBOX}.boxleft] >= ld.bbox [{M_BBOX}.boxright].as_integer_32 or tmbbox [{M_BBOX}.boxtop] <= ld.bbox [{M_BBOX}.boxbottom].as_integer_32 or tmbbox [{M_BBOX}.boxbottom] >= ld.bbox [{M_BBOX}.boxtop].as_integer_32 then
+				Result := True
+				returned := True
+			end
+			if not returned then
+				if i_main.P_maputl.p_boxonlineside (tmbbox, ld) /= -1 then
+					Result := True
+					returned := True
+				end
+			end
+			if not returned then
+				if ld.backsector = Void then
+					Result := False
+					returned := True
+				end
+			end
+			if not returned then
+				check
+						attached tmthing as tmt
+				then
+					if tmt.flags & Mf_missile = 0 then
+						if ld.flags.to_integer_32 & {DOOMDATA_H}.ml_blocking /= 0 then
+							Result := False
+							returned := True
+						elseif tmt.player = Void and ld.flags.to_integer_32 & {DOOMDATA_H}.ml_blockmonsters /= 0 then
+							Result := False
+							returned := True
+						end
+					end
+				end
+			end
+			if not returned then
+				i_main.P_maputl.p_lineopening (ld)
+				if i_main.P_maputl.opentop < tmceilingz then
+					tmceilingz := i_main.P_maputl.opentop
+					ceilingline := ld
+				end
+				if i_main.P_maputl.openbottom > tmfloorz then
+					tmfloorz := i_main.P_maputl.openbottom
+				end
+				if i_main.P_maputl.lowfloor < tmdropoffz then
+					tmdropoffz := i_main.P_maputl.lowfloor
+				end
+				if ld.special /= 0 then
+					spechit [numspechit] := ld
+					numspechit := numspechit + 1
+				end
+				Result := True
+			end
+		end
+
+	p_slidemove (mo: MOBJ_T)
+			-- The momx/momy move is bad, so try to slide
+			-- along a wall.
+			-- Find the first line hit, move flush to it,
+			-- and slide along it
+			--
+			-- This is a kludgy mess.
+		do
+		end
+	
+feature -- SECTOR HEIGHT CHANGING
+-- After modifying a sectors floor or ceiling height,
+-- call this routine to adjust the positions
+-- of all things that touch the sector.
+--
+-- If anything doesn't fit anymore, true will be returned.
+-- If crunch is true, they will take damage
+-- as they are being crushed.
+-- If Crunch is false, you should set the sector height back
+-- the way it was and call P_ChangeSector again to undo the changes.
+
+	crushchange: BOOLEAN
+
+	nofit: BOOLEAN
+
+	p_thingheightclip (thing: MOBJ_T): BOOLEAN
+		local
+			onfloor: BOOLEAN
+		do
+			onfloor := (thing.z = thing.floorz)
+			p_checkposition (thing, thing.x, thing.y).do_nothing
+			thing.floorz := tmfloorz
+			thing.ceilingz := tmceilingz
+			if onfloor then
+				thing.z := thing.floorz
+			else
+				if thing.z + thing.height > thing.ceilingz then
+					thing.z := thing.ceilingz - thing.height
+				end
+			end
+			if thing.ceilingz - thing.floorz < thing.height then
+				Result := False
+			else
+				Result := True
+			end
+		end
+
+	pit_changesector (thing: MOBJ_T): BOOLEAN
+		local
+			mo: MOBJ_T
+		do
+			if p_thingheightclip (thing) then
+				Result := True
+			else
+				if thing.health <= 0 then
+					i_main.P_mobj.p_setmobjstate (thing, {STATENUM_T}.s_gibs).do_nothing
+					thing.flags := thing.flags & Mf_solid.bit_not
+					thing.height := create {FIXED_T}.from_integer (0)
+					thing.radius := create {FIXED_T}.from_integer (0)
+					Result := True
+				else
+					if thing.flags & Mf_dropped /= 0 then
+						i_main.P_mobj.p_removemobj (thing)
+						Result := True
+					else
+						if thing.flags & Mf_shootable = 0 then
+							Result := True
+						else
+							nofit := True
+							if crushchange and i_main.P_tick.leveltime & 3 = 0 then
+								i_main.P_inter.p_damagemobj (thing, Void, Void, 10)
+								mo := i_main.P_mobj.p_spawnmobj (thing.x, thing.y, thing.z + thing.height // create {FIXED_T}.from_integer (2), Mt_blood)
+								mo.momx := create {FIXED_T}.from_integer ((i_main.M_random.p_random - i_main.M_random.p_random) |<< 12)
+								mo.momy := create {FIXED_T}.from_integer ((i_main.M_random.p_random - i_main.M_random.p_random) |<< 12)
+							end
+							Result := True
+						end
+					end
+				end
+			end
+		end
+
+	p_changesector (sector: SECTOR_T; crunch: BOOLEAN): BOOLEAN
+		local
+			x: INTEGER_32
+			y: INTEGER_32
+		do
+			nofit := False
+			crushchange := crunch
+			from
+				x := sector.blockbox [{M_BBOX}.boxleft]
+			until
+				x > sector.blockbox [{M_BBOX}.boxright]
+			loop
+				from
+					y := sector.blockbox [{M_BBOX}.boxbottom]
+				until
+					y > sector.blockbox [{M_BBOX}.boxtop]
+				loop
+					i_main.P_maputl.p_blockthingsiterator (x, y, agent pit_changesector).do_nothing
+					y := y + 1
+				end
+				x := x + 1
+			end
+			Result := nofit
+		end
+	
+feature 
+
+	linetarget: detachable MOBJ_T
+			-- who got hit (or NULL)
+
+	shootthing: detachable MOBJ_T
+
+	shootz: FIXED_T
+			-- Height if not aiming up or down
+			-- ???: use slope for monsters?
+
+	la_damage: INTEGER_32
+
+	attackrange: FIXED_T
+
+	aimslope: FIXED_T
+
+	p_aimlineattack (t1: MOBJ_T; a_angle: ANGLE_T; distance: FIXED_T): FIXED_T
+		local
+			x2, y2: FIXED_T
+			angle: ANGLE_T
+		do
+			angle := a_angle |>> {R_MAIN}.angletofineshift
+			shootthing := t1
+			x2 := t1.x + (distance |>> {M_FIXED}.fracbits) * i_main.R_main.Finecosine [angle.as_integer_32]
+			y2 := t1.y + (distance |>> {M_FIXED}.fracbits) * create {FIXED_T}.from_integer (i_main.R_main.Finesine [angle.as_integer_32])
+			shootz := t1.z + (t1.height |>> 1) + create {FIXED_T}.from_integer (8 * {M_FIXED}.fracunit)
+			i_main.P_sight.topslope := create {FIXED_T}.from_integer (100 * {M_FIXED}.fracunit // 160)
+			i_main.P_sight.bottomslope := create {FIXED_T}.from_integer (-100 * {M_FIXED}.fracunit // 160)
+			attackrange := distance
+			linetarget := Void
+			i_main.P_maputl.p_pathtraverse (t1.x, t1.y, x2, y2, {P_LOCAL}.pt_addlines | {P_LOCAL}.pt_addthings, agent ptr_aimtraverse).do_nothing
+			if linetarget /= Void then
+				Result := aimslope
+			else
+				Result := create {FIXED_T}.from_integer (0)
+			end
+		end
+	
+feature -- PTR_AimTraverse
+
+	ptr_aimtraverse_line (li: LINE_T; in: INTERCEPT_T): BOOLEAN
+		local
+			dist: FIXED_T
+			slope: FIXED_T
+		do
+			if li.flags.to_integer_32 & {DOOMDATA_H}.ml_twosided = 0 then
+				Result := False
+			else
+				i_main.P_maputl.p_lineopening (li)
+				if i_main.P_maputl.openbottom >= i_main.P_maputl.opentop then
+					Result := False
+				else
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					check
+							attached li.frontsector as front and then attached li.backsector as back
+					then
+						if front.floorheight /= back.floorheight then
+							slope := {M_FIXED}.fixeddiv (i_main.P_maputl.openbottom - shootz, dist)
+							if slope > i_main.P_sight.bottomslope then
+								i_main.P_sight.bottomslope := slope
+							end
+						end
+						if front.ceilingheight /= back.ceilingheight then
+							slope := {M_FIXED}.fixeddiv (i_main.P_maputl.opentop - shootz, dist)
+							if slope < i_main.P_sight.topslope then
+								i_main.P_sight.topslope := slope
+							end
+						end
+					end
+					if i_main.P_sight.topslope <= i_main.P_sight.bottomslope then
+						Result := False
+					else
+						Result := True
+					end
+				end
+			end
+		end
+
+	ptr_aimtraverse_thing (th: MOBJ_T; in: INTERCEPT_T): BOOLEAN
+		local
+			dist: FIXED_T
+			thingtopslope: FIXED_T
+			thingbottomslope: FIXED_T
+		do
+			if th = shootthing then
+				Result := True
+			else
+				if th.flags & Mf_shootable = 0 then
+					Result := True
+				else
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+					if thingtopslope < i_main.P_sight.bottomslope then
+						Result := True
+					else
+						thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+						if thingbottomslope > i_main.P_sight.topslope then
+							Result := True
+						else
+							if thingtopslope > i_main.P_sight.topslope then
+								thingtopslope := i_main.P_sight.topslope
+							end
+							if thingbottomslope < i_main.P_sight.bottomslope then
+								thingbottomslope := i_main.P_sight.bottomslope
+							end
+							aimslope := (thingtopslope + thingbottomslope) // create {FIXED_T}.from_integer (2)
+							linetarget := th
+							Result := False
+						end
+					end
+				end
+			end
+		end
+
+	ptr_aimtraverse (in: INTERCEPT_T): BOOLEAN
+			-- Sets linetarget and aimslope when a target is aimed at.
+		do
+			if in.isaline then
+				check
+						attached in.line as line
+				then
+					Result := ptr_aimtraverse_line (line, in)
+				end
+			else
+				check
+						attached in.thing as thing
+				then
+					Result := ptr_aimtraverse_thing (thing, in)
+				end
+			end
+		end
+
+	p_lineattack (t1: MOBJ_T; a_angle: ANGLE_T; distance: FIXED_T; slope: FIXED_T; damage: INTEGER_32)
+			-- If damage == 0, it is just a test trace
+			-- that will leave linetarget set.
+		local
+			x2, y2: FIXED_T
+			angle: ANGLE_T
+		do
+			angle := a_angle |>> {R_MAIN}.angletofineshift
+			shootthing := t1
+			la_damage := damage
+			x2 := t1.x + (distance |>> {M_FIXED}.fracbits) * i_main.R_main.Finecosine [angle.as_integer_32]
+			y2 := t1.y + (distance |>> {M_FIXED}.fracbits) * create {FIXED_T}.from_integer (i_main.R_main.Finesine [angle.as_integer_32])
+			shootz := t1.z + (t1.height |>> 1) + create {FIXED_T}.from_integer (8 * {M_FIXED}.fracunit)
+			attackrange := distance
+			aimslope := slope
+			i_main.P_maputl.p_pathtraverse (t1.x, t1.y, x2, y2, {P_LOCAL}.pt_addlines | {P_LOCAL}.pt_addthings, agent ptr_shoottraverse).do_nothing
+		end
+	
+feature -- PTR_ShootTraverse
+
+	ptr_shoottraverse_line_hitline (li: LINE_T; in: INTERCEPT_T): BOOLEAN
+		local
+			frac: FIXED_T
+			x, y, z: FIXED_T
+			hit_sky: BOOLEAN
+		do
+			frac := in.frac - {M_FIXED}.fixeddiv (create {FIXED_T}.from_integer (4 * {M_FIXED}.fracunit), attackrange)
+			x := i_main.P_maputl.trace.x + {M_FIXED}.fixedmul (i_main.P_maputl.trace.dx, frac)
+			y := i_main.P_maputl.trace.y + {M_FIXED}.fixedmul (i_main.P_maputl.trace.dy, frac)
+			z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+			check
+					attached li.frontsector as front
+			then
+				if front.ceilingpic.to_integer_32 = i_main.R_sky.skyflatnum then
+					if z > front.ceilingheight then
+						hit_sky := True
+					end
+					if not hit_sky and then attached li.backsector as back and then back.ceilingpic.to_integer_32 = i_main.R_sky.skyflatnum then
+						hit_sky := True
+					end
+				end
+			end
+			if not hit_sky then
+				i_main.P_mobj.p_spawnpuff (x, y, z)
+			end
+			Result := False
+		end
+
+	ptr_shoottraverse_line (li: LINE_T; in: INTERCEPT_T): BOOLEAN
+		local
+			goto_hitline: BOOLEAN
+			dist: FIXED_T
+			slope: FIXED_T
+		do
+			if li.special /= 0 then
+				check
+						attached shootthing as st
+				then
+					i_main.P_spec.p_shootspecialline (st, li)
+				end
+			end
+			if li.flags.to_integer_32 & {DOOMDATA_H}.ml_twosided = 0 then
+				goto_hitline := True
+			else
+				i_main.P_maputl.p_lineopening (li)
+				dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+				check
+						attached li.frontsector as front and then attached li.backsector as back
+				then
+					if front.floorheight /= back.floorheight then
+						slope := {M_FIXED}.fixeddiv (i_main.P_maputl.openbottom - shootz, dist)
+						if slope > aimslope then
+							goto_hitline := True
+						end
+					end
+					if front.ceilingheight /= back.ceilingheight then
+						slope := {M_FIXED}.fixeddiv (i_main.P_maputl.opentop - shootz, dist)
+						if slope < aimslope then
+							goto_hitline := True
+						end
+					end
+				end
+			end
+			if goto_hitline then
+				Result := ptr_shoottraverse_line_hitline (li, in)
+			else
+				Result := True
+			end
+		end
+
+	ptr_shoottraverse_thing (th: MOBJ_T; in: INTERCEPT_T): BOOLEAN
+		local
+			x, y, z, frac: FIXED_T
+			dist, thingtopslope, thingbottomslope: FIXED_T
+		do
+			if th = shootthing then
+				Result := True
+			else
+				if th.flags & Mf_shootable = 0 then
+					Result := True
+				else
+					dist := {M_FIXED}.fixedmul (attackrange, in.frac)
+					thingtopslope := {M_FIXED}.fixeddiv (th.z + th.height - shootz, dist)
+					if thingtopslope < aimslope then
+						Result := True
+					else
+						thingbottomslope := {M_FIXED}.fixeddiv (th.z - shootz, dist)
+						if thingbottomslope > aimslope then
+							Result := True
+						else
+							frac := in.frac - {M_FIXED}.fixeddiv (create {FIXED_T}.from_integer (10 * {M_FIXED}.fracunit), attackrange)
+							x := i_main.P_maputl.trace.x + {M_FIXED}.fixedmul (i_main.P_maputl.trace.dx, frac)
+							y := i_main.P_maputl.trace.y + {M_FIXED}.fixedmul (i_main.P_maputl.trace.dy, frac)
+							z := shootz + {M_FIXED}.fixedmul (aimslope, {M_FIXED}.fixedmul (frac, attackrange))
+							if th.flags & Mf_noblood /= 0 then
+								i_main.P_mobj.p_spawnpuff (x, y, z)
+							else
+								i_main.P_mobj.p_spawnblood (x, y, z, la_damage)
+							end
+							if la_damage /= 0 then
+								i_main.P_inter.p_damagemobj (th, shootthing, shootthing, la_damage)
+							end
+							Result := False
+						end
+					end
+				end
+			end
+		end
+
+	ptr_shoottraverse (in: INTERCEPT_T): BOOLEAN
+		do
+			if in.isaline then
+				check
+						attached in.line as line
+				then
+					Result := ptr_shoottraverse_line (line, in)
+				end
+			else
+				check
+						attached in.thing as thing
+				then
+					Result := ptr_shoottraverse_thing (thing, in)
+				end
+			end
+		end
+	
+invariant
+		spechit.lower = 0 and spechit.count = Maxspecialcross
+		tmbbox.lower = 0 and tmbbox.count = 4
+
+end -- class P_MAP

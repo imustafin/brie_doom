@@ -1,0 +1,27 @@
+class
+	ALLOCATED_SOUND_T
+
+General
+	cluster: sound
+	description: "chocolate doom i_sdlsound.c"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	chunk: MIX_CHUNK
+	next: detachable ALLOCATED_SOUND_T
+	pitch: INTEGER_32
+	prev: detachable ALLOCATED_SOUND_T
+	sfxinfo: detachable SFXINFO_T
+	use_count: INTEGER_32
+
+Commands
+	make
+	set_next (a_next: [like next] detachable ALLOCATED_SOUND_T)
+	set_pitch (a_pitch: [like pitch] INTEGER_32)
+	set_prev (a_prev: [like prev] detachable ALLOCATED_SOUND_T)
+	set_sfxinfo (a_sfxinfo: [like sfxinfo] detachable SFXINFO_T)
+	set_use_count (a_use_count: [like use_count] INTEGER_32)
+

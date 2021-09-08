@@ -1,0 +1,56 @@
+note
+	description: "d_event.h"
+
+class 
+	D_EVENT
+
+create 
+	make
+
+feature 
+
+	make
+		do
+		end
+	
+feature 
+
+	Maxevents: INTEGER_32 = 64
+	
+feature -- buttoncode_t
+
+	Bt_attack: INTEGER_32 = 1
+			-- Press "fire".
+
+	Bt_use: INTEGER_32 = 2
+			-- Use button, to open doors, activate switches.
+			-- Flag: game events, not really buttons.
+
+	Bt_special: INTEGER_32 = 128
+
+	Bt_specialmask: INTEGER_32 = 3
+			-- Flag, weapon change pending.
+			-- If true, the next 3 bits hold weapon num.
+
+	Bt_change: INTEGER_32 = 4
+			-- The 3bit weapon mask and shift, convenience.
+
+	Bt_weaponmask: INTEGER_32 = 56
+			-- originally (8+16+32)
+
+	Bt_weaponshift: INTEGER_32 = 3
+
+	Bts_pause: INTEGER_32 = 1
+			-- Pause the game.
+
+	Bts_savegame: INTEGER_32 = 2
+			-- Save the game at each console.
+			-- Savegame slot numbers
+			--  occupy the second byte of buttons.
+
+	Bts_savemask: INTEGER_32 = 28
+			-- originally (4+8+16)
+
+	Bts_saveshift: INTEGER_32 = 2
+	
+end -- class D_EVENT

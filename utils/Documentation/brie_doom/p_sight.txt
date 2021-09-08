@@ -1,0 +1,289 @@
+note
+	description: "[
+		p_sight.c
+		
+		LineOfSight/Visibility checks, uses REJECT Lookup Table.
+	]"
+
+class 
+	P_SIGHT
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: I_MAIN)
+		do
+			i_main := a_i_main
+			create strace
+		end
+	
+feature -- P_CheckSight
+
+	topslope: FIXED_T assign set_topslope
+			-- slope to the top of target
+
+	set_topslope (a_topslope: like topslope)
+		do
+			topslope := a_topslope
+		end
+
+	bottomslope: FIXED_T assign set_bottomslope
+			-- slope to the bottom of target
+
+	set_bottomslope (a_bottomslope: like bottomslope)
+		do
+			bottomslope := a_bottomslope
+		end
+
+	sightzstart: FIXED_T
+			-- eye z of looker
+
+	strace: DIVLINE_T
+			-- from t1 to t2
+
+	t2x: FIXED_T
+
+	t2y: FIXED_T
+
+	p_checksight (t1, t2: MOBJ_T): BOOLEAN
+			-- Returns true
+			-- if a straight line between t1 and t2 is unobstructed.
+			-- Uses REJECT.
+		local
+			s1, s2: INTEGER_32
+			pnum: INTEGER_32
+			bytenum: INTEGER_32
+			bitnum: INTEGER_32
+		do
+			check
+					attached t1.subsector as sub and then attached sub.sector as sec
+			then
+				s1 := {UTILS [SECTOR_T]}.first_index (i_main.P_setup.sectors, sec)
+			end
+			check
+					attached t2.subsector as sub and then attached sub.sector as sec
+			then
+				s2 := {UTILS [SECTOR_T]}.first_index (i_main.P_setup.sectors, sec)
+			end
+			pnum := s1 * i_main.P_setup.numsectors + s2
+			bytenum := pnum |>> 3
+			bitnum := 1 |<< (pnum & 7)
+			check
+					attached i_main.P_setup.rejectmatrix as rm
+			then
+				if rm [bytenum].to_integer_32 & bitnum /= 0 then
+					Result := False
+				else
+					i_main.R_main.validcount := i_main.R_main.validcount + 1
+					sightzstart := t1.z + t1.height - (t1.height |>> 2)
+					topslope := (t2.z + t2.height) - sightzstart
+					bottomslope := (t2.z) - sightzstart
+					strace.x := t1.x
+					strace.y := t1.y
+					t2x := t2.x
+					t2y := t2.y
+					strace.dx := t2.x - t1.x
+					strace.dy := t2.y - t1.y
+					Result := p_crossbspnode (i_main.P_setup.numnodes - 1)
+				end
+			end
+		end
+	
+feature 
+
+	p_crossbspnode (bspnum: INTEGER_32): BOOLEAN
+			-- Returns true
+			-- if strace crosses the given node successfully.
+		local
+			bsp: NODE_T
+			side: INTEGER_32
+		do
+			if bspnum & {DOOMDATA_H}.nf_subsector /= 0 then
+				if bspnum = -1 then
+					Result := p_crosssubsector (0)
+				else
+					Result := p_crosssubsector (bspnum & {DOOMDATA_H}.nf_subsector.bit_not)
+				end
+			else
+				bsp := i_main.P_setup.nodes [bspnum]
+				side := p_divlineside (strace.x, strace.y, bsp)
+				if side = 2 then
+					side := 0
+				end
+				if not p_crossbspnode (bsp.children [side].to_integer_32) then
+					Result := False
+				else
+					if side = p_divlineside (t2x, t2y, bsp) then
+						Result := True
+					else
+						Result := p_crossbspnode (bsp.children [side.bit_xor (1)].to_integer_32)
+					end
+				end
+			end
+		end
+
+	p_divlineside (x, y: FIXED_T; node: DIVLINE_T): INTEGER_32
+			-- Returns side 0 (front), 1 (back), or 2 (on)
+		local
+			dx, dy: FIXED_T
+			left, right: FIXED_T
+		do
+			if node.dx = create {FIXED_T}.from_integer (0) then
+				if x = node.x then
+					Result := 2
+				elseif x <= node.x then
+					Result := (node.dy > create {FIXED_T}.from_integer (0)).to_integer
+				else
+					Result := (node.dy < create {FIXED_T}.from_integer (0)).to_integer
+				end
+			elseif node.dy = create {FIXED_T}.from_integer (0) then
+				if x = node.y then
+					Result := 2
+				elseif y <= node.y then
+					Result := (node.dx < create {FIXED_T}.from_integer (0)).to_integer
+				else
+					Result := (node.dx > create {FIXED_T}.from_integer (0)).to_integer
+				end
+			else
+				dx := (x - node.x)
+				dy := (y - node.y)
+				left := (node.dy |>> {M_FIXED}.fracbits) * (dx |>> {M_FIXED}.fracbits)
+				right := (dy |>> {M_FIXED}.fracbits) * (node.dx |>> {M_FIXED}.fracbits)
+				if right < left then
+					Result := 0
+				else
+					if left = right then
+						Result := 2
+					else
+						Result := 1
+					end
+				end
+			end
+		end
+
+	p_crosssubsector (num: INTEGER_32): BOOLEAN
+			-- Returns true
+			-- if strace crosses the given subsector successfully
+		require
+			rangecheck: num < i_main.P_setup.subsectors.count
+		local
+			seg: SEG_T
+			seg_i: INTEGER_32
+			line: LINE_T
+			s1, s2: INTEGER_32
+			count: INTEGER_32
+			sub: SUBSECTOR_T
+			front, back: SECTOR_T
+			opentop, openbottom: FIXED_T
+			divl: DIVLINE_T
+			v1, v2: VERTEX_T
+			frac: FIXED_T
+			slope: FIXED_T
+			returned: BOOLEAN
+		do
+			create divl
+			sub := i_main.P_setup.subsectors [num]
+			count := sub.numlines.to_integer_32
+			seg_i := sub.firstline.to_integer_32
+			from
+			until
+				returned or count = 0
+			loop
+				seg := i_main.P_setup.segs [seg_i]
+				line := seg.linedef
+				if line.validcount = i_main.R_main.validcount then
+				else
+					line.validcount := i_main.R_main.validcount
+					v1 := line.v1
+					v2 := line.v2
+					s1 := p_divlineside (v1.x, v1.y, strace)
+					s2 := p_divlineside (v2.x, v2.y, strace)
+					if s1 = s2 then
+					else
+						divl.x := v1.x
+						divl.y := v1.y
+						divl.dx := v2.x - v1.x
+						divl.dy := v2.y - v1.y
+						s1 := p_divlineside (strace.x, strace.y, divl)
+						s2 := p_divlineside (t2x, t2y, divl)
+						if s1 = s2 then
+						else
+							if line.flags.to_integer_32 & {DOOMDATA_H}.ml_twosided = 0 then
+								Result := False
+								returned := True
+							else
+								front := seg.frontsector
+								back := seg.backsector
+								check
+										attached front and then attached back
+								then
+									if front.floorheight = back.floorheight and front.ceilingheight = back.ceilingheight then
+									else
+										if front.ceilingheight < back.ceilingheight then
+											opentop := front.ceilingheight
+										else
+											opentop := back.ceilingheight
+										end
+										if front.floorheight > back.floorheight then
+											openbottom := front.floorheight
+										else
+											openbottom := back.floorheight
+										end
+										if openbottom >= opentop then
+											Result := False
+											returned := True
+										else
+											frac := p_interceptvector2 (strace, divl)
+											if front.floorheight /= back.floorheight then
+												slope := {M_FIXED}.fixeddiv (openbottom - sightzstart, frac)
+												if slope > bottomslope then
+													bottomslope := slope
+												end
+											end
+											if front.ceilingheight /= back.ceilingheight then
+												slope := {M_FIXED}.fixeddiv (opentop - sightzstart, frac)
+												if slope < topslope then
+													topslope := slope
+												end
+											end
+											if topslope <= bottomslope then
+												Result := False
+												returned := True
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+				seg_i := seg_i + 1
+				count := count - 1
+			end
+			if not returned then
+				Result := True
+			end
+		end
+
+	p_interceptvector2 (v2, v1: DIVLINE_T): FIXED_T
+			-- Returns the fractional intercept point
+			-- along the first divline.
+			-- This is only called by the addthings and addlines traversers
+		local
+			frac, num, den: FIXED_T
+		do
+			den := {M_FIXED}.fixedmul (v1.dy |>> 8, v2.dx) - {M_FIXED}.fixedmul (v1.dx |>> 8, v2.dy)
+			if den = create {FIXED_T}.from_integer (0) then
+				Result := create {FIXED_T}.from_integer (0)
+			else
+				num := {M_FIXED}.fixedmul ((v1.x - v2.x) |>> 8, v1.dy) + {M_FIXED}.fixedmul ((v2.y - v1.y) |>> 8, v1.dx)
+				frac := {M_FIXED}.fixeddiv (num, den)
+				Result := frac
+			end
+		end
+	
+end -- class P_SIGHT

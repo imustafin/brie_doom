@@ -1,0 +1,31 @@
+class
+	POSTCONDITION_VIOLATION
+
+General
+	cluster: elks
+	description: "Exception representing a postcondition violation"
+
+Ancestors
+	ASSERTION_VIOLATION*
+
+Queries
+	cause: EXCEPTION -- (from EXCEPTION)
+	code: INTEGER_32
+	description: detachable READABLE_STRING_GENERAL -- (from EXCEPTION)
+	Exception_manager: EXCEPTION_MANAGER -- (from EXCEPTION_MANAGER_FACTORY)
+	is_caught: BOOLEAN -- (from EXCEPTION)
+	is_ignorable: BOOLEAN -- (from EXCEPTION)
+	is_ignored: BOOLEAN -- (from EXCEPTION)
+	is_raisable: BOOLEAN -- (from EXCEPTION)
+	line_number: INTEGER_32 -- (from EXCEPTION)
+	original: EXCEPTION -- (from EXCEPTION)
+	out: STRING_8 -- (from EXCEPTION)
+	recipient_name: detachable STRING_8 -- (from EXCEPTION)
+	Tag: IMMUTABLE_STRING_32
+	trace: detachable STRING_32 -- (from EXCEPTION)
+	type_name: detachable STRING_8 -- (from EXCEPTION)
+
+Commands
+	raise -- (from EXCEPTION)
+	set_description (a_description: detachable READABLE_STRING_GENERAL) -- (from EXCEPTION)
+

@@ -1,0 +1,35 @@
+class
+	TICCMD_T
+
+General
+	cluster: brie_doom
+	description: 
+		"d_ticcmd.h
+		System specific interface stuff.
+		
+		The data sampled per tick (single player)
+		and transmitted to other players (multiplayer).
+		Mainly movements/button commands per game tick,
+		plus a checksum for internal state consistency."
+	create: default_create
+
+Ancestors
+	ANY
+
+Queries
+	angleturn: INTEGER_32
+	buttons: INTEGER_32
+	chatchar: CHARACTER_8
+	consistancy: INTEGER_32
+	forwardmove: INTEGER_8
+	sidemove: INTEGER_8
+
+Commands
+	copy_from (a_other: TICCMD_T)
+	set_angleturn (a_angleturn: [like angleturn] INTEGER_32)
+	set_buttons (a_buttons: [like buttons] INTEGER_32)
+	set_chatchar (a_chatchar: [like chatchar] CHARACTER_8)
+	set_consistancy (a_consistancy: [like consistancy] INTEGER_32)
+	set_forwardmove (a_forwardmove: [like forwardmove] INTEGER_8)
+	set_sidemove (a_sidemove: [like sidemove] INTEGER_8)
+

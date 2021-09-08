@@ -1,0 +1,114 @@
+class
+	REFLECTED_REFERENCE_OBJECT
+
+General
+	cluster: elks
+	description: 
+		"Accessor to an object. Useful to manipulate fields of an object, or
+		an expanded field of an object without causing any copying.
+		If applied to an expanded type, a copy will be manipulated."
+	create: make, make_for_expanded_field, make_for_expanded_field_at
+
+Ancestors
+	REFLECTED_OBJECT*
+	REFLECTOR_CONSTANTS
+
+Queries
+	Bit_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	boolean_field (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	Boolean_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	character_32_field (i: INTEGER_32): CHARACTER_32 -- (from REFLECTED_OBJECT)
+	Character_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	character_8_field (i: INTEGER_32): CHARACTER_8 -- (from REFLECTED_OBJECT)
+	Character_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Character_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	class_name: STRING_8 -- (from REFLECTED_OBJECT)
+	copy_semantics_field (i: INTEGER_32): REFLECTED_COPY_SEMANTICS_OBJECT
+	deep_physical_size: INTEGER_32 -- (from REFLECTED_OBJECT)
+	deep_physical_size_64: NATURAL_64 -- (from REFLECTED_OBJECT)
+	Double_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	dynamic_type: INTEGER_32 -- (from REFLECTED_OBJECT)
+	enclosing_object: separate ANY
+	expanded_field (i: INTEGER_32): REFLECTED_REFERENCE_OBJECT
+	Expanded_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	field (i: INTEGER_32): detachable ANY -- (from REFLECTED_OBJECT)
+	field_conforms_to (a_source_type, a_field_type: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	field_count: INTEGER_32 -- (from REFLECTED_OBJECT)
+	field_name (i: INTEGER_32): STRING_8 -- (from REFLECTED_OBJECT)
+	field_offset (i: INTEGER_32): INTEGER_32 -- (from REFLECTED_OBJECT)
+	field_static_type (i: INTEGER_32): INTEGER_32 -- (from REFLECTED_OBJECT)
+	field_type (i: INTEGER_32): INTEGER_32 -- (from REFLECTED_OBJECT)
+	generic_count: INTEGER_32 -- (from REFLECTED_OBJECT)
+	generic_dynamic_type (i: INTEGER_32): INTEGER_32 -- (from REFLECTED_OBJECT)
+	integer_16_field (i: INTEGER_32): INTEGER_16 -- (from REFLECTED_OBJECT)
+	Integer_16_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	integer_32_field (i: INTEGER_32): INTEGER_32 -- (from REFLECTED_OBJECT)
+	Integer_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	integer_64_field (i: INTEGER_32): INTEGER_64 -- (from REFLECTED_OBJECT)
+	Integer_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	integer_8_field (i: INTEGER_32): INTEGER_8 -- (from REFLECTED_OBJECT)
+	Integer_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Integer_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	is_copy_semantics_field (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_expanded: BOOLEAN -- (from REFLECTED_OBJECT)
+	is_field_statically_attached (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_field_statically_expanded (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_field_transient (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_instance_of (type_id: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_special: BOOLEAN -- (from REFLECTED_OBJECT)
+	is_special_copy_semantics_item (i: INTEGER_32): BOOLEAN -- (from REFLECTED_OBJECT)
+	is_special_of_expanded: BOOLEAN -- (from REFLECTED_OBJECT)
+	is_special_of_reference: BOOLEAN -- (from REFLECTED_OBJECT)
+	is_tuple: BOOLEAN -- (from REFLECTED_OBJECT)
+	Max_predefined_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Min_predefined_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	natural_16_field (i: INTEGER_32): NATURAL_16 -- (from REFLECTED_OBJECT)
+	Natural_16_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	natural_32_field (i: INTEGER_32): NATURAL_32 -- (from REFLECTED_OBJECT)
+	Natural_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	natural_64_field (i: INTEGER_32): NATURAL_64 -- (from REFLECTED_OBJECT)
+	Natural_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	natural_8_field (i: INTEGER_32): NATURAL_8 -- (from REFLECTED_OBJECT)
+	Natural_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	None_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	object: ANY
+	object_address: POINTER
+	persistent_field_count: INTEGER_32 -- (from REFLECTED_OBJECT)
+	physical_offset: INTEGER_32
+	physical_size: INTEGER_32 -- (from REFLECTED_OBJECT)
+	physical_size_64: NATURAL_64 -- (from REFLECTED_OBJECT)
+	pointer_field (i: INTEGER_32): POINTER -- (from REFLECTED_OBJECT)
+	Pointer_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	real_32_field (i: INTEGER_32): REAL_32 -- (from REFLECTED_OBJECT)
+	Real_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	real_64_field (i: INTEGER_32): REAL_64 -- (from REFLECTED_OBJECT)
+	Real_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Real_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	reference_field (i: INTEGER_32): detachable ANY -- (from REFLECTED_OBJECT)
+	Reference_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	special_copy_semantics_item (i: INTEGER_32): REFLECTED_COPY_SEMANTICS_OBJECT -- (from REFLECTED_OBJECT)
+	type_name: STRING_8 -- (from REFLECTED_OBJECT)
+	Wide_character_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+
+Commands
+	set_boolean_field (i: INTEGER_32; value: BOOLEAN) -- (from REFLECTED_OBJECT)
+	set_character_32_field (i: INTEGER_32; value: CHARACTER_32) -- (from REFLECTED_OBJECT)
+	set_character_8_field (i: INTEGER_32; value: CHARACTER_8) -- (from REFLECTED_OBJECT)
+	set_character_field (i: INTEGER_32; value: CHARACTER_8) -- (from REFLECTED_OBJECT)
+	set_double_field (i: INTEGER_32; value: REAL_64) -- (from REFLECTED_OBJECT)
+	set_integer_16_field (i: INTEGER_32; value: INTEGER_16) -- (from REFLECTED_OBJECT)
+	set_integer_32_field (i, value: INTEGER_32) -- (from REFLECTED_OBJECT)
+	set_integer_64_field (i: INTEGER_32; value: INTEGER_64) -- (from REFLECTED_OBJECT)
+	set_integer_8_field (i: INTEGER_32; value: INTEGER_8) -- (from REFLECTED_OBJECT)
+	set_integer_field (i, value: INTEGER_32) -- (from REFLECTED_OBJECT)
+	set_natural_16_field (i: INTEGER_32; value: NATURAL_16) -- (from REFLECTED_OBJECT)
+	set_natural_32_field (i: INTEGER_32; value: NATURAL_32) -- (from REFLECTED_OBJECT)
+	set_natural_64_field (i: INTEGER_32; value: NATURAL_64) -- (from REFLECTED_OBJECT)
+	set_natural_8_field (i: INTEGER_32; value: NATURAL_8) -- (from REFLECTED_OBJECT)
+	set_object (a_obj: separate ANY)
+	set_pointer_field (i: INTEGER_32; value: POINTER) -- (from REFLECTED_OBJECT)
+	set_real_32_field (i: INTEGER_32; value: REAL_32) -- (from REFLECTED_OBJECT)
+	set_real_64_field (i: INTEGER_32; value: REAL_64) -- (from REFLECTED_OBJECT)
+	set_real_field (i: INTEGER_32; value: REAL_32) -- (from REFLECTED_OBJECT)
+	set_reference_field (i: INTEGER_32; value: detachable ANY) -- (from REFLECTED_OBJECT)
+

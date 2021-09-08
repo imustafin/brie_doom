@@ -1,0 +1,42 @@
+deferred class
+	STACK [G]
+
+General
+	cluster: elks
+	description: 
+		"Stacks (last-in, first-out dispensers), without commitment
+		to a particular representation"
+
+Ancestors
+	DISPENSER* [G]
+
+Queries
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32 -- (from FINITE)
+	extendible: BOOLEAN -- (from COLLECTION)
+	full: BOOLEAN -- (from BOX)
+	has (v: G): BOOLEAN -- (from CONTAINER)
+	is_empty: BOOLEAN -- (from FINITE)
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	item: G -- (from ACTIVE)
+	linear_representation: LINEAR [G] -- (from CONTAINER)
+	new_cursor: ITERATION_CURSOR [G] -- (from ITERABLE)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: G): INTEGER_32 -- (from BAG)
+	prunable: BOOLEAN -- (from COLLECTION)
+	readable: BOOLEAN -- (from DISPENSER)
+	replaceable: BOOLEAN -- (from ACTIVE)
+	writable: BOOLEAN -- (from DISPENSER)
+
+Commands
+	append (s: SEQUENCE [G]) -- (from DISPENSER)
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	extend (v: [like item] G)
+	fill (other: LINEAR [G])
+	force (v: [like item] G)
+	put (v: [like item] G)
+	remove -- (from ACTIVE)
+	replace (v: [like item] G)
+	wipe_out -- (from COLLECTION)
+

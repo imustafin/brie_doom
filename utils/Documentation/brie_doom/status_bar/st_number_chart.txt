@@ -1,0 +1,29 @@
+class
+	ST_NUMBER
+
+General
+	cluster: status_bar
+	description: "st_number_t with it's functions from st_lib.c"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	data: INTEGER_32
+	i_main: I_MAIN
+	num: FUNCTION [INTEGER_32]
+	oldnum: INTEGER_32
+	on: PREDICATE
+	p: ARRAY [detachable PATCH_T]
+	width: INTEGER_32
+	x: INTEGER_32
+	y: INTEGER_32
+
+Commands
+	draw (refreh: BOOLEAN)
+	make (a_x: [like x] INTEGER_32; a_y: [like y] INTEGER_32; a_p: [like p] ARRAY [detachable PATCH_T]; a_num: [like num] FUNCTION [INTEGER_32]; a_on: [like on] PREDICATE; a_width: [like width] INTEGER_32; a_i_main: I_MAIN)
+	set_data (a_data: [like data] INTEGER_32)
+	set_num (a_num: [like num] FUNCTION [INTEGER_32])
+	update (refresh: BOOLEAN)
+

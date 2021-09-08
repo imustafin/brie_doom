@@ -1,0 +1,36 @@
+class
+	ANIM_T
+
+General
+	cluster: brie_doom
+	description: 
+		"anim_t from wi_stuff.c
+		
+		Animation.
+		There is another anim_t used in p_spec."
+	create: make, make2
+
+Ancestors
+	ANY
+
+Queries
+	ctr: INTEGER_32
+	data1: INTEGER_32
+	data2: INTEGER_32
+	lastdrawn: INTEGER_32
+	loc: POINT_T
+	nanims: INTEGER_32
+	nexttic: INTEGER_32
+	p: ARRAY [detachable PATCH_T]
+	period: INTEGER_32
+	state: INTEGER_32
+	type: INTEGER_32
+
+Commands
+	make (a_type: [like type] INTEGER_32; a_period: [like period] INTEGER_32; a_nanims: [like nanims] INTEGER_32; a_loc: [like loc] POINT_T)
+	make2 (a_type: [like type] INTEGER_32; a_period: [like period] INTEGER_32; a_nanims: [like nanims] INTEGER_32; a_loc: [like loc] POINT_T; a_data1: [like data1] INTEGER_32)
+	set_ctr (a_ctr: [like ctr] INTEGER_32)
+	set_nexttic (a_nexttic: [like nexttic] INTEGER_32)
+
+Constraints
+

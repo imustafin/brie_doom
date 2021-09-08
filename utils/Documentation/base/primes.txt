@@ -1,0 +1,251 @@
+note
+	description: "Prime number properties"
+	library: "Free implementation of ELKS library"
+	status: "See notice at end of class."
+	legal: "See notice at end of class."
+	names: primes
+	date: "$Date: 2018-10-03 13:41:17 +0000 (Wed, 03 Oct 2018) $"
+	revision: "$Revision: 102260 $"
+
+class 
+	PRIMES
+
+inherit
+	COUNTABLE_SEQUENCE [INTEGER_32]
+		rename
+			has as is_prime
+		redefine
+			is_prime
+		end
+
+	ITERATION_CURSOR [INTEGER_32]
+
+create 
+	default_create
+
+feature -- Access
+
+	Smallest_prime: INTEGER_32 = 2
+
+	Smallest_odd_prime: INTEGER_32 = 3
+
+	higher_prime (n: INTEGER_32): INTEGER_32
+			-- Lowest prime greater than or equal to `n`
+		do
+			if n <= Smallest_prime then
+				Result := Smallest_prime
+			else
+				check
+						n > Smallest_prime
+				end
+				from
+					if n \\ Smallest_prime = 0 then
+						Result := n + 1
+					else
+						Result := n
+					end
+				until
+					is_prime (Result)
+				loop
+					Result := Result + Smallest_prime
+				end
+			end
+		ensure
+			instance_free: class
+		end
+
+	lower_prime (n: INTEGER_32): INTEGER_32
+			-- Greatest prime lower than or equal to `n`
+		require
+			argument_big_enough: n >= Smallest_prime
+		do
+			if n = Smallest_prime then
+				Result := Smallest_prime
+			else
+				from
+					if n \\ Smallest_prime = 0 then
+						Result := n - 1
+					else
+						Result := n
+					end
+				until
+					is_prime (Result)
+				loop
+					Result := Result - Smallest_prime
+				end
+			end
+		ensure
+			instance_free: class
+		end
+
+	all_lower_primes (n: INTEGER_32): ARRAY [BOOLEAN]
+			-- Array of `n` boolean values, where the
+			-- value at index `i` is true if and only if
+			-- `i` is prime.
+		local
+			i, j: INTEGER_32
+		do
+			from
+				create Result.make_filled (False, 1, n)
+				i := 3
+			until
+				i > n
+			loop
+				Result.put (True, i)
+				i := i + Smallest_prime
+			end
+			if n >= Smallest_prime then
+				Result.put (True, Smallest_prime)
+			end
+			from
+				i := Smallest_odd_prime
+			until
+				i * i > n
+			loop
+				if Result.item (i) then
+					from
+						j := i * i
+					until
+						j > n
+					loop
+						Result.put (False, j)
+						j := j + Smallest_prime * i
+					end
+				end
+				i := i + Smallest_prime
+			end
+		ensure
+			instance_free: class
+		end
+
+	is_prime (n: INTEGER_32): BOOLEAN
+			-- Is `n` a prime number?
+		local
+			divisor: INTEGER_32
+		do
+			if n <= 1 then
+				Result := False
+			elseif n = Smallest_prime then
+				Result := True
+			elseif n \\ Smallest_prime /= 0 then
+				from
+					divisor := Smallest_odd_prime
+				until
+					(n \\ divisor = 0) or else (divisor * divisor >= n)
+				loop
+					divisor := divisor + Smallest_prime
+				end
+				if divisor * divisor > n then
+					Result := True
+				end
+			end
+		ensure then
+			instance_free: class
+		end
+
+	i_th (i: INTEGER_32): INTEGER_32
+			-- The `i`-th prime number
+		local
+			candidates: ARRAY [BOOLEAN]
+			found: INTEGER_32
+			l_values: like Internal_precomputed_primes
+		do
+			l_values := Internal_precomputed_primes
+			if l_values /= Void and then i <= l_values.upper then
+				Result := l_values.item (i)
+			else
+				candidates := all_lower_primes (approximated_i_th (i))
+				from
+					Result := 2
+					found := 1
+				until
+					found = i
+				loop
+					Result := Result + 1
+					if candidates.item (Result) then
+						found := found + 1
+					end
+				variant
+						i * i - Result
+				end
+			end
+		ensure then
+			instance_free: class
+		end
+	
+feature -- Iteration
+
+	new_cursor: PRIMES
+			-- Fresh cursor associated with current structure
+		do
+			create Result
+			Result.start
+		ensure then
+			instance_free: class
+		end
+	
+feature {NONE} -- Implementation
+
+	Precomputed_primes_count: INTEGER_32 = 200
+			-- Number of precomputed prime numbers.
+
+	Internal_precomputed_primes: ARRAY [INTEGER_32]
+			-- First Precomputed_primes_count prime numbers.
+		local
+			candidates: ARRAY [BOOLEAN]
+			i, pos: INTEGER_32
+		once
+			from
+				candidates := all_lower_primes (approximated_i_th (Precomputed_primes_count))
+				create Result.make_filled (0, 1, Precomputed_primes_count)
+				pos := 1
+				i := 1
+			until
+				pos > Precomputed_primes_count
+			loop
+				if candidates.item (i) then
+					Result.put (i, pos)
+					pos := pos + 1
+				end
+				i := i + 1
+			end
+		ensure
+			instance_free: class
+			internal_precomputed_primes_not_void: Result /= Void
+			lower_valid: Result.lower = 1
+			upper_valid: Result.upper = Precomputed_primes_count
+		end
+
+	approximated_i_th (n: INTEGER_32): INTEGER_32
+			-- Approximation of `n`-th prime number.
+		require
+			n_positive: n > 0
+		local
+			l_double_math: DOUBLE_MATH
+			ln_n, ln_ln_n: REAL_64
+		do
+			if n >= 13 then
+				create l_double_math
+				ln_n := l_double_math.log (n.to_double)
+				ln_ln_n := l_double_math.log (ln_n)
+				Result := (n.to_double * (ln_n + ln_ln_n - 1.to_double + 1.8 * ln_ln_n / ln_n)).truncated_to_integer
+			else
+				Result := n * n
+			end
+		ensure
+			instance_free: class
+			approximation_valid: i_th (n) <= Result
+		end
+	
+note
+	copyright: "Copyright (c) 1984-2018, Eiffel Software and others"
+	license: "Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"
+	source: "[
+		Eiffel Software
+		5949 Hollister Ave., Goleta, CA 93117 USA
+		Telephone 805-685-1006, Fax 805-685-6869
+		Website http://www.eiffel.com
+		Customer support http://support.eiffel.com
+	]"
+
+end -- class PRIMES

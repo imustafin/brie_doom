@@ -1,0 +1,70 @@
+class
+	REFLECTOR
+
+General
+	cluster: elks
+	description: 
+		"Access to internal object properties.
+		This class may be used as ancestor by classes needing its facilities."
+
+Ancestors
+	REFLECTOR_CONSTANTS
+	REFLECTOR_HELPER
+
+Queries
+	attached_type (type_id: INTEGER_32): INTEGER_32
+	Bit_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Boolean_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Character_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Character_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Character_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	class_name_of_type (type_id: INTEGER_32): STRING_8
+	compiler_version: INTEGER_32
+	detachable_type (type_id: INTEGER_32): INTEGER_32
+	Double_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	dynamic_type_from_string (class_type: READABLE_STRING_GENERAL): INTEGER_32
+	Expanded_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	field_conforms_to (a_source_type, a_field_type: INTEGER_32): BOOLEAN
+	field_count_of_type (type_id: INTEGER_32): INTEGER_32
+	field_name_of_type (i, type_id: INTEGER_32): STRING_8
+	field_static_type_of_type (i, type_id: INTEGER_32): INTEGER_32
+	field_type_of_type (i, type_id: INTEGER_32): INTEGER_32
+	generic_count_of_type (type_id: INTEGER_32): INTEGER_32
+	generic_dynamic_type_of_type (type_id, i: INTEGER_32): INTEGER_32
+	Integer_16_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Integer_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Integer_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Integer_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Integer_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	is_attached_type (a_type_id: INTEGER_32): BOOLEAN
+	is_field_expanded_of_type (i, a_type_id: INTEGER_32): BOOLEAN
+	is_field_transient_of_type (i, a_type_id: INTEGER_32): BOOLEAN
+	is_pre_ecma_mapping_disabled: BOOLEAN -- (from REFLECTOR_HELPER)
+	is_special_any_type (type_id: INTEGER_32): BOOLEAN
+	is_special_type (type_id: INTEGER_32): BOOLEAN
+	is_tuple_type (type_id: INTEGER_32): BOOLEAN
+	is_valid_type_string (s: READABLE_STRING_GENERAL): BOOLEAN -- (from REFLECTOR_HELPER)
+	mapped_type (a_type: READABLE_STRING_GENERAL): READABLE_STRING_GENERAL -- (from REFLECTOR_HELPER)
+	Max_predefined_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Min_predefined_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Natural_16_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Natural_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Natural_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Natural_8_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	new_instance_of (type_id: INTEGER_32): ANY
+	new_special_any_instance (type_id, a_capacity: INTEGER_32): SPECIAL [detachable ANY]
+	new_tuple_from_special (type_id: INTEGER_32; values: SPECIAL [detachable separate ANY]): detachable TUPLE
+	new_tuple_from_tuple (type_id: INTEGER_32; source: separate TUPLE): detachable TUPLE
+	None_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	persistent_field_count_of_type (a_type_id: INTEGER_32): INTEGER_32
+	Pointer_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Real_32_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Real_64_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Real_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	Reference_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+	storable_version_of_type (a_type_id: INTEGER_32): detachable IMMUTABLE_STRING_8
+	type_conforms_to (type1, type2: INTEGER_32): BOOLEAN
+	type_name_of_type (type_id: INTEGER_32): STRING_8
+	type_of_type (type_id: INTEGER_32): TYPE [detachable ANY]
+	Wide_character_type: INTEGER_32 -- (from REFLECTOR_CONSTANTS)
+

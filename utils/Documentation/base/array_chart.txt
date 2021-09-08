@@ -1,0 +1,89 @@
+class
+	ARRAY [G]
+
+General
+	cluster: elks
+	description: 
+		"Sequences of values, all of the same type or of a conforming one,
+		accessible through integer indices in a contiguous interval."
+	create: make_empty, make, make_filled, make_from_array, make_from_special, make_from_cil
+
+Ancestors
+	INDEXABLE* [G, H -> INTEGER_32]
+	RESIZABLE* [G]
+	TO_SPECIAL [T]
+
+Queries
+	additional_space: INTEGER_32 -- (from RESIZABLE)
+	all_default: BOOLEAN
+	area: SPECIAL [G] -- (from TO_SPECIAL)
+	at alias "@" (i: INTEGER_32): G
+	capacity: INTEGER_32
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32
+	entry (i: INTEGER_32): G
+	extendible: BOOLEAN
+	filled_with (v: G): BOOLEAN
+	for_all (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+	full: BOOLEAN
+	Growth_percentage: INTEGER_32 -- (from RESIZABLE)
+	has (v: G): BOOLEAN
+	is_empty: BOOLEAN -- (from FINITE)
+	is_equal (other: [like Current] ARRAY [G]): BOOLEAN
+	is_inserted (v: G): BOOLEAN -- (from COLLECTION)
+	item alias "[]" (i: INTEGER_32): G
+	linear_representation: LINEAR [G]
+	lower: INTEGER_32
+	Minimal_increase: INTEGER_32 -- (from RESIZABLE)
+	new_cursor: ARRAY_ITERATION_CURSOR [G]
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: G): INTEGER_32
+	prunable: BOOLEAN
+	resizable: BOOLEAN
+	same_items (other: [like Current] ARRAY [G]): BOOLEAN
+	subarray (start_pos, end_pos: INTEGER_32): ARRAY [G]
+	there_exists (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+	to_c: ANY
+	to_cil: NATIVE_ARRAY [G]
+	to_special: SPECIAL [G]
+	upper: INTEGER_32
+	valid_index (i: INTEGER_32): BOOLEAN
+
+Commands
+	automatic_grow -- (from RESIZABLE)
+	clear_all
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	conservative_resize_with_default (a_default_value: G; min_index, max_index: INTEGER_32)
+	copy (other: [like Current] ARRAY [G])
+	discard_items
+	do_all (action: PROCEDURE [G])
+	do_all_with_index (action: PROCEDURE [G, INTEGER_32])
+	do_if (action: PROCEDURE [G]; test: FUNCTION [G, BOOLEAN])
+	do_if_with_index (action: PROCEDURE [G, INTEGER_32]; test: FUNCTION [G, INTEGER_32, BOOLEAN])
+	enter (v: [like item] G; i: INTEGER_32)
+	fill (other: CONTAINER [G]) -- (from COLLECTION)
+	fill_with (v: G)
+	force (v: [like item] G; i: INTEGER_32)
+	force_and_fill (v: [like item] G; i: INTEGER_32)
+	grow (i: INTEGER_32)
+	keep_head (n: INTEGER_32)
+	keep_tail (n: INTEGER_32)
+	make_empty
+	make_filled (a_default_value: G; min_index, max_index: INTEGER_32)
+	make_from_array (a: ARRAY [G])
+	make_from_cil (na: NATIVE_ARRAY [[like item] G])
+	make_from_special (a: SPECIAL [G])
+	prune_all (v: G) -- (from COLLECTION)
+	put (v: [like item] G; i: INTEGER_32)
+	rebase (a_lower: [like lower] INTEGER_32)
+	remove_head (n: INTEGER_32)
+	remove_tail (n: INTEGER_32)
+	subcopy (other: ARRAY [[like item] G]; start_pos, end_pos, index_pos: INTEGER_32)
+	trim
+
+Constraints
+	area exists
+	consistent size
+	non negative count
+

@@ -1,0 +1,48 @@
+class
+	ARRAYED_STACK [G]
+
+General
+	cluster: elks
+	description: "Stacks implemented by resizable arrays"
+	create: make, make_from_iterable, make_filled
+
+Ancestors
+	ARRAYED_LIST [G]
+	STACK* [G]
+
+Queries
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32 -- (from ARRAYED_LIST)
+	extendible: BOOLEAN -- (from DYNAMIC_CHAIN)
+	full: BOOLEAN -- (from BOUNDED)
+	has (v: [like item] G): BOOLEAN -- (from ARRAYED_LIST)
+	index: INTEGER_32 -- (from ARRAYED_LIST)
+	is_empty: BOOLEAN -- (from FINITE)
+	is_equal (other: [like Current] ARRAYED_STACK [G]): BOOLEAN -- (from ARRAYED_LIST)
+	is_inserted (v: G): BOOLEAN -- (from ARRAYED_LIST)
+	item: G -- (from ARRAYED_LIST)
+	linear_representation: ARRAYED_LIST [G]
+	new_cursor: ARRAYED_LIST_ITERATION_CURSOR [G] -- (from ARRAYED_LIST)
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: [like item] G): INTEGER_32 -- (from CHAIN)
+	off: BOOLEAN -- (from CHAIN)
+	prunable: BOOLEAN -- (from ARRAYED_LIST)
+	readable: BOOLEAN -- (from DISPENSER)
+	replaceable: BOOLEAN -- (from ACTIVE)
+	valid_index (i: INTEGER_32): BOOLEAN -- (from ARRAYED_LIST)
+	writable: BOOLEAN -- (from DISPENSER)
+
+Commands
+	append (s: SEQUENCE [G]) -- (from DISPENSER)
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	copy (other: [like Current] ARRAYED_STACK [G]) -- (from ARRAYED_LIST)
+	extend (v: [like item] G)
+	fill (other: LINEAR [G]) -- (from STACK)
+	force (v: [like item] G)
+	make (n: INTEGER_32) -- (from ARRAYED_LIST)
+	put (v: [like item] G)
+	remove
+	replace (v: [like first] G) -- (from ARRAYED_LIST)
+	wipe_out -- (from ARRAYED_LIST)
+

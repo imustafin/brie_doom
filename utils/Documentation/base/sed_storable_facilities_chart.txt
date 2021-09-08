@@ -1,0 +1,25 @@
+class
+	SED_STORABLE_FACILITIES
+
+General
+	cluster: ise
+	description: "Serialize and deserialize objects to and from SED_READER_WRITER instances."
+
+Ancestors
+	ANY
+
+Queries
+	Eiffel_basic_store: NATURAL_32
+	Eiffel_independent_store: NATURAL_32
+	Eiffel_recoverable_store: NATURAL_32
+	Eiffel_session_store: NATURAL_32
+	retrieved (a_reader: SED_READER_WRITER; a_is_gc_enabled: BOOLEAN): detachable ANY
+	retrieved_errors: detachable ARRAYED_LIST [SED_ERROR]
+	retrieved_from_medium (a_medium: IO_MEDIUM): detachable ANY
+
+Commands
+	basic_store (an_object: ANY; a_writer: SED_READER_WRITER; a_optimized_for_retrieval: BOOLEAN)
+	session_store (an_object: ANY; a_writer: SED_READER_WRITER; a_optimized_for_retrieval: BOOLEAN)
+	store (an_object: ANY; a_writer: SED_READER_WRITER)
+	store_in_medium (an_object: ANY; a_medium: IO_MEDIUM)
+

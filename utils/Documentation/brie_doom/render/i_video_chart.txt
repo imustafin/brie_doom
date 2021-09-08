@@ -1,0 +1,63 @@
+class
+	I_VIDEO
+
+General
+	cluster: render
+	description: 
+		"i_video.c
+		DOOM graphics stuff for SDL library"
+	create: make
+
+Ancestors
+	ANY
+
+Queries
+	actualheight: INTEGER_32
+	argbbuffer: detachable SDL_SURFACE_STRUCT_API
+	aspect_ratio_correct: BOOLEAN
+	Blit_rect: SDL_RECT_STRUCT_API
+	firsttime: BOOLEAN
+	fullscreen: BOOLEAN
+	Fullscreen_height: INTEGER_32
+	Fullscreen_width: INTEGER_32
+	h_upscale_old: INTEGER_32
+	i_main: I_MAIN
+	i_videobuffer: PIXEL_T_BUFFER
+	initialized: BOOLEAN
+	integer_scaling: BOOLEAN
+	lasttic: INTEGER_32
+	Max_scaling_buffer_pixels: INTEGER_32
+	multiply: INTEGER_32
+	Palette: ARRAY [SDL_COLOR_STRUCT_API]
+	palette_to_set: BOOLEAN
+	pixel_format: NATURAL_32
+	renderer: detachable SDL_RENDERER_STRUCT_API
+	screen: detachable SDL_WINDOW_STRUCT_API
+	screenbuffer: detachable SDL_SURFACE_STRUCT_API
+	Screenheight_4_3: INTEGER_32
+	screensaver_mode: BOOLEAN
+	Screenvisible: BOOLEAN
+	Startup_delay: INTEGER_32
+	texture: detachable SDL_TEXTURE_STRUCT_API
+	texture_upscaled: detachable SDL_TEXTURE_STRUCT_API
+	w_upscale_old: INTEGER_32
+	window_height: INTEGER_32
+	window_width: INTEGER_32
+	xlatekey (key: SDL_KEYSYM_STRUCT_API): INTEGER_32
+
+Commands
+	adjust_window_size
+	create_upscaled_texture (force: BOOLEAN)
+	i_finishupdate
+	i_getevent
+	i_initgraphics
+	i_readscreen (scr: PIXEL_T_BUFFER)
+	i_setpalette (doompalette: MANAGED_POINTER)
+	i_startframe
+	i_starttic
+	i_updatenoblit
+	limit_texture_size (w_upscale, h_upscale: TYPED_POINTER [INTEGER_32])
+	make (a_i_main: [like i_main] I_MAIN)
+	set_sdl_palette
+	set_video_mode
+

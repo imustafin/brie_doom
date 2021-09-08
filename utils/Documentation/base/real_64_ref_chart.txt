@@ -1,0 +1,65 @@
+class
+	REAL_64_REF
+
+General
+	cluster: elks
+	description: "References to objects containing a double-precision real number"
+
+Ancestors
+	COMPARABLE*
+	HASHABLE*
+	NUMERIC*
+
+Queries
+	abs: REAL_64
+	ceiling: INTEGER_32
+	ceiling_real_64: REAL_64
+	divisible (other: REAL_64_REF): BOOLEAN
+	Epsilon: REAL_64
+	exponentiable (other: NUMERIC): BOOLEAN
+	floor: INTEGER_32
+	floor_real_64: REAL_64
+	hash_code: INTEGER_32
+	identity alias "+": [like Current] REAL_64_REF
+	is_equal (other: [like Current] REAL_64_REF): BOOLEAN
+	is_greater alias ">" (other: [like Current] REAL_64_REF): BOOLEAN -- (from COMPARABLE)
+	is_greater_equal alias ">=" (other: [like Current] REAL_64_REF): BOOLEAN -- (from COMPARABLE)
+	is_hashable: BOOLEAN
+	is_less alias "<" (other: [like Current] REAL_64_REF): BOOLEAN
+	is_less_equal alias "<=" (other: [like Current] REAL_64_REF): BOOLEAN -- (from COMPARABLE)
+	is_nan: BOOLEAN
+	is_negative_infinity: BOOLEAN
+	is_positive_infinity: BOOLEAN
+	item: REAL_64
+	Machine_epsilon: REAL_64
+	max (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF -- (from COMPARABLE)
+	Max_value: REAL_64
+	min (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF -- (from COMPARABLE)
+	Min_value: REAL_64
+	minus alias "-" (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF
+	nan: REAL_64
+	negative_infinity: REAL_64
+	one: [like Current] REAL_64_REF
+	opposite alias "-": [like Current] REAL_64_REF
+	out: STRING_8
+	plus alias "+" (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF
+	positive_infinity: REAL_64
+	power alias "^" (other: REAL_64): REAL_64
+	product alias "*" (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF
+	quotient alias "/" (other: [like Current] REAL_64_REF): [like Current] REAL_64_REF
+	rounded: INTEGER_32
+	rounded_real_64: REAL_64
+	sign: INTEGER_32
+	three_way_comparison (other: [like Current] REAL_64_REF): INTEGER_32 -- (from COMPARABLE)
+	to_reference: REAL_64_REF
+	truncated_to_integer: INTEGER_32
+	truncated_to_integer_64: INTEGER_64
+	truncated_to_real: REAL_32
+	zero: [like Current] REAL_64_REF
+
+Commands
+	set_item (d: REAL_64)
+
+Constraints
+	sign times abs
+

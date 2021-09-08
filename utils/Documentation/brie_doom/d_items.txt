@@ -1,0 +1,37 @@
+note
+	description: "d_items.c"
+
+class 
+	D_ITEMS
+
+inherit
+	STATENUM_T
+
+	AMMOTYPE_T
+
+	WEAPONTYPE_T
+
+create 
+	default_create
+
+feature 
+
+	Weaponinfo: ARRAY [WEAPONINFO_T]
+		once
+			create Result.make_filled (create {WEAPONINFO_T}, 0, Numweapons - 1)
+			Result [0] := create {WEAPONINFO_T}.make (Am_noammo, S_punchup, S_punchdown, S_punch, S_punch1, S_null)
+			Result [1] := create {WEAPONINFO_T}.make (Am_clip, S_pistolup, S_pistoldown, S_pistol, S_pistol1, S_pistolflash)
+			Result [2] := create {WEAPONINFO_T}.make (Am_shell, S_sgunup, S_sgundown, S_sgun, S_sgun1, S_sgunflash1)
+			Result [3] := create {WEAPONINFO_T}.make (Am_clip, S_chainup, S_chaindown, S_chain, S_chain1, S_chainflash1)
+			Result [4] := create {WEAPONINFO_T}.make (Am_misl, S_missileup, S_missiledown, S_missile, S_missile1, S_missileflash1)
+			Result [5] := create {WEAPONINFO_T}.make (Am_cell, S_plasmaup, S_plasmadown, S_plasma, S_plasma1, S_plasmaflash1)
+			Result [6] := create {WEAPONINFO_T}.make (Am_cell, S_bfgup, S_bfgdown, S_bfg, S_bfg1, S_bfgflash1)
+			Result [7] := create {WEAPONINFO_T}.make (Am_noammo, S_sawup, S_sawdown, S_saw, S_saw1, S_null)
+			Result [8] := create {WEAPONINFO_T}.make (Am_shell, S_dsgunup, S_dsgundown, S_dsgun, S_dsgun1, S_dsgunflash1)
+		ensure
+				Result.lower = 0
+				Result.count = Numweapons
+			instance_free: class
+		end
+	
+end -- class D_ITEMS

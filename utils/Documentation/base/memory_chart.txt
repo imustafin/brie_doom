@@ -1,0 +1,56 @@
+class
+	MEMORY
+
+General
+	cluster: elks
+	description: 
+		"Facilities for tuning up the garbage collection mechanism.
+		This class may be used as ancestor by classes needing its facilities."
+
+Ancestors
+	DISPOSABLE*
+	MEM_CONST
+
+Queries
+	C_memory: INTEGER_32 -- (from MEM_CONST)
+	chunk_size: INTEGER_32
+	coalesce_period: INTEGER_32
+	collecting: BOOLEAN
+	collection_period: INTEGER_32
+	Eiffel_memory: INTEGER_32 -- (from MEM_CONST)
+	Full_collector: INTEGER_32 -- (from MEM_CONST)
+	gc_statistics (collector_type: INTEGER_32): GC_INFO
+	generation_object_limit: INTEGER_32
+	Incremental_collector: INTEGER_32 -- (from MEM_CONST)
+	largest_coalesced_block: INTEGER_32
+	max_mem: INTEGER_32
+	memory_count_map: HASH_TABLE [INTEGER_32, INTEGER_32]
+	memory_map: HASH_TABLE [ARRAYED_LIST [ANY], INTEGER_32]
+	memory_statistics (memory_type: INTEGER_32): MEM_INFO
+	memory_threshold: INTEGER_32
+	objects_instance_of (an_object: ANY): SPECIAL [ANY]
+	objects_instance_of_type (a_type_id: INTEGER_32): SPECIAL [ANY]
+	referers (an_object: ANY): SPECIAL [ANY]
+	scavenge_zone_size: INTEGER_32
+	tenure: INTEGER_32
+	Total_memory: INTEGER_32 -- (from MEM_CONST)
+
+Commands
+	allocate_compact
+	allocate_fast
+	allocate_tiny
+	collect
+	collection_off
+	collection_on
+	disable_time_accounting
+	dispose
+	enable_time_accounting
+	execute_without_collection (a_action: PROCEDURE)
+	free (object: ANY)
+	full_coalesce
+	full_collect
+	set_coalesce_period (value: INTEGER_32)
+	set_collection_period (value: INTEGER_32)
+	set_max_mem (value: INTEGER_32)
+	set_memory_threshold (value: INTEGER_32)
+

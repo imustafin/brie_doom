@@ -1,0 +1,260 @@
+note
+	description: "[
+		w_wad.c
+		Handles WAD file header, directory, lump I/O.
+	]"
+
+class 
+	W_WAD
+
+create 
+	make
+
+feature 
+
+	i_main: I_MAIN
+
+	make (a_i_main: like i_main)
+		do
+			i_main := a_i_main
+		end
+	
+feature 
+
+	reloadname: detachable STRING_8
+
+	reloadlump: INTEGER_32
+	
+feature 
+
+	lumpinfo: detachable ARRAY [LUMPINFO_T]
+
+	lumpcache: detachable ARRAY [detachable MANAGED_POINTER]
+	
+feature 
+
+	w_initmultiplefiles (a_filenames: LIST [STRING_8])
+		do
+			across
+				a_filenames as filename
+			loop
+				w_addfile (filename.item)
+			end
+			check
+					attached lumpinfo as li
+			then
+				if li.is_empty then
+					i_main.i_error ("W_InitFiles: no files found")
+				end
+				create lumpcache.make_filled (Void, 0, li.count)
+			end
+		end
+
+	w_addfile (a_filename: STRING_8)
+			--	// W_AddFile
+			--// All files are optional, but at least one file must be
+			--//  found (PWAD, if all required lumps are present).
+			--// Files with a .wad extension are wadlink files
+			--//  with multiple lumps.
+			--// Other files are single lumps with the base filename
+			--//  for the lump name.
+			--//
+			--// If filename starts with a tilde, the file is handled
+			--//  specially to allow map reloads.
+			--// But: the reload feature is a fragile hack...
+		local
+			l_file: RAW_FILE
+			l_fileinfo: ARRAYED_LIST [FILELUMP_T]
+			l_header: WADINFO_T
+			i: INTEGER_32
+			l_storehandle: detachable RAW_FILE
+		do
+			if a_filename.starts_with ("~") then
+				reloadname := a_filename.tail (a_filename.count - 1)
+				check
+						attached lumpinfo as li
+				then
+					reloadlump := li.count
+				end
+			end
+			create l_file.make_open_read (a_filename)
+			if not l_file.is_open_read then
+				print (" could not open " + a_filename + "%N")
+			else
+				print (" adding " + a_filename + "%N")
+				if not a_filename.as_upper.ends_with ("WAD") then
+					create l_fileinfo.make (1)
+					l_fileinfo.extend (create {FILELUMP_T}.make (0, l_file.file_info.size, extractfilebase (a_filename)))
+				else
+					create l_header.read_bytes (l_file)
+					if not l_header.identification.as_upper.starts_with ("IWAD") then
+						if not l_header.identification.as_upper.starts_with ("PWAD") then
+							{I_MAIN}.i_error ("Wad file " + a_filename + " doesn't have IWAD or PWAD id%N")
+						end
+					end
+					l_file.go (l_header.infotableofs)
+					from
+						i := 0
+						create l_fileinfo.make (l_header.numlumps)
+					until
+						i >= l_header.numlumps
+					loop
+						l_fileinfo.extend (create {FILELUMP_T}.read_bytes (l_file))
+						i := i + 1
+					end
+				end
+				l_storehandle := if attached reloadname then
+					Void
+				else
+					l_file
+				end
+				from
+					i := 1
+					create lumpinfo.make_filled (create {LUMPINFO_T}.make ("UNUSED", Void, 0, 0), 0, l_fileinfo.count - 1)
+				until
+					i > l_fileinfo.upper
+				loop
+					check
+							attached lumpinfo as li
+					then
+						li [i - 1] := create {LUMPINFO_T}.make (l_fileinfo [i].name, l_storehandle, l_fileinfo [i].filepos, l_fileinfo [i].size)
+					end
+					i := i + 1
+				end
+			end
+		ensure
+				attached lumpinfo as li and then {UTILS [LUMPINFO_T]}.all_different (li)
+		end
+
+	extractfilebase (a_filename: STRING_8): STRING_8
+			-- Should return filename base with <= 8 chars
+		do
+			Result := a_filename
+		end
+
+	w_checknumforname (name: STRING_8): INTEGER_32
+			-- Returns -1 if name not found
+		do
+			check
+					attached lumpinfo as li
+			then
+				from
+					Result := li.upper
+				until
+					Result < 0 or else li [Result].name.is_case_insensitive_equal (name)
+				loop
+					Result := Result - 1
+				end
+			end
+		ensure
+			minus_one_if_not_present: attached lumpinfo as li and then across
+					li as l
+				all
+					not l.item.name.is_case_insensitive_equal (name)
+				end implies Result = -1
+			index_if_present: Result > -1 implies attached lumpinfo as li and then li [Result].name.is_case_insensitive_equal (name)
+		end
+
+	w_cachelumpname (name: STRING_8; tag: INTEGER_32): MANAGED_POINTER
+		do
+			Result := w_cachelumpnum (w_getnumforname (name), tag)
+		ensure
+				Result.count = w_lumplength (w_getnumforname (name))
+		end
+
+	w_getnumforname (name: STRING_8): INTEGER_32
+		do
+			Result := w_checknumforname (name)
+			if Result = -1 then
+				i_main.i_error ("W_GetNumForName: " + name + " not found!")
+			end
+		end
+
+	w_cachelumpnum (lump: INTEGER_32; tag: INTEGER_32): MANAGED_POINTER
+		do
+			check
+					attached lumpinfo as li
+			then
+				if lump > li.count then
+					i_main.i_error ("W_CacheLumpNum: " + lump.out + " >= numlumps")
+				end
+			end
+			if attached lumpcache as lc and then attached lc [lump] as l then
+				Result := l
+			else
+				Result := w_readlump (lump)
+				check
+						attached lumpcache as lc
+				then
+					lc [lump] := Result
+				end
+			end
+		ensure
+				Result.count = w_lumplength (lump)
+		end
+
+	w_lumplength (lump: INTEGER_32): INTEGER_32
+		do
+			check
+					attached lumpinfo as li
+			then
+				if lump > li.count then
+					i_main.i_error ("W_LumpLength: " + lump.out + " >= numlumps")
+				end
+				Result := li [lump].size
+			end
+		end
+
+	w_readlump (lump: INTEGER_32): MANAGED_POINTER
+			-- Loads the lump and returns it
+			-- (originally wrote to a given buffer which must be >= W_LumpLength)
+		local
+			l: LUMPINFO_T
+			handle: RAW_FILE
+		do
+			check
+					attached lumpinfo as li
+			then
+				if lump > li.upper then
+					i_main.i_error ("W_ReadLump: " + lump.out + " >= numlumps")
+				end
+				l := li [lump]
+			end
+			if not attached l.handle then
+				check
+						attached reloadname as rn
+				then
+					create handle.make_open_read (rn)
+					if not handle.is_open_read then
+						i_main.i_error ("W_ReadLump: couldn't open " + rn)
+					end
+				end
+			else
+				handle := l.handle
+			end
+			check
+					handle /= Void
+			then
+				handle.go (l.position)
+				create Result.make (l.size)
+				handle.read_to_managed_pointer (Result, 0, l.size)
+				if not attached l.handle then
+					handle.close
+				end
+			end
+		ensure
+				Result.count = w_lumplength (lump)
+		end
+
+	w_releaselumpnum (lump: INTEGER_32)
+		do
+		end
+
+	w_reload
+		do
+			if reloadname /= Void then
+				{I_MAIN}.i_error ("W_Reload not implemented")
+			end
+		end
+	
+end -- class W_WAD

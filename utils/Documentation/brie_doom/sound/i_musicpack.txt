@@ -1,0 +1,83 @@
+note
+	description: "chocolate doom i_musicpack.c"
+
+class 
+	I_MUSICPACK
+
+inherit
+	MUSIC_MODULE_T
+
+create 
+	make
+
+feature 
+
+	make
+		do
+		end
+	
+feature 
+
+	Sound_devices: ARRAY [INTEGER_32]
+			-- List of sound devices that the music module is used for.
+		once
+			create Result.make_empty
+		end
+
+	poll
+			-- Invoked periodically to poll.
+		do
+		end
+
+	init: BOOLEAN
+			-- Initialise the music subsystem
+		do
+		end
+
+	playsong (handle: detachable ANY; looping: BOOLEAN)
+			-- Play the song
+		do
+		end
+
+	registersong (handle: detachable ANY; len: INTEGER_32): detachable ANY
+			-- Register a song handle from data
+			-- Returns a handle that can be used to play the song
+		do
+		end
+
+	stopsong
+			-- Stop playing the current song.
+		do
+		end
+
+	resumemusic
+			-- Un-pause music
+		do
+		end
+
+	unregistersong (handle: detachable ANY)
+			-- Un-register (free) song data
+		do
+		end
+
+	shutdown
+			-- Shutdown the music subsystem
+		do
+		end
+
+	set_music_volume (vol: INTEGER_32)
+			-- Set music volume - range 0-127
+		do
+		end
+
+	pause_music
+			-- Pause music
+		do
+		end
+
+	music_is_playing: BOOLEAN
+			-- Query if music is playing.
+		do
+		end
+	
+end -- class I_MUSICPACK

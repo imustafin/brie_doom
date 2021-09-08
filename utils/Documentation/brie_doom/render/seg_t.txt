@@ -1,0 +1,71 @@
+note
+	description: "[
+		seg_t from r_defs.h
+		
+		The LineSeg.
+	]"
+
+class 
+	SEG_T
+
+create 
+	make,
+	from_pointer
+
+feature 
+
+	make
+		do
+			create sidedef
+			create v1
+			create v2
+			create linedef.make
+		end
+	
+feature 
+
+	v1: VERTEX_T
+
+	v2: VERTEX_T
+
+	offset: FIXED_T
+
+	angle: ANGLE_T
+
+	sidedef: SIDE_T
+
+	linedef: LINE_T
+			-- Sector references.
+			-- Could be retrieved from linedef, too.
+			-- backsector is NULL for one sided lines
+
+	frontsector: detachable SECTOR_T
+
+	backsector: detachable SECTOR_T
+	
+feature 
+
+	from_pointer (m: MANAGED_POINTER; a_offset: INTEGER_32; i_main: I_MAIN)
+		local
+			side: INTEGER_16
+			ldef: LINE_T
+		do
+			v1 := i_main.P_setup.vertexes [m.read_integer_16_le (a_offset).to_integer_32]
+			v2 := i_main.P_setup.vertexes [m.read_integer_16_le (a_offset + 2).to_integer_32]
+			angle := create {ANGLE_T}.from_natural (m.read_integer_16_le (a_offset + 4).to_natural_32 |<< 16)
+			offset := create {FIXED_T}.from_integer (m.read_integer_16_le (a_offset + 10).to_integer_32 |<< 16)
+			ldef := i_main.P_setup.lines [m.read_integer_16_le (a_offset + 6).to_integer_32]
+			linedef := ldef
+			side := m.read_integer_16_le (a_offset + 8)
+			sidedef := i_main.P_setup.sides [ldef.sidenum [side.to_integer_32].to_integer_32]
+			frontsector := i_main.P_setup.sides [ldef.sidenum [side.to_integer_32].to_integer_32].sector
+			if ldef.flags.to_integer_32 & {DOOMDATA_H}.ml_twosided /= 0 then
+				backsector := i_main.P_setup.sides [ldef.sidenum [side.bit_xor (1).to_integer_32].to_integer_32].sector
+			else
+				backsector := Void
+			end
+		end
+
+	Structure_size: INTEGER_32 = 12
+	
+end -- class SEG_T

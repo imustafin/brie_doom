@@ -1,0 +1,116 @@
+class
+	ARRAYED_LIST [G]
+
+General
+	cluster: elks
+	description: "Lists implemented by resizable arrays"
+	create: make, make_filled, make_from_array, make_from_iterable
+
+Ancestors
+	DYNAMIC_LIST* [G]
+	MISMATCH_CORRECTOR
+	RESIZABLE* [G]
+	TO_SPECIAL [T]
+
+Queries
+	additional_space: INTEGER_32 -- (from RESIZABLE)
+	after: BOOLEAN -- (from LIST)
+	all_default: BOOLEAN
+	area: SPECIAL [G]
+	area_v2: SPECIAL [G] -- (from TO_SPECIAL)
+	array_at (i: INTEGER_32): G -- (from TO_SPECIAL)
+	array_item (i: INTEGER_32): G -- (from TO_SPECIAL)
+	array_valid_index (i: INTEGER_32): BOOLEAN -- (from TO_SPECIAL)
+	at alias "@" (i: INTEGER_32): [like item] G
+	before: BOOLEAN -- (from LIST)
+	capacity: INTEGER_32
+	changeable_comparison_criterion: BOOLEAN -- (from CONTAINER)
+	count: INTEGER_32
+	cursor: ARRAYED_LIST_CURSOR
+	exhausted: BOOLEAN -- (from LINEAR)
+	extendible: BOOLEAN -- (from DYNAMIC_CHAIN)
+	first: [like item] G
+	for_all (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+	full: BOOLEAN -- (from BOUNDED)
+	Growth_percentage: INTEGER_32 -- (from RESIZABLE)
+	has (v: [like item] G): BOOLEAN
+	i_th alias "[]" (i: INTEGER_32): [like item] G
+	index: INTEGER_32
+	index_of (v: [like item] G; i: INTEGER_32): INTEGER_32 -- (from CHAIN)
+	is_empty: BOOLEAN -- (from FINITE)
+	is_equal (other: [like Current] ARRAYED_LIST [G]): BOOLEAN
+	is_inserted (v: G): BOOLEAN
+	isfirst: BOOLEAN -- (from CHAIN)
+	islast: BOOLEAN -- (from CHAIN)
+	item: G
+	item_for_iteration: G -- (from LINEAR)
+	last: [like first] G
+	linear_representation: LINEAR [G] -- (from LINEAR)
+	Lower: INTEGER_32 -- (from CHAIN)
+	Minimal_increase: INTEGER_32 -- (from RESIZABLE)
+	Mismatch_information: MISMATCH_INFORMATION -- (from MISMATCH_CORRECTOR)
+	new_cursor: ARRAYED_LIST_ITERATION_CURSOR [G]
+	object_comparison: BOOLEAN -- (from CONTAINER)
+	occurrences (v: [like item] G): INTEGER_32 -- (from CHAIN)
+	off: BOOLEAN -- (from CHAIN)
+	prunable: BOOLEAN
+	readable: BOOLEAN -- (from SEQUENCE)
+	replaceable: BOOLEAN -- (from ACTIVE)
+	resizable: BOOLEAN -- (from RESIZABLE)
+	there_exists (test: FUNCTION [G, BOOLEAN]): BOOLEAN
+	to_array: ARRAY [G]
+	upper: INTEGER_32
+	valid_cursor (p: CURSOR): BOOLEAN
+	valid_cursor_index (i: INTEGER_32): BOOLEAN -- (from CHAIN)
+	valid_index (i: INTEGER_32): BOOLEAN
+	writable: BOOLEAN -- (from SEQUENCE)
+
+Commands
+	append (s: SEQUENCE [G])
+	array_put (v: G; i: INTEGER_32) -- (from TO_SPECIAL)
+	automatic_grow -- (from RESIZABLE)
+	back
+	compare_objects -- (from CONTAINER)
+	compare_references -- (from CONTAINER)
+	copy (other: [like Current] ARRAYED_LIST [G])
+	correct_mismatch
+	do_all (action: PROCEDURE [G])
+	do_all_with_index (action: PROCEDURE [G, INTEGER_32])
+	do_if (action: PROCEDURE [G]; test: FUNCTION [G, BOOLEAN])
+	do_if_with_index (action: PROCEDURE [G, INTEGER_32]; test: FUNCTION [G, INTEGER_32, BOOLEAN])
+	extend (v: [like item] G)
+	fill (other: CONTAINER [G]) -- (from CHAIN)
+	finish
+	force (v: [like item] G)
+	forth
+	go_i_th (i: INTEGER_32)
+	go_to (p: CURSOR)
+	grow (i: INTEGER_32)
+	make (n: INTEGER_32)
+	make_filled (n: INTEGER_32)
+	merge_left (other: ARRAYED_LIST [G])
+	merge_right (other: ARRAYED_LIST [G])
+	move (i: INTEGER_32)
+	prune (v: [like item] G)
+	prune_all (v: [like item] G)
+	put (v: [like item] G) -- (from CHAIN)
+	put_front (v: [like item] G)
+	put_i_th (v: [like i_th] G; i: INTEGER_32)
+	put_left (v: [like item] G)
+	put_right (v: [like item] G)
+	remove
+	remove_left
+	remove_right
+	replace (v: [like first] G)
+	resize (new_capacity: INTEGER_32)
+	search (v: [like item] G)
+	sequence_put (v: [like item] G) -- (from SEQUENCE)
+	start
+	swap (i: INTEGER_32)
+	trim
+	wipe_out
+
+Constraints
+	prunable
+	starts from one
+

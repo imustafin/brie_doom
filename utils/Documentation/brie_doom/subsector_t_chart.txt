@@ -1,0 +1,28 @@
+class
+	SUBSECTOR_T
+
+General
+	cluster: brie_doom
+	description: 
+		"subsector_t from r_defs.h
+		
+		A SubSector.
+		References a Sector.
+		Basically, this is a list of LineSegs,
+		indicating the visible walls that define
+		(all or some) sides of a convex BSP leaf."
+	create: default_create, from_pointer
+
+Ancestors
+	ANY
+
+Queries
+	firstline: INTEGER_16
+	numlines: INTEGER_16
+	sector: detachable SECTOR_T
+	Structure_size: INTEGER_32
+
+Commands
+	from_pointer (m: MANAGED_POINTER; offset: INTEGER_32)
+	set_sector (a_sector: [like sector] detachable SECTOR_T)
+
