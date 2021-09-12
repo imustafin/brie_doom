@@ -271,6 +271,7 @@ feature -- i_system.c
 
 	i_error (a_message: STRING)
 		do
+			print("I_Error not implemented%N")
 			print ("Error: " + a_message + "%N")
 			(create {DEVELOPER_EXCEPTION}).raise
 		ensure

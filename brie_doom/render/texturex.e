@@ -53,6 +53,7 @@ feature
 				patches: ARRAY [MAPPATCH_T]
 				i: INTEGER
 			do
+				print("read_maptexture_t not implemented%N")
 				create Result.make
 				Result.name := create {STRING}.make_from_c (m.item + offset)
 				Result.masked := m.read_integer_32_le (offset + 0x08) /= 0

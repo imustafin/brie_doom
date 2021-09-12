@@ -302,6 +302,7 @@ feature
 			i: INTEGER
 			patch: PATCH_T
 		do
+			print("R_InitSpriteLumps%N")
 			firstspritelump := i_main.w_wad.w_getnumforname ("S_START") + 1
 			lastspritelump := i_main.w_wad.w_getnumforname ("S_END") - 1
 			numspritelumps := lastspritelump - firstspritelump + 1

@@ -246,6 +246,7 @@ feature
 			sep, pitch, cnum, volume: INTEGER
 			ignore: BOOLEAN
 		do
+			print("S_StartSound not imlemented%N")
 				--			create origin.make (origin_p) -- Stub origin
 			volume := snd_SfxVolume
 

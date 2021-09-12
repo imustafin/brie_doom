@@ -35,6 +35,7 @@ feature
 
 	W_InitMultipleFiles (a_filenames: LIST [STRING])
 		do
+			print("W_InitMultipleFiles not implemented%N")
 				-- skip numlumps = 0;
 				-- skip lumpinfo = malloc(1);
 
@@ -129,7 +130,7 @@ feature
 	ExtractFileBase (a_filename: STRING): STRING
 			-- Should return filename base with <= 8 chars
 		do
-				-- Stub
+			print("ExtractFileBase is not implemented%N")
 			Result := a_filename
 		end
 

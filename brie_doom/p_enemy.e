@@ -145,7 +145,7 @@ feature
 	A_CloseShotgun2 (player: PLAYER_T; psp: PSPDEF_T)
 		do
 				-- Stub
-			print ("A_CloseShotgun2 is not implmented%N")
+			print ("A_CloseShotgun2 is not implemented%N")
 		end
 
 	A_Explode (thingy: MOBJ_T)

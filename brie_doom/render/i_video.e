@@ -130,6 +130,7 @@ feature -- I_InitGraphics
 		local
 			dummy: SDL_EVENT_UNION_API
 		do
+			print("I_InitGraphics is not implemented%N")
 				-- skip screensaver
 				-- SetSdlVideoDriver
 			if {SDL_FUNCTIONS_API}.sdl_init ({SDL_CONSTANT_API}.SDL_INIT_VIDEO.to_natural_32) < 0 then
@@ -227,6 +228,7 @@ feature
 
 	I_StartTic
 		do
+			print("I_StartTic not implemented%N")
 			if initialized then
 				I_GetEvent
 					--				if usemouse and not nomouse and window_focused then
@@ -243,6 +245,7 @@ feature
 			event: EVENT_T
 			sdl_event: SDL_EVENT_UNION_API
 		do
+			print("I_GetEvent not implemented%N")
 			from
 				create event.make
 				create sdl_event.make
@@ -274,6 +277,7 @@ feature
 
 	xlatekey (key: SDL_KEYSYM_STRUCT_API): INTEGER
 		do
+			print("xlatekey is not implemented%N")
 			if key.sym = {SDL_KEYCODE}.sdlk_left then
 				Result := {DOOMDEF_H}.key_leftarrow
 			elseif key.sym = {SDL_KEYCODE}.sdlk_right then
@@ -317,6 +321,7 @@ feature
 			w, h: INTEGER
 			window_flags, renderer_flags: INTEGER_32
 		do
+			print("set_video_mode not implemented%N")
 			w := window_width
 			h := window_height
 
@@ -611,6 +616,7 @@ feature -- I_FinishUpdate
 	I_FinishUpdate
 		do
 				-- From chocolate doom
+			print("I_FinishUpdate not implemented%N")
 
 				-- skip devparm
 			check attached screenbuffer as sb then

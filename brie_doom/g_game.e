@@ -1057,7 +1057,7 @@ feature -- G_DoLoadLevel
 
 	G_DoPlayDemo
 		do
-				-- Stub
+			print("G_DoPlayDemo is not implemented %N")
 			gameaction := ga_nothing
 		end
 
@@ -1246,6 +1246,7 @@ feature
 
 	G_Responder (ev: EVENT_T): BOOLEAN
 		do
+			print("G_Responder not implemented%N")
 				-- allow spy mode changes even during the demo
 			if gamestate = {DOOMDEF_H}.gs_level and ev.type = {EVENT_T}.ev_keydown and ev.data1 = {DOOMDEF_H}.key_f12 and (singledemo or not deathmatch) then
 				from

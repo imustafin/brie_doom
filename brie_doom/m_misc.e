@@ -87,6 +87,7 @@ feature
 			loop
 				d.item.set_value.call (d.item.defaultvalue)
 			end
+			print("M_LoadDefaults not implemented%N")
 
 				-- skip -config
 				-- skip reading

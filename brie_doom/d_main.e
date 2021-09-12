@@ -82,6 +82,7 @@ feature
 
 	D_DoomMain
 		do
+			print("D_DoomMain not implemented%N")
 			FindResponseFile
 			IdentifyVersion
 			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
@@ -156,7 +157,7 @@ feature
 
 	IdentifyVersion
 		do
-				-- Stub
+			print("IdentifyVersion is not implemented%N")
 			i_main.doomstat_h.gamemode := {GAME_MODE_T}.shareware
 			D_AddFile ("doom1.wad")
 		end
@@ -170,6 +171,7 @@ feature -- D_DoomLoop
 
 	D_DoomLoop
 		do
+			print("D_DoomLoop not implemented%N")
 			if i_main.g_game.demorecording then
 				i_main.g_game.G_BeginRecording
 			end

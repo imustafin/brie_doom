@@ -30,7 +30,7 @@ feature
 
 	I_Quit
 		do
-				-- Stub
+			print("I_Quit not implemented%N")
 			{EXCEPTIONS}.die (0)
 		end
 

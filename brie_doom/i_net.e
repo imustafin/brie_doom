@@ -22,6 +22,7 @@ feature
 
 	I_InitNetwork
 		do
+			print("I_InitNetwork not implemented%N")
 			i_main.d_net.doomcom := (create {DOOMCOM_T}.make)
 				-- Skip -dup param
 			i_main.d_net.doomcom.ticdup := 1

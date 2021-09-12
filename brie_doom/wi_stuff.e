@@ -868,6 +868,7 @@ feature
 
 	WI_initVariables (wbstartstruct: WBSTARTSTRUCT_T)
 		do
+			print("WI_initVariables not implemented%N")
 			wbs := wbstartstruct
 				-- skip RANGECHECKING
 			check attached wbs as l_wbs then
@@ -1055,7 +1056,7 @@ feature
 
 	WI_initDeathmatchStats
 		do
-			{I_MAIN}.i_error ("WI_initDeathmatchStats not implemnted")
+			{I_MAIN}.i_error ("WI_initDeathmatchStats not implemented")
 		end
 
 	WI_initNetGameStats

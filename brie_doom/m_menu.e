@@ -371,6 +371,7 @@ feature -- CONTROL PANEL
 		local
 			ch: INTEGER
 		do
+			print ("M_Responder is not implemented%N")
 			ch := -1
 				-- skip ev_joystick
 				-- skip ev_mouse
@@ -502,6 +503,7 @@ feature -- M_Drawer
 			i: INTEGER
 			max: INTEGER
 		do
+			print("M_Drawer not implemented%N")
 			inhelpscreens := False
 			if messagetoprint then
 					-- skip
