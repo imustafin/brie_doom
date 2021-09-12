@@ -79,10 +79,11 @@ jobs:
       - name: Count port progress. Analyse C
         run: |
           git clone https://github.com/id-Software/DOOM.git
-          cccc --lang=c DOOM/linuxdoom-1.10/*.c
+          cd DOOM/linuxdoom-1.10
+          cccc --lang=c *.c
           ls .cccc
-          cp .cccc/anonymous.xml utils/
-          rm -rf .cccc
+          cp .cccc/anonymous.xml ../../utils/
+          cd ../../
           rm -rf DOOM
 
       - name: Count port progress. Analyse Eiffel
