@@ -53,13 +53,13 @@ layout: bare
   <div class="w-full bg-california-200 h-6">
     <div
       class="bg-california-500 text-center text-white h-full"
-      style="width: 31%;"
+      style="width: {{ site.data.functions_ported.ported_ratio }}%;"
     >
-      31%
+      {{ site.data.functions_ported.ported_ratio }}%
     </div>
   </div>
   <p>
-    Currently {{ site.env.BRIE_PORT_PROGRESS }}% of the original functions
+    Currently {{ site.data.functions_ported.ported_ratio }}% of the original functions
     are ported in Eiffel.
   </p>
   <p>
@@ -68,9 +68,7 @@ layout: bare
   </p>
   <p>
     See the
-    <a href="{{ '/ported-functions-breakdown' | relative_url }}">
-      Ported Functions Breakdown
-    </a>
+    <a href="{{ '/ported-functions-breakdown' | relative_url }}">Ported Functions Breakdown</a>
     page for a detailed analysis.
   </p>
 </div>
