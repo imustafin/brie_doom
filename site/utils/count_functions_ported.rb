@@ -66,18 +66,20 @@ end
 
 ## Join data
 JOINED = []
+NOT_PORTED = []
 
 C_DATA.each do |cfunc|
-  EIFFEL_DATA.each do |func|
-    if func[:ename] == cfunc[:cname] && !func[:stub]
-      c_to_e_frac = func[:eloc].to_f / cfunc[:cloc]
-      JOINED << {
-        **func,
-        **cfunc,
-        c_to_e_frac: c_to_e_frac,
-        c_to_e: c_to_e_frac.round(1)
-      }
-    end
+  eif = EIFFEL_DATA.find { |e| e[:ename] == cfunc[:cname] && !e[:stub] }
+  if eif
+    c_to_e_frac = eif[:eloc].to_f / cfunc[:cloc]
+    JOINED << {
+      **eif,
+      **cfunc,
+      c_to_e_frac: c_to_e_frac,
+      c_to_e: c_to_e_frac.round(1)
+    }
+  else
+    NOT_PORTED << cfunc
   end
 end
 
@@ -88,7 +90,8 @@ ANS = {
   total_c: C_DATA.count,
   ported: JOINED.count,
   ported_ratio: (JOINED.count.to_f / C_DATA.count * 100).round(2),
-  funcs: JOINED
+  funcs: JOINED,
+  not_ported: NOT_PORTED
 }
 
 puts JSON.parse(JSON.dump(ANS)).to_yaml

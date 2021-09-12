@@ -22,9 +22,14 @@ layout: bare
   code in the original function and the port.
 </p>
 
-<p class="mb-4">
+<p class="mb-2">
   The last column <i>Ratio</i> is the increase factor of porting the C function
   to Eiffel.
+</p>
+
+<p class="mb-4">
+  In the end of the table there is a list of functions which are not ported
+  yet.
 </p>
 
 <table class="w-full">
@@ -60,5 +65,22 @@ layout: bare
       <td class="pr-2">{{ row.c_to_e }}</td>
     </tr>
   {% endfor %}
-
+  <tr class="bg-california-600 text-white font-bold text-center">
+    <td colspan="4">Not yet ported</td>
+  </tr>
+  {% for row in site.data.functions_ported.not_ported %}
+    <tr class="bg-california-100 hover:bg-california-200">
+      <td class="pl-2">
+        <a href="{{
+                'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
+                | append: row.cfile
+                | append: '#L'
+                | append: row.cline
+                }}">{{ row.cname_orig }}</a>
+      </td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  {% endfor %}
 </table>
