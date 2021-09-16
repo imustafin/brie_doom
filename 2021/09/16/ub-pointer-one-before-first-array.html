@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="stylesheet" href="/assets/css/tailwind.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/syntax.css" />
+  </head>
+
+  <body class="bg-california-50">
+    <header
+      class="px-4 lg:px-8 h-14 bg-california-500 flex flex-row items-center content-start mb-4"
+    >
+      <span class="flex items-baseline">
+        <a href="/" class="reset nounder font-bold flex-grow text-2xl">
+          Brie Doom
+        </a>
+        <span class="hidden sm:inline-block text-xl">
+          &nbsp;&mdash; a Doom source port in Eiffel
+        </span>
+      </span>
+      <a
+        href="https://github.com/imustafin/brie_doom"
+        class="reset ml-auto flex items-center mr-4 font-bold"
+      >
+        <span class="md:hidden"> Sources </span>
+        <span class="hidden md:inline-block"> Source Code </span>
+      </a>
+      <a href="/documentation" class="reset flex items-center font-bold">
+        <span class="sm:hidden"> Docs </span>
+        <span class="hidden sm:inline-block"> Documentation </span>
+      </a>
+    </header>
+
+    <div class="container mx-auto px-2 sm:px-4 md:px-4">
+      <article class="mx-auto">
+        <h1 class="text-4xl font-bold text-center">
+          <p>UB with pointer to one-before-first of array</p>
+        </h1>
+        <div>Published: 16 Sep 2021</div>
+        <div>phase-1-bugs bugs phase-1</div>
+
+        <div class="prose md:prose-xl max-w-4xl mx-auto">
+          <p>
+            The C standard defines that it is an undefined behaviour to subtract
+            one from a pointer pointing to the start of an array.
+          </p>
+
+          <blockquote>
+            <p>C17 6.5.6/8</p>
+
+            <p>
+              If both the pointer operand and the result point to elements of
+              the same array object, or one past the last element of the array
+              object, the evaluation shall not produce an overflow; otherwise,
+              the behavior is undefined.
+            </p>
+          </blockquote>
+
+          <p>
+            Such undefined behaviour occurs in
+            <a
+              href="https://github.com/id-Software/DOOM/blob/77735c3ff0772609e9c8d29e3ce2ab42ff54d20b/linuxdoom-1.10/r_things.c#L787"
+              ><code class="language-plaintext highlighter-rouge"
+                >R_SortVisSprites</code
+              ></a
+            >:
+          </p>
+
+          <figure class="highlight">
+            <pre><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">ds</span><span class="o">=</span><span class="n">vissprites</span> <span class="p">;</span> <span class="n">ds</span><span class="o">&lt;</span><span class="n">vissprite_p</span> <span class="p">;</span> <span class="n">ds</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">ds</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">ds</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+  <span class="n">ds</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">ds</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">vissprites</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">prev</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">unsorted</span><span class="p">;</span></code></pre>
+          </figure>
+
+          <p>
+            In this example,
+            <code class="language-plaintext highlighter-rouge">vissprites</code>
+            is an array of type
+            <code class="language-plaintext highlighter-rouge"
+              >vissprite_t</code
+            >
+            and <code class="language-plaintext highlighter-rouge">ds</code> is
+            a pointer to
+            <code class="language-plaintext highlighter-rouge">vissprite_t</code
+            >.
+          </p>
+
+          <p>
+            On the first iteration of the loop, when
+            <code class="language-plaintext highlighter-rouge"
+              >ds == vissprites</code
+            >
+            the expression
+            <code class="language-plaintext highlighter-rouge">ds-1</code> is
+            computed. Such computation produces an undefined behaviour.
+          </p>
+
+          <p>
+            Such undefined behaviour was identified in Eiffel due to a
+            precondition violation in the utility methods we developed used to
+            replicate the pointer arithmetic on arrays.
+          </p>
+
+          <p>
+            We can see that the value of the illegal pointer is not actually
+            used and the line
+            <code class="language-plaintext highlighter-rouge"
+              >vissprites[0].prev = &amp;unsorted</code
+            >
+            writes a legal pointer instead of the illegal one.
+          </p>
+
+          <p>
+            As a fix
+            <a
+              href="https://github.com/imustafin/brie_doom/blob/50f595c05fbbe59509f158bcea390bc908a500e7/brie_doom/render/r_things.e#L268"
+              >for this bug</a
+            >, we add an additional check to verify that it is not the first
+            iteration of the loop and that it is legal to subtract one from
+            <code class="language-plaintext highlighter-rouge">ds</code>:
+          </p>
+
+          <figure class="highlight">
+            <pre><code class="language-eiffel" data-lang="eiffel"><span class="k">from</span>
+  <span class="k">create</span> <span class="n">ds</span><span class="pi">.</span><span class="n">make</span> <span class="pi">(</span><span class="n">vissprites</span><span class="pi">.</span><span class="n">lower</span><span class="pi">,</span> <span class="n">vissprites</span><span class="pi">)</span>
+<span class="k">until</span>
+  <span class="n">ds</span><span class="pi">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">vissprite_p</span>
+<span class="k">loop</span>
+  <span class="n">ds</span><span class="pi">.</span><span class="n">this</span><span class="pi">.</span><span class="n">next</span> <span class="pi">:=</span> <span class="pi">(</span><span class="n">ds</span> <span class="o">+</span> <span class="mi">1</span><span class="pi">).</span><span class="n">this</span>
+  <span class="k">if</span> <span class="n">ds</span><span class="pi">.</span><span class="n">index</span> <span class="o">/=</span> <span class="mi">0</span> <span class="k">then</span>
+    <span class="n">ds</span><span class="pi">.</span><span class="n">this</span><span class="pi">.</span><span class="n">prev</span> <span class="pi">:=</span> <span class="pi">(</span><span class="n">ds</span> <span class="o">-</span> <span class="mi">1</span><span class="pi">).</span><span class="n">this</span>
+  <span class="k">end</span>
+  <span class="n">ds</span> <span class="pi">:=</span> <span class="n">ds</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">end</span>
+  
+<span class="n">vissprites</span> <span class="pi">[</span><span class="mi">0</span><span class="pi">].</span><span class="n">prev</span> <span class="pi">:=</span> <span class="n">unsorted</span></code></pre>
+          </figure>
+        </div>
+      </article>
+
+      <footer class="px-4 flex flex-col items-center text-center pb-2">
+        <hr class="border border-california-400 w-11/12 mb-4 mt-8" />
+        <p class="mb-2">
+          Brie Doom is written by
+          <a href="https://imustafin.tatar">Ilgiz Mustafin</a>
+        </p>
+        <p class="mb-2">
+          Source code is
+          <a href="https://github.com/imustafin/brie_doom"
+            >available on GitHub</a
+          >
+        </p>
+        <p>
+          Parts of the program are based on
+          <a href="https://www.chocolate-doom.org/">Chocolate&nbsp;Doom</a> and
+          <a href="http://mochadoom.sourceforge.net/">Mocha&nbsp;Doom</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

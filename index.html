@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="/assets/css/tailwind.css" />
     <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/syntax.css" />
   </head>
 
   <body class="bg-california-50">
@@ -35,9 +36,9 @@
     </header>
 
     <div class="container mx-auto px-2 sm:px-4 md:px-4">
-      <h1 class="font-bold text-2xl text-center mb-4">Welcome to Brie Doom!</h1>
+      <article class="prose md:prose-xl max-w-4xl mx-auto">
+        <h1 class="text-center">Welcome to Brie Doom!</h1>
 
-      <div class="space-y-2 mb-2">
         <p>
           Brie Doom is a source port of the original Doom source code from C to
           Eiffel. The aim of this port is to produce idiomatic object-oriented
@@ -68,61 +69,73 @@
         </p>
         <p>Brie is pronounced /briː/ like in brie cheese.</p>
         <p>Stay tuned for further updates!</p>
-      </div>
 
-      <h2 class="font-bold text-xl text-center mb-2">Development Progress</h2>
+        <h2 class="text-center">Development Progress</h2>
 
-      <div class="space-y-2 mb-2">
-        <h3 class="font-bold">Phase 1: Direct Port (in progress)</h3>
-        <p>
-          In the first phase, we try to port the game while preserving as much
-          of the original code structure as possible.
-        </p>
-        <div class="w-full bg-california-200 h-6">
-          <div
-            class="bg-california-500 text-center text-white h-full"
-            style="width: 44.43%"
-          >
-            44.43%
+        <div class="space-y-2 mb-2">
+          <h3 class="font-bold">Phase 1: Direct Port (in progress)</h3>
+          <p>
+            In the first phase, we try to port the game while preserving as much
+            of the original code structure as possible.
+          </p>
+          <div class="w-full bg-california-200 h-6">
+            <div
+              class="bg-california-500 text-center text-white h-full text-base"
+              style="width: 44.43%"
+            >
+              44.43%
+            </div>
           </div>
+          <p>
+            Currently 44.43% of the original functions are ported in Eiffel.
+          </p>
+          <p>
+            Not all original functions are counted, though. Some of them are are
+            related to X11 which is replaced with SDL2 in the port.
+          </p>
+          <p>
+            See the
+            <a href="/ported-functions-breakdown">Ported Functions Breakdown</a>
+            page for a detailed analysis.
+          </p>
+
+          <h3 class="font-bold pt-4">Phase 2: Refactoring (not started)</h3>
+          <p>
+            In the second phase, we will refactor the code to improve quality.
+          </p>
+
+          <p>
+            The main objective of this project is improving quality of the
+            original code. In the context of
+            <a
+              href="https://iso25000.com/index.php/en/iso-25000-standards/iso-25010"
+              >ISO 25010</a
+            >
+            quality model, we mostly aim at improving the overall
+            <i>maintainability</i> and <i>functional stability</i>. To achieve
+            these goals we will use features and principles implemented in
+            Eiffel such as Design by Contract, Void Safety, Command-Query
+            Separation and OOP practices overall.
+          </p>
+
+          <p>
+            Implementing these principles will require modification of the
+            original code structure such as extracting more classes, converting
+            functions to commands or queries, rethinking module obligations for
+            implementing concise but effective contracts.
+          </p>
+
+          <h2 class="text-center">Posts</h2>
+
+          <ul>
+            <li>
+              <a href="/2021/09/16/ub-pointer-one-before-first-array.html"
+                >UB with pointer to one-before-first of array</a
+              >
+            </li>
+          </ul>
         </div>
-        <p>Currently 44.43% of the original functions are ported in Eiffel.</p>
-        <p>
-          Not all original functions are counted, though. Some of them are are
-          related to X11 which is replaced with SDL2 in the port.
-        </p>
-        <p>
-          See the
-          <a href="/ported-functions-breakdown">Ported Functions Breakdown</a>
-          page for a detailed analysis.
-        </p>
-
-        <h3 class="font-bold pt-4">Phase 2: Refactoring (not started)</h3>
-        <p>
-          In the second phase, we will refactor the code to improve quality.
-        </p>
-
-        <p>
-          The main objective of this project is improving quality of the
-          original code. In the context of
-          <a
-            href="https://iso25000.com/index.php/en/iso-25000-standards/iso-25010"
-            >ISO 25010</a
-          >
-          quality model, we mostly aim at improving the overall
-          <i>maintainability</i> and <i>functional stability</i>. To achieve
-          these goals we will use features and principles implemented in Eiffel
-          such as Design by Contract, Void Safety, Command-Query Separation and
-          OOP practices overall.
-        </p>
-
-        <p>
-          Implementing these principles will require modification of the
-          original code structure such as extracting more classes, converting
-          functions to commands or queries, rethinking module obligations for
-          implementing concise but effective contracts.
-        </p>
-      </div>
+      </article>
 
       <footer class="px-4 flex flex-col items-center text-center pb-2">
         <hr class="border border-california-400 w-11/12 mb-4 mt-8" />
