@@ -1,3 +1,13 @@
+const noProse = {
+  'pre': null,
+  'pre code::before': null,
+  'pre code::after': null,
+  'code': null,
+  'code::before': null,
+  'code::after': null,
+};
+
+
 module.exports = {
   purge: [
     './_includes/**/*.html',
@@ -9,6 +19,23 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            ...noProse,
+          },
+        },
+        xl: {
+          css: {
+            ...noProse,
+          },
+        },
+        '2xl': {
+          css: {
+            ...noProse,
+          },
+        },
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',

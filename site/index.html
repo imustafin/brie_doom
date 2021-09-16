@@ -1,11 +1,11 @@
 ---
 layout: bare
 ---
-<h1 class="font-bold text-2xl text-center mb-4">
-  Welcome to Brie Doom!
-</h1>
+<article class="prose md:prose-xl max-w-4xl mx-auto">
+  <h1 class="text-center">
+    Welcome to Brie Doom!
+  </h1>
 
-<div class="space-y-2 mb-2">
   <p>
     Brie Doom is a source port of the original Doom source code from C to Eiffel.
     The aim of this port is to produce idiomatic object-oriented Eiffel code with contracts
@@ -36,64 +36,77 @@ layout: bare
   <p>
     Stay tuned for further updates!
   </p>
-</div>
 
-<h2 class="font-bold text-xl text-center mb-2">
-  Development Progress
-</h2>
+  <h2 class="text-center">
+    Development Progress
+  </h2>
 
-<div class="space-y-2 mb-2">
-  <h3 class="font-bold">
-    Phase 1: Direct Port (in progress)
-  </h3>
-  <p>
-    In the first phase, we try to port the game while preserving
-    as much of the original code structure as possible.
-  </p>
-  <div class="w-full bg-california-200 h-6">
-    <div
-      class="bg-california-500 text-center text-white h-full"
-      style="width: {{ site.data.functions_ported.ported_ratio }}%;"
-    >
-      {{ site.data.functions_ported.ported_ratio }}%
+
+  <div class="space-y-2 mb-2">
+    <h3 class="font-bold">
+      Phase 1: Direct Port (in progress)
+    </h3>
+    <p>
+      In the first phase, we try to port the game while preserving
+      as much of the original code structure as possible.
+    </p>
+    <div class="w-full bg-california-200 h-6">
+      <div
+        class="bg-california-500 text-center text-white h-full text-base"
+        style="width: {{ site.data.functions_ported.ported_ratio }}%;"
+      >
+        {{ site.data.functions_ported.ported_ratio }}%
+      </div>
     </div>
+    <p>
+      Currently {{ site.data.functions_ported.ported_ratio }}% of the original functions
+      are ported in Eiffel.
+    </p>
+    <p>
+      Not all original functions are counted, though. Some of them are
+      are related to X11 which is replaced with SDL2 in the port.
+    </p>
+    <p>
+      See the
+      <a href="{{ '/ported-functions-breakdown' | relative_url }}">Ported Functions Breakdown</a>
+      page for a detailed analysis.
+    </p>
+
+    <h3 class="font-bold pt-4">
+      Phase 2: Refactoring (not started)
+    </h3>
+    <p>
+      In the second phase, we will refactor the code to improve quality.
+    </p>
+
+    <p>
+      The main objective of this project is improving quality of the original code.
+      In the context of
+      <a href="https://iso25000.com/index.php/en/iso-25000-standards/iso-25010">ISO 25010</a>
+      quality model, we mostly aim at improving the overall <i>maintainability</i>
+      and <i>functional stability</i>.
+      To achieve these goals we will use features and principles implemented in
+      Eiffel such as Design by Contract, Void Safety, Command-Query Separation
+      and OOP practices overall.
+    </p>
+
+    <p>
+      Implementing these principles will require modification of the original
+      code structure such as extracting more classes, converting functions
+      to commands or queries, rethinking module obligations for implementing
+      concise but effective contracts.
+    </p>
+
+    <h2 class="text-center">
+      Posts
+    </h2>
+
+    <ul>
+      {% for post in site.posts %}
+        <li>
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
-  <p>
-    Currently {{ site.data.functions_ported.ported_ratio }}% of the original functions
-    are ported in Eiffel.
-  </p>
-  <p>
-    Not all original functions are counted, though. Some of them are
-    are related to X11 which is replaced with SDL2 in the port.
-  </p>
-  <p>
-    See the
-    <a href="{{ '/ported-functions-breakdown' | relative_url }}">Ported Functions Breakdown</a>
-    page for a detailed analysis.
-  </p>
-
-  <h3 class="font-bold pt-4">
-    Phase 2: Refactoring (not started)
-  </h3>
-  <p>
-    In the second phase, we will refactor the code to improve quality.
-  </p>
-
-  <p>
-    The main objective of this project is improving quality of the original code.
-    In the context of
-    <a href="https://iso25000.com/index.php/en/iso-25000-standards/iso-25010">ISO 25010</a>
-    quality model, we mostly aim at improving the overall <i>maintainability</i>
-    and <i>functional stability</i>.
-    To achieve these goals we will use features and principles implemented in
-    Eiffel such as Design by Contract, Void Safety, Command-Query Separation
-    and OOP practices overall.
-  </p>
-
-  <p>
-    Implementing these principles will require modification of the original
-    code structure such as extracting more classes, converting functions
-    to commands or queries, rethinking module obligations for implementing
-    concise but effective contracts.
-  </p>
-</div>
+</article>
