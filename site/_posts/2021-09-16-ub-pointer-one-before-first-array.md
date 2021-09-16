@@ -1,7 +1,7 @@
 ---
 layout: post
 title: UB with pointer to one-before-first of array
-tags: ['phase-1-bugs', 'bugs', 'phase-1']
+tags: phase-1-bugs bugs phase-1
 ---
 The C standard defines that it is an undefined behaviour to subtract one from
 a pointer pointing to the start of an array.
