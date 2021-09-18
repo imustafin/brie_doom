@@ -25,7 +25,6 @@ for (ds=vissprites ; ds<vissprite_p ; ds++)
 }
 
 vissprites[0].prev = &unsorted;
-
 {% endhighlight %}
 
 In this example, `vissprites` is an array of type `vissprite_t` and `ds` is a pointer
