@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="stylesheet" href="/assets/css/tailwind.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/syntax.css" />
+  </head>
+
+  <body class="bg-california-50">
+    <header
+      class="px-4 lg:px-8 h-14 bg-california-500 flex flex-row items-center content-start mb-4"
+    >
+      <span class="flex items-baseline">
+        <a href="/" class="reset nounder font-bold flex-grow text-2xl">
+          Brie Doom
+        </a>
+        <span class="hidden sm:inline-block text-xl">
+          &nbsp;&mdash; a Doom source port in Eiffel
+        </span>
+      </span>
+      <a
+        href="https://github.com/imustafin/brie_doom"
+        class="reset ml-auto flex items-center mr-4 font-bold"
+      >
+        <span class="md:hidden"> Sources </span>
+        <span class="hidden md:inline-block"> Source Code </span>
+      </a>
+      <a href="/documentation" class="reset flex items-center font-bold">
+        <span class="sm:hidden"> Docs </span>
+        <span class="hidden sm:inline-block"> Documentation </span>
+      </a>
+    </header>
+
+    <div class="container mx-auto px-2 sm:px-4 md:px-4">
+      <article class="mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-4">
+          <p>OOB array reads in R_DrawColumn</p>
+        </h1>
+        <div class="max-w-4xl mx-auto mb-8">
+          <div>Published: 18 Sep 2021</div>
+          <div>
+            Tags: <a href="/tags/phase-1-bugs.html" rel="tag">phase-1-bugs</a>,
+            <a href="/tags/bugs.html" rel="tag">bugs</a>,
+            <a href="/tags/phase-1.html" rel="tag">phase-1</a>
+          </div>
+        </div>
+
+        <div class="prose md:prose-xl max-w-4xl mx-auto">
+          <p>
+            In some circumstances there is an out of bounds array read in
+            <a
+              href="https://github.com/id-Software/DOOM/blob/77735c3ff0772609e9c8d29e3ce2ab42ff54d20b/linuxdoom-1.10/r_draw.c#L105"
+              ><code class="language-plaintext highlighter-rouge"
+                >R_DrawColumn</code
+              ></a
+            >:
+          </p>
+
+          <figure class="highlight">
+            <pre><code class="language-c" data-lang="c"><span class="c1">// Determine scaling,</span>
+<span class="c1">//  which is the only mapping to be done.</span>
+<span class="n">fracstep</span> <span class="o">=</span> <span class="n">dc_iscale</span><span class="p">;</span> 
+<span class="n">frac</span> <span class="o">=</span> <span class="n">dc_texturemid</span> <span class="o">+</span> <span class="p">(</span><span class="n">dc_yl</span><span class="o">-</span><span class="n">centery</span><span class="p">)</span><span class="o">*</span><span class="n">fracstep</span><span class="p">;</span> 
+
+<span class="c1">// Inner loop that does the actual texture mapping,</span>
+<span class="c1">//  e.g. a DDA-lile scaling.</span>
+<span class="c1">// This is as fast as it gets.</span>
+<span class="k">do</span> 
+<span class="p">{</span>
+  <span class="c1">// Re-map color indices from wall texture column</span>
+  <span class="c1">//  using a lighting/special effects LUT.</span>
+  <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">dc_colormap</span><span class="p">[</span><span class="n">dc_source</span><span class="p">[(</span><span class="n">frac</span><span class="o">&gt;&gt;</span><span class="n">FRACBITS</span><span class="p">)</span><span class="o">&amp;</span><span class="mi">127</span><span class="p">]];</span>
+
+  <span class="n">dest</span> <span class="o">+=</span> <span class="n">SCREENWIDTH</span><span class="p">;</span> 
+  <span class="n">frac</span> <span class="o">+=</span> <span class="n">fracstep</span><span class="p">;</span>
+
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">count</span><span class="o">--</span><span class="p">);</span> </code></pre>
+          </figure>
+
+          <p>
+            The offending expression is
+            <code class="language-plaintext highlighter-rouge"
+              >dc_source[(frac&gt;&gt;FRACBITS)&amp;127]</code
+            >. The
+            <code class="language-plaintext highlighter-rouge">dc_source</code>
+            variable is a pointer to a column of what to draw on the screen.
+            Usually it has 128 elements, so truncating it with
+            <code class="language-plaintext highlighter-rouge">&amp;127</code>
+            is preventing the OOB accesses. However, in some cases
+            <code class="language-plaintext highlighter-rouge">dc_source</code>
+            can point to a shorter array which leads to OOB reads.
+          </p>
+
+          <p>
+            This bug was found with the help of contracts in the classes we
+            wrote for emulating C pointer arithmetic, namely
+            <a
+              href="https://github.com/imustafin/brie_doom/blob/50f595c05fbbe59509f158bcea390bc908a500e7/brie_doom/byte_sequence.e"
+              ><code class="language-plaintext highlighter-rouge"
+                >BYTE_SEQUENCE</code
+              ></a
+            >
+            and
+            <a
+              href="https://github.com/imustafin/brie_doom/blob/50f595c05fbbe59509f158bcea390bc908a500e7/brie_doom/pointers/managed_pointer_with_offset.e"
+              ><code class="language-plaintext highlighter-rouge"
+                >MANAGED_POINTER_WITH_OFFSET</code
+              ></a
+            >. The contract is a precondition for the access operation, it
+            checks that the requested index is a valid index (not out of
+            bounds).
+          </p>
+
+          <p>
+            As a
+            <a
+              href="https://github.com/imustafin/brie_doom/blob/ef087a9da170d90f48598b876e96bdda30e21763/brie_doom/render/r_draw.e#L212"
+              >temporary fix</a
+            >
+            for this problem we first check if the access is valid and only then
+            we read from the array. If the access is invalid, we draw a
+            placeholder pixel with the color number
+            <code class="language-plaintext highlighter-rouge">0</code>. This
+            fix did not lead to any visible changes in the game video output.
+          </p>
+
+          <figure class="highlight">
+            <pre><code class="language-eiffel" data-lang="eiffel"><span class="k">check</span> <span class="k">attached</span> <span class="n">dc_source</span> <span class="k">as</span> <span class="n">dcs</span> <span class="k">then</span>
+  <span class="n">i</span> <span class="pi">:=</span> <span class="pi">(</span><span class="n">frac</span> <span class="err">|</span><span class="pi">&gt;&gt;</span> <span class="pi">{</span><span class="nc">M_FIXED</span><span class="pi">}.</span><span class="nc">FRACBITS</span><span class="pi">)</span> <span class="err">&amp;</span> <span class="mi">127</span>
+  <span class="k">if</span> <span class="n">dcs</span><span class="pi">.</span><span class="n">valid_index</span> <span class="pi">(</span><span class="n">i</span><span class="pi">)</span> <span class="k">then</span>
+    <span class="n">dc_source_val</span> <span class="pi">:=</span> <span class="n">dcs</span> <span class="pi">[</span><span class="n">i</span><span class="pi">]</span>
+  <span class="k">else</span>
+    <span class="n">print</span> <span class="pi">(</span><span class="s2">"R_DrawColumn: dc_source read out of bounds ["</span> <span class="o">+</span> <span class="n">i</span><span class="pi">.</span><span class="n">out</span> <span class="o">+</span> <span class="s2">"]%N"</span><span class="pi">)</span>
+    <span class="n">dc_source_val</span> <span class="pi">:=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k">check</span> <span class="k">attached</span> <span class="n">dc_colormap</span> <span class="k">as</span> <span class="n">dc_cmap</span> <span class="k">then</span>
+  <span class="n">val</span> <span class="pi">:=</span> <span class="n">dc_cmap</span> <span class="pi">[</span><span class="n">dc_source_val</span><span class="pi">]</span>
+<span class="k">end</span>
+<span class="n">dest</span><span class="pi">.</span><span class="n">put</span> <span class="pi">(</span><span class="n">val</span><span class="pi">,</span> <span class="n">ofs</span><span class="pi">)</span></code></pre>
+          </figure>
+
+          <p>
+            Such check might incur some performance cost and just hides the
+            presence of this bug. A proper fix would require some code
+            modifications in several places of the code, but we avoid them in
+            phase 1 and leave them for phase 2.
+          </p>
+        </div>
+      </article>
+
+      <footer class="px-4 flex flex-col items-center text-center pb-2">
+        <hr class="border border-california-400 w-11/12 mb-4 mt-8" />
+        <p class="mb-2">
+          Brie Doom is written by
+          <a href="https://imustafin.tatar">Ilgiz Mustafin</a>
+        </p>
+        <p class="mb-2">
+          Source code is
+          <a href="https://github.com/imustafin/brie_doom"
+            >available on GitHub</a
+          >
+        </p>
+        <p>
+          Parts of the program are based on
+          <a href="https://www.chocolate-doom.org/">Chocolate&nbsp;Doom</a> and
+          <a href="http://mochadoom.sourceforge.net/">Mocha&nbsp;Doom</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
