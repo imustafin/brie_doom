@@ -45,4 +45,15 @@ feature
 			Result := pos >= 0 and pos < mp.count
 		end
 
+	this: NATURAL_8
+		-- Get the first item
+		do
+			Result := get (0)
+		end
+
+	plus alias "+" (num: INTEGER): like Current
+		do
+			create Result.make (mp, num + ofs)
+		end
+
 end

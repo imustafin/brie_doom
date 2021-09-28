@@ -3,7 +3,7 @@ note
 
 class
 	DEMOLUMP_T
- 
+
 create
 	from_pointer
 
@@ -28,6 +28,8 @@ feature
 	consoleplayer: INTEGER
 
 	playeringame: ARRAY [BOOLEAN]
+
+	demo_p: MANAGED_POINTER_WITH_OFFSET
 
 feature
 
@@ -66,6 +68,7 @@ feature
 				offset := offset + 1
 				i := i + 1
 			end
+			create demo_p.make (a_pointer, offset)
 		end
 
 end

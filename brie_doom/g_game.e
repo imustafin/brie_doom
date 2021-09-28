@@ -60,7 +60,7 @@ feature
 
 	demobuffer: detachable DEMOLUMP_T -- originally byte*
 
-	demo_p: detachable DEMOLUMP_T -- originally byte*
+	demo_p: detachable MANAGED_POINTER_WITH_OFFSET -- originally byte*
 
 feature
 
@@ -952,14 +952,70 @@ feature
 
 feature -- demo
 
+	DEMOMARKER: INTEGER = 0x80
+
 	G_ReadDemoTiccmd (cmd: TICCMD_T)
+		require
+			attached demo_p
+		local
+			p: MANAGED_POINTER_WITH_OFFSET
 		do
-				-- Stub
+			check attached demo_p as pp then
+				p := pp
+				if p.this = DEMOMARKER then
+						-- end of demo data stream
+					G_CheckDemoStatus.do_nothing
+				else
+					cmd.forwardmove := p.this.as_integer_8
+					p := p + 1
+					cmd.sidemove := p.this.as_integer_8
+					p := p + 1
+					cmd.angleturn := p.this.as_integer_32 |<< 8
+					p := p + 1
+					cmd.buttons := p.this.as_integer_32
+					p := p + 1
+
+					demo_p := p
+				end
+			end
 		end
 
 	G_WriteDemoTiccmd (cmd: TICCMD_T)
 		do
 				-- Stub
+		end
+
+	G_CheckDemoStatus: BOOLEAN
+			-- Called after a death or level completion to allow demos to be cleaned up
+			-- Returns true if a new demo loop action will take place
+		local
+			endtime: INTEGER
+		do
+			if timingdemo then
+				endtime := i_main.i_system.i_gettime
+				{I_MAIN}.i_error ("timed " + gametic.out + " gametics in " + (endtime - starttime).out + " realtics")
+			end
+			if demoplayback then
+				if singledemo then
+					i_main.i_system.i_quit
+				end
+				demoplayback := False
+				netdemo := False
+				netgame := False
+				deathmatch := False
+				playeringame [1] := False
+				playeringame [2] := False
+				playeringame [3] := False
+				i_main.d_main.respawnparm := False
+				i_main.d_main.fastparm := False
+				i_main.d_main.nomonsters := False
+				consoleplayer := 0
+				i_main.d_main.D_AdvanceDemo
+				Result := True
+			end
+			if demorecording then
+				{I_MAIN}.i_error ("G_CheckDemoStatus for demorecording not implemented")
+			end
 		end
 
 feature -- G_TimeDemo
@@ -1088,11 +1144,13 @@ feature -- G_DoLoadLevel
 			gameaction := ga_nothing
 			check attached defdemoname as l_defdemoname then
 				create demobuffer.from_pointer (i_main.w_wad.w_cachelumpname (l_defdemoname, {Z_ZONE}.pu_static))
-				demo_p := demobuffer
+				check attached demobuffer as db then
+					demo_p := db.demo_p
+				end
 			end
 			check attached demobuffer as l_demobuffer then
 				if l_demobuffer.version /= {DOOMDEF_H}.VERSION then
-					print("Demo is from a different game version!%N")
+					print ("Demo is from a different game version!%N")
 					gameaction := ga_nothing
 				else
 					skill := l_demobuffer.skill
@@ -1108,20 +1166,18 @@ feature -- G_DoLoadLevel
 					until
 						i >= {DOOMDEF_H}.maxplayers
 					loop
-						playeringame[i] := l_demobuffer.playeringame[i]
-
+						playeringame [i] := l_demobuffer.playeringame [i]
 						i := i + 1
 					end
-					if playeringame[1] then
+					if playeringame [1] then
 						netgame := True
 						netdemo := True
 					end
 
-					-- don't spend a lot of time in loadlevel
+						-- don't spend a lot of time in loadlevel
 					precache := False
-					G_InitNew(skill, episode, map)
+					G_InitNew (skill, episode, map)
 					precache := True
-
 					usergame := False
 					demoplayback := True
 				end
