@@ -35,10 +35,7 @@ feature
 
 	W_InitMultipleFiles (a_filenames: LIST [STRING])
 		do
-			print("W_InitMultipleFiles not implemented%N")
-				-- skip numlumps = 0;
-				-- skip lumpinfo = malloc(1);
-
+			create lumpinfo.make_empty
 			across
 				a_filenames as filename
 			loop
@@ -48,11 +45,6 @@ feature
 				if li.is_empty then
 					i_main.i_error ("W_InitFiles: no files found")
 				end
-					-- set up caching
-					-- skip int size = numlumps * sizeof(*lumpcache)
-
-					-- lumpcache = malloc(size);
-					-- memset(lumpcache, 0, size);
 				create lumpcache.make_filled (Void, 0, li.count)
 			end
 		end
@@ -75,6 +67,7 @@ feature
 			l_header: WADINFO_T
 			i: INTEGER
 			l_storehandle: detachable RAW_FILE
+			start: INTEGER
 		do
 			if a_filename.starts_with ("~") then
 				reloadname := a_filename.tail (a_filename.count - 1)
@@ -111,16 +104,19 @@ feature
 				end
 				l_storehandle := if attached reloadname then Void else l_file end
 					-- copy l_fileinfo to lumpinfo
-				from
-					i := 1 -- l_fileinfo is 1-indexed
-					create lumpinfo.make_filled (create {LUMPINFO_T}.make ("UNUSED", Void, 0, 0), 0, l_fileinfo.count - 1)
-				until
-					i > l_fileinfo.upper
-				loop
-					check attached lumpinfo as li then
-						li [i - 1] := create {LUMPINFO_T}.make (l_fileinfo [i].name, l_storehandle, l_fileinfo [i].filepos, l_fileinfo [i].size)
+				check attached lumpinfo as l_lumpinfo then
+					from
+						i := 1 -- l_fileinfo is 1-indexed
+						start := l_lumpinfo.upper
+						l_lumpinfo.conservative_resize_with_default (create {LUMPINFO_T}.make ("UNUSED", Void, 0, 0), 0, l_lumpinfo.upper + l_fileinfo.count)
+					until
+						i > l_fileinfo.upper
+					loop
+						check attached lumpinfo as li then
+							li [start + i - 1] := create {LUMPINFO_T}.make (l_fileinfo [i].name, l_storehandle, l_fileinfo [i].filepos, l_fileinfo [i].size)
+						end
+						i := i + 1
 					end
-					i := i + 1
 				end
 			end
 		ensure
@@ -129,9 +125,31 @@ feature
 
 	ExtractFileBase (a_filename: STRING): STRING
 			-- Should return filename base with <= 8 chars
+		local
+			i: INTEGER
 		do
-			print("ExtractFileBase is not implemented%N")
-			Result := a_filename
+			Result := ""
+				-- back up until a \ or the start
+			from
+				i := a_filename.count
+			until
+				i = 1 or else (a_filename [i - 1] = '/' or a_filename [i - 1] = '\')
+			loop
+				i := i - 1
+			end
+			from
+			until
+				i > a_filename.count or else a_filename [i] = '.'
+			loop
+				Result.append_character (a_filename [i].as_upper)
+				i := i + 1
+			end
+		ensure
+			no_separators: not Result.has ('/') and not Result.has ('\')
+			no_dots: not Result.has ('.')
+			uppercase: Result.as_upper ~ Result
+			substring: a_filename.as_upper.has_substring (Result)
+			instance_free: class
 		end
 
 	W_CheckNumForName (name: STRING): INTEGER

@@ -33,6 +33,7 @@ feature
  120, 30 -- 31-32
 			>>
 			cpars.rebase (0)
+			precache := True
 		end
 
 feature
@@ -43,13 +44,23 @@ feature
 
 	nodrawers: BOOLEAN -- for comparative timing purposes
 
+	noblit: BOOLEAN -- for comparative timing purposes
+
+	timingdemo: BOOLEAN -- if true, exit with report on completion
+
 feature
 
 	viewactive: BOOLEAN
 
 	singledemo: BOOLEAN -- quit after playing a demo from cmdline
 
+	precache: BOOLEAN
+
 	demoplayback: BOOLEAN
+
+	demobuffer: detachable DEMOLUMP_T -- originally byte*
+
+	demo_p: detachable DEMOLUMP_T -- originally byte*
 
 feature
 
@@ -951,6 +962,18 @@ feature -- demo
 				-- Stub
 		end
 
+feature -- G_TimeDemo
+
+	G_TimeDemo (name: STRING)
+		do
+			nodrawers := i_main.m_argv.m_checkparm ("-nodraw").to_boolean
+			noblit := i_main.m_argv.m_checkparm ("-noblit").to_boolean
+			timingdemo := True
+			i_main.d_main.singletics := True
+			defdemoname := name
+			gameaction := ga_playdemo
+		end
+
 feature
 
 	G_DoReborn (playernum: INTEGER)
@@ -1056,9 +1079,53 @@ feature -- G_DoLoadLevel
 		end
 
 	G_DoPlayDemo
+		require
+			attached defdemoname
+		local
+			skill: INTEGER
+			i, episode, map: INTEGER
 		do
-			print("G_DoPlayDemo is not implemented %N")
 			gameaction := ga_nothing
+			check attached defdemoname as l_defdemoname then
+				create demobuffer.from_pointer (i_main.w_wad.w_cachelumpname (l_defdemoname, {Z_ZONE}.pu_static))
+				demo_p := demobuffer
+			end
+			check attached demobuffer as l_demobuffer then
+				if l_demobuffer.version /= {DOOMDEF_H}.VERSION then
+					print("Demo is from a different game version!%N")
+					gameaction := ga_nothing
+				else
+					skill := l_demobuffer.skill
+					episode := l_demobuffer.episode
+					map := l_demobuffer.map
+					deathmatch := l_demobuffer.deathmatch
+					i_main.d_main.respawnparm := l_demobuffer.respawnparm
+					i_main.d_main.fastparm := l_demobuffer.fastparm
+					i_main.d_main.nomonsters := l_demobuffer.nomonsters
+					consoleplayer := l_demobuffer.consoleplayer
+					from
+						i := 0
+					until
+						i >= {DOOMDEF_H}.maxplayers
+					loop
+						playeringame[i] := l_demobuffer.playeringame[i]
+
+						i := i + 1
+					end
+					if playeringame[1] then
+						netgame := True
+						netdemo := True
+					end
+
+					-- don't spend a lot of time in loadlevel
+					precache := False
+					G_InitNew(skill, episode, map)
+					precache := True
+
+					usergame := False
+					demoplayback := True
+				end
+			end
 		end
 
 	G_PlayerFinishLevel (player: INTEGER)
@@ -1246,7 +1313,7 @@ feature
 
 	G_Responder (ev: EVENT_T): BOOLEAN
 		do
-			print("G_Responder not implemented%N")
+			print ("G_Responder not implemented%N")
 				-- allow spy mode changes even during the demo
 			if gamestate = {DOOMDEF_H}.gs_level and ev.type = {EVENT_T}.ev_keydown and ev.data1 = {DOOMDEF_H}.key_f12 and (singledemo or not deathmatch) then
 				from

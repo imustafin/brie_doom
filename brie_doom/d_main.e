@@ -24,6 +24,7 @@ feature
 			i_main := a_i_main
 			create {LINKED_LIST [STRING]} wadfiles.make
 			pagename := ""
+			singletics := True
 		end
 
 feature
@@ -36,7 +37,12 @@ feature
 
 	autostart: BOOLEAN
 
-	singletics: BOOLEAN = True -- debug flag to cancel adaptiveness
+	singletics: BOOLEAN assign set_singletics -- debug flag to cancel adaptiveness
+
+	set_singletics (a_singletics: like singletics)
+		do
+			singletics := a_singletics
+		end
 
 	debugfile: detachable FILE
 
@@ -81,58 +87,80 @@ feature
 feature
 
 	D_DoomMain
+		local
+			p: INTEGER
+			file: STRING
 		do
-			print("D_DoomMain not implemented%N")
+			print ("D_DoomMain not implemented%N")
 			FindResponseFile
 			IdentifyVersion
 			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
 				print ("            DOOM Shareware Startup%N")
-				print ("V_Init: allocate screens.%N")
-				i_main.v_video.v_init
-				print ("M_LoadDefaults: Load system defauls.%N")
-				i_main.m_misc.m_loaddefaults
-				print ("Z_Init: Init zone memory allocation daemon.%N")
-				i_main.z_zone.z_init
-				print ("W_Init: Init WADfiles.%N")
-				i_main.w_wad.W_InitMultipleFiles (wadfiles)
-				print ("added%N")
-				print ("==================%N")
-				print ("   Shareware!%N")
-				print ("==================%N")
-				print ("M_Init: Init miscellaneous info.%N")
-				i_main.m_menu.m_init
-				print ("R_Init: Init DOOM refresh daemon - ")
-				i_main.r_main.R_Init
-				print ("%NP_Init: Init Playloop state.%N")
-				i_main.p_setup.P_Init
-				print ("I_Init: Setting up machine state.%N")
-				i_main.i_system.I_Init
-				print ("D_CheckNetGame: Checking network game status.%N")
-				i_main.d_net.D_CheckNetGame
-				print ("S_Init: Setting up sound.%N")
-				i_main.s_sound.S_Init (i_main.s_sound.snd_SfxVolume * 8, i_main.s_sound.snd_MusicVolume * 8)
-				print ("HU_Init: Setting up heads up display.%N")
-				i_main.hu_stuff.HU_Init
-				print ("ST_Init: Init status bar.%N")
-				i_main.st_stuff.ST_Init
-					-- skip -statcopy
-					-- skip -record
-					-- skip -playdemo
-					-- skip -timedemo
-				startskill := {DOOMDEF_H}.sk_medium
-				startepisode := 1
-				startmap := 1
-				autostart := False
-					-- skip -loadgame
-				if i_main.g_game.gameaction /= i_main.g_game.ga_loadgame then
-					if autostart or i_main.g_game.netgame then
-						i_main.g_game.G_InitNew (startskill, startepisode, startmap)
-					else
-						D_StartTitle
-					end
-				end
-				D_DoomLoop
 			end
+				-- skip -cdrom
+				-- skip -turbo
+				-- skip -wart
+				-- skip -file
+			p := i_main.m_argv.M_CheckParm ("-playdemo")
+			if not p.to_boolean then
+				p := i_main.m_argv.m_checkparm ("-timedemo")
+			end
+			if p.to_boolean and p <= i_main.m_argv.myargv.upper then
+				file := i_main.m_argv.myargv [p + 1].to_string_32 + ".lmp"
+				D_AddFile (file)
+				print ("Playing demo " + i_main.m_argv.myargv [p + 1] + ".lmp.%N")
+			end
+
+				-- skip -statcopy
+				-- skip -record
+
+			print ("V_Init: allocate screens.%N")
+			i_main.v_video.v_init
+			print ("M_LoadDefaults: Load system defauls.%N")
+			i_main.m_misc.m_loaddefaults
+			print ("Z_Init: Init zone memory allocation daemon.%N")
+			i_main.z_zone.z_init
+			print ("W_Init: Init WADfiles.%N")
+			i_main.w_wad.W_InitMultipleFiles (wadfiles)
+			print ("added%N")
+			print ("==================%N")
+			print ("   Shareware!%N")
+			print ("==================%N")
+			print ("M_Init: Init miscellaneous info.%N")
+			i_main.m_menu.m_init
+			print ("R_Init: Init DOOM refresh daemon - ")
+			i_main.r_main.R_Init
+			print ("%NP_Init: Init Playloop state.%N")
+			i_main.p_setup.P_Init
+			print ("I_Init: Setting up machine state.%N")
+			i_main.i_system.I_Init
+			print ("D_CheckNetGame: Checking network game status.%N")
+			i_main.d_net.D_CheckNetGame
+			print ("S_Init: Setting up sound.%N")
+			i_main.s_sound.S_Init (i_main.s_sound.snd_SfxVolume * 8, i_main.s_sound.snd_MusicVolume * 8)
+			print ("HU_Init: Setting up heads up display.%N")
+			i_main.hu_stuff.HU_Init
+			print ("ST_Init: Init status bar.%N")
+			i_main.st_stuff.ST_Init
+			p := i_main.m_argv.M_CheckParm ("-timedemo")
+			if p /= 0 and p <= i_main.m_argv.myargv.upper then
+				i_main.g_game.G_TimeDemo (i_main.m_argv.myargv [p + 1].to_string_32)
+				D_DoomLoop -- never returns
+			end
+			startskill := {DOOMDEF_H}.sk_medium
+			startepisode := 1
+			startmap := 1
+			autostart := False
+				-- skip -loadgame
+
+			if i_main.g_game.gameaction /= i_main.g_game.ga_loadgame then
+				if autostart or i_main.g_game.netgame then
+					i_main.g_game.G_InitNew (startskill, startepisode, startmap)
+				else
+					D_StartTitle
+				end
+			end
+			D_DoomLoop
 		end
 
 	D_StartTitle
@@ -157,7 +185,7 @@ feature
 
 	IdentifyVersion
 		do
-			print("IdentifyVersion is not implemented%N")
+			print ("IdentifyVersion is not implemented%N")
 			i_main.doomstat_h.gamemode := {GAME_MODE_T}.shareware
 			D_AddFile ("doom1.wad")
 		end
@@ -171,7 +199,7 @@ feature -- D_DoomLoop
 
 	D_DoomLoop
 		do
-			print("D_DoomLoop not implemented%N")
+			print ("D_DoomLoop not implemented%N")
 			if i_main.g_game.demorecording then
 				i_main.g_game.G_BeginRecording
 			end

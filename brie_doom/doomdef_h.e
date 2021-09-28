@@ -10,6 +10,10 @@ class
 
 feature
 
+	VERSION: INTEGER = 109 -- originally 110, putting 109 for demo compatibility
+
+feature
+
 	SCREENWIDTH: INTEGER = 320
 
 	SCREENHEIGHT: INTEGER = 200

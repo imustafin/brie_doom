@@ -276,6 +276,7 @@ feature -- i_system.c
 			(create {DEVELOPER_EXCEPTION}).raise
 		ensure
 			instance_free: class
+			is_error: False
 		end
 
 end
