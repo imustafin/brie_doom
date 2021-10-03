@@ -73,6 +73,13 @@
 			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_get">get</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
 		<span class="ekeyword">end</span>
 
+	<a name="f_set"></a><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_set">set</a> <span class="esymbol">(</span><span class="elocal">val</span><span class="esymbol">:</span> <a class="eclass" href="../../base/natural_8.html">NATURAL_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_mp">mp</a><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">val</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_ofs">ofs</a><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+				<a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a> <span class="esymbol">=</span> <span class="elocal">val</span>
+		<span class="ekeyword">end</span>
+
 	<a name="f_plus"></a><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">plus</a> <span class="ekeyword">alias</span> <span class="esymbol">&quot;</span><a class="esymbol" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">+</a><span class="esymbol">&quot;</span> <span class="esymbol">(</span><span class="elocal">num</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
 		<span class="ekeyword">do</span>
 			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_mp">mp</a><span class="esymbol">,</span> <span class="elocal">num</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_ofs">ofs</a><span class="esymbol">)</span>

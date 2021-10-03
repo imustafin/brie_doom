@@ -78,12 +78,11 @@
 
 	<a name="f_precache"></a><a class="efeature" href="../brie_doom/g_game.html#f_precache">precache</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
 
+	<a name="f_demoname"></a><a class="efeature" href="../brie_doom/g_game.html#f_demoname">demoname</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../base/string_8.html">STRING_8</a>
+
 	<a name="f_demoplayback"></a><a class="efeature" href="../brie_doom/g_game.html#f_demoplayback">demoplayback</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
 
 	<a name="f_demobuffer"></a><a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../brie_doom/wad/demolump_t.html">DEMOLUMP_T</a>
-			<span class="ecomment">--</span><span class="ecomment"> originally byte*</span>
-
-	<a name="f_demo_p"></a><a class="efeature" href="../brie_doom/g_game.html#f_demo_p">demo_p</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../brie_doom/pointers/managed_pointer_with_offset.html">MANAGED_POINTER_WITH_OFFSET</a>
 			<span class="ecomment">--</span><span class="ecomment"> originally byte*</span>
 	
 <span class="ekeyword">feature</span> 
@@ -620,7 +619,25 @@
 <span class="ekeyword">feature</span> 
 
 	<a name="f_g_beginrecording"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_beginrecording">g_beginrecording</a>
+		<span class="ekeyword">require</span>
+				<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
 		<span class="ekeyword">do</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> db
+			<span class="ekeyword">then</span>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_version">version</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/doomdef_h.html#f_version">version</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_skill">skill</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_gameskill">gameskill</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_episode">episode</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_gameepisode">gameepisode</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_map">map</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_gamemap">gamemap</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_deathmatch">deathmatch</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_respawnparm">respawnparm</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_fastparm">fastparm</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_nomonsters">nomonsters</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_consoleplayer">consoleplayer</a>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_playeringame">Playeringame</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_twin">twin</a>
+			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 
 	<a name="f_debug_a"></a><a class="efeature" href="../brie_doom/g_game.html#f_debug_a">debug_a</a>
@@ -935,43 +952,49 @@
 	
 <span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> demo</span>
 
-	<a name="f_demomarker"></a><a class="efeature" href="../brie_doom/g_game.html#f_demomarker">Demomarker</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
-
 	<a name="f_g_readdemoticcmd"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_readdemoticcmd">g_readdemoticcmd</a> <span class="esymbol">(</span><span class="elocal">cmd</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/ticcmd_t.html">TICCMD_T</a><span class="esymbol">)</span>
 		<span class="ekeyword">require</span>
-				<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demo_p">demo_p</a>
-		<span class="ekeyword">local</span>
-			<span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/pointers/managed_pointer_with_offset.html">MANAGED_POINTER_WITH_OFFSET</a>
+				<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a>
 		<span class="ekeyword">do</span>
 			<span class="ekeyword">check</span>
-					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demo_p">demo_p</a> <span class="ekeyword">as</span> pp
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> db
 			<span class="ekeyword">then</span>
-				<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">pp</span>
-				<span class="ekeyword">if</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a><span class="edot">.</span><a class="efeature" href="../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <span class="esymbol">=</span> <a class="efeature" href="../brie_doom/g_game.html#f_demomarker">Demomarker</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_ticks_after">ticks_after</a> <span class="ekeyword">then</span>
 					<a class="efeature" href="../brie_doom/g_game.html#f_g_checkdemostatus">g_checkdemostatus</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
 				<span class="ekeyword">else</span>
-					<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_forwardmove">forwardmove</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_integer_8">as_integer_8</a>
-					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span> <a class="esymbol" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">+</a> <span class="enumber">1</span>
-					<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_sidemove">sidemove</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_integer_8">as_integer_8</a>
-					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span> <a class="esymbol" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">+</a> <span class="enumber">1</span>
-					<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_angleturn">angleturn</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_integer_32">as_integer_32</a> <a class="esymbol" href="../base/integer_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="enumber">8</span>
-					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span> <a class="esymbol" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">+</a> <span class="enumber">1</span>
-					<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_buttons">buttons</a> <span class="esymbol">:=</span> <span class="elocal">p</span><span class="edot">.</span><a class="efeature" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_this">this</a><span class="edot">.</span><a class="efeature" href="../base/natural_8.html#f_as_integer_32">as_integer_32</a>
-					<span class="elocal">p</span> <span class="esymbol">:=</span> <span class="elocal">p</span> <a class="esymbol" href="../brie_doom/pointers/managed_pointer_with_offset.html#f_plus">+</a> <span class="enumber">1</span>
-					<a class="efeature" href="../brie_doom/g_game.html#f_demo_p">demo_p</a> <span class="esymbol">:=</span> <span class="elocal">p</span>
+					<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../brie_doom/ticcmd_t.html#f_copy_from">copy_from</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_current_tick">current_tick</a><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demotick_t.html#f_to_ticcmd">to_ticcmd</a><span class="esymbol">)</span>
+					<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_advance_tick">advance_tick</a>
 				<span class="ekeyword">end</span>
 			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 
 	<a name="f_g_writedemoticcmd"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_writedemoticcmd">g_writedemoticcmd</a> <span class="esymbol">(</span><span class="elocal">cmd</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/ticcmd_t.html">TICCMD_T</a><span class="esymbol">)</span>
+		<span class="ekeyword">require</span>
+				<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a>
 		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/g_game.html#f_gamekeydown">Gamekeydown</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="esymbol">(</span><span class="echar">'q'</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/character_8.html#f_code">code</a><a class="esymbol" href="../base/array.html#f_item">]</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/g_game.html#f_g_checkdemostatus">g_checkdemostatus</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">check</span>
+					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> db
+			<span class="ekeyword">then</span>
+				<span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_add_tick">add_tick</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../brie_doom/wad/demotick_t.html">DEMOTICK_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demotick_t.html#f_from_ticcmd">from_ticcmd</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="esymbol">)</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../base/arrayed_list.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">4</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_maxsize">maxsize</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">16</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/g_game.html#f_g_checkdemostatus">g_checkdemostatus</a><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../brie_doom/g_game.html#f_g_readdemoticcmd">g_readdemoticcmd</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 
 	<a name="f_g_checkdemostatus"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_checkdemostatus">g_checkdemostatus</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a>
 			<span class="ecomment">--</span><span class="ecomment"> Called after a death or level completion to allow demos to be cleaned up</span>
 			<span class="ecomment">--</span><span class="ecomment"> Returns true if a new demo loop action will take place</span>
+		<span class="ekeyword">require</span>
+				<a class="efeature" href="../brie_doom/g_game.html#f_demorecording">demorecording</a> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demoname">demoname</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a>
 		<span class="ekeyword">local</span>
 			<span class="elocal">endtime</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">p</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/pointers/managed_pointer_with_offset.html">MANAGED_POINTER_WITH_OFFSET</a>
 		<span class="ekeyword">do</span>
 			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/g_game.html#f_timingdemo">timingdemo</a> <span class="ekeyword">then</span>
 				<span class="elocal">endtime</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_system">I_system</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_system.html#f_i_gettime">i_gettime</a>
@@ -996,7 +1019,14 @@
 				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
 			<span class="ekeyword">end</span>
 			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/g_game.html#f_demorecording">demorecording</a> <span class="ekeyword">then</span>
-				<span class="esymbol">{</span><a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;G_CheckDemoStatus for demorecording not implemented&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demoname">demoname</a> <span class="ekeyword">as</span> l_demoname <a class="ekeyword" href="../base/boolean.html#f_conjuncted_semistrict">and then</a> <span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> l_demobuffer
+				<span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_misc">M_misc</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_misc.html#f_m_writefile_managed_pointer">m_writefile_managed_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_demoname</span><span class="esymbol">,</span> <span class="elocal">l_demobuffer</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_to_managed_pointer">to_managed_pointer</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+					<a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="esymbol">:=</span> <span class="ekeyword">Void</span>
+					<a class="efeature" href="../brie_doom/g_game.html#f_demorecording">demorecording</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+					<span class="esymbol">{</span><a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span>&quot;Demo &quot; <a class="esymbol" href="../base/string_8.html#f_plus">+</a> <span class="elocal">l_demoname</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; recorded&quot;<span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
 			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 	
@@ -1116,11 +1146,6 @@
 					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_defdemoname">defdemoname</a> <span class="ekeyword">as</span> l_defdemoname
 			<span class="ekeyword">then</span>
 				<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_from_pointer">from_pointer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">l_defdemoname</span><span class="esymbol">,</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/z_zone.html">Z_ZONE</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/z_zone.html#f_pu_static">pu_static</a><span class="esymbol">)</span><span class="esymbol">)</span>
-				<span class="ekeyword">check</span>
-						<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> db
-				<span class="ekeyword">then</span>
-					<a class="efeature" href="../brie_doom/g_game.html#f_demo_p">demo_p</a> <span class="esymbol">:=</span> <span class="elocal">db</span><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_demo_p">demo_p</a>
-				<span class="ekeyword">end</span>
 			<span class="ekeyword">end</span>
 			<span class="ekeyword">check</span>
 					<span class="ekeyword">attached</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a> <span class="ekeyword">as</span> l_demobuffer
@@ -1156,6 +1181,22 @@
 					<a class="efeature" href="../brie_doom/g_game.html#f_demoplayback">demoplayback</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
 				<span class="ekeyword">end</span>
 			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_g_recorddemo"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_recorddemo">g_recorddemo</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">maxsize</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/g_game.html#f_usergame">usergame</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<a class="efeature" href="../brie_doom/g_game.html#f_demoname">demoname</a> <span class="esymbol">:=</span> <span class="elocal">name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot;.lmp&quot;
+			<span class="elocal">maxsize</span> <span class="esymbol">:=</span> <span class="enumber">131072</span>
+			<span class="elocal">i</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_argv">m_argv</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_argv.html#f_m_checkparm">m_checkparm</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;-maxdemo&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <span class="elocal">i</span><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_boolean">to_boolean</a> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_argv">m_argv</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_count">count</a> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span> <span class="ekeyword">then</span>
+				<span class="elocal">maxsize</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/g_game.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_m_argv">m_argv</a><span class="edot">.</span><a class="efeature" href="../brie_doom/m_argv.html#f_myargv">myargv</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">i</span> <a class="esymbol" href="../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span><a class="esymbol" href="../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../base/readable_string_general.html#f_to_integer">to_integer</a> <a class="esymbol" href="../base/integer_32.html#f_product">*</a> <span class="enumber">1024</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../brie_doom/g_game.html#f_demobuffer">demobuffer</a><span class="edot">.</span><a class="efeature" href="../brie_doom/wad/demolump_t.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">maxsize</span><span class="esymbol">)</span>
+			<a class="efeature" href="../brie_doom/g_game.html#f_demorecording">demorecording</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
 		<span class="ekeyword">end</span>
 
 	<a name="f_g_playerfinishlevel"></a><a class="efeature" href="../brie_doom/g_game.html#f_g_playerfinishlevel">g_playerfinishlevel</a> <span class="esymbol">(</span><span class="elocal">player</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>

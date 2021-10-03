@@ -28,70 +28,243 @@
 	<a class="eclass" href="../../brie_doom/wad/demolump_t.html">DEMOLUMP_T</a>
 
 <span class="ekeyword">create</span> 
-	<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_from_pointer">from_pointer</a>
+	<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_from_pointer">from_pointer</a><span class="esymbol">,</span>
+	<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_make">make</a>
 
 <span class="ekeyword">feature</span> 
 
-	<a name="f_version"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
-
-	<a name="f_skill"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
-
-	<a name="f_episode"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
-
-	<a name="f_map"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
-
-	<a name="f_deathmatch"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
-
-	<a name="f_respawnparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
-
-	<a name="f_fastparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
-
-	<a name="f_nomonsters"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
-
-	<a name="f_consoleplayer"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
-
-	<a name="f_playeringame"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span>
-
-	<a name="f_demo_p"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_demo_p">demo_p</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/pointers/managed_pointer_with_offset.html">MANAGED_POINTER_WITH_OFFSET</a>
+	<a name="f_demomarker"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_demomarker">Demomarker</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">128</span>
 	
 <span class="ekeyword">feature</span> 
 
-	<a name="f_offset"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+	<a name="f_version"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_version">set_version</a>
+
+	<a name="f_set_version"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_version">set_version</a> <span class="esymbol">(</span><span class="elocal">a_version</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a> <span class="esymbol">:=</span> <span class="elocal">a_version</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_skill"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_skill">set_skill</a>
+
+	<a name="f_set_skill"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_skill">set_skill</a> <span class="esymbol">(</span><span class="elocal">a_skill</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a> <span class="esymbol">:=</span> <span class="elocal">a_skill</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_episode"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_episode">set_episode</a>
+
+	<a name="f_set_episode"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_episode">set_episode</a> <span class="esymbol">(</span><span class="elocal">a_episode</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a> <span class="esymbol">:=</span> <span class="elocal">a_episode</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_map"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_map">set_map</a>
+
+	<a name="f_set_map"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_map">set_map</a> <span class="esymbol">(</span><span class="elocal">a_map</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a> <span class="esymbol">:=</span> <span class="elocal">a_map</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_deathmatch"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_deathmatch">set_deathmatch</a>
+
+	<a name="f_set_deathmatch"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_deathmatch">set_deathmatch</a> <span class="esymbol">(</span><span class="elocal">a_deathmatch</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a> <span class="esymbol">:=</span> <span class="elocal">a_deathmatch</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_respawnparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_respawnparm">set_respawnparm</a>
+
+	<a name="f_set_respawnparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_respawnparm">set_respawnparm</a> <span class="esymbol">(</span><span class="elocal">a_respawnparm</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a> <span class="esymbol">:=</span> <span class="elocal">a_respawnparm</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_fastparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_fastparm">set_fastparm</a>
+
+	<a name="f_set_fastparm"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_fastparm">set_fastparm</a> <span class="esymbol">(</span><span class="elocal">a_fastparm</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a> <span class="esymbol">:=</span> <span class="elocal">a_fastparm</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_nomonsters"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_nomonsters">set_nomonsters</a>
+
+	<a name="f_set_nomonsters"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_nomonsters">set_nomonsters</a> <span class="esymbol">(</span><span class="elocal">a_nomonsters</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a> <span class="esymbol">:=</span> <span class="elocal">a_nomonsters</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_consoleplayer"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_consoleplayer">set_consoleplayer</a>
+
+	<a name="f_set_consoleplayer"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_consoleplayer">set_consoleplayer</a> <span class="esymbol">(</span><span class="elocal">a_consoleplayer</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a> <span class="esymbol">:=</span> <span class="elocal">a_consoleplayer</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_playeringame"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="esymbol">:</span> <a class="eclass" href="../../base/array.html">ARRAY</a> <span class="esymbol">[</span><a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">]</span> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_playeringame">set_playeringame</a>
+
+	<a name="f_set_playeringame"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_set_playeringame">set_playeringame</a> <span class="esymbol">(</span><span class="elocal">a_playeringame</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a> <span class="esymbol">:=</span> <span class="elocal">a_playeringame</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ticks"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="esymbol">:</span> <a class="eclass" href="../../base/arrayed_list.html">ARRAYED_LIST</a> <span class="esymbol">[</span><a class="eclass" href="../../brie_doom/wad/demotick_t.html">DEMOTICK_T</a><span class="esymbol">]</span>
+
+	<a name="f_ticks_position"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> One after of the current tick</span>
+
+	<a name="f_ticks_after"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_after">ticks_after</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <a class="esymbol" href="../../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_upper">upper</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_ticks_before"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_before">ticks_before</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <a class="esymbol" href="../../base/integer_32.html#f_is_less">&lt;</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/chain.html#f_lower">Lower</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_current_tick"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_current_tick">current_tick</a><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/wad/demotick_t.html">DEMOTICK_T</a>
+		<span class="ekeyword">require</span>
+				<a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_after">ticks_after</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a> <a class="esymbol" href="../../base/arrayed_list.html#f_i_th">[</a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a><a class="esymbol" href="../../base/arrayed_list.html#f_i_th">]</a>
+		<span class="ekeyword">end</span>
+
+	<a name="f_add_tick"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_add_tick">add_tick</a> <span class="esymbol">(</span><span class="elocal">tick</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/wad/demotick_t.html">DEMOTICK_T</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">tick</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_advance_tick"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_advance_tick">advance_tick</a>
+		<span class="ekeyword">require</span>
+				<a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_after">ticks_after</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_dec_tick"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_dec_tick">dec_tick</a>
+		<span class="ekeyword">require</span>
+				<a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_before">ticks_before</a>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
 
 	<a name="f_from_pointer"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_from_pointer">from_pointer</a> <span class="esymbol">(</span><span class="elocal">a_pointer</span><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a><span class="esymbol">)</span>
 		<span class="ekeyword">local</span>
 			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">cmd</span><span class="esymbol">:</span> <a class="eclass" href="../../brie_doom/wad/demotick_t.html">DEMOTICK_T</a>
 		<span class="ekeyword">do</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
-			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
 			<span class="ekeyword">from</span>
 				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
 				<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_filled">make_filled</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">,</span> <span class="enumber">0</span><span class="esymbol">,</span> <span class="enumber">3</span><span class="esymbol">)</span>
 			<span class="ekeyword">until</span>
 				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_maxplayers">maxplayers</a>
 			<span class="ekeyword">loop</span>
-				<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
-				<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_boolean">to_boolean</a>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
 				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
 			<span class="ekeyword">end</span>
-			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_demo_p">demo_p</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/pointers/managed_pointer_with_offset.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_pointer</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_offset">offset</a><span class="esymbol">)</span>
+			<span class="ekeyword">from</span>
+				<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/natural_8_ref.html#f_to_integer_32">to_integer_32</a> <span class="esymbol">=</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_demomarker">Demomarker</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">create</span> <span class="elocal">cmd</span>
+				<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/wad/demotick_t.html#f_forwardmove">forwardmove</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/wad/demotick_t.html#f_sidemove">sidemove</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/wad/demotick_t.html#f_angleturn">angleturn</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">cmd</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/wad/demotick_t.html#f_buttons">buttons</a> <span class="esymbol">:=</span> <span class="elocal">a_pointer</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_read_natural_8">read_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_extend">extend</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Write demo</span>
+
+	<a name="f_maxsize"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_maxsize">maxsize</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_make"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_maxsize</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks_position">ticks_position</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
+			<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_maxsize">maxsize</a> <span class="esymbol">:=</span> <span class="elocal">a_maxsize</span>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_make_empty">make_empty</a>
+			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">0</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_to_managed_pointer"></a><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_to_managed_pointer">to_managed_pointer</a><span class="esymbol">:</span> <a class="eclass" href="../../base/managed_pointer.html">MANAGED_POINTER</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">size</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">offset</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">i</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">size</span> <span class="esymbol">:=</span> <span class="enumber">9</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_maxplayers">maxplayers</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">4</span> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a><span class="edot">.</span><a class="efeature" href="../../base/arrayed_list.html#f_count">count</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">create</span> <span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">size</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_version">version</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_skill">skill</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_episode">episode</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_map">map</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_deathmatch">deathmatch</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_respawnparm">respawnparm</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_fastparm">fastparm</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_nomonsters">nomonsters</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_consoleplayer">consoleplayer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+			<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">from</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="ekeyword">until</span>
+				<span class="elocal">i</span> <a class="esymbol" href="../../base/comparable.html#f_is_greater_equal">&gt;=</a> <a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a><span class="edot">.</span><a class="efeature" href="../../base/array.html#f_count">count</a>
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_playeringame">playeringame</a> <a class="esymbol" href="../../base/array.html#f_item">[</a><span class="elocal">i</span><a class="esymbol" href="../../base/array.html#f_item">]</a><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="elocal">i</span> <span class="esymbol">:=</span> <span class="elocal">i</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">across</span>
+				<a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_ticks">ticks</a> <span class="ekeyword">is</span> cmd
+			<span class="ekeyword">loop</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="edot">.</span><span class="elocal">forwardmove</span><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="edot">.</span><span class="elocal">sidemove</span><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="edot">.</span><span class="elocal">angleturn</span><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+				<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">cmd</span><span class="edot">.</span><span class="elocal">buttons</span><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
+				<span class="elocal">offset</span> <span class="esymbol">:=</span> <span class="elocal">offset</span> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="enumber">1</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">Result</span><span class="edot">.</span><a class="efeature" href="../../base/managed_pointer.html#f_put_natural_8">put_natural_8</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/wad/demolump_t.html#f_demomarker">Demomarker</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_8">to_natural_8</a><span class="esymbol">,</span> <span class="elocal">offset</span><span class="esymbol">)</span>
 		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/wad/demolump_t.html">DEMOLUMP_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
