@@ -10,7 +10,7 @@ class
 
 feature
 
-	VERSION: INTEGER = 109 -- originally 110, putting 109 for demo compatibility
+	VERSION: INTEGER = 110
 
 feature
 

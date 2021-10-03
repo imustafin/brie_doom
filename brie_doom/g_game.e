@@ -56,6 +56,8 @@ feature
 
 	precache: BOOLEAN
 
+	demoname: detachable STRING
+
 	demoplayback: BOOLEAN
 
 	demobuffer: detachable DEMOLUMP_T -- originally byte*
@@ -594,8 +596,45 @@ feature
 feature
 
 	G_BeginRecording
+		require
+			attached demobuffer
+		local
+			i: INTEGER
+			p: MANAGED_POINTER_WITH_OFFSET
 		do
-				-- Stub
+			check attached demobuffer as l_demobuffer then
+				p := l_demobuffer.demo_p
+			end
+			p.set ({DOOMDEF_H}.version.to_natural_8)
+			p := p + 1
+			p.set (gameskill.to_natural_8)
+			p := p + 1
+			p.set (gameepisode.to_natural_8)
+			p := p + 1
+			p.set (gamemap.to_natural_8)
+			p := p + 1
+			p.set (deathmatch.to_integer.to_natural_8)
+			p := p + 1
+			p.set (i_main.d_main.respawnparm.to_integer.to_natural_8)
+			p := p + 1
+			p.set (i_main.d_main.fastparm.to_integer.to_natural_8)
+			p := p + 1
+			p.set (i_main.d_main.nomonsters.to_integer.to_natural_8)
+			p := p + 1
+			p.set (consoleplayer.to_natural_8)
+			p := p + 1
+			from
+				i := 0
+			until
+				i >= {DOOMDEF_H}.maxplayers
+			loop
+				p.set (playeringame [i].to_integer.to_natural_8)
+				p := p + 1
+				i := i + 1
+			end
+			demo_p := p
+		ensure
+			attached demobuffer as db and then db.mp.read_natural_8(0) = {DOOMDEF_H}.version
 		end
 
 	debug_a
@@ -974,22 +1013,53 @@ feature -- demo
 					p := p + 1
 					cmd.buttons := p.this.as_integer_32
 					p := p + 1
-
 					demo_p := p
 				end
 			end
 		end
 
 	G_WriteDemoTiccmd (cmd: TICCMD_T)
+		require
+			attached demo_p
+			attached demobuffer as db and then db.mp.read_natural_8(0) = {DOOMDEF_H}.version
+		local
+			p: MANAGED_POINTER_WITH_OFFSET
 		do
-				-- Stub
+			if gamekeydown [('q').code] then
+				G_CheckDemoStatus.do_nothing
+			end
+			check attached demo_p as pp then
+				p := pp
+				p.set (cmd.forwardmove.as_natural_8)
+				p := p + 1
+				p.set (cmd.sidemove.as_natural_8)
+				p := p + 1
+				p.set (((cmd.angleturn + 128) |>> 8).as_natural_8)
+				p := p + 1
+				p.set (cmd.buttons.as_natural_8)
+				p := p + 1
+				p := p + (-4)
+				demo_p := p
+				if p.count < 16 then -- demo_p > demoend - 16
+						-- no more space
+					G_CheckDemoStatus.do_nothing
+				else
+					G_ReadDemoTiccmd (cmd) -- make SURE it is exactly the same
+				end
+			end
+		ensure
+			make_sure_it_is_exactly_the_same: old cmd ~ cmd
 		end
 
 	G_CheckDemoStatus: BOOLEAN
 			-- Called after a death or level completion to allow demos to be cleaned up
 			-- Returns true if a new demo loop action will take place
+		require
+			demorecording implies attached demo_p and attached demoname and attached demobuffer
+			demorecording implies attached demobuffer as db and then db.mp.read_natural_8 (0) = {DOOMDEF_H}.version
 		local
 			endtime: INTEGER
+			p: MANAGED_POINTER_WITH_OFFSET
 		do
 			if timingdemo then
 				endtime := i_main.i_system.i_gettime
@@ -1014,7 +1084,16 @@ feature -- demo
 				Result := True
 			end
 			if demorecording then
-				{I_MAIN}.i_error ("G_CheckDemoStatus for demorecording not implemented")
+				check attached demo_p as pp and then attached demoname as l_demoname and then attached demobuffer as l_demobuffer then
+					p := pp
+					p.set (DEMOMARKER.as_natural_8)
+					p := p + 1
+					demo_p := p
+					i_main.m_misc.M_WriteFile_managed_pointer (l_demoname, l_demobuffer.mp).do_nothing
+					demobuffer := Void
+					demorecording := False
+					{I_MAIN}.i_error ("Demo " + l_demoname + " recorded")
+				end
 			end
 		end
 
@@ -1182,6 +1261,23 @@ feature -- G_DoLoadLevel
 					demoplayback := True
 				end
 			end
+		end
+
+	G_RecordDemo (name: STRING)
+		local
+			i: INTEGER
+			maxsize: INTEGER
+		do
+			usergame := False
+			demoname := name + ".lmp"
+			maxsize := 0x20000
+			i := i_main.m_argv.m_checkparm ("-maxdemo")
+			if i.to_boolean and i < i_main.m_argv.myargv.count - 1 then
+				maxsize := i_main.m_argv.myargv [i + 1].to_integer * 1024
+			end
+			create demobuffer.make(maxsize)
+				-- skip demoend = demobuffer + maxsize
+			demorecording := True
 		end
 
 	G_PlayerFinishLevel (player: INTEGER)

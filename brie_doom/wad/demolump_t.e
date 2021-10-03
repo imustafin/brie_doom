@@ -5,7 +5,7 @@ class
 	DEMOLUMP_T
 
 create
-	from_pointer
+	from_pointer, make
 
 feature
 
@@ -31,14 +31,15 @@ feature
 
 	demo_p: MANAGED_POINTER_WITH_OFFSET
 
+	mp: MANAGED_POINTER
 feature
-
-	offset: INTEGER
 
 	from_pointer (a_pointer: MANAGED_POINTER)
 		local
 			i: INTEGER
+			offset: INTEGER
 		do
+			mp := a_pointer
 			offset := 0
 			version := a_pointer.read_natural_8 (offset)
 			offset := offset + 1
@@ -69,6 +70,13 @@ feature
 				i := i + 1
 			end
 			create demo_p.make (a_pointer, offset)
+		end
+
+	make(maxsize: INTEGER)
+		do
+			create mp.make (maxsize)
+			create demo_p.make (mp, 0)
+			create playeringame.make_empty
 		end
 
 end

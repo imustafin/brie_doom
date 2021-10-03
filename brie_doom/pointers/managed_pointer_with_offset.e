@@ -37,6 +37,7 @@ feature
 			Result := mp.read_natural_8_le (ofs + pos)
 		end
 
+
 	valid_index (i: INTEGER): BOOLEAN
 		local
 			pos: INTEGER
@@ -49,6 +50,13 @@ feature
 		-- Get the first item
 		do
 			Result := get (0)
+		end
+
+	set (val: NATURAL_8)
+		do
+			mp.put_natural_8 (val, ofs)
+		ensure
+			this = val
 		end
 
 	plus alias "+" (num: INTEGER): like Current

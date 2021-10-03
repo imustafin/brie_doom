@@ -101,6 +101,12 @@ feature
 				-- skip -turbo
 				-- skip -wart
 				-- skip -file
+			-- start the appropriate game based on params
+			p := i_main.m_argv.m_checkparm ("-record")
+			if p.to_boolean and p < i_main.m_argv.myargv.count - 1 then
+				i_main.g_game.G_RecordDemo(i_main.m_argv.myargv[p + 1].to_string_32)
+				autostart := True
+			end
 			p := i_main.m_argv.M_CheckParm ("-playdemo")
 			if not p.to_boolean then
 				p := i_main.m_argv.m_checkparm ("-timedemo")
