@@ -9,37 +9,130 @@ create
 
 feature
 
-	version: INTEGER
+	DEMOMARKER: INTEGER = 0x80
 
-	skill: INTEGER
+feature
 
-	episode: INTEGER
+	version: INTEGER assign set_version
 
-	map: INTEGER
+	set_version (a_version: like version)
+		do
+			version := a_version
+		end
 
-	deathmatch: BOOLEAN
+	skill: INTEGER assign set_skill
 
-	respawnparm: BOOLEAN
+	set_skill (a_skill: like skill)
+		do
+			skill := a_skill
+		end
 
-	fastparm: BOOLEAN
+	episode: INTEGER assign set_episode
 
-	nomonsters: BOOLEAN
+	set_episode (a_episode: like episode)
+		do
+			episode := a_episode
+		end
 
-	consoleplayer: INTEGER
+	map: INTEGER assign set_map
 
-	playeringame: ARRAY [BOOLEAN]
+	set_map (a_map: like map)
+		do
+			map := a_map
+		end
 
-	demo_p: MANAGED_POINTER_WITH_OFFSET
+	deathmatch: BOOLEAN assign set_deathmatch
 
-	mp: MANAGED_POINTER
+	set_deathmatch (a_deathmatch: like deathmatch)
+		do
+			deathmatch := a_deathmatch
+		end
+
+	respawnparm: BOOLEAN assign set_respawnparm
+
+	set_respawnparm (a_respawnparm: like respawnparm)
+		do
+			respawnparm := a_respawnparm
+		end
+
+	fastparm: BOOLEAN assign set_fastparm
+
+	set_fastparm (a_fastparm: like fastparm)
+		do
+			fastparm := a_fastparm
+		end
+
+	nomonsters: BOOLEAN assign set_nomonsters
+
+	set_nomonsters (a_nomonsters: like nomonsters)
+		do
+			nomonsters := a_nomonsters
+		end
+
+	consoleplayer: INTEGER assign set_consoleplayer
+
+	set_consoleplayer (a_consoleplayer: like consoleplayer)
+		do
+			consoleplayer := a_consoleplayer
+		end
+
+	playeringame: ARRAY [BOOLEAN] assign set_playeringame
+
+	set_playeringame (a_playeringame: like playeringame)
+		do
+			playeringame := a_playeringame
+		end
+
+	ticks: ARRAYED_LIST [DEMOTICK_T]
+
+	ticks_position: INTEGER
+			-- One after of the current tick
+
+	ticks_after: BOOLEAN
+		do
+			Result := ticks_position > ticks.upper
+		end
+
+	ticks_before: BOOLEAN
+		do
+			Result := ticks_position < ticks.lower
+		end
+
+	current_tick: DEMOTICK_T
+		require
+			not ticks_after
+		do
+			Result := ticks [ticks_position]
+		end
+
+	add_tick (tick: DEMOTICK_T)
+		do
+			ticks.extend (tick)
+		end
+
+	advance_tick
+		require
+			not ticks_after
+		do
+			ticks_position := ticks_position + 1
+		end
+
+	dec_tick
+		require
+			not ticks_before
+		do
+			ticks_position := ticks_position - 1
+		end
+
 feature
 
 	from_pointer (a_pointer: MANAGED_POINTER)
 		local
 			i: INTEGER
 			offset: INTEGER
+			cmd: DEMOTICK_T
 		do
-			mp := a_pointer
+			ticks_position := 1
 			offset := 0
 			version := a_pointer.read_natural_8 (offset)
 			offset := offset + 1
@@ -69,14 +162,85 @@ feature
 				offset := offset + 1
 				i := i + 1
 			end
-			create demo_p.make (a_pointer, offset)
+			from
+				create ticks.make (0)
+			until
+				a_pointer.read_natural_8 (offset) = DEMOMARKER
+			loop
+				create cmd
+				cmd.forwardmove := a_pointer.read_natural_8 (offset)
+				offset := offset + 1
+				cmd.sidemove := a_pointer.read_natural_8 (offset)
+				offset := offset + 1
+				cmd.angleturn := a_pointer.read_natural_8 (offset)
+				offset := offset + 1
+				cmd.buttons := a_pointer.read_natural_8 (offset)
+				offset := offset + 1
+				ticks.extend (cmd)
+			end
 		end
 
-	make(maxsize: INTEGER)
+feature -- Write demo
+
+	maxsize: INTEGER
+
+	make (a_maxsize: INTEGER)
 		do
-			create mp.make (maxsize)
-			create demo_p.make (mp, 0)
+			ticks_position := 1
+			maxsize := a_maxsize
 			create playeringame.make_empty
+			create ticks.make (0)
+		end
+
+	to_managed_pointer: MANAGED_POINTER
+		local
+			size: INTEGER
+			offset: INTEGER
+			i: INTEGER
+		do
+			size := 9 + {DOOMDEF_H}.maxplayers + 4 * ticks.count + 1
+			create Result.make (size)
+			offset := 0
+			Result.put_natural_8 (version.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (skill.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (episode.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (map.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (deathmatch.to_integer.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (respawnparm.to_integer.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (fastparm.to_integer.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (nomonsters.to_integer.to_natural_8, offset)
+			offset := offset + 1
+			Result.put_natural_8 (consoleplayer.to_natural_8, offset)
+			offset := offset + 1
+			from
+				i := 0
+			until
+				i >= playeringame.count
+			loop
+				Result.put_natural_8 (playeringame [i].to_integer.to_natural_8, offset)
+				offset := offset + 1
+				i := i + 1
+			end
+			across
+				ticks is cmd
+			loop
+				Result.put_natural_8 (cmd.forwardmove, offset)
+				offset := offset + 1
+				Result.put_natural_8 (cmd.sidemove, offset)
+				offset := offset + 1
+				Result.put_natural_8 (cmd.angleturn, offset)
+				offset := offset + 1
+				Result.put_natural_8 (cmd.buttons, offset)
+				offset := offset + 1
+			end
+			Result.put_natural_8 (DEMOMARKER.to_natural_8, offset)
 		end
 
 end
