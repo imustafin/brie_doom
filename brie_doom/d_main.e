@@ -101,12 +101,8 @@ feature
 				-- skip -turbo
 				-- skip -wart
 				-- skip -file
-			-- start the appropriate game based on params
-			p := i_main.m_argv.m_checkparm ("-record")
-			if p.to_boolean and p < i_main.m_argv.myargv.count - 1 then
-				i_main.g_game.G_RecordDemo(i_main.m_argv.myargv[p + 1].to_string_32)
-				autostart := True
-			end
+				-- start the appropriate game based on params
+
 			p := i_main.m_argv.M_CheckParm ("-playdemo")
 			if not p.to_boolean then
 				p := i_main.m_argv.m_checkparm ("-timedemo")
@@ -116,6 +112,10 @@ feature
 				D_AddFile (file)
 				print ("Playing demo " + i_main.m_argv.myargv [p + 1] + ".lmp.%N")
 			end
+			startskill := {DOOMDEF_H}.sk_medium
+			startepisode := 1
+			startmap := 1
+			autostart := False
 
 				-- skip -statcopy
 				-- skip -record
@@ -148,15 +148,16 @@ feature
 			i_main.hu_stuff.HU_Init
 			print ("ST_Init: Init status bar.%N")
 			i_main.st_stuff.ST_Init
+			p := i_main.m_argv.m_checkparm ("-record")
+			if p.to_boolean and p < i_main.m_argv.myargv.count - 1 then
+				i_main.g_game.G_RecordDemo (i_main.m_argv.myargv [p + 1].to_string_32)
+				autostart := True
+			end
 			p := i_main.m_argv.M_CheckParm ("-timedemo")
 			if p /= 0 and p <= i_main.m_argv.myargv.upper then
 				i_main.g_game.G_TimeDemo (i_main.m_argv.myargv [p + 1].to_string_32)
 				D_DoomLoop -- never returns
 			end
-			startskill := {DOOMDEF_H}.sk_medium
-			startepisode := 1
-			startmap := 1
-			autostart := False
 				-- skip -loadgame
 
 			if i_main.g_game.gameaction /= i_main.g_game.ga_loadgame then
