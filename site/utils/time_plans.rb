@@ -82,17 +82,7 @@ plans.each do |plan, contracts|
 
   exit(1) unless res
 
-  out = `./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1`
-
-  time = out.split("\n").last
-  puts plan.to_s + " " + time
-
-  unless time.include?('realtics')
-    puts out
-    raise "Timing did not finish"
-  end
-
-  results << plan.to_s + " " + time
+  system("./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > result_#{plan.to_s}.out 2> result_#{plan.to_s}.err")
 end
 
 Dir.chdir(ROOT)
