@@ -32,7 +32,7 @@ feature
 
 	EV_LightTurnOn (line: LINE_T; bright: INTEGER)
 		do
-			{I_MAIN}.i_error ("EV_LightTurnOn not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_LightTurnOn", true)
 		ensure
 			instance_free: class
 		end

@@ -49,7 +49,7 @@ feature
 
 	I_Quit
 		do
-			print("I_Quit not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented("I_Quit", false)
 			{EXCEPTIONS}.die (0)
 		end
 

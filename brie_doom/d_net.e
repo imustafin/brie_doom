@@ -258,7 +258,7 @@ feature -- TryRunTics
 			end
 			frameon := frameon + 1
 			if i_main.d_main.debugfile /= Void then
-				{I_MAIN}.i_error ("debug file writing not implemented")
+				{NOT_IMPLEMENTED}.not_implemented ("debug file writing", true)
 			end
 			if not i_main.g_game.demoplayback then
 					-- ideally nettics[0] should be 1 - 3 tics above lowtic

@@ -588,21 +588,21 @@ feature
 		require
 			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		do
-			{I_MAIN}.i_error ("R_DrawColumnLow not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("R_DrawColumnLow", true)
 		end
 
 	R_DrawFuzzColumn
 		require
 			RANGECHECK: dc_x < SCREENWIDTH and dc_yl >= 0 and dc_yh < SCREENHEIGHT
 		do
-			{I_MAIN}.i_error ("R_DrawFuzzColumn not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("R_DrawFuzzColumn", true)
 		end
 
 	r_DrawSpanLow
 		require
 			RANGECHECK: ds_x2 >= ds_x1 and ds_x1 >= 0 and ds_x2 < SCREENWIDTH and ds_y <= SCREENHEIGHT
 		do
-			{I_MAIN}.i_error ("R_DrawSpanLow not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("R_DrawSpanLow", true)
 		end
 
 feature

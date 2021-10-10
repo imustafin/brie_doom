@@ -110,7 +110,7 @@ feature
 			p: INTEGER
 			file: STRING
 		do
-			print ("D_DoomMain not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("D_DoomMain", false)
 			FindResponseFile
 			IdentifyVersion
 			if i_main.doomstat_h.gamemode = {GAME_MODE_T}.shareware then
@@ -211,7 +211,7 @@ feature
 
 	IdentifyVersion
 		do
-			print ("IdentifyVersion is not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("IdentifyVersion", false)
 			i_main.doomstat_h.gamemode := {GAME_MODE_T}.shareware
 			D_AddFile ("doom1.wad")
 		end
@@ -225,7 +225,7 @@ feature -- D_DoomLoop
 
 	D_DoomLoop
 		do
-			print ("D_DoomLoop not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("D_DoomLoop", false)
 			if i_main.g_game.demorecording then
 				i_main.g_game.G_BeginRecording
 			end

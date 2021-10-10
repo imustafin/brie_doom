@@ -101,7 +101,7 @@ feature
 			cols: ARRAYED_LIST [COLUMN_T]
 			i: INTEGER
 		do
-			print("V_DrawPatch not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented("V_DrawPatch", false)
 				-- From chocolate doom
 
 			y := a_y - patch.topoffset

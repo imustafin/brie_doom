@@ -136,7 +136,7 @@ feature
 			nomusic: BOOLEAN
 			nosfx: BOOLEAN
 		do
-			print ("I_InitSound not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("I_InitSound", false)
 				-- skip -nosound
 				-- skip -nosfx
 				-- skip -nomusic

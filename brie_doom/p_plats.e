@@ -33,7 +33,7 @@ feature
 			-- Do Platforms
 			-- `amount` is only used for SOME platforms.
 		do
-			{I_MAIN}.i_error ("EV_DoPlat not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoPlat", true)
 		ensure
 			instance_free: class
 		end

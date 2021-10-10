@@ -44,7 +44,7 @@ feature
 	EV_BuildStairs (line: LINE_T; type: INTEGER): BOOLEAN
 			-- BUILD A STAIRCASE!
 		do
-			{I_MAIN}.i_error ("EV_BuildStairs not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_BuildStairs", true)
 		ensure
 			instance_free: class
 		end
@@ -52,7 +52,7 @@ feature
 	EV_DoFloor (line: LINE_T; type: INTEGER): BOOLEAN
 			-- HANDLE FLOOR TYPES
 		do
-			{I_MAIN}.i_error ("EV_DoFloor not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoFloor", true)
 		ensure
 			instance_free: class
 		end

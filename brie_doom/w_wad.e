@@ -281,7 +281,7 @@ feature
 	W_Reload
 		do
 			if reloadname /= Void then
-				{I_MAIN}.i_error ("W_Reload not implemented")
+				{NOT_IMPLEMENTED}.not_implemented ("W_Reload", true)
 			end
 		end
 

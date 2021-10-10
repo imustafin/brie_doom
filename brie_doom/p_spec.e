@@ -134,14 +134,14 @@ feature
 			-- Called when a thing shoots a special line.
 		do
 				-- Stub
-			print ("P_ShootSpecialLine not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("P_ShootSpecialLine", false)
 		end
 
 feature -- Special Stuff that can not be categorized
 
 	EV_DoDonut (line: LINE_T): BOOLEAN
 		do
-			{I_MAIN}.i_error ("EV_DoDonut not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoDonut", true)
 		ensure
 			instance_free: class
 		end

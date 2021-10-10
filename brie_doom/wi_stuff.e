@@ -376,12 +376,12 @@ feature -- Drawing
 
 	WI_drawDeathmatchStats
 		do
-			{I_MAIN}.i_error ("WI_drawDeathmatchStats not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_drawDeathmatchStats", true)
 		end
 
 	WI_drawNetgameStats
 		do
-			{I_MAIN}.i_error ("WI_drawNetgameStats not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_drawNetgameStats", true)
 		end
 
 	WI_drawEL
@@ -728,12 +728,12 @@ feature
 
 	WI_updateDeathmatchStats
 		do
-			{I_MAIN}.i_error ("WI_updateDeathmatchStats not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_updateDeathmatchStats", true)
 		end
 
 	WI_updateNetgameStats
 		do
-			{I_MAIN}.i_error ("WI_updateNetgameStats not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_updateNetgameStats", true)
 		end
 
 	WI_updateStats
@@ -887,7 +887,7 @@ feature
 
 	WI_initVariables (wbstartstruct: WBSTARTSTRUCT_T)
 		do
-			print("WI_initVariables not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented("WI_initVariables", false)
 			wbs := wbstartstruct
 				-- skip RANGECHECKING
 			check attached wbs as l_wbs then
@@ -1075,12 +1075,12 @@ feature
 
 	WI_initDeathmatchStats
 		do
-			{I_MAIN}.i_error ("WI_initDeathmatchStats not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_initDeathmatchStats", true)
 		end
 
 	WI_initNetGameStats
 		do
-			{I_MAIN}.i_error ("WI_initNetgameStat not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("WI_initNetgameStat", true)
 		end
 
 	WI_initStats

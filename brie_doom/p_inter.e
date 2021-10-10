@@ -757,7 +757,7 @@ feature -- P_GiveAmmo
 		do
 			if i_main.g_game.netgame then
 					-- skip strange deathmatch!=2 condition above
-				{I_MAIN}.i_error ("P_GiveWeapon not implemented for netgame")
+				{NOT_IMPLEMENTED}.not_implemented ("P_GiveWeapon", true)
 			end
 			if {D_ITEMS}.weaponinfo [weapon].ammo /= am_noammo then
 					-- give one clip with a dropped weapon,

@@ -166,7 +166,7 @@ feature
 
 	EV_DoDoor (line: LINE_T; type: INTEGER): BOOLEAN
 		do
-			{I_MAIN}.i_error ("EV_DoDoor not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoDoor", true)
 		ensure
 			instance_free: class
 		end
@@ -174,7 +174,7 @@ feature
 	EV_DoLockedDoor (line: LINE_T; type: INTEGER; thing: MOBJ_T): BOOLEAN
 			-- Move a locked door up/down
 		do
-			{I_MAIN}.i_error ("EV_DoLockedDoor not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoLockedDoor", true)
 		ensure
 			instance_free: class
 		end

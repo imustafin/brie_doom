@@ -1080,7 +1080,7 @@ feature
 					-- reload the level from scratch
 				gameaction := ga_loadlevel
 			else
-				{I_MAIN}.i_error ("G_DoReborn for netgame not implemented")
+				{NOT_IMPLEMENTED}.not_implemented ("G_DoReborn for netgame", true)
 			end
 		end
 
@@ -1168,12 +1168,12 @@ feature -- G_DoLoadLevel
 
 	G_DoLoadGame
 		do
-			{I_MAIN}.i_error ("G_DoLoadGame not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("G_DoLoadGame", true)
 		end
 
 	G_DoSaveGame
 		do
-			{I_MAIN}.i_error ("G_DoSaveGame not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("G_DoSaveGame", true)
 		end
 
 	G_DoPlayDemo
@@ -1425,7 +1425,7 @@ feature
 
 	G_Responder (ev: EVENT_T): BOOLEAN
 		do
-			print ("G_Responder not implemented%N")
+			{NOT_IMPLEMENTED}.not_implemented ("G_Responder", false)
 				-- allow spy mode changes even during the demo
 			if gamestate = {DOOMDEF_H}.gs_level and ev.type = {EVENT_T}.ev_keydown and ev.data1 = {DOOMDEF_H}.key_f12 and (singledemo or not deathmatch) then
 				from

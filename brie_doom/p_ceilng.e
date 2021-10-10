@@ -32,7 +32,7 @@ feature
 	EV_DoCeiling (line: LINE_T; type: INTEGER): BOOLEAN
 			-- Move a ceiling up/down and all around!
 		do
-			{I_MAIN}.i_error ("EV_DoCeiling not implemented")
+			{NOT_IMPLEMENTED}.not_implemented ("EV_DoCeiling", true)
 		ensure
 			instance_free: class
 		end
