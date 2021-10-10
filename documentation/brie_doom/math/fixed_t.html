@@ -48,6 +48,9 @@
 
 <span class="ekeyword">inherit</span>
 	<a class="eclass" href="../../base/integer_32_ref.html">INTEGER_32_REF</a>
+		<span class="ekeyword">redefine</span>
+			<a class="efeature" href="../../brie_doom/math/fixed_t.html#f_min">min</a>
+		<span class="ekeyword">end</span>
 
 <span class="ekeyword">create</span> 
 	<a class="efeature" href="../../base/any.html#f_default_create">default_create</a><span class="esymbol">,</span>
@@ -63,6 +66,12 @@
 	<a name="f_from_integer"></a><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a> <span class="esymbol">(</span><span class="elocal">a_integer</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span>
 		<span class="ekeyword">do</span>
 			<a class="efeature" href="../../base/integer_32_ref.html#f_set_item">set_item</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">a_integer</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_min"></a><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_min">min</a> <span class="esymbol">(</span><span class="elocal">other</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span><span class="esymbol">)</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <span class="ekeyword">Current</span>
+			<span class="ecomment">--</span><span class="ecomment"> The smaller of current object and </span><span class="equoted">other</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">create</span> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/math/fixed_t.html#f_from_integer">from_integer</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../base/integer_32_ref.html#f_item">item</a><span class="edot">.</span><a class="efeature" href="../../base/comparable.html#f_min">min</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">other</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_item">item</a><span class="esymbol">)</span><span class="esymbol">)</span>
 		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../../brie_doom/math/fixed_t.html">FIXED_T</a></pre><form class="nav" onsubmit="go_to('../../',this.c.value);return false;">
