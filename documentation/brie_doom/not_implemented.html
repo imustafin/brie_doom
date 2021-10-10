@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="Logging for not implemented yet features"/>
+<meta name="license" content="TTCopyright (C) 2021 Ilgiz Mustafin  TTThis program is free software; you can redistribute it and/or modify TTit under the terms of the GNU General Public License as published by TTthe Free Software Foundation; either version 2 of the License, or TT(at your option) any later version.  TTThis program is distributed in the hope that it will be useful, TTbut WITHOUT ANY WARRANTY; without even the implied warranty of TTMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the TTGNU General Public License for more details.  TTYou should have received a copy of the GNU General Public License along TTwith this program; if not, write to the Free Software Foundation, Inc., TT51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>not_implemented Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="not_implemented_chart.html">Chart</a>
+<a class="nav class" href="not_implemented_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="not_implemented"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;Logging for not implemented yet features&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">		Copyright (C) 2021 Ilgiz Mustafin</span>
+		
+		<span class="estring">		This program is free software; you can redistribute it and/or modify</span>
+		<span class="estring">		it under the terms of the GNU General Public License as published by</span>
+		<span class="estring">		the Free Software Foundation; either version 2 of the License, or</span>
+		<span class="estring">		(at your option) any later version.</span>
+		
+		<span class="estring">		This program is distributed in the hope that it will be useful,</span>
+		<span class="estring">		but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+		<span class="estring">		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. &nbsp;See the</span>
+		<span class="estring">		GNU General Public License for more details.</span>
+		
+		<span class="estring">		You should have received a copy of the GNU General Public License along</span>
+		<span class="estring">		with this program; if not, write to the Free Software Foundation, Inc.,</span>
+		<span class="estring">		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../base/any.html#f_default_create">default_create</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_log_non_fatals"></a><a class="efeature" href="../brie_doom/not_implemented.html#f_log_non_fatals">Log_non_fatals</a><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a> <span class="esymbol">=</span> <span class="ekeyword">False</span>
+
+	<a name="f_not_implemented"></a><a class="efeature" href="../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span><span class="elocal">name</span><span class="esymbol">:</span> <a class="eclass" href="../base/string_8.html">STRING_8</a><span class="esymbol">;</span> <span class="elocal">fatal</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+			<span class="ecomment">--</span><span class="ecomment"> Log </span><span class="equoted">name</span><span class="ecomment"> if log_level is high enough.</span>
+			<span class="ecomment">--</span><span class="ecomment"> If </span><span class="equoted">fatal</span><span class="ecomment">, raise exception</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../brie_doom/not_implemented.html#f_log_non_fatals">Log_non_fatals</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">fatal</span> <span class="ekeyword">then</span>
+				<a class="efeature" href="../base/any.html#f_print">print</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; is not implemented%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">if</span> <span class="elocal">fatal</span> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_i_error">i_error</a> <span class="esymbol">(</span><span class="elocal">name</span> <a class="esymbol" href="../base/string_8.html#f_plus">+</a> &quot; is not implemented%N&quot;<span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+				<span class="elocal">fatal</span> <a class="ekeyword" href="../base/boolean.html#f_implication">implies</a> <span class="ekeyword">False</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="not_implemented_chart.html">Chart</a>
+<a class="nav class" href="not_implemented_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="not_implemented"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+
