@@ -249,6 +249,7 @@ feature -- D_DoomLoop
 		local
 			nowtime: INTEGER
 			tics: INTEGER
+			perf_start, perf_end, perf_total: NATURAL_64
 		do
 			if wipe then
 				from
@@ -260,13 +261,22 @@ feature -- D_DoomLoop
 					tics := nowtime - wipestart
 					i_main.i_system.i_sleep (1)
 				end
+				perf_start := i_main.i_timer.i_get_time_us
 				wipestart := nowtime
 				wipe := not i_main.f_wipe.wipe_ScreenWipe ({F_WIPE}.wipe_Melt, 0, 0, {DOOMDEF_H}.SCREENWIDTH, {DOOMDEF_H}.SCREENHEIGHT, tics)
 				i_main.i_video.I_UpdateNoBlit
 				i_main.m_menu.M_Drawer -- menu is drawn even on top of wipes
 				i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+				perf_end := i_main.i_timer.i_get_time_us
+				perf_total := perf_end - perf_start
+				i_main.i_timer.i_log_perf_frame (perf_total, "wipe")
 			else
-				print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
+				if not i_main.g_game.timingdemo then
+					print ("DOOM LOOP GAMETIC: " + i_main.g_game.gametic.out + ", state " + i_main.g_game.gamestate.out + "%N")
+				else
+					perf_start := i_main.i_timer.i_get_time_us
+				end
+
 				i_main.i_video.I_StartFrame
 				if singletics then
 					i_main.i_video.i_starttic
@@ -291,6 +301,9 @@ feature -- D_DoomLoop
 						wipestart := i_main.i_system.I_GetTime - 1
 					else
 						i_main.i_video.I_FinishUpdate -- page flip or blit buffer
+						perf_end := i_main.i_timer.i_get_time_us
+						perf_total := perf_end - perf_start
+						i_main.i_timer.i_log_perf_frame (perf_total, "gamestate " + i_main.g_game.gamestate.out)
 					end
 				end
 			end

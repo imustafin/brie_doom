@@ -1030,6 +1030,11 @@ feature -- demo
 		do
 			if timingdemo then
 				endtime := i_main.i_system.i_gettime
+				across
+					i_main.i_timer.perfframes is frame
+				loop
+					print(frame.microseconds.out + "," + frame.description + "%N")
+				end
 				{I_MAIN}.i_error ("timed " + gametic.out + " gametics in " + (endtime - starttime).out + " realtics")
 			end
 			if demoplayback then

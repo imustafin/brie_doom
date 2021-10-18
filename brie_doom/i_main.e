@@ -277,6 +277,11 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
+	i_timer: I_TIMER
+		once
+			create Result.make
+		end
+
 feature {NONE} -- Initialization
 
 	main

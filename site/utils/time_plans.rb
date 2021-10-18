@@ -21,7 +21,7 @@ plans = {
 ecf = new_ecf
 
 subclusters = ecf.direct_subclusters(ecf.root_cluster).map { |x| x['name'] } + ['root']
-subclusters -= ['tests']
+subclusters -= ['tests', 'wad']
 
 # Put only_* plans
 subclusters.each do |sub|
@@ -35,19 +35,19 @@ subclusters.each do |sub|
   plans[plan_name] = subs
 end
 
-# Put root and 2-combinations
-(subclusters - ['root']).combination(2).each do |(a, b)|
-  plan_name = ('root_with_' + a + '_and_' + b).to_sym
-  subs = {}
-  subclusters.each do |s|
-    subs[s] = no_contracts
-  end
-  subs[a] = all_contracts
-  subs[b] = all_contracts
-  subs['root'] = all_contracts
+# # Put and 2-combinations
+# (subclusters).combination(2).each do |(a, b)|
+#   plan_name = (a + '_and_' + b).to_sym
+#   subs = {}
+#   subclusters.each do |s|
+#     subs[s] = no_contracts
+#   end
+#   subs[a] = all_contracts
+#   subs[b] = all_contracts
+#   subs['root'] = all_contracts
 
-  plans[plan_name] = subs
-end
+#   plans[plan_name] = subs
+# end
 
 # Put all contracts plan
 plans[:all_contracts] = {}
@@ -82,7 +82,7 @@ plans.each do |plan, contracts|
 
   exit(1) unless res
 
-  system("./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > result_#{plan.to_s}.out 2> result_#{plan.to_s}.err")
+  system("time ./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > timedemo_result_#{plan.to_s}.out 2> result_#{plan.to_s}.err")
 end
 
 Dir.chdir(ROOT)
