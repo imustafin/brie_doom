@@ -55,8 +55,6 @@ subclusters.each do |sub|
   plans[:all_contracts][sub] = all_contracts
 end
 
-results = []
-
 plans.each do |plan, contracts|
   Dir.chdir(ROOT)
 
@@ -82,9 +80,7 @@ plans.each do |plan, contracts|
 
   exit(1) unless res
 
-  system("time ./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > timedemo_result_#{plan.to_s}.out 2> result_#{plan.to_s}.err")
+  system("time ./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > timedemo_result_#{plan.to_s}.out 2> timedemo_result_#{plan.to_s}.err")
 end
 
 Dir.chdir(ROOT)
-
-File.write('report.txt', results.join("\n"))
