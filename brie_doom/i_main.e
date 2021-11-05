@@ -297,7 +297,7 @@ feature -- i_system.c
 		do
 			{NOT_IMPLEMENTED}.not_implemented("I_Error", false)
 			print ("Error: " + a_message + "%N")
-			(create {DEVELOPER_EXCEPTION}).raise
+			{EXCEPTIONS}.die (0)
 		ensure
 			instance_free: class
 			is_error: False
