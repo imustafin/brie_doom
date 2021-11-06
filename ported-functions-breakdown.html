@@ -84,8 +84,8 @@
         <h1 class="text-center">Ported Functions Breakdown</h1>
 
         <p class="mb-2">
-          CCCC has found 709 functions in the original code. Out of them, 388
-          functions (54.72%) were ported.
+          CCCC has found 709 functions in the original code. Out of them, 397
+          functions (55.99%) were ported.
         </p>
 
         <p class="mb-2">
@@ -7114,11 +7114,43 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_video.c#L959"
+                >Expand4</a
+              >
+            </td>
+            <td colspan="3">Video upscaling, covered by SDL</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L265"
                 >addsfx</a
               >
             </td>
             <td colspan="3">Sound handling, covered by SDL</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L917"
+                >I_HandleSoundTimer</a
+              >
+            </td>
+            <td colspan="3">Originally unused</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/m_swap.c#L45"
+                >SwapLONG</a
+              >
+            </td>
+            <td colspan="3">
+              File endianness handling, replaced with Eiffel features
+            </td>
           </tr>
 
           <tr class="bg-california-100 hover:bg-california-200">
@@ -7134,11 +7166,71 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_video.c#L920"
+                >InitExpand</a
+              >
+            </td>
+            <td colspan="3">Video upscaling, covered by SDL</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L980"
+                >I_SoundDelTimer</a
+              >
+            </td>
+            <td colspan="3">Not needed with SDL</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L884"
+                >I_QrySongPlaying</a
+              >
+            </td>
+            <td colspan="3">Originally unused</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/w_wad.c#L69"
                 >strupr</a
               >
             </td>
             <td colspan="3">Upcase a string, replaced with Eiffel features</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L666"
+                >I_SubmitSound</a
+              >
+            </td>
+            <td colspan="3">Not needed with SDL</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L65"
+                >I_BaseTiccmd</a
+              >
+            </td>
+            <td colspan="3">Simplified out</td>
+          </tr>
+
+          <tr class="bg-california-100 hover:bg-california-200">
+            <td class="pl-2">
+              <a
+                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L143"
+                >I_EndRead</a
+              >
+            </td>
+            <td colspan="3">Originally empty, simplified out</td>
           </tr>
 
           <tr class="bg-california-600 text-white font-bold text-center">
@@ -7628,18 +7720,6 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_video.c#L959"
-                >Expand4</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/d_net.c#L120"
                 >ExpandTics</a
               >
@@ -8072,18 +8152,6 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L65"
-                >I_BaseTiccmd</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L139"
                 >I_BeginRead</a
               >
@@ -8096,32 +8164,8 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L143"
-                >I_EndRead</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L71"
                 >I_GetHeapSize</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L917"
-                >I_HandleSoundTimer</a
               >
             </td>
             <td>—</td>
@@ -8146,18 +8190,6 @@
               <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_net.c#L328"
                 >I_NetCmd</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L884"
-                >I_QrySongPlaying</a
               >
             </td>
             <td>—</td>
@@ -8216,32 +8248,8 @@
           <tr class="bg-california-100 hover:bg-california-200">
             <td class="pl-2">
               <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L980"
-                >I_SoundDelTimer</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L941"
                 >I_SoundSetTimer</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_sound.c#L666"
-                >I_SubmitSound</a
               >
             </td>
             <td>—</td>
@@ -8266,18 +8274,6 @@
               <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_system.c#L76"
                 >I_ZoneBase</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/i_video.c#L920"
-                >InitExpand</a
               >
             </td>
             <td>—</td>
@@ -9538,18 +9534,6 @@
               <a
                 href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/s_sound.c#L255"
                 >S_StartSoundAtVolume</a
-              >
-            </td>
-            <td>—</td>
-            <td>—</td>
-            <td>—</td>
-          </tr>
-
-          <tr class="bg-california-100 hover:bg-california-200">
-            <td class="pl-2">
-              <a
-                href="https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/m_swap.c#L45"
-                >SwapLONG</a
               >
             </td>
             <td>—</td>
