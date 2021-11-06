@@ -68,10 +68,45 @@ end
 JOINED = []
 NOT_PORTED = []
 STUBS = []
+MOVED = []
+
+MOVED_EXPL = {
+  'Expand4' => 'Video upscaling, covered by SDL',
+  'AllocLow' => 'DOS memory allocation, not needed in Eiffel',
+  'I_BaseTiccmd' => 'Simplified out',
+  'BeginRead' => 'Originally empty, simplified out',
+  'I_EndRead' => 'Originally empty, simplified out',
+  'GetHeapSize' => 'Originally unused',
+  'I_HandleSoundTimer' => 'Originally unused',
+  'InitMusic' => 'Originally empty, simplified out',
+  'I_QrySongPlaying' => 'Originally unused',
+  'SetSfxVolume' => 'Originally unused',
+  'I_SoundDelTimer' => 'Not needed with SDL',
+  'SoundSetTimer' => 'Not needed with SDL',
+  'I_SubmitSound' => 'Not needed with SDL',
+  'ZoneBase' => 'Memory management, not needed in Eiffel',
+  'InitExpand' => 'Video upscaling, covered by SDL',
+  'InitExpand2' => 'Video upscaling, covered by SDL',
+  'SwapLONG' => 'File endianness handling, replaced with Eiffel features',
+  'SwapSHORT' => 'File endianness handling, replaced with Eiffel features',
+  'addsfx' => 'Sound handling, covered by SDL',
+  'createnullcursor' => 'X11 video output code, replaced with SDL',
+  'filelength' => 'Get file length, replaced with Eiffel features',
+  'getsfx' => 'Legacy sound interface, replaced with SDL',
+  'grabsharedmemory' => 'X11 video handling, replaced with SDL',
+  'myioctl' => 'Legacy sound interface, replaced with SDL',
+  'strupr' => 'Upcase a string, replaced with Eiffel features'
+}.transform_keys(&:downcase)
 
 C_DATA.each do |cfunc|
   eif = EIFFEL_DATA.find { |e| e[:ename] == cfunc[:cname] }
-  if eif && !eif[:stub]
+  moved_expl = MOVED_EXPL[cfunc[:cname]]
+  if moved_expl
+    MOVED << {
+      **cfunc,
+      explanation: moved_expl
+    }
+  elsif eif && !eif[:stub]
     c_to_e_frac = eif[:eloc].to_f / cfunc[:cloc]
     JOINED << {
       **eif,
@@ -94,6 +129,9 @@ C_DATA.each do |cfunc|
 end
 
 
+MOVED.sort_by! { |j| [j[:c_to_e_frac], j[:cloc]] }
+MOVED.reverse!
+
 STUBS.sort_by! { |j| [j[:c_to_e_frac], j[:cloc]] }
 STUBS.reverse!
 
@@ -102,12 +140,13 @@ JOINED.reverse!
 
 ANS = {
   total_c: C_DATA.count,
-  ported: JOINED.count,
-  ported_ratio: (JOINED.count.to_f / C_DATA.count * 100).round(2),
+  ported: JOINED.count + MOVED.count,
+  ported_ratio: ((JOINED.count + MOVED.count).to_f / C_DATA.count * 100).round(2),
   stubbed_ratio: (STUBS.count.to_f / C_DATA.count * 100).round(2),
   funcs: JOINED,
   stubbed: STUBS,
-  not_ported: NOT_PORTED
+  not_ported: NOT_PORTED,
+  moved: MOVED
 }
 
 puts JSON.parse(JSON.dump(ANS)).to_yaml

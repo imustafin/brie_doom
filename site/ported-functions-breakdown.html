@@ -33,6 +33,13 @@ layout: bare
     yet.
   </p>
 
+  <p class="mb-4">
+    The <i>Moved</i> section of the table lists the functions which will
+    not be ported with the explanation of this decision. Mostly this
+    is because some functions are already implemented either in Eiffel
+    or in SDL.
+  </p>
+
   <table class="w-full">
     <thead>
       <tr class="bg-california-600 text-white font-bold">
@@ -91,6 +98,24 @@ layout: bare
         <td>{{ row.cloc }}</td>
         <td>{{ row.eloc }}</td>
         <td class="pr-2">{{ row.c_to_e }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="bg-california-600 text-white font-bold text-center">
+      <td colspan="4">Moved</td>
+    </tr>
+    {% for row in site.data.functions_ported.moved %}
+      <tr class="bg-california-100 hover:bg-california-200">
+        <td class="pl-2">
+          <a href="{{
+                   'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
+                   | append: row.cfile
+                   | append: '#L'
+                   | append: row.cline
+                   }}">{{ row.cname_orig }}</a>
+        </td>
+        <td colspan="3">
+          {{ row.explanation }}
+        </td>
       </tr>
     {% endfor %}
     <tr class="bg-california-600 text-white font-bold text-center">
