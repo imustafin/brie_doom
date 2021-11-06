@@ -35,10 +35,7 @@ class EiffelParser
     do_lines = do_block.count
     local_lines = (blocks['local'] || []).count
 
-    stub = do_block.empty? || do_block.any? do |line|
-      (line.include?('i_error') || line.include?('print')) \
-        && line.include?('implemented')
-    end
+    stub = do_block.any? { |line| line.include?('NOT_IMPLEMENTED') }
 
     {
       ename: name,

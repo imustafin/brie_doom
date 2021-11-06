@@ -50,17 +50,25 @@ layout: bare
       In the first phase, we try to port the game while preserving
       as much of the original code structure as possible.
     </p>
-    <div class="w-full bg-california-200 h-6">
+    <div class="w-full bg-california-200 h-6 flex">
       <div
         class="bg-california-500 text-center text-white h-full text-base"
         style="width: {{ site.data.functions_ported.ported_ratio }}%;"
       >
         {{ site.data.functions_ported.ported_ratio }}%
       </div>
+      <div
+        class="bg-california-400 text-center text-white h-full text-base"
+        style="width: {{ site.data.functions_ported.stubbed_ratio }}%;"
+      >
+        {{ site.data.functions_ported.stubbed_ratio }}%
+      </div>
     </div>
     <p>
       Currently {{ site.data.functions_ported.ported_ratio }}% of the original functions
       are ported in Eiffel.
+      Additionally, {{ site.data.functions_ported.stubbed_ratio }}%
+      function are stubbed.
     </p>
     <p>
       Not all original functions are counted, though. Some of them are

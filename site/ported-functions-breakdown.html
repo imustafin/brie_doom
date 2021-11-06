@@ -67,6 +67,33 @@ layout: bare
       </tr>
     {% endfor %}
     <tr class="bg-california-600 text-white font-bold text-center">
+      <td colspan="4">Stubbed</td>
+    </tr>
+    {% for row in site.data.functions_ported.stubbed %}
+      <tr class="bg-california-100 hover:bg-california-200">
+        <td class="pl-2">
+          {{ row.cname_orig }}
+          (<a href="{{
+                    'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
+                    | append: row.cfile
+                    | append: '#L'
+                    | append: row.cline
+                    }}">C</a>,
+          <a href="{{
+                   '/documentation/'
+                   | append: row.cluster
+                   | append: '.html'
+                   | append: '#f_'
+                   | append: row.ename
+                   | relative_url
+                   }}">E</a>)
+        </td>
+        <td>{{ row.cloc }}</td>
+        <td>{{ row.eloc }}</td>
+        <td class="pr-2">{{ row.c_to_e }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="bg-california-600 text-white font-bold text-center">
       <td colspan="4">Not yet ported</td>
     </tr>
     {% for row in site.data.functions_ported.not_ported %}

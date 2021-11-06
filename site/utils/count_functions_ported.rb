@@ -67,12 +67,22 @@ end
 ## Join data
 JOINED = []
 NOT_PORTED = []
+STUBS = []
 
 C_DATA.each do |cfunc|
-  eif = EIFFEL_DATA.find { |e| e[:ename] == cfunc[:cname] && !e[:stub] }
-  if eif
+  eif = EIFFEL_DATA.find { |e| e[:ename] == cfunc[:cname] }
+  if eif && !eif[:stub]
     c_to_e_frac = eif[:eloc].to_f / cfunc[:cloc]
     JOINED << {
+      **eif,
+      **cfunc,
+      c_to_e_frac: c_to_e_frac,
+      c_to_e: c_to_e_frac.round(1)
+    }
+  elsif eif && eif[:stub]
+    c_to_e_frac = eif[:eloc].to_f / cfunc[:cloc]
+
+    STUBS << {
       **eif,
       **cfunc,
       c_to_e_frac: c_to_e_frac,
@@ -83,6 +93,10 @@ C_DATA.each do |cfunc|
   end
 end
 
+
+STUBS.sort_by! { |j| [j[:c_to_e_frac], j[:cloc]] }
+STUBS.reverse!
+
 JOINED.sort_by! { |j| [j[:c_to_e_frac], j[:cloc]] }
 JOINED.reverse!
 
@@ -90,7 +104,9 @@ ANS = {
   total_c: C_DATA.count,
   ported: JOINED.count,
   ported_ratio: (JOINED.count.to_f / C_DATA.count * 100).round(2),
+  stubbed_ratio: (STUBS.count.to_f / C_DATA.count * 100).round(2),
   funcs: JOINED,
+  stubbed: STUBS,
   not_ported: NOT_PORTED
 }
 
