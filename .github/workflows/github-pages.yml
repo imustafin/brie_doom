@@ -42,7 +42,8 @@ jobs:
             libmikmod-dev libfishsound1-dev libsmpeg-dev \
             liboggz2-dev libflac-dev libfluidsynth-dev \
             libsdl2-mixer-dev libsdl2-mixer-2.0-0 \
-            cccc
+            cccc \
+            gnuplot
 
       - name: Install wrap_sdl_my
         env:
@@ -98,6 +99,9 @@ jobs:
           cd utils
           bundle exec ruby count_functions_ported.rb > ../_data/functions_ported.yml
           cd ..
+
+      - name: Compute performance state, make plots
+        run: bundle exec rake performance
 
       - name: Build site
         uses: limjh16/jekyll-action-ts@v2

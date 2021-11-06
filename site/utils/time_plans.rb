@@ -23,6 +23,17 @@ ecf = new_ecf
 subclusters = ecf.direct_subclusters(ecf.root_cluster).map { |x| x['name'] } + ['root']
 subclusters -= ['tests', 'wad']
 
+# Put no_contracts_keep
+begin
+  plan_name = :no_contracts_keep
+  subs = {}
+  subclusters.each do |s|
+    subs[s] = no_contracts
+  end
+
+  plans[plan_name] = subs
+end
+
 # Put only_* plans
 subclusters.each do |sub|
   plan_name = ('only_' + sub).to_sym
@@ -55,8 +66,12 @@ subclusters.each do |sub|
   plans[:all_contracts][sub] = all_contracts
 end
 
+plans = plans.slice(:no_contracts, :no_contracts_keep)
+
 plans.each do |plan, contracts|
   Dir.chdir(ROOT)
+
+  plan = ("ded_" + plan.to_s).to_sym
 
   puts "==" * 8
   puts plan
@@ -76,9 +91,11 @@ plans.each do |plan, contracts|
 
   Dir.chdir(PRE)
 
-  res = system("ec -finalize #{keep} -config #{plan_ecf_filename} -c_compile")
+  compile = "ec -finalize #{keep} -config #{plan_ecf_filename} -c_compile"
+  res = system(compile)
 
-  exit(1) unless res
+  # exit(1) unless res
+  # p compile
 
   system("time ./EIFGENs/sdl-eiffel-doom/F_code/brie_doom -timedemo demo1 > timedemo_result_#{plan.to_s}.out 2> timedemo_result_#{plan.to_s}.err")
 end
