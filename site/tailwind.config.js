@@ -14,6 +14,7 @@ module.exports = {
     './_layouts/**/*.html',
     './_posts/*.md',
     './*.html',
+    './*.md',
     './assets/css/*.scss',
   ],
   darkMode: false, // or 'media' or 'class'
