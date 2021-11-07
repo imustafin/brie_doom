@@ -70,6 +70,8 @@ NOT_PORTED = []
 STUBS = []
 MOVED = []
 
+ZONE = 'Zone memory management, replaced with Eiffel memory model'
+
 MOVED_EXPL = {
   'Expand4' => 'Video upscaling, covered by SDL',
   'AllocLow' => 'DOS memory allocation, not needed in Eiffel',
@@ -95,7 +97,17 @@ MOVED_EXPL = {
   'getsfx' => 'Legacy sound interface, replaced with SDL',
   'grabsharedmemory' => 'X11 video handling, replaced with SDL',
   'myioctl' => 'Legacy sound interface, replaced with SDL',
-  'strupr' => 'Upcase a string, replaced with Eiffel features'
+  'strupr' => 'Upcase a string, replaced with Eiffel features',
+  'Z_ChangeTag2' => 'Zone memory management, replaced with Eiffel GC',
+  'Z_CheckHeap' => ZONE,
+  'Z_ClearZone' => ZONE,
+  'Z_DumpHeap' => ZONE,
+  'Z_FileDumpHeap' => ZONE,
+  'Z_Free' => ZONE,
+  'Z_FreeMemory' => ZONE,
+  'Z_FreeTags' => ZONE,
+  'Z_Init' => ZONE,
+  'Z_Malloc' => ZONE
 }.transform_keys(&:downcase)
 
 C_DATA.each do |cfunc|
