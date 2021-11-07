@@ -204,7 +204,7 @@ feature
 
 	FindResponseFile
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("FindResponseFile", False)
 		end
 
 	IdentifyVersion

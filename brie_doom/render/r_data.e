@@ -419,7 +419,7 @@ feature
 
 	R_PrecacheLevel
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("R_PrecacheLevel", False)
 		end
 
 	R_GetColumn (tex, a_col: INTEGER): MANAGED_POINTER_WITH_OFFSET

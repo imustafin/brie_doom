@@ -35,8 +35,4 @@ feature
 	make
 		do
 		end
-
-feature
-	-- Stub
-
 end

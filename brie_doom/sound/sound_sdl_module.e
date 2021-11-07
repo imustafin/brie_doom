@@ -337,7 +337,7 @@ feature
 			-- bytes on the heap for a new sound effect, so free up some space
 			-- so that we keep allocated_sounds_size < snd_cachesize
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("SOUND_SDL reserve_cache_space", False)
 		end
 
 	allocate_sound (sfxinfo: SFXINFO_T; len: NATURAL): ALLOCATED_SOUND_T

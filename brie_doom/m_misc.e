@@ -114,7 +114,7 @@ feature
 
 	M_ScreenShot
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("M_ScreenShot", False)
 		end
 
 	M_TempFile (s: STRING): STRING

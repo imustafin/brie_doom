@@ -36,7 +36,4 @@ feature
 		do
 		end
 
-feature
-	-- Stub
-
 end

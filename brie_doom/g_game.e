@@ -1497,7 +1497,7 @@ feature
 			-- Spawns a player at one of the random death match spots
 			-- called at level load and each death
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("G_DeathMatchSpawnPlayer", False)
 		end
 
 feature

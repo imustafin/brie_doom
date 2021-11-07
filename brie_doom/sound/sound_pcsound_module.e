@@ -47,47 +47,47 @@ feature
 
 	init (use_sfx_prefix: BOOLEAN): BOOLEAN
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND init", True)
 		end
 
 	shutdown
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND shutdown", True)
 		end
 
 	get_sfx_lump_num (sfxinfo: SFXINFO_T): INTEGER
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND get_sfx_lump_num", True)
 		end
 
 	update
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND update", True)
 		end
 
 	update_sound_params (channel, vol, sep: INTEGER)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND update_sound_params", True)
 		end
 
 	start_sound (sfxinfo: SFXINFO_T; channel, vol, sep, pitch: INTEGER): INTEGER
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND start_sound", True)
 		end
 
 	stop_sound (channel: INTEGER)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND stop_sound", True)
 		end
 
 	cache_sounds (sounds: ARRAY [SFXINFO_T])
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND cache_sounds", True)
 		end
 
 	sound_is_playing (channel: INTEGER): BOOLEAN
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("PCSOUND sound_is_playing", True)
 		end
 
 feature

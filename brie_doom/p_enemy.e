@@ -9,17 +9,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -151,25 +151,21 @@ feature
 
 	A_OpenShotgun2 (player: PLAYER_T; psp: PSPDEF_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_OpenShotgun2", false)
 		end
 
 	A_LoadShotgun2 (player: PLAYER_T; psp: PSPDEF_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_LoadShotgun2", false)
 		end
 
 	A_CloseShotgun2 (player: PLAYER_T; psp: PSPDEF_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_CloseShotgun2", false)
 		end
 
 	A_Explode (thingy: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_Explode", false)
 		end
 
@@ -775,100 +771,84 @@ feature
 
 	A_SPosAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SPosAttack", false)
 		end
 
 	A_VileChase (actor: MOBJ_T)
 			-- Check for resurrecting a body
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_VileChase", false)
 		end
 
 	A_VileStart (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_VileStart", false)
 		end
 
 	A_VileTarget (actor: MOBJ_T)
 			-- Spawn the hellfire
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_VileTarget", false)
 		end
 
 	A_VileAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_VileAttack", false)
 		end
 
 	A_StartFire (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_StartFire", false)
 		end
 
 	A_Fire (actor: MOBJ_T)
 			-- Keep fire in front of player unless out of sight
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_Fire", false)
 		end
 
 	A_FireCrackle (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_FireCrackle", false)
 		end
 
 	A_Tracer (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_Tracer", false)
 		end
 
 	A_SkelWhoosh (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SkelWhoosh", false)
 		end
 
 	A_SkelFist (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SkelFist", false)
 		end
 
 	A_SkelMissile (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SkelMissile", false)
 		end
 
 	A_FatRaise (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_FatRaise", false)
 		end
 
 	A_FatAttack1 (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_FatAttack1", false)
 		end
 
 	A_FatAttack2 (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_FatAttack2", false)
 		end
 
 	A_FatAttack3 (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_FatAttack3", false)
 		end
 
@@ -876,19 +856,16 @@ feature
 			-- Possibly trigger special effects
 			-- if on first boss level
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BossDeath", false)
 		end
 
 	A_CPosAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_CPosAttack", false)
 		end
 
 	A_CPosRefire (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_CPosRefire", false)
 		end
 
@@ -911,74 +888,62 @@ feature
 
 	A_SargAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SargAttack", false)
 		end
 
 	A_HeadAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_HeadAttack", false)
 		end
 
 	A_BruisAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BruisAttack", false)
 		end
 
 	A_SkullAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SkullAttack", false)
 		end
 
 	A_Metal (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_Metal", false)
 		end
 
 	A_SpidRefire (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SpidRefire", false)
 		end
 
 	A_BabyMetal (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BabyMetal", false)
 		end
 
 	A_BspiAttack (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BspiAttack", false)
 		end
 
 	A_Hoof (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_Hoof", false)
 		end
 
 	A_CyberAttack (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_CyberAttack", false)
 		end
 
 	A_PainAttack (actor: MOBJ_T)
 			-- Spawn a lost soul and launch it at the target
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_PainAttack", false)
 		end
 
 	A_PainDie (actor: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_PainDie", false)
 		end
 
@@ -986,56 +951,47 @@ feature
 			-- DOOM II special, map 32.
 			-- Uses special tag 666.
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_KeenDie", false)
 		end
 
 	A_BrainPain (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainPain", false)
 		end
 
 	A_BrainScream (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainScream", false)
 		end
 
 	A_BrainDie (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainDie", false)
 		end
 
 	A_BrainAwake (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainAwake", false)
 		end
 
 	A_BrainSpit (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainSpit", false)
 		end
 
 	A_SpawnSound (mo: MOBJ_T)
 			-- Travelling cube sound
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SpawnSound", false)
 		end
 
 	A_SpawnFly (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_SpawnFly", false)
 		end
 
 	A_BrainExplode (mo: MOBJ_T)
 		do
-				-- Stub
 			{NOT_IMPLEMENTED}.not_implemented ("A_BrainExplode", false)
 		end
 

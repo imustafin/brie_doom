@@ -8,17 +8,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -225,7 +225,7 @@ feature
 
 	M_FinishReadThis (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_FinishReadThis", False)
 		end
 
 	M_DrawEpisode
@@ -235,7 +235,7 @@ feature
 
 	M_ReadThis2 (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_ReadThis2", False)
 		end
 
 	M_NewGame (choice: INTEGER)
@@ -253,27 +253,27 @@ feature
 
 	M_Options (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_Options", False)
 		end
 
 	M_LoadGame (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_LoadGame", False)
 		end
 
 	M_SaveGame (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_SaveGame", False)
 		end
 
 	M_ReadThis (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_ReadThis", False)
 		end
 
 	M_QuitDOOM (choice: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("M_QuitDOOM", False)
 		end
 
 	M_DrawNewGame
@@ -522,7 +522,7 @@ feature -- M_Drawer
 			i: INTEGER
 			max: INTEGER
 		do
-			{NOT_IMPLEMENTED}.not_implemented("M_Drawer", false)
+			{NOT_IMPLEMENTED}.not_implemented ("M_Drawer", false)
 			inhelpscreens := False
 			if messagetoprint then
 					-- skip

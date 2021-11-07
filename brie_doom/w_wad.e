@@ -275,7 +275,7 @@ feature
 
 	W_ReleaseLumpNum (lump: INTEGER)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("W_ReleaseLumpNum", False)
 		end
 
 	W_Reload

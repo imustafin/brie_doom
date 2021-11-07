@@ -52,57 +52,57 @@ feature
 
 	poll
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL poll", True)
 		end
 
 	init: BOOLEAN
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL init", True)
 		end
 
 	playsong (handle: detachable ANY; looping: BOOLEAN)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL playsong", True)
 		end
 
 	registersong (handle: detachable ANY; len: INTEGER): detachable ANY
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL registersong", True)
 		end
 
 	stopsong
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL stopsog", True)
 		end
 
 	resumemusic
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL resumemusic", True)
 		end
 
 	unregistersong (handle: detachable ANY)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL unregistersong", True)
 		end
 
 	shutdown
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL shutdown", True)
 		end
 
 	set_music_volume (vol: INTEGER)
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL set_music_volume", True)
 		end
 
 	pause_music
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL pause_music", True)
 		end
 
 	music_is_playing: BOOLEAN
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("MUSIC_OPL music_is_playing", True)
 		end
 
 end

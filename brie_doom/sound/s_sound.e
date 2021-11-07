@@ -265,7 +265,7 @@ feature
 			sep, pitch, cnum, volume: INTEGER
 			ignore: BOOLEAN
 		do
-			print("S_StartSound not imlemented%N")
+			{NOT_IMPLEMENTED}.not_implemented("S_StartSound", False)
 				--			create origin.make (origin_p) -- Stub origin
 			volume := snd_SfxVolume
 

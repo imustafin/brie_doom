@@ -39,18 +39,18 @@ feature
 
 	HUlib_eraseSText (s: HU_STEXT_T)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("HUlib_eraseSText", False)
 		end
 
 	HUlib_eraseIText (it: HU_ITEXT_T)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("HUlib_erasIText", False)
 		end
 
 	HUlib_eraseTextLine (l: HU_TEXTLINE_T)
 			-- sorta called by HU_Erase and just better darn get things straight
 		do
-				-- Stub
+{NOT_IMPLEMENTED}.not_implemented ("HUlib_eraseTextLine", False)
 		end
 
 end

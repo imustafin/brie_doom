@@ -508,7 +508,7 @@ feature -- Drawing
 
 	WI_drawAnimatedBack
 		do
-				-- Stub
+			{NOT_IMPLEMENTED}.not_implemented ("WI_drawAnimatedBack", False)
 		end
 
 	WI_drawLF
@@ -882,7 +882,7 @@ feature
 
 	WI_updateAnimatedBack
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("WI_updateAnimatedBack", False)
 		end
 
 	WI_initVariables (wbstartstruct: WBSTARTSTRUCT_T)
@@ -1140,7 +1140,7 @@ feature
 
 	WI_unloadData
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("WI_unloadData", False)
 		end
 
 	WI_Start (wbstartstruct: WBSTARTSTRUCT_T)

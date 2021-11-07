@@ -31,7 +31,7 @@ feature
 
 	M_SetMusicPackDir
 	do
-		-- Stub
+		{NOT_IMPLEMENTED}.not_implemented ("M_SetMusicPackDir", False)
 	ensure
 		instance_free: class
 	end

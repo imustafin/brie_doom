@@ -564,12 +564,12 @@ feature
 
 	P_NightmareRespawn (mo: MOBJ_T)
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("P_NightmareRespawn", False)
 		end
 
 	P_RespawnSpecials
 		do
-				-- Stub
+				{NOT_IMPLEMENTED}.not_implemented ("P_RespawnSpecials", False)
 		end
 
 	P_SetMobjState (mobj: MOBJ_T; a_state: INTEGER): BOOLEAN

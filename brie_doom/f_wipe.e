@@ -7,17 +7,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -250,7 +250,7 @@ feature -- wipe Melt
 						if melt_y [i] + dy >= height then
 							dy := height - melt_y [i]
 						end
-						-- Draw some wipe_scr_end
+							-- Draw some wipe_scr_end
 						from
 							s := i * height + melt_y [i]
 							d := melt_y [i] * width + i
@@ -265,7 +265,7 @@ feature -- wipe Melt
 							j := j - 1
 						end
 						melt_y [i] := melt_y [i] + dy
-						-- Draw some wipe_scr_start
+							-- Draw some wipe_scr_start
 						from
 							s := i * height
 							d := melt_y [i] * width + i
@@ -290,6 +290,7 @@ feature -- wipe Melt
 	wipe_exitMelt (width, height, ticks: INTEGER): BOOLEAN
 		do
 				-- Stub, free melt_y, wipe_scr_start, wipe_scr_end
+			{NOT_IMPLEMENTED}.not_implemented ("wipe_exitMelt", False)
 		end
 
 feature -- wipenos
