@@ -285,7 +285,7 @@ feature
 				else
 					name := name1
 				end
-				border_patch := i_main.w_wad.w_cachelumpname (name, {Z_ZONE}.pu_cache)
+				border_patch := i_main.w_wad.w_cachelumpname (name)
 				create src.share_from_pointer (border_patch.item, border_patch.count)
 				dest := background_buffer
 				check attached dest then
@@ -316,7 +316,7 @@ feature
 				check attached background_buffer as bb then
 					i_main.v_video.V_UseBuffer (bb)
 				end
-				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_t", {Z_ZONE}.pu_cache))
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_t"))
 				from
 					x := 0
 				until
@@ -325,7 +325,7 @@ feature
 					i_main.v_video.V_DrawPatch (viewwindowx + x, viewwindowy - 8, patch)
 					x := x + 8
 				end
-				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_b", {Z_ZONE}.pu_cache))
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_b"))
 				from
 					x := 0
 				until
@@ -334,7 +334,7 @@ feature
 					i_main.v_video.V_DrawPatch (viewwindowx + x, viewwindowy + viewheight, patch)
 					x := x + 8
 				end
-				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_l", {Z_ZONE}.pu_cache))
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_l"))
 				from
 					y := 0
 				until
@@ -343,7 +343,7 @@ feature
 					i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy + y, patch)
 					y := y + 8
 				end
-				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_r", {Z_ZONE}.pu_cache))
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_r"))
 				from
 					y := 0
 				until
@@ -354,10 +354,10 @@ feature
 				end
 
 					-- Draw beveled edge.
-				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tl", {Z_ZONE}.pu_cache)))
-				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tr", {Z_ZONE}.pu_cache)))
-				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_bl", {Z_ZONE}.pu_cache)))
-				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_br", {Z_ZONE}.pu_cache)))
+				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tl")))
+				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy - 8, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_tr")))
+				i_main.v_video.V_DrawPatch (viewwindowx - 8, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_bl")))
+				i_main.v_video.V_DrawPatch (viewwindowx + scaledviewwidth, viewwindowy + viewheight, create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("brdr_br")))
 				i_main.v_video.V_RestoreBuffer
 			end
 		end

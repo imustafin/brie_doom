@@ -45,7 +45,7 @@ feature
 	STlib_init
 		do
 			if i_main.w_wad.w_checknumforname ("STTMINUS") >= 0 then
-				sttminus := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STTMINUS", {Z_ZONE}.pu_cache))
+				sttminus := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STTMINUS"))
 			end
 		end
 

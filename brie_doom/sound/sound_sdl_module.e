@@ -588,7 +588,7 @@ feature
 		do
 				-- need to load the sound
 			lumpnum := sfxinfo.lumpnum
-			data := i_main.w_wad.w_cachelumpnum (lumpnum, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lumpnum)
 			lumplen := i_main.w_wad.w_lumplength (lumpnum).to_natural_32
 
 				-- check the header, and ensure that is a valid sound

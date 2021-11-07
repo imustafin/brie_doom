@@ -449,7 +449,7 @@ feature -- R_DrawVisSprite
 			frac: FIXED_T
 			patch: PATCH_T
 		do
-			patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (vis.patch + i_main.r_data.firstspritelump, {Z_ZONE}.pu_cache))
+			patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (vis.patch + i_main.r_data.firstspritelump))
 			i_main.r_draw.dc_colormap := vis.colormap
 			if i_main.r_draw.dc_colormap = Void then
 					-- NULL colormap = shadow draw

@@ -947,7 +947,7 @@ feature
 					end
 				end
 					-- background
-				bg := create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (name, {Z_ZONE}.pu_cache))
+				bg := create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (name))
 				if i_main.doomstat_h.gamemode = {GAME_MODE_T}.commercial then
 					NUMCMAPS := 32
 					create lnames.make_filled (Void, 0, 32 - 1)
@@ -957,7 +957,7 @@ feature
 						i >= NUMCMAPS
 					loop
 						check attached lnames as lns then
-							lns [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("CWILV" + two_digits (i), {Z_ZONE}.pu_cache))
+							lns [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("CWILV" + two_digits (i)))
 						end
 						i := i + 1
 					end
@@ -969,16 +969,16 @@ feature
 						i >= NUMMAPS
 					loop
 						check attached lnames as lns then
-							lns [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WILV" + l_wbs.epsd.out + i.out, {Z_ZONE}.pu_cache))
+							lns [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WILV" + l_wbs.epsd.out + i.out))
 						end
 						i := i + 1
 					end
 						-- you are here
-					yah [0] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIURH0", {Z_ZONE}.pu_static))
+					yah [0] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIURH0"))
 						-- you are here (alt.)
-					yah [1] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIURH1", {Z_ZONE}.pu_static))
+					yah [1] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIURH1"))
 						-- splat
-					splat := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISPLAT", {Z_ZONE}.pu_static))
+					splat := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISPLAT"))
 					if l_wbs.epsd < 3 then
 						from
 							j := 0
@@ -994,7 +994,7 @@ feature
 									-- MONDO HACK!
 								if l_wbs.epsd /= 1 or j /= 0 then
 										-- animations
-									a.p [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIA" + l_wbs.epsd.out + two_digits (j) + two_digits (i), {Z_ZONE}.pu_static))
+									a.p [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIA" + l_wbs.epsd.out + two_digits (j) + two_digits (i)))
 								else
 										-- HACK ALERT!
 									a.p [i] := anims [1] [4].p [i]
@@ -1007,68 +1007,68 @@ feature
 				end
 			end
 				-- More hacks on minus sign.
-			wiminus := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIMINUS", {Z_ZONE}.pu_static))
+			wiminus := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIMINUS"))
 			from
 				i := 0
 			until
 				i >= 10
 			loop
 					-- numbers 0-9
-				num [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WINUM" + i.out, {Z_ZONE}.pu_static))
+				num [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WINUM" + i.out))
 				i := i + 1
 			end
 				-- percent sign
-			percent := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIPCNT", {Z_ZONE}.pu_static))
+			percent := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIPCNT"))
 				-- "finished"
-			finished := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIF", {Z_ZONE}.pu_static))
+			finished := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIF"))
 				-- "entering"
-			entering := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIENTER", {Z_ZONE}.pu_static))
+			entering := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIENTER"))
 				-- "kills"
-			kills := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTK", {Z_ZONE}.pu_static))
+			kills := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTK"))
 
 				-- "scrt"
-			secret := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTS", {Z_ZONE}.pu_static))
+			secret := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTS"))
 				-- "secret"
-			sp_secret := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISCRT2", {Z_ZONE}.pu_static))
+			sp_secret := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISCRT2"))
 				-- Yuck.
 			if {DOOMDEF_H}.french /= 0 then
 					-- "items"
 				if i_main.g_game.netgame and not i_main.g_game.deathmatch then
-					items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOBJ", {Z_ZONE}.pu_static))
+					items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOBJ"))
 				else
-					items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTI", {Z_ZONE}.pu_static))
+					items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTI"))
 				end
 			else
-				items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTI", {Z_ZONE}.pu_static))
+				items := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIOSTI"))
 			end
 				-- "frgs"
-			frags := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIFRGS", {Z_ZONE}.pu_static))
+			frags := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIFRGS"))
 				-- ":"
-			colon := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WICOLON", {Z_ZONE}.pu_static))
+			colon := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WICOLON"))
 				-- "time"
-			time := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WITIME", {Z_ZONE}.pu_static))
+			time := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WITIME"))
 				-- "sucks"
-			sucks := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISUCKS", {Z_ZONE}.pu_static))
+			sucks := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WISUCKS"))
 				-- "par"
-			par := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIPAR", {Z_ZONE}.pu_static))
+			par := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIPAR"))
 				-- "killers" (vertical)
-			killers := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIKILRS", {Z_ZONE}.pu_static))
+			killers := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIKILRS"))
 				-- "victims" (horiz)
-			victims := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIVCTMS", {Z_ZONE}.pu_static))
+			victims := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIVCTMS"))
 				-- "total"
-			total := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIMSTT", {Z_ZONE}.pu_static))
+			total := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIMSTT"))
 				-- your face
-			star := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STFST01", {Z_ZONE}.pu_static))
+			star := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STFST01"))
 				-- dead face
-			bstar := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STFDEAD0", {Z_ZONE}.pu_static))
+			bstar := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STFDEAD0"))
 			from
 				i := 0
 			until
 				i >= {DOOMDEF_H}.MAXPLAYERS
 			loop
-				p [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STPB" + i.out, {Z_ZONE}.pu_static))
+				p [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("STPB" + i.out))
 					-- "1,2,3,4"
-				bp [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIBP" + (i + 1).out, {Z_ZONE}.pu_static))
+				bp [i] := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname ("WIBP" + (i + 1).out))
 				i := i + 1
 			end
 		end

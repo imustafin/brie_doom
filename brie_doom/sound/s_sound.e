@@ -441,7 +441,7 @@ feature
 					if m.lumpnum = 0 then
 						m.lumpnum := i_main.w_wad.W_GetNumForName ("d_" + m.name)
 					end
-					m.data := i_main.w_wad.W_CacheLumpNum (m.lumpnum, {Z_ZONE}.PU_STATIC)
+					m.data := i_main.w_wad.W_CacheLumpNum (m.lumpnum)
 					handle := i_main.i_sound.I_RegisterSong (m.data, i_main.w_wad.W_LumpLength (m.lumpnum))
 					m.handle := handle
 					i_main.i_sound.I_PlaySong (handle, looping)

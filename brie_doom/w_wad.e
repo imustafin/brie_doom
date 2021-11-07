@@ -188,9 +188,9 @@ feature
 			index_if_present: Result > -1 implies attached lumpinfo as li and then li [Result].name.is_case_insensitive_equal (name)
 		end
 
-	W_CacheLumpName (name: STRING; tag: INTEGER): MANAGED_POINTER
+	W_CacheLumpName (name: STRING): MANAGED_POINTER
 		do
-			Result := W_CacheLumpNum (W_GetNumForName (name), tag)
+			Result := W_CacheLumpNum (W_GetNumForName (name))
 		ensure
 			Result.count = W_LumpLength (W_GetNumForName (name))
 		end
@@ -203,7 +203,7 @@ feature
 			end
 		end
 
-	W_CacheLumpNum (lump: INTEGER; tag: INTEGER): MANAGED_POINTER
+	W_CacheLumpNum (lump: INTEGER): MANAGED_POINTER
 		do
 			check attached lumpinfo as li then
 				if lump > li.count then

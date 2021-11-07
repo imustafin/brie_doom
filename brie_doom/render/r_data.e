@@ -101,7 +101,7 @@ feature
 			patchlookup: ARRAY [INTEGER] -- lumpnum of i-th patch
 		do
 				-- Load the patch names from pnames.lmp.
-			create names.from_pointer (i_main.w_wad.W_CacheLumpName ("PNAMES", {Z_ZONE}.pu_static))
+			create names.from_pointer (i_main.w_wad.W_CacheLumpName ("PNAMES"))
 			create patchlookup.make_filled (0, 0, names.names.count - 1)
 			from
 				i := 0
@@ -117,10 +117,10 @@ feature
 				-- Load the map texture definitions from textures.lmp.
 				-- The data is contained in one or two lumps,
 				-- TEXTURE1 for shareware, plus TEXTURE2 for commercial.
-			create maptex1.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE1", {Z_ZONE}.pu_static))
+			create maptex1.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE1"))
 			numtextures := maptex1.textures.count
 			if i_main.w_wad.W_CheckNumForName ("TEXTURE2") /= -1 then
-				create maptex2.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE2", {Z_ZONE}.pu_static))
+				create maptex2.from_pointer (i_main.w_wad.W_CacheLumpName ("TEXTURE2"))
 				numtextures := numtextures + maptex2.textures.count
 			end
 
@@ -241,7 +241,7 @@ feature
 			until
 				i >= texture.patches.count
 			loop
-				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch, {Z_ZONE}.pu_cache))
+				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch))
 				x1 := texture.patches [patch].originx
 				x2 := x1 + realpatch.width
 				if x1 < 0 then
@@ -334,7 +334,7 @@ feature
 				i >= numspritelumps
 			loop
 					-- skip debug print
-				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (firstspritelump + i, {Z_ZONE}.pu_cache))
+				patch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (firstspritelump + i))
 				check attached spritewidth as sw and then attached spriteoffset as so and then attached spritetopoffset as st then
 					sw [i] := patch.width.to_integer_32 |<< {M_FIXED}.FRACBITS
 					so [i] := patch.leftoffset.to_integer_32 |<< {M_FIXED}.FRACBITS
@@ -443,7 +443,7 @@ feature
 				end
 			end
 			if lump > 0 then
-				create Result.make (i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_cache), ofs)
+				create Result.make (i_main.w_wad.w_cachelumpnum (lump), ofs)
 			else
 				check attached texturecomposite as tc_ar then
 					if tc_ar [tex] = Void then
@@ -495,7 +495,7 @@ feature
 			until
 				i >= texture.patches.count
 			loop
-				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch, {Z_ZONE}.pu_cache))
+				realpatch := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpnum (texture.patches [patch].patch))
 				x1 := texture.patches [patch].originx
 				x2 := x1 + realpatch.width
 				if x1 < 0 then

@@ -143,8 +143,6 @@ feature
 			i_main.v_video.v_init
 			print ("M_LoadDefaults: Load system defauls.%N")
 			i_main.m_misc.m_loaddefaults
-			print ("Z_Init: Init zone memory allocation daemon.%N")
-			i_main.z_zone.z_init
 			print ("W_Init: Init WADfiles.%N")
 			i_main.w_wad.W_InitMultipleFiles (wadfiles)
 			print ("added%N")

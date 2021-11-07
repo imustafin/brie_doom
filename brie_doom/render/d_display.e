@@ -43,7 +43,7 @@ feature
 	D_PageDrawer
 		do
 			check attached i_main.d_main as d_doom_main then
-				i_main.v_video.V_DrawPatch (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (d_doom_main.pagename, {Z_ZONE}.PU_CACHE)))
+				i_main.v_video.V_DrawPatch (0, 0, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName (d_doom_main.pagename)))
 			end
 		end
 
@@ -124,7 +124,7 @@ feature -- D_Display
 				-- clean up border stuff
 			if i_main.g_game.gamestate /= oldgamestate and i_main.g_game.gamestate /= {DOOMDEF_H}.GS_LEVEL then
 				check attached i_main.i_video as iv then
-					iv.I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
+					iv.I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL"))
 				end
 			end
 
@@ -157,7 +157,7 @@ feature -- D_Display
 				else
 					y := i_main.r_draw.viewwindowy + 4
 				end
-				i_main.v_video.V_DrawPatchDirect (i_main.r_draw.viewwindowx + (i_main.r_draw.scaledviewwidth - 68) // 2, y, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_PAUSE", {Z_ZONE}.PU_CACHE)))
+				i_main.v_video.V_DrawPatchDirect (i_main.r_draw.viewwindowx + (i_main.r_draw.scaledviewwidth - 68) // 2, y, create {PATCH_T}.from_pointer (i_main.w_wad.W_CacheLumpName ("M_PAUSE")))
 			end
 
 				-- menus go directly to the screen

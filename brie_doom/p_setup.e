@@ -172,7 +172,6 @@ feature
 
 				-- Make sure all sounds are stopped before Z_FreeTags
 			i_main.s_sound.S_Start
-			i_main.z_zone.Z_FreeTags ({Z_ZONE}.PU_LEVEL, {Z_ZONE}.PU_PURGELEVEL - 1)
 			i_main.p_tick.P_InitThinkers
 
 				-- if working with a devlopment map, reload it
@@ -201,7 +200,7 @@ feature
 			P_LoadNodes (lumpnum + ML_NODES)
 			P_LoadSegs (lumpnum + ML_SEGS)
 				-- read rejectmatrix
-			reject_mp := i_main.w_wad.W_CacheLumpNum (lumpnum + ML_REJECT, {Z_ZONE}.PU_LEVEL)
+			reject_mp := i_main.w_wad.W_CacheLumpNum (lumpnum + ML_REJECT)
 			rejectmatrix := reject_mp.read_array (0, reject_mp.count)
 			check attached rejectmatrix as rm then
 				rm.rebase (0)
@@ -239,7 +238,7 @@ feature
 
 	P_LoadBlockMap (lump: INTEGER)
 		do
-			blockmaplump := {WAD_READER}.read_array_integer_16 (i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_level))
+			blockmaplump := {WAD_READER}.read_array_integer_16 (i_main.w_wad.W_CacheLumpNum (lump))
 			create blockmap.make (4, blockmaplump)
 			bmaporgx := blockmaplump [0].to_integer_32 |<< {M_FIXED}.FRACBITS
 			bmaporgy := blockmaplump [1].to_integer_32 |<< {M_FIXED}.FRACBITS
@@ -257,7 +256,7 @@ feature
 		do
 			numvertexes := i_main.w_wad.W_LumpLength (lump) // {VERTEX_T}.structure_size
 			create vertexes.make_filled (create {VERTEX_T}.default_create, 0, numvertexes - 1)
-			data := i_main.w_wad.W_CacheLumpNum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.W_CacheLumpNum (lump)
 			from
 				i := 0
 			until
@@ -275,7 +274,7 @@ feature
 		do
 			numsectors := i_main.w_wad.w_lumplength (lump) // {SECTOR_T}.structure_size
 			create sectors.make_filled (create {SECTOR_T}.make, 0, numsectors - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -293,7 +292,7 @@ feature
 		do
 			numsides := i_main.w_wad.w_lumplength (lump) // {SIDE_T}.structure_size
 			create sides.make_filled (create {SIDE_T}, 0, numsides - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -312,7 +311,7 @@ feature
 		do
 			numlines := i_main.w_wad.w_lumplength (lump) // {LINE_T}.structure_size
 			create lines.make_filled (create {LINE_T}.make, 0, numlines - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -331,7 +330,7 @@ feature
 		do
 			numsubsectors := i_main.w_wad.w_lumplength (lump) // {SUBSECTOR_T}.structure_size
 			create subsectors.make_filled (create {SUBSECTOR_T}, 0, numsubsectors - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -349,7 +348,7 @@ feature
 		do
 			numnodes := i_main.w_wad.w_lumplength (lump) // {NODE_T}.structure_size
 			create nodes.make_filled (create {NODE_T}.make, 0, numnodes - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -367,7 +366,7 @@ feature
 		do
 			numsegs := i_main.w_wad.w_lumplength (lump) // {SEG_T}.structure_size
 			create segs.make_filled (create {SEG_T}.make, 0, numsegs - 1)
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			from
 				i := 0
 			until
@@ -498,7 +497,7 @@ feature -- P_LoadThings
 			numthings: INTEGER
 			spawn: BOOLEAN
 		do
-			data := i_main.w_wad.w_cachelumpnum (lump, {Z_ZONE}.pu_static)
+			data := i_main.w_wad.w_cachelumpnum (lump)
 			numthings := i_main.w_wad.w_lumplength (lump) // {MAPTHING_T}.structure_size
 			from
 				i := 0

@@ -50,11 +50,6 @@ feature -- Globals
 			create Result.make (Current)
 		end
 
-	z_zone: Z_ZONE
-		once
-			create Result.make
-		end
-
 	w_wad: W_WAD
 		once
 			create Result.make (Current)

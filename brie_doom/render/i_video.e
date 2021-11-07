@@ -179,7 +179,7 @@ feature -- I_InitGraphics
 
 				-- Set the palette
 
-			I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL", {Z_ZONE}.PU_CACHE))
+			I_SetPalette (i_main.w_wad.W_CacheLumpName ("PLAYPAL"))
 			set_sdl_palette
 
 				-- SDL2-TODO UpdateFocus()

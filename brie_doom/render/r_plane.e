@@ -220,7 +220,7 @@ feature
 						end
 					else
 							-- regular flat
-						i_main.r_draw.ds_source := create {MANAGED_POINTER_WITH_OFFSET}.make (i_main.w_wad.W_CacheLumpNum (i_main.r_data.firstflat + i_main.r_data.flattranslation [visplanes [pl].picnum], {Z_ZONE}.pu_static), 0)
+						i_main.r_draw.ds_source := create {MANAGED_POINTER_WITH_OFFSET}.make (i_main.w_wad.W_CacheLumpNum (i_main.r_data.firstflat + i_main.r_data.flattranslation [visplanes [pl].picnum]), 0)
 						planeheight := (visplanes [pl].height - i_main.r_main.viewz).abs
 						light := (visplanes [pl].lightlevel |>> {R_MAIN}.LIGHTSEGSHIFT) + i_main.r_main.extralight
 						if light >= {R_MAIN}.LIGHTLEVELS then

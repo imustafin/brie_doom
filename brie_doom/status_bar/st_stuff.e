@@ -548,7 +548,7 @@ feature
 
 	load_patch (name: STRING): PATCH_T
 		do
-			Result := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (name, {Z_ZONE}.pu_static))
+			Result := create {PATCH_T}.from_pointer (i_main.w_wad.w_cachelumpname (name))
 		end
 
 	ST_loadData
@@ -621,7 +621,7 @@ feature
 
 			if palette /= st_palette then
 				st_palette := palette
-				pal := i_main.w_wad.w_cachelumpnum (lu_palette, {Z_ZONE}.pu_cache)
+				pal := i_main.w_wad.w_cachelumpnum (lu_palette)
 				create pal.share_from_pointer (pal.item + palette * 768, pal.count - palette * 768)
 				i_main.i_video.i_setpalette (pal)
 			end
@@ -890,7 +890,7 @@ feature
 			if st_stopped then
 					-- return
 			else
-				i_main.i_video.i_setpalette (i_main.w_wad.w_cachelumpnum (lu_palette, {Z_ZONE}.pu_cache))
+				i_main.i_video.i_setpalette (i_main.w_wad.w_cachelumpnum (lu_palette))
 				st_stopped := True
 			end
 		end

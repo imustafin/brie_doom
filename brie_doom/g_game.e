@@ -1137,7 +1137,6 @@ feature -- G_DoLoadLevel
 			displayplayer := consoleplayer -- view the guy you are playing
 			starttime := i_main.i_system.I_GetTime
 			gameaction := ga_nothing
-			i_main.z_zone.Z_CheckHeap
 
 				-- clear cmd building stuff
 			gamekeydown.fill_with (False)
@@ -1190,7 +1189,7 @@ feature -- G_DoLoadLevel
 		do
 			gameaction := ga_nothing
 			check attached defdemoname as l_defdemoname then
-				create demobuffer.from_pointer (i_main.w_wad.w_cachelumpname (l_defdemoname, {Z_ZONE}.pu_static))
+				create demobuffer.from_pointer (i_main.w_wad.w_cachelumpname (l_defdemoname))
 			end
 			check attached demobuffer as l_demobuffer then
 				if l_demobuffer.version /= {DOOMDEF_H}.VERSION then
