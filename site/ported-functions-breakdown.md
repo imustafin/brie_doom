@@ -3,6 +3,8 @@ layout: page
 title: Ported Functions Breakdown
 date: 2021-09-08
 last_modified_at: 2021-11-07
+description: |
+  Statistics of which functions are ported from C Doom to Eiffel Brie Doom
 ---
 What functions were already ported from C to Eiffel in Brie Doom.
 

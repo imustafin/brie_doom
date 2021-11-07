@@ -5,7 +5,7 @@ date: 2021-09-07
 last_modified_at: 2021-11-07
 ---
 Brie Doom is a source port of the original Doom source code from C to Eiffel.
-The aim of this port is to produce idiomatic object-oriented Eiffel code with contracts
+The aim is to produce idiomatic object-oriented Eiffel code with contracts
 while maintaining the original experience of playing vanilla Doom.
 
 This project is an example of applying
