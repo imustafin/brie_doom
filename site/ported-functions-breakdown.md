@@ -10,12 +10,17 @@ What functions were already ported from C to Eiffel in Brie Doom.
 
 The code is analyzed using [CCCC](http://sarnold.github.io/cccc/).
 
-CCCC has estimated that the original C code is
-{{ site.data.functions_ported.c_loc}} LOC.
 
 CCCC has found {{ site.data.functions_ported.total_c }} functions in the original code.
 Out of them, {{ site.data.functions_ported.ported }} functions
 ({{ site.data.functions_ported.ported_ratio }}%) were ported.
+
+CCCC has estimated that the original C code is
+{{ site.data.functions_ported.c_loc}} LOC. The current Eiffel
+code is {{ site.data.functions_ported.e_loc }} LOC. Considering
+that {{ site.data.functions_ported.ported_ratio }}% of functions
+are ported, we can estimate that the full Eiffel port can be around
+{{ site.data.functions_ported.e_estimation }} LOC.
 
 Table below lists the ported functions. The first column contains the
 original name of the function and two links (_C_, _E_) which will take

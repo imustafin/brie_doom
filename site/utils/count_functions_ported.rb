@@ -13,7 +13,10 @@ require_relative 'eiffel_parser'
 
 # Get C loc
 xml = File.open('anonymous_ch.xml') { |f| Nokogiri::XML(f) }
-C_LOC = xml.at_xpath('//CCCC_Project/module_summary/lines_of_code[@level="2"]/@value').value
+C_LOC = xml
+  .at_xpath('//CCCC_Project/module_summary/lines_of_code[@level="2"]/@value')
+  .value
+  .to_i
 
 # Analyse C code
 xml = File.open('anonymous.xml') { |f| Nokogiri::XML(f) }
@@ -152,16 +155,24 @@ STUBS.reverse!
 JOINED.sort_by! { |j| [j[:c_to_e_frac], j[:cloc]] }
 JOINED.reverse!
 
+E_LOC = 25613 # Lines of Code for brie_doom cluster
+
+PORTED_RATIO = ((JOINED.count + MOVED.count).to_f / C_DATA.count)
+
+E_ESTIMATION = (E_LOC / PORTED_RATIO).ceil
+
 ANS = {
   total_c: C_DATA.count,
   ported: JOINED.count + MOVED.count,
-  ported_ratio: ((JOINED.count + MOVED.count).to_f / C_DATA.count * 100).round(2),
+  ported_ratio: (PORTED_RATIO * 100).round(2),
   stubbed_ratio: (STUBS.count.to_f / C_DATA.count * 100).round(2),
   funcs: JOINED,
   stubbed: STUBS,
   not_ported: NOT_PORTED,
   moved: MOVED,
-  c_loc: C_LOC
+  c_loc: C_LOC,
+  e_loc: E_LOC,
+  e_estimation: E_ESTIMATION
 }
 
 puts JSON.parse(JSON.dump(ANS)).to_yaml
