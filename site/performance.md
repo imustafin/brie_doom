@@ -31,9 +31,10 @@ that during development, the developed game is play-tested often.
 Since contract checking has a performance cost, we need to run the game
 without contract checking. This can be achieved by compiling
 without the `-keep` parameter:
-```bash
+
+{% highlight bash %}
 ec -finalize -c_compile
-```
+{% endhighlight %}
 
 Running the finalized version with assertions discarded gives the following
 times to render each frame:
@@ -62,9 +63,9 @@ section we will compare the performance of the program with assertions removed
 from the executable (no `-keep`) and with assertions kept in the executable
 but not executed (with `-keep`).
 
-```bash
+{% highlight bash %}
 ec -finalize -keep -c_compile
-```
+{% endhighlight %}
 
 {% svg perf_plots/keep_vs_no_keep.svg %}
 
