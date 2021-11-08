@@ -77,14 +77,25 @@ jobs:
           sed -i "/precompile/d" brie_doom/brie_doom.ecf
           cat brie_doom/brie_doom.ecf
 
-      - name: Count port progress. Analyse C
+      - name: Download C DOOM
         run: |
           git clone https://github.com/id-Software/DOOM.git
+
+      - name: Count LOC
+        run: |
+          cd DOOM/linuxdoom-1.10
+          cccc --lang=c *.{c,h}
+          cp .cccc/anonymous.xml ../../utils/anonymous_ch.xml
+
+      - name: Count port progress. Analyse C
+        run: |
           cd DOOM/linuxdoom-1.10
           cccc --lang=c *.c
-          ls .cccc
           cp .cccc/anonymous.xml ../../utils/
           cd ../../
+
+      - name: Remove C DOOM
+        run: |
           rm -rf DOOM
 
       - name: Count port progress. Analyse Eiffel

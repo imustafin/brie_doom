@@ -7,13 +7,15 @@
 
 require 'yaml'
 require 'json'
+require 'nokogiri'
 
 require_relative 'eiffel_parser'
 
+# Get C loc
+xml = File.open('anonymous_ch.xml') { |f| Nokogiri::XML(f) }
+C_LOC = xml.at_xpath('//CCCC_Project/module_summary/lines_of_code[@level="2"]/@value').value
 
 # Analyse C code
-require 'nokogiri'
-
 xml = File.open('anonymous.xml') { |f| Nokogiri::XML(f) }
 
 C_DATA = []
@@ -158,7 +160,8 @@ ANS = {
   funcs: JOINED,
   stubbed: STUBS,
   not_ported: NOT_PORTED,
-  moved: MOVED
+  moved: MOVED,
+  c_loc: C_LOC
 }
 
 puts JSON.parse(JSON.dump(ANS)).to_yaml
