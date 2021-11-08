@@ -11,7 +11,7 @@ class Plot
     name = @name
     out_path = "#{@out_dir}/#{@name}.svg"
     Numo.gnuplot do
-      set terminal: :svg
+      set terminal: :svg, name: name.to_s
       set out: out_path
 
       set :title, name.to_s, :noenhanced
