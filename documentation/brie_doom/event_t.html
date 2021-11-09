@@ -3,7 +3,7 @@
 <head>
 <meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
 <meta name="description" content="d_event.h"/>
-<meta name="license" content="TTCopyright (C) 1993-1996 by id Software, Inc. TTCopyright (C) 2005-2014 Simon Howard TTCopyright (C) 2021 Ilgiz Mustafin  TTThis program is free software; you can redistribute it and/or modify TTit under the terms of the GNU General Public License as published by TTthe Free Software Foundation; either version 2 of the License, or TT(at your option) any later version.  TTThis program is distributed in the hope that it will be useful, TTbut WITHOUT ANY WARRANTY; without even the implied warranty of TTMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the TTGNU General Public License for more details.  TTYou should have received a copy of the GNU General Public License along TTwith this program; if not, write to the Free Software Foundation, Inc., TT51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
+<meta name="license" content="Copyright (C) 1993-1996 by id Software, Inc. Copyright (C) 2005-2014 Simon Howard Copyright (C) 2021 Ilgiz Mustafin  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.  You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,23 +25,23 @@
 </div></form><pre><span class="ekeyword">note</span>
 	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;d_event.h&quot;</span>
 	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
-		<span class="estring">		Copyright (C) 1993-1996 by id Software, Inc.</span>
-		<span class="estring">		Copyright (C) 2005-2014 Simon Howard</span>
-		<span class="estring">		Copyright (C) 2021 Ilgiz Mustafin</span>
+		<span class="estring">Copyright (C) 1993-1996 by id Software, Inc.</span>
+		<span class="estring">Copyright (C) 2005-2014 Simon Howard</span>
+		<span class="estring">Copyright (C) 2021 Ilgiz Mustafin</span>
 		
-		<span class="estring">		This program is free software; you can redistribute it and/or modify</span>
-		<span class="estring">		it under the terms of the GNU General Public License as published by</span>
-		<span class="estring">		the Free Software Foundation; either version 2 of the License, or</span>
-		<span class="estring">		(at your option) any later version.</span>
+		<span class="estring">This program is free software; you can redistribute it and/or modify</span>
+		<span class="estring">it under the terms of the GNU General Public License as published by</span>
+		<span class="estring">the Free Software Foundation; either version 2 of the License, or</span>
+		<span class="estring">(at your option) any later version.</span>
 		
-		<span class="estring">		This program is distributed in the hope that it will be useful,</span>
-		<span class="estring">		but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-		<span class="estring">		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. &nbsp;See the</span>
-		<span class="estring">		GNU General Public License for more details.</span>
+		<span class="estring">This program is distributed in the hope that it will be useful,</span>
+		<span class="estring">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+		<span class="estring">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. &nbsp;See the</span>
+		<span class="estring">GNU General Public License for more details.</span>
 		
-		<span class="estring">		You should have received a copy of the GNU General Public License along</span>
-		<span class="estring">		with this program; if not, write to the Free Software Foundation, Inc.,</span>
-		<span class="estring">		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</span>
+		<span class="estring">You should have received a copy of the GNU General Public License along</span>
+		<span class="estring">with this program; if not, write to the Free Software Foundation, Inc.,</span>
+		<span class="estring">51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</span>
 	<span class="estring">]</span><span class="estring">&quot;</span>
 
 <span class="ekeyword">class</span> 
@@ -65,6 +65,10 @@
 	<a name="f_ev_mouse"></a><a class="efeature" href="../brie_doom/event_t.html#f_ev_mouse">Ev_mouse</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">2</span>
 
 	<a name="f_ev_joystick"></a><a class="efeature" href="../brie_doom/event_t.html#f_ev_joystick">Ev_joystick</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">3</span>
+
+	<a name="f_ev_quit"></a><a class="efeature" href="../brie_doom/event_t.html#f_ev_quit">Ev_quit</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">4</span>
+			<span class="ecomment">--</span><span class="ecomment"> Quit event. Triggered when the user clicks the &quot;close&quot; button</span>
+			<span class="ecomment">--</span><span class="ecomment"> to terminate the application</span>
 	
 <span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Fields</span>
 
@@ -83,11 +87,21 @@
 			<a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <span class="elocal">a_data1</span>
 		<span class="ekeyword">end</span>
 
-	<a name="f_data2"></a><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+	<a name="f_data2"></a><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/event_t.html#f_set_data2">set_data2</a>
 			<span class="ecomment">--</span><span class="ecomment"> mouse/joystick x move</span>
 
-	<a name="f_data3"></a><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+	<a name="f_set_data2"></a><a class="efeature" href="../brie_doom/event_t.html#f_set_data2">set_data2</a> <span class="esymbol">(</span><span class="elocal">a_data2</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <span class="elocal">a_data2</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_data3"></a><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="ekeyword">assign</span> <a class="efeature" href="../brie_doom/event_t.html#f_set_data3">set_data3</a>
 			<span class="ecomment">--</span><span class="ecomment"> mouse/joystick y move</span>
+
+	<a name="f_set_data3"></a><a class="efeature" href="../brie_doom/event_t.html#f_set_data3">set_data3</a> <span class="esymbol">(</span><span class="elocal">a_data3</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="elocal">a_data3</span>
+		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
 <div class="nav">

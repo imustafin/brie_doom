@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="description" content="chocolate doom doomkeys.h  Key definitions"/>
+<meta name="license" content="Copyright (C) 1993-1996 by id Software, Inc. Copyright (C) 2005-2014 Simon Howard Copyright (C) 2021 Ilgiz Mustafin  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.  You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="keywords" content="Eiffel class"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+<title>i_input Text</title>
+<link rel="stylesheet" href="../default.css" type="text/css">
+<script type="text/javascript" src="../goto.html"></script>
+</head>
+<body>
+<pre></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="i_input_chart.html">Chart</a>
+<a class="nav class" href="i_input_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="i_input"></span>
+</div></form><pre><span class="ekeyword">note</span>
+	<span class="eitag">description</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">chocolate doom doomkeys.h</span>
+		
+		<span class="estring">Key definitions</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+	<span class="eitag">license</span><span class="esymbol">:</span> <span class="estring">&quot;</span><span class="estring">[</span>
+		<span class="estring">Copyright (C) 1993-1996 by id Software, Inc.</span>
+		<span class="estring">Copyright (C) 2005-2014 Simon Howard</span>
+		<span class="estring">Copyright (C) 2021 Ilgiz Mustafin</span>
+		
+		<span class="estring">This program is free software; you can redistribute it and/or modify</span>
+		<span class="estring">it under the terms of the GNU General Public License as published by</span>
+		<span class="estring">the Free Software Foundation; either version 2 of the License, or</span>
+		<span class="estring">(at your option) any later version.</span>
+		
+		<span class="estring">This program is distributed in the hope that it will be useful,</span>
+		<span class="estring">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+		<span class="estring">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. &nbsp;See the</span>
+		<span class="estring">GNU General Public License for more details.</span>
+		
+		<span class="estring">You should have received a copy of the GNU General Public License along</span>
+		<span class="estring">with this program; if not, write to the Free Software Foundation, Inc.,</span>
+		<span class="estring">51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</span>
+	<span class="estring">]</span><span class="estring">&quot;</span>
+
+<span class="ekeyword">class</span> 
+	<a class="eclass" href="../brie_doom/i_input.html">I_INPUT</a>
+
+<span class="ekeyword">inherit</span>
+	<a class="eclass" href="../brie_doom/doomkeys_h.html">DOOMKEYS_H</a>
+
+	<a class="eclass" href="../wrap_sdl2/sdl_scancode_enum_api.html">SDL_SCANCODE_ENUM_API</a>
+
+<span class="ekeyword">create</span> 
+	<a class="efeature" href="../brie_doom/i_input.html#f_make">make</a>
+
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_main"></a><a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/i_main.html">I_MAIN</a>
+
+	<a name="f_make"></a><a class="efeature" href="../brie_doom/i_input.html#f_make">make</a> <span class="esymbol">(</span><span class="elocal">a_i_main</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a> <span class="esymbol">:=</span> <span class="elocal">a_i_main</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_handlekeyboardevent"></a><a class="efeature" href="../brie_doom/i_input.html#f_i_handlekeyboardevent">i_handlekeyboardevent</a> <span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_event_union_api.html">SDL_EVENT_UNION_API</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">create</span> <span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_make">make</a>
+			<span class="ekeyword">if</span> <span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_type">type</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_keydown">sdl_keydown</a> <span class="ekeyword">then</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_keydown">ev_keydown</a>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_translatekey">translatekey</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_keyboard_event_struct_api.html#f_keysym">keysym</a><span class="esymbol">)</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_getlocalizedkey">getlocalizedkey</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_keyboard_event_struct_api.html#f_keysym">keysym</a><span class="esymbol">)</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_gettypedchar">gettypedchar</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_keyboard_event_struct_api.html#f_keysym">keysym</a><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_type">type</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_keyup">sdl_keyup</a> <span class="ekeyword">then</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_keyup">ev_keyup</a>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_translatekey">translatekey</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_key">key</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_keyboard_event_struct_api.html#f_keysym">keysym</a><span class="esymbol">)</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">if</span> <span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_translatekey"></a><a class="efeature" href="../brie_doom/i_input.html#f_translatekey">translatekey</a> <span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_keysym_struct_api.html">SDL_KEYSYM_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="ecomment">--</span><span class="ecomment"> Translates the SDL key to a value of the type found in doomkeys.h</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">sc</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">sc</span> <span class="esymbol">:=</span> <span class="elocal">key</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_keysym_struct_api.html#f_scancode">scancode</a>
+			<span class="ekeyword">if</span> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_lctrl">sdl_scancode_lctrl</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_rctrl">sdl_scancode_rctrl</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_key_rctrl">Key_rctrl</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_lshift">sdl_scancode_lshift</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_rshift">sdl_scancode_rshift</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_key_rshift">Key_rshift</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_lalt">sdl_scancode_lalt</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_key_lalt">Key_lalt</a>
+			<span class="ekeyword">elseif</span> <span class="elocal">sc</span> <span class="esymbol">=</span> <a class="efeature" href="../wrap_sdl2/sdl_scancode_enum_api.html#f_sdl_scancode_ralt">sdl_scancode_ralt</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_key_ralt">Key_ralt</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">sc</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">sc</span> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_scancode_to_keys_array">Scancode_to_keys_array</a><span class="edot">.</span><a class="efeature" href="../base/array.html#f_upper">upper</a> <span class="ekeyword">then</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/doomkeys_h.html#f_scancode_to_keys_array">Scancode_to_keys_array</a> <a class="esymbol" href="../base/array.html#f_item">[</a><span class="elocal">sc</span><a class="esymbol" href="../base/array.html#f_item">]</a>
+				<span class="ekeyword">else</span>
+					<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_getlocalizedkey"></a><a class="efeature" href="../brie_doom/i_input.html#f_getlocalizedkey">getlocalizedkey</a> <span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_keysym_struct_api.html">SDL_KEYSYM_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span>&quot;GetLocalizedKey&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_gettypedchar"></a><a class="efeature" href="../brie_doom/i_input.html#f_gettypedchar">gettypedchar</a> <span class="esymbol">(</span><span class="elocal">key</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_keysym_struct_api.html">SDL_KEYSYM_STRUCT_API</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span>&quot;GetTypedChar&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> 
+
+	<a name="f_i_handlemouseevent"></a><a class="efeature" href="../brie_doom/i_input.html#f_i_handlemouseevent">i_handlemouseevent</a> <span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_event_union_api.html">SDL_EVENT_UNION_API</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_type">type</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_mousebuttondown">sdl_mousebuttondown</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/i_input.html#f_updatemousebuttonstate">updatemousebuttonstate</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_button">button</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_mouse_button_event_struct_api.html#f_button">button</a><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a><span class="esymbol">,</span> <span class="ekeyword">True</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_type">type</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_mousebuttonup">sdl_mousebuttonup</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/i_input.html#f_updatemousebuttonstate">updatemousebuttonstate</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_button">button</a><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_mouse_button_event_struct_api.html#f_button">button</a><span class="edot">.</span><a class="efeature" href="../base/character_8_ref.html#f_natural_32_code">natural_32_code</a><span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_type">type</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_mousewheel">sdl_mousewheel</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../brie_doom/i_input.html#f_mapmousewheeltobuttons">mapmousewheeltobuttons</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">sdlevent</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_event_union_api.html#f_wheel">wheel</a><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_max_mouse_buttons"></a><a class="efeature" href="../brie_doom/i_input.html#f_max_mouse_buttons">Max_mouse_buttons</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">8</span>
+
+	<a name="f_mouse_button_state"></a><a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+
+	<a name="f_updatemousebuttonstate"></a><a class="efeature" href="../brie_doom/i_input.html#f_updatemousebuttonstate">updatemousebuttonstate</a> <span class="esymbol">(</span><span class="elocal">a_button</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">on</span><span class="esymbol">:</span> <a class="eclass" href="../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a>
+			<span class="elocal">button</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="elocal">a_button</span>
+			<span class="ekeyword">if</span> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_64">to_integer_64</a> <a class="esymbol" href="../base/integer_64.html#f_is_less">&lt;</a> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_button_left">sdl_button_left</a> <a class="ekeyword" href="../base/boolean.html#f_disjuncted">or</a> <span class="elocal">button</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/i_input.html#f_max_mouse_buttons">Max_mouse_buttons</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a> <span class="ekeyword">then</span>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">if</span> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_64">to_integer_64</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_button_left">sdl_button_left</a> <span class="ekeyword">then</span>
+					<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_64">to_integer_64</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_button_right">sdl_button_right</a> <span class="ekeyword">then</span>
+					<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="enumber">1</span>
+				<span class="ekeyword">elseif</span> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_64">to_integer_64</a> <span class="esymbol">=</span> <span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_constant_api.html">SDL_CONSTANT_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_constant_api.html#f_sdl_button_middle">sdl_button_middle</a> <span class="ekeyword">then</span>
+					<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="enumber">2</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="elocal">button</span> <a class="esymbol" href="../base/natural_32.html#f_minus">-</a> <span class="enumber">1</span>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">if</span> <span class="elocal">on</span> <span class="ekeyword">then</span>
+					<a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">1</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">1</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">button</span><span class="edot">.</span><a class="efeature" href="../base/natural_32_ref.html#f_to_integer_32">to_integer_32</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_bit_not">bit_not</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">create</span> <span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_make">make</a>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_mouse">ev_mouse</a>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="elocal">event</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mapmousewheeltobuttons"></a><a class="efeature" href="../brie_doom/i_input.html#f_mapmousewheeltobuttons">mapmousewheeltobuttons</a> <span class="esymbol">(</span><span class="elocal">wheel</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_mouse_wheel_event_struct_api.html">SDL_MOUSE_WHEEL_EVENT_STRUCT_API</a><span class="esymbol">)</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">up</span><span class="esymbol">,</span> <span class="elocal">down</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a>
+			<span class="elocal">button</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">wheel</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_mouse_wheel_event_struct_api.html#f_y">y</a> <a class="esymbol" href="../base/comparable.html#f_is_less_equal">&lt;=</a> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="enumber">4</span>
+			<span class="ekeyword">else</span>
+				<span class="elocal">button</span> <span class="esymbol">:=</span> <span class="enumber">3</span>
+			<span class="ekeyword">end</span>
+			<span class="ekeyword">create</span> <span class="elocal">down</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_make">make</a>
+			<a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <a class="esymbol" href="../base/natural_32.html#f_bit_or">|</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">1</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">button</span><span class="esymbol">)</span>
+			<span class="elocal">down</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_mouse">ev_mouse</a>
+			<span class="elocal">down</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+			<span class="elocal">down</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="elocal">down</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">down</span><span class="esymbol">)</span>
+			<span class="ekeyword">create</span> <span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_make">make</a>
+			<a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a> <a class="esymbol" href="../base/natural_32.html#f_bit_and">&#38;</a> <span class="esymbol">(</span><span class="esymbol">{</span><a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">}</span> <span class="enumber">1</span> <a class="esymbol" href="../base/natural_32.html#f_bit_shift_left">|&lt;&lt;</a> <span class="elocal">button</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_bit_not">bit_not</a>
+			<span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_mouse">ev_mouse</a>
+			<span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+			<span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+			<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">up</span><span class="esymbol">)</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/i_input.html">I_INPUT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
+<div class="nav">
+<a class="nav hierarchy" href="../class_list.html">Classes</a>
+<a class="nav hierarchy" href="../cluster_list.html">Clusters</a>
+<a class="nav hierarchy" href="../cluster_hierarchy.html">Cluster hierarchy</a>
+<a class="nav class" href="i_input_chart.html">Chart</a>
+<a class="nav class" href="i_input_links.html">Relations</a>
+<span class="nav class selected">Text</span>
+<span class="nav class goto">Go to: <input name="c" value="i_input"></span>
+</div></form><pre></pre>
+<p style="text-align:center;">Generated by <a href="http://www.eiffel.com">ISE EiffelStudio</a></p>
+</body>
+</html>
+

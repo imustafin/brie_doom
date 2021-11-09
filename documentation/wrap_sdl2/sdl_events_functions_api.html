@@ -34,6 +34,22 @@
 
 <span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Access</span>
 
+	<a name="f_sdl_pump_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_pump_events">sdl_pump_events</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				SDL_PumpEvents ();
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_peep_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_peep_events">sdl_peep_events</a> <span class="esymbol">(</span><span class="elocal">events</span><span class="esymbol">:</span> <a class="eclass" href="../wrap_sdl2/sdl_event_union_api.html">SDL_EVENT_UNION_API</a><span class="esymbol">;</span> <span class="elocal">numevents</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">mintype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">maxtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_c_sdl_peep_events">c_sdl_peep_events</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">events</span><span class="edot">.</span><a class="efeature" href="../base/memory_structure.html#f_item">item</a><span class="esymbol">,</span> <span class="elocal">numevents</span><span class="esymbol">,</span> <span class="elocal">action</span><span class="esymbol">,</span> <span class="elocal">mintype</span><span class="esymbol">,</span> <span class="elocal">maxtype</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
 	<a name="f_sdl_has_event"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_has_event">sdl_has_event</a> <span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
 		<span class="ekeyword">external</span>
 			&quot;C inline use &lt;SDL.h&gt;&quot;
@@ -43,12 +59,30 @@
 			]<span class="estring">&quot;</span>
 		<span class="ekeyword">end</span>
 
+	<a name="f_sdl_has_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_has_events">sdl_has_events</a> <span class="esymbol">(</span><span class="elocal">mintype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">maxtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				return SDL_HasEvents ((Uint32)$mintype, (Uint32)$maxtype);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
 	<a name="f_sdl_flush_event"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_flush_event">sdl_flush_event</a> <span class="esymbol">(</span><span class="elocal">type</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
 		<span class="ekeyword">external</span>
 			&quot;C inline use &lt;SDL.h&gt;&quot;
 		<span class="ekeyword">alias</span>
 			&quot;[
 				SDL_FlushEvent ((Uint32)$type);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_flush_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_flush_events">sdl_flush_events</a> <span class="esymbol">(</span><span class="elocal">mintype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">maxtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				SDL_FlushEvents ((Uint32)$mintype, (Uint32)$maxtype);
 			]<span class="estring">&quot;</span>
 		<span class="ekeyword">end</span>
 
@@ -72,8 +106,33 @@
 		<span class="ekeyword">ensure</span>
 			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
 		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_filter_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_filter_events">sdl_filter_events</a> <span class="esymbol">(</span><span class="elocal">filter</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">userdata</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_c_sdl_filter_events">c_sdl_filter_events</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">filter</span><span class="esymbol">,</span> <span class="elocal">userdata</span><span class="esymbol">)</span>
+		<span class="ekeyword">ensure</span>
+			<span class="etag">instance_free</span><span class="esymbol">:</span> <span class="ekeyword">class</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_sdl_register_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_sdl_register_events">sdl_register_events</a> <span class="esymbol">(</span><span class="elocal">numevents</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				return SDL_RegisterEvents ((int)$numevents);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Externals</span>
+
+	<a name="f_c_sdl_peep_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_c_sdl_peep_events">c_sdl_peep_events</a> <span class="esymbol">(</span><span class="elocal">events</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">numevents</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">action</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">;</span> <span class="elocal">mintype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">;</span> <span class="elocal">maxtype</span><span class="esymbol">:</span> <a class="eclass" href="../base/natural_32.html">NATURAL_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				return SDL_PeepEvents ((SDL_Event*)$events, (int)$numevents, (SDL_eventaction)$action, (Uint32)$mintype, (Uint32)$maxtype);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
 
 	<a name="f_c_sdl_poll_event"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_c_sdl_poll_event">c_sdl_poll_event</a> <span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
 		<span class="ekeyword">external</span>
@@ -99,6 +158,15 @@
 		<span class="ekeyword">alias</span>
 			&quot;[
 				return SDL_PushEvent ((SDL_Event*)$event);
+			]<span class="estring">&quot;</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_c_sdl_filter_events"></a><a class="efeature" href="../wrap_sdl2/sdl_events_functions_api.html#f_c_sdl_filter_events">c_sdl_filter_events</a> <span class="esymbol">(</span><span class="elocal">filter</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">;</span> <span class="elocal">userdata</span><span class="esymbol">:</span> <a class="eclass" href="../base/pointer.html">POINTER</a><span class="esymbol">)</span>
+		<span class="ekeyword">external</span>
+			&quot;C inline use &lt;SDL.h&gt;&quot;
+		<span class="ekeyword">alias</span>
+			&quot;[
+				SDL_FilterEvents ((SDL_EventFilter)$filter, (void*)$userdata);
 			]<span class="estring">&quot;</span>
 		<span class="ekeyword">end</span>
 	

@@ -3,7 +3,7 @@
 <head>
 <meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
 <meta name="description" content="i_video.c DOOM graphics stuff for SDL library"/>
-<meta name="license" content="TTCopyright (C) 1993-1996 by id Software, Inc. TTCopyright (C) 2005-2014 Simon Howard TTCopyright (C) 2021 Ilgiz Mustafin  TTThis program is free software; you can redistribute it and/or modify TTit under the terms of the GNU General Public License as published by TTthe Free Software Foundation; either version 2 of the License, or TT(at your option) any later version.  TTThis program is distributed in the hope that it will be useful, TTbut WITHOUT ANY WARRANTY; without even the implied warranty of TTMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the TTGNU General Public License for more details.  TTYou should have received a copy of the GNU General Public License along TTwith this program; if not, write to the Free Software Foundation, Inc., TT51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
+<meta name="license" content="Copyright (C) 1993-1996 by id Software, Inc. Copyright (C) 2005-2014 Simon Howard Copyright (C) 2021 Ilgiz Mustafin  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.  You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,10 +48,12 @@
 	<a class="eclass" href="../../brie_doom/d_main_links.html">D_MAIN</a>
 	<a class="eclass" href="../../brie_doom/event_t_links.html">EVENT_T</a>
 	<a class="eclass" href="../../base/integer_32_links.html">INTEGER_32</a>
+	<a class="eclass" href="../../brie_doom/i_input_links.html">I_INPUT</a>
 	<a class="eclass" href="../../brie_doom/i_main_links.html">I_MAIN</a>
 	<a class="eclass" href="../../brie_doom/i_system_links.html">I_SYSTEM</a>
 	<a class="eclass" href="../../brie_doom/render/i_video_links.html">I_VIDEO</a>
 	<a class="eclass" href="../../base/managed_pointer_links.html">MANAGED_POINTER</a>
+	<a class="eclass" href="../../base/natural_32_links.html">NATURAL_32</a>
 	<a class="eclass" href="../../base/natural_8_links.html">NATURAL_8</a>
 	<a class="eclass" href="../../brie_doom/not_implemented_links.html">NOT_IMPLEMENTED</a>
 	<a class="eclass" href="../../brie_doom/render/pixel_t_buffer_links.html">PIXEL_T_BUFFER</a>
@@ -61,11 +63,12 @@
 	<a class="eclass" href="../../wrap_sdl2/sdl_constant_api_links.html">SDL_CONSTANT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_error_links.html">SDL_ERROR</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_events_links.html">SDL_EVENTS</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_events_functions_api_links.html">SDL_EVENTS_FUNCTIONS_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_event_union_api_links.html">SDL_EVENT_UNION_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_functions_api_links.html">SDL_FUNCTIONS_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_hints_links.html">SDL_HINTS</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_keyboard_event_struct_api_links.html">SDL_KEYBOARD_EVENT_STRUCT_API</a>
-	<a class="eclass" href="../../wrap_sdl2/sdl_keycode_links.html">SDL_KEYCODE</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_keymod_enum_api_links.html">SDL_KEYMOD_ENUM_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_keysym_struct_api_links.html">SDL_KEYSYM_STRUCT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_palette_struct_api_links.html">SDL_PALETTE_STRUCT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_pixels_functions_api_links.html">SDL_PIXELS_FUNCTIONS_API</a>
@@ -75,12 +78,16 @@
 	<a class="eclass" href="../../wrap_sdl2/sdl_renderer_flags_enum_api_links.html">SDL_RENDERER_FLAGS_ENUM_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_renderer_info_struct_api_links.html">SDL_RENDERER_INFO_STRUCT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_render_functions_api_links.html">SDL_RENDER_FUNCTIONS_API</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_scancode_enum_api_links.html">SDL_SCANCODE_ENUM_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_surface_links.html">SDL_SURFACE</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_surface_functions_api_links.html">SDL_SURFACE_FUNCTIONS_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_surface_struct_api_links.html">SDL_SURFACE_STRUCT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_texture_access_enum_api_links.html">SDL_TEXTURE_ACCESS_ENUM_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_timer_functions_api_links.html">SDL_TIMER_FUNCTIONS_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_video_links.html">SDL_VIDEO</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_video_functions_api_links.html">SDL_VIDEO_FUNCTIONS_API</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_window_event_id_enum_api_links.html">SDL_WINDOW_EVENT_ID_ENUM_API</a>
+	<a class="eclass" href="../../wrap_sdl2/sdl_window_event_struct_api_links.html">SDL_WINDOW_EVENT_STRUCT_API</a>
 	<a class="eclass" href="../../wrap_sdl2/sdl_window_flags_enum_api_links.html">SDL_WINDOW_FLAGS_ENUM_API</a>
 	<a class="eclass" href="../../base/string_8_links.html">STRING_8</a>
 	<a class="eclass" href="../../base/typed_pointer_links.html">TYPED_POINTER</a> <span class="esymbol">[</span><span class="egeneric">G</span><span class="esymbol">]</span>
