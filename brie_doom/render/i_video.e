@@ -7,17 +7,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -43,6 +43,7 @@ feature
 			window_height := 600
 			fullscreen := False
 			create i_videobuffer.make (1)
+			window_focused := True
 		end
 
 feature
@@ -98,6 +99,16 @@ feature
 	initialized: BOOLEAN
 
 	screenvisible: BOOLEAN = True
+
+feature
+
+	usemouse: BOOLEAN = True
+
+	nomouse: BOOLEAN = False
+
+feature
+
+	window_focused: BOOLEAN
 
 feature
 
@@ -260,56 +271,83 @@ feature
 		end
 
 	I_GetEvent
+		note
+			source: "chocolate doom i_video.c"
 		local
 			event: EVENT_T
 			sdl_event: SDL_EVENT_UNION_API
 		do
-			{NOT_IMPLEMENTED}.not_implemented ("I_GetEvent", false)
 			from
-				create event.make
+				{SDL_EVENTS_FUNCTIONS_API}.sdl_pump_events
 				create sdl_event.make
 			until
-				{SDL_EVENTS}.sdl_poll_event (sdl_event) = 0
+				{SDL_EVENTS_FUNCTIONS_API}.sdl_poll_event (sdl_event) = 0
 			loop
-				create event.make
-				if sdl_event.type = {SDL_CONSTANT_API}.sdl_keydown then
-					event.type := {EVENT_T}.ev_keydown
-					event.data1 := xlatekey (sdl_event.key.keysym)
-					check attached i_main.d_main as d then
-						d.D_PostEvent (event)
-					end
-				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_keyup then
-					event.type := {EVENT_T}.ev_keyup
-					event.data1 := xlatekey (sdl_event.key.keysym)
-					check attached i_main.d_main as d then
-						d.D_PostEvent (event)
+				if sdl_event.type = {SDL_CONSTANT_API}.sdl_keydown and then toggle_full_screen_key_shortcut (sdl_event.key.keysym) then
+					I_ToggleFullScreen
+				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_keydown or sdl_event.type = {SDL_CONSTANT_API}.sdl_keyup then
+					i_main.i_input.I_HandleKeyboardEvent (sdl_event)
+				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_mousebuttondown or sdl_event.type = {SDL_CONSTANT_API}.sdl_mousebuttonup or sdl_event.type = {SDL_CONSTANT_API}.sdl_mousewheel then
+					if usemouse and not nomouse and window_focused then
+						i_main.i_input.I_HandleMouseEvent (sdl_event)
 					end
 				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_quit then
-					i_main.i_system.I_Quit
-				else
-						-- ignore SDL_MOUSEBUTTONDOWN
-						-- ignore SDL_MOUSEBUTTONUP
-						-- ignore SDL_MOUSEMOTION
+					if screensaver_mode then
+						i_main.i_system.i_quit
+					else
+						create event.make
+						event.type := {EVENT_T}.ev_quit
+						i_main.d_main.D_PostEvent (event)
+					end
+				elseif sdl_event.type = {SDL_CONSTANT_API}.sdl_windowevent then
+					check attached screen as s then
+						if sdl_event.window.windowID = {SDL_VIDEO_FUNCTIONS_API}.sdl_get_window_id (s) then
+							HandleWindowEvent (sdl_event.window)
+						end
+					end
 				end
 			end
 		end
 
-	xlatekey (key: SDL_KEYSYM_STRUCT_API): INTEGER
+	toggle_full_screen_key_shortcut (sym: SDL_KEYSYM_STRUCT_API): BOOLEAN
+		note
+			source: "chocolate doom i_video.c"
+		local
+			flags: NATURAL
 		do
-			{NOT_IMPLEMENTED}.not_implemented ("xlatekey", false)
-			if key.sym = {SDL_KEYCODE}.sdlk_left then
-				Result := {DOOMDEF_H}.key_leftarrow
-			elseif key.sym = {SDL_KEYCODE}.sdlk_right then
-				Result := {DOOMDEF_H}.key_rightarrow
-			elseif key.sym = {SDL_KEYCODE}.sdlk_up then
-				Result := {DOOMDEF_H}.key_uparrow
-			elseif key.sym = {SDL_KEYCODE}.sdlk_down then
-				Result := {DOOMDEF_H}.key_downarrow
-			elseif key.sym = {SDL_KEYCODE}.sdlk_lctrl or key.sym = {SDL_KEYCODE}.sdlk_rctrl then
-				Result := {DOOMDEF_H}.key_rctrl
-			else
-				Result := key.sym
+			flags := {SDL_KEYMOD_ENUM_API}.KMOD_LALT.as_natural_32 | {SDL_KEYMOD_ENUM_API}.KMOD_RALT.as_natural_32
+			Result := (sym.scancode = {SDL_SCANCODE_ENUM_API}.sdl_scancode_return or sym.scancode = {SDL_SCANCODE_ENUM_API}.sdl_scancode_kp_enter) and ((sym.mod & flags) /= 0)
+		end
+
+	I_ToggleFullScreen
+		note
+			source: "chocolate doom i_video.c"
+		do
+			{NOT_IMPLEMENTED}.not_implemented ("I_ToggleFullScreen", false)
+		end
+
+	HandleWindowEvent (event: SDL_WINDOW_EVENT_STRUCT_API)
+		do
+			{NOT_IMPLEMENTED}.not_implemented ("HandleWindowEvent", false)
+				-- skip SDL_WINDOWEVENT_EXPOSED
+				-- skip SDL_WINDOWEVENT_RESIZED
+				-- skip SDL_WINDOWEVENT_MINIMIZED
+				-- skip SDL_WINDOWEVENT_MAXIMIZED
+				-- skip SDL_WINDOWEVENT_RESTORED
+
+				-- Update the value of window_focused when we get a focus event
+				--
+				-- We try to make ourselves be well-behaved: the grab on the mouse
+				-- is removed if we lose focus (such as a popup window appearing),
+				-- and we dont move the mouse around if we aren't focused either.
+			if event.type = {SDL_WINDOW_EVENT_ID_ENUM_API}.sdl_windowevent_focus_gained.as_natural_32 then
+				window_focused := True
+			elseif event.type = {SDL_WINDOW_EVENT_ID_ENUM_API}.sdl_windowevent_focus_lost.as_natural_32 then
+				window_focused := False
 			end
+
+				-- skip SDL_WINDOWEVENT_MOVED
+
 		end
 
 feature
@@ -635,7 +673,7 @@ feature -- I_FinishUpdate
 	I_FinishUpdate
 		do
 				-- From chocolate doom
-			{NOT_IMPLEMENTED}.not_implemented("I_FinishUpdate", false)
+			{NOT_IMPLEMENTED}.not_implemented ("I_FinishUpdate", false)
 
 				-- skip devparm
 			check attached screenbuffer as sb then
