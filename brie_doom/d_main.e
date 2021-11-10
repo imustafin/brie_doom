@@ -10,17 +10,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -204,7 +204,7 @@ feature
 
 	FindResponseFile
 		do
-				{NOT_IMPLEMENTED}.not_implemented ("FindResponseFile", False)
+			{NOT_IMPLEMENTED}.not_implemented ("FindResponseFile", False)
 		end
 
 	IdentifyVersion
@@ -221,6 +221,25 @@ feature
 
 feature -- D_DoomLoop
 
+	drone: BOOLEAN
+
+	D_GrabMouseCallback: BOOLEAN
+			-- Called to determine whether to grab the mouse pointer
+		note
+			source: "chocolate doom d_main.c"
+		do
+			if drone then
+					-- Drone players don't need mouse focus
+				Result := False
+			elseif i_main.m_menu.menuactive or i_main.g_game.paused then
+					-- when menu is active or game is paused, release the mouse
+				Result := False
+			else
+					-- only grab mouse when playing levels (but not demos)
+				Result := (i_main.g_game.gamestate = {DOOMDEF_H}.GS_LEVEL) and not i_main.g_game.demoplayback and not advancedemo
+			end
+		end
+
 	D_DoomLoop
 		do
 			{NOT_IMPLEMENTED}.not_implemented ("D_DoomLoop", false)
@@ -228,6 +247,7 @@ feature -- D_DoomLoop
 				i_main.g_game.G_BeginRecording
 			end
 				-- skip -debugfile
+			i_main.i_video.grabmouse_callback := agent D_GrabMouseCallback
 			check attached i_main.i_video as iv then
 				iv.I_InitGraphics
 			end
@@ -274,7 +294,6 @@ feature -- D_DoomLoop
 				else
 					perf_start := i_main.i_timer.i_get_time_us
 				end
-
 				i_main.i_video.I_StartFrame
 				if singletics then
 					i_main.i_video.i_starttic

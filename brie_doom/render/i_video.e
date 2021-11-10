@@ -44,6 +44,7 @@ feature
 			fullscreen := False
 			create i_videobuffer.make (1)
 			window_focused := True
+			grabmouse := 1
 		end
 
 feature
@@ -194,7 +195,7 @@ feature -- I_InitGraphics
 			set_sdl_palette
 
 				-- SDL2-TODO UpdateFocus()
-				-- skip UpdateGrab
+			UpdateGrab
 
 				-- On some systems, it takes a second or so for the screen to settle
 				-- after changing modes. We include the option to add a delay when
@@ -322,8 +323,44 @@ feature
 	I_ToggleFullScreen
 		note
 			source: "chocolate doom i_video.c"
+		local
+			flags: INTEGER
 		do
-			{NOT_IMPLEMENTED}.not_implemented ("I_ToggleFullScreen", false)
+				-- TODO: Consider implementing fullscreen toggle for SDL_WINDOW_FULLSCREEN
+				-- (mode-changing) setup. This is hard because we have to shut down and
+				-- restart again.
+			if fullscreen_width /= 0 or fullscreen_height /= 0 then
+					-- return
+			else
+				fullscreen := not fullscreen
+				if fullscreen then
+					flags := flags | {SDL_WINDOW_FLAGS_ENUM_API}.SDL_WINDOW_FULLSCREEN_DESKTOP
+				end
+				check attached screen as s then
+					{SDL_VIDEO_FUNCTIONS_API}.SDL_Set_Window_Fullscreen (s, flags.as_natural_32).do_nothing
+					if not fullscreen then
+						AdjustWindowSize
+						{SDL_VIDEO_FUNCTIONS_API}.SDL_Set_Window_Size (s, window_width, window_height)
+					end
+				end
+			end
+		end
+
+	AdjustWindowSize
+			-- Adjust window_width / window_height variables to be an aspect
+			-- ratio consistent with the aspect_ratio_correct variable.
+		note
+			source: "chocolate doom i_video.c"
+		do
+			if aspect_ratio_correct or integer_scaling then
+				if window_width * actualheight <= window_height * {DOOMDEF_H}.SCREENWIDTH then
+						-- We round up window_height if the ratio is not exact; this leaves
+						-- the result stable.
+					window_height := (window_width * actualheight + {DOOMDEF_H}.SCREENWIDTH - 1) // {DOOMDEF_H}.SCREENWIDTH
+				else
+					window_width := window_height * {DOOMDEF_H}.SCREENWIDTH // actualheight
+				end
+			end
 		end
 
 	HandleWindowEvent (event: SDL_WINDOW_EVENT_STRUCT_API)
@@ -671,11 +708,14 @@ feature -- I_FinishUpdate
 	lasttic: INTEGER
 
 	I_FinishUpdate
+		note
+			source: "chocolate doom i_video.c"
 		do
-				-- From chocolate doom
 			{NOT_IMPLEMENTED}.not_implemented ("I_FinishUpdate", false)
+			UpdateGrab
 
-				-- skip devparm
+				-- draws little dots on the bottom of the screen
+				-- skip little dots
 			check attached screenbuffer as sb then
 				if palette_to_set then
 					check attached sb.format as f and then attached f.palette as p then
@@ -729,6 +769,90 @@ feature -- I_FinishUpdate
 
 					{SDL_RENDER_FUNCTIONS_API}.SDL_Render_Present (r)
 				end
+			end
+		end
+
+feature -- Mouse grab
+
+	currently_grabbed: BOOLEAN
+
+	nograbmouse_override: BOOLEAN
+
+	grabmouse: INTEGER
+
+	grabmouse_callback: detachable PREDICATE assign set_grabmouse_callback
+
+	set_grabmouse_callback (a_grabmouse_callback: like grabmouse_callback)
+		do
+			grabmouse_callback := a_grabmouse_callback
+		end
+
+	MouseShouldBeGrabbed: BOOLEAN
+		note
+			source: "chocolate doom i_video.c"
+		do
+			if screensaver_mode then
+
+					-- never grab the mouse when in screensaver mode
+				Result := False
+			elseif not window_focused then
+					-- if the window doesn't have focus, never grab it
+				Result := False
+			elseif fullscreen then
+					-- always grab the mouse when full screen (dont want to
+					-- see the mouse pointer)
+				Result := True
+			elseif not usemouse or nomouse then
+					-- Don't grab the mouse if mouse input is disabled
+				Result := False
+			elseif nograbmouse_override or not grabmouse.to_boolean then
+					-- if we specify not to grab the mouse, never grab
+				Result := False
+			elseif attached grabmouse_callback as cb then
+				Result := cb.item
+			else
+				Result := True
+			end
+		end
+
+	UpdateGrab
+		note
+			source: "chocolate doom i_video.c"
+		local
+			grab: BOOLEAN
+			screen_w, screen_h: INTEGER
+		do
+			grab := MouseShouldBeGrabbed
+			if screensaver_mode then
+					-- Hide the cursor in screensaver mode
+				SetShowCursor (False)
+			elseif grab and not currently_grabbed then
+				SetShowCursor (False)
+			elseif not grab and currently_grabbed then
+				SetShowCursor (True)
+					-- When releasing the mouse from grab, warp the mouse cursor to
+					-- the bottom-right of the screen. This is a minimally distracting
+					-- place for it to appear - we may only have released the grab
+					-- because we're at an end of level intermission screen, for
+					-- example.
+				check attached screen as s then
+					{SDL_VIDEO_FUNCTIONS_API}.SDL_Get_Window_Size (s, $screen_w, $screen_h)
+					{SDL_MOUSE_FUNCTIONS_API}.SDL_Warp_Mouse_In_Window (s, screen_w - 16, screen_h - 16)
+				end
+				{SDL_MOUSE_FUNCTIONS_API}.SDL_Get_Relative_Mouse_State (create {TYPED_POINTER [INTEGER]}, create {TYPED_POINTER [INTEGER]}).do_nothing
+			end
+			currently_grabbed := grab
+		end
+
+	SetShowCursor (show: BOOLEAN)
+		note
+			source: "chocolate doom i_video.c"
+		do
+			if not screensaver_mode then
+					-- When the cursor is hidden, grab the input.
+					-- Relative mode implicitly hides the cursor.
+				{SDL_MOUSE_FUNCTIONS_API}.SDL_Set_Relative_Mouse_Mode ((not show).to_integer).do_nothing
+				{SDL_MOUSE_FUNCTIONS_API}.SDL_Get_Relative_Mouse_State (create {TYPED_POINTER [INTEGER]}, create {TYPED_POINTER [INTEGER]}).do_nothing
 			end
 		end
 
