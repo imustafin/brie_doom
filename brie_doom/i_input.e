@@ -215,4 +215,61 @@ feature
 			i_main.d_main.d_postevent (up)
 		end
 
+	I_ReadMouse
+			-- Read the change in mouse state to generate mouse motion events
+			--
+			-- This is to combine all mouse movement for a tic into one mouse
+			-- motion event.
+		note
+			source: "chocolate doom i_input.c"
+		local
+			x, y: INTEGER
+			ev: EVENT_T
+		do
+			{SDL_MOUSE_FUNCTIONS_API}.SDL_Get_Relative_Mouse_State ($x, $y).do_nothing
+			if x /= 0 and y /= 0 then
+				create ev.make
+				ev.type := {EVENT_T}.ev_mouse
+				ev.data1 := mouse_button_state.as_integer_32
+				ev.data2 := AccelerateMouse (x)
+				if not novert.to_boolean then
+					ev.data3 := - AccelerateMouse (y)
+				else
+					ev.data3 := 0
+				end
+				i_main.d_main.D_PostEvent (ev)
+			end
+		end
+
+		-- Mouse acceleration
+		--
+		-- This emulates some of the behavior of DOS mouse drivers by increasing
+		-- the speed when the mouse is moved fast.
+		--
+		-- The mouse input values are input directly to the game, but when
+		-- the values exceed the value of mouse_threshold, they are multiplied
+		-- by mouse_acceleration to increase the speed.
+
+	mouse_acceleration: REAL = 2.0
+
+	mouse_threshold: INTEGER = 10
+
+		-- Disallow mouse and joystick movement to cause forward/backward
+		-- motion.  Specified with the '-novert' command line parameter.
+		-- This is an int to allow saving to config file
+
+	novert: INTEGER = 0
+
+	AccelerateMouse (val: INTEGER): INTEGER
+		note
+			source: "chocolate doom i_input.c"
+		do
+				-- originally returned if val < 0 then AccelerateMouse(-val)
+			if val > mouse_threshold then
+				Result := ((val - mouse_threshold) * mouse_acceleration + mouse_threshold).floor
+			else
+				Result := val
+			end
+		end
+
 end

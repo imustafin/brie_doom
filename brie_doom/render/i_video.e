@@ -261,9 +261,9 @@ feature
 			{NOT_IMPLEMENTED}.not_implemented ("I_StartTic", false)
 			if initialized then
 				I_GetEvent
-					--				if usemouse and not nomouse and window_focused then
-					--					I_ReadMouse
-					--				end
+				if usemouse and not nomouse and window_focused then
+					i_main.i_input.I_ReadMouse
+				end
 					--				if joywait < I_GetTime then
 					--					I_UpdateJoystick
 					--				end
