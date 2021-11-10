@@ -7,17 +7,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -283,7 +283,7 @@ feature -- controls (have defaults)
 
 	mousebuttons: ARRAY [BOOLEAN] -- originally `&mousearray[1]' with `boolean mousearray[4]'
 		once
-			create Result.make_filled (False, -1, 2)
+			create Result.make_filled (False, -1, {I_INPUT}.max_mouse_buttons - 1)
 		end
 
 		-- mouse values are used once
@@ -1033,7 +1033,7 @@ feature -- demo
 				across
 					i_main.i_timer.perfframes is frame
 				loop
-					print(frame.microseconds.out + "," + frame.description + "%N")
+					print (frame.microseconds.out + "," + frame.description + "%N")
 				end
 				{I_MAIN}.i_error ("timed " + gametic.out + " gametics in " + (endtime - starttime).out + " realtics")
 			end
@@ -1473,11 +1473,36 @@ feature
 								gamekeydown [ev.data1] := False
 							end
 							Result := False -- always let key up events filter down
+						elseif ev.type = {EVENT_T}.ev_mouse then
+							SetMouseButtons (ev.data1)
+							mousex := ev.data2 * (i_main.m_menu.mouseSensitivity + 5) // 10
+							mousey := ev.data3 * (i_main.m_menu.mouseSensitivity + 5) // 10
+							Result := True
 						end
-							-- skip ev_mouse
+
 							-- skip ev_joystick
 					end
 				end
+			end
+		end
+
+	SetMouseButtons (a_button_mask: INTEGER)
+		local
+			i: INTEGER
+			button_mask: NATURAL
+			button_on: BOOLEAN
+		do
+			button_mask := a_button_mask.as_natural_32
+			from
+				i := 0
+			until
+				i >= {I_INPUT}.MAX_MOUSE_BUTTONS
+			loop
+				button_on := (button_mask & ({NATURAL} 1 |<< i)) /= 0
+					-- Detect button press:
+					-- skip mouse weapon next/prev buttons
+				mousebuttons [i] := button_on
+				i := i + 1
 			end
 		end
 
@@ -1497,7 +1522,7 @@ feature
 			-- Spawns a player at one of the random death match spots
 			-- called at level load and each death
 		do
-				{NOT_IMPLEMENTED}.not_implemented ("G_DeathMatchSpawnPlayer", False)
+			{NOT_IMPLEMENTED}.not_implemented ("G_DeathMatchSpawnPlayer", False)
 		end
 
 feature
