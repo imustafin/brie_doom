@@ -68,6 +68,7 @@
 			<a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
 			<span class="ekeyword">create</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_i_videobuffer">i_videobuffer</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/render/pixel_t_buffer.html#f_make">make</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="enumber">1</span><span class="esymbol">)</span>
 			<a class="efeature" href="../../brie_doom/render/i_video.html#f_window_focused">window_focused</a> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse">grabmouse</a> <span class="esymbol">:=</span> <span class="enumber">1</span>
 		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">feature</span> 
@@ -205,6 +206,7 @@
 			<span class="ekeyword">end</span>
 			<a class="efeature" href="../../brie_doom/render/i_video.html#f_i_setpalette">i_setpalette</a><span class="esymbol"> </span><span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/i_video.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_w_wad">W_wad</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/w_wad.html#f_w_cachelumpname">w_cachelumpname</a><span class="esymbol"> </span><span class="esymbol">(</span>&quot;PLAYPAL&quot;<span class="esymbol">)</span><span class="esymbol">)</span>
 			<a class="efeature" href="../../brie_doom/render/i_video.html#f_set_sdl_palette">set_sdl_palette</a>
+			<a class="efeature" href="../../brie_doom/render/i_video.html#f_updategrab">updategrab</a>
 			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screensaver_mode">screensaver_mode</a> <span class="ekeyword">then</span>
 				<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_timer_functions_api.html">SDL_TIMER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_timer_functions_api.html#f_sdl_delay">sdl_delay</a> <span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/i_video.html#f_startup_delay">Startup_delay</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_natural_32">to_natural_32</a><span class="esymbol">)</span>
 			<span class="ekeyword">end</span>
@@ -248,6 +250,9 @@
 			<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span>&quot;I_StartTic&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
 			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_initialized">initialized</a> <span class="ekeyword">then</span>
 				<a class="efeature" href="../../brie_doom/render/i_video.html#f_i_getevent">i_getevent</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_usemouse">Usemouse</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_nomouse">Nomouse</a> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_focused">window_focused</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/render/i_video.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_main.html#f_i_input">I_input</a><span class="edot">.</span><a class="efeature" href="../../brie_doom/i_input.html#f_i_readmouse">i_readmouse</a>
+				<span class="ekeyword">end</span>
 			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 
@@ -299,8 +304,38 @@
 		<span class="ekeyword">end</span>
 
 	<a name="f_i_togglefullscreen"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_i_togglefullscreen">i_togglefullscreen</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">flags</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
 		<span class="ekeyword">do</span>
-			<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span>&quot;I_ToggleFullScreen&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen_width">Fullscreen_width</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen_height">Fullscreen_height</a> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+			<span class="ekeyword">else</span>
+				<a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <span class="esymbol">:=</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <span class="ekeyword">then</span>
+					<span class="elocal">flags</span> <span class="esymbol">:=</span> <span class="elocal">flags</span> <a class="esymbol" href="../../base/integer_32.html#f_bit_or">|</a> <span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_window_flags_enum_api.html">SDL_WINDOW_FLAGS_ENUM_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_window_flags_enum_api.html#f_sdl_window_fullscreen_desktop">sdl_window_fullscreen_desktop</a>
+				<span class="ekeyword">end</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screen">screen</a> <span class="ekeyword">as</span> s
+				<span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_video_functions_api.html">SDL_VIDEO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_video_functions_api.html#f_sdl_set_window_fullscreen">sdl_set_window_fullscreen</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">,</span> <span class="elocal">flags</span><span class="edot">.</span><a class="efeature" href="../../base/integer_32.html#f_as_natural_32">as_natural_32</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+					<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <span class="ekeyword">then</span>
+						<a class="efeature" href="../../brie_doom/render/i_video.html#f_adjustwindowsize">adjustwindowsize</a>
+						<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_video_functions_api.html">SDL_VIDEO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_video_functions_api.html#f_sdl_set_window_size">sdl_set_window_size</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_width">window_width</a><span class="esymbol">,</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_height">window_height</a><span class="esymbol">)</span>
+					<span class="ekeyword">end</span>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_adjustwindowsize"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_adjustwindowsize">adjustwindowsize</a>
+			<span class="ecomment">--</span><span class="ecomment"> Adjust window_width / window_height variables to be an aspect</span>
+			<span class="ecomment">--</span><span class="ecomment"> ratio consistent with the aspect_ratio_correct variable.</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_aspect_ratio_correct">aspect_ratio_correct</a> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_integer_scaling">integer_scaling</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_width">window_width</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_actualheight">actualheight</a> <a class="esymbol" href="../../base/comparable.html#f_is_less_equal">&lt;=</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_height">window_height</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a> <span class="ekeyword">then</span>
+					<a class="efeature" href="../../brie_doom/render/i_video.html#f_window_height">window_height</a> <span class="esymbol">:=</span> <span class="esymbol">(</span><a class="efeature" href="../../brie_doom/render/i_video.html#f_window_width">window_width</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_actualheight">actualheight</a> <a class="esymbol" href="../../base/integer_32.html#f_plus">+</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">1</span><span class="esymbol">)</span> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a>
+				<span class="ekeyword">else</span>
+					<a class="efeature" href="../../brie_doom/render/i_video.html#f_window_width">window_width</a> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_height">window_height</a> <a class="esymbol" href="../../base/integer_32.html#f_product">*</a> <span class="esymbol">{</span><a class="eclass" href="../../brie_doom/doomdef_h.html">DOOMDEF_H</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/doomdef_h.html#f_screenwidth">screenwidth</a> <a class="esymbol" href="../../base/integer_32.html#f_integer_quotient">//</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_actualheight">actualheight</a>
+				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 
 	<a name="f_handlewindowevent"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_handlewindowevent">handlewindowevent</a> <span class="esymbol">(</span><span class="elocal">event</span><span class="esymbol">:</span> <a class="eclass" href="../../wrap_sdl2/sdl_window_event_struct_api.html">SDL_WINDOW_EVENT_STRUCT_API</a><span class="esymbol">)</span>
@@ -568,6 +603,7 @@
 	<a name="f_i_finishupdate"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_i_finishupdate">i_finishupdate</a>
 		<span class="ekeyword">do</span>
 			<span class="esymbol">{</span><a class="eclass" href="../../brie_doom/not_implemented.html">NOT_IMPLEMENTED</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../brie_doom/not_implemented.html#f_not_implemented">not_implemented</a> <span class="esymbol">(</span>&quot;I_FinishUpdate&quot;<span class="esymbol">,</span> <span class="ekeyword">False</span><span class="esymbol">)</span>
+			<a class="efeature" href="../../brie_doom/render/i_video.html#f_updategrab">updategrab</a>
 			<span class="ekeyword">check</span>
 					<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screenbuffer">screenbuffer</a> <span class="ekeyword">as</span> sb
 			<span class="ekeyword">then</span>
@@ -609,6 +645,71 @@
 					<span class="ekeyword">end</span>
 					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_render_functions_api.html">SDL_RENDER_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_render_functions_api.html#f_sdl_render_present">sdl_render_present</a> <span class="esymbol">(</span><span class="elocal">r</span><span class="esymbol">)</span>
 				<span class="ekeyword">end</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+	
+<span class="ekeyword">feature</span> <span class="ecomment">--</span><span class="ecomment"> Mouse grab</span>
+
+	<a name="f_currently_grabbed"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_currently_grabbed">currently_grabbed</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_nograbmouse_override"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_nograbmouse_override">nograbmouse_override</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+
+	<a name="f_grabmouse"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse">grabmouse</a><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+
+	<a name="f_grabmouse_callback"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse_callback">grabmouse_callback</a><span class="esymbol">:</span> <span class="ekeyword">detachable</span> <a class="eclass" href="../../base/predicate.html">PREDICATE</a> <span class="ekeyword">assign</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_set_grabmouse_callback">set_grabmouse_callback</a>
+
+	<a name="f_set_grabmouse_callback"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_set_grabmouse_callback">set_grabmouse_callback</a> <span class="esymbol">(</span><span class="elocal">a_grabmouse_callback</span><span class="esymbol">:</span> <span class="ekeyword">like</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse_callback">grabmouse_callback</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse_callback">grabmouse_callback</a> <span class="esymbol">:=</span> <span class="elocal">a_grabmouse_callback</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mouseshouldbegrabbed"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_mouseshouldbegrabbed">mouseshouldbegrabbed</a><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screensaver_mode">screensaver_mode</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_window_focused">window_focused</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_fullscreen">fullscreen</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_usemouse">Usemouse</a> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_nomouse">Nomouse</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_nograbmouse_override">nograbmouse_override</a> <a class="ekeyword" href="../../base/boolean.html#f_disjuncted">or</a> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse">grabmouse</a><span class="edot">.</span><a class="efeature" href="../../base/integer_32_ref.html#f_to_boolean">to_boolean</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">False</span>
+			<span class="ekeyword">elseif</span> <span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_grabmouse_callback">grabmouse_callback</a> <span class="ekeyword">as</span> cb <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">cb</span><span class="edot">.</span><a class="efeature" href="../../base/function.html#f_item">item</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="ekeyword">True</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_updategrab"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_updategrab">updategrab</a>
+		<span class="ekeyword">local</span>
+			<span class="elocal">grab</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a>
+			<span class="elocal">screen_w</span><span class="esymbol">,</span> <span class="elocal">screen_h</span><span class="esymbol">:</span> <a class="eclass" href="../../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="elocal">grab</span> <span class="esymbol">:=</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_mouseshouldbegrabbed">mouseshouldbegrabbed</a>
+			<span class="ekeyword">if</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screensaver_mode">screensaver_mode</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/i_video.html#f_setshowcursor">setshowcursor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <span class="elocal">grab</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_currently_grabbed">currently_grabbed</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/i_video.html#f_setshowcursor">setshowcursor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">False</span><span class="esymbol">)</span>
+			<span class="ekeyword">elseif</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <span class="elocal">grab</span> <a class="ekeyword" href="../../base/boolean.html#f_conjuncted">and</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_currently_grabbed">currently_grabbed</a> <span class="ekeyword">then</span>
+				<a class="efeature" href="../../brie_doom/render/i_video.html#f_setshowcursor">setshowcursor</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="ekeyword">True</span><span class="esymbol">)</span>
+				<span class="ekeyword">check</span>
+						<span class="ekeyword">attached</span> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screen">screen</a> <span class="ekeyword">as</span> s
+				<span class="ekeyword">then</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_video_functions_api.html">SDL_VIDEO_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_video_functions_api.html#f_sdl_get_window_size">sdl_get_window_size</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">screen_w</span><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">screen_h</span><span class="esymbol">)</span>
+					<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_mouse_functions_api.html">SDL_MOUSE_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_mouse_functions_api.html#f_sdl_warp_mouse_in_window">sdl_warp_mouse_in_window</a> <span class="esymbol">(</span><span class="elocal">s</span><span class="esymbol">,</span> <span class="elocal">screen_w</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">16</span><span class="esymbol">,</span> <span class="elocal">screen_h</span> <a class="esymbol" href="../../base/integer_32.html#f_minus">-</a> <span class="enumber">16</span><span class="esymbol">)</span>
+				<span class="ekeyword">end</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_mouse_functions_api.html">SDL_MOUSE_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_mouse_functions_api.html#f_sdl_get_relative_mouse_state">sdl_get_relative_mouse_state</a> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/typed_pointer.html">TYPED_POINTER</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/typed_pointer.html">TYPED_POINTER</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">end</span>
+			<a class="efeature" href="../../brie_doom/render/i_video.html#f_currently_grabbed">currently_grabbed</a> <span class="esymbol">:=</span> <span class="elocal">grab</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_setshowcursor"></a><a class="efeature" href="../../brie_doom/render/i_video.html#f_setshowcursor">setshowcursor</a> <span class="esymbol">(</span><span class="elocal">show</span><span class="esymbol">:</span> <a class="eclass" href="../../base/boolean.html">BOOLEAN</a><span class="esymbol">)</span>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <a class="efeature" href="../../brie_doom/render/i_video.html#f_screensaver_mode">screensaver_mode</a> <span class="ekeyword">then</span>
+				<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_mouse_functions_api.html">SDL_MOUSE_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_mouse_functions_api.html#f_sdl_set_relative_mouse_mode">sdl_set_relative_mouse_mode</a> <span class="esymbol">(</span><span class="esymbol">(</span><a class="ekeyword" href="../../base/boolean.html#f_negated">not</a> <span class="elocal">show</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/boolean_ref.html#f_to_integer">to_integer</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
+				<span class="esymbol">{</span><a class="eclass" href="../../wrap_sdl2/sdl_mouse_functions_api.html">SDL_MOUSE_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../../wrap_sdl2/sdl_mouse_functions_api.html#f_sdl_get_relative_mouse_state">sdl_get_relative_mouse_state</a> <span class="esymbol">(</span><span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/typed_pointer.html">TYPED_POINTER</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="esymbol">,</span> <span class="ekeyword">create</span><span class="esymbol"> </span><span class="esymbol">{</span><a class="eclass" href="../../base/typed_pointer.html">TYPED_POINTER</a> <span class="esymbol">[</span><a class="eclass" href="../../base/integer_32.html">INTEGER_32</a><span class="esymbol">]</span><span class="esymbol">}</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../../base/any.html#f_do_nothing">do_nothing</a>
 			<span class="ekeyword">end</span>
 		<span class="ekeyword">end</span>
 	

@@ -202,6 +202,48 @@
 			<span class="elocal">up</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
 			<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">up</span><span class="esymbol">)</span>
 		<span class="ekeyword">end</span>
+
+	<a name="f_i_readmouse"></a><a class="efeature" href="../brie_doom/i_input.html#f_i_readmouse">i_readmouse</a>
+			<span class="ecomment">--</span><span class="ecomment"> Read the change in mouse state to generate mouse motion events</span>
+			<span class="ecomment">--</span>
+			<span class="ecomment">--</span><span class="ecomment"> This is to combine all mouse movement for a tic into one mouse</span>
+			<span class="ecomment">--</span><span class="ecomment"> motion event.</span>
+		<span class="ekeyword">local</span>
+			<span class="elocal">x</span><span class="esymbol">,</span> <span class="elocal">y</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+			<span class="elocal">ev</span><span class="esymbol">:</span> <a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a>
+		<span class="ekeyword">do</span>
+			<span class="esymbol">{</span><a class="eclass" href="../wrap_sdl2/sdl_mouse_functions_api.html">SDL_MOUSE_FUNCTIONS_API</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../wrap_sdl2/sdl_mouse_functions_api.html#f_sdl_get_relative_mouse_state">sdl_get_relative_mouse_state</a> <span class="esymbol">(</span><span class="esymbol">$</span><span class="elocal">x</span><span class="esymbol">,</span> <span class="esymbol">$</span><span class="elocal">y</span><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/any.html#f_do_nothing">do_nothing</a>
+			<span class="ekeyword">if</span> <span class="elocal">x</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <a class="ekeyword" href="../base/boolean.html#f_conjuncted">and</a> <span class="elocal">y</span> <span class="esymbol">/=</span> <span class="enumber">0</span> <span class="ekeyword">then</span>
+				<span class="ekeyword">create</span> <span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_make">make</a>
+				<span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_type">type</a> <span class="esymbol">:=</span> <span class="esymbol">{</span><a class="eclass" href="../brie_doom/event_t.html">EVENT_T</a><span class="esymbol">}</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_ev_mouse">ev_mouse</a>
+				<span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data1">data1</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_button_state">mouse_button_state</a><span class="edot">.</span><a class="efeature" href="../base/natural_32.html#f_as_integer_32">as_integer_32</a>
+				<span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data2">data2</a> <span class="esymbol">:=</span> <a class="efeature" href="../brie_doom/i_input.html#f_acceleratemouse">acceleratemouse</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">x</span><span class="esymbol">)</span>
+				<span class="ekeyword">if</span> <a class="ekeyword" href="../base/boolean.html#f_negated">not</a> <a class="efeature" href="../brie_doom/i_input.html#f_novert">Novert</a><span class="edot">.</span><a class="efeature" href="../base/integer_32_ref.html#f_to_boolean">to_boolean</a> <span class="ekeyword">then</span>
+					<span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <a class="esymbol" href="../base/integer_32.html#f_opposite">-</a> <a class="efeature" href="../brie_doom/i_input.html#f_acceleratemouse">acceleratemouse</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">y</span><span class="esymbol">)</span>
+				<span class="ekeyword">else</span>
+					<span class="elocal">ev</span><span class="edot">.</span><a class="efeature" href="../brie_doom/event_t.html#f_data3">data3</a> <span class="esymbol">:=</span> <span class="enumber">0</span>
+				<span class="ekeyword">end</span>
+				<a class="efeature" href="../brie_doom/i_input.html#f_i_main">i_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/i_main.html#f_d_main">D_main</a><span class="edot">.</span><a class="efeature" href="../brie_doom/d_main.html#f_d_postevent">d_postevent</a><span class="esymbol"> </span><span class="esymbol">(</span><span class="elocal">ev</span><span class="esymbol">)</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
+
+	<a name="f_mouse_acceleration"></a><a class="efeature" href="../brie_doom/i_input.html#f_mouse_acceleration">Mouse_acceleration</a><span class="esymbol">:</span> <a class="eclass" href="../base/real_32.html">REAL_32</a> <span class="esymbol">=</span> <span class="enumber">2.0</span>
+
+	<a name="f_mouse_threshold"></a><a class="efeature" href="../brie_doom/i_input.html#f_mouse_threshold">Mouse_threshold</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">10</span>
+			<span class="ecomment">--</span><span class="ecomment"> Disallow mouse and joystick movement to cause forward/backward</span>
+			<span class="ecomment">--</span><span class="ecomment"> motion. &nbsp;Specified with the '-novert' command line parameter.</span>
+			<span class="ecomment">--</span><span class="ecomment"> This is an int to allow saving to config file</span>
+
+	<a name="f_novert"></a><a class="efeature" href="../brie_doom/i_input.html#f_novert">Novert</a><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a> <span class="esymbol">=</span> <span class="enumber">0</span>
+
+	<a name="f_acceleratemouse"></a><a class="efeature" href="../brie_doom/i_input.html#f_acceleratemouse">acceleratemouse</a> <span class="esymbol">(</span><span class="elocal">val</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a><span class="esymbol">)</span><span class="esymbol">:</span> <a class="eclass" href="../base/integer_32.html">INTEGER_32</a>
+		<span class="ekeyword">do</span>
+			<span class="ekeyword">if</span> <span class="elocal">val</span> <a class="esymbol" href="../base/comparable.html#f_is_greater">&gt;</a> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_threshold">Mouse_threshold</a> <span class="ekeyword">then</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="esymbol">(</span><span class="esymbol">(</span><span class="elocal">val</span> <a class="esymbol" href="../base/integer_32.html#f_minus">-</a> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_threshold">Mouse_threshold</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_real">to_real</a> <a class="esymbol" href="../base/real_32.html#f_product">*</a> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_acceleration">Mouse_acceleration</a> <a class="esymbol" href="../base/real_32.html#f_plus">+</a> <a class="efeature" href="../brie_doom/i_input.html#f_mouse_threshold">Mouse_threshold</a><span class="edot">.</span><a class="efeature" href="../base/integer_32.html#f_to_real">to_real</a><span class="esymbol">)</span><span class="edot">.</span><a class="efeature" href="../base/real_32_ref.html#f_floor">floor</a>
+			<span class="ekeyword">else</span>
+				<span class="ekeyword">Result</span> <span class="esymbol">:=</span> <span class="elocal">val</span>
+			<span class="ekeyword">end</span>
+		<span class="ekeyword">end</span>
 	
 <span class="ekeyword">end</span> <span class="ecomment">--</span> <span class="ecomment">class </span><a class="eclass" href="../brie_doom/i_input.html">I_INPUT</a></pre><form class="nav" onsubmit="go_to('../',this.c.value);return false;">
 <div class="nav">
