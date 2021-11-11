@@ -250,7 +250,12 @@ feature
 		-- the values exceed the value of mouse_threshold, they are multiplied
 		-- by mouse_acceleration to increase the speed.
 
-	mouse_acceleration: REAL = 2.0
+	mouse_acceleration: REAL assign set_mouse_acceleration
+
+	set_mouse_acceleration (a_mouse_acceleration: like mouse_acceleration)
+		do
+			mouse_acceleration := a_mouse_acceleration
+		end
 
 	mouse_threshold: INTEGER = 10
 
@@ -258,14 +263,20 @@ feature
 		-- motion.  Specified with the '-novert' command line parameter.
 		-- This is an int to allow saving to config file
 
-	novert: INTEGER = 0
+	novert: INTEGER assign set_novert
+
+	set_novert (a_novert: like novert)
+		do
+			novert := a_novert
+		end
 
 	AccelerateMouse (val: INTEGER): INTEGER
 		note
 			source: "chocolate doom i_input.c"
 		do
-				-- originally returned if val < 0 then AccelerateMouse(-val)
-			if val > mouse_threshold then
+			if val < 0 then
+				Result := - AccelerateMouse (- val)
+			elseif val > mouse_threshold then
 				Result := ((val - mouse_threshold) * mouse_acceleration + mouse_threshold).floor
 			else
 				Result := val

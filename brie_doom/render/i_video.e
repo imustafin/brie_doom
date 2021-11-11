@@ -423,7 +423,7 @@ feature
 				-- running.
 
 			window_flags := {SDL_WINDOW_FLAGS_ENUM_API}.sdl_window_resizable
-				--      Set the highdpi flag - this makes a big difference on Macs with
+				--  Set the highdpi flag - this makes a big difference on Macs with
 				-- retina displays, especially when using small window sizes.
 			window_flags := window_flags | {SDL_WINDOW_FLAGS_ENUM_API}.sdl_window_allow_highdpi
 			if fullscreen then

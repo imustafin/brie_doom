@@ -9,17 +9,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -106,7 +106,16 @@ feature
 			loop
 				d.item.set_value.call (d.item.defaultvalue)
 			end
-			{NOT_IMPLEMENTED}.not_implemented("M_LoadDefaults", false)
+			{NOT_IMPLEMENTED}.not_implemented ("M_LoadDefaults", false)
+			print ("Loading WASD keys from code%N")
+			i_main.g_game.key_up := ('w').code
+			i_main.g_game.key_down := ('s').code
+			i_main.g_game.key_strafeleft := ('a').code
+			i_main.g_game.key_straferight := ('d').code
+			print ("Setting novert%N")
+			i_main.i_input.novert := 1
+			print ("Setting mouse acceleration%N")
+			i_main.i_input.mouse_acceleration := 5
 
 				-- skip -config
 				-- skip reading
@@ -114,7 +123,7 @@ feature
 
 	M_ScreenShot
 		do
-				{NOT_IMPLEMENTED}.not_implemented ("M_ScreenShot", False)
+			{NOT_IMPLEMENTED}.not_implemented ("M_ScreenShot", False)
 		end
 
 	M_TempFile (s: STRING): STRING
@@ -134,7 +143,7 @@ feature
 		local
 			handle: RAW_FILE
 		do
-			create handle.make_open_write(name)
+			create handle.make_open_write (name)
 			if handle.is_writable then
 				handle.put_managed_pointer (source, 0, source.count)
 				handle.close
@@ -158,21 +167,21 @@ feature
 			end
 		end
 
-	M_DirName(path: STRING): STRING
-		-- Returns the directory portion of the given path,
-		-- without the trailing slash separator character.
-		-- If no directory is described in the path,
-		-- the string "." is returned. In either case, the result is newly
-		-- allocated and must be freed by the caller after use.
-	local
-		last_sep: INTEGER
-	do
-		last_sep := path.last_index_of (operating_environment.directory_separator, path.count)
-		if last_sep = 0 then
-			Result := "."
-		else
-			Result := path.substring (1, last_sep - 1)
+	M_DirName (path: STRING): STRING
+			-- Returns the directory portion of the given path,
+			-- without the trailing slash separator character.
+			-- If no directory is described in the path,
+			-- the string "." is returned. In either case, the result is newly
+			-- allocated and must be freed by the caller after use.
+		local
+			last_sep: INTEGER
+		do
+			last_sep := path.last_index_of (operating_environment.directory_separator, path.count)
+			if last_sep = 0 then
+				Result := "."
+			else
+				Result := path.substring (1, last_sep - 1)
+			end
 		end
-	end
 
 end
