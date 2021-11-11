@@ -274,6 +274,7 @@ feature
 	M_QuitDOOM (choice: INTEGER)
 		do
 			{NOT_IMPLEMENTED}.not_implemented ("M_QuitDOOM", False)
+			i_main.i_system.i_quit
 		end
 
 	M_DrawNewGame
@@ -391,6 +392,14 @@ feature -- CONTROL PANEL
 			ch: INTEGER
 		do
 			{NOT_IMPLEMENTED}.not_implemented ("M_Responder", false)
+			if ev.type = ev.ev_quit then -- "close" button pressed on window?
+					-- First click on close button = bring up quit confirm messag.
+					-- Second click on close button = confirm quit
+
+					-- skip first click case, quit right away
+				i_main.s_sound.s_startsound (Void, {SOUNDS_H}.sfx_swtchn)
+				M_QuitDOOM (0)
+			end
 			ch := -1
 				-- skip ev_joystick
 				-- skip ev_mouse
@@ -405,10 +414,15 @@ feature -- CONTROL PANEL
 				elseif False then -- devparm && h == KEY_F1
 						-- skip
 				elseif not menuactive then -- F-Keys
-						-- skip
-
-				elseif not menuactive then -- Pop-up menu?
-						-- skip
+						-- skip F-Keys
+						-- Pop-up menu?
+					if ch = {DOOMDEF_H}.key_escape then
+						M_StartControlPanel
+						i_main.s_sound.s_startsound (Void, {SOUNDS_H}.sfx_swtchn)
+						Result := True
+					else
+						Result := False
+					end
 				else -- Keys usable within menu
 					if attached currentMenu as currentMenuAttached then
 						if ch = {DOOMDEF_H}.KEY_DOWNARROW then

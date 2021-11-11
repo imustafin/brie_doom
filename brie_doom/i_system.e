@@ -48,8 +48,13 @@ feature
 feature
 
 	I_Quit
+		note
+			source: "chocolate doom i_system.c"
 		do
 			{NOT_IMPLEMENTED}.not_implemented("I_Quit", false)
+			-- skip Run through all exit functions
+
+			{SDL_FUNCTIONS_API}.sdl_quit
 			{EXCEPTIONS}.die (0)
 		end
 
