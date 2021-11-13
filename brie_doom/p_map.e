@@ -502,6 +502,108 @@ feature
 			end
 		end
 
+feature -- SLIDE MOVE
+	-- Allows the player to slide along any anled walls.
+
+	slidemo: detachable MOBJ_T
+
+	bestslidefrac: FIXED_T
+
+	bestslideline: detachable LINE_T
+
+	secondslidefrac: FIXED_T
+
+	secondslideline: detachable LINE_T
+
+	tmxmove: FIXED_T
+
+	tmymove: FIXED_T
+
+	P_SlideMove_stairstep
+			-- What is done at stairstep: label of P_SlideMove
+		do
+			check attached slidemo as mo then
+				if not P_TryMove (mo, mo.x, mo.y + mo.momy) then
+					P_TryMove (mo, mo.x + mo.momx, mo.y).do_nothing
+				end
+			end
+		end
+
+	P_SlideMove_try: BOOLEAN
+			-- One try o P_SlideMove
+			-- Returns False if move was accomplished.
+			-- If returned True, you P_SlideMove would have retried (goto retry:)
+		note
+			c_doom: "P_SlideMove"
+		local
+			leadx: FIXED_T
+			leady: FIXED_T
+			trailx: FIXED_T
+			traily: FIXED_T
+			newx: FIXED_T
+			newy: FIXED_T
+		do
+			check attached slidemo as mo then
+					-- trace along the three leading corners
+				if mo.momx > 0 then
+					leadx := mo.x + mo.radius
+					trailx := mo.x - mo.radius
+				else
+					leadx := mo.x - mo.radius
+					trailx := mo.x + mo.radius
+				end
+				if mo.momy > 0 then
+					leady := mo.y + mo.radius
+					traily := mo.y - mo.radius
+				else
+					leady := mo.y - mo.radius
+					traily := mo.y + mo.radius
+				end
+				bestslidefrac := {M_FIXED}.fracunit + 1
+				i_main.p_maputl.P_PathTraverse (leadx, leady, leadx + mo.momx, leady + mo.momy, {P_LOCAL}.PT_ADDLINES, agent PTR_SlideTraverse).do_nothing
+				i_main.p_maputl.P_PathTraverse (trailx, leady, trailx + mo.momx, leady + mo.momy, {P_LOCAL}.PT_ADDLINES, agent PTR_SlideTraverse).do_nothing
+				i_main.p_maputl.P_PathTraverse (leadx, traily, leadx + mo.momx, traily + mo.momy, {P_LOCAL}.PT_ADDLINES, agent PTR_SlideTraverse).do_nothing
+
+					-- move up to the wall
+				if bestslidefrac = {M_FIXED}.fracunit + 1 then
+						-- the move most have hit the middle, so stairstep
+					P_SlideMove_stairstep
+					Result := True
+				else
+						-- fudge a bit to make sure it doesn't hit
+					bestslidefrac := bestslidefrac - 0x800
+					if bestslidefrac > 0 then
+						newx := {M_FIXED}.fixedmul (mo.momx, bestslidefrac)
+						newy := {M_FIXED}.fixedmul (mo.momy, bestslidefrac)
+						if not P_TryMove (mo, mo.x + newx, mo.y + newy) then
+							P_SlideMove_stairstep
+							Result := True
+						end
+					else
+							-- Now continue along the wall.
+							-- First calculate remainder.
+						bestslidefrac := {M_FIXED}.fracunit - (bestslidefrac + 0x800)
+						if bestslidefrac > {M_FIXED}.fracunit then
+							bestslidefrac := {M_FIXED}.fracunit
+						end
+						if bestslidefrac <= 0 then
+								-- return (don't retry)
+							Result := True
+						else
+							tmxmove := {M_FIXED}.fixedmul (mo.momx, bestslidefrac)
+							tmymove := {M_FIXED}.fixedmul (mo.momy, bestslidefrac)
+							check attached bestslideline as bs then
+								P_HitSlideLine (bs) -- clip the moves
+							end
+							mo.momx := tmxmove
+							mo.momy := tmymove
+							Result := not P_TryMove (mo, mo.x + tmxmove, mo.y + tmymove)
+						end
+					end
+				end
+			end
+		end
+
 	P_SlideMove (mo: MOBJ_T)
 			-- The momx/momy move is bad, so try to slide
 			-- along a wall.
@@ -509,8 +611,109 @@ feature
 			-- and slide along it
 			--
 			-- This is a kludgy mess.
+		local
+			hitcount: INTEGER
+			move_done: BOOLEAN
 		do
-			{NOT_IMPLEMENTED}.not_implemented ("P_SlideMove", False)
+			slidemo := mo
+			from -- retry: label here
+				hitcount := 1
+			until
+				move_done or hitcount >= 3
+			loop
+				move_done := P_SlideMove_try
+				hitcount := hitcount + 1
+			end
+		end
+
+	PTR_SlideTraverse (in: INTERCEPT_T): BOOLEAN
+		require
+			slidemo_set: attached slidemo
+		local
+			returned: BOOLEAN
+			goto_isblocking: BOOLEAN
+		do
+			if not in.isaline then
+				i_main.i_error ("PTR_SlideTraverse: not a line?")
+			end
+			check attached slidemo as sm then
+				check attached in.line as li then
+					if li.flags & {DOOMDATA_H}.ML_TWOSIDED = 0 then
+						if i_main.p_maputl.P_PointOnLineSide (sm.x, sm.y, li) /= 0 then
+								-- don't hit the backside
+							Result := True
+							returned := True
+						else
+							goto_isblocking := True
+						end
+					end
+					if not returned and not goto_isblocking then
+							-- set openrange, opentop, openbottom
+						i_main.p_maputl.P_LineOpening (li)
+						if i_main.p_maputl.openrange < sm.height then
+							goto_isblocking := True -- doesn't fit
+						elseif i_main.p_maputl.opentop - sm.z < sm.height then
+							goto_isblocking := True -- mobj is too high
+						elseif i_main.p_maputl.openbottom - sm.z > 24 * {M_FIXED}.fracunit then
+							goto_isblocking := True -- too big a step up
+						else
+								-- this line doesn't block movement
+							Result := True
+							returned := True
+						end
+					end
+					if not returned then
+							-- the line does block movement,
+							-- see if it is closer than best so far
+							-- isblocking: label
+						if in.frac < bestslidefrac then
+							secondslidefrac := bestslidefrac
+							secondslideline := bestslideline
+							bestslidefrac := in.frac
+							bestslideline := li
+						end
+					end
+				end
+			end
+		end
+
+	P_HitSlideLine (ld: LINE_T)
+			-- Adjusts the xmove / ymove
+			-- so that the next move will slide along the wall
+		require
+			slidemo_set: attached slidemo
+		local
+			side: INTEGER
+			lineangle: ANGLE_T
+			moveangle: ANGLE_T
+			deltaangle: ANGLE_T
+			movelen: FIXED_T
+			newlen: FIXED_T
+		do
+			if ld.slopetype = {R_DEFS}.ST_HORIZONTAL then
+				tmymove := 0
+			elseif ld.slopetype = {R_DEFS}.ST_VERTICAL then
+				tmxmove := 0
+			else
+				check attached slidemo as sm then
+					side := i_main.p_maputl.P_PointOnLineSide (sm.x, sm.y, ld)
+					lineangle := i_main.r_main.R_PointToAngle2 (0, 0, ld.dx, ld.dy)
+					if side = 1 then
+						lineangle := lineangle + {TABLES}.ANG180
+					end
+					moveangle := i_main.r_main.R_PointToAngle2 (0, 0, tmxmove, tmymove)
+					deltaangle := moveangle - lineangle
+					if deltaangle > {TABLES}.ANG180 then
+						deltaangle := deltaangle + {TABLES}.ANG180
+					end
+					lineangle := lineangle |>> {TABLES}.ANGLETOFINESHIFT
+					deltaangle := deltaangle |>> {TABLES}.ANGLETOFINESHIFT
+					movelen := i_main.p_maputl.P_AproxDistance (tmxmove, tmymove)
+					newlen := {M_FIXED}.fixedmul (movelen, i_main.r_main.finecosine [deltaangle])
+					tmxmove := {M_FIXED}.fixedmul (newlen, i_main.r_main.finecosine [lineangle])
+					tmymove := {M_FIXED}.fixedmul (newlen, i_main.r_main.finesine [lineangle])
+				end
+			end
 		end
 
 feature -- SECTOR HEIGHT CHANGING
