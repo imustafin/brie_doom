@@ -242,6 +242,7 @@ feature
 					if ld.validcount = i_main.r_main.validcount then
 							-- continue -- line has already been checked
 					else
+						ld.validcount := i_main.r_main.validcount
 						if not func.item (ld) then
 							Result := False
 						end
@@ -315,7 +316,7 @@ feature -- P_LineOpening
 						openbottom := front.floorheight
 						lowfloor := back.floorheight
 					else
-						openbottom := front.floorheight
+						openbottom := back.floorheight
 						lowfloor := front.floorheight
 					end
 					openrange := opentop - openbottom
