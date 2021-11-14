@@ -45,6 +45,7 @@ feature
 			create i_videobuffer.make (1)
 			window_focused := True
 			grabmouse := 1
+			nomouse := i_main.m_argv.m_checkparm ("-nomouse").to_boolean
 		end
 
 feature
@@ -105,7 +106,7 @@ feature
 
 	usemouse: BOOLEAN = True
 
-	nomouse: BOOLEAN = False
+	nomouse: BOOLEAN
 
 feature
 

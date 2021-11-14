@@ -130,6 +130,8 @@ feature
 feature
 
 	I_InitSound (use_sfx_prefix: BOOLEAN)
+		note
+			source: "chocolate doom i_sound.c"
 		local
 			nomusicpacks: BOOLEAN
 			nosound: BOOLEAN
@@ -137,7 +139,7 @@ feature
 			nosfx: BOOLEAN
 		do
 			{NOT_IMPLEMENTED}.not_implemented ("I_InitSound", false)
-				-- skip -nosound
+			nosound := i_main.m_argv.m_checkparm ("-nosound").to_boolean
 				-- skip -nosfx
 				-- skip -nomusic
 				-- skip -nomusicpacks
