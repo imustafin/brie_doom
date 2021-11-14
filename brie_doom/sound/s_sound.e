@@ -7,17 +7,17 @@ note
 		Copyright (C) 1993-1996 by id Software, Inc.
 		Copyright (C) 2005-2014 Simon Howard
 		Copyright (C) 2021 Ilgiz Mustafin
-
+		
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
-
+		
 		This program is distributed in the hope that it will be useful,
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU General Public License for more details.
-
+		
 		You should have received a copy of the GNU General Public License along
 		with this program; if not, write to the Free Software Foundation, Inc.,
 		51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -238,7 +238,7 @@ feature
 								--  or modify their params
 							if attached c.origin as origin and then listener /= origin then
 								check attached listener as l then
-									audible := S_AdjustSoundParams (listener, origin, volume, sep)
+									audible := S_AdjustSoundParams (l, origin, volume, sep)
 								end
 								if not audible then
 									S_StopChannel (cnum)
@@ -265,7 +265,7 @@ feature
 			sep, pitch, cnum, volume: INTEGER
 			ignore: BOOLEAN
 		do
-			{NOT_IMPLEMENTED}.not_implemented("S_StartSound", False)
+			{NOT_IMPLEMENTED}.not_implemented ("S_StartSound", False)
 				--			create origin.make (origin_p) -- Stub origin
 			volume := snd_SfxVolume
 
@@ -430,23 +430,21 @@ feature
 			else
 				music := {SOUNDS_H}.S_music [musicnum]
 			end
-			check attached music as m then
-				if mus_playing = m then
-						-- return
-				else
-						-- shutdown old music
-					S_StopMusic
+			if mus_playing = music then
+					-- return
+			else
+					-- shutdown old music
+				S_StopMusic
 
-						-- get lumpnum if neccessary
-					if m.lumpnum = 0 then
-						m.lumpnum := i_main.w_wad.W_GetNumForName ("d_" + m.name)
-					end
-					m.data := i_main.w_wad.W_CacheLumpNum (m.lumpnum)
-					handle := i_main.i_sound.I_RegisterSong (m.data, i_main.w_wad.W_LumpLength (m.lumpnum))
-					m.handle := handle
-					i_main.i_sound.I_PlaySong (handle, looping)
-					mus_playing := m
+					-- get lumpnum if neccessary
+				if music.lumpnum = 0 then
+					music.lumpnum := i_main.w_wad.W_GetNumForName ("d_" + music.name)
 				end
+				music.data := i_main.w_wad.W_CacheLumpNum (music.lumpnum)
+				handle := i_main.i_sound.I_RegisterSong (music.data, i_main.w_wad.W_LumpLength (music.lumpnum))
+				music.handle := handle
+				i_main.i_sound.I_PlaySong (handle, looping)
+				mus_playing := music
 			end
 		end
 

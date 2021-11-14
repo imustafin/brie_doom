@@ -107,9 +107,7 @@ feature
 				y1 := mo.y
 				x2 := x1 + ({P_LOCAL}.USERANGE |>> {M_FIXED}.FRACBITS) * i_main.r_main.finecosine [angle]
 				y2 := y1 + ({P_LOCAL}.USERANGE |>> {M_FIXED}.FRACBITS) * i_main.r_main.finesine [angle]
-				if i_main.p_maputl.P_PathTraverse (x1, y1, x2, y2, {P_LOCAL}.PT_ADDLINES, agent PTR_UseTraverse) then
-						-- do nothing
-				end
+				i_main.p_maputl.P_PathTraverse (x1, y1, x2, y2, {P_LOCAL}.PT_ADDLINES, agent PTR_UseTraverse).do_nothing
 			end
 		end
 
@@ -135,9 +133,7 @@ feature
 					if i_main.p_maputl.P_PointOnLineSide (ut.x, ut.y, line) = 1 then
 						side := 1
 					end
-					if i_main.p_switch.P_UseSpecialLine (ut, line, side) then
-							-- do nothing
-					end
+					i_main.p_switch.P_UseSpecialLine (ut, line, side).do_nothing
 
 						-- can't use for than one special line in a row
 					Result := False
@@ -227,6 +223,27 @@ feature
 		end
 
 	P_CheckPosition (thing: MOBJ_T; x, y: FIXED_T): BOOLEAN
+			-- This is purely informative, nothing is modified
+			-- (except things picked up).
+			--
+			-- in:
+			--  a mobj_t (can be valid or invalid)
+			--  a position to be checked
+			--   (doesn't need to be related to the mobj_t->x,y)
+			--
+			-- during:
+			--  special things are touched if MF_PICKUP
+			--  early out in solid lines?
+			--
+			-- out:
+			--  newsubsec
+			--  floorz
+			--  ceilingz
+			--  tmdropoffz
+			--   the lowest point contacted
+			--   (monsters won't move to a dropoff)
+			--  speciallines[]
+			--  numspeciallines
 		local
 			xl: INTEGER
 			xh: INTEGER
@@ -239,14 +256,14 @@ feature
 		do
 			tmthing := thing
 			tmflags := thing.flags
-			tmx := x.to_integer_32
-			tmy := y.to_integer_32
-			tmbbox [{M_BBOX}.BOXTOP] := (y + thing.radius).to_integer_32
-			tmbbox [{M_BBOX}.BOXBOTTOM] := (y - thing.radius).to_integer_32
-			tmbbox [{M_BBOX}.BOXRIGHT] := (x + thing.radius).to_integer_32
-			tmbbox [{M_BBOX}.BOXLEFT] := (x - thing.radius).to_integer_32
-			ceilingline := Void
+			tmx := x.as_integer_32
+			tmy := y.as_integer_32
+			tmbbox [{M_BBOX}.BOXTOP] := (y + thing.radius).as_integer_32
+			tmbbox [{M_BBOX}.BOXBOTTOM] := (y - thing.radius).as_integer_32
+			tmbbox [{M_BBOX}.BOXRIGHT] := (x + thing.radius).as_integer_32
+			tmbbox [{M_BBOX}.BOXLEFT] := (x - thing.radius).as_integer_32
 			newsubsec := i_main.r_main.R_PointInSubsector (x, y)
+			ceilingline := Void
 				-- The base floor / ceiling is from the subsector
 				-- that contains the point.
 				-- Any contacted lines the step closer together
@@ -360,9 +377,7 @@ feature
 							tmt.momx := 0
 							tmt.momy := 0
 							tmt.momz := 0
-							if i_main.p_mobj.P_SetMobjState (tmt, info.spawnstate) then
-									-- do nothing
-							end
+							i_main.p_mobj.P_SetMobjState (tmt, info.spawnstate).do_nothing
 							Result := False
 							returned := True
 						end
@@ -462,7 +477,7 @@ feature
 					-- could be crossed in either order.
 
 				if ld.backsector = Void then
-					Result := False
+					Result := False -- one sided line
 					returned := True
 				end
 			end
@@ -494,6 +509,7 @@ feature
 				if i_main.p_maputl.lowfloor < tmdropoffz then
 					tmdropoffz := i_main.p_maputl.lowfloor
 				end
+					-- if contacted a special line, add it to the list
 				if ld.special /= 0 then
 					spechit [numspechit] := ld
 					numspechit := numspechit + 1

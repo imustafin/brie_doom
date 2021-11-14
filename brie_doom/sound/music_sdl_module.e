@@ -90,8 +90,6 @@ feature
 
 	init: BOOLEAN
 			-- Initialize music subsystem
-		local
-			i: INTEGER
 		do
 				-- If SDL_mixer is not initialized, we have to initialize it
 				-- and have the responsibility to shut it down later on.
@@ -112,8 +110,7 @@ feature
 			end
 
 				-- Initialize SDL_Mixer for MIDI music playback
-				-- do nothing with i
-			i := {SDL_MIXER_FUNCTIONS_API}.Mix_Init ({MIX_INIT_FLAGS_ENUM_API}.MIX_INIT_MID)
+			{SDL_MIXER_FUNCTIONS_API}.Mix_Init ({MIX_INIT_FLAGS_ENUM_API}.MIX_INIT_MID).do_nothing
 
 
 				-- If snd_musiccmd is set, we need to call Mix_SetMusicCMD to

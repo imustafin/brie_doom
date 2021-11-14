@@ -259,7 +259,7 @@ feature
 		do
 			cmd := player.cmd
 			check attached player.mo as mo then
-				mo.angle := mo.angle + (cmd.angleturn.to_natural_32 |<< 16)
+				mo.angle := mo.angle + (cmd.angleturn.as_natural_32 |<< 16)
 
 					-- Do not let the player control movement if not onground.
 				onground := (mo.z <= mo.floorz)
@@ -270,8 +270,7 @@ feature
 					P_Thrust (player, mo.angle - {R_MAIN}.ANG90, cmd.sidemove * 2048)
 				end
 				if (cmd.forwardmove /= 0 or cmd.sidemove /= 0) and mo.state = {INFO}.states [{INFO}.S_PLAY] then
-						-- do nothing with b
-					b := i_main.p_mobj.P_SetMobjState (mo, S_PLAY_RUN1)
+					i_main.p_mobj.P_SetMobjState (mo, S_PLAY_RUN1).do_nothing
 				end
 			end
 		end

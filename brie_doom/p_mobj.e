@@ -359,9 +359,7 @@ feature
 					mo.momy := 0
 					mo.momz := 0
 					check attached mo.info as info then
-						if P_SetMobjState (mo, info.spawnstate) then
-								-- do nothing
-						end
+						P_SetMobjState (mo, info.spawnstate).do_nothing
 					end
 				end
 				returned := True
@@ -454,9 +452,7 @@ feature
 				if mo.momx > - STOPSPEED and mo.momx < STOPSPEED and mo.momy > - STOPSPEED and mo.momy < STOPSPEED and (mo.player = Void or (attached mo.player as player and then player.cmd.forwardmove = 0 and then player.cmd.sidemove = 0)) then
 						-- if in a walking frame, stop moving
 					if attached mo.player as player and then attached player.mo as pmo and then attached pmo.state as st and then st.is_player_run then
-						if P_SetMobjState (pmo, S_PLAY) then
-								-- Do nothing
-						end
+						P_SetMobjState (pmo, S_PLAY).do_nothing
 					end
 					mo.momx := 0
 					mo.momy := 0
