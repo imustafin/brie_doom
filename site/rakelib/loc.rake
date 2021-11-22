@@ -3,17 +3,18 @@ require 'rake/clean'
 
 require_relative '../utils/c_loc'
 require_relative '../utils/c_func'
+require_relative '../utils/eif_func'
 
 namespace :loc do
+  TMP = 'tmp'
+  CLOBBER.include(TMP)
+
+  task :tmp_dir do
+    FileUtils.mkdir_p(TMP)
+  end
+
   namespace :c do
-    TMP = 'tmp'
     DOOM = TMP + '/DOOM/linuxdoom-1.10'
-
-    CLOBBER.include(TMP)
-
-    task :tmp_dir do
-      FileUtils.mkdir_p(TMP)
-    end
 
     desc 'Downloads DOOM C source code'
     task clone: :tmp_dir do
@@ -49,4 +50,35 @@ namespace :loc do
 
   desc 'Everything C-Related'
   task c: ['c:loc', 'c:funcs']
+
+  namespace :eif do
+    EIF_IN = '../brie_doom'
+    EIF = 'tmp/eif'
+
+
+    desc 'Make prettified copies of Eiffel classes'
+    task :pretty do
+      if File.exist?(EIF)
+        puts "Pretty Eiffel already exists"
+      else
+        Dir.glob(EIF_IN + '/**/*.e').each do |name|
+          eif_name = EIF + (name.delete_prefix(EIF_IN))
+
+          result = `ec -pretty "#{name}"`
+
+          raise "Could not prettify #{name}" if result.empty?
+
+          FileUtils.mkdir_p(File.dirname(eif_name))
+
+          File.write(eif_name, result)
+        end
+      end
+    end
+
+    desc 'Extract Eiffel functions stats'
+    task funcs: :pretty do
+      data = EifFunc.new(Dir.glob(EIF + '/**/*.e'))
+      File.write(TMP + '/eif_funcs.json', data.functions.to_json)
+    end
+  end
 end
