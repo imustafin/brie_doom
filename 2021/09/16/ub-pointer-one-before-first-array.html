@@ -1,82 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <!-- Begin Jekyll SEO tag v2.7.1 -->
-    <title>UB with pointer to one-before-first of array | Brie Doom</title>
-    <meta name="generator" content="Jekyll v4.2.0" />
-    <meta
-      property="og:title"
-      content="UB with pointer to one-before-first of array"
-    />
-    <meta name="author" content="Ilgiz Mustafin" />
-    <meta property="og:locale" content="en_US" />
-    <meta
-      name="description"
-      content="The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array."
-    />
-    <meta
-      property="og:description"
-      content="The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array."
-    />
-    <link
-      rel="canonical"
-      href="https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html"
-    />
-    <meta
-      property="og:url"
-      content="https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html"
-    />
-    <meta property="og:site_name" content="Brie Doom" />
-    <meta property="og:type" content="article" />
-    <meta
-      property="article:published_time"
-      content="2021-09-16T00:00:00+00:00"
-    />
-    <meta name="twitter:card" content="summary" />
-    <meta
-      property="twitter:title"
-      content="UB with pointer to one-before-first of array"
-    />
-    <script type="application/ld+json">
-      {
-        "author": {
-          "@type": "Person",
-          "name": "Ilgiz Mustafin",
-          "url": "https://imustafin.tatar"
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html"
-        },
-        "description": "The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array.",
-        "url": "https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html",
-        "@type": "BlogPosting",
-        "headline": "UB with pointer to one-before-first of array",
-        "dateModified": "2021-09-16T00:00:00+00:00",
-        "datePublished": "2021-09-16T00:00:00+00:00",
-        "@context": "https://schema.org"
-      }
-    </script>
-    <!-- End Jekyll SEO tag -->
+<title>UB with pointer to one-before-first of array | Brie Doom</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="UB with pointer to one-before-first of array" />
+<meta name="author" content="Ilgiz Mustafin" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array." />
+<meta property="og:description" content="The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array." />
+<link rel="canonical" href="https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html" />
+<meta property="og:url" content="https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html" />
+<meta property="og:site_name" content="Brie Doom" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-16T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="UB with pointer to one-before-first of array" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Ilgiz Mustafin","url":"https://imustafin.tatar"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html"},"description":"The C standard defines that it is an undefined behaviour to subtract one from a pointer pointing to the start of an array.","url":"https://briedoom.imustafin.tatar/2021/09/16/ub-pointer-one-before-first-array.html","@type":"BlogPosting","headline":"UB with pointer to one-before-first of array","dateModified":"2021-09-16T00:00:00+00:00","datePublished":"2021-09-16T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
 
-    <link rel="stylesheet" href="/assets/css/tailwind.css" />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="stylesheet" href="/assets/css/syntax.css" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   </head>
 
   <body class="bg-california-50">
-    <header
-      class="px-4 lg:px-8 h-14 bg-california-500 flex flex-row items-center content-start mb-4"
-    >
+    <header class="px-4 lg:px-8 h-14 bg-california-500 flex flex-row items-center content-start mb-4">
       <span class="flex items-baseline">
         <a href="/" class="reset nounder font-bold flex-grow text-2xl">
           Brie Doom
@@ -87,118 +47,86 @@
       </span>
       <a
         href="https://github.com/imustafin/brie_doom"
-        class="reset ml-auto flex items-center mr-4 font-bold"
-      >
-        <span class="md:hidden"> Sources </span>
-        <span class="hidden md:inline-block"> Source Code </span>
+        class="reset ml-auto flex items-center mr-4 font-bold">
+        <span class="md:hidden">
+          Sources
+        </span>
+        <span class="hidden md:inline-block">
+          Source Code
+        </span>
       </a>
-      <a href="/documentation" class="reset flex items-center font-bold">
-        <span class="sm:hidden"> Docs </span>
-        <span class="hidden sm:inline-block"> Documentation </span>
+      <a
+        href="/documentation"
+        class="reset flex items-center font-bold"
+      >
+        <span class="sm:hidden">
+          Docs
+        </span>
+        <span class="hidden sm:inline-block">
+          Documentation
+        </span>
       </a>
     </header>
 
     <div class="container mx-auto px-2 sm:px-4 md:px-4">
       <article class="mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-4">
-          <p>UB with pointer to one-before-first of array</p>
-        </h1>
-        <div class="max-w-4xl mx-auto mb-8">
-          <div>Published: 16 Sep 2021</div>
-          <div>
-            Tags: <a href="/tags/phase-1-bugs.html" rel="tag">phase-1-bugs</a>,
-            <a href="/tags/bugs.html" rel="tag">bugs</a>,
-            <a href="/tags/phase-1.html" rel="tag">phase-1</a>
-          </div>
-        </div>
+  <h1 class="text-4xl font-bold text-center mb-4">
+    <p>UB with pointer to one-before-first of array</p>
 
-        <div class="prose md:prose-xl max-w-4xl mx-auto">
-          <p>
-            The C standard defines that it is an undefined behaviour to subtract
-            one from a pointer pointing to the start of an array.
-          </p>
+  </h1>
+  <div class="max-w-4xl mx-auto mb-8">
+    <div>
+      Published: 16 Sep 2021
+    </div>
+    <div>
+      Tags: <a href="/tags/phase-1-bugs.html" rel="tag">phase-1-bugs</a>, <a href="/tags/bugs.html" rel="tag">bugs</a>, <a href="/tags/phase-1.html" rel="tag">phase-1</a>
+    </div>
+  </div>
 
-          <blockquote>
-            <p>C17 6.5.6/8</p>
+  <div class="prose md:prose-xl max-w-4xl mx-auto">
+    <p>The C standard defines that it is an undefined behaviour to subtract one from
+a pointer pointing to the start of an array.</p>
 
-            <p>
-              If both the pointer operand and the result point to elements of
-              the same array object, or one past the last element of the array
-              object, the evaluation shall not produce an overflow; otherwise,
-              the behavior is undefined.
-            </p>
-          </blockquote>
+<blockquote>
+  <p>C17 6.5.6/8</p>
 
-          <p>
-            Such undefined behaviour occurs in
-            <a
-              href="https://github.com/id-Software/DOOM/blob/77735c3ff0772609e9c8d29e3ce2ab42ff54d20b/linuxdoom-1.10/r_things.c#L787"
-              ><code class="language-plaintext highlighter-rouge"
-                >R_SortVisSprites</code
-              ></a
-            >:
-          </p>
+  <p>If both the pointer operand and the result point to elements of the same
+array object, or one past the last element of the array object, the evaluation
+shall not produce an overflow; otherwise, the behavior is undefined.</p>
+</blockquote>
 
-          <figure class="highlight">
-            <pre><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">ds</span><span class="o">=</span><span class="n">vissprites</span> <span class="p">;</span> <span class="n">ds</span><span class="o">&lt;</span><span class="n">vissprite_p</span> <span class="p">;</span> <span class="n">ds</span><span class="o">++</span><span class="p">)</span>
+<p>Such undefined behaviour
+occurs in
+<a href="https://github.com/id-Software/DOOM/blob/77735c3ff0772609e9c8d29e3ce2ab42ff54d20b/linuxdoom-1.10/r_things.c#L787"><code class="language-plaintext highlighter-rouge">R_SortVisSprites</code></a>:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">ds</span><span class="o">=</span><span class="n">vissprites</span> <span class="p">;</span> <span class="n">ds</span><span class="o">&lt;</span><span class="n">vissprite_p</span> <span class="p">;</span> <span class="n">ds</span><span class="o">++</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">ds</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">ds</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
   <span class="n">ds</span><span class="o">-&gt;</span><span class="n">prev</span> <span class="o">=</span> <span class="n">ds</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">vissprites</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">prev</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">unsorted</span><span class="p">;</span></code></pre>
-          </figure>
+<span class="n">vissprites</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">prev</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">unsorted</span><span class="p">;</span></code></pre></figure>
 
-          <p>
-            In this example,
-            <code class="language-plaintext highlighter-rouge">vissprites</code>
-            is an array of type
-            <code class="language-plaintext highlighter-rouge"
-              >vissprite_t</code
-            >
-            and <code class="language-plaintext highlighter-rouge">ds</code> is
-            a pointer to
-            <code class="language-plaintext highlighter-rouge">vissprite_t</code
-            >.
-          </p>
+<p>In this example, <code class="language-plaintext highlighter-rouge">vissprites</code> is an array of type <code class="language-plaintext highlighter-rouge">vissprite_t</code> and <code class="language-plaintext highlighter-rouge">ds</code> is a pointer
+to <code class="language-plaintext highlighter-rouge">vissprite_t</code>.</p>
 
-          <p>
-            On the first iteration of the loop, when
-            <code class="language-plaintext highlighter-rouge"
-              >ds == vissprites</code
-            >
-            the expression
-            <code class="language-plaintext highlighter-rouge">ds-1</code> is
-            computed. Such computation produces an undefined behaviour.
-          </p>
+<p>On the first iteration of the loop, when <code class="language-plaintext highlighter-rouge">ds == vissprites</code> the
+expression <code class="language-plaintext highlighter-rouge">ds-1</code> is computed. Such computation produces an undefined behaviour.</p>
 
-          <p>
-            Such undefined behaviour was identified in Eiffel due to a
-            precondition violation in the utility methods we developed used to
-            replicate the pointer arithmetic on arrays.
-          </p>
+<p>Such undefined behaviour was identified in Eiffel due to a precondition
+violation in the utility methods we developed used to
+replicate the pointer arithmetic on arrays.</p>
 
-          <p>
-            We can see that the value of the illegal pointer is not actually
-            used and the line
-            <code class="language-plaintext highlighter-rouge"
-              >vissprites[0].prev = &amp;unsorted</code
-            >
-            writes a legal pointer instead of the illegal one.
-          </p>
+<p>We can see that the value of the illegal pointer is not actually used and the
+line <code class="language-plaintext highlighter-rouge">vissprites[0].prev = &amp;unsorted</code> writes a legal pointer instead of the illegal
+one.</p>
 
-          <p>
-            As a fix
-            <a
-              href="https://github.com/imustafin/brie_doom/blob/50f595c05fbbe59509f158bcea390bc908a500e7/brie_doom/render/r_things.e#L268"
-              >for this bug</a
-            >, we add an additional check to verify that it is not the first
-            iteration of the loop and that it is legal to subtract one from
-            <code class="language-plaintext highlighter-rouge">ds</code>:
-          </p>
+<p>As a fix
+<a href="https://github.com/imustafin/brie_doom/blob/50f595c05fbbe59509f158bcea390bc908a500e7/brie_doom/render/r_things.e#L268">for this bug</a>,
+we add an additional check to verify that it is not the
+first iteration of the loop and that it is legal to subtract one from <code class="language-plaintext highlighter-rouge">ds</code>:</p>
 
-          <figure class="highlight">
-            <pre><code class="language-eiffel" data-lang="eiffel"><span class="k">from</span>
+<figure class="highlight"><pre><code class="language-eiffel" data-lang="eiffel"><span class="k">from</span>
   <span class="k">create</span> <span class="n">ds</span><span class="pi">.</span><span class="n">make</span> <span class="pi">(</span><span class="n">vissprites</span><span class="pi">.</span><span class="n">lower</span><span class="pi">,</span> <span class="n">vissprites</span><span class="pi">)</span>
 <span class="k">until</span>
   <span class="n">ds</span><span class="pi">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">vissprite_p</span>
@@ -210,27 +138,25 @@
   <span class="n">ds</span> <span class="pi">:=</span> <span class="n">ds</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="k">end</span>
   
-<span class="n">vissprites</span> <span class="pi">[</span><span class="mi">0</span><span class="pi">].</span><span class="n">prev</span> <span class="pi">:=</span> <span class="n">unsorted</span></code></pre>
-          </figure>
-        </div>
-      </article>
+<span class="n">vissprites</span> <span class="pi">[</span><span class="mi">0</span><span class="pi">].</span><span class="n">prev</span> <span class="pi">:=</span> <span class="n">unsorted</span></code></pre></figure>
+
+
+  </div>
+</article>
+
+
 
       <footer class="px-4 flex flex-col items-center text-center pb-2">
-        <hr class="border border-california-400 w-11/12 mb-4 mt-8" />
+        <hr class="border border-california-400 w-11/12 mb-4 mt-8">
         <p class="mb-2">
-          Brie Doom is written by
-          <a href="https://imustafin.tatar">Ilgiz Mustafin</a>
+          Brie Doom is written by <a href="https://imustafin.tatar">Ilgiz Mustafin</a>
         </p>
         <p class="mb-2">
-          Source code is
-          <a href="https://github.com/imustafin/brie_doom"
-            >available on GitHub</a
-          >
+          Source code is <a href="https://github.com/imustafin/brie_doom">available on GitHub</a>
         </p>
         <p>
-          Parts of the program are based on
-          <a href="https://www.chocolate-doom.org/">Chocolate&nbsp;Doom</a> and
-          <a href="http://mochadoom.sourceforge.net/">Mocha&nbsp;Doom</a>
+          Parts of the program are based on <a href="https://www.chocolate-doom.org/">Chocolate&nbsp;Doom</a>
+          and <a href="http://mochadoom.sourceforge.net/">Mocha&nbsp;Doom</a>
         </p>
       </footer>
     </div>
