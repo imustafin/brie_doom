@@ -9,14 +9,14 @@ require_relative '../utils/combine'
 
 namespace :loc do
   TMP = 'tmp'
-  CLOBBER.include(TMP)
+  CLEAN.include(TMP)
 
   C_LOC = TMP + '/c_loc'
   C_FUNCS = TMP + '/c_funcs.json'
   EIF_FUNCS = TMP + '/eif_funcs.json'
 
   DATA_FUNCTIONS_PORTED = '_data/functions_ported.yml'
-  CLEAN.include(DATA_FUNCTIONS_PORTED)
+  CLOBBER.include(DATA_FUNCTIONS_PORTED)
 
   task :tmp_dir do
     FileUtils.mkdir_p(TMP)
