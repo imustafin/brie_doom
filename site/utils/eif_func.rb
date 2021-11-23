@@ -21,7 +21,7 @@ class EifFunc
         # check all notes are known
         known = ['c_doom', "source", "testing"]
         unknown = feature.note_clause.keys - known
-        raise "Unknown clauses #{unknown}" unless unknown.empty?
+        raise "Unknown clauses #{unknown} in #{filename}" unless unknown.empty?
 
         c_doom = feature.note_clause['c_doom']&.gsub!(/"/, '')
       end
@@ -36,9 +36,16 @@ class EifFunc
         .map(&:count)
         .sum + 1
 
+      body = feature.body
+      stub = feature.body&.any? { |x| x.include?('NOT_IMPLEMENTED') }
+
+
       @functions[key] << {
+        class: cls.name,
         name: feature.name,
-        loc: loc
+        loc: loc,
+        cluster: filename.delete_prefix('tmp/eif/').delete_suffix('.e'),
+        stub: !!stub
       }
     end
   end

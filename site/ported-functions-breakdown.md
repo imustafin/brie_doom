@@ -23,8 +23,9 @@ are ported, we can estimate that the full Eiffel port can be around
 {{ site.data.functions_ported.e_estimation }} LOC.
 
 Table below lists the ported functions. The first column contains the
-original name of the function and two links (_C_, _E_) which will take
-you to the original C code and the ported Eiffel code respectively.
+original name of the function which is a link to the original
+C function definition. Other links show the ported Eiffel features
+which implement the C function.
 
 The next two columns _C_ and _Eiffel_ display the lines of
 code in the original function and the port.
@@ -49,54 +50,60 @@ or in SDL.
       <td class="pr-2">Ratio</td>
     </tr>
   </thead>
-  {% for row in site.data.functions_ported.funcs %}
+  {% for row in site.data.functions_ported.joined %}
     <tr class="bg-california-100 hover:bg-california-200">
       <td class="pl-2">
-        {{ row.cname_orig }}
-        (<a href="{{
+        <a href="{{
                 'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
-                | append: row.cfile
+                | append: row.cfunc.cfile
                 | append: '#L'
-                | append: row.cline
-                  }}">C</a>,
+                | append: row.cfunc.cline
+                  }}">{{ row.cfunc.cname_orig }}</a><br>
+        {% for efunc in row.eifs %}
         <a href="{{
                 '/documentation/'
-                | append: row.cluster
+                | append: efunc.cluster
                 | append: '.html'
                 | append: '#f_'
-                | append: row.ename
+                | append: efunc.name
+                | downcase
                 | relative_url
-                }}">E</a>)
+                }}">{<!-- -->{{ efunc.class}}<!-- -->}.{{efunc.name}}</a>
+        
+        {% endfor %}
       </td>
-      <td>{{ row.cloc }}</td>
-      <td>{{ row.eloc }}</td>
+      <td>{{ row.cfunc.cloc }}</td>
+      <td>{{ row.eif_loc }}</td>
       <td class="pr-2">{{ row.c_to_e }}</td>
     </tr>
   {% endfor %}
   <tr class="bg-california-600 text-white font-bold text-center">
     <td colspan="4">Stubbed</td>
   </tr>
-  {% for row in site.data.functions_ported.stubbed %}
+  {% for row in site.data.functions_ported.stubs %}
     <tr class="bg-california-100 hover:bg-california-200">
       <td class="pl-2">
-        {{ row.cname_orig }}
-        (<a href="{{
-                  'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
-                  | append: row.cfile
-                  | append: '#L'
-                  | append: row.cline
-                  }}">C</a>,
         <a href="{{
-                  '/documentation/'
-                  | append: row.cluster
-                  | append: '.html'
-                  | append: '#f_'
-                  | append: row.ename
-                  | relative_url
-                  }}">E</a>)
+                'https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/'
+                | append: row.cfunc.cfile
+                | append: '#L'
+                | append: row.cfunc.cline
+                  }}">{{ row.cfunc.cname_orig }}</a><br>
+        {% for efunc in row.eifs %}
+        <a href="{{
+                '/documentation/'
+                | append: efunc.cluster
+                | append: '.html'
+                | append: '#f_'
+                | append: efunc.name
+                | downcase
+                | relative_url
+                }}">{<!-- -->{{ efunc.class}}<!-- -->}.{{efunc.name}}</a>
+        
+        {% endfor %}
       </td>
-      <td>{{ row.cloc }}</td>
-      <td>{{ row.eloc }}</td>
+      <td>{{ row.cfunc.cloc }}</td>
+      <td>{{ row.eif_loc }}</td>
       <td class="pr-2">{{ row.c_to_e }}</td>
     </tr>
   {% endfor %}

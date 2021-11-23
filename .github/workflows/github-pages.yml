@@ -13,7 +13,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Move site to root
-        run: cd site && mv * ../ && cd .. && rm -rf site
+        run: |
+          cd site && mv * ../ && cd .. && rm -rf site
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -44,6 +45,11 @@ jobs:
             libsdl2-mixer-dev libsdl2-mixer-2.0-0 \
             cccc \
             gnuplot
+
+      - name: Count ported functions breakdown
+        run: |
+          bundle exec rake loc:combine[brie_doom]
+          bundle exec rake clean
 
       - name: Install wrap_sdl_my
         env:
@@ -77,40 +83,6 @@ jobs:
           sed -i "/precompile/d" brie_doom/brie_doom.ecf
           cat brie_doom/brie_doom.ecf
 
-      - name: Download C DOOM
-        run: |
-          git clone https://github.com/id-Software/DOOM.git
-
-      - name: Count LOC
-        run: |
-          cd DOOM/linuxdoom-1.10
-          cccc --lang=c *.{c,h}
-          cp .cccc/anonymous.xml ../../utils/anonymous_ch.xml
-
-      - name: Count port progress. Analyse C
-        run: |
-          cd DOOM/linuxdoom-1.10
-          cccc --lang=c *.c
-          cp .cccc/anonymous.xml ../../utils/
-          cd ../../
-
-      - name: Remove C DOOM
-        run: |
-          rm -rf DOOM
-
-      - name: Count port progress. Analyse Eiffel
-        run: |
-          cd brie_doom
-          ec -filter ascii -all -batch -verbose -config brie_doom.ecf
-          cd ..
-          mv brie_doom/Documentation utils/
-
-      - name: Count port progress. Make data
-        run: |
-          cd utils
-          bundle exec ruby count_functions_ported.rb > ../_data/functions_ported.yml
-          cd ..
-
       - name: Compute performance state, make plots
         run: bundle exec rake performance
 
@@ -124,9 +96,6 @@ jobs:
           format_output: true
           custom_opts: "--config _config.yml,_config.tailwind.yml"
 
-      - name: Print _site
-        run: ls _site
-
       - name: Inject Eiffel documentation
         run: |
           cd brie_doom
@@ -137,6 +106,7 @@ jobs:
             -batch \
             -verbose
 
+          rm -rf ../_site/documentation
           cp -r Documentation ../_site/documentation
 
           cd ..
