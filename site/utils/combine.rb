@@ -55,7 +55,7 @@ class Combine
     stubs = stubs.sort_by { |x| [x[:c_to_e_frac], x[:cloc]] }.reverse
     joined = joined.sort_by { |x| [x[:c_to_e_frac], x[:cloc]] }.reverse
 
-    e_loc = 25613 # Lines of Code for brie_doom cluster
+    e_loc = 26579 # Lines of Code for brie_doom cluster
 
     ported_ratio = ((joined.count + moved.count).to_f / @c_funcs.count)
     e_estimation = (e_loc / ported_ratio).ceil
