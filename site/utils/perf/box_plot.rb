@@ -1,6 +1,6 @@
 require 'numo/gnuplot'
 
-class Plot
+class BoxPlot
   def initialize(name:, out_dir:, out_type:)
     @name = name
     @out_dir = out_dir
@@ -25,32 +25,34 @@ class Plot
       end
       set out: out_path
 
-
-      set xlabel: 'Frame'
+      set xlabel: 'Cluster'
       set ylabel: 'Time (microseconds)'
 
       num_min = nil
       num_max = nil
 
-      plots = plots.map do |t, vals|
+      i = 0
+      xts = []
+      plots_data = plots.map do |t, vals|
         nums, times = vals.transpose
 
-        num_min = [*nums, num_min].compact.min
-        num_max = [*nums, num_max].compact.max
+        fps = times.count.to_f / (times.sum.to_f / (10 ** 6))
 
-        [nums, times, w: 'lines', t: t.to_s]
+        i += 1
+        xts << "\"#{t}\" #{i}"
+        [
+          times,
+          [i] * nums.count,
+          using: [2, 1],
+          w: :boxplot,
+          t: "#{t}, average FPS = #{fps.round(2)}",
+          pointsize: 0.1,
+        ]
       end
 
-      ref_35_fps = 1.0 / 35.0 * (10 ** 6)
-      plots << [
-        [num_min, num_max],
-        [ref_35_fps, ref_35_fps],
-        w: 'lines',
-        t: '35 FPS reference',
-        lc_rgb: 'red'
-      ]
+      set :xtics, '(' + xts.join(', ') + ')'
 
-      plot *plots
+      plot *plots_data
     end
   end
 end
