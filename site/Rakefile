@@ -25,7 +25,8 @@ task :performance_data do
   File.write('_data/perf.yml', data.to_yaml)
 end
 
-task :performance_plots do
+desc 'Make plot files with specific type (svg, latex, etc.)'
+task :performance_plots, [:type, :out_dir] do |_t, args|
   files = {
     no_contracts: PlotData.new('no_contracts').data,
     keep_vs_no_keep: {
@@ -50,14 +51,19 @@ task :performance_plots do
       'No Keep' => PlotData.new('no_contracts').data['level 1'],
       'Keep, disable' => PlotData.new('no_contracts_keep').data['level 1'],
       'Keep, enable' => PlotData.new('all_contracts').data['level 1']
+    },
+    all2: {
+      'Keep' => PlotData.new('no_contracts_keep').data['level 1'],
+      'All' => PlotData.new('all_contracts').data['level 1']
     }
   }
 
-  out_dir = 'perf_plots/'
+  out_dir = args[:out_dir] || 'perf_plots/'
+  type = args[:type] || 'svg'
   FileUtils.mkdir_p out_dir
 
   files.each do |name, plots|
-    p = Plot.new(name: name, out_dir: out_dir)
+    p = Plot.new(name: name, out_dir: out_dir, out_type: type)
     p.plot(plots)
   end
 end

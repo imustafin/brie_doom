@@ -1,20 +1,31 @@
 require 'numo/gnuplot'
 
 class Plot
-  def initialize(name:, out_dir:)
+  def initialize(name:, out_dir:, out_type:)
     @name = name
     @out_dir = out_dir
+    @out_type = out_type
   end
-
 
   def plot(plots)
     name = @name
-    out_path = "#{@out_dir}/#{@name}.svg"
+    out_type = @out_type
+    if out_type == 'cairolatex'
+      ext = 'tex'
+    else
+      ext = out_type
+    end
+
+    out_path = "#{@out_dir}/#{@name}.#{ext}"
     Numo.gnuplot do
-      set terminal: :svg, name: name.to_s
+      set terminal: out_type
+      if out_type != 'cairolatex'
+        set name: name.to_s
+        set :title, name.to_s, :noenhanced
+      end
       set out: out_path
 
-      set :title, name.to_s, :noenhanced
+
       set xlabel: 'Frame'
       set ylabel: 'Time (microseconds)'
 
