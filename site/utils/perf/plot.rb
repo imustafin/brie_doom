@@ -18,9 +18,13 @@ class Plot
 
     out_path = "#{@out_dir}/#{@name}.#{ext}"
     Numo.gnuplot do
-      set terminal: out_type
+      terminal = {
+        terminal: out_type
+      }
+      terminal[:name] = name.to_s if out_type == 'svg'
+      set terminal
+
       if out_type == 'svg'
-        set name: name.to_s
         set :title, name.to_s, :noenhanced
       end
       set out: out_path
