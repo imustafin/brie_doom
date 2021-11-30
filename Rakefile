@@ -1,4 +1,5 @@
 require_relative 'utils/perf/plot.rb'
+require_relative 'utils/perf/box_plot.rb'
 require_relative 'utils/perf/plot_data.rb'
 require 'fileutils'
 require 'yaml'
@@ -25,7 +26,8 @@ task :performance_data do
   File.write('_data/perf.yml', data.to_yaml)
 end
 
-task :performance_plots do
+desc 'Make plot files with specific type (svg, latex, etc.)'
+task :performance_plots, [:type, :out_dir] do |_t, args|
   files = {
     no_contracts: PlotData.new('no_contracts').data,
     keep_vs_no_keep: {
@@ -50,18 +52,44 @@ task :performance_plots do
       'No Keep' => PlotData.new('no_contracts').data['level 1'],
       'Keep, disable' => PlotData.new('no_contracts_keep').data['level 1'],
       'Keep, enable' => PlotData.new('all_contracts').data['level 1']
+    },
+    all2: {
+      'Keep' => PlotData.new('no_contracts_keep').data['level 1'],
+      'All' => PlotData.new('all_contracts').data['level 1']
     }
   }
 
-  out_dir = 'perf_plots/'
+  out_dir = args[:out_dir] || 'perf_plots/'
+  type = args[:type] || 'svg'
   FileUtils.mkdir_p out_dir
 
   files.each do |name, plots|
-    p = Plot.new(name: name, out_dir: out_dir)
+    p = Plot.new(name: name, out_dir: out_dir, out_type: type)
     p.plot(plots)
   end
 end
 
-task performance: %i[performance_data performance_plots] do
+desc 'Make boxplot for per-cluster assertion checking'
+task :boxplot_per_cluster, [:type, :out_dir] => [:performance_data] do |_t, args|
+  per_cluster = {
+    'All' => PlotData.new('all_contracts').data['level 1'],
+    'math' => PlotData.new('only_math').data['level 1'],
+    'render' => PlotData.new('only_render').data['level 1'],
+    'root' => PlotData.new('only_root').data['level 1'],
+    'pointers' => PlotData.new('only_pointers').data['level 1'],
+    'Keep' => PlotData.new('no_contracts_keep').data['level 1'],
+    'No Keep' => PlotData.new('no_contracts').data['level 1'],
+    # 'status bar' => PlotData.new('only_status_bar').data['level 1'],
+    # 'sound' => PlotData.new('only_sound').data['level 1'],
+  }
 
+  out_dir = args[:out_dir] || 'perf_plots/'
+  type = args[:type] || 'svg'
+  FileUtils.mkdir_p out_dir
+  p = BoxPlot.new(name: 'box_per_cluster', out_dir: out_dir, out_type: type)
+  p.plot(per_cluster)
+end
+
+desc 'Do all plots'
+task :performance, [:type, :out_dir] => %i[performance_plots boxplot_per_cluster] do
 end
