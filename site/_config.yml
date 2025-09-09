@@ -14,26 +14,20 @@ social:
     - https://github.com/imustafin/brie_doom
 
 plugins:
-  - jekyll-postcss
+  - jekyll-tailwindcss
   - jekyll-seo-tag
   - jekyll-inline-svg
 
+postcss:
+  cache: false
+
 svg:
   optimize: true
-
-sass:
-  implementation: sass-embedded
-  sourcemap: never
 
 tag_page_layout: tag_page
 tag_page_dir: tags
 
 exclude:
-  # Speedup tailwind https://canolcer.com/post/jekyll-and-tailwind/
-  - assets/css/tailwind.scss
-
-  # Build job moves files from /site dir to the root,
-  # so ignore everything from root
   - README.md
   - brie_doom
   - docs
@@ -42,19 +36,10 @@ exclude:
   - .gitignore
   - WrapC
   - wrap_sdl
+  - Eiffel_19.05
   - dev.sh
   - utils
-  - tailwind.sh
-  # Ignore js files
-  - package.json
-  - postcss.config.js
-  - tailwind.config.js
-  - yarn.lock
-  - pages/.keep
   # Ignore generated data
   - perf_plots
   - rakelib
   - COPYING
-
-keep_files:
-  - assets/css/tailwind.css

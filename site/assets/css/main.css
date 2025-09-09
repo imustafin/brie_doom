@@ -1,0 +1,69 @@
+---
+---
+@import "tailwindcss";
+@plugin "@tailwindcss/typography" {
+  target: "legacy";
+}
+
+@theme {
+  --color-california-50: #FEF2DC;
+  --color-california-100: #FEE9C3;
+  --color-california-200: #FDD791;
+  --color-california-300: #FCC55F;
+  --color-california-400: #FBB32D;
+  --color-california-500: #F09E05;
+  --color-california-600: #BE7D04;
+  --color-california-700: #8C5C03;
+  --color-california-800: #5A3B02;
+  --color-california-900: #281A01;
+}
+
+a:not(.nounder) {
+  @apply underline;
+};
+
+a:not(.reset) {
+  @apply text-blue-700;
+};
+
+a:visited:not(.reset) {
+  @apply text-purple-700;
+};
+
+@utility prose {
+  @apply space-y-2;
+  @apply prose-pre:bg-transparent;
+  @apply prose-h1:text-4xl;
+  @apply prose-h2:text-3xl;
+  @apply prose-h3:text-2xl;
+  @apply prose-h4:text-xl;
+
+  @apply prose-code:before:content-[''];
+  @apply prose-code:after:content-[''];
+
+  @apply prose-blockquote:bg-california-100;
+  @apply prose-blockquote:border-california-600;
+
+  div.inline-svg-container{
+    @apply overflow-auto;
+
+    & > svg {
+      @apply block;
+      @apply m-auto;
+
+      max-width: 125%;
+      height: auto;
+    }
+  }
+
+  figure.highlight {
+    @apply overflow-auto;
+  };
+
+  figure.highlight table {
+    width: inherit;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: inherit;
+  };
+};

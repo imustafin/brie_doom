@@ -7,7 +7,7 @@ on:
 
 jobs:
   github-pages:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v2
@@ -18,23 +18,14 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.4
           bundler-cache: true
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - name: Install JS deps
-        run: yarn install
-
-
-      - name: Install Eiffel Studio and SDL2
+      - name: Install system dependencies
         run: |
-          sudo add-apt-repository ppa:eiffelstudio-team/ppa
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            eiffelstudio19.05 \
+            libgtk2.0-dev \
             libsdl2-dev libsdl2-2.0-0 \
             \
             libjpeg-dev libwebp-dev libtiff5-dev \
@@ -46,36 +37,64 @@ jobs:
             cccc \
             gnuplot
 
+      - name: Install EiffelStudio
+        env:
+          DOWNLOAD_URL: http://sourceforge.net/projects/eiffelstudio/files/EiffelStudio%2019.05/Build_103187/Eiffel_19.05_gpl_103187-linux-x86-64.tar.bz2/download
+          ESTUDIO_FOLDER: Eiffel_19.05 # Folder in the installation package (DOWNLOAD_URL)
+        run: |
+          # Download installation package
+          wget --no-verbose -O estudio.tar.bz2 $DOWNLOAD_URL
+
+          # Extract installation package
+          tar -xf estudio.tar.bz2
+          rm estudio.tar.bz2
+
+          ls
+
+          echo "ESTUDIO_FOLDER=$ESTUDIO_FOLDER" >> "$GITHUB_ENV"
+
+          # Set env vars
+          export ISE_EIFFEL=$(pwd)/$ESTUDIO_FOLDER
+          echo "ISE_EIFFEL=$ISE_EIFFEL" >> "$GITHUB_ENV"
+
+          export ISE_PLATFORM=linux-x86-64
+          echo "ISE_PLATFORM=$ISE_PLATFORM" >> "$GITHUB_ENV"
+
+          echo "ISE_LIBRARY=$ISE_EIFFEL" >> "$GITHUB_ENV"
+
+          echo "$ISE_EIFFEL/studio/spec/$ISE_PLATFORM/bin" >> "$GITHUB_PATH"
+
+      - name: Check EiffelStudio version
+        run: |
+          ec -version
+
       - name: Count ported functions breakdown
         run: |
           bundle exec rake loc:combine[brie_doom]
           bundle exec rake clean
 
-      - name: Install wrap_sdl_my
+      - name: Install WrapC
+        run: |
+          git clone https://github.com/eiffel-wrap-c/WrapC
+          WRAP_C=$(pwd)/WrapC
+          echo "WRAP_C=$WRAP_C" >> "$GITHUB_ENV"
+          echo "$WRAP_C/bin" >> "$GITHUB_PATH"
+
+          cd $WRAP_C
+          git checkout 24e85ebceed069802c8214599ce481b1756aee6e
+          cd $WRAP_C/src/ewg
+          ec -batch -config system.ecf -target wrap_c -finalize -c_compile -project_path .
+          cp EIFGENs/wrap_c/F_code/wrap_c $WRAP_C/bin
+
+      - name: Install wrap_sdl
         env:
           WRAP_C: /home/runner/work/brie_doom/WrapC
         run: |
           git clone https://github.com/imustafin/wrap_sdl
-          git clone https://github.com/eiffel-wrap-c/WrapC
-
-          WRAP_C=$(pwd)/WrapC
-          echo $WRAP_C
-          PATH=$PATH:$WRAP_C/bin
-          echo $PATH
-
-          cd $WRAP_C/src/ewg
-          ec -config system.ecf -target wrap_c -finalize -c_compile -project_path .
-
-          cp EIFGENs/wrap_c/F_code/wrap_c $WRAP_C/bin
-
-          cd $WRAP_C
-          cd ..
 
           cd wrap_sdl
 
           ./install.sh
-
-          cd ..
 
       - name: Patch wrap_sdl path
         run: |
@@ -88,13 +107,15 @@ jobs:
 
       - name: Build site
         uses: limjh16/jekyll-action-ts@v2
-        env:
-          JEKYLL_ENV: production
-          NODE_ENV: production
         with:
           enable_cache: true
           format_output: true
-          custom_opts: "--config _config.yml,_config.tailwind.yml"
+
+      - name: Build site again for tailwind
+        uses: limjh16/jekyll-action-ts@v2
+        with:
+          enable_cache: true
+          format_output: true
 
       - name: Inject Eiffel documentation
         run: |
@@ -110,7 +131,6 @@ jobs:
           cp -r Documentation ../_site/documentation
 
           cd ..
-
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

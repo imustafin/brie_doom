@@ -24,7 +24,7 @@ in scientific literature. Also, some specifics of converting Doom to non-C
 languages are also presented on Mocha Doom website's
 [Programming page](http://mochadoom.sourceforge.net/tech.html).
 
-Brie is pronounced /briː/ like in brie cheese.
+Brie is pronounced /briː/ like in Brie cheese.
 
 Stay tuned for further updates!
 
