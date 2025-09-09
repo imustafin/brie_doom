@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - unix">
+<meta name="generator" content="ISE EiffelStudio version 19.05.10.3187 GPL Edition - linux-x86-64">
 <meta name="description" content="TTTPlatform specific encoding of Unicode strings. By default, UTF-8 on unix or UTF-16 on Windows.  TTTMixed-encoding consideration TTT============================  TTTMost operating systems have conventions for strings that are incompatible with Unicode. TTTOn UNIX, a string is just a null-terminated byte sequence, it does not follow any TTTspecific encoding. Usually the locale setting enables you to see the string the way TTTyou expect. TTTOn Windows, the sequence of names is made of null-terminated UTF-16 code unit sequence. Windows TTTdoes not guarantee that the sequence is actually a valid UTF-16 sequence.  TTTIn other words, when there is an invalid UTF-8 encoding on UNIX, or an invalid UTF-16 encoding TTTon Windows, the string is not directly representable as a Unicode string. To make it possible TTTto create and store strings in a textually representable form, the query `string' will create TTTan encoded representation that can be then later used in `make' to create a NATIVE_STRING TTTequivalent to the original string. The encoding is described in UTF_CONVERTER's note clause TTTand is a fourth variant of the recommended practice for replacement characters in Unicode TTT(see http://www.unicode.org/review/pr-121.html). "/>
 <meta name="keywords" content="Eiffel class"/>
 <meta name="copyright" content="Copyright (c) 1984-2012, Eiffel Software and others"/>
