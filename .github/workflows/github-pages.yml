@@ -119,6 +119,8 @@ jobs:
 
       - name: Inject Eiffel documentation
         run: |
+          sed -i '/%<head>%N%/a %<meta name="robots" content="noindex">%N%' \
+            Eiffel_19.05/studio/filters/html-stylesheet.fil
           cd brie_doom
           ec \
             -filter html-stylesheet \
